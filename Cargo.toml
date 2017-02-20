@@ -1,0 +1,15 @@
+[package]
+name = "rust-cookbook"
+version = "0.1.0"
+authors = ["Brian Anderson <banderson@mozilla.com>"]
+
+build = "build.rs"
+
+[dependencies]
+byteorder = "1.0.0"
+
+[build-dependencies]
+skeptic = "0.6"
+
+[dev-dependencies]
+skeptic = "0.6"
