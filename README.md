@@ -1,14 +1,107 @@
+# Cookin' with Rust
+
+A practical guide to the Rust crate ecosystem.
+
+- [Read and write integers in little-endian byte order](#byteorder)
+  [![byteorder][byteorder-badge]][byteorder]
+
+
+# A note about error handling
+
+Error handling in Rust is robust when done correctly, but in today's
+Rust it requires a fair bit of boilerplate. Because of this one often
+seees Rust examples filled with `unwrap` calls instead of proper error
+handling.
+
+Since these recipes are intended to be reused as-is and encourage best
+practices, they set up error handling correctly, and when necessary to
+reduce boilerplate, they use the [error-chain] crate.
+
+The code for this setup generally looks like:
+
+```rust
+extern crate error-chain;
+
+mod errors {
+    error_chain! {
+        foreign_links {
+            Io(::std::io::Error);
+        }
+    }
+}
+
+use errors::*;
+
+fn main() { run().unwrap() }
+
+fn run() -> Result<()> {
+    let stdout = ::std::io::stdout();
+    writeln!(stdout, "hello, world")?;
+
+    Ok(())
+}
+```
+
+This is using the `error_chain!` macro to define a custom `Error`
+and `Result` type, along with an automatic conversion from
+the common `::std::io::Error` type. The automatic conversion
+makes the `?` operator work 
+
+For more background on error handling in Rust, read TODO and TODO.
+
+
+<a id="byteorder"></a>
+## Read and write integers in little-endian byte order
+
+[![byteorder][byteorder-badge]][byteorder]
+
 ```rust
 extern crate byteorder;
 
 use std::io::Cursor;
-use byteorder::{BigEndian, ReadBytesExt};
+use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 
-fn main() {
-   let mut rdr = Cursor::new(vec![2, 5, 3, 0]);
-   // Note that we use type parameters to indicate which kind of byte
-   // order we want!
-   assert_eq!(517, rdr.read_u16::<BigEndian>().unwrap());
-   assert_eq!(768, rdr.read_u16::<BigEndian>().unwrap());
+#[derive(Default, Eq, Debug)]
+struct Payload {
+  kind: u8,
+  value: u16,
 }
+
+fn run() -> Result<()> {
+   let original_payload = Payload::default();
+   let encoded_buf = encode(&original_payload)?;
+   let decoded_payload = decode(&encoded_buf)?;
+   assert_eq!(original_payload, decoded_payload);
+}
+
+fn encode(payload: &Payload) -> Result<()> {
+   let mut wtr = vec![];
+   wtr.write_u8::<LittleEndian>(payload.kind)?;
+   wtr.write_u16::<LittleEndian>(payload.value)?;
+   Ok(())
+}
+
+fn decode(buf: &[u8]) -> Result<Payload> {
+    let mut rdr = Cursor::new(buf);
+    Ok(Payload {
+        kind: rdr.read_u8::<BigEndian>()?,
+        value: rdr.read_u16::<BigEndian>()?,
+    })
+}
+
+extern crate error-chain;
+mod errors { error_chain! { } }
+use errors::*;
+fn main() { run().unwrap() }
 ```
+
+
+# License
+
+MIT/Apache-2.0
+
+
+<!-- Links -->
+
+[byteorder-badge]: https://img.shields.io/crates/v/rustc-serialize.svg
+[byteorder]: https://docs.rs/byteorder
