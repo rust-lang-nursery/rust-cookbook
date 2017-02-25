@@ -73,5 +73,7 @@ MIT/Apache-2.0
 [clap]: https://kbknapp.github.io/clap-rs/clap/struct.Arg.html
 [json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
 [json]: http://json.rs/doc/json
+[toml-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=toml
+[toml]: http://alexcrichton.com/toml-rs/toml/
 [error-docs]: https://doc.rust-lang.org/book/error-handling.html 
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
