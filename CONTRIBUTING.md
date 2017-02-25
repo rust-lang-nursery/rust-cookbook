@@ -7,13 +7,13 @@ contributing to the project. If you think something in this document should chan
 feel free propose a change in a pull request.
 
 ## Table of Contents
-[Getting Started](#getting-started)  
-[How to Contribute](#how-to-contribute)  
-[Crates](#crates)  
-[Tests](#tests)  
-[Style](#style)  
-    * [Git Commit Messages](#git-commit-messages)
-    * [Snippet Style](#snippet-style)
+* [Getting Started](#getting-started)  
+* [How to Contribute](#how-to-contribute)  
+* [Crates](#crates)  
+* [Tests](#tests)  
+* [Style](#style)
+    * [Git Commit Messages](#git-commit-messages)  
+    * [Snippet Style](#snippet-style)  
 
 ## Getting Started
 TODO: Mention Trello and how to join (if we keep using it)
