@@ -7,6 +7,7 @@ A practical guide to the Rust crate ecosystem.
 ### [File IO](pages/fileio.md) [![file][file-badge]][file]
 ### [Command Line Parsing](pages/cliparsing.md) [![clap][clap-badge]][clap]
 ### [JSON](pages/json.md) [![json][json-badge]][json]
+### [TOML](pages/toml.md) [![toml][toml-badge]][toml]
 
 
 ## A note about error handling
@@ -72,5 +73,7 @@ MIT/Apache-2.0
 [clap]: https://kbknapp.github.io/clap-rs/clap/struct.Arg.html
 [json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
 [json]: http://json.rs/doc/json
+[toml-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=toml
+[toml]: http://alexcrichton.com/toml-rs/toml/
 [error-docs]: https://doc.rust-lang.org/book/error-handling.html 
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
