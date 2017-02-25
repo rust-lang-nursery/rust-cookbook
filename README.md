@@ -7,8 +7,8 @@ A practical guide to the Rust crate ecosystem.
 ### [File IO](src/pages/fileio.md) [![file][file-badge]][file]
 ### [Command Line Parsing](src/pages/cliparsing.md) [![clap][clap-badge]][clap]
 ### [JSON](src/pages/json.md) [![json][json-badge]][json]
-### [TOML](pages/toml.md) [![toml][toml-badge]][toml]
-### [rand](pages/rand.md) [![rand][rand-badge]][rand]
+### [TOML](src/pages/toml.md) [![toml][toml-badge]][toml]
+### [rand](src/pages/rand.md) [![rand][rand-badge]][rand]
 
 ## Contributing
 If you'd like to make changes to the project, please see [this guide](CONTRIBUTING.md).
