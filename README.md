@@ -8,6 +8,7 @@ A practical guide to the Rust crate ecosystem.
 ### [Command Line Parsing](pages/cliparsing.md) [![clap][clap-badge]][clap]
 ### [JSON](pages/json.md) [![json][json-badge]][json]
 ### [TOML](pages/toml.md) [![toml][toml-badge]][toml]
+### [rand](pages/rand.md) [![rand][rand-badge]][rand]
 
 
 ## A note about error handling
@@ -76,4 +77,6 @@ MIT/Apache-2.0
 [toml-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=toml
 [toml]: http://alexcrichton.com/toml-rs/toml/
 [error-docs]: https://doc.rust-lang.org/book/error-handling.html 
-[error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
+[error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chaini
+[rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
+[rand]: https://doc.rust-lang.org/rand/rand/index.html
