@@ -1,0 +1,421 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Contributing - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+
+        <!-- MathJax -->
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = localStorage.getItem('theme');
+            if (theme == null) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = localStorage.getItem('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li class="affix"><a href="pages/table_of_contents.html">Table of Contents</a></li><li class="affix"><a href="pages/error_handling_note.html">A Note About Error Handling</a></li><li><a href="pages/math.html"><strong>1.</strong> Math</a></li><li><ul class="section"><li><a href="pages/rand.html"><strong>1.1.</strong> rand</a></li></ul></li><li><a href="pages/IO.html"><strong>2.</strong> IO</a></li><li><ul class="section"><li><a href="pages/byteorder.html"><strong>2.1.</strong> Byteorder</a></li><li><a href="pages/file_io.html"><strong>2.2.</strong> File IO</a></li><li><a href="pages/cli_parsing.html"><strong>2.3.</strong> Command Line Parsing</a></li></ul></li><li><a href="pages/serialization.html"><strong>3.</strong> Serialization</a></li><li><ul class="section"><li><a href="pages/json.html"><strong>3.1.</strong> JSON</a></li><li><a href="pages/toml.html"><strong>3.2.</strong> TOML</a></li></ul></li><li><a href="pages/contributing.html">Contributing</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="#cookin-with-rust" name="cookin-with-rust"><h1>Cookin' with Rust</h1></a>
+<p>A practical guide to the Rust crate ecosystem.</p>
+<a class="header" href="#recipes" name="recipes"><h2>Recipes</h2></a>
+<ul>
+<li><a href="pages/byteorder.html">Byteorder</a> <a href="https://docs.rs/byteorder"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=byteorder" alt="byteorder-badge" /></a></li>
+<li><a href="pages/fileio.html">File IO</a> <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=file" alt="file-badge" /></a></li>
+<li><a href="pages/cliparsing.html">Command Line Parsing</a> <a href="https://kbknapp.github.io/clap-rs/clap/struct.Arg.html"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=clap" alt="clap-badge" /></a></li>
+<li><a href="pages/json.html">JSON</a> <a href="http://json.rs/doc/json"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=json" alt="json-badge" /></a></li>
+<li><a href="pages/toml.html">TOML</a> <a href="http://alexcrichton.com/toml-rs/toml/"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=toml" alt="toml-badge" /></a></li>
+<li><a href="pages/rand.html">rand</a> <a href="https://doc.rust-lang.org/rand/rand/index.html"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a></li>
+</ul>
+<a class="header" href="#contributing" name="contributing"><h2>Contributing</h2></a>
+<p>If you'd like to make changes to the project, please see <a href="CONTRIBUTING.md">this guide</a>.</p>
+<a class="header" href="#license" name="license"><h2>License</h2></a>
+<p>MIT/Apache-2.0</p>
+<!-- Links -->
+<a class="header" href="#a-note-about-error-handling" name="a-note-about-error-handling"><h1>A note about error handling</h1></a>
+<p>Error handling in Rust is robust when done correctly, but in today's
+Rust it requires a fair bit of boilerplate. Because of this one often
+sees Rust examples filled with <code>unwrap</code> calls instead of proper error
+handling.</p>
+<p>Since these recipes are intended to be reused as-is and encourage best
+practices, they set up error handling correctly, and when necessary to
+reduce boilerplate, they use the [error-chain] crate.</p>
+<p>The code for this setup generally looks like:</p>
+<pre><code class="language-rust">#[macro_use]
+extern crate error_chain;
+
+mod errors {
+    error_chain! {
+        foreign_links {
+            Io(::std::io::Error);
+        }
+    }
+}
+
+use errors::*;
+
+fn main() { run().unwrap() }
+
+fn run() -&gt; Result&lt;()&gt; {
+    use std::io::Write;
+    let ref mut stdout = ::std::io::stdout();
+    writeln!(stdout, &quot;hello, world&quot;)?;
+
+    Ok(())
+}
+</code></pre>
+<p>This is using the <code>error_chain!</code> macro to define a custom <code>Error</code>
+and <code>Result</code> type, along with an automatic conversion from
+the common <code>::std::io::Error</code> type. The automatic conversion
+makes the <code>?</code> operator work</p>
+<p>For more background on error handling in Rust, read [this page of the Rust book][error-docs] and [this blog post][error-blog].</p>
+<a class="header" href="#math" name="math"><h1>Math</h1></a>
+<style TYPE="text/css">
+code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+</style>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+    }
+});
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<a class="header" href="#rand" name="rand"><h1>rand</h1></a>
+<a class="header" href="#random-number-generators-and-other-randomness-functionality" name="random-number-generators-and-other-randomness-functionality"><h2>Random number generators and other randomness functionality</h2></a>
+<p><a href="https://doc.rust-lang.org/rand/rand/index.html"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a></p>
+<a class="header" href="#example-monte-carlo-integration" name="example-monte-carlo-integration"><h3>Example: Monte carlo integration</h3></a>
+<p>Use the <code>rand</code> crate to generate random samples and approximate
+$\int_{0}^{\pi} sin(x) dx$ using monte carlo method.</p>
+<pre><code class="language-rust">extern crate rand;
+
+use rand::Rng;
+use std::f32;
+
+/// f(x) = sin(x)
+fn f(x: f32) -&gt; f32 {
+    x.sin()
+}
+
+/// Compute integral of f(x) dx from a to b using n samples
+fn monte_carlo(a: f32, b: f32, n: u32) -&gt; f32 {
+    // Generate numbers specific to this thread
+    let mut rng = rand::thread_rng();
+
+    let mut samples: Vec&lt;f32&gt; = Vec::new();
+
+    // Generate n samples between [a, b)
+    for _ in 0..n {
+        samples.push(rng.gen_range(a, b)); 
+    }
+
+    // Find function values
+    let mut sum = 0.;
+    for x in samples {
+        sum += f(x);
+    }
+    
+    // Returns average of samples over interval
+    (b - a) / n as f32 * sum
+}
+
+fn main() {
+    println!(&quot;{}&quot;, monte_carlo(0., f32::consts::PI, 200_000));
+}
+</code></pre>
+<!-- Links -->
+<a class="header" href="#byteorder" name="byteorder"><h1>Byteorder</h1></a>
+<p><a href="https://docs.rs/byteorder"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=byteorder" alt="byteorder-badge" /></a></p>
+<a class="header" href="#read-and-write-integers-in-little-endian-byte-order" name="read-and-write-integers-in-little-endian-byte-order"><h2>Read and write integers in little-endian byte order</h2></a>
+<pre><code class="language-rust">extern crate byteorder;
+
+use std::io::Cursor;
+use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
+
+#[derive(Default, Eq, PartialEq, Debug)]
+struct Payload {
+  kind: u8,
+  value: u16,
+}
+
+fn run() -&gt; Result&lt;()&gt; {
+   let original_payload = Payload::default();
+   let encoded_buf = encode(&amp;original_payload)?;
+   let decoded_payload = decode(&amp;encoded_buf)?;
+   assert_eq!(original_payload, decoded_payload);
+   Ok(())
+}
+
+fn encode(payload: &amp;Payload) -&gt; Result&lt;Vec&lt;u8&gt;&gt; {
+   let mut wtr = vec![];
+   wtr.write_u8(payload.kind)?;
+   wtr.write_u16::&lt;LittleEndian&gt;(payload.value)?;
+   Ok(wtr)
+}
+
+fn decode(buf: &amp;[u8]) -&gt; Result&lt;Payload&gt; {
+    let mut rdr = Cursor::new(buf);
+    Ok(Payload {
+        kind: rdr.read_u8()?,
+        value: rdr.read_u16::&lt;LittleEndian&gt;()?,
+    })
+}
+
+#[macro_use]
+extern crate error_chain;
+mod errors {
+    error_chain! {
+        foreign_links {
+            Io(::std::io::Error);
+        }
+    }
+}
+use errors::*;
+fn main() { run().unwrap() }
+</code></pre>
+<!-- Links -->
+<a class="header" href="#json" name="json"><h1>JSON</h1></a>
+<p><a href="http://json.rs/doc/json"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=json" alt="json-badge" /></a></p>
+<a class="header" href="#json-implementation-in-rust" name="json-implementation-in-rust"><h2>JSON implementation in Rust:</h2></a>
+<p>The example below shows two simple ways to embed JSON in Rust.
+The first method parses block JSON as a block using the parse method from the json crate. It then unwraps the parsed JSON.
+The second method instantiates an object as JSON using the object macro. Key value relationships are easily set using <code>=&gt;</code>.</p>
+<p>After demonstrating two simple ways to write JSON, the <code>assert_eq!</code> macro ensures equivalence.</p>
+<pre><code class="language-rust">#[macro_use]
+extern crate json;
+
+fn main(){
+    let parsed_data = json::parse(r#&quot;
+
+    {
+        &quot;userid&quot;: 103609,
+        &quot;verified&quot;: true,
+        &quot;access_privelages&quot;: [
+            &quot;user&quot;,
+            &quot;admin&quot;
+        ]
+    }
+
+    &quot;#).unwrap();
+
+    let instantiated_data = object!{
+        &quot;userid&quot; =&gt; 103609,
+        &quot;verified&quot; =&gt; true,
+        &quot;access_privelages&quot; =&gt; array![
+            &quot;user&quot;,
+            &quot;admin&quot;
+        ]
+    };
+
+    assert_eq!(parsed_data, instantiated_data);
+}
+</code></pre>
+<a class="header" href="#license" name="license"><h1>License</h1></a>
+<p>MIT/Apache-2.0</p>
+<!-- Links -->
+<a class="header" href="#toml" name="toml"><h1>TOML</h1></a>
+<p><a href="http://alexcrichton.com/toml-rs/toml/"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=toml" alt="toml-badge" /></a></p>
+<p>Parse TOML into a <code>toml::Value</code> and then operate on it:</p>
+<pre><code class="language-rust">extern crate toml;
+
+fn main() {
+
+    let toml_source = &quot;
+        [package]
+        name = \&quot;your package!\&quot;
+        version = \&quot;0.1.0\&quot;
+        authors = [\&quot;You! &lt;you@example.org&gt;\&quot;]
+
+        [dependencies]
+        cool = \&quot;0.2.1\&quot;&quot;;
+
+    let package_info = toml_source.parse::&lt;toml::Value&gt;().unwrap();
+
+    assert_eq!(package_info[&quot;dependencies&quot;][&quot;cool&quot;].as_str(), Some(&quot;0.2.1&quot;));
+    assert_eq!(package_info[&quot;package&quot;][&quot;name&quot;].as_str(), Some(&quot;your package!&quot;));
+
+}
+</code></pre>
+<p>Parse TOML into your own structs using the <code>serde</code> crate:</p>
+<pre><code class="language-rust">
+extern crate toml;
+
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+
+#[derive(Deserialize)]
+struct Config {
+    package: Package,
+    dependencies: std::collections::HashMap&lt;String, String&gt;,
+}
+
+#[derive(Deserialize)]
+struct Package {
+    name: String,
+    version: String,
+    authors: Vec&lt;String&gt;,
+}
+
+fn main() {
+
+    let toml_source = &quot;
+        [package]
+        name = \&quot;your package!\&quot;
+        version = \&quot;0.1.0\&quot;
+        authors = [\&quot;You! &lt;you@example.org&gt;\&quot;]
+
+        [dependencies]
+        cool = \&quot;0.2.1\&quot;&quot;;
+
+    let package_info : Config = toml::from_str(toml_source).unwrap();
+
+    assert_eq!(package_info.package.name, &quot;your package!&quot;);
+    assert_eq!(package_info.package.version, &quot;0.1.0&quot;);
+    assert_eq!(package_info.package.authors, vec![&quot;You! &lt;you@example.org&gt;&quot;]);
+    assert_eq!(package_info.dependencies[&quot;cool&quot;], &quot;0.2.1&quot;);
+
+}
+</code></pre>
+<a class="header" href="#license" name="license"><h1>License</h1></a>
+<p>MIT/Apache-2.0</p>
+<!-- Links -->
+<a class="header" href="#contributing-to-the-rust-cookbook" name="contributing-to-the-rust-cookbook"><h1>Contributing to the Rust Cookbook</h1></a>
+<p>Have something useful to add to the Rust Cookbook? We'd love to have it!</p>
+<p>This document contains information and guidelines that you should read before
+contributing to the project. If you think something in this document should change,
+feel free propose a change in a pull request.</p>
+<a class="header" href="#table-of-contents" name="table-of-contents"><h2>Table of Contents</h2></a>
+<ul>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#how-to-contribute">How to Contribute</a></li>
+<li><a href="#crates">Crates</a></li>
+<li><a href="#tests">Tests</a></li>
+<li><a href="#style">Style</a>
+<ul>
+<li><a href="#git-commit-messages">Git Commit Messages</a></li>
+<li><a href="#snippet-style">Snippet Style</a></li>
+</ul>
+</li>
+</ul>
+<a class="header" href="#getting-started" name="getting-started"><h2>Getting Started</h2></a>
+<p>TODO: Mention Trello and how to join (if we keep using it)</p>
+<a class="header" href="#how-to-contribute" name="how-to-contribute"><h2>How to Contribute</h2></a>
+<p>TODO: Reporting bugs<br />
+TODO: Project page suggestions<br />
+TODO: Fixing bugs<br />
+TODO: Pull requests</p>
+<a class="header" href="#crates" name="crates"><h2>Crates</h2></a>
+<p>TODO: How to add new crates to project</p>
+<a class="header" href="#tests" name="tests"><h2>Tests</h2></a>
+<p>TODO: Write about writing tests</p>
+<a class="header" href="#style" name="style"><h2>Style</h2></a>
+<a class="header" href="#git-commit-messages" name="git-commit-messages"><h3>Git Commit Messages</h3></a>
+<p>https://chris.beams.io/posts/git-commit/<br />
+TODO: Possibly take relevant parts from this post or write our own</p>
+<a class="header" href="#snippet-style" name="snippet-style"><h3>Snippet Style</h3></a>
+<p>TODO: Talk about writing good idiomatic code<br />
+TODO: Maybe provide a template?</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+
+                
+
+            </div>
+
+            
+
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+    
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

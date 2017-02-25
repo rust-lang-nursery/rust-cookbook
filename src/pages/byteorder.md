@@ -1,7 +1,7 @@
-#Byteorder
-## Read and write integers in little-endian byte order
+# Byteorder
+[![byteorder-badge]][byteorder]
 
-[![byteorder][byteorder-badge]][byteorder]
+## Read and write integers in little-endian byte order
 
 ```rust
 extern crate byteorder;

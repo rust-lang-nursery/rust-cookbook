@@ -1,6 +1,7 @@
-#JSON
+# JSON
+[![json-badge]][json]
 
-##JSON implementation in Rust:
+## JSON implementation in Rust:
 
 The example below shows two simple ways to embed JSON in Rust. 
 The first method parses block JSON as a block using the parse method from the json crate. It then unwraps the parsed JSON.
@@ -8,7 +9,6 @@ The second method instantiates an object as JSON using the object macro. Key val
 
 After demonstrating two simple ways to write JSON, the `assert_eq!` macro ensures equivalence.
 
-[![json][json-badge]][json]
 
 ```rust
 #[macro_use]
@@ -45,6 +45,6 @@ fn main(){
 MIT/Apache-2.0
 
 <!-- Links -->
-[json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
-[json]: http://json.rs/doc/json/
 
+[json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
+[json]: http://json.rs/doc/json

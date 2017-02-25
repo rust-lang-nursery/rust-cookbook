@@ -19,8 +19,7 @@ MathJax.Hub.Queue(function() {
 
 # rand
 ## Random number generators and other randomness functionality
-
-[![rand][rand-badge]][rand]
+[![rand-badge]][rand]
 
 ### Example: Monte carlo integration
 Use the `rand` crate to generate random samples and approximate
@@ -64,5 +63,6 @@ fn main() {
 ```
 
 <!-- Links -->
+
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://doc.rust-lang.org/rand/rand/index.html
