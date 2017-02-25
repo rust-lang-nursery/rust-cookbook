@@ -1,5 +1,5 @@
 # JSON
-[![byteorder-badge]][byteorder]
+[![json-badge]][json]
 
 ## JSON implementation in Rust:
 
@@ -45,5 +45,6 @@ fn main(){
 MIT/Apache-2.0
 
 <!-- Links -->
-[byteorder-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
-[byteorder]: http://json.rs/doc/json
+
+[json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
+[json]: http://json.rs/doc/json

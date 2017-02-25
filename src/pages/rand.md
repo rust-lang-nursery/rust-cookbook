@@ -19,7 +19,6 @@ MathJax.Hub.Queue(function() {
 
 # rand
 ## Random number generators and other randomness functionality
-
 [![rand-badge]][rand]
 
 ### Example: Monte carlo integration
@@ -64,5 +63,6 @@ fn main() {
 ```
 
 <!-- Links -->
+
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://doc.rust-lang.org/rand/rand/index.html

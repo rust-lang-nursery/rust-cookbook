@@ -1,6 +1,4 @@
-
 # TOML
-
 [![toml-badge]][toml]
 
 Parse TOML into a `toml::Value` and then operate on it:
@@ -76,5 +74,6 @@ fn main() {
 MIT/Apache-2.0
 
 <!-- Links -->
+
 [toml-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=toml
 [toml]: http://alexcrichton.com/toml-rs/toml/
