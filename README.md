@@ -20,7 +20,8 @@ reduce boilerplate, they use the [error-chain] crate.
 The code for this setup generally looks like:
 
 ```rust
-extern crate error-chain;
+#[macro_use]
+extern crate error_chain;
 
 mod errors {
     error_chain! {
@@ -35,7 +36,8 @@ use errors::*;
 fn main() { run().unwrap() }
 
 fn run() -> Result<()> {
-    let stdout = ::std::io::stdout();
+    use std::io::Write;
+    let ref mut stdout = ::std::io::stdout();
     writeln!(stdout, "hello, world")?;
 
     Ok(())
@@ -61,7 +63,7 @@ extern crate byteorder;
 use std::io::Cursor;
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 
-#[derive(Default, Eq, Debug)]
+#[derive(Default, Eq, PartialEq, Debug)]
 struct Payload {
   kind: u8,
   value: u16,
@@ -72,25 +74,33 @@ fn run() -> Result<()> {
    let encoded_buf = encode(&original_payload)?;
    let decoded_payload = decode(&encoded_buf)?;
    assert_eq!(original_payload, decoded_payload);
+   Ok(())
 }
 
-fn encode(payload: &Payload) -> Result<()> {
+fn encode(payload: &Payload) -> Result<Vec<u8>> {
    let mut wtr = vec![];
-   wtr.write_u8::<LittleEndian>(payload.kind)?;
+   wtr.write_u8(payload.kind)?;
    wtr.write_u16::<LittleEndian>(payload.value)?;
-   Ok(())
+   Ok(wtr)
 }
 
 fn decode(buf: &[u8]) -> Result<Payload> {
     let mut rdr = Cursor::new(buf);
     Ok(Payload {
-        kind: rdr.read_u8::<BigEndian>()?,
-        value: rdr.read_u16::<BigEndian>()?,
+        kind: rdr.read_u8()?,
+        value: rdr.read_u16::<LittleEndian>()?,
     })
 }
 
-extern crate error-chain;
-mod errors { error_chain! { } }
+#[macro_use]
+extern crate error_chain;
+mod errors {
+    error_chain! {
+        foreign_links {
+            Io(::std::io::Error);
+        }
+    }
+}
 use errors::*;
 fn main() { run().unwrap() }
 ```
