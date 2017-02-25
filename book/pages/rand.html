@@ -2,11 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Table of Contents - </title>
+        <title>rand - </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <base href="../">
 
         <link rel="stylesheet" href="book.css">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -46,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li class="affix"><a href="pages/table_of_contents.html" class="active">Table of Contents</a></li><li class="affix"><a href="pages/error_handling_note.html">A Note About Error Handling</a></li><li><a href="pages/math.html"><strong>1.</strong> Math</a></li><li><ul class="section"><li><a href="pages/rand.html"><strong>1.1.</strong> rand</a></li></ul></li><li><a href="pages/IO.html"><strong>2.</strong> IO</a></li><li><ul class="section"><li><a href="pages/byteorder.html"><strong>2.1.</strong> Byteorder</a></li><li><a href="pages/file_io.html"><strong>2.2.</strong> File IO</a></li><li><a href="pages/cli_parsing.html"><strong>2.3.</strong> Command Line Parsing</a></li></ul></li><li><a href="pages/serialization.html"><strong>3.</strong> Serialization</a></li><li><ul class="section"><li><a href="pages/json.html"><strong>3.1.</strong> JSON</a></li><li><a href="pages/toml.html"><strong>3.2.</strong> TOML</a></li></ul></li><li><a href="pages/contributing.html">Contributing</a></li></ul>
+            <ul class="chapter"><li class="affix"><a href="pages/table_of_contents.html">Table of Contents</a></li><li class="affix"><a href="pages/error_handling_note.html">A Note About Error Handling</a></li><li><a href="pages/math.html"><strong>1.</strong> Math</a></li><li><ul class="section"><li><a href="pages/rand.html" class="active"><strong>1.1.</strong> rand</a></li></ul></li><li><a href="pages/IO.html"><strong>2.</strong> IO</a></li><li><ul class="section"><li><a href="pages/byteorder.html"><strong>2.1.</strong> Byteorder</a></li><li><a href="pages/file_io.html"><strong>2.2.</strong> File IO</a></li><li><a href="pages/cli_parsing.html"><strong>2.3.</strong> Command Line Parsing</a></li></ul></li><li><a href="pages/serialization.html"><strong>3.</strong> Serialization</a></li><li><ul class="section"><li><a href="pages/json.html"><strong>3.1.</strong> JSON</a></li><li><a href="pages/toml.html"><strong>3.2.</strong> TOML</a></li></ul></li><li><a href="pages/contributing.html">Contributing</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -66,30 +67,81 @@
                 </div>
 
                 <div id="content" class="content">
-                    <a class="header" href="#cookin-with-rust" name="cookin-with-rust"><h1>Cookin' with Rust</h1></a>
-<p>A practical guide to the Rust crate ecosystem.</p>
-<a class="header" href="#recipes" name="recipes"><h2>Recipes</h2></a>
-<ul>
-<li><a href="pages/byteorder.html">Byteorder</a> <a href="https://docs.rs/byteorder"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=byteorder" alt="byteorder-badge" /></a></li>
-<li><a href="pages/fileio.html">File IO</a> <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=file" alt="file-badge" /></a></li>
-<li><a href="pages/cliparsing.html">Command Line Parsing</a> <a href="https://kbknapp.github.io/clap-rs/clap/struct.Arg.html"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=clap" alt="clap-badge" /></a></li>
-<li><a href="pages/json.html">JSON</a> <a href="http://json.rs/doc/json"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=json" alt="json-badge" /></a></li>
-<li><a href="pages/toml.html">TOML</a> <a href="http://alexcrichton.com/toml-rs/toml/"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=toml" alt="toml-badge" /></a></li>
-<li><a href="pages/rand.html">rand</a> <a href="https://doc.rust-lang.org/rand/rand/index.html"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a></li>
-</ul>
-<a class="header" href="#contributing" name="contributing"><h2>Contributing</h2></a>
-<p>If you'd like to make changes to the project, please see <a href="CONTRIBUTING.md">this guide</a>.</p>
-<a class="header" href="#license" name="license"><h2>License</h2></a>
-<p>MIT/Apache-2.0</p>
+                    <style TYPE="text/css">
+code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+</style>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+    }
+});
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<a class="header" href="#rand" name="rand"><h1>rand</h1></a>
+<a class="header" href="#random-number-generators-and-other-randomness-functionality" name="random-number-generators-and-other-randomness-functionality"><h2>Random number generators and other randomness functionality</h2></a>
+<p>[![rand-badge]][rand]</p>
+<a class="header" href="#example-monte-carlo-integration" name="example-monte-carlo-integration"><h3>Example: Monte carlo integration</h3></a>
+<p>Use the <code>rand</code> crate to generate random samples and approximate
+$\int_{0}^{\pi} sin(x) dx$ using monte carlo method.</p>
+<pre><code class="language-rust">extern crate rand;
+
+use rand::Rng;
+use std::f32;
+
+/// f(x) = sin(x)
+fn f(x: f32) -&gt; f32 {
+    x.sin()
+}
+
+/// Compute integral of f(x) dx from a to b using n samples
+fn monte_carlo(a: f32, b: f32, n: u32) -&gt; f32 {
+    // Generate numbers specific to this thread
+    let mut rng = rand::thread_rng();
+
+    let mut samples: Vec&lt;f32&gt; = Vec::new();
+
+    // Generate n samples between [a, b)
+    for _ in 0..n {
+        samples.push(rng.gen_range(a, b)); 
+    }
+
+    // Find function values
+    let mut sum = 0.;
+    for x in samples {
+        sum += f(x);
+    }
+    
+    // Returns average of samples over interval
+    (b - a) / n as f32 * sum
+}
+
+fn main() {
+    println!(&quot;{}&quot;, monte_carlo(0., f32::consts::PI, 200_000));
+}
+</code></pre>
 <!-- Links -->
+[rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
+[rand]: https://doc.rust-lang.org/rand/rand/index.html
 
                 </div>
 
                 <!-- Mobile navigation buttons -->
                 
+                    <a href="pages/math.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
                 
-                    <a href="pages/error_handling_note.html" class="mobile-nav-chapters next">
+                    <a href="pages/IO.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -97,9 +149,13 @@
             </div>
 
             
+                <a href="pages/math.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
 
             
-                <a href="pages/error_handling_note.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                <a href="pages/IO.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
                     <i class="fa fa-angle-right"></i>
                 </a>
             

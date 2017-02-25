@@ -47,7 +47,7 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li class="affix"><a href="pages/table_of_contents.html">Table of Contents</a></li><li class="affix"><a href="pages/error_handling_note.html">A Note About Error Handling</a></li><li><a href="pages/IO.html"><strong>1.</strong> IO</a></li><li><ul class="section"><li><a href="pages/byteorder.html"><strong>1.1.</strong> Byteorder</a></li><li><a href="pages/file_io.html"><strong>1.2.</strong> File IO</a></li><li><a href="pages/cli_parsing.html"><strong>1.3.</strong> Command Line Parsing</a></li></ul></li><li><a href="pages/serialization.html"><strong>2.</strong> Serialization</a></li><li><ul class="section"><li><a href="pages/json.html"><strong>2.1.</strong> JSON</a></li><li><a href="pages/toml.html" class="active"><strong>2.2.</strong> TOML</a></li></ul></li><li><a href="pages/contributing.html">Contributing</a></li></ul>
+            <ul class="chapter"><li class="affix"><a href="pages/table_of_contents.html">Table of Contents</a></li><li class="affix"><a href="pages/error_handling_note.html">A Note About Error Handling</a></li><li><a href="pages/math.html"><strong>1.</strong> Math</a></li><li><ul class="section"><li><a href="pages/rand.html"><strong>1.1.</strong> rand</a></li></ul></li><li><a href="pages/IO.html"><strong>2.</strong> IO</a></li><li><ul class="section"><li><a href="pages/byteorder.html"><strong>2.1.</strong> Byteorder</a></li><li><a href="pages/file_io.html"><strong>2.2.</strong> File IO</a></li><li><a href="pages/cli_parsing.html"><strong>2.3.</strong> Command Line Parsing</a></li></ul></li><li><a href="pages/serialization.html"><strong>3.</strong> Serialization</a></li><li><ul class="section"><li><a href="pages/json.html"><strong>3.1.</strong> JSON</a></li><li><a href="pages/toml.html" class="active"><strong>3.2.</strong> TOML</a></li></ul></li><li><a href="pages/contributing.html">Contributing</a></li></ul>
         </div>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -68,6 +68,74 @@
 
                 <div id="content" class="content">
                     <a class="header" href="#toml" name="toml"><h1>TOML</h1></a>
+<p>[![toml-badge]][toml]</p>
+<p>Parse TOML into a <code>toml::Value</code> and then operate on it:</p>
+<pre><code class="language-rust">extern crate toml;
+
+fn main() {
+
+    let toml_source = &quot;
+        [package]
+        name = \&quot;your package!\&quot;
+        version = \&quot;0.1.0\&quot;
+        authors = [\&quot;You! &lt;you@example.org&gt;\&quot;]
+
+        [dependencies]
+        cool = \&quot;0.2.1\&quot;&quot;;
+
+    let package_info = toml_source.parse::&lt;toml::Value&gt;().unwrap();
+
+    assert_eq!(package_info[&quot;dependencies&quot;][&quot;cool&quot;].as_str(), Some(&quot;0.2.1&quot;));
+    assert_eq!(package_info[&quot;package&quot;][&quot;name&quot;].as_str(), Some(&quot;your package!&quot;));
+
+}
+</code></pre>
+<p>Parse TOML into your own structs using the <code>serde</code> crate:</p>
+<pre><code class="language-rust">
+extern crate toml;
+
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+
+#[derive(Deserialize)]
+struct Config {
+    package: Package,
+    dependencies: std::collections::HashMap&lt;String, String&gt;,
+}
+
+#[derive(Deserialize)]
+struct Package {
+    name: String,
+    version: String,
+    authors: Vec&lt;String&gt;,
+}
+
+fn main() {
+
+    let toml_source = &quot;
+        [package]
+        name = \&quot;your package!\&quot;
+        version = \&quot;0.1.0\&quot;
+        authors = [\&quot;You! &lt;you@example.org&gt;\&quot;]
+
+        [dependencies]
+        cool = \&quot;0.2.1\&quot;&quot;;
+
+    let package_info : Config = toml::from_str(toml_source).unwrap();
+
+    assert_eq!(package_info.package.name, &quot;your package!&quot;);
+    assert_eq!(package_info.package.version, &quot;0.1.0&quot;);
+    assert_eq!(package_info.package.authors, vec![&quot;You! &lt;you@example.org&gt;&quot;]);
+    assert_eq!(package_info.dependencies[&quot;cool&quot;], &quot;0.2.1&quot;);
+
+}
+</code></pre>
+<a class="header" href="#license" name="license"><h1>License</h1></a>
+<p>MIT/Apache-2.0</p>
+<!-- Links -->
+[toml-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=toml
+[toml]: http://alexcrichton.com/toml-rs/toml/
 
                 </div>
 
