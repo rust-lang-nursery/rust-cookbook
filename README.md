@@ -4,6 +4,9 @@ A practical guide to the Rust crate ecosystem.
 
 ## Recipes
 ### [Byteorder](pages/byteorder.md) [![byteorder][byteorder-badge]][byteorder]
+### [File IO](pages/fileio.md) [![file][file-badge]][file]
+### [Command Line Parsing](pages/cliparsing.md) [![clap][clap-badge]][clap]
+### [JSON](pages/json.md) [![json][json-badge]][json]
 
 
 ## A note about error handling
@@ -63,5 +66,11 @@ MIT/Apache-2.0
 
 [byteorder-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder
+[file-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=file
+[file]: https://doc.rust-lang.org/std/fs/struct.File.html
+[clap-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=clap
+[clap]: https://kbknapp.github.io/clap-rs/clap/struct.Arg.html
+[json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
+[json]: http://json.rs/doc/json
 [error-docs]: https://doc.rust-lang.org/book/error-handling.html 
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
