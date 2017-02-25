@@ -19,10 +19,10 @@ feel free propose a change in a pull request.
 TODO: Mention Trello and how to join (if we keep using it)
 
 ## How to Contribute
-TODO: Reporting bugs
-TODO: Project page suggestions
-TODO: Fixing bugs
-TODO: Pull requests
+TODO: Reporting bugs  
+TODO: Project page suggestions  
+TODO: Fixing bugs  
+TODO: Pull requests  
 
 ## Crates
 TODO: How to add new crates to project
@@ -32,9 +32,9 @@ TODO: Write about writing tests
 
 ## Style
 ### Git Commit Messages
-https://chris.beams.io/posts/git-commit/ 
+https://chris.beams.io/posts/git-commit/  
 TODO: Possibly take relevant parts from this post or write our own
 
 ### Snippet Style
-TODO: Talk about writing good idiomatic code
+TODO: Talk about writing good idiomatic code  
 TODO: Maybe provide a template?
