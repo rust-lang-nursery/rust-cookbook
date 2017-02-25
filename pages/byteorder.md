@@ -53,5 +53,5 @@ fn main() { run().unwrap() }
 
 <!-- Links -->
 
-[byteorder-badge]: https://img.shields.io/crates/v/rustc-serialize.svg
+[byteorder-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder

@@ -61,7 +61,7 @@ MIT/Apache-2.0
 
 <!-- Links -->
 
-[byteorder-badge]: https://img.shields.io/crates/v/rustc-serialize.svg
+[byteorder-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder
 [error-docs]: https://doc.rust-lang.org/book/error-handling.html 
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
