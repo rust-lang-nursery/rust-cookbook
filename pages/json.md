@@ -2,6 +2,10 @@
 
 ##JSON implementation in Rust:
 
+The example below shows two simple ways to embed JSON in Rust. 
+The first method parses block JSON as a block using the parse method from the json crate. It then unwraps the parsed JSON.
+The second method instantiates an object as JSON using the object macro. Key value relationships are easily set using `=>`
+After demonstrating two simple ways to write JSON, the assert_eq macro ensures equivalence.
 
 [![json][json-badge]][json]
 
