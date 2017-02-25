@@ -5,9 +5,7 @@
 
 [![json][json-badge]][json]
 
-
 ```rust
-
 #[macro_use]
 extern crate json;
 
@@ -51,4 +49,4 @@ MIT/Apache-2.0
 
 <!-- Links -->
 [json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg
-[json]: http://json.rs/doc/json/
+[json]: http://json.rs/doc/json/?label=json
