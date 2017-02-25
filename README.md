@@ -51,6 +51,8 @@ makes the `?` operator work
 
 For more background on error handling in Rust, read [this page of the Rust book][error-docs] and [this blog post][error-blog].
 
+## Contributing
+If you'd like to make changes to the project, please see [this guide](CONTRIBUTING.md).
 
 ## License
 
