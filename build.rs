@@ -3,7 +3,7 @@ extern crate skeptic;
 use std::fs;
 
 fn main() {
-    let paths = fs::read_dir("./pages/").unwrap()
+    let paths = fs::read_dir("./src/pages/").unwrap()
         // convert paths to Strings
         .map(|p| p.unwrap().path().to_str().unwrap().to_string())
         // only compile markdown files
