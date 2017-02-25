@@ -4,6 +4,7 @@ version = "0.1.0"
 dependencies = [
  "byteorder 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "error-chain 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "json 0.11.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "skeptic 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -65,6 +66,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "getopts"
 version = "0.2.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "json"
+version = "0.11.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
@@ -138,6 +144,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum error-chain 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)" = "6930e04918388a9a2e41d518c25cf679ccafe26733fb4127dbf21993f2575d46"
 "checksum gcc 0.3.43 (registry+https://github.com/rust-lang/crates.io-index)" = "c07c758b972368e703a562686adb39125707cc1ef3399da8c019fc6c2498a75d"
 "checksum getopts 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)" = "d9047cfbd08a437050b363d35ef160452c5fe8ea5187ae0a624708c91581d685"
+"checksum json 0.11.5 (registry+https://github.com/rust-lang/crates.io-index)" = "5e7eb285e773498f9473a6e2255feffe95db9c55579c7931a6db83c9e02a4673"
 "checksum kernel32-sys 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "7507624b29483431c0ba2d82aece8ca6cdba9382bff4ddd0f7490560c056098d"
 "checksum libc 0.2.20 (registry+https://github.com/rust-lang/crates.io-index)" = "684f330624d8c3784fb9558ca46c4ce488073a8d22450415c5eb4f4cfb0d11b5"
 "checksum pulldown-cmark 0.0.3 (registry+https://github.com/rust-lang/crates.io-index)" = "8361e81576d2e02643b04950e487ec172b687180da65c731c03cf336784e6c07"

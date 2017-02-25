@@ -8,6 +8,7 @@ build = "build.rs"
 [dependencies]
 byteorder = "1.0.0"
 error-chain = "0.8.0"
+json = "0.11.5"
 
 [build-dependencies]
 skeptic = "0.6"
