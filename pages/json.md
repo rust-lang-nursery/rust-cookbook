@@ -48,5 +48,5 @@ assert_eq!(parsed, instantiated);
 MIT/Apache-2.0
 
 <!-- Links -->
-[json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg
-[json]: http://json.rs/doc/json/?label=json
+[json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
+[json]: http://json.rs/doc/json/
