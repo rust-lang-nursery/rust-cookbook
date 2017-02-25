@@ -7,6 +7,7 @@ A practical guide to the Rust crate ecosystem.
 ### [File IO](pages/fileio.md) [![file][file-badge]][file]
 ### [Command Line Parsing](pages/cliparsing.md) [![clap][clap-badge]][clap]
 ### [JSON](pages/json.md) [![json][json-badge]][json]
+### [TOML](pages/toml.md) [![toml][toml-badge]][toml]
 
 
 ## A note about error handling
