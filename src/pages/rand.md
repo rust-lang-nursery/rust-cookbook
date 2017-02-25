@@ -23,7 +23,11 @@ MathJax.Hub.Queue(function() {
 
 ### Example: Monte carlo integration
 Use the `rand` crate to generate random samples and approximate
-$\int_{0}^{\pi} sin(x) dx$ using monte carlo method.
+$\int_{0}^{\pi} sin(x) dx$ using monte carlo.
+
+*Key concepts:*
+* Creating thread-specific RNG
+* Generating real numbers over an interval
 ```rust
 extern crate rand;
 
@@ -61,6 +65,45 @@ fn main() {
     println!("{}", monte_carlo(0., f32::consts::PI, 200_000));
 }
 ```
+
+### Example: Generating random RGB colors
+A *trait* is a language feature that tells the Rust compiler about functionality a type must provide.
+
+Rust has the powerful ability to create traits for your own types.
+One example is `rand::Rand`. Any type that implements Rand can use the
+polymorphic function `Rng::gen()` to generate random types. 
+
+*Key concepts:*
+* Generating a random structure
+
+```rust
+extern crate rand;
+
+use rand::Rng;
+use rand::Rand;
+
+#[derive(Debug)] // Allows us to print using {:?} format specifier
+struct Color { // RGB Color struct
+    r: f64,
+    g: f64,
+    b: f64,
+}
+
+// Implementing Rand for type Color
+impl Rand for Color {
+    fn rand<R: Rng>(rng: &mut R) -> Self {
+        Color {r: rng.next_f64(), b: rng.next_f64(), g: rng.next_f64()}
+    }
+}
+
+fn main() {
+    // Generate a random Color and print to stdout
+    let mut rng = rand::thread_rng();
+    let c: Color = rng.gen();
+    println!("{:?}", c);
+}
+```
+
 
 <!-- Links -->
 

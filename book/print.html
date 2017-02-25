@@ -144,7 +144,12 @@ MathJax.Hub.Queue(function() {
 <p><a href="https://doc.rust-lang.org/rand/rand/index.html"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a></p>
 <a class="header" href="#example-monte-carlo-integration" name="example-monte-carlo-integration"><h3>Example: Monte carlo integration</h3></a>
 <p>Use the <code>rand</code> crate to generate random samples and approximate
-$\int_{0}^{\pi} sin(x) dx$ using monte carlo method.</p>
+$\int_{0}^{\pi} sin(x) dx$ using monte carlo.</p>
+<p><em>Key concepts:</em></p>
+<ul>
+<li>Creating thread-specific RNG</li>
+<li>Generating real numbers over an interval</li>
+</ul>
 <pre><code class="language-rust">extern crate rand;
 
 use rand::Rng;
@@ -179,6 +184,41 @@ fn monte_carlo(a: f32, b: f32, n: u32) -&gt; f32 {
 
 fn main() {
     println!(&quot;{}&quot;, monte_carlo(0., f32::consts::PI, 200_000));
+}
+</code></pre>
+<a class="header" href="#example-generating-random-rgb-colors" name="example-generating-random-rgb-colors"><h3>Example: Generating random RGB colors</h3></a>
+<p>A <em>trait</em> is a language feature that tells the Rust compiler about functionality a type must provide.</p>
+<p>Rust has the powerful ability to create traits for your own types.
+One example is <code>rand::Rand</code>. Any type that implements Rand can use the
+polymorphic function <code>Rng::gen()</code> to generate random types.</p>
+<p><em>Key concepts:</em></p>
+<ul>
+<li>Generating a random structure</li>
+</ul>
+<pre><code class="language-rust">extern crate rand;
+
+use rand::Rng;
+use rand::Rand;
+
+#[derive(Debug)] // Allows us to print using {:?} format specifier
+struct Color { // RGB Color struct
+    r: f64,
+    g: f64,
+    b: f64,
+}
+
+// Implementing Rand for type Color
+impl Rand for Color {
+    fn rand&lt;R: Rng&gt;(rng: &amp;mut R) -&gt; Self {
+        Color {r: rng.next_f64(), b: rng.next_f64(), g: rng.next_f64()}
+    }
+}
+
+fn main() {
+    // Generate a random Color and print to stdout
+    let mut rng = rand::thread_rng();
+    let c: Color = rng.gen();
+    println!(&quot;{:?}&quot;, c);
 }
 </code></pre>
 <!-- Links -->
