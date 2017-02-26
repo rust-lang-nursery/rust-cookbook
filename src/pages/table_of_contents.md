@@ -7,6 +7,7 @@ A practical guide to the Rust crate ecosystem.
 - [Math](pages/math.html)
     - [rand](pages/rand.html) [![rand-badge]][rand]
     - [petgraph](pages/petgraph.html) [![petgraph-badge]][petgraph]
+    - [crossbeam](pages/crossbeam.html) [![crossbeam-badge]][crossbeam]
 - [Algorithms](pages/algorithms.html)
 - [IO](pages/IO.html)
     - [File IO](pages/file_io.html) [![file-badge]][file]
@@ -43,3 +44,5 @@ MIT/Apache-2.0
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
 [petgraph-badge]: https://img.shields.io/crates/v/petgraph.svg?label=petgraph
 [petgraph]: https://docs.rs/petgraph/0.4.3/petgraph/
+[crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
+[crossbeam]: https://docs.rs/crossbeam
