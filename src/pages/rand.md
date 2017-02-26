@@ -64,9 +64,9 @@ fn monte_carlo(a: f32, b: f32, n: u32) -> f32 {
 fn main() {
     let actual = 2.0;
     let estimate = monte_carlo(0., f32::consts::PI, 200_000);
-    let rel_err = (estimate - actual) / actual;
+    let rel_err = (estimate - actual).abs() / actual;
     assert!(rel_err < 10e-3);
-    println!("{}", estimate);
+    println!("estimate: {} rel_err: {}", estimate, rel_err);
 }
 ```
 
