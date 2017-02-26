@@ -6,7 +6,7 @@ env:
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install git pip
+  - sudo apt-get install python-pip
   - sudo pip install ghp-import
   - cargo install mdbook
 
