@@ -6,4 +6,4 @@ before_install:
   - sudo pip install ghp-import
   - cargo install mdbook
 
-script: build-site.sh
+after_success: build-site.sh
