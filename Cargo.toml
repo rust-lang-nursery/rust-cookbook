@@ -15,7 +15,7 @@ serde_derive = "0.9.9"
 
 
 [build-dependencies]
-skeptic = "0.7"
+skeptic = "0.7.1"
 
 [dev-dependencies]
-skeptic = "0.7"
+skeptic = "0.7.1"
