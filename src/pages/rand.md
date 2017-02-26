@@ -28,7 +28,7 @@ $\int_{0}^{\pi} sin(x) dx$ using monte carlo.
 *Key concepts:*
 * Creating thread-specific RNG
 * Generating real numbers over an interval
-```rust
+```rust,ignore
 extern crate rand;
 
 use rand::Rng;
