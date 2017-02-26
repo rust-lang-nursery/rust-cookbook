@@ -3,12 +3,18 @@
 A practical guide to the Rust crate ecosystem.
 
 ## Recipes
-* [Byteorder](pages/byteorder.html) [![byteorder-badge]][byteorder]
-* [File IO](pages/fileio.html) [![file-badge]][file]
-* [Command Line Parsing](pages/cliparsing.html) [![clap-badge]][clap]
-* [JSON](pages/json.html) [![json-badge]][json]
-* [TOML](pages/toml.html) [![toml-badge]][toml]
-* [rand](pages/rand.html) [![rand-badge]][rand]
+
+- [Math](pages/math.html)
+    - [rand](pages/rand.html) [![rand-badge]][rand]
+- [Algorithms](pages/algorithms.html)
+- [IO](pages/IO.html)
+    - [File IO](pages/file_io.html) [![file-badge]][file]
+    - [Command Line Parsing](pages/cli_parsing.html) [![clap-badge]][clap]
+- [Serialization](pages/serialization.html)
+    - [Byteorder](pages/byteorder.html) [![byteorder-badge]][byteorder]
+    - [JSON](pages/json.html) [![json-badge]][json]
+    - [TOML](pages/toml.html) [![toml-badge]][toml]
+- [Networking](pages/networking.html)
 
 ## Contributing
 If you'd like to make changes to the project, please see [this guide](pages/contributing.html).
