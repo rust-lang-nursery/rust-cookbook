@@ -5,6 +5,7 @@
 
 - [Math](pages/math.md)
     - [rand](pages/rand.md)
+    - [petgraph](pages/petgraph.md)
 - [Algorithms](pages/algorithms.md)
 - [IO](pages/IO.md)
     - [File IO](pages/file_io.md)
