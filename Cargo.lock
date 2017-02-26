@@ -7,7 +7,7 @@ dependencies = [
  "json 0.11.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.3.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_derive 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)",
- "skeptic 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "skeptic 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "toml 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -147,7 +147,7 @@ dependencies = [
 
 [[package]]
 name = "skeptic"
-version = "0.7.0"
+version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "pulldown-cmark 0.0.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -223,7 +223,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum serde 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)" = "05a67b8a53f885f4b6e3ed183806035819f9862474e747fe4488a6d63bcbfcb7"
 "checksum serde_codegen_internals 0.14.0 (registry+https://github.com/rust-lang/crates.io-index)" = "a5113d5bd16471b183803b374f0fe4877ad9658b95e33b11f4a004d73aacc74a"
 "checksum serde_derive 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)" = "a85017d774504173e5f908f69790ad7616f535f4ea91d0cdc65676ea3c933709"
-"checksum skeptic 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "47cea349248a53bda9dca7fd0bb60e46972bf4f6c57f26786d14c27111208312"
+"checksum skeptic 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)" = "18e054ee4f4ade553f1e43f0071acb04127dc14786be3f3ddc3241250142b16b"
 "checksum syn 0.11.6 (registry+https://github.com/rust-lang/crates.io-index)" = "0e28da8d02d75d1e58b89258e0741128f0b0d8a8309fb5c627be0fbd37a76c67"
 "checksum synom 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "8fece1853fb872b0acdc3ff88f37c474018e125ef81cd4cb8c0ca515746b62ed"
 "checksum tempdir 0.3.5 (registry+https://github.com/rust-lang/crates.io-index)" = "87974a6f5c1dfb344d733055601650059a3363de2a6104819293baff662132d6"
