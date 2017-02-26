@@ -11,7 +11,7 @@ A practical guide to the Rust crate ecosystem.
 * [rand](pages/rand.html) [![rand-badge]][rand]
 
 ## Contributing
-If you'd like to make changes to the project, please see [this guide](CONTRIBUTING.md).
+If you'd like to make changes to the project, please see [this guide](pages/contributing.html).
 
 ## License
 
@@ -20,15 +20,15 @@ MIT/Apache-2.0
 
 <!-- Links -->
 
-[byteorder-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=byteorder
+[byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder
-[file-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=file
+[file-badge]: https://img.shields.io/crates/v/file.svg?label=file
 [file]: https://doc.rust-lang.org/std/fs/struct.File.html
-[clap-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=clap
+[clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://kbknapp.github.io/clap-rs/clap/struct.Arg.html
-[json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
+[json-badge]: https://img.shields.io/crates/v/json.svg?label=json
 [json]: http://json.rs/doc/json
-[toml-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=toml
+[toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: http://alexcrichton.com/toml-rs/toml/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://doc.rust-lang.org/rand/rand/index.html
