@@ -9,5 +9,6 @@ before_install:
   - sudo apt-get install python-pip
   - sudo pip install ghp-import
   - cargo install mdbook
+  - source $HOME/.cargo/bin
 
 after_success: ./build-site.sh
