@@ -1,0 +1,9 @@
+language: rust
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install git pip
+  - sudo pip install ghp-import
+  - cargo install mdbook
+
+script: build-site.sh
