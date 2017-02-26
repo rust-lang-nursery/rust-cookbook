@@ -42,3 +42,9 @@ the common `::std::io::Error` type. The automatic conversion
 makes the `?` operator work 
 
 For more background on error handling in Rust, read [this page of the Rust book][error-docs] and [this blog post][error-blog].
+
+<!-- Links-->
+
+[error-docs]: https://doc.rust-lang.org/book/error-handling.html
+[error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
+
