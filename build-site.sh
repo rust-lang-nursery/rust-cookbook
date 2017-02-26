@@ -22,6 +22,8 @@ function main() {
         cp CONTRIBUTING.md src/pages/contributing.md
         echo "Building site to book/"
         mdbook build
+        echo "Copying assets/* to book/"
+        cp -r assets/ book/
         echo "Committing book directory to gh-pages branch"
         ghp-import -p book
         # echo ""

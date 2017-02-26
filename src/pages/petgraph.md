@@ -45,7 +45,7 @@ fn main() {
     println!("{:?}", Dot::with_config(&g, &[Config::EdgeNoLabel]));
 }
 ```
-![Petersen Graph](../../assets/graph.png)
+![Petersen Graph](./graph.png)
 
 
 <!-- Links -->
