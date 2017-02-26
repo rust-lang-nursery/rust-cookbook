@@ -11,7 +11,7 @@ A practical guide to the Rust crate ecosystem.
 * [rand](pages/rand.html) [![rand-badge]][rand]
 
 ## Contributing
-If you'd like to make changes to the project, please see [this guide](CONTRIBUTING.html).
+If you'd like to make changes to the project, please see [this guide](pages/contributing.html).
 
 ## License
 

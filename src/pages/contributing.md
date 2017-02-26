@@ -31,6 +31,8 @@ TODO: How to add new crates to project
 TODO: Write about writing tests
 
 ## Style
+https://aturon.github.io
+
 ### Git Commit Messages
 https://chris.beams.io/posts/git-commit/  
 TODO: Possibly take relevant parts from this post or write our own
