@@ -76,7 +76,7 @@ polymorphic function `Rng::gen()` to generate random types.
 *Key concepts:*
 * Generating a random structure
 
-```rust
+```rust,ignore
 extern crate rand;
 
 use rand::Rng;
