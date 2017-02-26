@@ -71,15 +71,15 @@
 <p>A practical guide to the Rust crate ecosystem.</p>
 <a class="header" href="#recipes" name="recipes"><h2>Recipes</h2></a>
 <ul>
-<li><a href="pages/byteorder.html">Byteorder</a> <a href="https://docs.rs/byteorder"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=byteorder" alt="byteorder-badge" /></a></li>
-<li><a href="pages/fileio.html">File IO</a> <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=file" alt="file-badge" /></a></li>
-<li><a href="pages/cliparsing.html">Command Line Parsing</a> <a href="https://kbknapp.github.io/clap-rs/clap/struct.Arg.html"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=clap" alt="clap-badge" /></a></li>
-<li><a href="pages/json.html">JSON</a> <a href="http://json.rs/doc/json"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=json" alt="json-badge" /></a></li>
-<li><a href="pages/toml.html">TOML</a> <a href="http://alexcrichton.com/toml-rs/toml/"><img src="https://img.shields.io/crates/v/rustc-serialize.svg?label=toml" alt="toml-badge" /></a></li>
+<li><a href="pages/byteorder.html">Byteorder</a> <a href="https://docs.rs/byteorder"><img src="https://img.shields.io/crates/v/byteorder.svg?label=byteorder" alt="byteorder-badge" /></a></li>
+<li><a href="pages/fileio.html">File IO</a> <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><img src="https://img.shields.io/crates/v/file.svg?label=file" alt="file-badge" /></a></li>
+<li><a href="pages/cliparsing.html">Command Line Parsing</a> <a href="https://kbknapp.github.io/clap-rs/clap/struct.Arg.html"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge" /></a></li>
+<li><a href="pages/json.html">JSON</a> <a href="http://json.rs/doc/json"><img src="https://img.shields.io/crates/v/json.svg?label=json" alt="json-badge" /></a></li>
+<li><a href="pages/toml.html">TOML</a> <a href="http://alexcrichton.com/toml-rs/toml/"><img src="https://img.shields.io/crates/v/toml.svg?label=toml" alt="toml-badge" /></a></li>
 <li><a href="pages/rand.html">rand</a> <a href="https://doc.rust-lang.org/rand/rand/index.html"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a></li>
 </ul>
 <a class="header" href="#contributing" name="contributing"><h2>Contributing</h2></a>
-<p>If you'd like to make changes to the project, please see <a href="CONTRIBUTING.md">this guide</a>.</p>
+<p>If you'd like to make changes to the project, please see <a href="pages/contributing.html">this guide</a>.</p>
 <a class="header" href="#license" name="license"><h2>License</h2></a>
 <p>MIT/Apache-2.0</p>
 <!-- Links -->
@@ -117,6 +117,20 @@
 
         <!-- Livereload script (if served using the cli tool) -->
         
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+    
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>

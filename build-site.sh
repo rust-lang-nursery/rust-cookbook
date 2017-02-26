@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Returns 1 if program is installed and 0 otherwise
 function program_installed {
     local return_=1

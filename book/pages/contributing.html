@@ -97,6 +97,7 @@ TODO: Pull requests</p>
 <a class="header" href="#tests" name="tests"><h2>Tests</h2></a>
 <p>TODO: Write about writing tests</p>
 <a class="header" href="#style" name="style"><h2>Style</h2></a>
+<p>https://aturon.github.io</p>
 <a class="header" href="#git-commit-messages" name="git-commit-messages"><h3>Git Commit Messages</h3></a>
 <p>https://chris.beams.io/posts/git-commit/<br />
 TODO: Possibly take relevant parts from this post or write our own</p>
@@ -137,6 +138,20 @@ TODO: Maybe provide a template?</p>
 
         <!-- Livereload script (if served using the cli tool) -->
         
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+    
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>
