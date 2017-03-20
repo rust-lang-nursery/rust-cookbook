@@ -13,9 +13,9 @@ json = "0.11.5"
 toml = "0.3"
 petgraph = "0.4.3"
 crossbeam = "0.2"
-clap = "2.20.5"
 serde_derive = "0.9.11"
 serde = "0.9.11"
+rayon = "0.6.0"
 
 [build-dependencies]
 skeptic = "0.7.1"
