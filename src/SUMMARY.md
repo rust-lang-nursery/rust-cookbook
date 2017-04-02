@@ -16,5 +16,7 @@
     - [JSON](pages/json.md)
     - [TOML](pages/toml.md)
 - [Networking](pages/networking.md)
+- [Concurrency](pages/concurrency.md)
+    - [Rayon](pages/rayon.md)
 
 [Contributing](pages/contributing.md)

@@ -17,6 +17,8 @@ A practical guide to the Rust crate ecosystem.
     - [JSON](pages/json.html) [![json-badge]][json]
     - [TOML](pages/toml.html) [![toml-badge]][toml]
 - [Networking](pages/networking.html)
+- [Concurrency](pages/concurrency.html)
+    - [Rayon](pages/rayon.html)
 
 ## Contributing
 If you'd like to make changes to the project, please see [this guide](pages/contributing.html).
@@ -40,9 +42,11 @@ MIT/Apache-2.0
 [toml]: http://alexcrichton.com/toml-rs/toml/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://doc.rust-lang.org/rand/rand/index.html
-[error-docs]: https://doc.rust-lang.org/book/error-handling.html 
+[error-docs]: https://doc.rust-lang.org/book/error-handling.html
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
 [petgraph-badge]: https://img.shields.io/crates/v/petgraph.svg?label=petgraph
 [petgraph]: https://docs.rs/petgraph/0.4.3/petgraph/
 [crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam
+[rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
+[rayon]: https://docs.rs/rayon

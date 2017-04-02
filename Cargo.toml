@@ -14,6 +14,7 @@ toml = "0.3"
 petgraph = "0.4.3"
 crossbeam = "0.2"
 clap = "2.20.5"
+rayon = "0.6.0"
 
 
 [build-dependencies]
