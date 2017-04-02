@@ -14,7 +14,8 @@ toml = "0.3"
 petgraph = "0.4.3"
 crossbeam = "0.2"
 clap = "2.20.5"
-
+serde_derive = "0.9.11"
+serde = "0.9.11"
 
 [build-dependencies]
 skeptic = "0.7.1"
