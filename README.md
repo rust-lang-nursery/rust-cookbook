@@ -4,7 +4,7 @@ A practical guide to the Rust crate ecosystem.
 
 ## Recipes
 ### [Byteorder](src/pages/byteorder.md) [![byteorder][byteorder-badge]][byteorder]
-### [File IO](src/pages/fileio.md) [![file][file-badge]][file]
+### [File IO](src/pages/file_io.md) [![file][file-badge]][file]
 ### [Command Line Parsing](src/pages/cliparsing.md) [![clap][clap-badge]][clap]
 ### [JSON](src/pages/json.md) [![json][json-badge]][json]
 ### [TOML](src/pages/toml.md) [![toml][toml-badge]][toml]
