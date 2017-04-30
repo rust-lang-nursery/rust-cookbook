@@ -2,11 +2,24 @@
 
 A practical guide to the Rust crate ecosystem.
 
+This _Rust Cookbook_ (a.k.a. _Cookin' with Rust_), is a collection of
+simple examples that demonstrate good practices to accomplish common
+programming tasks, using the crates of the Rust ecosystem.
 
+[Read more about _Cookin' with Rust_](about.html), including tips for
+how to read the book, how to use the examples, notes on conventions.
 
-## Recipes
+## Contributing
 
-### Basics
+This project is intented to be easy for new Rust programmers to
+contribute to, and an easy to way get involved with the Rust
+community. It needs and welcomes help.
+
+For details see [CONTRIBUTING.md] on GitHub.
+
+[CONTRIBUTING.md]: https://github.com/brson/rust-cookbook/blob/master/CONTRIBUTING.md
+
+## Basics
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
@@ -16,35 +29,24 @@ A practical guide to the Rust crate ecosystem.
 | [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-math-badge]][cat-math] |
 | [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-math-badge]][cat-math] |
 
-### Serialization
+## Serialization
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Serialize and deserialize unstructured JSON][ex-json-basic] | [![json-badge]][json] | [![cat-serialization-badge]][cat-serialization] |
 | [Deserialize an unstructured TOML configuration file][ex-toml-basic] | [![toml-badge]][toml] | [![cat-serialization-badge]][cat-serialization] |
 
-### Concurrency
+## Concurrency
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 
-### Application development
+## Application development
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-app-badge]][cat-app] |
-
-## Contributing
-
-If you'd like to make changes to the project, please see [this guide](pages/contributing.html).
-
-## License
-
-MIT/Apache-2.0
-
-
-
 
 <!--
 

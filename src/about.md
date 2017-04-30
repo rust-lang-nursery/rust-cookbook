@@ -1,4 +1,12 @@
-# A note about error handling
+# About "Cookin' with Rust"
+
+## Who this book is for
+
+## How to read this book
+
+## How to use the examples
+
+## A note about error handling
 
 Error handling in Rust is robust when done correctly, but in today's
 Rust it requires a fair bit of boilerplate. Because of this one often
@@ -89,4 +97,3 @@ Rust book][error-docs] and [this blog post][error-blog].
 
 [error-docs]: https://doc.rust-lang.org/book/error-handling.html
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
-

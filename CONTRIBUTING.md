@@ -61,6 +61,9 @@ Don't use glob imports, even for preludes.
 
 Sort imports.
 
+Examples should be simple and obvious enough that an experienced dev
+won't need comments. Explanation should be in prose.
+
 Describe the code in prose, not in comments. Things that should be
 described include any traits imported and their methods used. Think
 about what information here supports the use case and might not be

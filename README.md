@@ -1,39 +1,26 @@
-# Cookin' with Rust
+# A Rust Cookbook
 
-A practical guide to the Rust crate ecosystem.
+**[Read it here]**.
 
-## Recipes
-### [Byteorder](src/pages/byteorder.md) [![byteorder][byteorder-badge]][byteorder]
-### [File IO](src/pages/file_io.md) [![file][file-badge]][file]
-### [Command Line Parsing](src/pages/cliparsing.md) [![clap][clap-badge]][clap]
-### [JSON](src/pages/json.md) [![json][json-badge]][json]
-### [TOML](src/pages/toml.md) [![toml][toml-badge]][toml]
-### [rand](src/pages/rand.md) [![rand][rand-badge]][rand]
-### [rayon](src/pages/rayon.md) [![rayon][rayon-badge]][rayon]
+This _Rust Cookbook_ is a collection of simple examples that
+demonstrate good practices to accomplish common programming tasks,
+using the crates of the Rust ecosystem.
+
+These examples are complete, and suitable for copying directly into
+new cargo projects. They are tested and guaranteed to work.
+
+[Read it here]: https://brson.github.io/rust-cookbook
 
 ## Contributing
-If you'd like to make changes to the project, please see [this guide](CONTRIBUTING.md).
+
+This project is intented to be easy for new Rust programmers to
+contribute to, and an easy to way get involved with the Rust
+community. It needs and welcomes help.
+
+For details see [CONTRIBUTING.md] on GitHub.
+
+[CONTRIBUTING.md]: https://github.com/brson/rust-cookbook/blob/master/CONTRIBUTING.md
 
 ## License
 
 MIT/Apache-2.0
-
-
-<!-- Links -->
-
-[byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
-[byteorder]: https://docs.rs/byteorder
-[file-badge]: https://img.shields.io/crates/v/file.svg?label=file
-[file]: https://doc.rust-lang.org/std/fs/struct.File.html
-[clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
-[clap]: https://kbknapp.github.io/clap-rs/clap/struct.Arg.html
-[json-badge]: https://img.shields.io/crates/v/json.svg?label=json
-[json]: http://json.rs/doc/json
-[toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
-[toml]: http://alexcrichton.com/toml-rs/toml/
-[rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
-[rand]: https://doc.rust-lang.org/rand/rand/index.html
-[error-docs]: https://doc.rust-lang.org/book/error-handling.html
-[error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
-[rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
-[rayon]: https://doc.rust-lang.org/rayon/rayon/index.html
