@@ -26,6 +26,7 @@ fn operate_on_file(myfile: &str, mystring: &str, count: i32) -> io::Result<()> {
 
     // Read lines from file
     for line in io::BufReader::new(&f).lines() {
+        // FIXME: bad unwrap
         println!("{}", line.unwrap());
     }
     Ok(())

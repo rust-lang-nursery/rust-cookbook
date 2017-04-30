@@ -18,8 +18,6 @@ function main() {
     elif [ $(program_installed mdbook) == 0 ]; then
         echo "Please install mdbook: cargo install mdbook."
     else
-        echo "Copying CONTRIBUTING.md to src/pages/contributing.md"
-        cp CONTRIBUTING.md src/pages/contributing.md
         echo "Building site to book/"
         mdbook build
         echo "Copying assets/* to book/"
