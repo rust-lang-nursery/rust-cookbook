@@ -25,13 +25,17 @@ TODO: Fixing bugs
 TODO: Pull requests  
 
 ## Crates
-TODO: How to add new crates to project
+
+All crates used by the cookbook are listed in Cargo.toml. If you are
+adding a new crate, first add it there.
 
 ## Tests
-TODO: Write about writing tests
+
+All examples are tested using [`skeptic`]. Run them with `cargo test`.
+
+[`skeptic`]: https://github.com/brson/rust-skeptic
 
 ## Style
-https://aturon.github.io
 
 ### Git Commit Messages
 https://chris.beams.io/posts/git-commit/  
