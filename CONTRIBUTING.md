@@ -25,18 +25,50 @@ TODO: Fixing bugs
 TODO: Pull requests  
 
 ## Crates
-TODO: How to add new crates to project
+
+All crates used by the cookbook are listed in Cargo.toml. If you are
+adding a new crate, first add it there.
 
 ## Tests
-TODO: Write about writing tests
+
+All examples are tested using [`skeptic`]. Run them with `cargo test`.
+
+[`skeptic`]: https://github.com/brson/rust-skeptic
 
 ## Style
-https://aturon.github.io
 
 ### Git Commit Messages
 https://chris.beams.io/posts/git-commit/  
 TODO: Possibly take relevant parts from this post or write our own
 
 ### Snippet Style
-TODO: Talk about writing good idiomatic code  
-TODO: Maybe provide a template?
+
+Snippets are intended to be read by complete beginners, and copied
+into projects for experimentation. They should follow best practices.
+
+Snippets should have a simple single-sentence description
+that describes something a typical Rust user typically wants to do.
+
+The snippet should have minimal code that doesn't directly support the
+description of the snippet. Keep extra functions and types to a
+minimum.
+
+Follow the template in [src/error_handling_note.md]. Examples always
+set up error handling correctly and propagate errors with `?` (not
+`try!`).
+
+Don't use glob imports, even for preludes.
+
+Sort imports.
+
+Examples should be simple and obvious enough that an experienced dev
+won't need comments. Explanation should be in prose.
+
+Describe the code in prose, not in comments. Things that should be
+described include any traits imported and their methods used. Think
+about what information here supports the use case and might not be
+obvious to someone new. Say the minimum possible about aspects that
+don't directly support the use case. See [basics.md] for examples.
+
+Hyperlink all references to APIs, and style them as `code`.
+

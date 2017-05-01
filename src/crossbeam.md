@@ -1,6 +1,8 @@
 # Parallel Prime Calculations
 [![crossbeam-badge]][crossbeam]
 
+FIXME: This doesn't look like it's running in parallel
+
 ## Calculate primes upto a number
 
 ```rust
