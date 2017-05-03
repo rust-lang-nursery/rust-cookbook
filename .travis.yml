@@ -2,13 +2,10 @@ language: rust
 
 env:
   global:
-    secure: "jyoE5GKk+2qO21gyYfuVh+YxCZZDQOeoCt+PGqffacVJC+uIYW3HMTf9WLQ/AGec+APPBHpLY+XMrp10xoIa895l4/yqgrluasYh9+kckcIjL1rYJ8RAyqJgB99ATC0v6H28PfYf7Z9SNBfa5F0Cj9wIZOSQlcndFVYL+z3sqqpA+jRMtbxA+YFHAmVK0rWAocc3WWPng9vK8FASMKB4iIN8HxICZriuyNAVv1LsJMTHIBv4Q4PuPRWc/dSVq6/kd4axGbk/C85VO+CYnKy73oszGVI2QXAWGWNeu/VoiqCdC6ezf0WPZ3PPlut8jS2qScdxpSgM8KF35UfOAV9yjyPq8XjRdfUmQr0YpuvYDg2KgnQylp+1JOXXtdjVvu752a34jGgCQ9gqkk5RB/Xu+W7jCGGVirvX6FfXcHLweQYqOhhXfBWeqC3cjrRmzbyV2amYL6CeSRCpslnlPgIVgBA5J2Ple61MSWQdCOIAu7Sppkgt1080blke0AD6x+LWN9ZaD3q7Z/5Z9Ui7kXSb29whm0gOMpqsgG4lTwqBhYb4E0MV3/iRQMT3nHXsomqy584nqsWTN1kWXcKuDy/0RPImP6FzLyv2oVXca6Z8RXjXKQsEZGBXHDtEBuSALcqCyoCrQoSUOf+IzE3YRfhRNGbKyiUJNH01vrLrnJ66xpY="
+  - secure: m28oDDxTcaLlbCXv9la/yz0PzafOCDuhOhmHRoc1ELQC0wc3r6HT3a2myrP5ewQQhaxYDzd2XXYDJB3odFV1qLQOp0hFDgNn/w3ctWZpJdLxIJN6dsaPL/azhE2hz7T+SPEoWLwTW1va6bu4wwzSOykt9//RIK0ZoyVMCRSAlMB965iMV2Nkw7SWdQZ8SlskMVk8sB103N5+WTtt6rse54jHnXTpFEq9q0EAXC1R3GBDKEWB7iwb0c++Kw46Fz86ZJJDotiVuxMtsEk0VfT0Yxx665is5Ko6sV4cahbuXqMIqYYEfqpTHNHadHWD1m1i32hW9Rjtt9fFZ+a8m9zfTixPlkfOZvQ94RnD2zqv9qiwFr8oR7t2SsZaB4aqPlJd45DqgnwQ1B0cmrUAsjSB2+1DQDkR4FgKFB/o1c6F6g8imNh+2OwiZXVLwIimXNJQ5xfZeObXFMrEZ0+uj7oxFX49EcwE/SvwsVJHST3/zL5QuQwa9/uVhW/x135/Z2ypVao2xydpow/KL8VwhX9YsOSP5ApffL4OLJ5hE9qwS/SShHGg8AenFqqm/UNFqWDU+C097YaWvG5PEvCVXvOofic65AUTCmwB+h3MSQmZIqz2sb/kwdbtkoRRR6maMgelQmg1JdIfQcKeTJIStIihjk54VENHPVAslz0oV7Ia5Bo=
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install python-pip
-  - sudo pip install ghp-import
-  - cargo install mdbook
+  - cargo install mdbook --debug
   - export PATH=$HOME/.cargo/bin:$PATH
 
-after_success: ./build-site.sh
+after_success: ./deploy.sh
