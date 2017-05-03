@@ -33,7 +33,7 @@ For details see [CONTRIBUTING.md] on GitHub.
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Serialize and deserialize unstructured JSON][ex-json-basic] | [![json-badge]][json] | [![cat-serialization-badge]][cat-serialization] |
+| [Serialize and deserialize unstructured JSON][ex-json-basic] | [![serde-json-badge]][serde-json] | [![cat-serialization-badge]][cat-serialization] |
 | [Deserialize an unstructured TOML configuration file][ex-toml-basic] | [![toml-badge]][toml] | [![cat-serialization-badge]][cat-serialization] |
 
 ## Concurrency
@@ -59,7 +59,7 @@ Keep lines sorted.
 
 -->
 
-<!- Categories -->
+<!-- Categories -->
 
 [cat-app-badge]: https://img.shields.io/badge/-app-orange.svg
 [cat-app]: https://crates.io
@@ -78,8 +78,8 @@ Keep lines sorted.
 [byteorder]: https://docs.rs/byteorder/1.0.0/byteorder/
 [clap-badge]: https://img.shields.io/badge/clap-2.22.2-blue.svg
 [clap]: https://docs.rs/clap/2.22.0/rand/
-[json-badge]: https://img.shields.io/badge/json-0.11.5-blue.svg
-[json]: https://docs.rs/json/0.11.5/json/
+[serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
+[serde-json]: https://docs.serde.rs/serde_json/
 [petgraph-badge]: https://img.shields.io/badge/petgraph-0.4.3-blue.svg
 [petgraph]: https://docs.rs/petgraph/0.4.3/petgraph/
 [rand-badge]: https://img.shields.io/badge/rand-0.3.15-blue.svg
