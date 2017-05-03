@@ -1,50 +1,57 @@
 # JSON
-[![json-badge]][json]
+[![badge]][`serde_json`]
 
 ## JSON implementation in Rust:
 
-The example below shows two simple ways to embed JSON in Rust. 
-The first method parses block JSON as a block using the parse method from the json crate. It then unwraps the parsed JSON.
-The second method instantiates an object as JSON using the object macro. Key value relationships are easily set using `=>`.
+The [`serde_json`] crate provides a [`from_str`] function to parse a `&str` of
+JSON into a type of the caller's choice.
 
-After demonstrating two simple ways to write JSON, the `assert_eq!` macro ensures equivalence.
+Unstructured JSON can be parsed into a universal [`serde_json::Value`] type that
+is able to represent any valid JSON data.
 
+The example below shows a `&str` of JSON being parsed and then compared to what
+we expect the parsed value to be. The expected value is declared using the
+[`json!`] macro.
 
 ```rust
 #[macro_use]
-extern crate json;
+extern crate serde_json;
 
-fn main(){
-    let parsed_data = json::parse(r#"
+use serde_json::Value;
 
-    {
+fn main() {
+    let j = r#"{
+                 "userid": 103609,
+                 "verified": true,
+                 "access_privelages": [
+                   "user",
+                   "admin"
+                 ]
+               }"#;
+
+    let parsed: Value = serde_json::from_str(j).unwrap();
+
+    let expected = json!({
         "userid": 103609,
         "verified": true,
         "access_privelages": [
             "user",
             "admin"
         ]
-    }
+    });
 
-    "#).unwrap();
-
-    let instantiated_data = object!{
-        "userid" => 103609,
-        "verified" => true,
-        "access_privelages" => array![
-            "user",
-            "admin"
-        ]
-    };
-
-    assert_eq!(parsed_data, instantiated_data);
+    assert_eq!(parsed, expected);
 }
 ```
+
 # License
 
 MIT/Apache-2.0
 
 <!-- Links -->
 
-[json-badge]: https://img.shields.io/crates/v/rustc-serialize.svg?label=json
-[json]: http://json.rs/doc/json
+[badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
+[`serde_json`]: https://docs.serde.rs/serde_json/
+[`from_str`]: https://docs.serde.rs/serde_json/fn.from_str.html
+[`serde_json::Value`]: https://docs.serde.rs/serde_json/enum.Value.html
+[`json!]: https://docs.serde.rs/serde_json/macro.json.html
