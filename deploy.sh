@@ -25,9 +25,6 @@ program_installed() {
 if [ $(program_installed git) == 0 ]; then
     echo "Please install Git."
     exit 1
-elif [ $(program_installed ghp-import) == 0 ]; then
-    echo "Please install ghp-import: pip install ghp-import."
-    exit 1
 elif [ $(program_installed mdbook) == 0 ]; then
     echo "Please install mdbook: cargo install mdbook."
     exit 1
