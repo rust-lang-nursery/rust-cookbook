@@ -120,11 +120,11 @@ fn main() { run().unwrap() }
 <!-- Crates -->
 
 [byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
-[byteorder]: https://docs.rs/byteorder/1.0.0/byteorder/
+[byteorder]: https://docs.rs/byteorder/
 [petgraph-badge]: https://img.shields.io/crates/v/petgraph.svg?label=petgraph
-[petgraph]: https://docs.rs/petgraph/0.4.3/petgraph/
+[petgraph]: https://docs.rs/petgraph/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
-[rand]: https://docs.rs/rand/0.3.15/rand/
+[rand]: https://docs.rs/rand/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
 
