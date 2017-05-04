@@ -33,7 +33,7 @@ For details see [CONTRIBUTING.md] on GitHub.
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Serialize and deserialize unstructured JSON][ex-json-basic] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
-| [Deserialize an unstructured TOML configuration file][ex-toml-basic] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
+| [Deserialize a TOML configuration file][ex-toml-basic] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 
 ## Concurrency
 
