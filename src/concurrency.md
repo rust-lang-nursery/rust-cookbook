@@ -12,6 +12,7 @@
 
 ```rust
 extern crate rayon;
+
 use rayon::prelude::*;
 
 fn main() {
@@ -24,10 +25,8 @@ fn main() {
 ```
 
 The example uses the Rayon crate, which is a data parallelism library for Rust.
-It defines the trait `ParallelIterator` which provides the `par_iter_mut()`
-method. This method is a call to get a parallel iterator. It lets us write
-iterator-like chains that execute in parallel. It constructs the values we want
-and finally the `for_each()` method which actually carries out the execution.
+Rayon provides the `par_iter_mut()` method for any parallel iterable data type.
+It lets us write iterator-like chains that execute in parallel.
 
 <!-- Crates -->
 
