@@ -2,16 +2,16 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-file-io-badge]][cat-file-io] |
-| [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-serialization-badge]][cat-serialization] |
-| [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-math-badge]][cat-math] |
-| [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-math-badge]][cat-math] |
-| [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-math-badge]][cat-math] |
+| [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
+| [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-science-badge]][cat-science] |
 
 <a name="ex-std-read-lines"></a>
 ## Read lines of strings from a file
 
-[![std-badge]][std] [![cat-file-io-badge]][cat-file-io]
+[![std-badge]][std] [![cat-filesystem-badge]][cat-filesystem]
 
 Writes a three-line message to a file, then reads it back a line at a
 time with the [`Lines`] iterator created by
@@ -44,7 +44,7 @@ fn main() { run().unwrap() }
 <a name="ex-byteorder-le"></a>
 ## Read and write integers in little-endian byte order
 
-[![byteorder-badge]][byteorder] [![cat-serialization-badge]][cat-serialization]
+[![byteorder-badge]][byteorder] [![cat-encoding-badge]][cat-encoding]
 
 ```rust
 extern crate byteorder;
@@ -96,26 +96,26 @@ fn main() { run().unwrap() }
 <a name="ex-rand-float"></a>
 ## Generate random floating point numbers
 
-[![rand-badge]][rand] [![cat-math-badge]][cat-math]
+[![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
 <a name="ex-rand-custom"></a>
 ## Generate random values on a custom type
 
-[![rand-badge]][rand] [![cat-math-badge]][cat-math]
+[![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
 <a name="ex-petgraph-basic"></a>
 ## Construct a graph of objects
 
-[![petgraph-badge]][petgraph] [![cat-math-badge]][cat-math]
+[![petgraph-badge]][petgraph] [![cat-science-badge]][cat-science]
 
 <!-- Categories -->
 
-[cat-file-io-badge]: https://img.shields.io/badge/-file_io-orange.svg
-[cat-file-io]: https://crates.io
-[cat-math-badge]: https://img.shields.io/badge/-rand-orange.svg
-[cat-math]: https://crates.io
-[cat-serialization-badge]: https://img.shields.io/badge/-serialization-orange.svg
-[cat-serialization]: https://crates.io
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-orange.svg
+[cat-filesystem]: https://crates.io/categories/filesystem
+[cat-science-badge]: https://img.shields.io/badge/-rand-orange.svg
+[cat-science]: https://crates.io/categories/science
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-orange.svg
+[cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->
 

@@ -23,18 +23,18 @@ For details see [CONTRIBUTING.md] on GitHub.
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-file-io-badge]][cat-file-io] |
-| [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-serialization-badge]][cat-serialization] |
-| [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-math-badge]][cat-math] |
-| [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-math-badge]][cat-math] |
-| [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-math-badge]][cat-math] |
+| [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
+| [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-science-badge]][cat-science] |
 
-## Serialization
+## Encoding
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Serialize and deserialize unstructured JSON][ex-json-basic] | [![serde-json-badge]][serde-json] | [![cat-serialization-badge]][cat-serialization] |
-| [Deserialize an unstructured TOML configuration file][ex-toml-basic] | [![toml-badge]][toml] | [![cat-serialization-badge]][cat-serialization] |
+| [Serialize and deserialize unstructured JSON][ex-json-basic] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
+| [Deserialize an unstructured TOML configuration file][ex-toml-basic] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 
 ## Concurrency
 
@@ -46,7 +46,7 @@ For details see [CONTRIBUTING.md] on GitHub.
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-app-badge]][cat-app] |
+| [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 
 <!--
 
@@ -61,16 +61,16 @@ Keep lines sorted.
 
 <!-- Categories -->
 
-[cat-app-badge]: https://img.shields.io/badge/-app-orange.svg
-[cat-app]: https://crates.io
+[cat-command-line-badge]: https://img.shields.io/badge/-command_line-orange.svg
+[cat-command-line]: https://crates.io/categories/command-line-interface
 [cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-orange.svg
-[cat-concurrency]: https://crates.io
-[cat-file-io-badge]: https://img.shields.io/badge/-file_io-orange.svg
-[cat-file-io]: https://crates.io
-[cat-math-badge]: https://img.shields.io/badge/-rand-orange.svg
-[cat-math]: https://crates.io
-[cat-serialization-badge]: https://img.shields.io/badge/-serialization-orange.svg
-[cat-serialization]: https://crates.io
+[cat-concurrency]: https://crates.io/categories/concurrency
+[cat-filesystem-badge]: https://img.shields.io/badge/-file_io-orange.svg
+[cat-filesystem]: https://crates.io/categories/filesystem
+[cat-science-badge]: https://img.shields.io/badge/-rand-orange.svg
+[cat-science]: https://crates.io/categories/science
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-orange.svg
+[cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->
 
