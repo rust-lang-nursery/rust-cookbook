@@ -2,12 +2,12 @@
 
 | Recipe | Crates |
 |--------|--------|
-| [Serialize and deserialize unstructured JSON][ex-json-basic] | [![serde-json-badge]][serde-json] |
-| [Deserialize an unstructured TOML configuration file][ex-toml-basic] | [![toml-badge]][toml] |
+| [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] |
+| [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] |
 
-[ex-json-basic]: #ex-json-basic
-<a name="ex-json-basic"></a>
-## Parse command line arguments
+[ex-json-value]: #ex-json-value
+<a name="ex-json-value"></a>
+## Serialize and deserialize unstructured JSON
 
 [![serde-json-badge]][serde-json]
 
@@ -59,9 +59,9 @@ fn main() {
 }
 ```
 
-[ex-toml-basic]: #ex-toml-basic
-<a name="ex-toml-basic"></a>
-## Parse command line arguments
+[ex-toml-config]: #ex-toml-config
+<a name="ex-toml-config"></a>
+## Deserialize a TOML configuration file
 
 [![toml-badge]][toml]
 
