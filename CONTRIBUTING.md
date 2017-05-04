@@ -1,12 +1,7 @@
 # Contributing to the Rust Cookbook
 
-Have something useful to add to the Rust Cookbook? We'd love to have it!
-
-This document contains information and guidelines that you should read before
-contributing to the project. If you think something in this document should change,
-feel free propose a change in a pull request.
-
-## Table of Contents
+The cookbook needs contributors and is intended to be easy to
+contribute to. Help is welcome.
 
 * [Building and testing](#building-and-testing)
 * [Finding what to contribute](#finding-what-to-contribute)
@@ -159,7 +154,9 @@ comments. Things that should be described include traits imported and
 their methods used. Think about what information here supports the use
 case and might not be obvious to someone new. Say the minimum possible
 about aspects that don't directly support the use case. See
-[basics.md] for examples.
+["basics"] for examples.
+
+["basics"]: https://brson.github.io/rust-cookbook/basics.html
 
 Hyperlink all references to APIs, either on doc.rust-lang.org/std or
 docs.rs, and style them as `code`.
