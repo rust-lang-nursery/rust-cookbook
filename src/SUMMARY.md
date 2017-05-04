@@ -4,5 +4,6 @@
 [About](about.md)
 
 - [Basics](basics.md)
+- [Encoding](encoding.md)
 - [Concurrency](concurrency.md)
 - [Application development](app.md)
