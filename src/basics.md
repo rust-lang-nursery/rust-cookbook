@@ -8,7 +8,7 @@
 | [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-math-badge]][cat-math] |
 | [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-math-badge]][cat-math] |
 
-<a name="ex-std-read-lines"/>
+<a name="ex-std-read-lines"></a>
 ## Read lines of strings from a file
 
 [![std-badge]][std] [![cat-file-io-badge]][cat-file-io]
@@ -41,7 +41,7 @@ fn run() -> io::Result<()> {
 fn main() { run().unwrap() }
 ```
 
-<a name="ex-byteorder-le"/>
+<a name="ex-byteorder-le"></a>
 ## Read and write integers in little-endian byte order
 
 [![byteorder-badge]][byteorder] [![cat-serialization-badge]][cat-serialization]
@@ -93,17 +93,17 @@ error_chain! {
 fn main() { run().unwrap() }
 ```
 
-<a name="ex-rand-float"/>
+<a name="ex-rand-float"></a>
 ## Generate random floating point numbers
 
 [![rand-badge]][rand] [![cat-math-badge]][cat-math]
 
-<a name="ex-rand-custom"/>
+<a name="ex-rand-custom"></a>
 ## Generate random values on a custom type
 
 [![rand-badge]][rand] [![cat-math-badge]][cat-math]
 
-<a name="ex-petgraph-basic"/>
+<a name="ex-petgraph-basic"></a>
 ## Construct a graph of objects
 
 [![petgraph-badge]][petgraph] [![cat-math-badge]][cat-math]
