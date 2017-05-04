@@ -74,21 +74,21 @@ Keep lines sorted.
 
 <!-- Crates -->
 
-[byteorder-badge]: https://img.shields.io/badge/byteorder-1.0.0-blue.svg
+[byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/1.0.0/byteorder/
-[clap-badge]: https://img.shields.io/badge/clap-2.22.2-blue.svg
+[clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/2.22.0/rand/
 [serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
-[petgraph-badge]: https://img.shields.io/badge/petgraph-0.4.3-blue.svg
+[petgraph-badge]: https://img.shields.io/crates/v/petgraph.svg?label=petgraph
 [petgraph]: https://docs.rs/petgraph/0.4.3/petgraph/
-[rand-badge]: https://img.shields.io/badge/rand-0.3.15-blue.svg
+[rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/0.3.15/rand/
-[rayon-badge]: https://img.shields.io/badge/rayon-0.6.0-blue.svg
+[rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
 [rayon]: https://docs.rs/rayon/0.6.0/rayon/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
-[toml-badge]: https://img.shields.io/badge/toml-0.3.0-blue.svg
+[toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/0.3.0/toml/
 
 <!-- Examples -->
