@@ -1,15 +1,16 @@
-# Clap Example
+# Application development
+
+| Recipe | Crates |
+|--------|--------|
+| [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] |
+
+[ex-clap-basic]: #ex-clap-basic
+<a name="ex-clap-basic"></a>
+## Parse command line arguments
+
 [![clap-badge]][clap]
 
-## Parse values passed to the program through command line
-
 ```rust
-
-/**
- * An example of commandline argument parsing, with
- * focus on using the clap library tools.
- */
-
 // Argument parsing
 extern crate clap;
 use clap::{Arg, App};
@@ -59,22 +60,34 @@ fn main() {
 }
 ```
 
-The purpose of this is to display the raw power of the clap library, an extensive command line argument parser for Rust. First, the user writes a description for their App, given a version, author, and about string.
+The purpose of this is to display the raw power of the clap library, an
+extensive command line argument parser for Rust. First, the user writes a
+description for their App, given a version, author, and about string.
 
-The next step involves describing the args that clap can expect. 'with_name' is the option or argument descriptor that 'value_of' uses to get the value passed. 'short' and 'long' sets the version to be passed with characters '-' and '--', respectively, through the command line. 'value_name' is simply cosmetic, and is NOT used in getting any actual values. 'help' allows the user to describe what the argument is used for or what the argument expects. If 'takes_value' is set to true, it will expect the argument to take a value, such as a string, filename, or number, as in the example above. For more examples of usage and a description of what clap is capable of, please visit their [wiki](https://kbknapp.github.io/clap-rs/clap/struct.App.html).
+The next step involves describing the args that clap can expect. 'with_name' is
+the option or argument descriptor that 'value_of' uses to get the value passed.
+'short' and 'long' sets the version to be passed with characters '-' and '--',
+respectively, through the command line. 'value_name' is simply cosmetic, and is
+NOT used in getting any actual values. 'help' allows the user to describe what
+the argument is used for or what the argument expects. If 'takes_value' is set
+to true, it will expect the argument to take a value, such as a string,
+filename, or number, as in the example above. For more examples of usage and a
+description of what clap is capable of, please visit their
+[wiki](https://kbknapp.github.io/clap-rs/clap/struct.App.html).
 
 We can test this program by running command similar to the following:
 
 ```
 cargo run -- -f myfile.txt -i "I <3 Rust!!!" --count 6
 ```
+
 ```
 > The file passed is: myfile.txt
 > The string passed is: I <3 Rust!!!
 > The value of the number passed plus 5 is: 11
 ```
 
-<!-- Links -->
+<!-- Crates -->
 
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
-[clap]: https://docs.rs/clap
+[clap]: https://docs.rs/clap/

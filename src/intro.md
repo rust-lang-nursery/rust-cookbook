@@ -94,7 +94,7 @@ Keep lines sorted.
 <!-- Examples -->
 
 [ex-byteorder-le]: basics.html#ex-byteorder-le
-[ex-clap-basic]: todo
+[ex-clap-basic]: app.html#ex-clap-basic
 [ex-json-basic]: todo
 [ex-petgraph-basic]: basics.html#ex-petgraph-basic
 [ex-rand-custom]: basics.html#ex-rand-custom
