@@ -108,7 +108,7 @@ fn main() { run().unwrap() }
 
 [![petgraph-badge]][petgraph] [![cat-math-badge]][cat-math]
 
-<!- Categories -->
+<!-- Categories -->
 
 [cat-file-io-badge]: https://img.shields.io/badge/-file_io-orange.svg
 [cat-file-io]: https://crates.io
