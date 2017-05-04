@@ -8,6 +8,8 @@
 | [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-science-badge]][cat-science] |
 
+
+[ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
 ## Read lines of strings from a file
 
@@ -41,6 +43,7 @@ fn run() -> io::Result<()> {
 fn main() { run().unwrap() }
 ```
 
+[ex-byteorder-le]: #ex-byteorder-le
 <a name="ex-byteorder-le"></a>
 ## Read and write integers in little-endian byte order
 
@@ -93,16 +96,19 @@ error_chain! {
 fn main() { run().unwrap() }
 ```
 
+[ex-rand-float]: #ex-rand-float
 <a name="ex-rand-float"></a>
 ## Generate random floating point numbers
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
+[ex-rand-custom]: #ex-rand-custom
 <a name="ex-rand-custom"></a>
 ## Generate random values on a custom type
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
+[ex-petgraph-basic]: #ex-petgraph-basic
 <a name="ex-petgraph-basic"></a>
 ## Construct a graph of objects
 
@@ -127,14 +133,6 @@ fn main() { run().unwrap() }
 [rand]: https://docs.rs/rand/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
-
-<!-- Examples -->
-
-[ex-byteorder-le]: basics.html#ex-byteorder-le
-[ex-petgraph-basic]: basics.html#ex-petgraph-basic
-[ex-rand-custom]: basics.html#ex-rand-custom
-[ex-rand-float]: basics.html#ex-rand-float
-[ex-std-read-lines]: basics.html#ex-std-read-lines
 
 <!-- API links -->
 
