@@ -6,7 +6,6 @@
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
-| [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-science-badge]][cat-science] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -108,12 +107,6 @@ fn main() { run().unwrap() }
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-[ex-petgraph-basic]: #ex-petgraph-basic
-<a name="ex-petgraph-basic"></a>
-## Construct a graph of objects
-
-[![petgraph-badge]][petgraph] [![cat-science-badge]][cat-science]
-
 <!-- Categories -->
 
 [cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-orange.svg
@@ -127,8 +120,6 @@ fn main() { run().unwrap() }
 
 [byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
-[petgraph-badge]: https://img.shields.io/crates/v/petgraph.svg?label=petgraph
-[petgraph]: https://docs.rs/petgraph/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg

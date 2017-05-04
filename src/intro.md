@@ -27,7 +27,6 @@ For details see [CONTRIBUTING.md] on GitHub.
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
-| [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-science-badge]][cat-science] |
 
 ## Encoding
 
@@ -80,8 +79,6 @@ Keep lines sorted.
 [clap]: https://docs.rs/clap/
 [serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
-[petgraph-badge]: https://img.shields.io/crates/v/petgraph.svg?label=petgraph
-[petgraph]: https://docs.rs/petgraph/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
@@ -96,7 +93,6 @@ Keep lines sorted.
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-json-basic]: todo
-[ex-petgraph-basic]: basics.html#ex-petgraph-basic
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-float]: basics.html#ex-rand-float
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
