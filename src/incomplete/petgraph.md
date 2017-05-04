@@ -3,7 +3,7 @@
 [![petgraph-badge]][petgraph]
 
 ### Example: Drawing the Petersen Graph
-`petgraph` has powerful features for graph representation and algorithms. 
+`petgraph` has powerful features for graph representation and algorithms.
 In the example below, we create and draw a graph in dot format.
 
 *Key concepts:*
@@ -26,7 +26,7 @@ fn main() {
     for i in 1..11 {
         v.push(g.add_node(i));
     }
-    
+
     // Connect with 15 edges
     for i in 0..4 {
         g.add_edge(v[i], v[i + 1], w);
@@ -40,7 +40,7 @@ fn main() {
     g.add_edge(v[6], v[8], w);
     g.add_edge(v[6], v[9], w);
     g.add_edge(v[7], v[9], w);
-    
+
     // Print in graphviz dot format
     println!("{:?}", Dot::with_config(&g, &[Config::EdgeNoLabel]));
 }

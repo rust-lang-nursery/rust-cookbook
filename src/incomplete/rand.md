@@ -48,7 +48,7 @@ fn monte_carlo(a: f32, b: f32, n: u32) -> f32 {
 
     // Generate n samples between [a, b)
     for _ in 0..n {
-        samples.push(rng.gen_range(a, b)); 
+        samples.push(rng.gen_range(a, b));
     }
 
     // Find function values
@@ -56,7 +56,7 @@ fn monte_carlo(a: f32, b: f32, n: u32) -> f32 {
     for x in samples {
         sum += f(x);
     }
-    
+
     // Returns average of samples over interval
     (b - a) / n as f32 * sum
 }
@@ -75,7 +75,7 @@ A *trait* is a language feature that tells the Rust compiler about functionality
 
 Rust has the powerful ability to create traits for your own types.
 One example is `rand::Rand`. Any type that implements Rand can use the
-polymorphic function `Rng::gen()` to generate random types. 
+polymorphic function `Rng::gen()` to generate random types.
 
 *Key concepts:*
 * Generating a random structure
