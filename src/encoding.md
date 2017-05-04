@@ -26,7 +26,7 @@ The example below shows a `&str` of JSON being parsed and then compared to what
 we expect the parsed value to be. The expected value is declared using the
 [`json!`] macro.
 
-[`json!]: https://docs.serde.rs/serde_json/macro.json.html
+[`json!`]: https://docs.serde.rs/serde_json/macro.json.html
 
 ```rust
 #[macro_use]
