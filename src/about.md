@@ -1,5 +1,13 @@
 # About "Cookin' with Rust"
 
+## Table of contents
+
+- [Who this book is for](#who)
+- [How to read this book](#reading)
+- [How to use the examples](#examples)
+- [A note about error handling](#errors)
+- [A note about crate representation](#which-crates)
+
 ## Who this book is for
 
 ## How to read this book
@@ -78,6 +86,10 @@ work.
 
 For more background on error handling in Rust, read [this page of the
 Rust book][error-docs] and [this blog post][error-blog].
+
+## A note about crate representation
+
+
 
 <!-- Links-->
 
