@@ -71,10 +71,10 @@ fn main() {
 }
 ```
 
-This is using the `error_chain!` macro to define a custom `Error`
-and `Result` type, along with an automatic conversion from
-the common `::std::io::Error` type. The automatic conversion
-makes the `?` operator work .
+This is using the `error_chain!` macro to define a custom `Error` and
+`Result` type, along with an automatic conversion from two standard
+library error types. The automatic conversion makes the `?` operator
+work.
 
 For more background on error handling in Rust, read [this page of the
 Rust book][error-docs] and [this blog post][error-blog].
