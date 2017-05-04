@@ -26,13 +26,15 @@ use std::fs::File;
 use std::io::{self, Write, BufReader, BufRead};
 
 fn run() -> io::Result<()> {
+    let path = "lines.txt";
 
-    write!(File::create("lines.txt")?, "Rust\n💖\nFun")?;
+    let mut output = File::create(path)?;
+    write!(output, "Rust\n💖\nFun")?;
 
-    let file = File::open("lines.txt")?;
-    let file = BufReader::new(file);
+    let input = File::open(path)?;
+    let buffered = BufReader::new(input);
 
-    for line in file.lines() {
+    for line in buffered.lines() {
         println!("{}", line?);
     }
 
