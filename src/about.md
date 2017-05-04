@@ -26,8 +26,7 @@ The code for this setup generally looks like:
 use std::io::{self, Write};
 
 fn run() -> io::Result<()> {
-    let ref mut stdout = io::stdout();
-    writeln!(stdout, "hello, world")?;
+    writeln!(io::stderr(), "hello, world")?;
 
     Ok(())
 }
