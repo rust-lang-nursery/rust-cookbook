@@ -65,41 +65,47 @@ fn main() {
 
 [![toml-badge]][toml]
 
-Parse TOML into a `toml::Value` and then operate on it:
+Parse some TOML into a universal `toml::Value` that is able to represent any
+valid TOML data.
 
 ```rust
 extern crate toml;
 
+use toml::Value;
+
 fn main() {
-    let toml_source = "
-        [package]
-        name = \"your package!\"
-        version = \"0.1.0\"
-        authors = [\"You! <you@example.org>\"]
+    let toml_content = r#"
+          [package]
+          name = "your_package"
+          version = "0.1.0"
+          authors = ["You! <you@example.org>"]
 
-        [dependencies]
-        cool = \"0.2.1\"";
+          [dependencies]
+          serde = "1.0"
+          "#;
 
-    let package_info = toml_source.parse::<toml::Value>().unwrap();
+    let package_info: Value = toml::from_str(toml_content).unwrap();
 
-    assert_eq!(package_info["dependencies"]["cool"].as_str(), Some("0.2.1"));
-    assert_eq!(package_info["package"]["name"].as_str(), Some("your package!"));
+    assert_eq!(package_info["dependencies"]["serde"].as_str(), Some("1.0"));
+    assert_eq!(package_info["package"]["name"].as_str(), Some("your_package"));
 }
 ```
 
 Parse TOML into your own structs using Serde:
 
 ```rust
-extern crate toml;
-
 #[macro_use]
 extern crate serde_derive;
+
 extern crate serde;
+extern crate toml;
+
+use std::collections::HashMap;
 
 #[derive(Deserialize)]
 struct Config {
     package: Package,
-    dependencies: std::collections::HashMap<String, String>,
+    dependencies: HashMap<String, String>,
 }
 
 #[derive(Deserialize)]
@@ -110,21 +116,22 @@ struct Package {
 }
 
 fn main() {
-    let toml_source = "
-        [package]
-        name = \"your package!\"
-        version = \"0.1.0\"
-        authors = [\"You! <you@example.org>\"]
+    let toml_content = r#"
+          [package]
+          name = "your_package"
+          version = "0.1.0"
+          authors = ["You! <you@example.org>"]
 
-        [dependencies]
-        cool = \"0.2.1\"";
+          [dependencies]
+          serde = "1.0"
+          "#;
 
-    let package_info : Config = toml::from_str(toml_source).unwrap();
+    let package_info: Config = toml::from_str(toml_content).unwrap();
 
-    assert_eq!(package_info.package.name, "your package!");
+    assert_eq!(package_info.package.name, "your_package");
     assert_eq!(package_info.package.version, "0.1.0");
     assert_eq!(package_info.package.authors, vec!["You! <you@example.org>"]);
-    assert_eq!(package_info.dependencies["cool"], "0.2.1");
+    assert_eq!(package_info.dependencies["serde"], "1.0");
 }
 ```
 
