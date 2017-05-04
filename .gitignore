@@ -1,4 +1,5 @@
-target
+target/
 *~
 book/
 *.swp
+lines.txt
