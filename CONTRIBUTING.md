@@ -11,7 +11,7 @@ feel free propose a change in a pull request.
 * [Building and testing](#building-and-testing)
 * [Finding what to contribute](#finding-what-to-contribute)
 * [Adding an example](#how-to-contribute)
-* [Example guidelines(#example-guidelines)
+* [Example guidelines](#example-guidelines)
 
 ## Building and testing
 
@@ -118,7 +118,7 @@ but since the cookbook is so new, quite possibly not. Ask on thread.
 For most steps you can simply follow the lead of existing examples.
 The art comes in writing effective examples.
 
-### Example guidelines
+## Example guidelines
 
 Examples in the cookbook have these goals and qualities:
 
@@ -163,6 +163,10 @@ about aspects that don't directly support the use case. See
 
 Hyperlink all references to APIs, either on doc.rust-lang.org/std or
 docs.rs, and style them as `code`.
+
+Finally, this book is intended to also demonstrate the integration
+of crates that work well together. Super bonus points for examples
+that feature multiple crates sensibly.
 
 [errors]: https://brson.github.io/rust-cookbook/about.html#errors
 
