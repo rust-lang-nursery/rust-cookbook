@@ -7,7 +7,7 @@ simple examples that demonstrate good practices to accomplish common
 programming tasks, using the crates of the Rust ecosystem.
 
 [Read more about _Cookin' with Rust_](about.html), including tips for
-how to read the book, how to use the examples, notes on conventions.
+how to read the book, how to use the examples, and notes on conventions.
 
 ## Contributing
 
