@@ -41,7 +41,9 @@ fn run() -> io::Result<()> {
     Ok(())
 }
 
-fn main() { run().unwrap() }
+fn main() {
+    run().unwrap();
+}
 ```
 
 [ex-byteorder-le]: #ex-byteorder-le
@@ -86,7 +88,9 @@ fn decode(mut bytes: &[u8]) -> io::Result<Payload> {
     Ok(payload)
 }
 
-fn main() { run().unwrap() }
+fn main() {
+    run().unwrap();
+}
 ```
 
 [ex-rand-float]: #ex-rand-float

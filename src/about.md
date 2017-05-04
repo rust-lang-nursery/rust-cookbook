@@ -32,7 +32,9 @@ fn run() -> io::Result<()> {
     Ok(())
 }
 
-fn main() { run().unwrap() }
+fn main() {
+    run().unwrap();
+}
 ```
 
 and when necessary to reduce boilerplate,
@@ -82,7 +84,9 @@ error_chain! {
     }
 }
 
-fn main() { run().unwrap() }
+fn main() {
+    run().unwrap();
+}
 ```
 
 This is using the `error_chain!` macro to define a custom `Error`
