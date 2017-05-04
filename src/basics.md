@@ -5,7 +5,7 @@
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
-| [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Construct a graph of objects][ex-petgraph-basic] | [![petgraph-badge]][petgraph] | [![cat-science-badge]][cat-science] |
 
 
@@ -104,7 +104,7 @@ fn main() { run().unwrap() }
 
 [ex-rand-custom]: #ex-rand-custom
 <a name="ex-rand-custom"></a>
-## Generate random values on a custom type
+## Generate random values of a custom type
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
