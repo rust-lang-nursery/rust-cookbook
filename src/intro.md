@@ -32,8 +32,8 @@ For details see [CONTRIBUTING.md] on GitHub.
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Serialize and deserialize unstructured JSON][ex-json-basic] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
-| [Deserialize a TOML configuration file][ex-toml-basic] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
+| [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
+| [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 
 ## Concurrency
 
@@ -92,9 +92,9 @@ Keep lines sorted.
 
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
-[ex-json-basic]: todo
+[ex-json-value]: encoding.html#ex-json-value
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-float]: basics.html#ex-rand-float
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
 [ex-std-read-lines]: basics.html#ex-std-read-lines
-[ex-toml-basic]: todo
+[ex-toml-config]: encoding.html#ex-toml-config
