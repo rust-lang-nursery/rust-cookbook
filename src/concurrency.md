@@ -16,7 +16,7 @@ extern crate rayon;
 use rayon::prelude::*;
 
 fn main() {
-    let arr = &mut [0, 7, 9, 11];
+    let mut arr = [0, 7, 9, 11];
 
     arr.par_iter_mut().for_each(|p| *p -= 1);
 
