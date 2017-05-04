@@ -99,6 +99,6 @@ Keep lines sorted.
 [ex-petgraph-basic]: basics.html#ex-petgraph-basic
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-float]: basics.html#ex-rand-float
-[ex-rayon-iter-mut]: todo
+[ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-toml-basic]: todo
