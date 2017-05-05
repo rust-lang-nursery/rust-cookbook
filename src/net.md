@@ -14,7 +14,20 @@
 <a name="ex-url-parse"/>
 ## Parse a URL from a string to a `Url` type
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/33)
+The [`Url`](https://docs.rs/url/struct.Url.html) struct provides the [`parse`](https://docs.rs/url/struct.Url.html#method.parse) method to build a URL from a &str which returns a `Result<Url, ParseError>`.
+
+```rust
+extern crate url;
+use url::Url;
+
+fn main() {
+    let url_string = "data:text/plain,Hello?World#";
+    let url = Url::parse(url_string).unwrap();
+    
+    assert_eq!(url.as_str(), url_string)
+}
+```
+For documentation of `ParseError` see [this](https://docs.rs/url/enum.ParseError.html).
 
 [ex-url-base]: #ex-url-base
 <a name="ex-url-base"></a>
@@ -26,13 +39,55 @@
 <a name="ex-url-new-from-base"></a>
 ## Create new URLs from a base URL
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/35)
+The [`Url`](https://docs.rs/url/struct.Url.html) struct provides the [`join`](https://docs.rs/url/struct.Url.html#method.join) method to create a new URL from a base.
+
+```rust
+extern crate url;
+use url::Url;
+
+fn main() {
+    let this_document = Url::parse("http://servo.github.io/rust-url/url/index.html").unwrap();
+    let css_url = this_document.join("../main.css").unwrap();
+    
+    assert_eq!(css_url.as_str(), "http://servo.github.io/rust-url/main.css")
+}
+```
 
 [ex-url-origin]: #ex-url-origin
 <a name="ex-url-origin"></a>
 ## Extract the URL origin (scheme / host / port)
+The [`Url`](https://docs.rs/url/struct.Url.html) struct various methods to get information about the URL, here is an example where we retrieve it's origin.
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/36)
+```rust
+extern crate url;
+use url::{Url, Host};
+
+fn main() {
+    let url = Url::parse("ftp://example.com/foo").unwrap();
+    assert!(url.scheme() == "ftp");
+    assert!(url.host() == Some(Host::Domain("example.com".into())));
+    assert!(url.port_or_known_default() == Some(21));
+}
+```
+
+The same result can be obtained using the [`origin`](https://docs.rs/url/struct.Url.html#method.origin) method, which returns an [`Origin`](https://docs.rs/url/enum.Origin.html) enumerator.
+
+```rust
+extern crate url;
+use url::{Url, Origin, Host};
+
+fn main() {
+    let url = Url::parse("ftp://example.com/foo").unwrap();
+    assert_eq!(
+        url.origin(),
+        Origin::Tuple(
+                "ftp".into(),
+                 Host::Domain("example.com".into()),
+                 21
+        )
+    );
+}
+```
 
 [ex-url-rm-frag]: #ex-url-rm-frag
 <a name="ex-url-rm-frag"></a>
