@@ -28,6 +28,7 @@ fn main() {
         "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open"
     ).unwrap();
     println!("url: {}", url.as_str());
+}
 ```
 
 [ex-url-base]: #ex-url-base
