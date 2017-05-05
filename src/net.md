@@ -14,7 +14,19 @@
 <a name="ex-url-parse"/>
 ## Parse a URL from a string to a `Url` type
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/33)
+Parses a URL from a string to a `Url` type and then prints it to the console.
+
+```rust
+extern crate url;
+
+use url::Url;
+
+fn main() {
+    let url = Url::parse(
+        "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open"
+    ).unwrap();
+    println!("url: {}", url.as_str());
+```
 
 [ex-url-base]: #ex-url-base
 <a name="ex-url-base"></a>
