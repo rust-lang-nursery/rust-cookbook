@@ -122,7 +122,7 @@ Examples in the cookbook have these goals and qualities:
 - They can be read and understood by complete beginners
 - They are standalone examples that can be copied into a learners'
   own workspace and compiled and modified for experimentation
-- They demonstrate real tasks, such that expereinced developers
+- They demonstrate real tasks, such that experienced developers
   can use as a reference
 - They follow best practices and do not take shortcuts
 - They use consistent error handling
