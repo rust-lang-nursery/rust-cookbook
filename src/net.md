@@ -14,6 +14,8 @@
 <a name="ex-url-parse"/>
 ## Parse a URL from a string to a `Url` type
 
+[![url-badge]][url] [![cat-net-badge]][cat-net]
+
 Parses a URL from a string to a `Url` type and then prints it to the console.
 
 ```rust
