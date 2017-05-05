@@ -107,11 +107,11 @@ fn main() {
 
 <!-- Categories -->
 
-[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-orange.svg
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-science-badge]: https://img.shields.io/badge/-rand-orange.svg
+[cat-science-badge]: https://img.shields.io/badge/-rand-red.svg
 [cat-science]: https://crates.io/categories/science
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-orange.svg
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
 [cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->

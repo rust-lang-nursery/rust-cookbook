@@ -60,15 +60,15 @@ Keep lines sorted.
 
 <!-- Categories -->
 
-[cat-command-line-badge]: https://img.shields.io/badge/-command_line-orange.svg
+[cat-command-line-badge]: https://img.shields.io/badge/-command_line-red.svg
 [cat-command-line]: https://crates.io/categories/command-line-interface
-[cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-orange.svg
+[cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-red.svg
 [cat-concurrency]: https://crates.io/categories/concurrency
-[cat-filesystem-badge]: https://img.shields.io/badge/-file_io-orange.svg
+[cat-filesystem-badge]: https://img.shields.io/badge/-file_io-red.svg
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-science-badge]: https://img.shields.io/badge/-rand-orange.svg
+[cat-science-badge]: https://img.shields.io/badge/-rand-red.svg
 [cat-science]: https://crates.io/categories/science
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-orange.svg
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
 [cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->
