@@ -22,9 +22,10 @@ use url::Url;
 
 fn main() {
     let url_string = "data:text/plain,Hello?World#";
-    let url = Url::parse(url_string).unwrap();
-    
-    assert_eq!(url.as_str(), url_string)
+    match Url::parse(url_string) {
+        Ok(url) => println!("Url was succesfully parsed"),
+        Err(error) => println!("Invalid url syntax")
+    }
 }
 ```
 For documentation of `ParseError` see [this](https://docs.rs/url/enum.ParseError.html).
@@ -43,13 +44,20 @@ The [`Url`](https://docs.rs/url/struct.Url.html) struct provides the [`join`](ht
 
 ```rust
 extern crate url;
-use url::Url;
+use url::{Url, ParseError};
 
 fn main() {
-    let this_document = Url::parse("http://servo.github.io/rust-url/url/index.html").unwrap();
-    let css_url = this_document.join("../main.css").unwrap();
+    match create_from_base("http://servo.github.io/rust-url/url/index.html", "../main.css") {
+        Ok(url) => assert_eq!(url.as_str(), "http://servo.github.io/rust-url/main.css"),
+        Err(error) => println!("Invalid url syntax")
+    }
+}
+
+fn create_from_base(base: &str, seg: &str) -> Result<Url, ParseError> {
+    let base_url = Url::parse(base)?;
+    let seg_url = base_url.join(seg)?;
     
-    assert_eq!(css_url.as_str(), "http://servo.github.io/rust-url/main.css")
+    Ok(seg_url)
 }
 ```
 
@@ -63,10 +71,11 @@ extern crate url;
 use url::{Url, Host};
 
 fn main() {
-    let url = Url::parse("ftp://example.com/foo").unwrap();
-    assert!(url.scheme() == "ftp");
-    assert!(url.host() == Some(Host::Domain("example.com".into())));
-    assert!(url.port_or_known_default() == Some(21));
+    if let Ok(url) = Url::parse("ftp://example.com/foo") {
+        assert!(url.scheme() == "ftp");
+        assert!(url.host() == Some(Host::Domain("example.com".into())));
+        assert!(url.port_or_known_default() == Some(21));
+    };
 }
 ```
 
@@ -77,15 +86,16 @@ extern crate url;
 use url::{Url, Origin, Host};
 
 fn main() {
-    let url = Url::parse("ftp://example.com/foo").unwrap();
-    assert_eq!(
-        url.origin(),
-        Origin::Tuple(
-                "ftp".into(),
-                 Host::Domain("example.com".into()),
-                 21
-        )
-    );
+    if let Ok(url) = Url::parse("ftp://example.com/foo") {
+        assert_eq!(
+            url.origin(),
+            Origin::Tuple(
+                    "ftp".into(),
+                     Host::Domain("example.com".into()),
+                     21
+            )
+        );
+    };
 }
 ```
 
