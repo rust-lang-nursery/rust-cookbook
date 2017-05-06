@@ -14,7 +14,22 @@
 <a name="ex-url-parse"/>
 ## Parse a URL from a string to a `Url` type
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/33)
+[![url-badge]][url] [![cat-net-badge]][cat-net]
+
+Parses a URL from a string to a `Url` type and then prints it to the console. If the string doesn't parse as a `Url`, then you'll get a panic.
+
+```rust
+extern crate url;
+
+use url::Url;
+
+fn main() {
+    match Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&state=open") {
+        Ok(url) => println!("url: {}", url),
+        Err(error) => panic!("Errored parsing url: {}", error),
+    };
+}
+```
 
 [ex-url-base]: #ex-url-base
 <a name="ex-url-base"></a>
