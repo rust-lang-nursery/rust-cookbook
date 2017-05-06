@@ -41,7 +41,26 @@ fn main() {
 <a name="ex-url-new-from-base"></a>
 ## Create new URLs from a base URL
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/35)
+[![url-badge]][url]
+```rust
+extern crate url;
+
+use url::{ParseError, Url};
+
+const BASE_GITHUB_URL: &'static str = "https://github.com";
+
+fn main() {
+    match build_github_url("rust-lang/cargo") {
+        Ok(url) => assert_eq!(url.as_str(), "https://github.com/rust-lang/cargo"),
+        Err(error) => panic!("Errored building url: {}", error),
+    }
+}
+
+fn build_github_url(path: &str) -> Result<Url, ParseError> {
+    let base_url = Url::parse(BASE_GITHUB_URL)?;
+    base_url.join(path)
+}
+```
 
 [ex-url-origin]: #ex-url-origin
 <a name="ex-url-origin"></a>
