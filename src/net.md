@@ -39,18 +39,36 @@ fn main() {
 ```rust
 extern crate url;
 
-use url::{ParseError, Url};
+use url::{ParseError as UrlParseError, Url};
+
+#[derive(Debug)]
+enum Error {
+    Parse(UrlParseError),
+    PathSegment,
+}
+
+impl From<UrlParseError> for Error {
+    fn from(error: UrlParseError) -> Error {
+        Error::Parse(error)
+    }
+}
+
+impl From<()> for Error {
+    fn from(_error: ()) -> Error {
+        Error::PathSegment
+    }
+}
 
 fn main() {
     match parse_base_url("https://github.com/rust-lang/cargo") {
         Ok(base_url) => assert_eq!(base_url.as_str(), "https://github.com/"),
-        Err(error) => panic!("Errored parsing url: {}", error),
+        Err(error) => panic!("Errored parsing url: {:?}", error),
     }
 }
 
-fn parse_base_url(url: &str) -> Result<Url, ParseError> {
+fn parse_base_url(url: &str) -> Result<Url, Error> {
     let mut url = Url::parse(url)?;
-    url.path_segments_mut().expect("Url to have a base").clear();
+    url.path_segments_mut()?.clear();
     Ok(url)
 }
 ```
