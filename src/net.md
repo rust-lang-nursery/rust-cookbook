@@ -35,7 +35,25 @@ fn main() {
 <a name="ex-url-base"></a>
 ## Create a base URL by removing path segments
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/34)
+[![url-badge]][url]
+```rust
+extern crate url;
+
+use url::{ParseError, Url};
+
+fn main() {
+    match parse_base_url("https://github.com/rust-lang/cargo") {
+        Ok(base_url) => assert_eq!(base_url.as_str(), "https://github.com/"),
+        Err(error) => panic!("Errored parsing url: {}", error),
+    }
+}
+
+fn parse_base_url(url: &str) -> Result<Url, ParseError> {
+    let mut url = Url::parse(url)?;
+    url.path_segments_mut().expect("Url to have a base").clear();
+    Ok(url)
+}
+```
 
 [ex-url-new-from-base]: #ex-url-new-from-base
 <a name="ex-url-new-from-base"></a>
