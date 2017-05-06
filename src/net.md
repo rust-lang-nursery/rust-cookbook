@@ -16,7 +16,7 @@
 
 [![url-badge]][url] [![cat-net-badge]][cat-net]
 
-Parses a URL from a string to a `Url` type and then prints it to the console.
+Parses a URL from a string to a `Url` type and then prints it to the console. If the string doesn't parse as a `Url`, then you'll get a panic.
 
 ```rust
 extern crate url;
@@ -24,10 +24,10 @@ extern crate url;
 use url::Url;
 
 fn main() {
-    let url = Url::parse(
-        "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open"
-    ).unwrap();
-    println!("url: {}", url.as_str());
+    match Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&state=open") {
+        Ok(url) => println!("url: {}", url),
+        Err(error) => panic!("Errored parsing url: {}", error),
+    };
 }
 ```
 
