@@ -32,7 +32,6 @@ h5 {
 table {
   margin: 0 auto;
   border-collapse: collapse;
-  width: 100%;
 }
 table td {
   padding: 3px 20px;
@@ -818,4 +817,10 @@ table thead td {
     white-space: -o-pre-wrap /* Opera 7 */;
     word-wrap: break-word /* Internet Explorer 5.5+ */;
   }
+}
+
+/* === RUST COOKBOOK ======================================================== */
+
+table {
+  width: 100%;
 }
