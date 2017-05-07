@@ -99,11 +99,51 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
+```rust
+extern crate rand;
+use rand::Rng;
+
+fn main() {
+    let mut rng = rand::thread_rng();
+    println!("Random f64: {}", rng.gen::<f64>());
+}
+```
+
 [ex-rand-custom]: #ex-rand-custom
 <a name="ex-rand-custom"></a>
 ## Generate random values of a custom type
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
+
+A tuple `(i32, bool, f64)` and variable of user defined type `Point`
+are randomly generated. In order to alow random generation of `Point`
+it needs to implement the [`rand::Rand`] trait.
+
+```rust
+extern crate rand;
+use rand::{Rng, Rand};
+
+#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Rand for Point {
+    fn rand<R: Rng>(rng: &mut R) -> Point {
+        let (rand_x, rand_y) = rng.gen();
+        Point { x: rand_x, y: rand_y }
+    }
+}
+
+fn main() {
+    let mut rng = rand::thread_rng();
+    let rand_tuple = rng.gen::<(i32, bool, f64)>();
+    let rand_point: Point = rng.gen();
+    println!("Random tuple: {:?}", rand_tuple);
+    println!("Random Point: {:?}", rand_point);
+}
+```
 
 <!-- Categories -->
 
@@ -120,6 +160,7 @@ fn main() {
 [byteorder]: https://docs.rs/byteorder/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
+[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
 
