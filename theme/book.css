@@ -824,3 +824,7 @@ table thead td {
 table {
   width: 100%;
 }
+
+pre > .buttons {
+  display: none;
+}
