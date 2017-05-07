@@ -38,7 +38,7 @@ fn main() {
     let j = r#"{
                  "userid": 103609,
                  "verified": true,
-                 "access_privelages": [
+                 "access_privileges": [
                    "user",
                    "admin"
                  ]
@@ -49,7 +49,7 @@ fn main() {
     let expected = json!({
         "userid": 103609,
         "verified": true,
-        "access_privelages": [
+        "access_privileges": [
             "user",
             "admin"
         ]
