@@ -8,7 +8,7 @@
 | [Extract the URL origin (scheme / host / port)][ex-url-origin] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Remove fragment identifiers and query pairs from a URL][ex-url-rm-frag] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Serialize a `Url`][ex-url-serialize] | [![url-badge]][url] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]|
-| [Make a HTTP GET request after parsing a URL][ex-url-reqwest] | [![reqwest-badge]][reqwest] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Make a HTTP GET request][ex-url-reqwest] | [![reqwest-badge]][reqwest] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -234,10 +234,39 @@ fn main() {
 
 [ex-url-reqwest]: #ex-url-reqwest
 <a name="ex-url-reqwest"></a>
-## Make a HTTP GET request after parsing a URL
+## Make a HTTP GET request
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/39)
+The [`reqwest::get`] function parses the supplied url and makes a
+synchronus HTTP GET request. Obtained [`reqwest::Response`]
+status and headders are printed and custom `Result` with allocated `String` containing the HTTP response body is returned.
 
+```rust,no_run
+extern crate reqwest;
+#[macro_use]
+extern crate error_chain;
+use std::io::Read;
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        HttpReqest(reqwest::Error);
+    }
+}
+
+fn http_get_body() -> Result<String> {
+    let mut res = reqwest::get("http://httpbin.org/get")?;
+    println!("Status: {}", res.status());
+    println!("Headers:\n{}", res.headers());
+    let mut body = String::new();
+    res.read_to_string(&mut body)?;
+    Ok(body)
+}
+
+fn main() {
+    let body = http_get_body().unwrap();
+    println!("Body:\n{}", body);
+}
+```
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -248,7 +277,7 @@ fn main() {
 <!-- Crates -->
 
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
-[reqwest]: https://docs.rs/url/
+[reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
@@ -261,3 +290,5 @@ fn main() {
 [`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
 [`origin`]: https://docs.rs/url/1.*/url/struct.Url.html#method.origin
 [`join`]: https://docs.rs/url/1.*/url/struct.Url.html#method.join
+[`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
+[`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
