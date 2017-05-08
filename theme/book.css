@@ -825,6 +825,14 @@ table {
   width: 100%;
 }
 
+table td:first-child{
+  width: 60%;
+}
+
+table td:nth-child(2){
+  width: 20%;
+}
+
 pre > .buttons {
   display: none;
 }
