@@ -201,7 +201,24 @@ fn main() {
 <a name="ex-url-rm-frag"></a>
 ## Remove fragment identifiers and query pairs from a URL
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/37)
+Once [`Url`] is parsed it can be sliced with [`url::Position`] to strip unneded URL parts.
+
+```rust
+extern crate url;
+
+use url::{Url, Position};
+
+fn run() -> Result<(), url::ParseError> {
+    let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&state=open")?;
+    let cleaned: &str = &parsed[..Position::AfterPath];
+    println!("cleaned: {}", cleaned);
+    Ok(())
+}
+
+fn main() {
+    run().unwrap();
+}
+```
 
 [ex-url-serialize]: #ex-url-serialize
 <a name="ex-url-serialize"></a>
@@ -235,5 +252,6 @@ fn main() {
 
 [`Url`]: https://docs.rs/url/1.*/url/struct.Url.html
 [`parse`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse
+[`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
 [`origin`]: https://docs.rs/url/1.*/url/struct.Url.html#method.origin
 [`join`]: https://docs.rs/url/1.*/url/struct.Url.html#method.join
