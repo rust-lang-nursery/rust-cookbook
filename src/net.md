@@ -8,7 +8,7 @@
 | [Extract the URL origin (scheme / host / port)][ex-url-origin] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Remove fragment identifiers and query pairs from a URL][ex-url-rm-frag] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Serialize a `Url`][ex-url-serialize] | [![url-badge]][url] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]|
-| [Make a HTTP GET request][ex-url-reqwest] | [![reqwest-badge]][reqwest] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -232,18 +232,21 @@ fn main() {
 
 [Write me!](https://github.com/brson/rust-cookbook/issues/38)
 
-[ex-url-reqwest]: #ex-url-reqwest
-<a name="ex-url-reqwest"></a>
+[ex-url-basic]: #ex-url-basic
+<a name="ex-url-basic"></a>
 ## Make a HTTP GET request
+
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
 The [`reqwest::get`] function parses the supplied url and makes a
 synchronus HTTP GET request. Obtained [`reqwest::Response`]
-status and headders are printed and custom `Result` with allocated `String` containing the HTTP response body is returned.
+status and headders are printed. HTTP response body is read into an allocated [`String`] via [`read_to_string`].
 
 ```rust,no_run
 extern crate reqwest;
 #[macro_use]
 extern crate error_chain;
+
 use std::io::Read;
 
 error_chain! {
@@ -253,19 +256,19 @@ error_chain! {
     }
 }
 
-fn http_get_body() -> Result<String> {
+fn run() -> Result<()> {
     let mut res = reqwest::get("http://httpbin.org/get")?;
-    println!("Status: {}", res.status());
-    println!("Headers:\n{}", res.headers());
     let mut body = String::new();
     res.read_to_string(&mut body)?;
-    Ok(body)
+
+    println!("Status: {}", res.status());
+    println!("Headers:\n{}", res.headers());
+    println!("Body:\n{}", body);
+
+    Ok(())
 }
 
-fn main() {
-    let body = http_get_body().unwrap();
-    println!("Body:\n{}", body);
-}
+quick_main!(run);
 ```
 <!-- Categories -->
 
@@ -292,3 +295,5 @@ fn main() {
 [`join`]: https://docs.rs/url/1.*/url/struct.Url.html#method.join
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
+[`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
+[`String`]: https://doc.rust-lang.org/std/string/struct.String.html

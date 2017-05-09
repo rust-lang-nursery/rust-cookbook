@@ -48,7 +48,7 @@ community. It needs and welcomes help. For details see
 | [Extract the URL origin (scheme / host / port)][ex-url-origin] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Remove fragment identifiers and query pairs from a URL][ex-url-rm-frag] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Serialize a `Url`][ex-url-serialize] | [![url-badge]][url] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]|
-| [Make a HTTP GET request after parsing a URL][ex-url-reqwest] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Make a HTTP GET request after parsing a URL][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
 ## [Application development](app.html)
 
@@ -121,4 +121,4 @@ Keep lines sorted.
 [ex-url-origin]: net.html#ex-url-origin
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-url-serialize]: net.html#ex-url-serialize
-[ex-url-reqwest]: net.html#ex-url-reqwest
+[ex-url-basic]: net.html#ex-url-basic
