@@ -1,8 +1,8 @@
 # Concurrency
 
-| Recipe | Crates |
-|--------|--------|
-| [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] |
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 
 [ex-rayon-iter-mut]: #ex-rayon-iter-mut
 <a name="ex-rayon-iter-mut"></a>
@@ -27,6 +27,11 @@ fn main() {
 The example uses the Rayon crate, which is a data parallelism library for Rust.
 Rayon provides the `par_iter_mut()` method for any parallel iterable data type.
 It lets us write iterator-like chains that execute in parallel.
+
+<!-- Categories -->
+
+[cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-red.svg
+[cat-concurrency]: https://crates.io/categories/concurrency
 
 <!-- Crates -->
 

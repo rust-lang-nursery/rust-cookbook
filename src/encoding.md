@@ -1,9 +1,9 @@
 # Encoding
 
-| Recipe | Crates |
-|--------|--------|
-| [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] |
-| [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] |
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
+| [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -134,6 +134,11 @@ fn main() {
     assert_eq!(package_info.dependencies["serde"], "1.0");
 }
 ```
+
+<!-- Categories -->
+
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->
 

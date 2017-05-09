@@ -1,8 +1,8 @@
 # Application development
 
-| Recipe | Crates |
-|--------|--------|
-| [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] |
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -98,6 +98,11 @@ The output is:
 The file passed is: myfile.txt
 Your favorite number must be 256.
 ```
+
+<!-- Categories -->
+
+[cat-command-line-badge]: https://img.shields.io/badge/-command_line-red.svg
+[cat-command-line]: https://crates.io/categories/command-line-interface
 
 <!-- Crates -->
 
