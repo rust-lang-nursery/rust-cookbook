@@ -8,7 +8,7 @@
 <a name="ex-rayon-iter-mut"></a>
 ## Mutate the elements of an array in parallel
 
-[![rayon-badge]][rayon]
+[![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 
 ```rust
 extern crate rayon;

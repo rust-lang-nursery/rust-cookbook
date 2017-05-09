@@ -50,7 +50,7 @@ fn main() {
 <a name="ex-url-base"></a>
 ## Create a base URL by removing path segments
 
-[![url-badge]][url]
+[![url-badge]][url] [![cat-net-badge]][cat-net]
 
 ```rust
 extern crate url;
@@ -110,6 +110,8 @@ fn base_url(full: &str) -> Result<Url> {
 <a name="ex-url-new-from-base"></a>
 ## Create new URLs from a base URL
 
+[![url-badge]][url] [![cat-net-badge]][cat-net]
+
 The [`join`] method creates a new URL from a base and relative path.
 
 ```rust
@@ -143,6 +145,8 @@ fn build_github_url(path: &str) -> Result<Url, ParseError> {
 [ex-url-origin]: #ex-url-origin
 <a name="ex-url-origin"></a>
 ## Extract the URL origin (scheme / host / port)
+
+[![url-badge]][url] [![cat-net-badge]][cat-net]
 
 The [`Url`] struct exposes various methods to extract information about the URL
 it represents.
@@ -200,6 +204,8 @@ fn main() {
 [ex-url-rm-frag]: #ex-url-rm-frag
 <a name="ex-url-rm-frag"></a>
 ## Remove fragment identifiers and query pairs from a URL
+
+[![url-badge]][url] [![cat-net-badge]][cat-net]
 
 Once [`Url`] is parsed it can be sliced with [`url::Position`] to strip unneded URL parts.
 

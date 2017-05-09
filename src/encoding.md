@@ -9,7 +9,7 @@
 <a name="ex-json-value"></a>
 ## Serialize and deserialize unstructured JSON
 
-[![serde-json-badge]][serde-json]
+[![serde-json-badge]][serde-json] [![cat-encoding-badge]][cat-encoding]
 
 The [`serde_json`] crate provides a [`from_str`] function to parse a `&str` of
 JSON into a type of the caller's choice.
@@ -63,7 +63,7 @@ fn main() {
 <a name="ex-toml-config"></a>
 ## Deserialize a TOML configuration file
 
-[![toml-badge]][toml]
+[![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
 
 Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.
@@ -92,6 +92,8 @@ fn main() {
 ```
 
 Parse TOML into your own structs using Serde:
+
+[![serde-json-badge]][serde-json] [![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
 
 ```rust
 #[macro_use]

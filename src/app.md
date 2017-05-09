@@ -8,7 +8,7 @@
 <a name="ex-clap-basic"></a>
 ## Parse command line arguments
 
-[![clap-badge]][clap]
+[![clap-badge]][clap] [![cat-command-line-badge]][cat-command-line]
 
 ```rust
 extern crate clap;
