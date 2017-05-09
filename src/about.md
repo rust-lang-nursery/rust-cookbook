@@ -74,15 +74,14 @@ fn run() -> Result<()> {
     Ok(())
 }
 
-fn main() {
-    run().unwrap();
-}
+quick_main!(run);
 ```
 
 This is using the `error_chain!` macro to define a custom `Error` and
 `Result` type, along with an automatic conversion from two standard
 library error types. The automatic conversion makes the `?` operator
-work.
+work. The `quick_main!` macro is also used to generate the boilerplate `main`
+from above.
 
 For more background on error handling in Rust, read [this page of the
 Rust book][error-docs] and [this blog post][error-blog].
