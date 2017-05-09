@@ -1,15 +1,15 @@
 # Encoding
 
-| Recipe | Crates |
-|--------|--------|
-| [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] |
-| [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] |
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
+| [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
 ## Serialize and deserialize unstructured JSON
 
-[![serde-json-badge]][serde-json]
+[![serde-json-badge]][serde-json] [![cat-encoding-badge]][cat-encoding]
 
 The [`serde_json`] crate provides a [`from_str`] function to parse a `&str` of
 JSON into a type of the caller's choice.
@@ -63,7 +63,7 @@ fn main() {
 <a name="ex-toml-config"></a>
 ## Deserialize a TOML configuration file
 
-[![toml-badge]][toml]
+[![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
 
 Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.
@@ -92,6 +92,8 @@ fn main() {
 ```
 
 Parse TOML into your own structs using Serde:
+
+[![serde-json-badge]][serde-json] [![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
 
 ```rust
 #[macro_use]
@@ -134,6 +136,11 @@ fn main() {
     assert_eq!(package_info.dependencies["serde"], "1.0");
 }
 ```
+
+<!-- Categories -->
+
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->
 
