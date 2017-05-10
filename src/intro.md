@@ -55,6 +55,12 @@ community. It needs and welcomes help. For details see
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
+| [Log a debug message to the console][ex-log-debug] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
+| [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
+| [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
+| [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
+| [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+
 
 <!--
 
@@ -73,6 +79,8 @@ Keep lines sorted.
 [cat-command-line]: https://crates.io/categories/command-line-interface
 [cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-red.svg
 [cat-concurrency]: https://crates.io/categories/concurrency
+[cat-debugging-badge]: https://img.shields.io/badge/-debugging-red.svg
+[cat-debugging]: https://crates.io/categories/debugging
 [cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
 [cat-filesystem]: https://crates.io/categories/filesystem
 [cat-science-badge]: https://img.shields.io/badge/-science-red.svg
@@ -88,6 +96,10 @@ Keep lines sorted.
 [byteorder]: https://docs.rs/byteorder/
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
+[env_logger-badge]: https://img.shields.io/crates/v/clap.svg?label=env_logger
+[env_logger]: https://docs.rs/env_logger/
+[log-badge]: https://img.shields.io/crates/v/clap.svg?label=log
+[log]: https://docs.rs/log/
 [serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
@@ -100,6 +112,8 @@ Keep lines sorted.
 [serde]: https://docs.rs/serde/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
+[syslog-badge]: https://img.shields.io/crates/v/toml.svg?label=syslog
+[syslog]: https://docs.rs/syslog/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
@@ -110,6 +124,11 @@ Keep lines sorted.
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-json-value]: encoding.html#ex-json-value
+[ex-log-custom]: app.html#ex-log-custom
+[ex-log-debug]: app.html#ex-log-debug
+[ex-log-error]: app.html#ex-log-error
+[ex-log-mod]: app.html#ex-log-mod
+[ex-log-syslog]: app.html#ex-log-syslog
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-float]: basics.html#ex-rand-float
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut

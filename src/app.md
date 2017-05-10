@@ -3,6 +3,11 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
+| [Log a debug message to the console][ex-log-debug] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
+| [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
+| [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
+| [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
+| [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-command-line-badge]][cat-command-line] |
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -99,12 +104,63 @@ The file passed is: myfile.txt
 Your favorite number must be 256.
 ```
 
+[ex-log-debug]: #ex-log-debug
+<a name="ex-log-debug"></a>
+## Log a debug message to the console
+
+[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-command-line-badge]][cat-command-line]
+
+[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+
+[ex-log-error]: #ex-log-error
+<a name="ex-log-error"></a>
+## Log an error message to the console
+
+[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-command-line-badge]][cat-command-line]
+
+[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+
+[ex-log-mod]: #ex-log-mod
+<a name="ex-log-mod"></a>
+## Enable log levels per module
+
+[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-command-line-badge]][cat-command-line]
+
+[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+
+[ex-log-syslog]: #ex-log-syslog
+<a name="ex-log-syslog"></a>
+## Log to the Unix syslog
+
+[![log-badge]][log] [![syslog-badge]][syslog] [![cat-debugging-badge]][cat-debugging]
+
+[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+
+[ex-log-custom]: #ex-log-custom
+<a name="ex-log-custom"></a>
+## Log messages to a custom location
+
+[![log-badge]][log] [![cat-command-line-badge]][cat-command-line]
+
+[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+
+
 <!-- Categories -->
 
 [cat-command-line-badge]: https://img.shields.io/badge/-command_line-red.svg
 [cat-command-line]: https://crates.io/categories/command-line-interface
+[cat-debugging-badge]: https://img.shields.io/badge/-debugging-red.svg
+[cat-debugging]: https://crates.io/categories/debugging
 
 <!-- Crates -->
 
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
+[env_logger-badge]: https://img.shields.io/crates/v/clap.svg?label=env_logger
+[env_logger]: https://docs.rs/env_logger/
+[log-badge]: https://img.shields.io/crates/v/clap.svg?label=log
+[log]: https://docs.rs/log/
+[log_syslog-badge]: https://img.shields.io/crates/v/clap.svg?label=log_syslog
+[log_syslog]: https://docs.rs/log_syslog/
+[syslog-badge]: https://img.shields.io/crates/v/toml.svg?label=syslog
+[syslog]: https://docs.rs/syslog/
