@@ -2,11 +2,11 @@
 
 ## Table of contents
 
-- [Who this book is for](#who)
-- [How to read this book](#reading)
-- [How to use the examples](#examples)
-- [A note about error handling](#errors)
-- [A note about crate representation](#which-crates)
+- [Who this book is for](#who-this-book-is-for)
+- [How to read this book](#how-to-read-this-book)
+- [How to use the examples](#how-to-use-the-examples)
+- [A note about error handling](#a-note-about-error-handling)
+- [A note about crate representation](#a-note-about-crate-representation)
 
 ## Who this book is for
 
