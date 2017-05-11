@@ -113,8 +113,7 @@ but since the cookbook is so new, quite possibly not. Ask on thread.
 For most steps you can simply follow the lead of existing examples.
 The art comes in writing effective examples.
 
-["how to read this
-book"]: https://brson.github.io/rust-cookbook/about.html#reading
+["how to read this book"]: https://brson.github.io/rust-cookbook/about.html#reading
 
 ## Example guidelines
 
