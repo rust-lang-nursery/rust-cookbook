@@ -96,9 +96,9 @@ Keep lines sorted.
 [byteorder]: https://docs.rs/byteorder/
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
-[env_logger-badge]: https://img.shields.io/crates/v/clap.svg?label=env_logger
+[env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
-[log-badge]: https://img.shields.io/crates/v/clap.svg?label=log
+[log-badge]: https://img.shields.io/crates/v/log.svg?label=log
 [log]: https://docs.rs/log/
 [serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
@@ -107,7 +107,7 @@ Keep lines sorted.
 [rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
 [rayon]: https://docs.rs/rayon/
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
-[reqwest]: https://docs.rs/url/
+[reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
