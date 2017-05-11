@@ -3,7 +3,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
-| [Log messages to the console][ex-log-messages] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
+| [Log messages to the console][ex-log-messages] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-command-line-badge]][cat-command-line] |
@@ -107,7 +107,7 @@ Your favorite number must be 256.
 <a name="ex-log-messages"></a>
 ## Log messages to the console
 
-[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-command-line-badge]][cat-command-line]
+[![log-badge]][log] [![cat-command-line-badge]][cat-command-line]
 
 ```rust
 #[macro_use]
