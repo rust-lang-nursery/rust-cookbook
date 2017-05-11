@@ -186,7 +186,7 @@ fn main() {
 [log]: https://docs.rs/log/
 [log_syslog-badge]: https://img.shields.io/crates/v/clap.svg?label=log_syslog
 [log_syslog]: https://docs.rs/log_syslog/
-[syslog-badge]: https://img.shields.io/crates/v/toml.svg?label=syslog
+[syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
 
 <!-- Reference -->
