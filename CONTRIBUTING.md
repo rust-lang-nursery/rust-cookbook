@@ -81,6 +81,7 @@ Contribution will be open to a broader set of crates in the future.
 For more about which crates are represented in the cookbook, see ["a
 note about crate representation"][which-crates] in the cookbok.
 
+[crate-tasks]: https://github.com/brson/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3Acrate-tasks
 [which-crates]: https://brson.github.io/rust-cookbook/about.html#which-crates
 
 ## Adding an example
