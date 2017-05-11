@@ -5,7 +5,7 @@ contribute to. Help is welcome.
 
 * [Building and testing](#building-and-testing)
 * [Finding what to contribute](#finding-what-to-contribute)
-* [Adding an example](#how-to-contribute)
+* [Adding an example](#adding-an-example)
 * [Example guidelines](#example-guidelines)
 
 ## Building and testing
@@ -82,7 +82,7 @@ For more about which crates are represented in the cookbook, see ["a
 note about crate representation"][which-crates] in the cookbok.
 
 [crate-tasks]: https://github.com/brson/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3Acrate-tasks
-[which-crates]: https://brson.github.io/rust-cookbook/about.html#which-crates
+[which-crates]: https://brson.github.io/rust-cookbook/about.html#a-note-about-crate-representation
 [libz blitz]: https://internals.rust-lang.org/t/rust-libz-blitz/5184
 
 ## Adding an example
@@ -169,5 +169,5 @@ Finally, this book is intended to also demonstrate the integration
 of crates that work well together. Super bonus points for examples
 that feature multiple crates sensibly.
 
-[errors]: https://brson.github.io/rust-cookbook/about.html#errors
+[errors]: https://brson.github.io/rust-cookbook/about.html#a-note-about-error-handling
 
