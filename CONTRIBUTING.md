@@ -82,6 +82,7 @@ For more about which crates are represented in the cookbook, see ["a
 note about crate representation"][which-crates] in the cookbok.
 
 [which-crates]: https://brson.github.io/rust-cookbook/about.html#which-crates
+[libz blitz]: https://internals.rust-lang.org/t/rust-libz-blitz/5184
 
 ## Adding an example
 
