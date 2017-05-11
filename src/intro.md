@@ -112,7 +112,7 @@ Keep lines sorted.
 [serde]: https://docs.rs/serde/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
-[syslog-badge]: https://img.shields.io/crates/v/toml.svg?label=syslog
+[syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
