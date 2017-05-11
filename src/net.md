@@ -8,7 +8,7 @@
 | [Extract the URL origin (scheme / host / port)][ex-url-origin] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Remove fragment identifiers and query pairs from a URL][ex-url-rm-frag] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Serialize a `Url`][ex-url-serialize] | [![url-badge]][url] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]|
-| [Make a HTTP GET request after parsing a URL][ex-url-reqwest] | [![reqwest-badge]][reqwest] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -232,12 +232,44 @@ fn main() {
 
 [Write me!](https://github.com/brson/rust-cookbook/issues/38)
 
-[ex-url-reqwest]: #ex-url-reqwest
-<a name="ex-url-reqwest"></a>
-## Make a HTTP GET request after parsing a URL
+[ex-url-basic]: #ex-url-basic
+<a name="ex-url-basic"></a>
+## Make a HTTP GET request
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/39)
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
+The [`reqwest::get`] function parses the supplied url and makes a
+synchronus HTTP GET request. Obtained [`reqwest::Response`]
+status and headders are printed. HTTP response body is read into an allocated [`String`] via [`read_to_string`].
+
+```rust,no_run
+extern crate reqwest;
+#[macro_use]
+extern crate error_chain;
+
+use std::io::Read;
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        HttpReqest(reqwest::Error);
+    }
+}
+
+fn run() -> Result<()> {
+    let mut res = reqwest::get("http://httpbin.org/get")?;
+    let mut body = String::new();
+    res.read_to_string(&mut body)?;
+
+    println!("Status: {}", res.status());
+    println!("Headers:\n{}", res.headers());
+    println!("Body:\n{}", body);
+
+    Ok(())
+}
+
+quick_main!(run);
+```
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -248,7 +280,7 @@ fn main() {
 <!-- Crates -->
 
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
-[reqwest]: https://docs.rs/url/
+[reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
@@ -261,3 +293,7 @@ fn main() {
 [`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
 [`origin`]: https://docs.rs/url/1.*/url/struct.Url.html#method.origin
 [`join`]: https://docs.rs/url/1.*/url/struct.Url.html#method.join
+[`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
+[`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
+[`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
+[`String`]: https://doc.rust-lang.org/std/string/struct.String.html
