@@ -134,7 +134,31 @@ Your favorite number must be 256.
 
 [![log-badge]][log] [![syslog-badge]][syslog] [![cat-debugging-badge]][cat-debugging]
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+Messages are logged to [UNIX syslog]. Logger backend is initialized
+with [`syslog::init`].
+[`syslog::Facility`] indicates type of program submitting log.
+[`log::LogLevelFilter`] denotes allowed log verbosity
+and `Option<&str>` holds optional application name.
+
+```rust,no_run
+#[macro_use] extern crate log;
+extern crate syslog;
+
+use log::{LogLevelFilter, SetLoggerError};
+use syslog::Facility;
+
+
+fn run() -> Result<(), SetLoggerError> {
+    syslog::init(Facility::LOG_USER, LogLevelFilter::Debug, Some("My app name"))?;
+    debug!("this is a debug {}", "message");
+    error!("this is an error!");
+    Ok(())
+}
+
+fn main() {
+    run().unwrap();
+}
+```
 
 [ex-log-custom]: #ex-log-custom
 <a name="ex-log-custom"></a>
@@ -164,3 +188,10 @@ Your favorite number must be 256.
 [log_syslog]: https://docs.rs/log_syslog/
 [syslog-badge]: https://img.shields.io/crates/v/toml.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
+
+<!-- Reference -->
+
+[`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
+[`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
+[`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
+[UNIX syslog]: https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html
