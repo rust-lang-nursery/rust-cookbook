@@ -3,8 +3,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
-| [Log a debug message to the console][ex-log-debug] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
-| [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
+| [Log messages to the console][ex-log-messages] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-command-line-badge]][cat-command-line] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-command-line-badge]][cat-command-line] |
@@ -104,21 +103,48 @@ The file passed is: myfile.txt
 Your favorite number must be 256.
 ```
 
-[ex-log-debug]: #ex-log-debug
-<a name="ex-log-debug"></a>
-## Log a debug message to the console
+[ex-log-messages]: #ex-log-messages
+<a name="ex-log-messages"></a>
+## Log messages to the console
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-command-line-badge]][cat-command-line]
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+```rust
+#[macro_use]
+extern crate log;
 
-[ex-log-error]: #ex-log-error
-<a name="ex-log-error"></a>
-## Log an error message to the console
+use log::{LogRecord, LogLevel, LogMetadata, LogLevelFilter, SetLoggerError};
 
-[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-command-line-badge]][cat-command-line]
+struct ConsoleLogger;
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+impl log::Log for ConsoleLogger {
+    fn enabled(&self, metadata: &LogMetadata) -> bool {
+        metadata.level() <= LogLevel::Info
+    }
+
+    fn log(&self, record: &LogRecord) {
+        if self.enabled(record.metadata()) {
+            println!("{} - {}", record.level(), record.args());
+        }
+    }
+}
+
+fn run() -> Result<(), SetLoggerError> {
+    log::set_logger(|max_log_level| {
+                        max_log_level.set(LogLevelFilter::Info);
+                        Box::new(ConsoleLogger)
+                    })?;
+    
+    info!("hello log");
+    warn!("warning");
+    error!("oops");
+    Ok(())
+}
+
+fn main() {
+    run().unwrap();
+}
+```
 
 [ex-log-mod]: #ex-log-mod
 <a name="ex-log-mod"></a>
