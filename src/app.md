@@ -5,7 +5,7 @@
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 | [Log a debug message to the console][ex-log-debug] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
-| [Log messages in a custom format][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
@@ -121,13 +121,14 @@ Your favorite number must be 256.
 
 [Write me!](https://github.com/brson/rust-cookbook/issues/61)
 
-[ex-log-custom]: #ex-log-custom
-<a name="ex-log-custom"></a>
-## Log messages in a custom format
+[ex-log-custom-logger]: #ex-log-custom-logger
+<a name="ex-log-custom-logger"></a>
+## Log messages with a custom logger
 
 [![log-badge]][log] [![cat-debugging-badge]][cat-debugging]
 
-Set a basic custom logger `ConsoleLogger` and log various messages to it.
+Custom logger `ConsoleLogger` is implemented with [`log::Log`] trait and installed 
+via [`log::set_logger`]. Messages are logged to stdout.
 
 ```rust
 #[macro_use]
@@ -239,3 +240,5 @@ fn main() {
 [`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
 [`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
 [UNIX syslog]: https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html
+[`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
+[`log::Log`]: https://doc.rust-lang.org/log/log/trait.Log.html
