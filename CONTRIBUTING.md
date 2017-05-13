@@ -76,10 +76,10 @@ If you have an idea for an example for a specific crate, please
 suggest it on those issues.
 
 Please do not submit examples for crates not yet represented in the
-coobook, unless it is part of the libz blitz crate schedule.
+cookbook, unless it is part of the libz blitz crate schedule.
 Contribution will be open to a broader set of crates in the future.
 For more about which crates are represented in the cookbook, see ["a
-note about crate representation"][which-crates] in the cookbok.
+note about crate representation"][which-crates] in the cookbook.
 
 [crate-tasks]: https://github.com/brson/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3Acrate-tasks
 [which-crates]: https://brson.github.io/rust-cookbook/about.html#a-note-about-crate-representation
@@ -91,7 +91,7 @@ Adding an example involves:
 
 - Deciding which _section_ of the book it belongs in
 - Deciding which _categories_ apply to it
-- Adding the example to a the section index in intro.md
+- Adding the example to the section index in intro.md
 - Adding the example to the appropriate section markdown file
 - Updating 'badges' and hyperlinks as needed
 - Writing a useful description of the example

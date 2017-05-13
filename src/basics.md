@@ -116,7 +116,7 @@ fn main() {
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
 A tuple `(i32, bool, f64)` and variable of user defined type `Point`
-are randomly generated. In order to alow random generation of `Point`
+are randomly generated. In order to allow random generation of `Point`
 it needs to implement the [`rand::Rand`] trait.
 
 ```rust
