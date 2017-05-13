@@ -13,7 +13,7 @@ new cargo projects. They are tested and guaranteed to work.
 
 ## Contributing
 
-This project is intented to be easy for new Rust programmers to
+This project is intended to be easy for new Rust programmers to
 contribute to, and an easy to way get involved with the Rust
 community. It needs and welcomes help.
 

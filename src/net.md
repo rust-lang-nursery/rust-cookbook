@@ -207,7 +207,7 @@ fn main() {
 
 [![url-badge]][url] [![cat-net-badge]][cat-net]
 
-Once [`Url`] is parsed it can be sliced with [`url::Position`] to strip unneded URL parts.
+Once [`Url`] is parsed it can be sliced with [`url::Position`] to strip unneeded URL parts.
 
 ```rust
 extern crate url;
@@ -239,8 +239,8 @@ fn main() {
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
 The [`reqwest::get`] function parses the supplied url and makes a
-synchronus HTTP GET request. Obtained [`reqwest::Response`]
-status and headders are printed. HTTP response body is read into an allocated [`String`] via [`read_to_string`].
+synchronous HTTP GET request. Obtained [`reqwest::Response`]
+status and headers are printed. HTTP response body is read into an allocated [`String`] via [`read_to_string`].
 
 ```rust,no_run
 extern crate reqwest;
