@@ -25,7 +25,7 @@ community. It needs and welcomes help. For details see
 | [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
-| [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 
 ## [Encoding](encoding.html)
 
@@ -51,6 +51,7 @@ community. It needs and welcomes help. For details see
 | [Remove fragment identifiers and query pairs from a URL][ex-url-rm-frag] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Serialize a `Url`][ex-url-serialize] | [![url-badge]][url] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]|
 | [Make a HTTP GET request after parsing a URL][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Download a file to a temporary directory][ex-url-download] | [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] | [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Application development](app.html)
 
@@ -117,6 +118,8 @@ Keep lines sorted.
 [std]: https://doc.rust-lang.org/std
 [syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
+[tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
+[tempdir]: https://docs.rs/tempdir/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
@@ -146,4 +149,5 @@ Keep lines sorted.
 [ex-url-origin]: net.html#ex-url-origin
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-url-serialize]: net.html#ex-url-serialize
+[ex-url-download]: net.html#ex-url-download
 [ex-url-basic]: net.html#ex-url-basic

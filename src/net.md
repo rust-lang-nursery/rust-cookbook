@@ -9,6 +9,7 @@
 | [Remove fragment identifiers and query pairs from a URL][ex-url-rm-frag] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Serialize a `Url`][ex-url-serialize] | [![url-badge]][url] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]|
 | [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Download a file to a temporary directory][ex-url-download] | [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] | [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -270,10 +271,71 @@ fn run() -> Result<()> {
 
 quick_main!(run);
 ```
+
+[ex-url-download]: #ex-url-download
+<a name="ex-url-download"></a>
+## Download a file to a temporary directory
+
+[![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem]
+
+Temporary directory is created with [`TempDir::new`] and a file is synchronously
+downloaded over HTTP using [`reqwest::get`].
+Target [`File`] with name obtained from [`Response::url`] is created within [`TempDir::path`]
+and downloaded data is copied into it with [`io::copy`]. The temporary directory is implicitly removed on `run` function return.
+
+```rust,no_run
+#[macro_use]
+extern crate error_chain;
+extern crate reqwest;
+extern crate tempdir;
+
+use std::io::copy;
+use std::fs::File;
+use tempdir::TempDir;
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        HttpReqest(reqwest::Error);
+    }
+}
+
+fn run() -> Result<()> {
+    // create a temp dir with prefix "example"
+    let tmp_dir = TempDir::new("example")?;
+    // make HTTP request for remote content
+    let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
+    let mut response = reqwest::get(target)?;
+
+    let mut dest = {
+        // extract target filename from URL
+        let fname = response.url()
+            .path_segments()
+            .and_then(|segments| segments.last())
+            .and_then(|name| if name.is_empty() { None } else { Some(name) })
+            .unwrap_or("tmp.bin");
+
+        println!("file to download: '{}'", fname);
+        let fname = tmp_dir.path().join(fname);
+        println!("will be located under: '{:?}'", fname);
+        // create file with given name inside the temp dir
+        File::create(fname)?
+    };
+    // data is copied into the target file
+    copy(&mut response, &mut dest)?;
+    // tmp_dir is implicitly removed
+    Ok(())
+}
+
+quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
 [cat-encoding]: https://crates.io/categories/encoding
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem]: https://crates.io/categories/filesystem
 [cat-net-badge]: https://img.shields.io/badge/-net-red.svg
 [cat-net]: https://crates.io/categories/network-programming
 
@@ -283,11 +345,15 @@ quick_main!(run);
 [reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
+[tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
+[tempdir]: https://docs.rs/tempdir/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
 
 <!-- Reference -->
 
+[`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
+[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`Url`]: https://docs.rs/url/1.*/url/struct.Url.html
 [`parse`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse
 [`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
@@ -295,5 +361,8 @@ quick_main!(run);
 [`join`]: https://docs.rs/url/1.*/url/struct.Url.html#method.join
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
+[`Response::url`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
+[`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
+[`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
