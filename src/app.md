@@ -5,8 +5,8 @@
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 | [Log a debug message to the console][ex-log-debug] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
-| [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
+| [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 
@@ -121,6 +121,72 @@ Your favorite number must be 256.
 
 [Write me!](https://github.com/brson/rust-cookbook/issues/61)
 
+[ex-log-mod]: #ex-log-mod
+<a name="ex-log-mod"></a>
+## Enable log levels per module
+
+[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
+
+```rust
+#[macro_use]
+extern crate log;
+extern crate env_logger;
+
+use log::SetLoggerError;
+
+mod foo {
+    mod bar {
+        pub fn run() {
+            warn!("[bar] warn");
+            info!("[bar] info");
+            debug!("[bar] debug");
+        }
+    }
+
+    pub fn run() {
+        warn!("[foo] warn");
+        info!("[foo] info");
+        debug!("[foo] debug");
+        bar::run();
+    }
+}
+
+fn run() -> Result<(), SetLoggerError> {
+    env_logger::init()?;
+    warn!("[root] warn");
+    info!("[root] info");
+    debug!("[root] debug");
+    foo::run();
+
+    Ok(())
+}
+
+fn main() {
+    run().unwrap();
+}
+```
+
+[`env_logger`][env_logger] output is controlled by [`RUST_LOG`] environmental
+variable on per module basis with comma separated entries in format `path::to::module=log_level`.
+Assuming application `test` is run as follows:
+
+```
+RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test
+```
+
+The default [`log::LogLevel`] is set to `warn`, while log levels for module `foo` and nested module `foo::bar` are set respectively to `info` and `debug`.
+
+The output is:
+
+```
+WARN:test: [root] warn
+WARN:test::foo: [foo] warn
+INFO:test::foo: [foo] info
+WARN:test::foo::bar: [bar] warn
+INFO:test::foo::bar: [bar] info
+DEBUG:test::foo::bar: [bar] debug
+```
+
 [ex-log-custom-logger]: #ex-log-custom-logger
 <a name="ex-log-custom-logger"></a>
 ## Log messages with a custom logger
@@ -166,14 +232,6 @@ fn main() {
     run().unwrap();
 }
 ```
-
-[ex-log-mod]: #ex-log-mod
-<a name="ex-log-mod"></a>
-## Enable log levels per module
-
-[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
-
-[Write me!](https://github.com/brson/rust-cookbook/issues/61)
 
 [ex-log-syslog]: #ex-log-syslog
 <a name="ex-log-syslog"></a>
@@ -238,7 +296,9 @@ fn main() {
 
 [`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
 [`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
+[`log::LogLevel`]: https://doc.rust-lang.org/log/log/enum.LogLevel.html
 [`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
 [UNIX syslog]: https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html
 [`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
 [`log::Log`]: https://doc.rust-lang.org/log/log/trait.Log.html
+[`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
