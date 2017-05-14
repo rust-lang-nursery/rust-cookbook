@@ -23,6 +23,8 @@ community. It needs and welcomes help. For details see
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values on a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 
 ## [Encoding](encoding.html)
@@ -133,6 +135,8 @@ Keep lines sorted.
 [ex-log-syslog]: app.html#ex-log-syslog
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-float]: basics.html#ex-rand-float
+[ex-rand-range]: basics.html#ex-rand-range
+[ex-rand-dist]: basics.html#ex-rand-dist
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-toml-config]: encoding.html#ex-toml-config

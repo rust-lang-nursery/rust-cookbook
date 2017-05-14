@@ -5,6 +5,8 @@
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 
 
@@ -109,6 +111,47 @@ fn main() {
 }
 ```
 
+[ex-rand-range]: #ex-rand-range
+<a name="ex-rand-range"></a>
+## Generate random numbers within a range
+
+[![rand-badge]][rand] [![cat-science-badge]][cat-science]
+
+A random value within a range `[0, 10)` (not including `10`) is generated with [`Rng::gen_range`].
+
+```rust
+extern crate rand;
+
+use rand::Rng;
+
+fn main() {
+    let mut rng = rand::thread_rng();
+    println!("{}", rng.gen_range(0, 10));
+}
+```
+
+[ex-rand-dist]: #ex-rand-dist
+<a name="ex-rand-dist"></a>
+## Generate random numbers with normal distribution
+
+[![rand-badge]][rand] [![cat-science-badge]][cat-science]
+
+[`Normal`] distribution with mean `3` and standard deviation `5`
+is created. A random value is generated with [`IndependentSample::ind_sample`].
+
+```rust
+extern crate rand;
+
+use rand::distributions::{Normal, IndependentSample};
+
+fn main() {
+    let normal = Normal::new(3.0, 5.0);
+    let mut rng = rand::thread_rng();
+    let v = normal.ind_sample(&mut rng);
+    println!("{} is from a N(3, 25) distribution", v)
+}
+```
+
 [ex-rand-custom]: #ex-rand-custom
 <a name="ex-rand-custom"></a>
 ## Generate random values of a custom type
@@ -174,3 +217,6 @@ fn main() {
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
 [`Write`]: https://doc.rust-lang.org/std/io/trait.Write.html
+[`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+[`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
+[`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
