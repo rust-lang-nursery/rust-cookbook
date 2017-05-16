@@ -52,6 +52,8 @@ community. It needs and welcomes help. For details see
 | [Serialize a `Url`][ex-url-serialize] | [![url-badge]][url] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]|
 | [Make a HTTP GET request after parsing a URL][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Download a file to a temporary directory][ex-url-download] | [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] | [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem] |
+| [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 
 ## [Application development](app.html)
 
@@ -141,6 +143,8 @@ Keep lines sorted.
 [ex-rand-range]: basics.html#ex-rand-range
 [ex-rand-dist]: basics.html#ex-rand-dist
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
+[ex-rest-get]: net.html#ex-rest-get
+[ex-rest-post]: net.html#ex-rest-post
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-toml-config]: encoding.html#ex-toml-config
 [ex-url-parse]: net.html#ex-url-parse
