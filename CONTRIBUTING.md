@@ -123,15 +123,14 @@ The art comes in writing effective examples.
 
 Examples in the cookbook have these goals and qualities:
 
-- They can described by a single sentence that states
-  their utility
-- They can be read and understood by complete beginners
-- They are standalone examples that can be copied into a learners'
-  own workspace and compiled and modified for experimentation
+- They can be described by a single sentence that states their utility.
+- They can be read and understood by a complete beginner.
+- They are standalone examples that can be copied into a learner's
+  own workspace and compiled and modified for experimentation.
 - They demonstrate real tasks, such that experienced developers
-  can use as a reference
-- They follow best practices and do not take shortcuts
-- They use consistent error handling
+  may use it as a reference.
+- They follow best practices and do not take shortcuts.
+- They use consistent error handling.
 
 Examples should have a simple single-sentence title that describes
 something a typical Rust user typically wants to do.
@@ -149,18 +148,15 @@ handling"][errors]. Examples always set up error handling correctly and
 propagate errors with `?` (not `try!`).
 
 Don't use glob imports, even for preludes, so that users can see what
-traits they are calling. (Some might consider using glob imports for
-preludes a best practice, making this awkward).
-
-Sort imports.
+traits they are calling. (Some crates might consider using glob
+imports for preludes a best practice, making this awkward.)
 
 Examples should be simple and obvious enough that an experienced dev
-won't need comments. Describe the code in prose, not in
-comments. Things that should be described include traits imported and
-their methods used. Think about what information here supports the use
-case and might not be obvious to someone new. Say the minimum possible
-about aspects that don't directly support the use case. See
-["basics"] for examples.
+won't need comments. Things that should be described include traits
+imported and their methods used. Think about what information here
+supports the use case and might not be obvious to someone new. Say the
+minimum possible about aspects that don't directly support the use
+case. See ["basics"] for examples.
 
 ["basics"]: https://brson.github.io/rust-cookbook/basics.html
 
@@ -172,4 +168,3 @@ of crates that work well together. Super bonus points for examples
 that feature multiple crates sensibly.
 
 [errors]: https://brson.github.io/rust-cookbook/about.html#a-note-about-error-handling
-
