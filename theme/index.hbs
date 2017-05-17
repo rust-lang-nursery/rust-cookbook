@@ -57,6 +57,9 @@
                 <div id="menu-bar" class="menu-bar">
                     <div class="left-buttons">
                         <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <!-- START - Rust Cookbook customization -->
+                        <i id="edit-button" class="fa fa-edit">Edit</i>
+                        <!-- END - Rust Cookbook customization -->
                         <i id="theme-toggle" class="fa fa-paint-brush"></i>
                     </div>
 
@@ -106,6 +109,12 @@
             if ($(".fa").css("font-family") !== "FontAwesome") {
                 $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
             }
+
+            // START - Rust Cookbook customization
+            $("#edit-button").click(function(){
+                var editWindow = window.open("https://github.com/brson/rust-cookbook/edit/master/src/{{ path }}");
+            });
+            // END - Rust Cookbook customization
         </script>
 
         <!-- Livereload script (if served using the cli tool) -->
