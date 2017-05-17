@@ -68,14 +68,13 @@ cookbook is to follow the "What's next" section at the top of that
 thread, which should at all times link to something to contribute to
 the cookbook.
 
-Otherwise, look for GitHub issues with the [tracking-issue] tag. These
-contain checklists of the examples we want to provide for individual
-crates. The simplest way to contribute is to claim one of these
-examples, and submit a PR adding it. If you do claim one, please leave
-a comment saying so, so others don't accidentally duplicate your work.
+Otherwise, look for GitHub issues with the [example] tag. The simplest
+way to contribute is to claim one of these examples, and submit a PR
+adding it. If you do claim one, please leave a comment saying so, so
+others don't accidentally duplicate your work.
 
 If you have an idea for an example for a specific crate, please
-suggest it on those issues.
+suggest it on the relevant [tracking issue].
 
 Please do not submit examples for crates not yet represented in the
 cookbook, unless it is part of the libz blitz crate schedule.
@@ -83,7 +82,8 @@ Contribution will be open to a broader set of crates in the future.
 For more about which crates are represented in the cookbook, see ["a
 note about crate representation"][which-crates] in the cookbook.
 
-[tracking-issue]: https://github.com/brson/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3A%22tracking+issue%22
+[example]: https://github.com/brson/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3Aexample
+[tracking issue]: https://github.com/brson/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3A%22tracking+issue%22
 [which-crates]: https://brson.github.io/rust-cookbook/about.html#a-note-about-crate-representation
 [libz blitz]: https://internals.rust-lang.org/t/rust-libz-blitz/5184
 
