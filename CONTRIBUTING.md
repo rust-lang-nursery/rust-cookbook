@@ -95,8 +95,12 @@ Adding an example involves:
 - Deciding which _categories_ apply to it
 - Adding the example to the section index in intro.md
 - Adding the example to the appropriate section markdown file
-- Updating 'badges' and hyperlinks as needed
+- Updating badges and hyperlinks as needed
 - Writing a useful description of the example
+
+The finished commit will look something like [this one].
+
+[this one]: https://github.com/brson/rust-cookbook/commit/e698443f2af08d3106d953c68c1977eba3c3526c
 
 Examples are presently organized in three ways:
 
