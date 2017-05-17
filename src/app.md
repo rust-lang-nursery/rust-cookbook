@@ -132,7 +132,8 @@ Your favorite number must be 256.
 extern crate log;
 extern crate env_logger;
 
-use log::SetLoggerError;
+#[macro_use]
+extern crate error_chain;
 
 mod foo {
     mod bar {
@@ -151,7 +152,13 @@ mod foo {
     }
 }
 
-fn run() -> Result<(), SetLoggerError> {
+error_chain! {
+    foreign_links {
+        SetLogger(log::SetLoggerError);
+    }
+}
+
+fn run() -> Result<()> {
     env_logger::init()?;
     warn!("[root] warn");
     info!("[root] info");
@@ -161,9 +168,7 @@ fn run() -> Result<(), SetLoggerError> {
     Ok(())
 }
 
-fn main() {
-    run().unwrap();
-}
+quick_main!(run);
 ```
 
 [`env_logger`][env_logger] output is controlled by [`RUST_LOG`] environmental
@@ -200,7 +205,10 @@ via [`log::set_logger`]. Messages are logged to stdout.
 #[macro_use]
 extern crate log;
 
-use log::{LogRecord, LogLevel, LogMetadata, LogLevelFilter, SetLoggerError};
+#[macro_use]
+extern crate error_chain;
+
+use log::{LogRecord, LogLevel, LogMetadata, LogLevelFilter};
 
 struct ConsoleLogger;
 
@@ -216,7 +224,13 @@ impl log::Log for ConsoleLogger {
     }
 }
 
-fn run() -> Result<(), SetLoggerError> {
+error_chain! {
+    foreign_links {
+        SetLogger(log::SetLoggerError);
+    }
+}
+
+fn run() -> Result<()> {
     log::set_logger(|max_log_level| {
                         max_log_level.set(LogLevelFilter::Info);
                         Box::new(ConsoleLogger)
@@ -228,9 +242,7 @@ fn run() -> Result<(), SetLoggerError> {
     Ok(())
 }
 
-fn main() {
-    run().unwrap();
-}
+quick_main!(run);
 ```
 
 [ex-log-syslog]: #ex-log-syslog
@@ -246,23 +258,30 @@ with [`syslog::init`].
 and `Option<&str>` holds optional application name.
 
 ```rust,no_run
-#[macro_use] extern crate log;
+#[macro_use]
+extern crate log;
 extern crate syslog;
 
-use log::{LogLevelFilter, SetLoggerError};
+#[macro_use]
+extern crate error_chain;
+
+use log::LogLevelFilter;
 use syslog::Facility;
 
+error_chain! {
+    foreign_links {
+        SetLogger(log::SetLoggerError);
+    }
+}
 
-fn run() -> Result<(), SetLoggerError> {
+fn run() -> Result<()> {
     syslog::init(Facility::LOG_USER, LogLevelFilter::Debug, Some("My app name"))?;
     debug!("this is a debug {}", "message");
     error!("this is an error!");
     Ok(())
 }
 
-fn main() {
-    run().unwrap();
-}
+quick_main!(run);
 ```
 
 [ex-log-custom]: #ex-log-custom

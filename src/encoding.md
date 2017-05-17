@@ -32,9 +32,18 @@ we expect the parsed value to be. The expected value is declared using the
 #[macro_use]
 extern crate serde_json;
 
+#[macro_use]
+extern crate error_chain;
+
 use serde_json::Value;
 
-fn main() {
+error_chain! {
+    foreign_links {
+        Json(serde_json::Error);
+    }
+}
+
+fn run() -> Result<()> {
     let j = r#"{
                  "userid": 103609,
                  "verified": true,
@@ -44,7 +53,7 @@ fn main() {
                  ]
                }"#;
 
-    let parsed: Value = serde_json::from_str(j).unwrap();
+    let parsed: Value = serde_json::from_str(j)?;
 
     let expected = json!({
         "userid": 103609,
@@ -56,7 +65,11 @@ fn main() {
     });
 
     assert_eq!(parsed, expected);
+
+    Ok(())
 }
+
+quick_main!(run);
 ```
 
 [ex-toml-config]: #ex-toml-config
@@ -71,9 +84,18 @@ valid TOML data.
 ```rust
 extern crate toml;
 
+#[macro_use]
+extern crate error_chain;
+
 use toml::Value;
 
-fn main() {
+error_chain! {
+    foreign_links {
+        Toml(toml::de::Error);
+    }
+}
+
+fn run() -> Result<()> {
     let toml_content = r#"
           [package]
           name = "your_package"
@@ -84,11 +106,15 @@ fn main() {
           serde = "1.0"
           "#;
 
-    let package_info: Value = toml::from_str(toml_content).unwrap();
+    let package_info: Value = toml::from_str(toml_content)?;
 
     assert_eq!(package_info["dependencies"]["serde"].as_str(), Some("1.0"));
     assert_eq!(package_info["package"]["name"].as_str(), Some("your_package"));
+
+    Ok(())
 }
+
+quick_main!(run);
 ```
 
 Parse TOML into your own structs using Serde:
@@ -101,6 +127,9 @@ extern crate serde_derive;
 
 extern crate serde;
 extern crate toml;
+
+#[macro_use]
+extern crate error_chain;
 
 use std::collections::HashMap;
 
@@ -117,7 +146,13 @@ struct Package {
     authors: Vec<String>,
 }
 
-fn main() {
+error_chain! {
+    foreign_links {
+        Toml(toml::de::Error);
+    }
+}
+
+fn run() -> Result<()> {
     let toml_content = r#"
           [package]
           name = "your_package"
@@ -128,13 +163,17 @@ fn main() {
           serde = "1.0"
           "#;
 
-    let package_info: Config = toml::from_str(toml_content).unwrap();
+    let package_info: Config = toml::from_str(toml_content)?;
 
     assert_eq!(package_info.package.name, "your_package");
     assert_eq!(package_info.package.version, "0.1.0");
     assert_eq!(package_info.package.authors, vec!["You! <you@example.org>"]);
     assert_eq!(package_info.dependencies["serde"], "1.0");
+
+    Ok(())
 }
+
+quick_main!(run);
 ```
 
 <!-- Categories -->

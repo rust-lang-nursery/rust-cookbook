@@ -24,10 +24,19 @@ that implements [`Write`], here a [`File`]. The [`File`] is opened
 for writing with [`File::create`], and reading with [`File::open`].
 
 ```rust
-use std::fs::File;
-use std::io::{self, Write, BufReader, BufRead};
+#[macro_use]
+extern crate error_chain;
 
-fn run() -> io::Result<()> {
+use std::fs::File;
+use std::io::{Write, BufReader, BufRead};
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+    }
+}
+
+fn run() -> Result<()> {
     let path = "lines.txt";
 
     let mut output = File::create(path)?;
@@ -43,9 +52,7 @@ fn run() -> io::Result<()> {
     Ok(())
 }
 
-fn main() {
-    run().unwrap();
-}
+quick_main!(run);
 ```
 
 [ex-byteorder-le]: #ex-byteorder-le
@@ -57,7 +64,8 @@ fn main() {
 ```rust
 extern crate byteorder;
 
-use std::io;
+#[macro_use]
+extern crate error_chain;
 
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 
@@ -67,7 +75,13 @@ struct Payload {
     value: u16,
 }
 
-fn run() -> io::Result<()> {
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+    }
+}
+
+fn run() -> Result<()> {
     let original_payload = Payload::default();
     let encoded_bytes = encode(&original_payload)?;
     let decoded_payload = decode(&encoded_bytes)?;
@@ -75,14 +89,14 @@ fn run() -> io::Result<()> {
     Ok(())
 }
 
-fn encode(payload: &Payload) -> io::Result<Vec<u8>> {
+fn encode(payload: &Payload) -> Result<Vec<u8>> {
     let mut bytes = vec![];
     bytes.write_u8(payload.kind)?;
     bytes.write_u16::<LittleEndian>(payload.value)?;
     Ok(bytes)
 }
 
-fn decode(mut bytes: &[u8]) -> io::Result<Payload> {
+fn decode(mut bytes: &[u8]) -> Result<Payload> {
     let payload = Payload {
         kind: bytes.read_u8()?,
         value: bytes.read_u16::<LittleEndian>()?,
@@ -90,9 +104,7 @@ fn decode(mut bytes: &[u8]) -> io::Result<Payload> {
     Ok(payload)
 }
 
-fn main() {
-    run().unwrap();
-}
+quick_main!(run);
 ```
 
 [ex-rand-float]: #ex-rand-float

@@ -31,21 +31,27 @@ URL will print a message containing an explanation of what went wrong.
 ```rust
 extern crate url;
 
+#[macro_use]
+extern crate error_chain;
+
 use url::Url;
 
-fn main() {
-    let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open";
-
-    match Url::parse(s) {
-        Ok(url) => {
-            println!("Successfully parsed the URL.");
-            println!("The path part of the URL is: {}", url.path());
-        }
-        Err(err) => {
-            println!("Failed to parse the URL: {}", err);
-        }
+error_chain! {
+    foreign_links {
+        UrlParse(url::ParseError);
     }
 }
+
+fn run() -> Result<()> {
+    let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open";
+
+    let parsed = Url::parse(s)?;
+    println!("The path part of the URL is: {}", parsed.path());
+
+    Ok(())
+}
+
+quick_main!(run);
 ```
 
 [ex-url-base]: #ex-url-base
@@ -57,39 +63,35 @@ fn main() {
 ```rust
 extern crate url;
 
-use url::{Url, ParseError};
+use url::Url;
 
 #[macro_use]
 extern crate error_chain;
 
 error_chain! {
+    foreign_links {
+        UrlParse(url::ParseError);
+    }
     errors {
         CannotBeABase
     }
-    foreign_links {
-        Parse(ParseError);
-    }
 }
 
-fn main() {
-    let s = "https://github.com/rust-lang/cargo?asdf";
+fn run() -> Result<()> {
+    let full = "https://github.com/rust-lang/cargo?asdf";
 
-    match base_url(s) {
-        Ok(base) => {
-            assert_eq!(base.as_str(), "https://github.com/");
-            println!("The base of the URL is: {}", base);
-        }
-        Err(err) => {
-            println!("Failed to extract base URL: {}", err);
-        }
-    }
+    let url = Url::parse(full)?;
+    let base = base_url(url)?;
+
+    assert_eq!(base.as_str(), "https://github.com/");
+    println!("The base of the URL is: {}", base);
+
+    Ok(())
 }
 
 /// Returns the base of the given URL - the part not including any path segments
 /// and query parameters.
-fn base_url(full: &str) -> Result<Url> {
-    let mut url = Url::parse(full)?;
-
+fn base_url(mut url: Url) -> Result<Url> {
     // Clear path segments.
     match url.path_segments_mut() {
         Ok(mut path) => {
@@ -106,6 +108,8 @@ fn base_url(full: &str) -> Result<Url> {
 
     Ok(url)
 }
+
+quick_main!(run);
 ```
 
 [ex-url-new-from-base]: #ex-url-new-from-base
@@ -119,29 +123,39 @@ The [`join`] method creates a new URL from a base and relative path.
 ```rust
 extern crate url;
 
-use url::{Url, ParseError};
+#[macro_use]
+extern crate error_chain;
 
-fn main() {
-    let path = "/rust-lang/cargo";
+use url::Url;
 
-    match build_github_url(path) {
-        Ok(url) => {
-            assert_eq!(url.as_str(), "https://github.com/rust-lang/cargo");
-            println!("The joined URL is: {}", url);
-        }
-        Err(err) => {
-            println!("Failed to build GitHub URL: {}", err);
-        }
+error_chain! {
+    foreign_links {
+        UrlParse(url::ParseError);
     }
 }
 
-fn build_github_url(path: &str) -> Result<Url, ParseError> {
+fn run() -> Result<()> {
+    let path = "/rust-lang/cargo";
+
+    let gh = build_github_url(path)?;
+
+    assert_eq!(gh.as_str(), "https://github.com/rust-lang/cargo");
+    println!("The joined URL is: {}", gh);
+
+    Ok(())
+}
+
+fn build_github_url(path: &str) -> Result<Url> {
     // Hardcoded in our program. Caller's path will be joined to this.
     const GITHUB: &'static str = "https://github.com";
 
     let base = Url::parse(GITHUB).expect("hardcoded URL is known to be valid");
-    base.join(path)
+    let joined = base.join(path)?;
+
+    Ok(joined)
 }
+
+quick_main!(run);
 ```
 
 [ex-url-origin]: #ex-url-origin
@@ -156,23 +170,31 @@ it represents.
 ```rust
 extern crate url;
 
+#[macro_use]
+extern crate error_chain;
+
 use url::{Url, Host};
 
-fn main() {
-    let s = "ftp://rust-lang.org/examples";
-
-    match Url::parse(s) {
-        Ok(url) => {
-            assert_eq!(url.scheme(), "ftp");
-            assert_eq!(url.host(), Some(Host::Domain("rust-lang.org")));
-            assert_eq!(url.port_or_known_default(), Some(21));
-            println!("The origin is as expected!");
-        }
-        Err(err) => {
-            println!("Failed to parse the URL: {}", err);
-        }
+error_chain! {
+    foreign_links {
+        UrlParse(url::ParseError);
     }
 }
+
+fn run() -> Result<()> {
+    let s = "ftp://rust-lang.org/examples";
+
+    let url = Url::parse(s)?;
+
+    assert_eq!(url.scheme(), "ftp");
+    assert_eq!(url.host(), Some(Host::Domain("rust-lang.org")));
+    assert_eq!(url.port_or_known_default(), Some(21));
+    println!("The origin is as expected!");
+
+    Ok(())
+}
+
+quick_main!(run);
 ```
 
 The same result can be obtained using the [`origin`] method as well.
@@ -180,27 +202,35 @@ The same result can be obtained using the [`origin`] method as well.
 ```rust
 extern crate url;
 
+#[macro_use]
+extern crate error_chain;
+
 use url::{Url, Origin, Host};
 
-fn main() {
-    let s = "ftp://rust-lang.org/examples";
-
-    match Url::parse(s) {
-        Ok(url) => {
-            let expected_scheme = "ftp".to_owned();
-            let expected_host = Host::Domain("rust-lang.org".to_owned());
-            let expected_port = 21;
-            let expected = Origin::Tuple(expected_scheme, expected_host, expected_port);
-
-            let origin = url.origin();
-            assert_eq!(origin, expected);
-            println!("The origin is as expected!");
-        }
-        Err(err) => {
-            println!("Failed to parse the URL: {}", err);
-        }
+error_chain! {
+    foreign_links {
+        UrlParse(url::ParseError);
     }
 }
+
+fn run() -> Result<()> {
+    let s = "ftp://rust-lang.org/examples";
+
+    let url = Url::parse(s)?;
+
+    let expected_scheme = "ftp".to_owned();
+    let expected_host = Host::Domain("rust-lang.org".to_owned());
+    let expected_port = 21;
+    let expected = Origin::Tuple(expected_scheme, expected_host, expected_port);
+
+    let origin = url.origin();
+    assert_eq!(origin, expected);
+    println!("The origin is as expected!");
+
+    Ok(())
+}
+
+quick_main!(run);
 ```
 
 [ex-url-rm-frag]: #ex-url-rm-frag
@@ -214,18 +244,25 @@ Once [`Url`] is parsed it can be sliced with [`url::Position`] to strip unneeded
 ```rust
 extern crate url;
 
+#[macro_use]
+extern crate error_chain;
+
 use url::{Url, Position};
 
-fn run() -> Result<(), url::ParseError> {
+error_chain! {
+    foreign_links {
+        UrlParse(url::ParseError);
+    }
+}
+
+fn run() -> Result<()> {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&state=open")?;
     let cleaned: &str = &parsed[..Position::AfterPath];
     println!("cleaned: {}", cleaned);
     Ok(())
 }
 
-fn main() {
-    run().unwrap();
-}
+quick_main!(run);
 ```
 
 [ex-url-basic]: #ex-url-basic
@@ -338,6 +375,9 @@ GitHub [stargazers API v3](https://developer.github.com/v3/activity/starring/#li
 extern crate serde_derive;
 extern crate reqwest;
 
+#[macro_use]
+extern crate error_chain;
+
 #[derive(Deserialize, Debug)]
 struct User {
     login: String,
@@ -345,7 +385,13 @@ struct User {
     // remaining fields not deserialized for brevity
 }
 
-fn run() -> reqwest::Result<()> {
+error_chain! {
+    foreign_links {
+        Reqwest(reqwest::Error);
+    }
+}
+
+fn run() -> Result<()> {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
                               owner = "brson",
                               repo = "rust-cookbook");
@@ -357,9 +403,7 @@ fn run() -> reqwest::Result<()> {
     Ok(())
 }
 
-fn main() {
-    run().unwrap();
-}
+quick_main!(run);
 ```
 
 [ex-rest-post]: #ex-rest-post
@@ -376,13 +420,14 @@ Request is prepared with [`Client::post`], authenticated with [`RequestBuilder::
 Gist is subsequently deleted with HTTP DELETE request prepared with [`Client::delete`] and executed as before.
 
 ```rust,no_run
-#[macro_use]
-extern crate error_chain;
 extern crate reqwest;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
+
+#[macro_use]
+extern crate error_chain;
 
 use std::env;
 
