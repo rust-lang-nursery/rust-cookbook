@@ -101,9 +101,9 @@ Adding an example involves:
 Examples are presently organized in three ways:
 
 - Book sections - the cookbook is a book, and is organized like a book
-  in logical sections, like "basics", "serialization", "concurrency".
+  in logical sections, like "basics", "encoding", "concurrency".
 - Category tags - each example is tagged with one or more category
-  tags, like "math", "file-io".
+  tags, like "filesystem", "debugging".
 - Crate tags - each example is tagged with one or more crate tags,
   indicating which crates are represented in the example. Those that
   use no additional crates are simply tagged 'std'.
