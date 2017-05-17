@@ -17,20 +17,22 @@ git clone https://github.com/brson/rust-cookbook.git
 cd rust-cookbook
 ```
 
-Cookbook is built with [mdbook], so install that first with cargo:
+Cookbook is built with [mdBook], so install that first with Cargo:
 
 ```
 cargo install mdbook
 ```
 
-And then build:
+To build and view the cookbook locally, run:
 
 ```
-mdbook build
+mdbook serve
 ```
 
-The output will be in the `book/` directory. You can open it from
-there in a web browser.
+Then open `http://localhost:3000` in a web browser to browse the cookbook. Any
+changes you make to the cookbook source will be automatically rebuilt and
+visible in the browser, so it can be helpful to keep this window open while
+editing.
 
 All examples in the cookbook are tested with [skeptic], a tool for
 testing arbitrary markdown documentation in a style similar to
