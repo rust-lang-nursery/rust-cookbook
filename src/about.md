@@ -26,33 +26,17 @@ practices, they set up error handling correctly when there are
 `Result` types involved.
 
 The basic pattern we use is to have a `fn run() -> Result` that acts
-like the "real" main function.
+like the "real" main function. We use the [error-chain] crate to make
+`?` work within `run`.
 
-The code for this setup generally looks like:
-
-```rust
-use std::io::{self, Write};
-
-fn run() -> io::Result<()> {
-    writeln!(io::stderr(), "hello, world")?;
-
-    Ok(())
-}
-
-fn main() {
-    run().unwrap();
-}
-```
-
-and when necessary to reduce boilerplate,
-they use the [error-chain] crate.
+The structure generally looks like:
 
 ```rust
-use std::net::IpAddr;
-use std::str;
-
 #[macro_use]
 extern crate error_chain;
+
+use std::net::IpAddr;
+use std::str;
 
 error_chain! {
     foreign_links {
@@ -78,10 +62,10 @@ quick_main!(run);
 ```
 
 This is using the `error_chain!` macro to define a custom `Error` and
-`Result` type, along with an automatic conversion from two standard
-library error types. The automatic conversion makes the `?` operator
-work. The `quick_main!` macro is also used to generate the boilerplate `main`
-from above.
+`Result` type, along with automatic conversions from two standard
+library error types. The automatic conversions make the `?` operator
+work. The `quick_main!` macro generates the actual `main` function and
+prints out the error if one occurred.
 
 For more background on error handling in Rust, read [this page of the
 Rust book][error-docs] and [this blog post][error-blog].
