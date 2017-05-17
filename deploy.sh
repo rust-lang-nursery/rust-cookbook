@@ -12,6 +12,19 @@ if [ "$TRAVIS_BRANCH" != "master" ]; then
     exit 0
 fi
 
+# check for outdated dependencies on nightly builds
+if [ "${TRAVIS_EVENT_TYPE:-}" == "cron" ]; then
+    echo "This is cron build. Checking for outdated dependencies!"
+    rm ./Cargo.lock
+    cargo clean
+    # replace all [dependencies] versions with "*"
+    sed -i -e "/^\[dependencies\]/,/^\[.*\]/ s|^\(.*=[ \t]*\).*$|\1\"\*\"|" ./Cargo.toml
+
+    cargo test || { echo "Cron build failed! Dependencies outdated!"; exit 1; }
+    echo "Cron build success! Dependencies are up to date!"
+    exit 0
+fi
+
 # Returns 1 if program is installed and 0 otherwise
 program_installed() {
     local return_=1
