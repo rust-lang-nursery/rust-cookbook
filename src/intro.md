@@ -86,14 +86,14 @@ Keep lines sorted.
 [cat-concurrency]: https://crates.io/categories/concurrency
 [cat-debugging-badge]: https://img.shields.io/badge/-debugging-red.svg
 [cat-debugging]: https://crates.io/categories/debugging
-[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
-[cat-filesystem]: https://crates.io/categories/filesystem
-[cat-science-badge]: https://img.shields.io/badge/-science-red.svg
-[cat-science]: https://crates.io/categories/science
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
 [cat-encoding]: https://crates.io/categories/encoding
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem]: https://crates.io/categories/filesystem
 [cat-net-badge]: https://img.shields.io/badge/-net-red.svg
 [cat-net]: https://crates.io/categories/network-programming
+[cat-science-badge]: https://img.shields.io/badge/-science-red.svg
+[cat-science]: https://crates.io/categories/science
 
 <!-- Crates -->
 
@@ -105,8 +105,6 @@ Keep lines sorted.
 [env_logger]: https://docs.rs/env_logger/
 [log-badge]: https://img.shields.io/crates/v/log.svg?label=log
 [log]: https://docs.rs/log/
-[serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
-[serde-json]: https://docs.serde.rs/serde_json/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
@@ -114,6 +112,8 @@ Keep lines sorted.
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
+[serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
+[serde-json]: https://docs.serde.rs/serde_json/
 [serde]: https://docs.rs/serde/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
@@ -131,25 +131,25 @@ Keep lines sorted.
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-json-value]: encoding.html#ex-json-value
+[ex-log-custom-logger]: app.html#ex-log-custom-logger
 [ex-log-custom]: app.html#ex-log-custom
 [ex-log-debug]: app.html#ex-log-debug
 [ex-log-error]: app.html#ex-log-error
-[ex-log-custom-logger]: app.html#ex-log-custom-logger
 [ex-log-mod]: app.html#ex-log-mod
 [ex-log-syslog]: app.html#ex-log-syslog
 [ex-rand-custom]: basics.html#ex-rand-custom
+[ex-rand-dist]: basics.html#ex-rand-dist
 [ex-rand-float]: basics.html#ex-rand-float
 [ex-rand-range]: basics.html#ex-rand-range
-[ex-rand-dist]: basics.html#ex-rand-dist
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-post]: net.html#ex-rest-post
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-toml-config]: encoding.html#ex-toml-config
-[ex-url-parse]: net.html#ex-url-parse
 [ex-url-base]: net.html#ex-url-base
+[ex-url-basic]: net.html#ex-url-basic
+[ex-url-download]: net.html#ex-url-download
 [ex-url-new-from-base]: net.html#ex-url-new-from-base
 [ex-url-origin]: net.html#ex-url-origin
+[ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
-[ex-url-download]: net.html#ex-url-download
-[ex-url-basic]: net.html#ex-url-basic

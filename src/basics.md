@@ -202,12 +202,12 @@ fn main() {
 
 <!-- Categories -->
 
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding]: https://crates.io/categories/encoding
 [cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
 [cat-filesystem]: https://crates.io/categories/filesystem
 [cat-science-badge]: https://img.shields.io/badge/-rand-red.svg
 [cat-science]: https://crates.io/categories/science
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
-[cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->
 
@@ -215,7 +215,6 @@ fn main() {
 [byteorder]: https://docs.rs/byteorder/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
-[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
 
@@ -232,3 +231,4 @@ fn main() {
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
+[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
