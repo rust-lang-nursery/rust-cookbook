@@ -4,6 +4,7 @@
 |--------|--------|------------|
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
+| [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -176,6 +177,54 @@ fn run() -> Result<()> {
 quick_main!(run);
 ```
 
+[ex-percent-encode]: #ex-percent-encode
+<a name="ex-percent-encode"></a>
+## Percent-encode a string
+
+[![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
+
+Encode an input string with [percent-encoding] using the [`utf8_percent_encode`]
+function from the `url` crate. Then decode using the [`percent_decode`]
+function.
+
+```rust
+extern crate url;
+
+#[macro_use]
+extern crate error_chain;
+
+use url::percent_encoding::{utf8_percent_encode, percent_decode, DEFAULT_ENCODE_SET};
+
+error_chain! {
+    foreign_links {
+        Utf8(std::str::Utf8Error);
+    }
+}
+
+fn run() -> Result<()> {
+    let input = "confident, productive systems programming";
+
+    let iter = utf8_percent_encode(input, DEFAULT_ENCODE_SET);
+    let encoded: String = iter.collect();
+    assert_eq!(encoded, "confident,%20productive%20systems%20programming");
+
+    let iter = percent_decode(encoded.as_bytes());
+    let decoded = iter.decode_utf8()?;
+    assert_eq!(decoded, "confident, productive systems programming");
+
+    Ok(())
+}
+
+quick_main!(run);
+```
+
+The encode set defines which bytes (in addition to non-ASCII and controls) need
+to be percent-encoded. The choice of this set depends on context. For example,
+`?` needs to be encoded in a URL path but not in a query string.
+
+The return value of encoding is an iterator of `&str` slices which can be
+collected into a `String`.
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -187,3 +236,11 @@ quick_main!(run);
 [serde-json]: https://docs.serde.rs/serde_json/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
+[url-badge]: https://img.shields.io/crates/v/url.svg?label=url
+[url]: https://docs.rs/url/
+
+<!-- Reference -->
+
+[`percent_decode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.percent_decode.html
+[`utf8_percent_encode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.utf8_percent_encode.html
+[percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding

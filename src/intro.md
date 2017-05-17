@@ -33,6 +33,7 @@ community. It needs and welcomes help. For details see
 |--------|--------|------------|
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
+| [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -137,6 +138,7 @@ Keep lines sorted.
 [ex-log-error]: app.html#ex-log-error
 [ex-log-mod]: app.html#ex-log-mod
 [ex-log-syslog]: app.html#ex-log-syslog
+[ex-percent-encode]: encoding.html#ex-percent-encode
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist
 [ex-rand-float]: basics.html#ex-rand-float
