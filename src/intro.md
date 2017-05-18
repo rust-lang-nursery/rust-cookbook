@@ -26,6 +26,7 @@ community. It needs and welcomes help. For details see
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] |  |
 
 ## [Encoding](encoding.html)
 
@@ -127,6 +128,8 @@ Keep lines sorted.
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
+[regex]: https://docs.rs/regex/
+[regex-badge]: https://img.shields.io/crates/v/regex.svg?label=regex
 
 <!-- Examples -->
 
@@ -157,3 +160,4 @@ Keep lines sorted.
 [ex-url-origin]: net.html#ex-url-origin
 [ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
+[ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
