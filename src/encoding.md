@@ -282,7 +282,7 @@ quick_main!(run);
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
-[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=url
+[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
 
 <!-- Reference -->
