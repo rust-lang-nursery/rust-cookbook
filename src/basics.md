@@ -209,7 +209,7 @@ fn main() {
 [![regex-badge]][regex] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
 
 `git log --oneline` is run as an external [`Command`] and its [`Output`] is
-inspected using [`Regex`] to get each commit's hash and message.
+inspected using [`Regex`] to get the hash and message of the last 5 commits.
 
 ```rust
 #[macro_use]
@@ -255,7 +255,8 @@ fn run() -> Result<()> {
                      hash: cap[1].to_string(),
                      message: cap[2].trim().to_string(),
                  }
-             });
+             })
+        .take(5);
 
     for commit in commits {
         println!("{:?}", commit);
