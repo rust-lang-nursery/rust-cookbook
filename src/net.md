@@ -10,6 +10,7 @@
 | [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Download a file to a temporary directory][ex-url-download] | [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] | [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem] |
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 
 [ex-url-parse]: #ex-url-parse
@@ -400,6 +401,56 @@ fn run() -> Result<()> {
 
     let users: Vec<User> = response.json()?;
     println!("{:?}", users);
+    Ok(())
+}
+
+quick_main!(run);
+```
+
+[ex-rest-head]: #ex-rest-head
+<a name="ex-rest-head"/>
+## Check if a resource exists using a HEAD request
+
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
+
+Query the [GitHub Users Endpoint](https://api.github.com/users) using a HEAD request and then inspect the
+response code to determine success. This is a quick way to query a rest resource without
+needing to receive a body. You can also configure the [`reqwest::Client`] to use a timeout
+which ensures that a request will not last longer than what is passed to the timeout function.
+
+```rust,no_run
+#[macro_use]
+extern crate error_chain;
+
+extern crate reqwest;
+
+use std::time::Duration;
+
+use reqwest::Client;
+
+error_chain! {
+    foreign_links {
+        Reqwest(reqwest::Error);
+    }
+}
+
+fn run() -> Result<()> {
+    let request_url = "https://api.github.com/users/ferris-the-crab";
+    println!("{}", request_url);
+
+    // The timeout for the request is set to 5 seconds.
+    let timeout = Duration::new(5, 0);
+
+    let mut client = Client::new()?;
+    client.timeout(timeout);
+    let response = client.head(request_url).send()?;
+
+    if response.status().is_success() {
+        println!("ferris-the-crab is a user!");
+    } else {
+        println!("ferris-the-crab is not a user!");
+    }
+
     Ok(())
 }
 
