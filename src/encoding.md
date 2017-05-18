@@ -5,6 +5,7 @@
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
+| [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -225,6 +226,49 @@ to be percent-encoded. The choice of this set depends on context. For example,
 The return value of encoding is an iterator of `&str` slices which can be
 collected into a `String`.
 
+[ex-base64]: #ex-base64
+<a name="ex-base64"></a>
+## Encode and decode base64
+
+[![base64-badge]][base64] [![cat-encoding-badge]][cat-encoding]
+
+The [`base64`] crate provides `encode` and `decode` functions.
+The example below encode a byte slice to a `base64` encoded `String`
+then decode it. The results are printed to the standard output.
+
+[`base64`]: https://docs.serde.rs/base64/
+
+```rust
+#[macro_use]
+extern crate error_chain;
+
+extern crate base64;
+
+use std::str;
+use base64::{encode, decode};
+
+error_chain! {
+    foreign_links {
+        Base64(base64::DecodeError);
+        Utf8Error(str::Utf8Error);
+    }
+}
+
+fn run() -> Result<()> {
+    let hello = b"hello rustaceans";
+    let encoded = encode(hello);
+    let decoded = &decode(&encoded)?[..];
+
+    println!("origin: {}", str::from_utf8(hello)?);
+    println!("base64 encoded: {}", encoded);
+    println!("back to origin: {}", str::from_utf8(decoded)?);
+
+    Ok(())
+}
+
+quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -238,6 +282,8 @@ collected into a `String`.
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
+[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=url
+[base64]: https://docs.rs/base64/
 
 <!-- Reference -->
 
