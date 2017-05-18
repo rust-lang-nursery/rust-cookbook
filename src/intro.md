@@ -26,6 +26,7 @@ community. It needs and welcomes help. For details see
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 
 ## [Encoding](encoding.html)
 
@@ -97,6 +98,10 @@ Keep lines sorted.
 [cat-net]: https://crates.io/categories/network-programming
 [cat-science-badge]: https://img.shields.io/badge/-science-red.svg
 [cat-science]: https://crates.io/categories/science
+[cat-os-badge]: https://img.shields.io/badge/-os-red.svg
+[cat-os]: https://crates.io/categories/os
+[cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-red.svg
+[cat-text-processing]: https://crates.io/categories/text-processing
 
 <!-- Crates -->
 
@@ -130,6 +135,8 @@ Keep lines sorted.
 [url]: https://docs.rs/url/
 [base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
+[regex]: https://docs.rs/regex/
+[regex-badge]: https://img.shields.io/crates/v/regex.svg?label=regex
 
 <!-- Examples -->
 
@@ -161,3 +168,4 @@ Keep lines sorted.
 [ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-base64]: encoding.html#ex-base64
+[ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
