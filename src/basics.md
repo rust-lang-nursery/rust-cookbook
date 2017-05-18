@@ -3,6 +3,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Determine if a file exists][ex-std-file-exists] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
@@ -55,6 +56,31 @@ fn run() -> Result<()> {
 }
 
 quick_main!(run);
+```
+
+[ex-std-file-exists]: #ex-std-file-exists
+<a name="ex-std-file-exists"></a>
+## Check if a file exists on your system
+
+[![std-badge]][std] [![cat-filesystem-badge]][cat-filesystem]
+
+Create a new [`Path`] from a string slice and then use the [`exists`]
+function to see if the path is valid.
+
+```rust
+use std::path::Path;
+
+fn main() {
+    let cat = "/usr/bin/cat";
+
+    let as_path = Path::new(cat);
+
+    if as_path.exists() {
+        println!("{} exists on the file system.", cat);
+    } else {
+        println!("{} does not exist on the file system.", cat);
+    }
+}
 ```
 
 [ex-byteorder-le]: #ex-byteorder-le
@@ -302,6 +328,8 @@ quick_main!(run);
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
+[`Path`]: https://doc.rust-lang.org/std/path/struct.Path.html
+[`exists`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.exists
 [`Write`]: https://doc.rust-lang.org/std/io/trait.Write.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample

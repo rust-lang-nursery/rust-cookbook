@@ -21,6 +21,7 @@ community. It needs and welcomes help. For details see
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Determine if a file exists][ex-std-file-exists] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
@@ -156,6 +157,7 @@ Keep lines sorted.
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-post]: net.html#ex-rest-post
 [ex-std-read-lines]: basics.html#ex-std-read-lines
+[ex-std-file-exists]: basics.html#ex-std-file-exists
 [ex-toml-config]: encoding.html#ex-toml-config
 [ex-url-base]: net.html#ex-url-base
 [ex-url-basic]: net.html#ex-url-basic
