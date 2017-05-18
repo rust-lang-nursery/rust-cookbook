@@ -8,7 +8,8 @@
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
-| [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] |  |
+| [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
+
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -205,7 +206,7 @@ fn main() {
 <a name="ex-parse-subprocess-output"></a>
 ## Run an External Command and Process Stdout
 
-[![regex-badge]][regex] <!-- TODO: Find a category for this -->
+[![regex-badge]][regex] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
 
 `git log --oneline` is run as an external [`Command`] and its [`Output`] is
 inspected using [`Regex`] to get each commit's hash and message.
@@ -275,6 +276,10 @@ quick_main!(run);
 [cat-filesystem]: https://crates.io/categories/filesystem
 [cat-science-badge]: https://img.shields.io/badge/-rand-red.svg
 [cat-science]: https://crates.io/categories/science
+[cat-os-badge]: https://img.shields.io/badge/-os-red.svg
+[cat-os]: https://crates.io/categories/os
+[cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-red.svg
+[cat-text-processing]: https://crates.io/categories/text-processing
 
 <!-- Crates -->
 
