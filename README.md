@@ -1,4 +1,7 @@
-# A Rust Cookbook
+# A Rust Cookbook &emsp; [![Build Status]][travis]
+
+[Build Status]: https://api.travis-ci.org/brson/rust-cookbook.svg?branch=master
+[travis]: https://travis-ci.org/brson/rust-cookbook
 
 **[Read it here]**.
 
