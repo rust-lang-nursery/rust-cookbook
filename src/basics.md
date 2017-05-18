@@ -8,6 +8,7 @@
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] |  |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -200,6 +201,72 @@ fn main() {
 }
 ```
 
+[ex-parse-subprocess-output]: #ex-parse-subprocess-output
+<a name="ex-parse-subprocess-output"></a>
+## Run an External Command and Process Stdout
+
+[![regex-badge]][regex] <!-- TODO: Find a category for this -->
+
+`git log --oneline` is run as an external [`Command`] and its [`Output`] is
+inspected using [`Regex`] to get each commit's hash and message.
+
+```rust
+#[macro_use]
+extern crate error_chain;
+extern crate regex;
+
+use std::process::Command;
+use regex::Regex;
+
+error_chain!{
+    foreign_links {
+        Io(std::io::Error);
+        Regex(regex::Error);
+        Utf8(std::string::FromUtf8Error);
+    }
+}
+
+
+#[derive(PartialEq, Default, Clone, Debug)]
+struct Commit {
+    hash: String,
+    message: String,
+}
+
+
+fn run() -> Result<()> {
+    let output = Command::new("git").arg("log").arg("--oneline").output()?;
+
+    if !output.status.success() {
+        bail!("Command executed with failing error code");
+    }
+
+    let pattern = Regex::new(r"(?x)
+                               ([0-9a-fA-F]+) # commit hash
+                               (.*)           # The commit message")?;
+
+    let stdout = String::from_utf8(output.stdout)?;
+    let commits = stdout
+        .lines()
+        .filter_map(|line| pattern.captures(line))
+        .map(|cap| {
+                 Commit {
+                     hash: cap[1].to_string(),
+                     message: cap[2].trim().to_string(),
+                 }
+             });
+
+    for commit in commits {
+        println!("{:?}", commit);
+    }
+
+    Ok(())
+}
+
+quick_main!(run);
+```
+
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -217,6 +284,8 @@ fn main() {
 [rand]: https://docs.rs/rand/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [std]: https://doc.rust-lang.org/std
+[regex]: https://docs.rs/regex/
+[regex-badge]: https://img.shields.io/crates/v/regex.svg?label=regex
 
 <!-- API links -->
 
@@ -232,3 +301,6 @@ fn main() {
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
+[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
+[`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
