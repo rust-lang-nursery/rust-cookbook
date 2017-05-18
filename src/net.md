@@ -31,17 +31,17 @@ URL will print a message containing an explanation of what went wrong.
 
 ```rust
 extern crate url;
-
-#[macro_use]
-extern crate error_chain;
+#
+# #[macro_use]
+# extern crate error_chain;
 
 use url::Url;
-
-error_chain! {
-    foreign_links {
-        UrlParse(url::ParseError);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        UrlParse(url::ParseError);
+#    }
+# }
 
 fn run() -> Result<()> {
     let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open";
@@ -51,8 +51,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-url-base]: #ex-url-base
@@ -62,21 +62,20 @@ quick_main!(run);
 [![url-badge]][url] [![cat-net-badge]][cat-net]
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate url;
 
 use url::Url;
-
-#[macro_use]
-extern crate error_chain;
-
-error_chain! {
-    foreign_links {
-        UrlParse(url::ParseError);
-    }
-    errors {
-        CannotBeABase
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        UrlParse(url::ParseError);
+#    }
+#    errors {
+#        CannotBeABase
+#    }
+# }
 
 fn run() -> Result<()> {
     let full = "https://github.com/rust-lang/cargo?asdf";
@@ -109,8 +108,8 @@ fn base_url(mut url: Url) -> Result<Url> {
 
     Ok(url)
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-url-new-from-base]: #ex-url-new-from-base
@@ -122,18 +121,17 @@ quick_main!(run);
 The [`join`] method creates a new URL from a base and relative path.
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate url;
 
-#[macro_use]
-extern crate error_chain;
-
 use url::Url;
-
-error_chain! {
-    foreign_links {
-        UrlParse(url::ParseError);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        UrlParse(url::ParseError);
+#    }
+# }
 
 fn run() -> Result<()> {
     let path = "/rust-lang/cargo";
@@ -155,8 +153,8 @@ fn build_github_url(path: &str) -> Result<Url> {
 
     Ok(joined)
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-url-origin]: #ex-url-origin
@@ -169,19 +167,18 @@ The [`Url`] struct exposes various methods to extract information about the URL
 it represents.
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate url;
-
-#[macro_use]
-extern crate error_chain;
 
 use url::{Url, Host};
 
-error_chain! {
-    foreign_links {
-        UrlParse(url::ParseError);
-    }
-}
-
+# error_chain! {
+#    foreign_links {
+#        UrlParse(url::ParseError);
+#    }
+# }
+#
 fn run() -> Result<()> {
     let s = "ftp://rust-lang.org/examples";
 
@@ -194,26 +191,25 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 The same result can be obtained using the [`origin`] method as well.
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate url;
-
-#[macro_use]
-extern crate error_chain;
 
 use url::{Url, Origin, Host};
 
-error_chain! {
-    foreign_links {
-        UrlParse(url::ParseError);
-    }
-}
-
+# error_chain! {
+#    foreign_links {
+#        UrlParse(url::ParseError);
+#    }
+# }
+#
 fn run() -> Result<()> {
     let s = "ftp://rust-lang.org/examples";
 
@@ -230,8 +226,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-url-rm-frag]: #ex-url-rm-frag
@@ -243,18 +239,17 @@ quick_main!(run);
 Once [`Url`] is parsed it can be sliced with [`url::Position`] to strip unneeded URL parts.
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate url;
 
-#[macro_use]
-extern crate error_chain;
-
 use url::{Url, Position};
-
-error_chain! {
-    foreign_links {
-        UrlParse(url::ParseError);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        UrlParse(url::ParseError);
+#    }
+# }
 
 fn run() -> Result<()> {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&state=open")?;
@@ -262,8 +257,8 @@ fn run() -> Result<()> {
     println!("cleaned: {}", cleaned);
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-url-basic]: #ex-url-basic
@@ -277,18 +272,18 @@ synchronous HTTP GET request. Obtained [`reqwest::Response`]
 status and headers are printed. HTTP response body is read into an allocated [`String`] via [`read_to_string`].
 
 ```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
 extern crate reqwest;
-#[macro_use]
-extern crate error_chain;
 
 use std::io::Read;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        HttpReqest(reqwest::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Io(std::io::Error);
+#        HttpReqest(reqwest::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let mut res = reqwest::get("http://httpbin.org/get")?;
@@ -301,8 +296,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-url-download]: #ex-url-download
@@ -317,21 +312,21 @@ Target [`File`] with name obtained from [`Response::url`] is created within [`Te
 and downloaded data is copied into it with [`io::copy`]. The temporary directory is implicitly removed on `run` function return.
 
 ```rust,no_run
-#[macro_use]
-extern crate error_chain;
+# #[macro_use]
+# extern crate error_chain;
 extern crate reqwest;
 extern crate tempdir;
 
 use std::io::copy;
 use std::fs::File;
 use tempdir::TempDir;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        HttpReqest(reqwest::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Io(std::io::Error);
+#        HttpReqest(reqwest::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     // create a temp dir with prefix "example"
@@ -359,8 +354,8 @@ fn run() -> Result<()> {
     // tmp_dir is implicitly removed
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-rest-get]: #ex-rest-get
@@ -372,12 +367,11 @@ quick_main!(run);
 GitHub [stargazers API v3](https://developer.github.com/v3/activity/starring/#list-stargazers) is queried with [`reqwest::get`] to obtain list of all users who have marked a GitHub project with a star. [`reqwest::Response`] is deserialized with [`Response::json`] into `User` objects implementing [`serde::Deserialize`].
 
 ```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
 extern crate reqwest;
-
-#[macro_use]
-extern crate error_chain;
 
 #[derive(Deserialize, Debug)]
 struct User {
@@ -385,12 +379,12 @@ struct User {
     id: u32,
     // remaining fields not deserialized for brevity
 }
-
-error_chain! {
-    foreign_links {
-        Reqwest(reqwest::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Reqwest(reqwest::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
@@ -403,8 +397,8 @@ fn run() -> Result<()> {
     println!("{:?}", users);
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-rest-head]: #ex-rest-head
@@ -419,20 +413,18 @@ needing to receive a body. You can also configure the [`reqwest::Client`] to use
 which ensures that a request will not last longer than what is passed to the timeout function.
 
 ```rust,no_run
-#[macro_use]
-extern crate error_chain;
-
+# #[macro_use]
+# extern crate error_chain;
 extern crate reqwest;
 
 use std::time::Duration;
-
 use reqwest::Client;
-
-error_chain! {
-    foreign_links {
-        Reqwest(reqwest::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Reqwest(reqwest::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let request_url = "https://api.github.com/users/ferris-the-crab";
@@ -453,8 +445,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-rest-post]: #ex-rest-post
@@ -471,23 +463,22 @@ Request is prepared with [`Client::post`], authenticated with [`RequestBuilder::
 Gist is subsequently deleted with HTTP DELETE request prepared with [`Client::delete`] and executed as before.
 
 ```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
 extern crate reqwest;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 
-#[macro_use]
-extern crate error_chain;
-
 use std::env;
-
-error_chain! {
-    foreign_links {
-        EnvVar(env::VarError);
-        HttpReqest(reqwest::Error);
-    }
-}
+#
+# error_chain! {
+#   foreign_links {
+#       EnvVar(env::VarError);
+#       HttpReqest(reqwest::Error);
+#   }
+# }
 
 #[derive(Deserialize, Debug)]
 struct Gist {
@@ -533,8 +524,8 @@ fn run() -> Result<()> {
     println!("Gist {} deleted! Status code: {}",gist.id, response.status());
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 <!-- Categories -->
