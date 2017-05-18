@@ -232,16 +232,17 @@ collected into a `String`.
 
 [![base64-badge]][base64] [![cat-encoding-badge]][cat-encoding]
 
-The [`base64`] crate provides `encode` and `decode` functions.
-The example below encode a byte slice to a `base64` encoded `String`
-then decode it. The results are printed to the standard output.
+The [`base64`] crate provides [`encode`] and [`decode`] functions.
+Byte slice is incoded into `base64` String with help of `encode` 
+and subsequently decoded with `decode`.
 
-[`base64`]: https://docs.serde.rs/base64/
+[`base64`]: https://docs.rs/base64/
+[`decode`]: https://docs.rs/base64/*/base64/fn.decode.html
+[`encode`]: https://docs.rs/base64/*/base64/fn.encode.html
 
 ```rust
 #[macro_use]
 extern crate error_chain;
-
 extern crate base64;
 
 use std::str;
@@ -257,11 +258,11 @@ error_chain! {
 fn run() -> Result<()> {
     let hello = b"hello rustaceans";
     let encoded = encode(hello);
-    let decoded = &decode(&encoded)?[..];
+    let decoded = decode(&encoded)?[..];
 
     println!("origin: {}", str::from_utf8(hello)?);
     println!("base64 encoded: {}", encoded);
-    println!("back to origin: {}", str::from_utf8(decoded)?);
+    println!("back to origin: {}", str::from_utf8(&decoded)?);
 
     Ok(())
 }
