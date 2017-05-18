@@ -416,7 +416,7 @@ quick_main!(run);
 Query the [GitHub Users Endpoint](https://api.github.com/users) using a HEAD request and then inspect the
 response code to determine success. This is a quick way to query a rest resource without
 needing to receive a body. You can also configure the [`reqwest::Client`] to use a timeout
-which ensures that a request will not last longer than what it is configured with.
+which ensures that a request will not last longer than what is passed to the timeout function.
 
 ```rust,no_run
 #[macro_use]
@@ -560,7 +560,6 @@ quick_main!(run);
 <!-- Reference -->
 
 [`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
-[`Duration`]: https://doc.rust-lang.org/nightly/std/time/struct.Duration.html
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`Url`]: https://docs.rs/url/1.*/url/struct.Url.html
 [`parse`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse
