@@ -9,6 +9,7 @@
 | [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -292,13 +293,69 @@ quick_main!(run);
 
 [Write me!](https://github.com/brson/rust-cookbook/issues/61)
 
+[ex-tar-temp]: #ex-tar-temp
+<a name="ex-tar-temp"></a>
+## Unzip a tarball to a temporary directory
+
+Uncompress ([`flate2::read::GzDecoder::new`]) and
+extract ([`tar::Archive::unpack`]) all files form a zipped tarball
+named archive.tar.gz located in the current working directory
+inside a temporary directory ([`tempdir::TempDir::new`])
+and delete everything.
+
+[![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression]
+
+```rust,no_run
+#[macro_use]
+extern crate error_chain;
+extern crate flate2;
+extern crate tar;
+extern crate tempdir;
+
+use std::fs::File;
+
+use flate2::read::GzDecoder;
+use tar::Archive;
+use tempdir::TempDir;
+
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+    }
+}
+
+fn run() -> Result<()> {
+    let path = "archive.tar.gz";
+
+    // Open our zipped tarball
+    let tar_gz = File::open(path)?;
+    // Uncompressed it
+    let tar = GzDecoder::new(tar_gz)?;
+    // Load the archive from the tarball
+    let mut archive = Archive::new(tar);
+    // Create a directory inside of `std::env::temp_dir()`, named with
+    // the prefix "temp".
+    let tmp_dir = TempDir::new("temp")?;
+    // Unpack the archive inside the temporary directory
+    archive.unpack(tmp_dir.path())?;
+
+    Ok(())
+}
+
+quick_main!(run);
+```
 
 <!-- Categories -->
 
 [cat-command-line-badge]: https://img.shields.io/badge/-command_line-red.svg
 [cat-command-line]: https://crates.io/categories/command-line-interface
+[cat-compression-badge]: https://img.shields.io/badge/-compression-red.svg
+[cat-compression]: https://crates.io/categories/compression
 [cat-debugging-badge]: https://img.shields.io/badge/-debugging-red.svg
 [cat-debugging]: https://crates.io/categories/debugging
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem]: https://crates.io/categories/filesystem
 
 <!-- Crates -->
 
@@ -306,10 +363,16 @@ quick_main!(run);
 [clap]: https://docs.rs/clap/
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
+[flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
+[flate2]: https://docs.rs/flate2/
 [log-badge]: https://img.shields.io/crates/v/log.svg?label=log
 [log]: https://docs.rs/log/
 [syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
+[tar-badge]: https://img.shields.io/crates/v/tar.svg?label=tar
+[tar]: https://docs.rs/tar/
+[tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
+[tempdir]: https://docs.rs/tempdir/
 
 <!-- Reference -->
 
@@ -321,3 +384,6 @@ quick_main!(run);
 [`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
 [`log::Log`]: https://doc.rust-lang.org/log/log/trait.Log.html
 [`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
+[`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/0.2.19/flate2/read/struct.GzDecoder.html#method.new
+[`tar::Archive::unpack`]: https://docs.rs/tar/0.4.12/tar/struct.Archive.html#method.new
+[`tempdir::TempDir::new`]: https://docs.rs/tempdir/0.3.5/tempdir/struct.TempDir.html#method.new
