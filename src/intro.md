@@ -67,6 +67,7 @@ community. It needs and welcomes help. For details see
 | [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
 
 
 <!--
@@ -84,6 +85,8 @@ Keep lines sorted.
 
 [cat-command-line-badge]: https://img.shields.io/badge/-command_line-red.svg
 [cat-command-line]: https://crates.io/categories/command-line-interface
+[cat-compression-badge]: https://img.shields.io/badge/-compression-red.svg
+[cat-compression]: https://crates.io/categories/compression
 [cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-red.svg
 [cat-concurrency]: https://crates.io/categories/concurrency
 [cat-debugging-badge]: https://img.shields.io/badge/-debugging-red.svg
@@ -105,6 +108,8 @@ Keep lines sorted.
 [clap]: https://docs.rs/clap/
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
+[flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
+[flate2]: https://docs.rs/flate2/
 [log-badge]: https://img.shields.io/crates/v/log.svg?label=log
 [log]: https://docs.rs/log/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
@@ -121,6 +126,8 @@ Keep lines sorted.
 [std]: https://doc.rust-lang.org/std
 [syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
+[tar-badge]: https://img.shields.io/crates/v/tar.svg?label=tar
+[tar]: https://docs.rs/tar/
 [tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
 [tempdir]: https://docs.rs/tempdir/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
@@ -149,6 +156,7 @@ Keep lines sorted.
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-post]: net.html#ex-rest-post
 [ex-std-read-lines]: basics.html#ex-std-read-lines
+[ex-tar-temp]: app.html#ex-tar-temp
 [ex-toml-config]: encoding.html#ex-toml-config
 [ex-url-base]: net.html#ex-url-base
 [ex-url-basic]: net.html#ex-url-basic
