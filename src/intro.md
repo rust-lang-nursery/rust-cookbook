@@ -34,6 +34,7 @@ community. It needs and welcomes help. For details see
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
+| [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -127,6 +128,8 @@ Keep lines sorted.
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
+[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
+[base64]: https://docs.rs/base64/
 
 <!-- Examples -->
 
@@ -157,3 +160,4 @@ Keep lines sorted.
 [ex-url-origin]: net.html#ex-url-origin
 [ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
+[ex-base64]: encoding.html#ex-base64
