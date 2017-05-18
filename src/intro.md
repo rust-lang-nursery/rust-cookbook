@@ -84,25 +84,25 @@ Keep lines sorted.
 
 <!-- Categories -->
 
-[cat-command-line-badge]: https://img.shields.io/badge/-command_line-red.svg
+[cat-command-line-badge]: https://img.shields.io/badge/-command_line-lightgrey.svg
 [cat-command-line]: https://crates.io/categories/command-line-interface
-[cat-compression-badge]: https://img.shields.io/badge/-compression-red.svg
+[cat-compression-badge]: https://img.shields.io/badge/-compression-lightgrey.svg
 [cat-compression]: https://crates.io/categories/compression
-[cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-red.svg
+[cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-lightgrey.svg
 [cat-concurrency]: https://crates.io/categories/concurrency
-[cat-debugging-badge]: https://img.shields.io/badge/-debugging-red.svg
+[cat-debugging-badge]: https://img.shields.io/badge/-debugging-lightgrey.svg
 [cat-debugging]: https://crates.io/categories/debugging
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-lightgrey.svg
 [cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-lightgrey.svg
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-net-badge]: https://img.shields.io/badge/-net-red.svg
+[cat-net-badge]: https://img.shields.io/badge/-net-lightgrey.svg
 [cat-net]: https://crates.io/categories/network-programming
-[cat-science-badge]: https://img.shields.io/badge/-science-red.svg
+[cat-science-badge]: https://img.shields.io/badge/-science-lightgrey.svg
 [cat-science]: https://crates.io/categories/science
-[cat-os-badge]: https://img.shields.io/badge/-os-red.svg
+[cat-os-badge]: https://img.shields.io/badge/-os-lightgrey.svg
 [cat-os]: https://crates.io/categories/os
-[cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-red.svg
+[cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-lightgrey.svg
 [cat-text-processing]: https://crates.io/categories/text-processing
 
 <!-- Crates -->

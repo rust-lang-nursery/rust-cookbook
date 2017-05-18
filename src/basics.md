@@ -271,15 +271,15 @@ quick_main!(run);
 
 <!-- Categories -->
 
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-lightgrey.svg
 [cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-lightgrey.svg
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-science-badge]: https://img.shields.io/badge/-rand-red.svg
+[cat-science-badge]: https://img.shields.io/badge/-rand-lightgrey.svg
 [cat-science]: https://crates.io/categories/science
-[cat-os-badge]: https://img.shields.io/badge/-os-red.svg
+[cat-os-badge]: https://img.shields.io/badge/-os-lightgrey.svg
 [cat-os]: https://crates.io/categories/os
-[cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-red.svg
+[cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-lightgrey.svg
 [cat-text-processing]: https://crates.io/categories/text-processing
 
 <!-- Crates -->

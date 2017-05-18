@@ -348,13 +348,13 @@ quick_main!(run);
 
 <!-- Categories -->
 
-[cat-command-line-badge]: https://img.shields.io/badge/-command_line-red.svg
+[cat-command-line-badge]: https://img.shields.io/badge/-command_line-lightgrey.svg
 [cat-command-line]: https://crates.io/categories/command-line-interface
-[cat-compression-badge]: https://img.shields.io/badge/-compression-red.svg
+[cat-compression-badge]: https://img.shields.io/badge/-compression-lightgrey.svg
 [cat-compression]: https://crates.io/categories/compression
-[cat-debugging-badge]: https://img.shields.io/badge/-debugging-red.svg
+[cat-debugging-badge]: https://img.shields.io/badge/-debugging-lightgrey.svg
 [cat-debugging]: https://crates.io/categories/debugging
-[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-lightgrey.svg
 [cat-filesystem]: https://crates.io/categories/filesystem
 
 <!-- Crates -->

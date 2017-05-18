@@ -539,11 +539,11 @@ quick_main!(run);
 
 <!-- Categories -->
 
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-lightgrey.svg
 [cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-lightgrey.svg
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-net-badge]: https://img.shields.io/badge/-net-red.svg
+[cat-net-badge]: https://img.shields.io/badge/-net-lightgrey.svg
 [cat-net]: https://crates.io/categories/network-programming
 
 <!-- Crates -->

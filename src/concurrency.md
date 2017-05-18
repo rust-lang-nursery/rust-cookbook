@@ -30,7 +30,7 @@ It lets us write iterator-like chains that execute in parallel.
 
 <!-- Categories -->
 
-[cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-red.svg
+[cat-concurrency-badge]: https://img.shields.io/badge/-concurrency-lightgrey.svg
 [cat-concurrency]: https://crates.io/categories/concurrency
 
 <!-- Crates -->

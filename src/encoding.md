@@ -227,7 +227,7 @@ collected into a `String`.
 
 <!-- Categories -->
 
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding-badge]: https://img.shields.io/badge/-encoding-lightgrey.svg
 [cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->
