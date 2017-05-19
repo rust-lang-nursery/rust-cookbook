@@ -10,6 +10,7 @@
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
+| [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -289,9 +290,53 @@ quick_main!(run);
 <a name="ex-log-custom"></a>
 ## Log messages to a custom location
 
-[![log-badge]][log] [![cat-debugging-badge]][cat-debugging]
+[![log-badge]][log] [![log4rs-badge]][log4rs] [![cat-debugging-badge]][cat-debugging]
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+Logs are configured to log to a custom location by using log4rs. log4rs can use either an external yaml file or a programmatically constructed configuration.
+
+First log file configuration is created using [`log4rs::append::file::FileAppender`] using a custom pattern from [`log4rs::encode::pattern`].  
+
+Then this is assigned to the [`log4rs::config::Config`] which has a root appender that uses the `logfile` appender that was just created, and sets the default [`log::LogLevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
+
+```rust,no_run
+#[macro_use]
+extern crate log;
+extern crate log4rs;
+
+#[macro_use]
+extern crate error_chain;
+
+use log::LogLevelFilter;
+use log4rs::append::file::FileAppender;
+use log4rs::encode::pattern::PatternEncoder;
+use log4rs::config::{Appender, Config, Root};
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        LogConfig(log4rs::config::Errors);
+        SetLogger(log::SetLoggerError);
+    }
+}
+
+fn run() -> Result<()> {
+    let logfile = FileAppender::builder()
+        .encoder(Box::new(PatternEncoder::new("{l} - {m}\n")))
+        .build("log/output.log")?;
+
+    let config = Config::builder()
+        .appender(Appender::builder().build("logfile", Box::new(logfile)))
+        .build(Root::builder().appender("logfile").build(LogLevelFilter::Info))?;
+
+    log4rs::init_config(config)?;
+
+    info!("Hello, world!");
+
+    Ok(())
+}
+
+quick_main!(run);
+```
 
 [ex-tar-temp]: #ex-tar-temp
 <a name="ex-tar-temp"></a>
@@ -345,6 +390,44 @@ fn run() -> Result<()> {
 
 quick_main!(run);
 ```
+[ex-dedup-filenames]: #ex-dedup-filenames
+<a name="ex-dedup-filenames"></a>
+## Recursively find duplicate file names
+
+Find recusively in the current directory duplicate filenames,
+printing them only once.
+
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
+```rust,no_run
+extern crate walkdir;
+
+use std::collections::HashMap;
+
+use walkdir::WalkDir;
+
+fn main() {
+    // Counters indexed by filenames
+    let mut filenames = HashMap::new();
+
+    // List recusively all files in the current directory filtering out
+    // diretories and files not accessible (permission denied)
+    for entry in WalkDir::new(".").into_iter()
+                                  .filter_map(Result::ok)
+                                  .filter(|e| !e.file_type().is_dir()) {
+        // Get entry's filename
+        let f_name = String::from(entry.file_name().to_string_lossy());
+        // Get or initialize the counter
+        let counter = filenames.entry(f_name.clone()).or_insert(0);
+        // Update the counter
+        *counter += 1;
+
+        if *counter == 2 {
+            println!("{}", f_name);
+        }
+    }
+}
+```
 
 <!-- Categories -->
 
@@ -369,13 +452,20 @@ quick_main!(run);
 [log]: https://docs.rs/log/
 [syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
+[log4rs-badge]: https://img.shields.io/crates/v/log4rs.svg?label=log4rs
+[log4rs]: https://docs.rs/log4rs/
 [tar-badge]: https://img.shields.io/crates/v/tar.svg?label=tar
 [tar]: https://docs.rs/tar/
 [tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
 [tempdir]: https://docs.rs/tempdir/
+[walkdir-badge]: https://img.shields.io/crates/v/walkdir.svg?label=walkdir
+[walkdir]: https://docs.rs/walkdir/
 
 <!-- Reference -->
 
+[`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
+[`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
+[`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
 [`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
 [`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
 [`log::LogLevel`]: https://doc.rust-lang.org/log/log/enum.LogLevel.html

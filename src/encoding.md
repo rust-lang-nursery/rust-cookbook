@@ -6,6 +6,7 @@
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
+| [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -278,6 +279,48 @@ fn run() -> Result<()> {
 quick_main!(run);
 ```
 
+[ex-base64]: #ex-base64
+<a name="ex-base64"></a>
+## Encode and decode base64
+
+[![base64-badge]][base64] [![cat-encoding-badge]][cat-encoding]
+
+Byte slice is encoded into `base64` String with help of [`encode`] 
+and subsequently decoded with [`decode`].
+
+[`decode`]: https://docs.rs/base64/*/base64/fn.decode.html
+[`encode`]: https://docs.rs/base64/*/base64/fn.encode.html
+
+```rust
+#[macro_use]
+extern crate error_chain;
+extern crate base64;
+
+use std::str;
+use base64::{encode, decode};
+
+error_chain! {
+    foreign_links {
+        Base64(base64::DecodeError);
+        Utf8Error(str::Utf8Error);
+    }
+}
+
+fn run() -> Result<()> {
+    let hello = b"hello rustaceans";
+    let encoded = encode(hello);
+    let decoded = decode(&encoded)?;
+
+    println!("origin: {}", str::from_utf8(hello)?);
+    println!("base64 encoded: {}", encoded);
+    println!("back to origin: {}", str::from_utf8(&decoded)?);
+
+    Ok(())
+}
+
+quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -293,6 +336,8 @@ quick_main!(run);
 [url]: https://docs.rs/url/
 [data-encoding-badge]: https://img.shields.io/crates/v/data-encoding.svg?label=url
 [data-encoding]: https://github.com/ia0/data-encoding
+[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
+[base64]: https://docs.rs/base64/
 
 <!-- Reference -->
 
