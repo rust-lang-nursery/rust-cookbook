@@ -27,7 +27,7 @@ community. It needs and welcomes help. For details see
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
-| [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy-static-badge]][lazy-static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 ## [Encoding](encoding.html)
 
@@ -120,8 +120,8 @@ Keep lines sorted.
 [env_logger]: https://docs.rs/env_logger/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
 [flate2]: https://docs.rs/flate2/
-[lazy-static]: https://docs.rs/lazy_static/
-[lazy-static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
+[lazy_static]: https://docs.rs/lazy_static/
+[lazy_static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
 [log-badge]: https://img.shields.io/crates/v/log.svg?label=log
 [log]: https://docs.rs/log/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand

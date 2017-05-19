@@ -9,7 +9,7 @@
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
-| [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy-static-badge]][lazy-static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 
 
@@ -273,7 +273,7 @@ quick_main!(run);
 <a name="ex-lazy-constant"></a>
 ## Declare lazily evaluated constant
 
-[![lazy-static-badge]][lazy-static] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
+[![lazy_static-badge]][lazy_static] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
 Declares a lazily evaluated constant [`HashMap`]. The [`HashMap`] will
 be evaluated once and stored behind a global static reference.
@@ -328,8 +328,8 @@ fn main() {
 
 [byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
-[lazy-static]: https://docs.rs/lazy_static/
-[lazy-static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
+[lazy_static]: https://docs.rs/lazy_static/
+[lazy_static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
