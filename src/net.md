@@ -31,10 +31,9 @@ The URL in this code parses successfully, but swapping it out for a malformed
 URL will print a message containing an explanation of what went wrong.
 
 ```rust
-extern crate url;
-#
 # #[macro_use]
 # extern crate error_chain;
+extern crate url;
 
 use url::Url;
 #
@@ -539,18 +538,18 @@ In this example, the port is displayed on the console, and the program will
 listen until a request is made.  
 
 ```rust, no_run
-#[macro_use]
-extern crate error_chain;
-
+# #[macro_use]
+# extern crate error_chain;
+#
 use std::net::{SocketAddrV4, Ipv4Addr, TcpListener};
 use std::io::Read;
 
-error_chain! {
-    foreign_links {
-        Io(::std::io::Error);
-    }
-}
-
+# error_chain! {
+#    foreign_links {
+#        Io(::std::io::Error);
+#    }
+# }
+#
 fn run() -> Result<()> {
     let loopback = Ipv4Addr::new(127, 0, 0, 1);
     // Assigning port 0 requests the OS to assign a free port
@@ -566,8 +565,8 @@ fn run() -> Result<()> {
     println!("{:?} says {}", addr, input);
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 The `std` library is leveraged to make a well formed IP/port with the
