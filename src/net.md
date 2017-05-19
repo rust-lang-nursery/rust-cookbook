@@ -574,14 +574,15 @@ fn run() -> Result<()> {
     let loopback = Ipv4Addr::new(127, 0, 0, 1);
     // Assigning port 0 requests the OS to assign a free port
     let socket = SocketAddrV4::new(loopback, 0);
-    let listen = TcpListener::bind(socket)?;
-    let port = listen.local_addr()?;
+    let listener = TcpListener::bind(socket)?;
+    let port = listener.local_addr()?;
     println!("Listening on {}, access this port to end the program", port);
-    let (mut tcp_stream, addr) = listen.accept()?;  //block  until requested
+    let (mut tcp_stream, addr) = listener.accept()?;  //block  until requested
+    println!("Connection received! {:?} is sending data.", addr);
     let mut input = String::new();
-    // read from the socket until connection closed by client.
-    let _ = tcp_stream.read_to_string(&mut input)?; //discard byte count
-    println!("Connection received! \r\n{:?} says {}", addr, input);
+    // read from the socket until connection closed by client, discard byte count.
+    let _ = tcp_stream.read_to_string(&mut input)?;
+    println!("{:?} says {}", addr, input);
     Ok(())
 }
 
@@ -589,7 +590,7 @@ quick_main!(run);
 ```
 
 The `std` library is leveraged to make a well formed IP/port with the
-`SocketAddrV4` and `Ipv4Addr` structs.  The loopback address is a special
+[`SocketAddrV4`] and [`Ipv4Addr`] structs.  The loopback address is a special
 address that runs only on the local machine, and is available on all machines.
 
 By passing 0 to the [`TcpListener::bind`], the OS will assign an unused random
@@ -597,12 +598,15 @@ port.  The address and port that the OS assigns is available using
 [`TcpListener::local_addr`].
 
 The rest of the recipe prints out the request made on the socket.
-`TcpListener::accept` returns a tuple of `TcpStream` and client information
-within a `Result`.  The `Read` implmentation is used on that `TcpStream` to
-collect the request payload.  Closing the program is as easy as browsing to the
-ip:port or using `telnet ip port` to send some data.  For example, if the
-program shows Listening on 127.0.0.1:11500, run `telnet 127.0.0.1 11500`.  After
-sending data in telnet press `ctrl-]` and type `quit`.
+[`TcpListener::accept`] returns a `(`[`TcpStream`],  [`SocketAddrV4`]`)`
+representing the data from the client, its IP address and port.  Reading on the
+socket with [`read_to_string`] will wait until the connection is closed which
+can be tested with `telnet ip port`.  For example, if the program shows
+Listening on 127.0.0.1:11500, run  
+
+`telnet 127.0.0.1 11500`  
+
+After sending data in telnet press `ctrl-]` and type `quit`.
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -645,11 +649,15 @@ sending data in telnet press `ctrl-]` and type `quit`.
 [`RequestBuilder::json`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
+[registered port]: https://en.wikipedia.org/wiki/Registered_port
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
 [`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
-[registered port]: https://en.wikipedia.org/wiki/Registered_port
+[`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
+[`SocketAddrV4`]: https://doc.rust-lang.org/std/net/struct.SocketAddrV4.html
+[`TcpListener::accept`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.accept
 [`TcpListener::bind`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind
 [`TcpListener::local_addr`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.local_addr
+[`TcpStream`]: https://doc.rust-lang.org/std/net/struct.TcpStream.html
