@@ -635,7 +635,6 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [`RequestBuilder::json`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
-[registered port]: https://en.wikipedia.org/wiki/Registered_port
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
