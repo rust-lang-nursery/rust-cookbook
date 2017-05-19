@@ -37,6 +37,7 @@ community. It needs and welcomes help. For details see
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
+| [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
@@ -189,5 +190,6 @@ Keep lines sorted.
 [ex-url-origin]: net.html#ex-url-origin
 [ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
+[ex-urlencoded]: encoding.html#ex-urlencoded
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-base64]: encoding.html#ex-base64
