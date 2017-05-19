@@ -10,6 +10,7 @@
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
+| [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -345,6 +346,44 @@ fn run() -> Result<()> {
 
 quick_main!(run);
 ```
+[ex-dedup-filenames]: #ex-dedup-filenames
+<a name="ex-dedup-filenames"></a>
+## Recursively find duplicate file names
+
+Find recusively in the current directory duplicate filenames,
+printing them only once.
+
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
+```rust,no_run
+extern crate walkdir;
+
+use std::collections::HashMap;
+
+use walkdir::WalkDir;
+
+fn main() {
+    // Counters indexed by filenames
+    let mut filenames = HashMap::new();
+
+    // List recusively all files in the current directory filtering out
+    // diretories and files not accessible (permission denied)
+    for entry in WalkDir::new(".").into_iter()
+                                  .filter_map(Result::ok)
+                                  .filter(|e| !e.file_type().is_dir()) {
+        // Get entry's filename
+        let f_name = String::from(entry.file_name().to_string_lossy());
+        // Get or initialize the counter
+        let counter = filenames.entry(f_name.clone()).or_insert(0);
+        // Update the counter
+        *counter += 1;
+
+        if *counter == 2 {
+            println!("{}", f_name);
+        }
+    }
+}
+```
 
 <!-- Categories -->
 
@@ -373,6 +412,8 @@ quick_main!(run);
 [tar]: https://docs.rs/tar/
 [tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
 [tempdir]: https://docs.rs/tempdir/
+[walkdir-badge]: https://img.shields.io/crates/v/walkdir.svg?label=walkdir
+[walkdir]: https://docs.rs/walkdir/
 
 <!-- Reference -->
 
