@@ -544,18 +544,8 @@ quick_main!(run);
 
 [![std-badge]][std] [![cat-net-badge]][cat-net]
 
-Give the OS the responsibility to pick an unused [registered port].  These ports
-generally do not require sudo permission to bind to, and can be helpful when
-establishing connections with clients in a disposable communication chain.
-These ports begin with 1024 and have around 48,000 available.  Typically, a
-known port is used to initiate the communication and subsequent communication
-occurs on the registered port after a handshake process.
-
-In this example, the port is displayed on the console, and will listen until a
-request is made.  If you use your browser to test this program, simply enter
-the address:port into your location bar and make the request.  Because the
-program returns nothing, the browser's stop feature can be used to speed things
-up.
+In this example, the port is displayed on the console, and the program will
+listen until a request is made.  
 
 ```rust, no_run
 #[macro_use]
@@ -590,19 +580,15 @@ quick_main!(run);
 ```
 
 The `std` library is leveraged to make a well formed IP/port with the
-[`SocketAddrV4`] and [`Ipv4Addr`] structs.  The loopback address is a special
-address that runs only on the local machine, and is available on all machines.
-
-By passing 0 to the [`TcpListener::bind`], the OS will assign an unused random
-port.  The address and port that the OS assigns is available using
+[`SocketAddrV4`] and [`Ipv4Addr`] structs.  An unused random port is requested
+by passing 0 to [`TcpListener::bind`].  The assigned address is available via
 [`TcpListener::local_addr`].
 
-The rest of the recipe prints out the request made on the socket.
-[`TcpListener::accept`] returns a `(`[`TcpStream`],  [`SocketAddrV4`]`)`
-representing the data from the client, its IP address and port.  Reading on the
-socket with [`read_to_string`] will wait until the connection is closed which
-can be tested with `telnet ip port`.  For example, if the program shows
-Listening on 127.0.0.1:11500, run  
+[`TcpListener::accept`] synchronously waits for an incoming connection and
+returns a `(`[`TcpStream`],  [`SocketAddrV4`]`)` representing the request.
+Reading on the socket with [`read_to_string`] will wait until the connection is
+closed which can be tested with `telnet ip port`.  For example, if the program
+shows Listening on 127.0.0.1:11500, run  
 
 `telnet 127.0.0.1 11500`  
 
