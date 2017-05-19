@@ -12,6 +12,7 @@
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Listen on Unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -537,6 +538,73 @@ fn run() -> Result<()> {
 quick_main!(run);
 ```
 
+[ex-random-port-tcp]: #ex-random-port-tcp
+<a name="ex-random-port-tcp"></a>
+## Listen on Unused port TCP/IP
+
+[![std-badge]][std] [![cat-net-badge]][cat-net]
+
+Give the OS the responsibility to pick an unused [registered port].  These ports
+generally do not require sudo permission to bind to, and can be helpful when
+establishing connections with clients in a disposable communication chain.
+These ports begin with 1024 and have around 48,000 available.  Typically, a
+known port is used to initiate the communication and subsequent communication
+occurs on the registered port after a handshake process.
+
+In this example, the port is displayed on the console, and will listen until a
+request is made.  If you use your browser to test this program, simply enter
+the address:port into your location bar and make the request.  Because the
+program returns nothing, the browser's stop feature can be used to speed things
+up.
+
+```rust, no_run
+#[macro_use]
+extern crate error_chain;
+
+use std::net::{SocketAddrV4, Ipv4Addr,TcpListener};
+use std::io::Read;
+
+error_chain! {
+    foreign_links {
+        Io(::std::io::Error);
+    }
+}
+
+fn run() ->  Result<()>{
+    let loopback = Ipv4Addr::new(127,0,0,1);
+    // Assigning port 0 requests the OS to assign a free port
+    let socket = SocketAddrV4::new(loopback, 0);
+    let listen = TcpListener::bind(socket)?;
+    let port = listen.local_addr()?;
+    println!("Listening on {}, access this port to end the program", port);
+    match listen.accept() {
+        Ok((mut tcp_stream, addr)) => {
+            // read from the socket until connection closed by client.
+            let mut input = String::new();
+            let _ = tcp_stream.read_to_string(&mut input); //discard byte count
+            println!("Connection received! \r\n{:?} says {}", addr, input);
+            Ok(())
+        },
+        Err(e) => { Err(e.into()) }
+    }
+}
+
+quick_main!(run);
+```
+
+The `std` library is leveraged to make a well formed IP/port with the
+`SocketAddrV4` and `Ipv4Addr` structs.  The loopback address is a special
+address that runs only on the local machine, and is available on all machines.
+
+By passing 0 to the [`TcpListener::bind`], the OS will assign an unused random
+port.  The address and port that the OS assigns is available using
+[`TcpListener::local_addr`].
+
+The rest of the recipe prints out the request made on the socket.
+`TcpListener::accept` returns a tuple of `TcpStream` and client information
+within a `Result`.  The `Read` implmentation is used on that `TcpStream` to
+collect the request payload.  Closing the program is as easy as browsing to the
+ip:port or using telnet to send some data, pressing ctrl-] and typing quit.
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -552,6 +620,8 @@ quick_main!(run);
 [reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
+[std]: https://doc.rust-lang.org/std
+[std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
 [tempdir]: https://docs.rs/tempdir/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
@@ -582,3 +652,6 @@ quick_main!(run);
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
 [`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
+[registered port]: https://en.wikipedia.org/wiki/Registered_port
+[`TcpListener::bind`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind
+[`TcpListener::local_addr`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.local_addr

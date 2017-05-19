@@ -58,6 +58,7 @@ community. It needs and welcomes help. For details see
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Listen on Unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 
 ## [Application development](app.html)
 
@@ -167,6 +168,7 @@ Keep lines sorted.
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist
 [ex-rand-float]: basics.html#ex-rand-float
+[ex-random-port-tcp]: net.html#ex-random-port-tcp
 [ex-rand-range]: basics.html#ex-rand-range
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
 [ex-rest-head]: net.html#ex-rest-head
