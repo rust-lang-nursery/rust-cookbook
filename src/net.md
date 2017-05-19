@@ -12,6 +12,7 @@
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Listen on Unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -528,6 +529,61 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-random-port-tcp]: #ex-random-port-tcp
+<a name="ex-random-port-tcp"></a>
+## Listen on Unused port TCP/IP
+
+[![std-badge]][std] [![cat-net-badge]][cat-net]
+
+In this example, the port is displayed on the console, and the program will
+listen until a request is made.  
+
+```rust, no_run
+#[macro_use]
+extern crate error_chain;
+
+use std::net::{SocketAddrV4, Ipv4Addr, TcpListener};
+use std::io::Read;
+
+error_chain! {
+    foreign_links {
+        Io(::std::io::Error);
+    }
+}
+
+fn run() -> Result<()> {
+    let loopback = Ipv4Addr::new(127, 0, 0, 1);
+    // Assigning port 0 requests the OS to assign a free port
+    let socket = SocketAddrV4::new(loopback, 0);
+    let listener = TcpListener::bind(socket)?;
+    let port = listener.local_addr()?;
+    println!("Listening on {}, access this port to end the program", port);
+    let (mut tcp_stream, addr) = listener.accept()?;  //block  until requested
+    println!("Connection received! {:?} is sending data.", addr);
+    let mut input = String::new();
+    // read from the socket until connection closed by client, discard byte count.
+    let _ = tcp_stream.read_to_string(&mut input)?;
+    println!("{:?} says {}", addr, input);
+    Ok(())
+}
+
+quick_main!(run);
+```
+
+The `std` library is leveraged to make a well formed IP/port with the
+[`SocketAddrV4`] and [`Ipv4Addr`] structs.  An unused random port is requested
+by passing 0 to [`TcpListener::bind`].  The assigned address is available via
+[`TcpListener::local_addr`].
+
+[`TcpListener::accept`] synchronously waits for an incoming connection and
+returns a `(`[`TcpStream`],  [`SocketAddrV4`]`)` representing the request.
+Reading on the socket with [`read_to_string`] will wait until the connection is
+closed which can be tested with `telnet ip port`.  For example, if the program
+shows Listening on 127.0.0.1:11500, run  
+
+`telnet 127.0.0.1 11500`  
+
+After sending data in telnet press `ctrl-]` and type `quit`.
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -543,6 +599,8 @@ fn run() -> Result<()> {
 [reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
+[std]: https://doc.rust-lang.org/std
+[std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
 [tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
 [tempdir]: https://docs.rs/tempdir/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
@@ -573,3 +631,9 @@ fn run() -> Result<()> {
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
 [`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
+[`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
+[`SocketAddrV4`]: https://doc.rust-lang.org/std/net/struct.SocketAddrV4.html
+[`TcpListener::accept`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.accept
+[`TcpListener::bind`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind
+[`TcpListener::local_addr`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.local_addr
+[`TcpStream`]: https://doc.rust-lang.org/std/net/struct.TcpStream.html
