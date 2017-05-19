@@ -9,6 +9,7 @@
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
+| [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy-static-badge]][lazy-static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 
 
@@ -268,9 +269,48 @@ fn run() -> Result<()> {
 quick_main!(run);
 ```
 
+[ex-lazy-constant]: #ex-lazy-constant
+<a name="ex-lazy-constant"></a>
+## Declare lazily evaluated constant
+
+[![lazy-static-badge]][lazy-static] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
+
+Declares a lazily evaluated constant [`HashMap`]. The [`HashMap`] will
+be evaluated once and stored behind a global static reference.
+
+```rust
+#[macro_use]
+extern crate lazy_static;
+
+use std::collections::HashMap;
+
+lazy_static! {
+    static ref PRIVILEGES: HashMap<&'static str, Vec<&'static str>> = {
+        let mut map = HashMap::new();
+        map.insert("James", vec!["user", "admin"]);
+        map.insert("Jim", vec!["user"]);
+        map
+    };
+}
+
+fn show_access(name: &str) {
+    let access = PRIVILEGES.get(name);
+    println!("{}: {:?}", name, access);
+}
+
+fn main() {
+    let access = PRIVILEGES.get("James");
+    println!("James: {:?}", access);
+
+    show_access("Jim");
+}
+```
+
 
 <!-- Categories -->
 
+[cat-caching-badge]: https://img.shields.io/badge/-caching-red.svg
+[cat-caching]: https://crates.io/categories/caching
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
 [cat-encoding]: https://crates.io/categories/encoding
 [cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
@@ -279,6 +319,8 @@ quick_main!(run);
 [cat-science]: https://crates.io/categories/science
 [cat-os-badge]: https://img.shields.io/badge/-os-red.svg
 [cat-os]: https://crates.io/categories/os
+[cat-rust-patterns-badge]: https://img.shields.io/badge/-rust_patterns-red.svg
+[cat-rust-patterns]: https://crates.io/categories/rust-patterns
 [cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-red.svg
 [cat-text-processing]: https://crates.io/categories/text-processing
 
@@ -286,6 +328,8 @@ quick_main!(run);
 
 [byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
+[lazy-static]: https://docs.rs/lazy_static/
+[lazy-static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
@@ -310,3 +354,4 @@ quick_main!(run);
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
+[`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html

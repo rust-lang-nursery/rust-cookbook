@@ -27,6 +27,7 @@ community. It needs and welcomes help. For details see
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an External Command and Process Stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
+| [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy-static-badge]][lazy-static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 ## [Encoding](encoding.html)
 
@@ -84,6 +85,8 @@ Keep lines sorted.
 
 <!-- Categories -->
 
+[cat-caching-badge]: https://img.shields.io/badge/-caching-red.svg
+[cat-caching]: https://crates.io/categories/caching
 [cat-command-line-badge]: https://img.shields.io/badge/-command_line-red.svg
 [cat-command-line]: https://crates.io/categories/command-line-interface
 [cat-compression-badge]: https://img.shields.io/badge/-compression-red.svg
@@ -102,6 +105,8 @@ Keep lines sorted.
 [cat-science]: https://crates.io/categories/science
 [cat-os-badge]: https://img.shields.io/badge/-os-red.svg
 [cat-os]: https://crates.io/categories/os
+[cat-rust-patterns-badge]: https://img.shields.io/badge/-rust_patterns-red.svg
+[cat-rust-patterns]: https://crates.io/categories/rust-patterns
 [cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-red.svg
 [cat-text-processing]: https://crates.io/categories/text-processing
 
@@ -115,6 +120,8 @@ Keep lines sorted.
 [env_logger]: https://docs.rs/env_logger/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
 [flate2]: https://docs.rs/flate2/
+[lazy-static]: https://docs.rs/lazy_static/
+[lazy-static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
 [log-badge]: https://img.shields.io/crates/v/log.svg?label=log
 [log]: https://docs.rs/log/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
@@ -147,6 +154,7 @@ Keep lines sorted.
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-json-value]: encoding.html#ex-json-value
+[ex-lazy-constant]: basics.html#ex-lazy-constant
 [ex-log-custom-logger]: app.html#ex-log-custom-logger
 [ex-log-custom]: app.html#ex-log-custom
 [ex-log-debug]: app.html#ex-log-debug
