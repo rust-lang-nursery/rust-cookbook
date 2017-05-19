@@ -833,6 +833,6 @@ table td:nth-child(2){
   width: 20%;
 }
 
-pre > .buttons {
+i.fa.fa-play.play-button {
   display: none;
 }
