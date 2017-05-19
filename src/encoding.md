@@ -5,6 +5,7 @@
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
+| [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 
@@ -227,6 +228,33 @@ to be percent-encoded. The choice of this set depends on context. For example,
 The return value of encoding is an iterator of `&str` slices which can be
 collected into a `String`.
 
+[ex-urlencoded]: #ex-urlencoded
+<a name="ex-urlencoded"></a>
+## Encode a string as application/x-www-form-urlencoded
+
+[![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
+
+A string is encoded into [application/x-www-form-urlencoded] syntax
+using the [`form_urlencoded::byte_serialize`] and subsequently
+decoded with [`form_urlencoded::parse`]. Both functions return iterators
+that can be collected into a `String`.
+
+```rust
+extern crate url;
+use url::form_urlencoded::{byte_serialize, parse};
+
+fn main() {
+    let urlencoded: String = byte_serialize("What is ❤?".as_bytes()).collect();
+    assert_eq!(urlencoded, "What+is+%E2%9D%A4%3F");
+    println!("urlencoded:'{}'", urlencoded);
+
+    let decoded: String = parse(urlencoded.as_bytes())
+        .map(|(key, val)| [key, val].concat())
+        .collect();
+    assert_eq!(decoded, "What is ❤?");
+    println!("decoded:'{}'", decoded);
+}
+```
 
 [ex-hex-encode-decode]: #ex-hex-encode-decode
 <a name="ex-hex-encode-decode"></a>
@@ -343,4 +371,7 @@ quick_main!(run);
 
 [`percent_decode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.percent_decode.html
 [`utf8_percent_encode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.utf8_percent_encode.html
+[`form_urlencoded::byte_serialize`]: https://docs.rs/url/1.4.0/url/form_urlencoded/fn.byte_serialize.html
+[`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
 [percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding
+[application/x-www-form-urlencoded]: https://url.spec.whatwg.org/#application/x-www-form-urlencoded
