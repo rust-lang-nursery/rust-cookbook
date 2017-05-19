@@ -561,7 +561,7 @@ up.
 #[macro_use]
 extern crate error_chain;
 
-use std::net::{SocketAddrV4, Ipv4Addr,TcpListener};
+use std::net::{SocketAddrV4, Ipv4Addr, TcpListener};
 use std::io::Read;
 
 error_chain! {
@@ -570,23 +570,19 @@ error_chain! {
     }
 }
 
-fn run() ->  Result<()>{
-    let loopback = Ipv4Addr::new(127,0,0,1);
+fn run() -> Result<()> {
+    let loopback = Ipv4Addr::new(127, 0, 0, 1);
     // Assigning port 0 requests the OS to assign a free port
     let socket = SocketAddrV4::new(loopback, 0);
     let listen = TcpListener::bind(socket)?;
     let port = listen.local_addr()?;
     println!("Listening on {}, access this port to end the program", port);
-    match listen.accept() {
-        Ok((mut tcp_stream, addr)) => {
-            // read from the socket until connection closed by client.
-            let mut input = String::new();
-            let _ = tcp_stream.read_to_string(&mut input); //discard byte count
-            println!("Connection received! \r\n{:?} says {}", addr, input);
-            Ok(())
-        },
-        Err(e) => { Err(e.into()) }
-    }
+    let (mut tcp_stream, addr) = listen.accept()?;  //block  until requested
+    let mut input = String::new();
+    // read from the socket until connection closed by client.
+    let _ = tcp_stream.read_to_string(&mut input)?; //discard byte count
+    println!("Connection received! \r\n{:?} says {}", addr, input);
+    Ok(())
 }
 
 quick_main!(run);
@@ -604,7 +600,9 @@ The rest of the recipe prints out the request made on the socket.
 `TcpListener::accept` returns a tuple of `TcpStream` and client information
 within a `Result`.  The `Read` implmentation is used on that `TcpStream` to
 collect the request payload.  Closing the program is as easy as browsing to the
-ip:port or using telnet to send some data, pressing ctrl-] and typing quit.
+ip:port or using `telnet ip port` to send some data.  For example, if the
+program shows Listening on 127.0.0.1:11500, run `telnet 127.0.0.1 11500`.  After
+sending data in telnet press `ctrl-]` and type `quit`.
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
