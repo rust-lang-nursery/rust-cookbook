@@ -25,6 +25,7 @@ env_logger = "0.4"
 syslog = "3.2.0"
 tar = "0.4.12"
 tempdir = "0.3.5"
+lazy_static = "0.2"
 
 [build-dependencies]
 skeptic = "0.9"
