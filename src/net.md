@@ -12,6 +12,7 @@
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Send a file to Slack][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -537,6 +538,50 @@ fn run() -> Result<()> {
 quick_main!(run);
 ```
 
+[ex-file-post]: #ex-file-post
+<a name="ex-file-post"/>
+## Send the contents of file to REST API with POST
+
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
+
+The contents of a file are read and encoded for the Slack API.  Here a JSON
+object is created with the [`format!`] macro and url encoded using
+[`reqwest::Client`].  Create a slack team and update the url with your key.
+
+```rust no_run
+extern crate reqwest;
+
+#[macro_use]
+extern crate error_chain;
+
+use std::fs::File;
+use std::io::Read;
+use reqwest::Client;
+
+error_chain! {
+    foreign_links {
+        HttpReqest(reqwest::Error);
+        IoError(::std::io::Error);
+    }
+}
+
+fn run() -> Result<()> {
+    let slack_api = "https://hooks.slack.com/services/y-o-u-r--k-e-y";
+    let mut file = File::open("message.txt")?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+    let client = Client::new()?;
+    let response = client
+        .post(slack_api)
+        .form(&vec![("payload", format!("{{\"text\":\"{}\"}}",contents))])
+        .send()?;
+    println!("Slack responded with: {:?}", response);
+    Ok(())
+}
+
+quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -582,3 +627,4 @@ quick_main!(run);
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
 [`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
+[`format!`]: https://doc.rust-lang.org/std/macro.format.html
