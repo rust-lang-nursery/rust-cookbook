@@ -5,6 +5,7 @@
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
+| [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -225,6 +226,58 @@ to be percent-encoded. The choice of this set depends on context. For example,
 The return value of encoding is an iterator of `&str` slices which can be
 collected into a `String`.
 
+
+[ex-hex-encode-decode]: #ex-hex-encode-decode
+<a name="ex-hex-encode-decode"></a>
+## Encode and decode hex
+
+[![data-encoding-badge]][data-encoding] [![cat-encoding-badge]][cat-encoding]
+
+The [`data_encoding`] crate provides a `HEXUPPER::encode` method which
+takes a `&[u8]` and returns a `String` containing the hexadecimal
+representation of the data.
+
+Similarly, a `HEXUPPER::decode` method is provided which takes a `&[u8]` and
+returns a `Vec<u8>` if the input data is successfully decoded.
+
+[`data_encoding`]: https://github.com/ia0/data-encoding
+
+The example below shows a `&[u8]` of data being converted to its hexadecimal
+representation and then being compared to its expected value. The returned
+hex `String` is then converted back to its original representation and is
+compared to the original value provided.
+
+```rust
+extern crate data_encoding;
+
+#[macro_use]
+extern crate error_chain;
+
+use data_encoding::{HEXUPPER, DecodeError};
+
+error_chain! {
+    foreign_links {
+        Decode(DecodeError);
+    }
+}
+
+fn run() -> Result<()> {
+    let original = b"The quick brown fox jumps over the lazy dog.";
+    let expected = "54686520717569636B2062726F776E20666F78206A756D7073206F76\
+        657220746865206C617A7920646F672E";
+    
+    let encoded = HEXUPPER.encode(original);
+    assert_eq!(encoded, expected);
+
+    let decoded = HEXUPPER.decode(&encoded.into_bytes())?;
+    assert_eq!(&decoded[..], &original[..]);
+
+    Ok(())
+}
+
+quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
@@ -238,6 +291,8 @@ collected into a `String`.
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
+[data-encoding-badge]: https://img.shields.io/crates/v/data-encoding.svg?label=url
+[data-encoding]: https://github.com/ia0/data-encoding
 
 <!-- Reference -->
 
