@@ -130,12 +130,11 @@ Your favorite number must be 256.
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate log;
 extern crate env_logger;
-
-#[macro_use]
-extern crate error_chain;
 
 mod foo {
     mod bar {
@@ -153,12 +152,12 @@ mod foo {
         bar::run();
     }
 }
-
-error_chain! {
-    foreign_links {
-        SetLogger(log::SetLoggerError);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        SetLogger(log::SetLoggerError);
+#    }
+# }
 
 fn run() -> Result<()> {
     env_logger::init()?;
@@ -169,8 +168,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [`env_logger`][env_logger] output is controlled by [`RUST_LOG`] environmental
@@ -204,11 +203,10 @@ Custom logger `ConsoleLogger` is implemented with [`log::Log`] trait and install
 via [`log::set_logger`]. Messages are logged to stdout.
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate log;
-
-#[macro_use]
-extern crate error_chain;
 
 use log::{LogRecord, LogLevel, LogMetadata, LogLevelFilter};
 
@@ -225,26 +223,26 @@ impl log::Log for ConsoleLogger {
         }
     }
 }
-
-error_chain! {
-    foreign_links {
-        SetLogger(log::SetLoggerError);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        SetLogger(log::SetLoggerError);
+#    }
+# }
 
 fn run() -> Result<()> {
     log::set_logger(|max_log_level| {
                         max_log_level.set(LogLevelFilter::Info);
                         Box::new(ConsoleLogger)
                     })?;
-    
+
     info!("hello log");
     warn!("warning");
     error!("oops");
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-log-syslog]: #ex-log-syslog
@@ -260,21 +258,20 @@ with [`syslog::init`].
 and `Option<&str>` holds optional application name.
 
 ```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate log;
 extern crate syslog;
 
-#[macro_use]
-extern crate error_chain;
-
 use log::LogLevelFilter;
 use syslog::Facility;
-
-error_chain! {
-    foreign_links {
-        SetLogger(log::SetLoggerError);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        SetLogger(log::SetLoggerError);
+#    }
+# }
 
 fn run() -> Result<()> {
     syslog::init(Facility::LOG_USER, LogLevelFilter::Debug, Some("My app name"))?;
@@ -282,8 +279,8 @@ fn run() -> Result<()> {
     error!("this is an error!");
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-log-custom]: #ex-log-custom
@@ -299,25 +296,24 @@ First log file configuration is created using [`log4rs::append::file::FileAppend
 Then this is assigned to the [`log4rs::config::Config`] which has a root appender that uses the `logfile` appender that was just created, and sets the default [`log::LogLevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
 
 ```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate log;
 extern crate log4rs;
-
-#[macro_use]
-extern crate error_chain;
 
 use log::LogLevelFilter;
 use log4rs::append::file::FileAppender;
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::config::{Appender, Config, Root};
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        LogConfig(log4rs::config::Errors);
-        SetLogger(log::SetLoggerError);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Io(std::io::Error);
+#        LogConfig(log4rs::config::Errors);
+#        SetLogger(log::SetLoggerError);
+#    }
+# }
 
 fn run() -> Result<()> {
     let logfile = FileAppender::builder()
@@ -334,13 +330,15 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-tar-temp]: #ex-tar-temp
 <a name="ex-tar-temp"></a>
 ## Unzip a tarball to a temporary directory
+
+[![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression]
 
 Uncompress ([`flate2::read::GzDecoder::new`]) and
 extract ([`tar::Archive::unpack`]) all files form a zipped tarball
@@ -348,27 +346,23 @@ named archive.tar.gz located in the current working directory
 inside a temporary directory ([`tempdir::TempDir::new`])
 and delete everything.
 
-[![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression]
-
 ```rust,no_run
-#[macro_use]
-extern crate error_chain;
+# #[macro_use]
+# extern crate error_chain;
 extern crate flate2;
 extern crate tar;
 extern crate tempdir;
 
 use std::fs::File;
-
 use flate2::read::GzDecoder;
 use tar::Archive;
 use tempdir::TempDir;
-
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Io(std::io::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let path = "archive.tar.gz";
@@ -387,23 +381,22 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 [ex-dedup-filenames]: #ex-dedup-filenames
 <a name="ex-dedup-filenames"></a>
 ## Recursively find duplicate file names
 
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
 Find recusively in the current directory duplicate filenames,
 printing them only once.
-
-[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
 
 ```rust,no_run
 extern crate walkdir;
 
 use std::collections::HashMap;
-
 use walkdir::WalkDir;
 
 fn main() {
