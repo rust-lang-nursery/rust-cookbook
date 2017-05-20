@@ -833,6 +833,24 @@ table td:nth-child(2){
   width: 20%;
 }
 
+/* hide only the playground button */
 i.fa.fa-play.play-button {
   display: none;
+}
+
+/* underline hyperlinked inline code items */
+a:hover > .hljs {
+  text-decoration: underline;
+}
+
+/* color hyperlinked inline code items
+   identically to normal links */
+.rust a > .hljs,
+.navy a > .hljs,
+.coal a > .hljs{
+  color: #2b79a2;
+}
+
+.light a > .hljs {
+  color: #4183c4;
 }
