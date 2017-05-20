@@ -75,6 +75,7 @@ community. It needs and welcomes help. For details see
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 
 <!--
@@ -163,6 +164,7 @@ Keep lines sorted.
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
+[ex-file-predicate]: app.html#ex-file-predicate
 [ex-global-mut-state]: basics.html#ex-global-mut-state
 [ex-json-value]: encoding.html#ex-json-value
 [ex-lazy-constant]: basics.html#ex-lazy-constant

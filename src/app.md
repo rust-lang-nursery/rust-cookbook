@@ -11,6 +11,7 @@
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -420,6 +421,50 @@ fn main() {
         }
     }
 }
+```
+
+[ex-file-predicate]: #ex-file-predicate
+<a name="ex-file-predicate"></a>
+##  Recursively find all files with given predicate
+
+Use the file names and metadata to recursively find in the current directory JSON files modified within the last day.
+
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate walkdir;
+
+use walkdir::WalkDir;
+#
+# error_chain! {
+#    foreign_links {
+#        WalkDir(walkdir::Error);
+#        Io(std::io::Error);
+#        SystemTime(std::time::SystemTimeError);
+#    }
+# }
+
+fn run() -> Result<()> {
+    // List recusively all accessible files in the current directory
+    for entry in WalkDir::new(".").into_iter()
+                                  .filter_map(|e| e.ok()) {
+        // Get entry's filename
+        let f_name = entry.file_name().to_string_lossy();
+        // Get entry's modified time
+        let sec = entry.metadata()?.modified()?;
+
+        // Print JSON files modified within the last day
+        if f_name.ends_with(".json") && sec.elapsed()?.as_secs() < 86400 {
+            println!("{}", f_name);
+        }
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
 ```
 
 <!-- Categories -->
