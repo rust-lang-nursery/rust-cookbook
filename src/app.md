@@ -404,7 +404,7 @@ fn main() {
     let mut filenames = HashMap::new();
 
     // List recusively all files in the current directory filtering out
-    // diretories and files not accessible (permission denied)
+    // directories and files not accessible (permission denied)
     for entry in WalkDir::new(".").into_iter()
                                   .filter_map(Result::ok)
                                   .filter(|e| !e.file_type().is_dir()) {
