@@ -71,6 +71,7 @@ community. It needs and welcomes help. For details see
 | [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Include timestamp in log messages][ex-log-timestamp] | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
@@ -120,6 +121,8 @@ Keep lines sorted.
 
 [byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
+[chrono-badge]: https://img.shields.io/crates/v/chrono.svg?label=chrono
+[chrono]: https://docs.rs/chrono/
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
@@ -174,6 +177,7 @@ Keep lines sorted.
 [ex-log-error]: app.html#ex-log-error
 [ex-log-mod]: app.html#ex-log-mod
 [ex-log-syslog]: app.html#ex-log-syslog
+[ex-log-timestamp]: app.html#ex-log-timestamp
 [ex-percent-encode]: encoding.html#ex-percent-encode
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist

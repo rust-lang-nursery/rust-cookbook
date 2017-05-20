@@ -7,6 +7,7 @@
 | [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Include timestamp in log messages][ex-log-timestamp] | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
@@ -246,6 +247,64 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-log-timestamp]: #ex-log-timestamp
+<a name="ex-log-timestamp"></a>
+## Include timestamp in log messages
+
+[![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] [![cat-debugging-badge]][cat-debugging]
+
+Creates a custom logger configuration with [`env_logger::LogBuilder`].
+Each log entry calls [`Local::now`] to get the current [`DateTime`] in local timezone and uses [`DateTime::format`] with [`strftime::specifiers`] to format a timestamp used in the final log.
+
+The example calls [`LogBuilder::format`] to set a closure which formats each
+message text with timestamp, [`LogRecord::level`] and body ([`LogRecord::args`]).
+Subsequently calls [`LogBuilder::parse`] which parses `MY_APP_LOG` environmental variable contents in the form of [`RUST_LOG`] syntax.
+Finally calls [`LogBuilder::init`] to initialize the logger.
+All these steps are normally done internally by [`env_logger::init`].
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate log;
+extern crate env_logger;
+extern crate chrono;
+
+use chrono::Local;
+use env_logger::LogBuilder;
+use std::env;
+#
+# error_chain! {
+#    foreign_links {
+#        SetLogger(log::SetLoggerError);
+#    }
+# }
+
+fn run() -> Result<()> {
+    LogBuilder::new()
+        .format(|record| {
+                    format!("{} [{}] - {}",
+                            Local::now().format("%a %b %e %T %Y"),
+                            record.level(),
+                            record.args())
+                })
+        .parse(&env::var("MY_APP_LOG").unwrap_or_default())
+        .init()?;
+
+    warn!("warn");
+    info!("info");
+    debug!("debug");
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+Calling `MY_APP_LOG="info" cargo run` will result in similar output:
+```
+Sat May 20 20:54:55 2017 [WARN] - warn
+Sat May 20 20:54:55 2017 [INFO] - info
+```
+
 [ex-log-syslog]: #ex-log-syslog
 <a name="ex-log-syslog"></a>
 ## Log to the Unix syslog
@@ -480,6 +539,8 @@ fn run() -> Result<()> {
 
 <!-- Crates -->
 
+[chrono-badge]: https://img.shields.io/crates/v/chrono.svg?label=chrono
+[chrono]: https://docs.rs/chrono/
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
@@ -501,6 +562,17 @@ fn run() -> Result<()> {
 
 <!-- Reference -->
 
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html#method.format
+[`DateTime`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html
+[`Local::now`]: https://docs.rs/chrono/*/chrono/offset/local/struct.Local.html#method.now
+[`LogBuilder::format`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.format
+[`LogBuilder::init`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.init
+[`LogBuilder::parse`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.parse
+[`LogRecord::args`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.args
+[`LogRecord::level`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.level
+[`env_logger::LogBuilder`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html
+[`env_logger::init`]: https://doc.rust-lang.org/log/env_logger/fn.init.html
+[`strftime::specifiers`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html#specifiers
 [`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
 [`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
 [`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
