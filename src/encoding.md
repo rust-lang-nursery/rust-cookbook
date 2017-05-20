@@ -33,19 +33,18 @@ we expect the parsed value to be. The expected value is declared using the
 [`json!`]: https://docs.serde.rs/serde_json/macro.json.html
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate serde_json;
 
-#[macro_use]
-extern crate error_chain;
-
 use serde_json::Value;
-
-error_chain! {
-    foreign_links {
-        Json(serde_json::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Json(serde_json::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let j = r#"{
@@ -72,8 +71,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-toml-config]: #ex-toml-config
@@ -86,18 +85,17 @@ Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate toml;
 
-#[macro_use]
-extern crate error_chain;
-
 use toml::Value;
-
-error_chain! {
-    foreign_links {
-        Toml(toml::de::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Toml(toml::de::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let toml_content = r#"
@@ -117,8 +115,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 Parse TOML into your own structs using Serde:
@@ -126,14 +124,12 @@ Parse TOML into your own structs using Serde:
 [![serde-json-badge]][serde-json] [![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
-
 extern crate serde;
 extern crate toml;
-
-#[macro_use]
-extern crate error_chain;
 
 use std::collections::HashMap;
 
@@ -149,12 +145,12 @@ struct Package {
     version: String,
     authors: Vec<String>,
 }
-
-error_chain! {
-    foreign_links {
-        Toml(toml::de::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Toml(toml::de::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let toml_content = r#"
@@ -176,8 +172,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-percent-encode]: #ex-percent-encode
@@ -191,18 +187,17 @@ function from the `url` crate. Then decode using the [`percent_decode`]
 function.
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate url;
 
-#[macro_use]
-extern crate error_chain;
-
 use url::percent_encoding::{utf8_percent_encode, percent_decode, DEFAULT_ENCODE_SET};
-
-error_chain! {
-    foreign_links {
-        Utf8(std::str::Utf8Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Utf8(std::str::Utf8Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let input = "confident, productive systems programming";
@@ -217,8 +212,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 The encode set defines which bytes (in addition to non-ASCII and controls) need
@@ -277,24 +272,23 @@ hex `String` is then converted back to its original representation and is
 compared to the original value provided.
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate data_encoding;
 
-#[macro_use]
-extern crate error_chain;
-
 use data_encoding::{HEXUPPER, DecodeError};
-
-error_chain! {
-    foreign_links {
-        Decode(DecodeError);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Decode(DecodeError);
+#    }
+# }
 
 fn run() -> Result<()> {
     let original = b"The quick brown fox jumps over the lazy dog.";
     let expected = "54686520717569636B2062726F776E20666F78206A756D7073206F76\
         657220746865206C617A7920646F672E";
-    
+
     let encoded = HEXUPPER.encode(original);
     assert_eq!(encoded, expected);
 
@@ -303,8 +297,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-base64]: #ex-base64
@@ -320,19 +314,19 @@ and subsequently decoded with [`decode`].
 [`encode`]: https://docs.rs/base64/*/base64/fn.encode.html
 
 ```rust
-#[macro_use]
-extern crate error_chain;
+# #[macro_use]
+# extern crate error_chain;
 extern crate base64;
 
 use std::str;
 use base64::{encode, decode};
-
-error_chain! {
-    foreign_links {
-        Base64(base64::DecodeError);
-        Utf8Error(str::Utf8Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Base64(base64::DecodeError);
+#        Utf8Error(str::Utf8Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let hello = b"hello rustaceans";
@@ -345,8 +339,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 <!-- Categories -->

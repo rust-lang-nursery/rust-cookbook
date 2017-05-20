@@ -28,17 +28,17 @@ that implements [`Write`], here a [`File`]. The [`File`] is opened
 for writing with [`File::create`], and reading with [`File::open`].
 
 ```rust
-#[macro_use]
-extern crate error_chain;
-
+# #[macro_use]
+# extern crate error_chain;
+#
 use std::fs::File;
 use std::io::{Write, BufReader, BufRead};
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Io(std::io::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let path = "lines.txt";
@@ -55,8 +55,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-byteorder-le]: #ex-byteorder-le
@@ -66,10 +66,9 @@ quick_main!(run);
 [![byteorder-badge]][byteorder] [![cat-encoding-badge]][cat-encoding]
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate byteorder;
-
-#[macro_use]
-extern crate error_chain;
 
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 
@@ -78,12 +77,12 @@ struct Payload {
     kind: u8,
     value: u16,
 }
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-    }
-}
+#
+# error_chain! {
+#    foreign_links {
+#        Io(std::io::Error);
+#    }
+# }
 
 fn run() -> Result<()> {
     let original_payload = Payload::default();
@@ -107,8 +106,8 @@ fn decode(mut bytes: &[u8]) -> Result<Payload> {
     };
     Ok(payload)
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-rand-float]: #ex-rand-float
@@ -214,28 +213,26 @@ fn main() {
 inspected using [`Regex`] to get the hash and message of the last 5 commits.
 
 ```rust
-#[macro_use]
-extern crate error_chain;
+# #[macro_use]
+# extern crate error_chain;
 extern crate regex;
 
 use std::process::Command;
 use regex::Regex;
-
-error_chain!{
-    foreign_links {
-        Io(std::io::Error);
-        Regex(regex::Error);
-        Utf8(std::string::FromUtf8Error);
-    }
-}
-
+#
+# error_chain!{
+#    foreign_links {
+#        Io(std::io::Error);
+#        Regex(regex::Error);
+#        Utf8(std::string::FromUtf8Error);
+#    }
+# }
 
 #[derive(PartialEq, Default, Clone, Debug)]
 struct Commit {
     hash: String,
     message: String,
 }
-
 
 fn run() -> Result<()> {
     let output = Command::new("git").arg("log").arg("--oneline").output()?;
@@ -266,8 +263,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-lazy-constant]: #ex-lazy-constant
@@ -321,14 +318,14 @@ race conditions. A [`MutexGuard`] must be acquired to read or mutate the
 value stored in a [`Mutex`].
 
 ```rust
-#[macro_use]
-extern crate error_chain;
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate lazy_static;
 
 use std::sync::Mutex;
-
-error_chain!{ }
+#
+# error_chain!{ }
 
 lazy_static! {
     static ref FRUIT: Mutex<Vec<String>> = Mutex::new(Vec::new());
@@ -360,8 +357,8 @@ fn run() -> Result<()> {
     insert("grape")?;
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 <!-- Categories -->
