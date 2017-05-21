@@ -58,6 +58,7 @@ community. It needs and welcomes help. For details see
 | [Make a HTTP GET request after parsing a URL][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Download a file to a temporary directory][ex-url-download] | [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] | [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem] |
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Consume a Paginated RESTful API][ex-paginated-api] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Listen on Unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
@@ -184,6 +185,7 @@ Keep lines sorted.
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-post]: net.html#ex-rest-post
+[ex-paginated-api]: net.html#ex-paginated-api
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-tar-temp]: app.html#ex-tar-temp
 [ex-toml-config]: encoding.html#ex-toml-config
