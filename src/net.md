@@ -10,6 +10,7 @@
 | [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Download a file to a temporary directory][ex-url-download] | [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] | [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem] |
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Consume a Paginated RESTful API][ex-paginated-api] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
@@ -528,6 +529,117 @@ fn run() -> Result<()> {
 #
 # quick_main!(run);
 ```
+[ex-paginated-api]: #ex-paginated-api
+<a name="ex-paginated-api"></a>
+## Consume a Paginated RESTful API
+
+[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
+
+In this example, A Paginated JSON API is exposed as a Rust Iterator, and will create further requests until the iteration is finished.
+
+An initial request is made with [`reqwest::get`] and that is used to create a `DependencyList`.  The `DependencyList` implements the [`std::iter::Iterator`] trait so it can be consumed in a rust fashion.
+
+```rust, no_run
+#[macro_use]
+extern crate serde_derive;
+extern crate reqwest;
+
+use std::vec::IntoIter;
+
+#[derive(Deserialize)]
+struct ApiResponse {
+    dependencies: Vec<Dependency>,
+    meta: Meta,
+}
+
+//Could include more fields here if needed
+#[derive(Deserialize)]
+struct Dependency {
+    crate_id: String,
+}
+
+#[derive(Deserialize)]
+struct Meta {
+    total: u32
+}
+
+struct DependencyList {
+    crate_id: String,
+    dependencies: IntoIter<Dependency>,
+    page: u32,
+    per_page: u32,
+    total_amount: u32
+}
+
+impl DependencyList {
+
+    fn new(crate_id: &str) -> DependencyList {
+
+        let page = 1;
+        let per_page = 100;
+        let api_response = DependencyList::get_api_response(crate_id, page, per_page).expect("Could not get API response!");
+        let total_amount = api_response.meta.total;
+
+        DependencyList {
+            crate_id: String::from(crate_id),
+            dependencies: api_response.dependencies.into_iter(),
+            page: page,
+            per_page: per_page,
+            total_amount: total_amount
+        }
+    }
+
+    fn get_api_response(crate_id: &str, page: u32, per_page: u32) -> Result<ApiResponse, reqwest::Error> {
+        let request_url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&per_page={}", crate_id, page, per_page);
+        reqwest::get(&request_url)?.json::<ApiResponse>()
+    }
+
+}
+
+impl Iterator for DependencyList {
+    type Item = Dependency;
+
+    fn next(&mut self) -> Option<Dependency> {
+        match self.dependencies.next() {
+            Some(dependency) => {
+                Some(dependency)
+            },
+            None => {
+                
+                //If we're not at the end we request the next page
+                if self.total_amount > self.page * self.per_page {
+
+                    self.page += 1;
+
+                    let api_response = DependencyList::get_api_response(&self.crate_id, self.page, self.per_page).expect("Could not get API response!");
+
+                    self.dependencies = api_response.dependencies.into_iter();
+
+                    //Send the next dependency
+                    self.dependencies.next()
+
+                } else {
+
+                    None
+
+                }
+
+            }
+        }
+    }
+
+}
+
+
+fn main() {
+    let dependency_list = DependencyList::new("serde");
+
+    for dependency in dependency_list {
+        println!("Dependency: {}", dependency.crate_id);
+    }
+
+}
+```
 
 [ex-file-post]: #ex-file-post
 <a name="ex-file-post"/>
@@ -679,6 +791,7 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
+[`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
 [`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
 [`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
 [`reqwest::RequestBuilder`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html
