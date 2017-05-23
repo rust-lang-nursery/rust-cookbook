@@ -539,7 +539,7 @@ Wraps a paginated web API in a convenient Rust iterator. The iterator lazily
 fetches the next page of results from the remote server as it arrives at the end
 of each page.
 
-```rust
+```rust,no_run
 #[macro_use]
 extern crate serde_derive;
 
