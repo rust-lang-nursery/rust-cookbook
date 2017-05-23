@@ -61,6 +61,7 @@ community. It needs and welcomes help. For details see
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on Unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 
 ## [Application development](app.html)
@@ -194,6 +195,7 @@ Keep lines sorted.
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-post]: net.html#ex-rest-post
+[ex-file-post]: net.html#ex-file-post
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-tar-temp]: app.html#ex-tar-temp
 [ex-toml-config]: encoding.html#ex-toml-config

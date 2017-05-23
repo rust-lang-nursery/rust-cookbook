@@ -12,6 +12,7 @@
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on Unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
@@ -528,6 +529,55 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-file-post]: #ex-file-post
+<a name="ex-file-post"/>
+## POST a file to paste-rs.
+
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
+
+A connection is established to https://paste.rs using [`reqwest::Client`],
+following the [`reqwest::RequestBuilder`] pattern.  Calling [`Client::post`]
+with a URL establishes the destination, [`RequestBuilder::body`] sets the
+content to send by reading the file, and [`RequestBuilder::send`] blocks until
+the file uploads and the response is received.  The response is read with
+[`read_to_string`], and finally displayed in the console.
+
+```rust no_run
+extern crate reqwest;
+
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::fs::File;
+use std::io::Read;
+use reqwest::Client;
+#
+# error_chain! {
+#    foreign_links {
+#        HttpReqest(reqwest::Error);
+#        IoError(::std::io::Error);
+#    }
+# }
+
+fn run() -> Result<()> {
+    let paste_api = "https://paste.rs";
+    let file = File::open("message")?;
+    let client = Client::new()?;
+
+    // blocks until paste.rs returns a response
+    let mut response = client
+        .post(paste_api)
+        .body(file)
+        .send()?;
+    let mut response_body = String::new();
+    response.read_to_string(&mut response_body)?;
+    println!("Your paste is located at: {}", response_body);
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-random-port-tcp]: #ex-random-port-tcp
 <a name="ex-random-port-tcp"></a>
 ## Listen on Unused port TCP/IP
@@ -622,6 +672,7 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
+[`RequestBuilder::body`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html#method.body
 [`RequestBuilder::json`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
@@ -630,6 +681,7 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
 [`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
+[`reqwest::RequestBuilder`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html
 [`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
 [`SocketAddrV4`]: https://doc.rust-lang.org/std/net/struct.SocketAddrV4.html
 [`TcpListener::accept`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.accept
