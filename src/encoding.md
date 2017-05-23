@@ -345,7 +345,7 @@ fn run() -> Result<()> {
 
 <!-- Categories -->
 
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding-badge]: https://img.shields.io/badge/encoding--x.svg?style=social
 [cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->

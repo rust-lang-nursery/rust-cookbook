@@ -744,11 +744,11 @@ shows Listening on 127.0.0.1:11500, run
 After sending data in telnet press `ctrl-]` and type `quit`.
 <!-- Categories -->
 
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding-badge]: https://img.shields.io/badge/encoding--x.svg?style=social
 [cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem-badge]: https://img.shields.io/badge/filesystem--x.svg?style=social
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-net-badge]: https://img.shields.io/badge/-net-red.svg
+[cat-net-badge]: https://img.shields.io/badge/net--x.svg?style=social
 [cat-net]: https://crates.io/categories/network-programming
 
 <!-- Crates -->

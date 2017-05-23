@@ -363,19 +363,19 @@ fn run() -> Result<()> {
 
 <!-- Categories -->
 
-[cat-caching-badge]: https://img.shields.io/badge/-caching-red.svg
+[cat-caching-badge]: https://img.shields.io/badge/caching--x.svg?style=social
 [cat-caching]: https://crates.io/categories/caching
-[cat-encoding-badge]: https://img.shields.io/badge/-encoding-red.svg
+[cat-encoding-badge]: https://img.shields.io/badge/encoding--x.svg?style=social
 [cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://img.shields.io/badge/-filesystem-red.svg
+[cat-filesystem-badge]: https://img.shields.io/badge/filesystem--x.svg?style=social
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-science-badge]: https://img.shields.io/badge/-rand-red.svg
+[cat-science-badge]: https://img.shields.io/badge/rand--x.svg?style=social
 [cat-science]: https://crates.io/categories/science
-[cat-os-badge]: https://img.shields.io/badge/-os-red.svg
+[cat-os-badge]: https://img.shields.io/badge/OS--x.svg?style=social
 [cat-os]: https://crates.io/categories/os
-[cat-rust-patterns-badge]: https://img.shields.io/badge/-rust_patterns-red.svg
+[cat-rust-patterns-badge]: https://img.shields.io/badge/rust_patterns--x.svg?style=social
 [cat-rust-patterns]: https://crates.io/categories/rust-patterns
-[cat-text-processing-badge]: https://img.shields.io/badge/-text_processing-red.svg
+[cat-text-processing-badge]: https://img.shields.io/badge/text_processing--x.svg?style=social
 [cat-text-processing]: https://crates.io/categories/text-processing
 
 <!-- Crates -->
