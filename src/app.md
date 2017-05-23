@@ -172,20 +172,44 @@ DEBUG:main: Executing query: DROP TABLE students
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
 ```rust
-#[macro_use] extern crate log;
+#[macro_use]
+extern crate log;
 extern crate env_logger;
+#
+# #[macro_use]
+# extern crate error_chain;
+#
+# error_chain! {
+#    foreign_links {
+#        SetLogger(log::SetLoggerError);
+#    }
+# }
 
-fn main() {
-    env_logger::init().unwrap();
+fn execute_query(_query: &str) -> Result<()> {
+    // Do the thing, or maybe not
 
-    error!("this is an error {}", "message");
+    bail!("I'm afraid I can't do that")
 }
+
+fn run() -> Result<()> {
+    env_logger::init()?;
+
+    let response = execute_query("DROP TABLE students");
+    if let Err(err) = response {
+        // Log the error message and continue
+        error!("Failed to execute query: {}", err);
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
 ```
 
 Run this code with `cargo run` and you should see the following line:
 
 ```
-DEBUG:main: this is a debug message
+DEBUG:main: Failed to execute query: I'm afraid I can't do that
 ```
 
 [ex-log-mod]: #ex-log-mod
