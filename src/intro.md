@@ -38,6 +38,7 @@ community. It needs and welcomes help. For details see
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
+| [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
@@ -118,10 +119,14 @@ Keep lines sorted.
 
 <!-- Crates -->
 
+[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
+[base64]: https://docs.rs/base64/
 [byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
+[data-encoding-badge]: https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding
+[data-encoding]: https://github.com/ia0/data-encoding
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
@@ -154,18 +159,18 @@ Keep lines sorted.
 [url]: https://docs.rs/url/
 [regex]: https://docs.rs/regex/
 [regex-badge]: https://img.shields.io/crates/v/regex.svg?label=regex
-[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
-[base64]: https://docs.rs/base64/
 [walkdir-badge]: https://img.shields.io/crates/v/walkdir.svg?label=walkdir
 [walkdir]: https://docs.rs/walkdir/
 
 <!-- Examples -->
 
+[ex-base64]: encoding.html#ex-base64
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-global-mut-state]: basics.html#ex-global-mut-state
+[ex-hex-encode-decode]: encoding.html#ex-hex-encode-decode
 [ex-json-value]: encoding.html#ex-json-value
 [ex-lazy-constant]: basics.html#ex-lazy-constant
 [ex-log-custom-logger]: app.html#ex-log-custom-logger
@@ -174,6 +179,7 @@ Keep lines sorted.
 [ex-log-error]: app.html#ex-log-error
 [ex-log-mod]: app.html#ex-log-mod
 [ex-log-syslog]: app.html#ex-log-syslog
+[ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-percent-encode]: encoding.html#ex-percent-encode
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist
@@ -195,5 +201,3 @@ Keep lines sorted.
 [ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-urlencoded]: encoding.html#ex-urlencoded
-[ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
-[ex-base64]: encoding.html#ex-base64

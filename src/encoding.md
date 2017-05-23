@@ -350,22 +350,24 @@ fn run() -> Result<()> {
 
 <!-- Crates -->
 
+[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
+[base64]: https://docs.rs/base64/
+[data-encoding-badge]: https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding
+[data-encoding]: https://github.com/ia0/data-encoding
 [serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
-[data-encoding-badge]: https://img.shields.io/crates/v/data-encoding.svg?label=url
-[data-encoding]: https://github.com/ia0/data-encoding
-[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
-[base64]: https://docs.rs/base64/
+
+
 
 <!-- Reference -->
 
-[`percent_decode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.percent_decode.html
+[percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding
 [`utf8_percent_encode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.utf8_percent_encode.html
+[`percent_decode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.percent_decode.html
+[application/x-www-form-urlencoded]: https://url.spec.whatwg.org/#application/x-www-form-urlencoded
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/1.4.0/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
-[percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding
-[application/x-www-form-urlencoded]: https://url.spec.whatwg.org/#application/x-www-form-urlencoded
