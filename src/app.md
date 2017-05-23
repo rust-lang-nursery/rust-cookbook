@@ -115,7 +115,35 @@ Your favorite number must be 256.
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+The `log` crate provides logging utilities. The `env_logger` crate configures
+logging via an environment variable.
+
+```rust
+#[macro_use] extern crate log;
+extern crate env_logger;
+
+fn main() {
+    env_logger::init().unwrap();
+
+    debug!("this is a debug {}", "message");
+}
+```
+
+If you run this code, you'll notice that no output is printed. By default, the
+log level is `error`, and any lower levels are dropped.
+
+We can change that easily by setting the `RUST_LOG` environment variable:
+
+```
+$ RUST_LOG=debug cargo run
+```
+
+After running this, you'll likely see a pile of logs from cargo, as well as the
+following line at the very end of the output:
+
+```
+DEBUG:main: this is a debug message
+```
 
 [ex-log-error]: #ex-log-error
 <a name="ex-log-error"></a>
