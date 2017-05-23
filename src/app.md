@@ -284,7 +284,7 @@ fn run() -> Result<()> {
     LogBuilder::new()
         .format(|record| {
                     format!("{} [{}] - {}",
-                            Local::now().format("%a %b %e %T %Y"),
+                            Local::now().format("%Y-%m-%dT%H:%M:%S"),
                             record.level(),
                             record.args())
                 })
@@ -301,8 +301,8 @@ fn run() -> Result<()> {
 ```
 Calling `MY_APP_LOG="info" cargo run` will result in similar output:
 ```
-Sat May 20 20:54:55 2017 [WARN] - warn
-Sat May 20 20:54:55 2017 [INFO] - info
+2017-05-22T21:57:06 [WARN] - warn
+2017-05-22T21:57:06 [INFO] - info
 ```
 
 [ex-log-syslog]: #ex-log-syslog
