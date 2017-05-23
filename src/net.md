@@ -535,16 +535,19 @@ fn run() -> Result<()> {
 
 [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
-In this example, A Paginated JSON API is exposed as a Rust Iterator, and will create further requests until the iteration is finished.
+Wraps a paginated web API in a convenient Rust iterator. The iterator lazily
+fetches the next page of results from the remote server as it arrives at the end
+of each page.
 
-An initial request is made with [`reqwest::get`] and that is used to create a `DependencyList`.  The `DependencyList` implements the [`std::iter::Iterator`] trait so it can be consumed in a rust fashion.
-
-```rust, no_run
+```rust
 #[macro_use]
 extern crate serde_derive;
+
+extern crate serde;
 extern crate reqwest;
 
-use std::vec::IntoIter;
+#[macro_use]
+extern crate error_chain;
 
 #[derive(Deserialize)]
 struct ApiResponse {
@@ -552,7 +555,7 @@ struct ApiResponse {
     meta: Meta,
 }
 
-//Could include more fields here if needed
+// Could capture more fields here if needed
 #[derive(Deserialize)]
 struct Dependency {
     crate_id: String,
@@ -563,82 +566,76 @@ struct Meta {
     total: u32
 }
 
-struct DependencyList {
+struct ReverseDependencies {
     crate_id: String,
-    dependencies: IntoIter<Dependency>,
+    dependencies: <Vec<Dependency> as IntoIterator>::IntoIter,
     page: u32,
     per_page: u32,
-    total_amount: u32
+    total: u32,
 }
 
-impl DependencyList {
+error_chain! {
+    foreign_links {
+        Reqwest(reqwest::Error);
+    }
+}
 
-    fn new(crate_id: &str) -> DependencyList {
-
-        let page = 1;
-        let per_page = 100;
-        let api_response = DependencyList::get_api_response(crate_id, page, per_page).expect("Could not get API response!");
-        let total_amount = api_response.meta.total;
-
-        DependencyList {
-            crate_id: String::from(crate_id),
-            dependencies: api_response.dependencies.into_iter(),
-            page: page,
-            per_page: per_page,
-            total_amount: total_amount
+impl ReverseDependencies {
+    fn of(crate_id: &str) -> Self {
+        ReverseDependencies {
+            crate_id: crate_id.to_owned(),
+            dependencies: vec![].into_iter(),
+            page: 0,
+            per_page: 100,
+            total: 0,
         }
     }
 
-    fn get_api_response(crate_id: &str, page: u32, per_page: u32) -> Result<ApiResponse, reqwest::Error> {
-        let request_url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&per_page={}", crate_id, page, per_page);
-        reqwest::get(&request_url)?.json::<ApiResponse>()
-    }
+    fn try_next(&mut self) -> Result<Option<Dependency>> {
+        // If the previous page has a dependency that hasn't been looked at.
+        if let Some(dep) = self.dependencies.next() {
+            return Ok(Some(dep));
+        }
 
+        // If there are no more reverse dependencies.
+        if self.page > 0 && self.page * self.per_page >= self.total {
+            return Ok(None);
+        }
+
+        // Fetch the next page.
+        self.page += 1;
+        let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&per_page={}",
+                          self.crate_id, self.page, self.per_page);
+        let response = reqwest::get(&url)?.json::<ApiResponse>()?;
+        self.dependencies = response.dependencies.into_iter();
+        self.total = response.meta.total;
+        Ok(self.dependencies.next())
+    }
 }
 
-impl Iterator for DependencyList {
-    type Item = Dependency;
+impl Iterator for ReverseDependencies {
+    type Item = Result<Dependency>;
 
-    fn next(&mut self) -> Option<Dependency> {
-        match self.dependencies.next() {
-            Some(dependency) => {
-                Some(dependency)
-            },
-            None => {
-                
-                //If we're not at the end we request the next page
-                if self.total_amount > self.page * self.per_page {
-
-                    self.page += 1;
-
-                    let api_response = DependencyList::get_api_response(&self.crate_id, self.page, self.per_page).expect("Could not get API response!");
-
-                    self.dependencies = api_response.dependencies.into_iter();
-
-                    //Send the next dependency
-                    self.dependencies.next()
-
-                } else {
-
-                    None
-
-                }
-
-            }
+    fn next(&mut self) -> Option<Self::Item> {
+        // Some juggling required here because `try_next` returns a result
+        // containing an option, while `next` is supposed to return an option
+        // containing a result.
+        match self.try_next() {
+            Ok(Some(dep)) => Some(Ok(dep)),
+            Ok(None) => None,
+            Err(err) => Some(Err(err)),
         }
     }
-
 }
 
-
-fn main() {
-    let dependency_list = DependencyList::new("serde");
-
-    for dependency in dependency_list {
-        println!("Dependency: {}", dependency.crate_id);
+fn run() -> Result<()> {
+    for dep in ReverseDependencies::of("serde") {
+        println!("reverse dependency: {}", dep?.crate_id);
     }
-
+    Ok(())
 }
+
+quick_main!(run);
 ```
 
 [ex-file-post]: #ex-file-post
