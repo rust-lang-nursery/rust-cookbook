@@ -171,7 +171,22 @@ DEBUG:main: Executing query: DROP TABLE students
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-[Write me!](https://github.com/brson/rust-cookbook/issues/61)
+```rust
+#[macro_use] extern crate log;
+extern crate env_logger;
+
+fn main() {
+    env_logger::init().unwrap();
+
+    error!("this is an error {}", "message");
+}
+```
+
+Run this code with `cargo run` and you should see the following line:
+
+```
+DEBUG:main: this is a debug message
+```
 
 [ex-log-mod]: #ex-log-mod
 <a name="ex-log-mod"></a>
