@@ -535,13 +535,12 @@ fn run() -> Result<()> {
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-The contents of a file are read using [`read_to_string`].  A connection is
-established to https://paste.rs using [`reqwest::Client`], following the
-[`reqwest::RequestBuilder`] pattern.  Calling [`Client::post`] with a URL
-establishes the destination, [`RequestBuilder::body`] sets the content to send,
-and [`RequestBuilder::send`] blocks until the file uploads and the response
-is received.  The response is read with [`read_to_string`], then terminates
-giving the location of the paste.
+A connection is established to https://paste.rs using [`reqwest::Client`],
+following the [`reqwest::RequestBuilder`] pattern.  Calling [`Client::post`]
+with a URL establishes the destination, [`RequestBuilder::body`] sets the
+content to send by reading the file, and [`RequestBuilder::send`] blocks until
+the file uploads and the response is received.  The response is read with
+[`read_to_string`], and finally displayed in the console.
 
 ```rust no_run
 extern crate reqwest;
@@ -562,13 +561,13 @@ use reqwest::Client;
 
 fn run() -> Result<()> {
     let paste_api = "https://paste.rs";
-    let mut file = File::open("message")?;
-    let mut file_contents = String::new();
-    file.read_to_string(&mut file_contents)?;
+    let file = File::open("message")?;
     let client = Client::new()?;
+
+    // blocks until paste.rs returns a response
     let mut response = client
         .post(paste_api)
-        .body(file_contents)
+        .body(file)
         .send()?;
     let mut response_body = String::new();
     response.read_to_string(&mut response_body)?;
