@@ -10,11 +10,11 @@
 | [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Download a file to a temporary directory][ex-url-download] | [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] | [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem] |
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
-| [Consume a Paginated RESTful API][ex-paginated-api] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
-| [Check if an API Resource Exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Consume a paginated RESTful API][ex-paginated-api] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Check if an API resource exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
-| [Listen on Unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
+| [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -405,7 +405,7 @@ fn run() -> Result<()> {
 
 [ex-rest-head]: #ex-rest-head
 <a name="ex-rest-head"/>
-## Check if a resource exists using a HEAD request
+## Check if an API resource exists
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
@@ -531,7 +531,7 @@ fn run() -> Result<()> {
 ```
 [ex-paginated-api]: #ex-paginated-api
 <a name="ex-paginated-api"></a>
-## Consume a Paginated RESTful API
+## Consume a paginated RESTful API
 
 [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
@@ -689,7 +689,7 @@ fn run() -> Result<()> {
 
 [ex-random-port-tcp]: #ex-random-port-tcp
 <a name="ex-random-port-tcp"></a>
-## Listen on Unused port TCP/IP
+## Listen on unused port TCP/IP
 
 [![std-badge]][std] [![cat-net-badge]][cat-net]
 
