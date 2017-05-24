@@ -46,6 +46,7 @@ community. It needs and welcomes help. For details see
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 
 ## [Networking](net.html)
 
@@ -129,6 +130,8 @@ Keep lines sorted.
 [chrono]: https://docs.rs/chrono/
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
+[crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
+[crossbeam]: https://docs.rs/crossbeam/
 [data-encoding-badge]: https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding
 [data-encoding]: https://github.com/ia0/data-encoding
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
@@ -171,6 +174,7 @@ Keep lines sorted.
 [ex-base64]: encoding.html#ex-base64
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
+[ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-global-mut-state]: basics.html#ex-global-mut-state
