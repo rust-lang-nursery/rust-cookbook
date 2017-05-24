@@ -40,9 +40,9 @@ extern crate url;
 use url::Url;
 #
 # error_chain! {
-#    foreign_links {
-#        UrlParse(url::ParseError);
-#    }
+#     foreign_links {
+#         UrlParse(url::ParseError);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -71,12 +71,12 @@ extern crate url;
 use url::Url;
 #
 # error_chain! {
-#    foreign_links {
-#        UrlParse(url::ParseError);
-#    }
-#    errors {
-#        CannotBeABase
-#    }
+#     foreign_links {
+#         UrlParse(url::ParseError);
+#     }
+#     errors {
+#         CannotBeABase
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -130,9 +130,9 @@ extern crate url;
 use url::Url;
 #
 # error_chain! {
-#    foreign_links {
-#        UrlParse(url::ParseError);
-#    }
+#     foreign_links {
+#         UrlParse(url::ParseError);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -176,9 +176,9 @@ extern crate url;
 use url::{Url, Host};
 
 # error_chain! {
-#    foreign_links {
-#        UrlParse(url::ParseError);
-#    }
+#     foreign_links {
+#         UrlParse(url::ParseError);
+#     }
 # }
 #
 fn run() -> Result<()> {
@@ -207,9 +207,9 @@ extern crate url;
 use url::{Url, Origin, Host};
 
 # error_chain! {
-#    foreign_links {
-#        UrlParse(url::ParseError);
-#    }
+#     foreign_links {
+#         UrlParse(url::ParseError);
+#     }
 # }
 #
 fn run() -> Result<()> {
@@ -248,9 +248,9 @@ extern crate url;
 use url::{Url, Position};
 #
 # error_chain! {
-#    foreign_links {
-#        UrlParse(url::ParseError);
-#    }
+#     foreign_links {
+#         UrlParse(url::ParseError);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -281,10 +281,10 @@ extern crate reqwest;
 use std::io::Read;
 #
 # error_chain! {
-#    foreign_links {
-#        Io(std::io::Error);
-#        HttpReqest(reqwest::Error);
-#    }
+#     foreign_links {
+#         Io(std::io::Error);
+#         HttpReqest(reqwest::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -324,10 +324,10 @@ use std::fs::File;
 use tempdir::TempDir;
 #
 # error_chain! {
-#    foreign_links {
-#        Io(std::io::Error);
-#        HttpReqest(reqwest::Error);
-#    }
+#     foreign_links {
+#         Io(std::io::Error);
+#         HttpReqest(reqwest::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -339,7 +339,8 @@ fn run() -> Result<()> {
 
     let mut dest = {
         // extract target filename from URL
-        let fname = response.url()
+        let fname = response
+            .url()
             .path_segments()
             .and_then(|segments| segments.last())
             .and_then(|name| if name.is_empty() { None } else { Some(name) })
@@ -383,9 +384,9 @@ struct User {
 }
 #
 # error_chain! {
-#    foreign_links {
-#        Reqwest(reqwest::Error);
-#    }
+#     foreign_links {
+#         Reqwest(reqwest::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -423,9 +424,9 @@ use std::time::Duration;
 use reqwest::Client;
 #
 # error_chain! {
-#    foreign_links {
-#        Reqwest(reqwest::Error);
-#    }
+#     foreign_links {
+#         Reqwest(reqwest::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -476,10 +477,10 @@ extern crate serde_json;
 use std::env;
 #
 # error_chain! {
-#   foreign_links {
-#       EnvVar(env::VarError);
-#       HttpReqest(reqwest::Error);
-#   }
+#     foreign_links {
+#         EnvVar(env::VarError);
+#         HttpReqest(reqwest::Error);
+#     }
 # }
 
 #[derive(Deserialize, Debug)]
@@ -540,14 +541,18 @@ fetches the next page of results from the remote server as it arrives at the end
 of each page.
 
 ```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
-
 extern crate serde;
 extern crate reqwest;
-
-#[macro_use]
-extern crate error_chain;
+#
+# error_chain! {
+#     foreign_links {
+#         Reqwest(reqwest::Error);
+#     }
+# }
 
 #[derive(Deserialize)]
 struct ApiResponse {
@@ -563,7 +568,7 @@ struct Dependency {
 
 #[derive(Deserialize)]
 struct Meta {
-    total: u32
+    total: u32,
 }
 
 struct ReverseDependencies {
@@ -572,12 +577,6 @@ struct ReverseDependencies {
     page: u32,
     per_page: u32,
     total: u32,
-}
-
-error_chain! {
-    foreign_links {
-        Reqwest(reqwest::Error);
-    }
 }
 
 impl ReverseDependencies {
@@ -605,7 +604,9 @@ impl ReverseDependencies {
         // Fetch the next page.
         self.page += 1;
         let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&per_page={}",
-                          self.crate_id, self.page, self.per_page);
+                          self.crate_id,
+                          self.page,
+                          self.per_page);
         let response = reqwest::get(&url)?.json::<ApiResponse>()?;
         self.dependencies = response.dependencies.into_iter();
         self.total = response.meta.total;
@@ -634,8 +635,8 @@ fn run() -> Result<()> {
     }
     Ok(())
 }
-
-quick_main!(run);
+#
+# quick_main!(run);
 ```
 
 [ex-file-post]: #ex-file-post
@@ -662,10 +663,10 @@ use std::io::Read;
 use reqwest::Client;
 #
 # error_chain! {
-#    foreign_links {
-#        HttpReqest(reqwest::Error);
-#        IoError(::std::io::Error);
-#    }
+#     foreign_links {
+#         HttpReqest(reqwest::Error);
+#         IoError(::std::io::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -674,10 +675,7 @@ fn run() -> Result<()> {
     let client = Client::new()?;
 
     // blocks until paste.rs returns a response
-    let mut response = client
-        .post(paste_api)
-        .body(file)
-        .send()?;
+    let mut response = client.post(paste_api).body(file).send()?;
     let mut response_body = String::new();
     response.read_to_string(&mut response_body)?;
     println!("Your paste is located at: {}", response_body);
@@ -694,7 +692,7 @@ fn run() -> Result<()> {
 [![std-badge]][std] [![cat-net-badge]][cat-net]
 
 In this example, the port is displayed on the console, and the program will
-listen until a request is made.  
+listen until a request is made.
 
 ```rust, no_run
 # #[macro_use]
@@ -702,13 +700,13 @@ listen until a request is made.
 #
 use std::net::{SocketAddrV4, Ipv4Addr, TcpListener};
 use std::io::Read;
-
-# error_chain! {
-#    foreign_links {
-#        Io(::std::io::Error);
-#    }
-# }
 #
+# error_chain! {
+#     foreign_links {
+#         Io(::std::io::Error);
+#     }
+# }
+
 fn run() -> Result<()> {
     let loopback = Ipv4Addr::new(127, 0, 0, 1);
     // Assigning port 0 requests the OS to assign a free port
@@ -716,7 +714,7 @@ fn run() -> Result<()> {
     let listener = TcpListener::bind(socket)?;
     let port = listener.local_addr()?;
     println!("Listening on {}, access this port to end the program", port);
-    let (mut tcp_stream, addr) = listener.accept()?;  //block  until requested
+    let (mut tcp_stream, addr) = listener.accept()?; //block  until requested
     println!("Connection received! {:?} is sending data.", addr);
     let mut input = String::new();
     // read from the socket until connection closed by client, discard byte count.
@@ -737,9 +735,9 @@ by passing 0 to [`TcpListener::bind`].  The assigned address is available via
 returns a `(`[`TcpStream`],  [`SocketAddrV4`]`)` representing the request.
 Reading on the socket with [`read_to_string`] will wait until the connection is
 closed which can be tested with `telnet ip port`.  For example, if the program
-shows Listening on 127.0.0.1:11500, run  
+shows Listening on 127.0.0.1:11500, run
 
-`telnet 127.0.0.1 11500`  
+`telnet 127.0.0.1 11500`
 
 After sending data in telnet press `ctrl-]` and type `quit`.
 <!-- Categories -->

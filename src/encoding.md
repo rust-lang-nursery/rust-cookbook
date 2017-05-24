@@ -41,9 +41,9 @@ extern crate serde_json;
 use serde_json::Value;
 #
 # error_chain! {
-#    foreign_links {
-#        Json(serde_json::Error);
-#    }
+#     foreign_links {
+#         Json(serde_json::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -92,9 +92,9 @@ extern crate toml;
 use toml::Value;
 #
 # error_chain! {
-#    foreign_links {
-#        Toml(toml::de::Error);
-#    }
+#     foreign_links {
+#         Toml(toml::de::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -111,7 +111,8 @@ fn run() -> Result<()> {
     let package_info: Value = toml::from_str(toml_content)?;
 
     assert_eq!(package_info["dependencies"]["serde"].as_str(), Some("1.0"));
-    assert_eq!(package_info["package"]["name"].as_str(), Some("your_package"));
+    assert_eq!(package_info["package"]["name"].as_str(),
+               Some("your_package"));
 
     Ok(())
 }
@@ -147,9 +148,9 @@ struct Package {
 }
 #
 # error_chain! {
-#    foreign_links {
-#        Toml(toml::de::Error);
-#    }
+#     foreign_links {
+#         Toml(toml::de::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -194,9 +195,9 @@ extern crate url;
 use url::percent_encoding::{utf8_percent_encode, percent_decode, DEFAULT_ENCODE_SET};
 #
 # error_chain! {
-#    foreign_links {
-#        Utf8(std::str::Utf8Error);
-#    }
+#     foreign_links {
+#         Utf8(std::str::Utf8Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -279,9 +280,9 @@ extern crate data_encoding;
 use data_encoding::{HEXUPPER, DecodeError};
 #
 # error_chain! {
-#    foreign_links {
-#        Decode(DecodeError);
-#    }
+#     foreign_links {
+#         Decode(DecodeError);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -322,10 +323,10 @@ use std::str;
 use base64::{encode, decode};
 #
 # error_chain! {
-#    foreign_links {
-#        Base64(base64::DecodeError);
-#        Utf8Error(str::Utf8Error);
-#    }
+#     foreign_links {
+#         Base64(base64::DecodeError);
+#         Utf8Error(str::Utf8Error);
+#     }
 # }
 
 fn run() -> Result<()> {

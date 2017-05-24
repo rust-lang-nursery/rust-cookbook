@@ -28,9 +28,9 @@ extern crate env_logger;
 # extern crate error_chain;
 #
 # error_chain! {
-#    foreign_links {
-#        SetLogger(log::SetLoggerError);
-#    }
+#     foreign_links {
+#         SetLogger(log::SetLoggerError);
+#     }
 # }
 
 fn execute_query(query: &str) {
@@ -81,9 +81,9 @@ extern crate env_logger;
 # extern crate error_chain;
 #
 # error_chain! {
-#    foreign_links {
-#        SetLogger(log::SetLoggerError);
-#    }
+#     foreign_links {
+#         SetLogger(log::SetLoggerError);
+#     }
 # }
 
 fn execute_query(_query: &str) -> Result<()> {
@@ -144,9 +144,9 @@ mod foo {
 }
 #
 # error_chain! {
-#    foreign_links {
-#        SetLogger(log::SetLoggerError);
-#    }
+#     foreign_links {
+#         SetLogger(log::SetLoggerError);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -215,9 +215,9 @@ impl log::Log for ConsoleLogger {
 }
 #
 # error_chain! {
-#    foreign_links {
-#        SetLogger(log::SetLoggerError);
-#    }
+#     foreign_links {
+#         SetLogger(log::SetLoggerError);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -263,9 +263,9 @@ use env_logger::LogBuilder;
 use std::env;
 #
 # error_chain! {
-#    foreign_links {
-#        SetLogger(log::SetLoggerError);
-#    }
+#     foreign_links {
+#         SetLogger(log::SetLoggerError);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -316,13 +316,15 @@ use log::LogLevelFilter;
 use syslog::Facility;
 #
 # error_chain! {
-#    foreign_links {
-#        SetLogger(log::SetLoggerError);
-#    }
+#     foreign_links {
+#         SetLogger(log::SetLoggerError);
+#     }
 # }
 
 fn run() -> Result<()> {
-    syslog::init(Facility::LOG_USER, LogLevelFilter::Debug, Some("My app name"))?;
+    syslog::init(Facility::LOG_USER,
+                 LogLevelFilter::Debug,
+                 Some("My app name"))?;
     debug!("this is a debug {}", "message");
     error!("this is an error!");
     Ok(())
@@ -356,11 +358,11 @@ use log4rs::encode::pattern::PatternEncoder;
 use log4rs::config::{Appender, Config, Root};
 #
 # error_chain! {
-#    foreign_links {
-#        Io(std::io::Error);
-#        LogConfig(log4rs::config::Errors);
-#        SetLogger(log::SetLoggerError);
-#    }
+#     foreign_links {
+#         Io(std::io::Error);
+#         LogConfig(log4rs::config::Errors);
+#         SetLogger(log::SetLoggerError);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -370,7 +372,9 @@ fn run() -> Result<()> {
 
     let config = Config::builder()
         .appender(Appender::builder().build("logfile", Box::new(logfile)))
-        .build(Root::builder().appender("logfile").build(LogLevelFilter::Info))?;
+        .build(Root::builder()
+                   .appender("logfile")
+                   .build(LogLevelFilter::Info))?;
 
     log4rs::init_config(config)?;
 

@@ -127,9 +127,9 @@ use tar::Archive;
 use tempdir::TempDir;
 #
 # error_chain! {
-#    foreign_links {
-#        Io(std::io::Error);
-#    }
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -173,9 +173,10 @@ fn main() {
 
     // List recusively all files in the current directory filtering out
     // directories and files not accessible (permission denied)
-    for entry in WalkDir::new(".").into_iter()
-                                  .filter_map(Result::ok)
-                                  .filter(|e| !e.file_type().is_dir()) {
+    for entry in WalkDir::new(".")
+            .into_iter()
+            .filter_map(Result::ok)
+            .filter(|e| !e.file_type().is_dir()) {
         // Get entry's filename
         let f_name = String::from(entry.file_name().to_string_lossy());
         // Get or initialize the counter
@@ -206,17 +207,16 @@ extern crate walkdir;
 use walkdir::WalkDir;
 #
 # error_chain! {
-#    foreign_links {
-#        WalkDir(walkdir::Error);
-#        Io(std::io::Error);
-#        SystemTime(std::time::SystemTimeError);
-#    }
+#     foreign_links {
+#         WalkDir(walkdir::Error);
+#         Io(std::io::Error);
+#         SystemTime(std::time::SystemTimeError);
+#     }
 # }
 
 fn run() -> Result<()> {
     // List recusively all accessible files in the current directory
-    for entry in WalkDir::new(".").into_iter()
-                                  .filter_map(|e| e.ok()) {
+    for entry in WalkDir::new(".").into_iter().filter_map(|e| e.ok()) {
         // Get entry's filename
         let f_name = entry.file_name().to_string_lossy();
         // Get entry's modified time

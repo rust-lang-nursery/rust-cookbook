@@ -35,9 +35,9 @@ use std::fs::File;
 use std::io::{Write, BufReader, BufRead};
 #
 # error_chain! {
-#    foreign_links {
-#        Io(std::io::Error);
-#    }
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -79,9 +79,9 @@ struct Payload {
 }
 #
 # error_chain! {
-#    foreign_links {
-#        Io(std::io::Error);
-#    }
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
 # }
 
 fn run() -> Result<()> {
@@ -190,7 +190,10 @@ struct Point {
 impl Rand for Point {
     fn rand<R: Rng>(rng: &mut R) -> Point {
         let (rand_x, rand_y) = rng.gen();
-        Point { x: rand_x, y: rand_y }
+        Point {
+            x: rand_x,
+            y: rand_y,
+        }
     }
 }
 
@@ -221,11 +224,11 @@ use std::process::Command;
 use regex::Regex;
 #
 # error_chain!{
-#    foreign_links {
-#        Io(std::io::Error);
-#        Regex(regex::Error);
-#        Utf8(std::string::FromUtf8Error);
-#    }
+#     foreign_links {
+#         Io(std::io::Error);
+#         Regex(regex::Error);
+#         Utf8(std::string::FromUtf8Error);
+#     }
 # }
 
 #[derive(PartialEq, Default, Clone, Debug)]
@@ -333,8 +336,7 @@ lazy_static! {
 
 fn insert(fruit: &str) -> Result<()> {
     // acquire exclusive access
-    let mut db = FRUIT.lock()
-        .map_err(|_| "Failed to acquire MutexGuard")?;
+    let mut db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
     db.push(fruit.to_string());
     Ok(())
     // release exclusive access
@@ -346,8 +348,7 @@ fn run() -> Result<()> {
     insert("peach")?;
     {
         // acquire access
-        let db = FRUIT.lock()
-            .map_err(|_| "Failed to acquire MutexGuard")?;
+        let db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
 
         for (i, item) in db.iter().enumerate() {
             println!("{}: {}", i, item);
