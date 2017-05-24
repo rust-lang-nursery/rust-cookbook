@@ -67,6 +67,34 @@ library error types. The automatic conversions make the `?` operator
 work. The `quick_main!` macro generates the actual `main` function and
 prints out the error if one occurred.
 
+All examples in the cookbook are full self contained programs,
+but for the sake of readability error handling boilerplate is hidden by default like below.
+In order to read full contents click on the "expand" (<i class="fa fa-expand"></i>)
+button located on snippets top-left corner.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate url;
+
+use url::{Url, Position};
+#
+# error_chain! {
+#   foreign_links {
+#       UrlParse(url::ParseError);
+#   }
+# }
+
+fn run() -> Result<()> {
+    let parsed = Url::parse("https://httpbin.org/cookies/set?k2=v2&k1=v1")?;
+    let cleaned: &str = &parsed[..Position::AfterPath];
+    println!("cleaned: {}", cleaned);
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 For more background on error handling in Rust, read [this page of the
 Rust book][error-docs] and [this blog post][error-blog].
 
