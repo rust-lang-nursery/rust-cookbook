@@ -80,9 +80,9 @@ extern crate url;
 use url::{Url, Position};
 #
 # error_chain! {
-#   foreign_links {
-#       UrlParse(url::ParseError);
-#   }
+#     foreign_links {
+#         UrlParse(url::ParseError);
+#     }
 # }
 
 fn run() -> Result<()> {
