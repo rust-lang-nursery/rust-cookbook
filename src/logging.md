@@ -394,14 +394,15 @@ fn run() -> Result<()> {
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
 [log-badge]: https://img.shields.io/crates/v/log.svg?label=log
+[log4rs-badge]: https://img.shields.io/crates/v/log4rs.svg?label=log4rs
+[log4rs]: https://docs.rs/log4rs/
 [log]: https://docs.rs/log/
 [syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
-[log4rs-badge]: https://img.shields.io/crates/v/log4rs.svg?label=log4rs
-[log4rs]: https://docs.rs/log4rs/
 
 <!-- Reference -->
 
+[UNIX syslog]: https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html#method.format
 [`DateTime`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html
 [`Local::now`]: https://docs.rs/chrono/*/chrono/offset/local/struct.Local.html#method.now
@@ -410,17 +411,16 @@ fn run() -> Result<()> {
 [`LogBuilder::parse`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.parse
 [`LogRecord::args`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.args
 [`LogRecord::level`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.level
+[`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
 [`env_logger::LogBuilder`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html
 [`env_logger::init`]: https://doc.rust-lang.org/log/env_logger/fn.init.html
-[`strftime::specifiers`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html#specifiers
 [`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
-[`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
 [`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
-[`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
-[`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
-[`log::LogLevel`]: https://doc.rust-lang.org/log/log/enum.LogLevel.html
+[`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
 [`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
-[UNIX syslog]: https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html
-[`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
+[`log::LogLevel`]: https://doc.rust-lang.org/log/log/enum.LogLevel.html
 [`log::Log`]: https://doc.rust-lang.org/log/log/trait.Log.html
-[`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
+[`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
+[`strftime::specifiers`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html#specifiers
+[`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
+[`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
