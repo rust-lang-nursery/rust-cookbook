@@ -70,6 +70,14 @@ community. It needs and welcomes help. For details see
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
+| [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
+| [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+
+## [Logging](logging.html)
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Log a debug message to the console][ex-log-debug] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
@@ -77,10 +85,6 @@ community. It needs and welcomes help. For details see
 | [Include timestamp in log messages][ex-log-timestamp] | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
-| [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
-| [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
-
 
 <!--
 
@@ -111,12 +115,12 @@ Keep lines sorted.
 [cat-filesystem]: https://crates.io/categories/filesystem
 [cat-net-badge]: https://img.shields.io/badge/net--x.svg?style=social
 [cat-net]: https://crates.io/categories/network-programming
-[cat-science-badge]: https://img.shields.io/badge/science--x.svg?style=social
-[cat-science]: https://crates.io/categories/science
 [cat-os-badge]: https://img.shields.io/badge/OS--x.svg?style=social
 [cat-os]: https://crates.io/categories/os
 [cat-rust-patterns-badge]: https://img.shields.io/badge/rust_patterns--x.svg?style=social
 [cat-rust-patterns]: https://crates.io/categories/rust-patterns
+[cat-science-badge]: https://img.shields.io/badge/science--x.svg?style=social
+[cat-science]: https://crates.io/categories/science
 [cat-text-processing-badge]: https://img.shields.io/badge/text_processing--x.svg?style=social
 [cat-text-processing]: https://crates.io/categories/text-processing
 
@@ -136,14 +140,16 @@ Keep lines sorted.
 [env_logger]: https://docs.rs/env_logger/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
 [flate2]: https://docs.rs/flate2/
-[lazy_static]: https://docs.rs/lazy_static/
 [lazy_static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
+[lazy_static]: https://docs.rs/lazy_static/
 [log-badge]: https://img.shields.io/crates/v/log.svg?label=log
 [log]: https://docs.rs/log/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
 [rayon]: https://docs.rs/rayon/
+[regex-badge]: https://img.shields.io/crates/v/regex.svg?label=regex
+[regex]: https://docs.rs/regex/
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
@@ -162,8 +168,6 @@ Keep lines sorted.
 [toml]: https://docs.rs/toml/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
-[regex]: https://docs.rs/regex/
-[regex-badge]: https://img.shields.io/crates/v/regex.svg?label=regex
 [walkdir-badge]: https://img.shields.io/crates/v/walkdir.svg?label=walkdir
 [walkdir]: https://docs.rs/walkdir/
 
@@ -173,31 +177,31 @@ Keep lines sorted.
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
+[ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-global-mut-state]: basics.html#ex-global-mut-state
 [ex-hex-encode-decode]: encoding.html#ex-hex-encode-decode
 [ex-json-value]: encoding.html#ex-json-value
 [ex-lazy-constant]: basics.html#ex-lazy-constant
-[ex-log-custom-logger]: app.html#ex-log-custom-logger
-[ex-log-custom]: app.html#ex-log-custom
-[ex-log-debug]: app.html#ex-log-debug
-[ex-log-error]: app.html#ex-log-error
-[ex-log-mod]: app.html#ex-log-mod
-[ex-log-syslog]: app.html#ex-log-syslog
-[ex-log-timestamp]: app.html#ex-log-timestamp
+[ex-log-custom-logger]: logging.html#ex-log-custom-logger
+[ex-log-custom]: logging.html#ex-log-custom
+[ex-log-debug]: logging.html#ex-log-debug
+[ex-log-error]: logging.html#ex-log-error
+[ex-log-mod]: logging.html#ex-log-mod
+[ex-log-syslog]: logging.html#ex-log-syslog
+[ex-log-timestamp]: logging.html#ex-log-timestamp
+[ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-percent-encode]: encoding.html#ex-percent-encode
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist
 [ex-rand-float]: basics.html#ex-rand-float
-[ex-random-port-tcp]: net.html#ex-random-port-tcp
 [ex-rand-range]: basics.html#ex-rand-range
+[ex-random-port-tcp]: net.html#ex-random-port-tcp
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
-[ex-rest-head]: net.html#ex-rest-head
 [ex-rest-get]: net.html#ex-rest-get
+[ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
-[ex-file-post]: net.html#ex-file-post
-[ex-paginated-api]: net.html#ex-paginated-api
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-tar-temp]: app.html#ex-tar-temp
 [ex-toml-config]: encoding.html#ex-toml-config
