@@ -238,7 +238,7 @@ fn run() -> Result<()> {
 
 [![url-badge]][url] [![cat-net-badge]][cat-net]
 
-Once [`Url`] is parsed it can be sliced with [`url::Position`] to strip unneeded URL parts.
+Parses [`Url`] and slices it with [`url::Position`] to strip unneeded URL parts.
 
 ```rust
 # #[macro_use]
@@ -269,9 +269,9 @@ fn run() -> Result<()> {
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-The [`reqwest::get`] function parses the supplied url and makes a
-synchronous HTTP GET request. Obtained [`reqwest::Response`]
-status and headers are printed. HTTP response body is read into an allocated [`String`] via [`read_to_string`].
+Parses the supplied URL and makes a synchronous HTTP GET request
+with [`reqwest::get`]. Prints obtained [`reqwest::Response`]
+status and headers subsequently reading HTTP response body into an allocated [`String`] via [`read_to_string`].
 
 ```rust,no_run
 # #[macro_use]
@@ -308,10 +308,11 @@ fn run() -> Result<()> {
 
 [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem]
 
-Temporary directory is created with [`TempDir::new`] and a file is synchronously
-downloaded over HTTP using [`reqwest::get`].
-Target [`File`] with name obtained from [`Response::url`] is created within [`TempDir::path`]
-and downloaded data is copied into it with [`io::copy`]. The temporary directory is implicitly removed on `run` function return.
+Creates a temporary directory with [`TempDir::new`] and  synchronously downloads
+a file over HTTP using [`reqwest::get`].
+Creates a target [`File`] with name obtained from [`Response::url`] within [`TempDir::path`]
+and copies downloaded data into it with [`io::copy`].
+The temporary directory is automatically removed on `run` function return.
 
 ```rust,no_run
 # #[macro_use]

@@ -230,9 +230,9 @@ collected into a `String`.
 
 [![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
 
-A string is encoded into [application/x-www-form-urlencoded] syntax
+Encodes a string into [application/x-www-form-urlencoded] syntax
 using the [`form_urlencoded::byte_serialize`] and subsequently
-decoded with [`form_urlencoded::parse`]. Both functions return iterators
+decodes it with [`form_urlencoded::parse`]. Both functions return iterators
 that can be collected into a `String`.
 
 ```rust

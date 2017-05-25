@@ -132,7 +132,7 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-A random value within a range `[0, 10)` (not including `10`) is generated with [`Rng::gen_range`].
+Generates a random value within `[0, 10)` range (not including `10`) with [`Rng::gen_range`].
 
 ```rust
 extern crate rand;
@@ -151,8 +151,8 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-[`Normal`] distribution with mean `3` and standard deviation `5`
-is created. A random value is generated with [`IndependentSample::ind_sample`].
+Creates a [`Normal`] distribution with mean `3` and standard deviation `5`
+and generates a random value with [`IndependentSample::ind_sample`].
 
 ```rust
 extern crate rand;
@@ -173,9 +173,8 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-A tuple `(i32, bool, f64)` and variable of user defined type `Point`
-are randomly generated. In order to allow random generation of `Point`
-it needs to implement the [`rand::Rand`] trait.
+Randomly generates a tuple `(i32, bool, f64)` and variable of user defined type `Point`.
+Implements the [`rand::Rand`] trait for `Point` in order to allow random generation.
 
 ```rust
 extern crate rand;
