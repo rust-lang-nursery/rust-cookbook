@@ -119,6 +119,9 @@ DEBUG:main: Failed to execute query: I'm afraid I can't do that
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
+Creates two modules `foo` and nested `foo::bar` with logging directives
+controlled separately with [`RUST_LOG`] environmental variable.
+
 ```rust
 # #[macro_use]
 # extern crate error_chain;
@@ -164,17 +167,16 @@ fn run() -> Result<()> {
 
 [`env_logger`][env_logger] output is controlled by [`RUST_LOG`] environmental
 variable on per module basis with comma separated entries in format `path::to::module=log_level`.
-Assuming application `test` is run as follows:
+Running the `test` application as follows:
 
-```
+```bash
 RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test
 ```
 
-The default [`log::LogLevel`] is set to `warn`, while log levels for module `foo` and nested module `foo::bar` are set respectively to `info` and `debug`.
+Sets the default [`log::LogLevel`] to `warn`, module's `foo` and module's `foo::bar`
+respectively to `info` and `debug`. The output is:
 
-The output is:
-
-```
+```bash
 WARN:test: [root] warn
 WARN:test::foo: [foo] warn
 INFO:test::foo: [foo] info
@@ -299,10 +301,8 @@ Calling `MY_APP_LOG="info" cargo run` will result in similar output:
 
 [![log-badge]][log] [![syslog-badge]][syslog] [![cat-debugging-badge]][cat-debugging]
 
-Messages are logged to [UNIX syslog]. Logger backend is initialized
-with [`syslog::init`].
-[`syslog::Facility`] indicates type of program submitting log.
-[`log::LogLevelFilter`] denotes allowed log verbosity
+Logs messages to [UNIX syslog]. Initializes logger backend
+with [`syslog::init`]. [`syslog::Facility`] indicates type of program submitting log, [`log::LogLevelFilter`] denotes allowed log verbosity
 and `Option<&str>` holds optional application name.
 
 ```rust,no_run

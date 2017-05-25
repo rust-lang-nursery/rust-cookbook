@@ -368,7 +368,8 @@ fn run() -> Result<()> {
 
 [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
-GitHub [stargazers API v3](https://developer.github.com/v3/activity/starring/#list-stargazers) is queried with [`reqwest::get`] to obtain list of all users who have marked a GitHub project with a star. [`reqwest::Response`] is deserialized with [`Response::json`] into `User` objects implementing [`serde::Deserialize`].
+Queries GitHub [stargazers API v3](https://developer.github.com/v3/activity/starring/#list-stargazers)
+with [`reqwest::get`] to get list of all users who have marked a GitHub project with a star. [`reqwest::Response`] is deserialized with [`Response::json`] into `User` objects implementing [`serde::Deserialize`].
 
 ```rust,no_run
 # #[macro_use]
@@ -459,12 +460,12 @@ fn run() -> Result<()> {
 
 [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
-HTTP POST request to [gists API v3](https://developer.github.com/v3/gists/) is made with [`reqwest::Client`] in order to create a gist.
-A request body is created with [`serde_json::json!`] macro and
-set set with [`RequestBuilder::json`].
-Request is prepared with [`Client::post`], authenticated with [`RequestBuilder::basic_auth`] and synchronously executed with [`RequestBuilder::send`].
+Creates a gist with POST request to GitHub [gists API v3](https://developer.github.com/v3/gists/) using [`Client::post`] and subsequently removes it with DELETE request using [`Client::delete`].
 
-Gist is subsequently deleted with HTTP DELETE request prepared with [`Client::delete`] and executed as before.
+The [`reqwest::Client`] is responsible for details of both requests including
+URL, body and authentication. POST body comes from [`serde_json::json!`] macro
+which provides a way to pass an arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request body while [`RequestBuilder::basic_auth`] handles authentication.
+Finally the call to [`RequestBuilder::send`] synchronously executes the requests.
 
 ```rust,no_run
 # #[macro_use]
@@ -741,6 +742,7 @@ shows Listening on 127.0.0.1:11500, run
 `telnet 127.0.0.1 11500`
 
 After sending data in telnet press `ctrl-]` and type `quit`.
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://img.shields.io/badge/encoding--x.svg?style=social
