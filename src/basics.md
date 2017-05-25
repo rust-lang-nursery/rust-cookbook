@@ -401,7 +401,7 @@ fn run() -> Result<()> {
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
-[`Write`]: https://doc.rust-lang.org/std/io/trait.Write.html
+[`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
