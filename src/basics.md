@@ -24,7 +24,7 @@ Writes a three-line message to a file, then reads it back a line at a
 time with the [`Lines`] iterator created by
 [`BufRead::lines`]. [`BufRead`] is a trait, and the most common way to
 get one is from a [`BufReader`], which is constructed from some type
-that implements [`Write`], here a [`File`]. The [`File`] is opened
+that implements [`Read`], here a [`File`]. The [`File`] is opened
 for writing with [`File::create`], and reading with [`File::open`].
 
 ```rust
