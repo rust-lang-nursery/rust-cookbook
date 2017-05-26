@@ -369,7 +369,7 @@ fn run() -> Result<()> {
 [cat-encoding]: https://crates.io/categories/encoding
 [cat-filesystem-badge]: https://img.shields.io/badge/filesystem--x.svg?style=social
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-science-badge]: https://img.shields.io/badge/rand--x.svg?style=social
+[cat-science-badge]: https://img.shields.io/badge/science--x.svg?style=social
 [cat-science]: https://crates.io/categories/science
 [cat-os-badge]: https://img.shields.io/badge/OS--x.svg?style=social
 [cat-os]: https://crates.io/categories/os
