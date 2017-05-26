@@ -308,8 +308,8 @@ fn run() -> Result<()> {
 
 [![base64-badge]][base64] [![cat-encoding-badge]][cat-encoding]
 
-Byte slice is encoded into `base64` String with help of [`encode`] 
-and subsequently decoded with [`decode`].
+Encodes byte slice into `base64` String with help of [`encode`]
+and subsequently decodes it with [`decode`].
 
 [`decode`]: https://docs.rs/base64/*/base64/fn.decode.html
 [`encode`]: https://docs.rs/base64/*/base64/fn.encode.html
