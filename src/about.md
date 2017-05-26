@@ -75,7 +75,7 @@ cargo new my-example --bin
 cd my-example
 ```
 
-Now, we also need to add the necessary crates to [Cargo.toml, as
+Now, we also need to add the necessary crates to [Cargo.toml], as
 indicated by the crate badges, in this case just "rand". To do so,
 we'll use the `cargo add` command, which is provided by the
 [`cargo-edit`] crate, which we need to install first:
@@ -151,8 +151,8 @@ prints out the error if one occurred.
 
 For the sake of readability error handling boilerplate is hidden by
 default like below.  In order to read full contents click on the
-"expand" (<i class="fa fa-expand"></i>) button located on snippets
-top-left corner.
+"expand" (<i class="fa fa-expand"></i>) button located in the top
+right corner of the snippet.
 
 ```rust
 # #[macro_use]
@@ -182,17 +182,17 @@ Rust book][error-docs] and [this blog post][error-blog].
 
 ## A note about crate representation
 
-This cookbook is intended to eventually expansive in its coverage of
+This cookbook is intended eventually to provide expansive coverage of
 the Rust crate ecosystem, but today is limited in scope while we get
-it bootstrapped, and work on the presentation. Hopefully, starting
+it bootstrapped and work on the presentation. Hopefully, starting
 from a small scope and slowly expanding will help the cookbook become
 a high-quality resource sooner, and allow it to maintain consistent
 quality levels as it grows.
 
 At present the coobook is focused on the standard library, and on
-"core", or "foundational", crates &emdash; those crates that make up
-the most common programming tasks, and that the rest of the ecosystem
-builds off of.
+"core", or "foundational", crates—those crates that make up the most
+common programming tasks, and that the rest of the ecosystem builds
+off of.
 
 The cookbook is closely tied to the [Rust Libz Blitz], a project to
 identify, and improve the quality of such crates, and so it largely
