@@ -191,8 +191,9 @@ DEBUG:test::foo::bar: [bar] debug
 
 [![log-badge]][log] [![cat-debugging-badge]][cat-debugging]
 
-Custom logger `ConsoleLogger` is implemented with [`log::Log`] trait and installed 
-via [`log::set_logger`]. Messages are logged to stdout.
+Implements a custom logger `ConsoleLogger` which prints to stdout.
+In order to use the logging macros, `ConsoleLogger` implements
+the [`log::Log`] trait and has to be installed via [`log::set_logger`].
 
 ```rust
 # #[macro_use]
@@ -339,11 +340,12 @@ fn run() -> Result<()> {
 
 [![log-badge]][log] [![log4rs-badge]][log4rs] [![cat-debugging-badge]][cat-debugging]
 
-Logs are configured to log to a custom location by using log4rs. log4rs can use either an external yaml file or a programmatically constructed configuration.
+Configures log to be output into custom location with [log4rs]. [log4rs] can use either an external YAML file or a programmatically constructed configuration.
 
-First log file configuration is created using [`log4rs::append::file::FileAppender`] using a custom pattern from [`log4rs::encode::pattern`].  
+Firstly creates the log configuration with [`log4rs::append::file::FileAppender`]
+using a custom pattern from [`log4rs::encode::pattern`].
 
-Then this is assigned to the [`log4rs::config::Config`] which has a root appender that uses the `logfile` appender that was just created, and sets the default [`log::LogLevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
+Secondly assigns it to the [`log4rs::config::Config`] which has a root appender that uses the previously created `logfile` appender. Subsequently sets the default [`log::LogLevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
 
 ```rust,no_run
 # #[macro_use]

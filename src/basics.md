@@ -211,8 +211,8 @@ fn main() {
 
 [![regex-badge]][regex] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
 
-`git log --oneline` is run as an external [`Command`] and its [`Output`] is
-inspected using [`Regex`] to get the hash and message of the last 5 commits.
+Runs `git log --oneline` as an external [`Command`] and inspects its [`Output`]
+using [`Regex`] to get the hash and message of the last 5 commits.
 
 ```rust
 # #[macro_use]
