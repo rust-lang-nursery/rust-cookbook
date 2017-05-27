@@ -576,20 +576,22 @@ struct Meta {
 struct ReverseDependencies {
     crate_id: String,
     dependencies: <Vec<Dependency> as IntoIterator>::IntoIter,
+    client: reqwest::Client,
     page: u32,
     per_page: u32,
     total: u32,
 }
 
 impl ReverseDependencies {
-    fn of(crate_id: &str) -> Self {
-        ReverseDependencies {
-            crate_id: crate_id.to_owned(),
-            dependencies: vec![].into_iter(),
-            page: 0,
-            per_page: 100,
-            total: 0,
-        }
+    fn of(crate_id: &str) -> Result<Self> {
+        Ok(ReverseDependencies {
+               crate_id: crate_id.to_owned(),
+               dependencies: vec![].into_iter(),
+               client: reqwest::Client::new()?,
+               page: 0,
+               per_page: 100,
+               total: 0,
+           })
     }
 
     fn try_next(&mut self) -> Result<Option<Dependency>> {
@@ -609,7 +611,8 @@ impl ReverseDependencies {
                           self.crate_id,
                           self.page,
                           self.per_page);
-        let response = reqwest::get(&url)?.json::<ApiResponse>()?;
+
+        let response = self.client.get(&url).send()?.json::<ApiResponse>()?;
         self.dependencies = response.dependencies.into_iter();
         self.total = response.meta.total;
         Ok(self.dependencies.next())
@@ -632,7 +635,7 @@ impl Iterator for ReverseDependencies {
 }
 
 fn run() -> Result<()> {
-    for dep in ReverseDependencies::of("serde") {
+    for dep in ReverseDependencies::of("serde")? {
         println!("reverse dependency: {}", dep?.crate_id);
     }
     Ok(())
