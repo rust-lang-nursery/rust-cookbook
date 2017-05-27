@@ -62,6 +62,7 @@ community. It needs and welcomes help. For details see
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Consume a paginated RESTful API][ex-paginated-api] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API resource exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Set custom headers and URL parameters for a REST request][ex-rest-custom-params] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
@@ -143,6 +144,8 @@ Keep lines sorted.
 [env_logger]: https://docs.rs/env_logger/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
 [flate2]: https://docs.rs/flate2/
+[hyper-badge]: https://img.shields.io/crates/v/hyper.svg?label=hyper
+[hyper]: https://docs.rs/hyper/
 [lazy_static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
 [lazy_static]: https://docs.rs/lazy_static/
 [log-badge]: https://img.shields.io/crates/v/log.svg?label=log
@@ -203,6 +206,7 @@ Keep lines sorted.
 [ex-rand-range]: basics.html#ex-rand-range
 [ex-random-port-tcp]: net.html#ex-random-port-tcp
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
+[ex-rest-custom-params]: net.html#ex-rest-custom-params
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post

@@ -12,6 +12,7 @@
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Consume a paginated RESTful API][ex-paginated-api] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API resource exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Set custom headers and URL parameters for a REST request][ex-rest-custom-params] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
@@ -454,6 +455,85 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-rest-custom-params]: #ex-rest-custom-params
+<a name="ex-rest-custom-params"/>
+## Set custom headers and URL parameters for a REST request
+
+[![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![url-badge]][url] [![cat-net-badge]][cat-net]
+
+Sets both standard and custom HTTP headers as well as URL parameters
+for HTTP GET request. Firstly creates a custom header of type `XPoweredBy`
+with [`hyper::header!`] macro. Secondly calls [`Url::parse_with_params`]
+in order to build a complex URL with specified key value pairs.
+Lastly sets standard headers [`header::UserAgent`] and [`header::Authorization`]
+as well as custom one `XPoweredBy` with [`RequestBuilder::header`] prior to making
+the request with [`RequestBuilder::send`].
+
+The code is run against <http://httpbin.org/headers> service which responds with
+a JSON dict containing all request headers for easy verification.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate url;
+extern crate reqwest;
+#[macro_use]
+extern crate hyper;
+#[macro_use]
+extern crate serde_derive;
+
+use std::collections::HashMap;
+use url::Url;
+use reqwest::header::{UserAgent, Authorization, Bearer};
+
+// Custom header type
+header! { (XPoweredBy, "X-Powered-By") => [String] }
+
+// Helper for verification
+#[derive(Deserialize, Debug)]
+pub struct HeadersEcho {
+    pub headers: HashMap<String, String>,
+}
+#
+# error_chain! {
+#     foreign_links {
+#         Reqwest(reqwest::Error);
+#         UrlParse(url::ParseError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let client = reqwest::Client::new()?;
+
+    // Make request to webservice that will respond with JSON dict containing
+    // the headders set on HTTP GET request.
+    let url = Url::parse_with_params("http://httpbin.org/headers",
+                                     &[("lang", "rust"), ("browser", "servo")])?;
+
+    let mut response = client
+        .get(url)
+        .header(UserAgent("Rust-test".to_owned()))
+        .header(Authorization(Bearer { token: "DEadBEEfc001cAFeEDEcafBAd".to_owned() }))
+        .header(XPoweredBy("Guybrush Threepwood".to_owned()))
+        .send()?;
+
+    // JSON response should match the headers set on request
+    let out: HeadersEcho = response.json()?;
+    assert_eq!(out.headers["Authorization"],
+               "Bearer DEadBEEfc001cAFeEDEcafBAd");
+    assert_eq!(out.headers["User-Agent"], "Rust-test");
+    assert_eq!(out.headers["X-Powered-By"], "Guybrush Threepwood");
+    // Resonse contains full URL used to make the request
+    assert_eq!(response.url().as_str(),
+               "http://httpbin.org/headers?lang=rust&browser=servo");
+
+    println!("{:?}", out);
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-rest-post]: #ex-rest-post
 <a name="ex-rest-post"/>
 ## Create and delete Gist with GitHub API
@@ -757,6 +837,8 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 
 <!-- Crates -->
 
+[hyper-badge]: https://img.shields.io/crates/v/hyper.svg?label=hyper
+[hyper]: https://docs.rs/hyper/
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
@@ -773,6 +855,7 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`Url`]: https://docs.rs/url/1.*/url/struct.Url.html
+[`Url::parse_with_params`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse_with_params
 [`parse`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse
 [`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
 [`origin`]: https://docs.rs/url/1.*/url/struct.Url.html#method.origin
@@ -783,10 +866,14 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [`Response::url`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url
 [`Response::json`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.json
 [`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
+[`header::UserAgent`]: https://docs.rs/hyper/*/hyper/header/struct.UserAgent.html
+[`header::Authorization`]: https://docs.rs/hyper/*/hyper/header/struct.Authorization.html
+[`hyper::header!`]: https://docs.rs/hyper/*/hyper/macro.header.html
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
 [`RequestBuilder::body`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html#method.body
 [`RequestBuilder::json`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json
+[`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
