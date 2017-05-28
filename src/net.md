@@ -523,7 +523,7 @@ fn run() -> Result<()> {
                "Bearer DEadBEEfc001cAFeEDEcafBAd");
     assert_eq!(out.headers["User-Agent"], "Rust-test");
     assert_eq!(out.headers["X-Powered-By"], "Guybrush Threepwood");
-    // Resonse contains full URL used to make the request
+    // Response contains full URL used to make the request
     assert_eq!(response.url().as_str(),
                "http://httpbin.org/headers?lang=rust&browser=servo");
 
