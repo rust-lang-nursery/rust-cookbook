@@ -75,10 +75,9 @@ you can reference data from the calling function.
 
 [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
 
-Draws a fractal from [Julia set] to an image utilizing a threadpool for computation.
+Draws a fractal from [Julia set] to an image utilizing a thread pool for computation.
 
-
-```rust
+```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
 extern crate threadpool;
@@ -155,6 +154,7 @@ fn run() -> Result<()> {
     let mut img = ImageBuffer::new(width, height);
 
     let iterations = 300;
+    // precomputed pixel colors from possible intensity range
     let color_lut: Vec<_> = (0..iterations)
         .map(|i| wavelength_to_rgb(380 + i * 400 / iterations))
         .collect();
@@ -185,6 +185,14 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+Firstly, the example allocates memory for output image of given width and height with [`ImageBuffer::new`]
+and pre-calculates all possible RGB pixel values using [`Rgb::from_channels`].
+Secondly, creates a new [`ThreadPool`] with thread count equal to number of
+logical cores in CPU obtained with [`num_cpus::get`].
+Subsequently, dispatches calculation to thread pool [`ThreadPool::execute`].
+
+Lastly, collects calculation results via [`mpsc::channel`] with [`Receiver::recv`], draws them with [`ImageBuffer::put_pixel`] and encodes the final image into `output.png` using [`ImageBuffer::save`].
+
 <!-- Categories -->
 
 [cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
@@ -212,5 +220,14 @@ fn run() -> Result<()> {
 <!-- Reference -->
 
 [Julia set]: https://en.wikipedia.org/wiki/Julia_set
-[`crossbeam::scope`]: https://docs.rs/crossbeam/0.*/crossbeam/fn.scope.html
+[`ImageBuffer::new`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new
+[`ImageBuffer::put_pixel`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel
+[`ImageBuffer::save`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save
+[`Receiver::recv`]: https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv
+[`Rgb::from_channels`]: https://docs.rs/image/*/image/struct.Rgb.html#method.from_channels
 [`Scope::spawn`]: https://docs.rs/crossbeam/0.*/crossbeam/struct.Scope.html#method.spawn
+[`ThreadPool::execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute
+[`ThreadPool`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html
+[`crossbeam::scope`]: https://docs.rs/crossbeam/0.*/crossbeam/fn.scope.html
+[`mpsc::channel`]: https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html
+[`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
