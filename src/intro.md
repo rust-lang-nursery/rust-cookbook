@@ -29,6 +29,7 @@ community. It needs and welcomes help. For details see
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Encoding](encoding.html)
 
@@ -176,6 +177,8 @@ Keep lines sorted.
 [url]: https://docs.rs/url/
 [walkdir-badge]: https://img.shields.io/crates/v/walkdir.svg?label=walkdir
 [walkdir]: https://docs.rs/walkdir/
+[memmap-badge]: https://img.shields.io/crates/v/memmap.svg?label=memmap
+[memmap]: https://docs.rs/memmap/
 
 <!-- Examples -->
 
@@ -221,3 +224,4 @@ Keep lines sorted.
 [ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-urlencoded]: encoding.html#ex-urlencoded
+[ex-random-file-access]: basics.html#ex-random-file-access
