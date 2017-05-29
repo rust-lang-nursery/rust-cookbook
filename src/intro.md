@@ -48,6 +48,7 @@ community. It needs and welcomes help. For details see
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
 
 ## [Networking](net.html)
 
@@ -110,6 +111,10 @@ Keep lines sorted.
 [cat-compression]: https://crates.io/categories/compression
 [cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
 [cat-concurrency]: https://crates.io/categories/concurrency
+[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
+[cat-science]: https://crates.io/categories/science
+[cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
+[cat-rendering]: https://crates.io/categories/rendering
 [cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
 [cat-debugging]: https://crates.io/categories/debugging
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
@@ -155,6 +160,14 @@ Keep lines sorted.
 [rand]: https://docs.rs/rand/
 [rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
 [rayon]: https://docs.rs/rayon/
+[image-badge]: https://badge-cache.kominick.com/crates/v/image.svg?label=image
+[image]: https://docs.rs/image/
+[num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
+[num]: https://docs.rs/num/
+[num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
+[num_cpus]: https://docs.rs/num_cpus/
+[threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
+[threadpool]: https://docs.rs/threadpool/
 [regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
 [regex]: https://docs.rs/regex/
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
@@ -186,6 +199,7 @@ Keep lines sorted.
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
+[ex-threadpool-fractal]: concurrency.html#ex-threadpool-fractal
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
