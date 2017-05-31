@@ -346,20 +346,20 @@ fn run() -> Result<()> {
 
 <!-- Categories -->
 
-[cat-encoding-badge]: https://img.shields.io/badge/encoding--x.svg?style=social
+[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
 [cat-encoding]: https://crates.io/categories/encoding
 
 <!-- Crates -->
 
-[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
+[base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
-[data-encoding-badge]: https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding
+[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
 [data-encoding]: https://github.com/ia0/data-encoding
-[serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
+[serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
-[toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
+[toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
-[url-badge]: https://img.shields.io/crates/v/url.svg?label=url
+[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
 
 

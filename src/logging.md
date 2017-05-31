@@ -390,20 +390,20 @@ fn run() -> Result<()> {
 
 <!-- Categories -->
 
-[cat-debugging-badge]: https://img.shields.io/badge/debugging--x.svg?style=social
+[cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
 [cat-debugging]: https://crates.io/categories/debugging
 
 <!-- Crates -->
 
-[chrono-badge]: https://img.shields.io/crates/v/chrono.svg?label=chrono
+[chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
 [chrono]: https://docs.rs/chrono/
-[env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
+[env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
-[log-badge]: https://img.shields.io/crates/v/log.svg?label=log
-[log4rs-badge]: https://img.shields.io/crates/v/log4rs.svg?label=log4rs
+[log-badge]: https://badge-cache.kominick.com/crates/v/log.svg?label=log
+[log4rs-badge]: https://badge-cache.kominick.com/crates/v/log4rs.svg?label=log4rs
 [log4rs]: https://docs.rs/log4rs/
 [log]: https://docs.rs/log/
-[syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
+[syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
 
 <!-- Reference -->

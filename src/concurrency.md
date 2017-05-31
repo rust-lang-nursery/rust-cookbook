@@ -70,14 +70,14 @@ you can reference data from the calling function.
 
 <!-- Categories -->
 
-[cat-concurrency-badge]: https://img.shields.io/badge/concurrency--x.svg?style=social
+[cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
 [cat-concurrency]: https://crates.io/categories/concurrency
 
 <!-- Crates -->
 
-[crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
+[crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam/
-[rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
+[rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
 [rayon]: https://docs.rs/rayon/
 
 <!-- Reference -->

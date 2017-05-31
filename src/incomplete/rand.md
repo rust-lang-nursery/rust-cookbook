@@ -111,5 +111,5 @@ fn main() {
 
 <!-- Links -->
 
-[rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
+[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
 [rand]: https://doc.rust-lang.org/rand/rand/index.html

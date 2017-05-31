@@ -78,5 +78,5 @@ This code above uses the Sieve of Erastonthes algorithm to calculate all primes 
 
 <!-- Links -->
 
-[crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
+[crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam

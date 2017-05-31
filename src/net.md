@@ -828,26 +828,26 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 
 <!-- Categories -->
 
-[cat-encoding-badge]: https://img.shields.io/badge/encoding--x.svg?style=social
+[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
 [cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://img.shields.io/badge/filesystem--x.svg?style=social
+[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
 [cat-filesystem]: https://crates.io/categories/filesystem
-[cat-net-badge]: https://img.shields.io/badge/net--x.svg?style=social
+[cat-net-badge]: https://badge-cache.kominick.com/badge/net--x.svg?style=social
 [cat-net]: https://crates.io/categories/network-programming
 
 <!-- Crates -->
 
-[hyper-badge]: https://img.shields.io/crates/v/hyper.svg?label=hyper
+[hyper-badge]: https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper
 [hyper]: https://docs.rs/hyper/
-[reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
+[reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
-[serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
+[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
 [std]: https://doc.rust-lang.org/std
-[std-badge]: https://img.shields.io/badge/std-1.17.0-blue.svg
-[tempdir-badge]: https://img.shields.io/crates/v/tempdir.svg?label=tempdir
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.17.0-blue.svg
+[tempdir-badge]: https://badge-cache.kominick.com/crates/v/tempdir.svg?label=tempdir
 [tempdir]: https://docs.rs/tempdir/
-[url-badge]: https://img.shields.io/crates/v/url.svg?label=url
+[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
 
 <!-- Reference -->

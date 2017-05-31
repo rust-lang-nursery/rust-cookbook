@@ -207,9 +207,9 @@ as are crates that are pending evaluation.
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
 [error-chain]: https://docs.rs/error-chain/
 [Rust Libz Blitz]: https://internals.rust-lang.org/t/rust-libz-blitz/5184
-[cat-science-badge]: https://img.shields.io/badge/science--x.svg?style=social
+[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
 [cat-science]: https://crates.io/categories/science
-[rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
+[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [crates.io]: https://crates.io
 [docs.rs]: https://docs.rs
