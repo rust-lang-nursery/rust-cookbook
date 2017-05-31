@@ -11,6 +11,7 @@
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 
 
 
@@ -361,6 +362,50 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-random-file-access]: #ex-random-file-access
+<a name="ex-random-file-access"></a>
+## Access a file randomly using a memory map
+
+[![memmap-badge]][memmap] [![cat-filesystem-badge]][cat-filesystem]
+
+Creates a memory map of a file using [memmap] then simulates random access.
+Using a memory map means you just index a slice rather than seeking a file to
+access random bytes, and it should be faster as the file is cached in memory.
+
+When we use [`Mmap::as_slice`], we promise that we are not changing the file in 
+another process, as this would be a [race condition][race-condition-file].
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate memmap;
+
+use memmap::{Mmap, Protection};
+#
+# error_chain!{ }
+
+fn run() -> Result<()> {
+    let map = Mmap::open_path("README.md", Protection::Read)
+        .map_err(|e| format!("io error: {:?}", e))?;
+    let random_indexes = [1usize, 2, 7, 3, 4, 2];
+    // This code is safe because we have no concurrent access to the file
+    unsafe {
+        let map = map.as_slice();
+        assert_eq!(&map[..10], b"# A Rust C");
+        // I'm using an iterator here to change indexes to bytes
+        let random_bytes: Vec<u8> = random_indexes.iter()
+            .map(|&idx| map[idx])
+            .collect();
+        assert_eq!(&random_bytes[..], b" At RA");
+    }
+    Ok(())
+}
+
+
+#
+# quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-caching-badge]: https://img.shields.io/badge/caching--x.svg?style=social
@@ -390,6 +435,8 @@ fn run() -> Result<()> {
 [std]: https://doc.rust-lang.org/std
 [regex]: https://docs.rs/regex/
 [regex-badge]: https://img.shields.io/crates/v/regex.svg?label=regex
+[memmap]: https://docs.rs/memmap/
+[memmap-badge]: https://img.shields.io/crates/v/memmap.svg?label=memmap
 
 <!-- API links -->
 
@@ -412,3 +459,8 @@ fn run() -> Result<()> {
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
+[`Mmap::as_slice`]: https://docs.rs/memmap/0.5.2/memmap/struct.Mmap.html#method.as_slice
+
+<!-- Reference -->
+
+[race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems

@@ -30,6 +30,7 @@ tempdir = "0.3.5"
 lazy_static = "0.2"
 walkdir = "1.0.7"
 log4rs = "0.7"
+memmap = "0.5"
 
 [build-dependencies]
 skeptic = "0.9"
