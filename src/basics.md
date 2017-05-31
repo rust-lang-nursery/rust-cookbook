@@ -383,11 +383,14 @@ extern crate memmap;
 
 use memmap::{Mmap, Protection};
 #
-# error_chain!{ }
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
+# }
 
 fn run() -> Result<()> {
-    let map = Mmap::open_path("README.md", Protection::Read)
-        .map_err(|e| format!("io error: {:?}", e))?;
+    let map = Mmap::open_path("README.md", Protection::Read)?;
     let random_indexes = [1usize, 2, 7, 3, 4, 2];
     // This is only safe if no other code is modifying the file at the same time
     unsafe {
@@ -401,8 +404,6 @@ fn run() -> Result<()> {
     }
     Ok(())
 }
-
-
 #
 # quick_main!(run);
 ```
