@@ -368,9 +368,9 @@ fn run() -> Result<()> {
 
 [![memmap-badge]][memmap] [![cat-filesystem-badge]][cat-filesystem]
 
-Creates a memory map of a file using [memmap] then simulates random access.
-Using a memory map means you just index a slice rather than seeking a file to
-access random bytes, and it should be faster as the file is cached in memory.
+Creates a memory map of a file using [memmap] and simulates some non-sequential
+reads from the file. Using a memory map means you just index into a slice rather
+than dealing with [`seek`]ing around in a File.
 
 When we use [`Mmap::as_slice`], we promise that we are not changing the file in 
 another process, as this would be a [race condition][race-condition-file].
@@ -460,6 +460,7 @@ fn run() -> Result<()> {
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
 [`Mmap::as_slice`]: https://docs.rs/memmap/0.5.2/memmap/struct.Mmap.html#method.as_slice
+[`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 
 <!-- Reference -->
 
