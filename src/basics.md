@@ -372,8 +372,9 @@ Creates a memory map of a file using [memmap] and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
 than dealing with [`seek`]ing around in a File.
 
-When we use [`Mmap::as_slice`], we promise that we are not changing the file in 
-another process, as this would be a [race condition][race-condition-file].
+The [`Mmap::as_slice`] function is only safe if we can guarantee that the file
+behind the memory map is not being modified at the same time by another process,
+as this would be a [race condition][race-condition-file].
 
 ```rust
 # #[macro_use]
@@ -388,7 +389,7 @@ fn run() -> Result<()> {
     let map = Mmap::open_path("README.md", Protection::Read)
         .map_err(|e| format!("io error: {:?}", e))?;
     let random_indexes = [1usize, 2, 7, 3, 4, 2];
-    // This code is safe because we have no concurrent access to the file
+    // This is only safe if no other code is modifying the file at the same time
     unsafe {
         let map = map.as_slice();
         assert_eq!(&map[..10], b"# A Rust C");
