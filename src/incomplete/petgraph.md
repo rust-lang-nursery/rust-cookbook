@@ -50,5 +50,5 @@ fn main() {
 
 <!-- Links -->
 
-[petgraph-badge]: https://img.shields.io/crates/v/petgraph.svg?label=petgraph
+[petgraph-badge]: https://badge-cache.kominick.com/crates/v/petgraph.svg?label=petgraph
 [petgraph]: https://docs.rs/petgraph/0.4.3/petgraph/
