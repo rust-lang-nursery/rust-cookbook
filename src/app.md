@@ -6,6 +6,7 @@
 | [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -234,6 +235,35 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-file-sizes]: #ex-file-sizes
+<a name="ex-file-sizes"></a>
+## Recursively calculate file sizes at given depth
+
+Recursion depth can be flexibly set by [`WalkDir::min_depth`] & [`WalkDir::max_depth`] methods.
+In this example we sum all file sizes to 3 subfolders depth, ignoring files in the root folder
+at the same time.
+
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
+```rust
+extern crate walkdir;
+
+use walkdir::WalkDir;
+
+fn main() {
+    let total_size = WalkDir::new(".")
+        .min_depth(1)
+        .max_depth(3)
+        .into_iter()
+        .filter_map(|entry| entry.ok()) // Files, we have access to
+        .filter_map(|entry| entry.metadata().ok()) // Get metadata
+        .filter(|metadata| metadata.is_file()) // Filter out directories
+        .fold(0, |acc, m| acc + m.len()); // Accumulate sizes
+
+    println!("Total size: {} bytes.", total_size);
+}
+```
+
 <!-- Categories -->
 
 [cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
@@ -261,3 +291,5 @@ fn run() -> Result<()> {
 [`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/0.2.19/flate2/read/struct.GzDecoder.html#method.new
 [`tar::Archive::unpack`]: https://docs.rs/tar/0.4.12/tar/struct.Archive.html#method.new
 [`tempdir::TempDir::new`]: https://docs.rs/tempdir/0.3.5/tempdir/struct.TempDir.html#method.new
+[`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
+[`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
