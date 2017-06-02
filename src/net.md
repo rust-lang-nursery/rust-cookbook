@@ -612,6 +612,11 @@ fn run() -> Result<()> {
 #
 # quick_main!(run);
 ```
+
+For the sake of simplicity the example uses [HTTP Basic Auth] in order to
+authorize access to [GitHub API]. A more typical use case would be to
+employ one of the much more complex [OAuth] authorization flows.
+
 [ex-paginated-api]: #ex-paginated-api
 <a name="ex-paginated-api"></a>
 ## Consume a paginated RESTful API
@@ -852,40 +857,43 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 
 <!-- Reference -->
 
-[`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
-[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
-[`Url`]: https://docs.rs/url/1.*/url/struct.Url.html
-[`Url::parse_with_params`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse_with_params
-[`parse`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse
-[`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
-[`origin`]: https://docs.rs/url/1.*/url/struct.Url.html#method.origin
-[`join`]: https://docs.rs/url/1.*/url/struct.Url.html#method.join
-[`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
-[`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
-[`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
-[`Response::url`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url
-[`Response::json`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.json
-[`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
-[`header::UserAgent`]: https://docs.rs/hyper/*/hyper/header/struct.UserAgent.html
-[`header::Authorization`]: https://docs.rs/hyper/*/hyper/header/struct.Authorization.html
-[`hyper::header!`]: https://docs.rs/hyper/*/hyper/macro.header.html
+[GitHub API]: https://developer.github.com/v3/auth/
+[HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
+[OAuth]: https://oauth.net/getting-started/
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
-[`RequestBuilder::body`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html#method.body
-[`RequestBuilder::json`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json
-[`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
-[`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
-[`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
-[`String`]: https://doc.rust-lang.org/std/string/struct.String.html
-[`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
-[`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
-[`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
-[`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
-[`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
-[`reqwest::RequestBuilder`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html
+[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
+[`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
+[`RequestBuilder::body`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html#method.body
+[`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
+[`RequestBuilder::json`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json
+[`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
+[`Response::json`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.json
+[`Response::url`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url
 [`SocketAddrV4`]: https://doc.rust-lang.org/std/net/struct.SocketAddrV4.html
+[`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`TcpListener::accept`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.accept
 [`TcpListener::bind`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind
 [`TcpListener::local_addr`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.local_addr
 [`TcpStream`]: https://doc.rust-lang.org/std/net/struct.TcpStream.html
+[`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
+[`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
+[`Url::parse_with_params`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse_with_params
+[`Url`]: https://docs.rs/url/1.*/url/struct.Url.html
+[`header::Authorization`]: https://docs.rs/hyper/*/hyper/header/struct.Authorization.html
+[`header::UserAgent`]: https://docs.rs/hyper/*/hyper/header/struct.UserAgent.html
+[`hyper::header!`]: https://docs.rs/hyper/*/hyper/macro.header.html
+[`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
+[`join`]: https://docs.rs/url/1.*/url/struct.Url.html#method.join
+[`origin`]: https://docs.rs/url/1.*/url/struct.Url.html#method.origin
+[`parse`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse
+[`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
+[`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
+[`reqwest::RequestBuilder`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html
+[`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
+[`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
+[`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
+[`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
+[`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
+[`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
