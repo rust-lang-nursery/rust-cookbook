@@ -35,6 +35,7 @@ num = "0.1"
 num_cpus = "1.5"
 threadpool = "1.3"
 image = "0.13"
+select = "0.4"
 
 [build-dependencies]
 skeptic = "0.9"
