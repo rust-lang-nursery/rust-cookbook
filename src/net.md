@@ -847,7 +847,7 @@ extern crate select;
 use std::io::Read;
 use select::document::Document;
 use select::predicate::Name;
-
+#
 # error_chain! {
 #    foreign_links {
 #        ReqError(reqwest::Error);
@@ -880,7 +880,7 @@ fn run() -> Result<()> {
 
 Use [`reqwest::get`] to perform a HTTP GET request and then read the contents of the response into a buffer. 
 [`Document::from`] is then used to parse the string into a HTML document. We can then retrieve all the links from
-the document by using [`find`] with the criteria of [`Name`] being "a". This returns a [`Selection`] that we [`filter_map`]
+the document by using [`find`] with the criteria of the [`Name`] being "a". This returns a [`Selection`] that we [`filter_map`]
 on to retrieve the urls from links that have the "href" [`attr`].
 
 <!-- Categories -->
@@ -899,6 +899,7 @@ on to retrieve the urls from links that have the "href" [`attr`].
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
 [select]: https://docs.rs/select/
+[select-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=select
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
 [std]: https://doc.rust-lang.org/std
