@@ -173,7 +173,7 @@ Keep lines sorted.
 [regex]: https://docs.rs/regex/
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
-[select-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=select
+[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
 [select]: https://docs.rs/select/
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json

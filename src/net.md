@@ -892,7 +892,7 @@ This returns a [`Selection`] that we [`filter_map`] on to retrieve the urls from
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
 [select]: https://docs.rs/select/
-[select-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=select
+[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
 [std]: https://doc.rust-lang.org/std
