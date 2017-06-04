@@ -68,6 +68,7 @@ community. It needs and welcomes help. For details see
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
+| [Extract all links from a webpage][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
 
 ## [Application development](app.html)
 
@@ -172,6 +173,8 @@ Keep lines sorted.
 [regex]: https://docs.rs/regex/
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
+[select-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=select
+[select]: https://docs.rs/select/
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
@@ -201,6 +204,7 @@ Keep lines sorted.
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
 [ex-threadpool-fractal]: concurrency.html#ex-threadpool-fractal
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
+[ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-global-mut-state]: basics.html#ex-global-mut-state
