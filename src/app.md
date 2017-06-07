@@ -3,7 +3,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
-| [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
+| [Decompress a tarball to a temporary directory][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
@@ -103,14 +103,14 @@ The file passed is: myfile.txt
 Your favorite number must be 256.
 ```
 
-[ex-tar-temp]: #ex-tar-temp
-<a name="ex-tar-temp"></a>
-## Unzip a tarball to a temporary directory
+[ex-tar-decompress]: #ex-tar-decompress
+<a name="ex-tar-decompress"></a>
+## Decompress a tarball to a temporary directory
 
 [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression]
 
-Uncompress ([`flate2::read::GzDecoder::new`]) and
-extract ([`tar::Archive::unpack`]) all files form a zipped tarball
+Decompress ([`flate2::read::GzDecoder::new`]) and
+extract ([`tar::Archive::unpack`]) all files from a compressed tarball
 named archive.tar.gz located in the current working directory
 inside a temporary directory ([`tempdir::TempDir::new`])
 and delete everything.
