@@ -3,7 +3,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
-| [Decompress a tarball to a temporary directory][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
+| [Decompress a tarball][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
@@ -105,27 +105,23 @@ Your favorite number must be 256.
 
 [ex-tar-decompress]: #ex-tar-decompress
 <a name="ex-tar-decompress"></a>
-## Decompress a tarball to a temporary directory
+## Decompress a tarball
 
-[![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression]
+[![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
 Decompress ([`flate2::read::GzDecoder::new`]) and
 extract ([`tar::Archive::unpack`]) all files from a compressed tarball
-named archive.tar.gz located in the current working directory
-inside a temporary directory ([`tempdir::TempDir::new`])
-and delete everything.
+named `archive.tar.gz` located in the current working directory.
 
 ```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
 extern crate flate2;
 extern crate tar;
-extern crate tempdir;
 
 use std::fs::File;
 use flate2::read::GzDecoder;
 use tar::Archive;
-use tempdir::TempDir;
 #
 # error_chain! {
 #     foreign_links {
@@ -136,17 +132,14 @@ use tempdir::TempDir;
 fn run() -> Result<()> {
     let path = "archive.tar.gz";
 
-    // Open our zipped tarball
+    // Open a compressed tarball
     let tar_gz = File::open(path)?;
-    // Uncompressed it
+    // Decompress it
     let tar = GzDecoder::new(tar_gz)?;
     // Load the archive from the tarball
     let mut archive = Archive::new(tar);
-    // Create a directory inside of `std::env::temp_dir()`, named with
-    // the prefix "temp".
-    let tmp_dir = TempDir::new("temp")?;
-    // Unpack the archive inside the temporary directory
-    archive.unpack(tmp_dir.path())?;
+    // Unpack the archive inside curent working directory
+    archive.unpack(".")?;
 
     Ok(())
 }
@@ -281,15 +274,12 @@ fn main() {
 [flate2]: https://docs.rs/flate2/
 [tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
 [tar]: https://docs.rs/tar/
-[tempdir-badge]: https://badge-cache.kominick.com/crates/v/tempdir.svg?label=tempdir
-[tempdir]: https://docs.rs/tempdir/
 [walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
 [walkdir]: https://docs.rs/walkdir/
 
 <!-- Reference -->
 
-[`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/0.2.19/flate2/read/struct.GzDecoder.html#method.new
-[`tar::Archive::unpack`]: https://docs.rs/tar/0.4.12/tar/struct.Archive.html#method.new
-[`tempdir::TempDir::new`]: https://docs.rs/tempdir/0.3.5/tempdir/struct.TempDir.html#method.new
+[`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html#method.new
+[`tar::Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack
 [`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
