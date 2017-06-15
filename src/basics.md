@@ -215,7 +215,7 @@ fn main() {
 Runs `git log --oneline` as an external [`Command`] and inspects its [`Output`]
 using [`Regex`] to get the hash and message of the last 5 commits.
 
-```rust
+```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
 extern crate regex;
@@ -382,6 +382,8 @@ as this would be a [race condition][race-condition-file].
 extern crate memmap;
 
 use memmap::{Mmap, Protection};
+# use std::fs::File;
+# use std::io::Write;
 #
 # error_chain! {
 #     foreign_links {
@@ -390,17 +392,19 @@ use memmap::{Mmap, Protection};
 # }
 
 fn run() -> Result<()> {
-    let map = Mmap::open_path("README.md", Protection::Read)?;
-    let random_indexes = [1usize, 2, 7, 3, 4, 2];
+#     write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
+#
+    let map = Mmap::open_path("content.txt", Protection::Read)?;
+    let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
     // This is only safe if no other code is modifying the file at the same time
     unsafe {
         let map = map.as_slice();
-        assert_eq!(&map[..10], b"# A Rust C");
+        assert_eq!(&map[3..13], b"hovercraft");
         // I'm using an iterator here to change indexes to bytes
         let random_bytes: Vec<u8> = random_indexes.iter()
             .map(|&idx| map[idx])
             .collect();
-        assert_eq!(&random_bytes[..], b" At RA");
+        assert_eq!(&random_bytes[..], b"My loaf!");
     }
     Ok(())
 }
