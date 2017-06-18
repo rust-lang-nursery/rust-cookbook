@@ -16,6 +16,7 @@
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
+| [Extract all links from a webpage][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -831,6 +832,50 @@ shows Listening on 127.0.0.1:11500, run
 
 After sending data in telnet press `ctrl-]` and type `quit`.
 
+[ex-extract-links-webpage]: #ex-extract-links-webpage
+<a name="ex-extract-links-webpage"/>
+## Extract all links from a webpage
+
+[![reqwest-badge]][reqwest] [![select-badge]][select] [![cat-net-badge]][cat-net]
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate reqwest;
+extern crate select;
+
+use select::document::Document;
+use select::predicate::Name;
+#
+# error_chain! {
+#    foreign_links {
+#        ReqError(reqwest::Error);
+#        IoError(std::io::Error);
+#    }
+# }
+
+fn run() -> Result<()> {
+    let res = reqwest::get("https://www.rust-lang.org/en-US/")?;
+
+    let document = Document::from_read(res)?;
+
+    let links = document.find(Name("a"))
+        .filter_map(|n| n.attr("href"));
+
+    for link in links {
+        println!("{}", link);
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+Use [`reqwest::get`] to perform a HTTP GET request and then use [`Document::from_read`] to parse the response into a HTML document.
+We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a". 
+This returns a [`Selection`] that we [`filter_map`] on to retrieve the urls from links that have the "href" [`attr`].
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
@@ -846,6 +891,8 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [hyper]: https://docs.rs/hyper/
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
+[select]: https://docs.rs/select/
+[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
 [std]: https://doc.rust-lang.org/std
@@ -862,8 +909,10 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [OAuth]: https://oauth.net/getting-started/
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
+[`Document::from_read`]: https://docs.rs/select/*/select/document/struct.Document.html#method.from_read
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
+[`Name`]: https://docs.rs/select/*/select/predicate/struct.Name.html
 [`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
 [`RequestBuilder::body`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html#method.body
 [`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
@@ -871,6 +920,7 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
 [`Response::json`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.json
 [`Response::url`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url
+[`Selection`]: https://docs.rs/select/*/select/selection/struct.Selection.html
 [`SocketAddrV4`]: https://doc.rust-lang.org/std/net/struct.SocketAddrV4.html
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`TcpListener::accept`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.accept
@@ -881,6 +931,9 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
 [`Url::parse_with_params`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse_with_params
 [`Url`]: https://docs.rs/url/1.*/url/struct.Url.html
+[`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr
+[`filter_map`]: https://doc.rust-lang.org/core/iter/trait.Iterator.html#method.filter_map
+[`find`]: https://docs.rs/select/*/select/document/struct.Document.html#method.find
 [`header::Authorization`]: https://docs.rs/hyper/*/hyper/header/struct.Authorization.html
 [`header::UserAgent`]: https://docs.rs/hyper/*/hyper/header/struct.UserAgent.html
 [`hyper::header!`]: https://docs.rs/hyper/*/hyper/macro.header.html
