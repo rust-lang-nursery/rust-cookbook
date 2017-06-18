@@ -3,9 +3,11 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
-| [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
+| [Decompress a tarball][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
+| [Compress a directory into a tarball][ex-tar-compress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -102,29 +104,25 @@ The file passed is: myfile.txt
 Your favorite number must be 256.
 ```
 
-[ex-tar-temp]: #ex-tar-temp
-<a name="ex-tar-temp"></a>
-## Unzip a tarball to a temporary directory
+[ex-tar-decompress]: #ex-tar-decompress
+<a name="ex-tar-decompress"></a>
+## Decompress a tarball
 
-[![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression]
+[![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
-Uncompress ([`flate2::read::GzDecoder::new`]) and
-extract ([`tar::Archive::unpack`]) all files form a zipped tarball
-named archive.tar.gz located in the current working directory
-inside a temporary directory ([`tempdir::TempDir::new`])
-and delete everything.
+Decompress ([`flate2::read::GzDecoder::new`]) and
+extract ([`tar::Archive::unpack`]) all files from a compressed tarball
+named `archive.tar.gz` located in the current working directory.
 
 ```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
 extern crate flate2;
 extern crate tar;
-extern crate tempdir;
 
 use std::fs::File;
 use flate2::read::GzDecoder;
 use tar::Archive;
-use tempdir::TempDir;
 #
 # error_chain! {
 #     foreign_links {
@@ -135,23 +133,62 @@ use tempdir::TempDir;
 fn run() -> Result<()> {
     let path = "archive.tar.gz";
 
-    // Open our zipped tarball
+    // Open a compressed tarball
     let tar_gz = File::open(path)?;
-    // Uncompressed it
+    // Decompress it
     let tar = GzDecoder::new(tar_gz)?;
     // Load the archive from the tarball
     let mut archive = Archive::new(tar);
-    // Create a directory inside of `std::env::temp_dir()`, named with
-    // the prefix "temp".
-    let tmp_dir = TempDir::new("temp")?;
-    // Unpack the archive inside the temporary directory
-    archive.unpack(tmp_dir.path())?;
+    // Unpack the archive inside curent working directory
+    archive.unpack(".")?;
 
     Ok(())
 }
 #
 # quick_main!(run);
 ```
+
+[ex-tar-compress]: #ex-tar-compress
+<a name="ex-tar-compress"></a>
+## Compress a directory into tarball
+
+[![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
+
+Compresses `/var/log` directory into `archive.tar.gz`.
+
+Creates a [`File`] wrapped in [`flate2::write::GzEncoder`]
+and [`tar::Builder`]. </br>Adds contents of `/var/log` directory recursively into the archive
+under `backup/logs`path with [`Builder::append_dir_all`].
+[`flate2::write::GzEncoder`] is responsible for transparently compressing the
+data prior to writing it into `archive.tar.gz`.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate tar;
+extern crate flate2;
+#
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
+# }
+
+use std::fs::File;
+use flate2::Compression;
+use flate2::write::GzEncoder;
+
+fn run() -> Result<()> {
+    let tar_gz = File::create("archive.tar.gz")?;
+    let enc = GzEncoder::new(tar_gz, Compression::Default);
+    let mut tar = tar::Builder::new(enc);
+    tar.append_dir_all("backup/logs", "/var/log")?;
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-dedup-filenames]: #ex-dedup-filenames
 <a name="ex-dedup-filenames"></a>
 ## Recursively find duplicate file names
@@ -234,6 +271,35 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-file-sizes]: #ex-file-sizes
+<a name="ex-file-sizes"></a>
+## Recursively calculate file sizes at given depth
+
+Recursion depth can be flexibly set by [`WalkDir::min_depth`] & [`WalkDir::max_depth`] methods.
+In this example we sum all file sizes to 3 subfolders depth, ignoring files in the root folder
+at the same time.
+
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
+```rust
+extern crate walkdir;
+
+use walkdir::WalkDir;
+
+fn main() {
+    let total_size = WalkDir::new(".")
+        .min_depth(1)
+        .max_depth(3)
+        .into_iter()
+        .filter_map(|entry| entry.ok()) // Files, we have access to
+        .filter_map(|entry| entry.metadata().ok()) // Get metadata
+        .filter(|metadata| metadata.is_file()) // Filter out directories
+        .fold(0, |acc, m| acc + m.len()); // Accumulate sizes
+
+    println!("Total size: {} bytes.", total_size);
+}
+```
+
 <!-- Categories -->
 
 [cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
@@ -251,13 +317,16 @@ fn run() -> Result<()> {
 [flate2]: https://docs.rs/flate2/
 [tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
 [tar]: https://docs.rs/tar/
-[tempdir-badge]: https://badge-cache.kominick.com/crates/v/tempdir.svg?label=tempdir
-[tempdir]: https://docs.rs/tempdir/
 [walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
 [walkdir]: https://docs.rs/walkdir/
 
 <!-- Reference -->
 
-[`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/0.2.19/flate2/read/struct.GzDecoder.html#method.new
-[`tar::Archive::unpack`]: https://docs.rs/tar/0.4.12/tar/struct.Archive.html#method.new
-[`tempdir::TempDir::new`]: https://docs.rs/tempdir/0.3.5/tempdir/struct.TempDir.html#method.new
+[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
+[`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html#method.new
+[`flate2::write::GzEncoder`]: https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html
+[`tar::Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack
+[`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
+[`Builder::append_dir_all`]: https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all
+[`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
+[`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth

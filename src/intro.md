@@ -75,9 +75,11 @@ community. It needs and welcomes help. For details see
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
-| [Unzip a tarball to a temporary directory][ex-tar-temp] | [![flate2-badge]][flate2] [![tar-badge]][tar] [![tempdir-badge]][tempdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-compression-badge]][cat-compression] |
+| [Decompress a tarball][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
+| [Compress a directory into a tarball][ex-tar-compress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Logging](logging.html)
 
@@ -207,6 +209,7 @@ Keep lines sorted.
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
+[ex-file-sizes]: app.html#ex-file-sizes
 [ex-global-mut-state]: basics.html#ex-global-mut-state
 [ex-hex-encode-decode]: encoding.html#ex-hex-encode-decode
 [ex-json-value]: encoding.html#ex-json-value
@@ -232,7 +235,8 @@ Keep lines sorted.
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
 [ex-std-read-lines]: basics.html#ex-std-read-lines
-[ex-tar-temp]: app.html#ex-tar-temp
+[ex-tar-compress]: app.html#ex-tar-compress
+[ex-tar-decompress]: app.html#ex-tar-decompress
 [ex-toml-config]: encoding.html#ex-toml-config
 [ex-url-base]: net.html#ex-url-base
 [ex-url-basic]: net.html#ex-url-basic
