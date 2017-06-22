@@ -189,7 +189,7 @@ from a small scope and slowly expanding will help the cookbook become
 a high-quality resource sooner, and allow it to maintain consistent
 quality levels as it grows.
 
-At present the coobook is focused on the standard library, and on
+At present the cookbook is focused on the standard library, and on
 "core", or "foundational", crates—those crates that make up the most
 common programming tasks, and that the rest of the ecosystem builds
 off of.
