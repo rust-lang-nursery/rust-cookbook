@@ -79,6 +79,7 @@ community. It needs and welcomes help. For details see
 | [Compress a directory into a tarball][ex-tar-compress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Logging](logging.html)
@@ -209,6 +210,7 @@ Keep lines sorted.
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
+[ex-file-skip-dot]: app.html#ex-file-skip-dot
 [ex-file-sizes]: app.html#ex-file-sizes
 [ex-global-mut-state]: basics.html#ex-global-mut-state
 [ex-hex-encode-decode]: encoding.html#ex-hex-encode-decode

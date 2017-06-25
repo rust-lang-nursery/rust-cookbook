@@ -7,6 +7,7 @@
 | [Compress a directory into a tarball][ex-tar-compress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-clap-basic]: #ex-clap-basic
@@ -271,6 +272,40 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-file-skip-dot]: #ex-file-skip-dot
+<a name="ex-file-skip-dot"></a>
+##  Traverse directories while skipping dotfiles
+
+Uses [`WalkDirIterator::filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory. 
+
+Root dir `"."` is yielded due to [`WalkDir::depth`] usage in `is_not_hidden` predicate.
+
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
+```rust,no_run
+extern crate walkdir;
+
+use walkdir::{DirEntry, WalkDir, WalkDirIterator};
+
+fn is_not_hidden(entry: &DirEntry) -> bool {
+    entry
+         .file_name()
+         .to_str()
+         .map(|s| entry.depth() == 0 || !s.starts_with("."))
+         .unwrap_or(false)
+}
+
+fn main() {
+    for result in WalkDir::new(".")
+            .into_iter()
+            .filter_entry(|e| is_not_hidden(e))
+            .filter_map(|v| v.ok()) {
+        println!("{}", result.path().display());
+    }
+}
+```
+
+
 [ex-file-sizes]: #ex-file-sizes
 <a name="ex-file-sizes"></a>
 ## Recursively calculate file sizes at given depth
@@ -325,8 +360,12 @@ fn main() {
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html#method.new
 [`flate2::write::GzEncoder`]: https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html
+[`Iterator::filter`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter
 [`tar::Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack
 [`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
 [`Builder::append_dir_all`]: https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all
+[`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
+[`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
 [`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
+[`WalkDirIterator::filter_entry`]: https://docs.rs/walkdir/*/walkdir/trait.WalkDirIterator.html#method.filter_entry
