@@ -838,6 +838,10 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 
 [![reqwest-badge]][reqwest] [![select-badge]][select] [![cat-net-badge]][cat-net]
 
+Use [`reqwest::get`] to perform a HTTP GET request and then use [`Document::from_read`] to parse the response into a HTML document.
+We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a". 
+This returns a [`Selection`] that we [`filter_map`] on to retrieve the urls from links that have the "href" [`attr`].
+
 ```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
@@ -871,10 +875,6 @@ fn run() -> Result<()> {
 #
 # quick_main!(run);
 ```
-
-Use [`reqwest::get`] to perform a HTTP GET request and then use [`Document::from_read`] to parse the response into a HTML document.
-We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a". 
-This returns a [`Selection`] that we [`filter_map`] on to retrieve the urls from links that have the "href" [`attr`].
 
 <!-- Categories -->
 

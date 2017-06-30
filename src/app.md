@@ -281,11 +281,11 @@ fn run() -> Result<()> {
 <a name="ex-file-skip-dot"></a>
 ##  Traverse directories while skipping dotfiles
 
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
 Uses [`WalkDirIterator::filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory.
 
 Root dir `"."` is yielded due to [`WalkDir::depth`] usage in `is_not_hidden` predicate.
-
-[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
 
 ```rust,no_run
 extern crate walkdir;
@@ -315,11 +315,11 @@ fn main() {
 <a name="ex-file-sizes"></a>
 ## Recursively calculate file sizes at given depth
 
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
 Recursion depth can be flexibly set by [`WalkDir::min_depth`] & [`WalkDir::max_depth`] methods.
 In this example we sum all file sizes to 3 subfolders depth, ignoring files in the root folder
 at the same time.
-
-[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
 
 ```rust
 extern crate walkdir;
