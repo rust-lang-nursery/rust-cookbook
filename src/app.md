@@ -233,9 +233,11 @@ fn main() {
 <a name="ex-file-predicate"></a>
 ##  Recursively find all files with given predicate
 
-Use the file names and metadata to recursively find in the current directory JSON files modified within the last day.
-
 [![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
+Find JSON files modified within the last day in the current directory.
+Using [`follow_links`] ensures symbolic links are followed like they were
+normal directories and files.
 
 ```rust,no_run
 # #[macro_use]
@@ -254,7 +256,10 @@ use walkdir::WalkDir;
 
 fn run() -> Result<()> {
     // List recusively all accessible files in the current directory
-    for entry in WalkDir::new(".").into_iter().filter_map(|e| e.ok()) {
+    for entry in WalkDir::new(".")
+            .follow_links(true)
+            .into_iter()
+            .filter_map(|e| e.ok()) {
         // Get entry's filename
         let f_name = entry.file_name().to_string_lossy();
         // Get entry's modified time
@@ -276,7 +281,7 @@ fn run() -> Result<()> {
 <a name="ex-file-skip-dot"></a>
 ##  Traverse directories while skipping dotfiles
 
-Uses [`WalkDirIterator::filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory. 
+Uses [`WalkDirIterator::filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory.
 
 Root dir `"."` is yielded due to [`WalkDir::depth`] usage in `is_not_hidden` predicate.
 
@@ -369,3 +374,4 @@ fn main() {
 [`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
 [`WalkDirIterator::filter_entry`]: https://docs.rs/walkdir/*/walkdir/trait.WalkDirIterator.html#method.filter_entry
+[`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
