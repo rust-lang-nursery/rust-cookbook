@@ -311,9 +311,11 @@ and `Option<&str>` holds optional application name.
 # extern crate error_chain;
 #[macro_use]
 extern crate log;
+# #[cfg(target_os = "linux")]
 extern crate syslog;
 
 use log::LogLevelFilter;
+# #[cfg(target_os = "linux")]
 use syslog::Facility;
 #
 # error_chain! {
@@ -322,6 +324,7 @@ use syslog::Facility;
 #     }
 # }
 
+# #[cfg(target_os = "linux")]
 fn run() -> Result<()> {
     syslog::init(Facility::LOG_USER,
                  LogLevelFilter::Debug,
@@ -330,6 +333,11 @@ fn run() -> Result<()> {
     error!("this is an error!");
     Ok(())
 }
+#
+# #[cfg(not(target_os = "linux"))]
+# fn run() -> Result<()> {
+#     Ok(())
+# }
 #
 # quick_main!(run);
 ```
