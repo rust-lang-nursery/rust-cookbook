@@ -30,8 +30,6 @@ community. It needs and welcomes help. For details see
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Encoding](encoding.html)
 
@@ -83,6 +81,8 @@ community. It needs and welcomes help. For details see
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Logging](logging.html)
 
@@ -217,8 +217,8 @@ Keep lines sorted.
 [ex-file-skip-dot]: app.html#ex-file-skip-dot
 [ex-file-sizes]: app.html#ex-file-sizes
 [ex-global-mut-state]: basics.html#ex-global-mut-state
-[ex-glob-recursive]: basics.html#ex-glob-recursive
-[ex-glob-with]: basics.html#ex-glob-with
+[ex-glob-recursive]: app.html#ex-glob-recursive
+[ex-glob-with]: app.html#ex-glob-with
 [ex-hex-encode-decode]: encoding.html#ex-hex-encode-decode
 [ex-json-value]: encoding.html#ex-json-value
 [ex-lazy-constant]: basics.html#ex-lazy-constant

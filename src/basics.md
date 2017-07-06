@@ -12,9 +12,6 @@
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
-
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -414,80 +411,6 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[ex-glob-recursive]: #ex-glob-recursive
-<a name="ex-glob-recursive"></a>
-## Find all png files recursively
-
-[![glob-badge]][glob] [![cat-filesystem-badge]][cat-filesystem]
-
-Recursively find all png files using the [glob] crate.
-The `**` pattern matches the current directory and all subdirectories.
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate glob;
-
-use glob::glob;
-#
-# error_chain! {
-#     foreign_links {
-#         Glob(glob::GlobError);
-#         Pattern(glob::PatternError);
-#     }
-# }
-
-fn run() -> Result<()> {
-    for entry in glob("**/*.png")? {
-        println!("{}", entry?.display());
-    }
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
-
-[ex-glob-with]: #ex-glob-with
-<a name="ex-glob-with"></a>
-## Find all files with given pattern ignoring filename case.
-
-[![glob-badge]][glob] [![cat-filesystem-badge]][cat-filesystem]
-
-Find all image files in the `/media/` directory matching the `img_[0-9]*.png` pattern using the [glob] crate.
-
-A custom [`MatchOptions`] struct is passed to the [`glob_with`] function making the glob pattern case insensitive while keeping the other options [`Default`].
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate glob;
-
-use glob::{glob_with, MatchOptions};
-#
-# error_chain! {
-#     foreign_links {
-#         Glob(glob::GlobError);
-#         Pattern(glob::PatternError);
-#     }
-# }
-
-fn run() -> Result<()> {
-    let options = MatchOptions {
-        case_sensitive: false,
-        ..Default::default()
-    };
-
-    for entry in glob_with("/media/img_[0-9]*.png", &options)? {
-        println!("{}", entry?.display());
-    }
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
-
 <!-- Categories -->
 
 [cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
@@ -509,8 +432,6 @@ fn run() -> Result<()> {
 
 [byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
-[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
-[glob]: https://docs.rs/glob/
 [lazy_static]: https://docs.rs/lazy_static/
 [lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
@@ -527,7 +448,6 @@ fn run() -> Result<()> {
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
 [`BufRead`]: https://doc.rust-lang.org/std/io/trait.BufRead.html
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
-[`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
@@ -544,10 +464,8 @@ fn run() -> Result<()> {
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
-[`Mmap::as_slice`]: https://docs.rs/memmap/0.5.2/memmap/struct.Mmap.html#method.as_slice
+[`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
-[`MatchOptions`]: https://docs.rs/glob/0.2.11/glob/struct.MatchOptions.html
-[`glob_with`]: https://docs.rs/glob/0.2.11/glob/fn.glob_with.html
 
 <!-- Reference -->
 
