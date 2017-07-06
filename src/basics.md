@@ -14,7 +14,6 @@
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 
 
-
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
 ## Read lines of strings from a file
@@ -465,7 +464,7 @@ fn run() -> Result<()> {
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
-[`Mmap::as_slice`]: https://docs.rs/memmap/0.5.2/memmap/struct.Mmap.html#method.as_slice
+[`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 
 <!-- Reference -->

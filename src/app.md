@@ -9,6 +9,9 @@
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+
 
 [ex-clap-basic]: #ex-clap-basic
 <a name="ex-clap-basic"></a>
@@ -340,6 +343,84 @@ fn main() {
 }
 ```
 
+
+[ex-glob-recursive]: #ex-glob-recursive
+<a name="ex-glob-recursive"></a>
+## Find all png files recursively
+
+[![glob-badge]][glob] [![cat-filesystem-badge]][cat-filesystem]
+
+Recursively find all png files in the current directory.
+In this case, the `**` pattern matches the current directory and all subdirectories.
+
+You can also use the `**` pattern for any directory, not just the current one.
+For example, `/media/**/*.png` would match all pngs in `media` and it's subdirectories.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate glob;
+
+use glob::glob;
+#
+# error_chain! {
+#     foreign_links {
+#         Glob(glob::GlobError);
+#         Pattern(glob::PatternError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    for entry in glob("**/*.png")? {
+        println!("{}", entry?.display());
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-glob-with]: #ex-glob-with
+<a name="ex-glob-with"></a>
+## Find all files with given pattern ignoring filename case.
+
+[![glob-badge]][glob] [![cat-filesystem-badge]][cat-filesystem]
+
+Find all image files in the `/media/` directory matching the `img_[0-9]*.png` pattern.
+
+A custom [`MatchOptions`] struct is passed to the [`glob_with`] function making the glob pattern case insensitive while keeping the other options [`Default`].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate glob;
+
+use glob::{glob_with, MatchOptions};
+#
+# error_chain! {
+#     foreign_links {
+#         Glob(glob::GlobError);
+#         Pattern(glob::PatternError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let options = MatchOptions {
+        case_sensitive: false,
+        ..Default::default()
+    };
+
+    for entry in glob_with("/media/img_[0-9]*.png", &options)? {
+        println!("{}", entry?.display());
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
@@ -355,6 +436,8 @@ fn main() {
 [clap]: https://docs.rs/clap/
 [flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2
 [flate2]: https://docs.rs/flate2/
+[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
+[glob]: https://docs.rs/glob/
 [tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
 [tar]: https://docs.rs/tar/
 [walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
@@ -362,6 +445,7 @@ fn main() {
 
 <!-- Reference -->
 
+[`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html#method.new
 [`flate2::write::GzEncoder`]: https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html
@@ -375,3 +459,5 @@ fn main() {
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
 [`WalkDirIterator::filter_entry`]: https://docs.rs/walkdir/*/walkdir/trait.WalkDirIterator.html#method.filter_entry
 [`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
+[`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html
+[`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
