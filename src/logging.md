@@ -5,6 +5,7 @@
 | [Log a debug message to the console][ex-log-debug] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log an error message to the console][ex-log-error] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
+| [Log to stdout instead of stderr][ex-log-stdout] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 | [Include timestamp in log messages][ex-log-timestamp] | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
@@ -185,6 +186,41 @@ INFO:test::foo::bar: [bar] info
 DEBUG:test::foo::bar: [bar] debug
 ```
 
+[ex-log-stdout]: #ex-log-stdout
+<a name="ex-log-stdout"></a>
+## Log to stdout instead of stderr
+
+[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
+
+Creates a custom logger configuration using the [`LogBuilder::target`] to set the target of the log output to [`Target::Stdout`].
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate log;
+extern crate env_logger;
+
+use env_logger::{LogBuilder, LogTarget};
+#
+# error_chain! {
+#     foreign_links {
+#         SetLogger(log::SetLoggerError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    LogBuilder::new()
+        .target(LogTarget::Stdout)
+        .init()?;
+
+    error!("This error has been printed to Stdout");
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-log-custom-logger]: #ex-log-custom-logger
 <a name="ex-log-custom-logger"></a>
 ## Log messages with a custom logger
@@ -244,7 +280,7 @@ fn run() -> Result<()> {
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] [![cat-debugging-badge]][cat-debugging]
 
-Creates a custom logger configuration with [`env_logger::LogBuilder`].
+Creates a custom logger configuration with [`LogBuilder`].
 Each log entry calls [`Local::now`] to get the current [`DateTime`] in local timezone and uses [`DateTime::format`] with [`strftime::specifiers`] to format a timestamp used in the final log.
 
 The example calls [`LogBuilder::format`] to set a closure which formats each
@@ -420,14 +456,16 @@ fn run() -> Result<()> {
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html#method.format
 [`DateTime`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html
 [`Local::now`]: https://docs.rs/chrono/*/chrono/offset/local/struct.Local.html#method.now
+[`LogBuilder`]: https://doc.rust-lang.org/log/env_logger/struct.Builder.html
 [`LogBuilder::format`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.format
 [`LogBuilder::init`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.init
 [`LogBuilder::parse`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.parse
+[`LogBuilder::target`]: https://doc.rust-lang.org/log/env_logger/struct.Builder.html#method.target
 [`LogRecord::args`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.args
 [`LogRecord::level`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.level
 [`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
-[`env_logger::LogBuilder`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html
 [`env_logger::init`]: https://doc.rust-lang.org/log/env_logger/fn.init.html
+[`Target::Stdout`]: https://doc.rust-lang.org/log/env_logger/enum.Target.html
 [`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
 [`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
 [`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
