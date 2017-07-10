@@ -12,6 +12,7 @@
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Handle errors correctly in main][error-handling] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -411,6 +412,45 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[error-handling]: #error-handling
+<a name="error-handling"></a>
+## Handle errors correctly in main
+
+[![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
+
+Uses [error-chain] to handle error occurred when trying to open a file that does not exist.
+
+First, we call `error_chain!{}` inside a new module named  _errors_. This will create the default types `Error`, `ErrorKind`, `ResultExt` and ` Result`, and store them in `errors`. To be able to use these types we must call `use errors::*`.
+
+To handle the erros that may occur when calling `open_foo()`, it must have return type `Reuslt<()>`. We then use [`if let`] when calling it to detect if an error has occurred, and to handle it in an apropiated way.
+```rust
+#[macro_use]
+extern crate error_chain;
+
+mod errors {
+    error_chain!{}
+}
+
+use errors::*;
+
+fn main() {
+    if let Err(ref e) = open_foo() {
+        println!("error: {}", e);
+        for e in e.iter().skip(1) {
+            println!("caused by: {}", e);
+        }
+    }
+}
+
+fn open_foo() -> Result<()> {
+    use std::fs::File;
+    File::open("foo.txt")
+        .chain_err(|| "cannot open foo.txt")?;
+
+    Ok(())
+}
+```
+
 <!-- Categories -->
 
 [cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
@@ -425,6 +465,7 @@ fn run() -> Result<()> {
 [cat-os]: https://crates.io/categories/os
 [cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
 [cat-rust-patterns]: https://crates.io/categories/rust-patterns
+
 [cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
 [cat-text-processing]: https://crates.io/categories/text-processing
 
@@ -442,6 +483,8 @@ fn run() -> Result<()> {
 [regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
 [memmap]: https://docs.rs/memmap/
 [memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
+[error-chain]: https://docs.rs/error-chain/0.10.0/error_chain/
+[error-chain-badge]: https://img.shields.io/crates/v/error-chain.svg?label=error-chain
 
 <!-- API links -->
 
@@ -466,6 +509,7 @@ fn run() -> Result<()> {
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
 [`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
+[`if let`]: https://doc.rust-lang.org/book/first-edition/if-let.html
 
 <!-- Reference -->
 

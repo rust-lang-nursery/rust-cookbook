@@ -30,6 +30,7 @@ community. It needs and welcomes help. For details see
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Handle errors correctly in main][error-handling] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns]
 
 ## [Encoding](encoding.html)
 
@@ -203,6 +204,8 @@ Keep lines sorted.
 [walkdir]: https://docs.rs/walkdir/
 [memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
 [memmap]: https://docs.rs/memmap/
+[error-chain]: https://docs.rs/error-chain/0.10.0/error_chain/
+[error-chain-badge]: https://img.shields.io/crates/v/error-chain.svg?label=error-chain
 
 <!-- Examples -->
 
@@ -257,3 +260,4 @@ Keep lines sorted.
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-urlencoded]: encoding.html#ex-urlencoded
 [ex-random-file-access]: basics.html#ex-random-file-access
+[error-handling]: basics.html#error-handling
