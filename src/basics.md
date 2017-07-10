@@ -28,6 +28,7 @@
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
+| [Handle errors correctly in main][ex-error-chain-simple-error-handling] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Avoid discarding errors during error conversions][ex-error-chain-avoid-discarding] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
@@ -1244,6 +1245,42 @@ fn main() {
 }
 ```
 
+[ex-error-chain-simple-error-handling]: #ex-error-chain-simple-error-handling
+<a name="ex-error-chain-simple-error-handling"></a>
+## Handle errors correctly in main
+
+[![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
+
+Handles error that occur when we try to open a file that does not exist. We do this using [error-chain], a library that takes care of a lot of boilerplate code needed in order to [handle errors in Rust].
+
+We call `Io(std::io::Error)` inside `foreign_links` to convert the type `std::io::Error` into error-chain's custom version of it.
+
+To handle the result of a function that might return an error, in this example `open_foo`, it must return a `Result`. To handle that result, we use pattern matching on it when calling the function. In this example we print an error message if that result was an error.
+
+```rust
+#[macro_use]
+extern crate error_chain;
+
+error_chain!{
+    foreign_links {
+        Io(std::io::Error);
+    }
+}
+
+fn main() {
+    if let Err(ref e) = read_foo() {
+        println!("error: {}", e);
+    }
+}
+
+fn read_foo() -> Result<()> {
+    use std::fs::File;
+    File::open("foo.txt")?;
+
+    Ok(())
+}
+```
+
 [ex-error-chain-avoid-discarding]: #ex-error-chain-avoid-discarding
 <a name="ex-error-chain-avoid-discarding"></a>
 ## Avoid discarding errors during error conversions
@@ -1741,6 +1778,7 @@ fn main() {
 
 <!-- Other Reference -->
 
+[handle errors in Rust]: https://doc.rust-lang.org/book/second-edition/ch09-00-error-handling.html
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
 [raw string literals]: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
 [RFC 2822]: https://www.ietf.org/rfc/rfc2822.txt
