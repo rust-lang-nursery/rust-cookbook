@@ -30,6 +30,7 @@ community. It needs and welcomes help. For details see
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 
 ## [Encoding](encoding.html)
 
@@ -110,6 +111,8 @@ Keep lines sorted.
 
 <!-- Categories -->
 
+[cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
+[cat-no-std]: https://crates.io/categories/no-std
 [cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
 [cat-caching]: https://crates.io/categories/caching
 [cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
@@ -143,6 +146,8 @@ Keep lines sorted.
 
 [base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
+[bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
+[bitflags]: https://docs.rs/bitflags/
 [byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
 [chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
@@ -207,6 +212,7 @@ Keep lines sorted.
 <!-- Examples -->
 
 [ex-base64]: encoding.html#ex-base64
+[ex-bitflags]: basics.html#ex-bitflags
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
