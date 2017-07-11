@@ -45,6 +45,7 @@ community. It needs and welcomes help. For details see
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -250,6 +251,7 @@ Keep lines sorted.
 [ex-log-syslog]: logging.html#ex-log-syslog
 [ex-log-timestamp]: logging.html#ex-log-timestamp
 [ex-log-stdout]: logging.html#ex-log-stdout
+[ex-invalid-csv]: encoding.html#ex-invalid-csv
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-percent-encode]: encoding.html#ex-percent-encode
