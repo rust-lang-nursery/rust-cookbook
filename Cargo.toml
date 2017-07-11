@@ -8,8 +8,9 @@ publish = false
 build = "build.rs"
 
 [dependencies]
+bitflags = "0.9"
 byteorder = "1.0"
-clap = "2.0"
+clap = "2.25"
 crossbeam = "0.2"
 chrono = "0.3"
 data-encoding = "2.0.0-rc.1"
@@ -42,7 +43,7 @@ image = "0.14"
 syslog = "3.2.0"
 
 [build-dependencies]
-skeptic = "0.10"
+skeptic = "0.10.1"
 
 [dev-dependencies]
-skeptic = "0.10"
+skeptic = "0.10.1"

@@ -12,6 +12,7 @@
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -411,8 +412,68 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-bitflags]: #ex-bitflags
+<a name="ex-bitflags"></a>
+## Define and operate on a type represented as a bitfield
+
+[![bitflags-badge]][bitflags] [![cat-no-std-badge]][cat-no-std]
+
+Creates typesafe bitfield type `MyFlags` with help of [`bitflags!`] macro
+and implements elementary `clear` operation as well as [`Display`] trait for it.
+Subsequently, shows basic bitwise operations and formatting.
+
+```rust
+#[macro_use]
+extern crate bitflags;
+
+use std::fmt;
+
+bitflags! {
+    struct MyFlags: u32 {
+        const FLAG_A       = 0b00000001;
+        const FLAG_B       = 0b00000010;
+        const FLAG_C       = 0b00000100;
+        const FLAG_ABC     = FLAG_A.bits
+                           | FLAG_B.bits
+                           | FLAG_C.bits;
+    }
+}
+
+impl MyFlags {
+    pub fn clear(&mut self) -> &mut MyFlags {
+        self.bits = 0;  // The `bits` field can be accessed from within the
+                        // same module where the `bitflags!` macro was invoked.
+        self
+    }
+}
+
+impl fmt::Display for MyFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:032b}", self.bits)
+    }
+}
+
+fn main() {
+    let e1 = FLAG_A | FLAG_C;
+    let e2 = FLAG_B | FLAG_C;
+    assert_eq!((e1 | e2), FLAG_ABC);   // union
+    assert_eq!((e1 & e2), FLAG_C);     // intersection
+    assert_eq!((e1 - e2), FLAG_A);     // set difference
+    assert_eq!(!e2, FLAG_A);           // set complement
+
+    let mut flags = FLAG_ABC;
+    assert_eq!(format!("{}", flags), "00000000000000000000000000000111");
+    assert_eq!(format!("{}", flags.clear()), "00000000000000000000000000000000");
+    // Debug trait is automatically derived for the MyFlags through `bitflags!`
+    assert_eq!(format!("{:?}", FLAG_B), "FLAG_B");
+    assert_eq!(format!("{:?}", FLAG_A | FLAG_B), "FLAG_A | FLAG_B");
+}
+```
+
 <!-- Categories -->
 
+[cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
+[cat-no-std]: https://crates.io/categories/no-std
 [cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
 [cat-caching]: https://crates.io/categories/caching
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
@@ -430,6 +491,8 @@ fn run() -> Result<()> {
 
 <!-- Crates -->
 
+[bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
+[bitflags]: https://docs.rs/bitflags/
 [byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
 [lazy_static]: https://docs.rs/lazy_static/
@@ -445,9 +508,11 @@ fn run() -> Result<()> {
 
 <!-- API links -->
 
+[`bitflags!`]: https://docs.rs/bitflags/*/bitflags/macro.bitflags.html
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
 [`BufRead`]: https://doc.rust-lang.org/std/io/trait.BufRead.html
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
+[`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
