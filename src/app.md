@@ -5,6 +5,7 @@
 | [Parse command line arguments][ex-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 | [Decompress a tarball][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Compress a directory into a tarball][ex-tar-compress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
+| [Decompress a tarball while removing a prefix from the paths][ex-tar-strip-prefix] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
@@ -114,8 +115,8 @@ Your favorite number must be 256.
 
 [![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
-Decompress ([`flate2::read::GzDecoder::new`]) and
-extract ([`tar::Archive::unpack`]) all files from a compressed tarball
+Decompress ([`GzDecoder`]) and
+extract ([`Archive::unpack`]) all files from a compressed tarball
 named `archive.tar.gz` located in the current working directory.
 
 ```rust,no_run
@@ -160,10 +161,10 @@ fn run() -> Result<()> {
 
 Compresses `/var/log` directory into `archive.tar.gz`.
 
-Creates a [`File`] wrapped in [`flate2::write::GzEncoder`]
+Creates a [`File`] wrapped in [`GzEncoder`]
 and [`tar::Builder`]. </br>Adds contents of `/var/log` directory recursively into the archive
 under `backup/logs`path with [`Builder::append_dir_all`].
-[`flate2::write::GzEncoder`] is responsible for transparently compressing the
+[`GzEncoder`] is responsible for transparently compressing the
 data prior to writing it into `archive.tar.gz`.
 
 ```rust,no_run
@@ -187,6 +188,60 @@ fn run() -> Result<()> {
     let enc = GzEncoder::new(tar_gz, Compression::Default);
     let mut tar = tar::Builder::new(enc);
     tar.append_dir_all("backup/logs", "/var/log")?;
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-tar-strip-prefix]: #ex-tar-strip-prefix
+<a name="ex-tar-strip-prefix"></a>
+## Decompress a tarball while removing a prefix from the paths
+
+[![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
+
+Strip a path prefix from the entries of a tarball before unpacking them.
+
+We iterate over the [`Archive::entries`], using [`Path::strip_prefix`] to remove
+the specified path prefix (`bundle/logs`) before extracting the [`tar::Entry`]
+via [`Entry::unpack`].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate flate2;
+extern crate tar;
+#
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         StripPrefixError(::std::path::StripPrefixError);
+#     }
+# }
+
+use std::fs::File;
+use std::path::PathBuf;
+use flate2::read::GzDecoder;
+use tar::Archive;
+
+fn run() -> Result<()> {
+    let file = File::open("archive.tar.gz")?;
+    let mut archive = Archive::new(GzDecoder::new(file)?);
+    let prefix = "bundle/logs";
+    let entries = archive
+        .entries()?
+        .filter_map(|e| e.ok())
+        .map(|mut entry| -> Result<PathBuf> {
+            // Need to get owned data to break the borrow loop
+            let path = entry.path()?.strip_prefix(prefix)?.to_owned();
+            entry.unpack(&path)?;
+            Ok(path)
+        });
+
+    println!("Extracted the following files:");
+    for path in entries.filter_map(|e| e.ok()) {
+        println!("> {}", path.display());
+    }
     Ok(())
 }
 #
@@ -445,19 +500,26 @@ fn run() -> Result<()> {
 
 <!-- Reference -->
 
-[`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
-[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
-[`flate2::read::GzDecoder::new`]: https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html#method.new
-[`flate2::write::GzEncoder`]: https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html
-[`Iterator::filter`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter
-[`tar::Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack
-[`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
+[`Archive::entries`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.entries
+[`Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack
 [`Builder::append_dir_all`]: https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all
+[`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
+[`Entry::path`]: https://docs.rs/tar/*/tar/struct.Entry.html#method.path
+[`Entry::unpack`]: https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack
+[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
+[`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
+[`GzDecoder`]: https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html#method.new
+[`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
+[`GzEncoder`]: https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html
+[`Iterator::filter`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter
+[`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html
+[`Path::strip_prefix`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix
+[`tar::Archive`]: https://docs.rs/tar/*/tar/struct.Archive.html
+[`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
+[`tar::Entry`]: https://docs.rs/tar/*/tar/struct.Entry.html
+[`tar::Entries`]: https://docs.rs/tar/*/tar/struct.Entries.html
 [`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
 [`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
 [`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
 [`WalkDirIterator::filter_entry`]: https://docs.rs/walkdir/*/walkdir/trait.WalkDirIterator.html#method.filter_entry
-[`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
-[`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html
-[`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
