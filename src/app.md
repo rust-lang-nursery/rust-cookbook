@@ -6,6 +6,7 @@
 | [Decompress a tarball][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Compress a directory into a tarball][ex-tar-compress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Decompress a tarball while removing a prefix from the paths][ex-tar-strip-prefix] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
+| [Find loops for a given path][ex-find-file-loops] | [![same_file-badge]][same_file] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
@@ -246,6 +247,52 @@ fn run() -> Result<()> {
 }
 #
 # quick_main!(run);
+```
+
+[ex-find-file-loops]: #ex-find-file-loops
+<a name="ex-find-file-loops"></a>
+## Find loops for a given path
+
+[![same_file-badge]][same_file] [![cat-filesystem-badge]][cat-filesystem]
+
+Use [`same_file::is_same_file`] to detect loops for a given path.
+For example, a loop could be created on a unix system via sym links:
+```
+mkdir -p /tmp/foo/bar/baz
+ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
+```
+Then, running the following would assert that there exists a loop.
+
+```rust,no_run
+extern crate same_file;
+
+use std::io;
+use std::path::{Path, PathBuf};
+use same_file::is_same_file;
+
+// Check this path against all of its parents
+fn contains_loop<P: AsRef<Path>>(path: P) -> io::Result<Option<(PathBuf, PathBuf)>> {
+    let path = path.as_ref();
+    let mut path_buf = path.to_path_buf();
+    while path_buf.pop() {
+        if is_same_file(&path_buf, path)? {
+            return Ok(Some((path_buf, path.to_path_buf())));
+        } else if let Some(looped_paths) = contains_loop(&path_buf)? {
+            return Ok(Some(looped_paths));
+        }
+    }
+    return Ok(None);
+}
+
+fn main() {
+    assert_eq!(
+        contains_loop("/tmp/foo/bar/baz/qux/bar/baz").unwrap(),
+        Some((
+            PathBuf::from("/tmp/foo"),
+            PathBuf::from("/tmp/foo/bar/baz/qux")
+        ))
+    );
+}
 ```
 
 [ex-dedup-filenames]: #ex-dedup-filenames
@@ -493,6 +540,8 @@ fn run() -> Result<()> {
 [flate2]: https://docs.rs/flate2/
 [glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
 [glob]: https://docs.rs/glob/
+[same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
+[same_file]: https://docs.rs/same-file/
 [tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
 [tar]: https://docs.rs/tar/
 [walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
@@ -511,6 +560,7 @@ fn run() -> Result<()> {
 [`Iterator::filter`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter
 [`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html
 [`Path::strip_prefix`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix
+[`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
 [`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
 [`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
