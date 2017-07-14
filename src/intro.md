@@ -79,6 +79,7 @@ community. It needs and welcomes help. For details see
 | [Decompress a tarball][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Compress a directory into a tarball][ex-tar-compress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Decompress a tarball while removing a prefix from the paths][ex-tar-strip-prefix] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
+| [Find loops for a given path][ex-find-file-loops] | [![same_file-badge]][same_file] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
@@ -187,6 +188,8 @@ Keep lines sorted.
 [regex]: https://docs.rs/regex/
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
+[same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
+[same_file]: https://docs.rs/same-file/
 [select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
 [select]: https://docs.rs/select/
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
@@ -224,6 +227,7 @@ Keep lines sorted.
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-file-skip-dot]: app.html#ex-file-skip-dot
 [ex-file-sizes]: app.html#ex-file-sizes
+[ex-find-file-loops]: app.html#ex-find-file-loops
 [ex-global-mut-state]: basics.html#ex-global-mut-state
 [ex-glob-recursive]: app.html#ex-glob-recursive
 [ex-glob-with]: app.html#ex-glob-with
