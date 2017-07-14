@@ -418,11 +418,13 @@ fn run() -> Result<()> {
 
 [![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
-Handles the error that occur when we try to open a file that does not exist. We do this using [error-chain], a library that takes care of a lot of boilerplate code that an user would have to write in order to handle erros in Rust. For more details please check the chapter [Error Handling] of TRPL.
+Handles error that occur when we try to open a file that does not exist. We do this using [error-chain], a library that takes care of a lot of boilerplate code needed in order to [handle errors in Rust].
 
-The [`error_chain!`] macro creates the types [`Error`], [`ErrorKind`], [`Result`] and [`ResultExt`]. Additionaly, we use `Io(sd::io::Error)` for automatic conversion between this error chain and other error types not defined by [`error_chain!`]. In this case, [`std::io::Error`]
+We call `Io(std::io::Error)` inside `foreign_links` to convert the type `std::io::Error` into error-chain's custom version of it.
 
-To handle the result of a function, in this case `open_foo`, that function must return a [`Result`]. When calling `open_foo`, we use pattern matching to print an error message if an error occur.
+To handle the result of a function that might return an error, in this example `open_foo`, it must return a `Result`. To handle that result, we use pattern matching on it when calling the function. In this example we print an error message if that result was an error.
+
+
 
 ```rust
 #[macro_use]
@@ -507,13 +509,8 @@ fn read_foo() -> Result<()> {
 [`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`error_chain!`]: https://docs.rs/error-chain/*/error_chain/#declaring-error-types
-[`Error`]: https://docs.rs/error-chain/*/error_chain/example_generated/struct.Error.html
-[`ErrorKind`]: https://docs.rs/error-chain/*/error_chain/trait.ChainedError.html#associatedtype.ErrorKind
-[`Result`]: https://docs.rs/error-chain/*/error_chain/example_generated/type.Result.html
-[`ResultExt`]: https://docs.rs/error-chain/*/error_chain/example_generated/trait.ResultExt.html
-[`std::io::Error`]: https://doc.rust-lang.org/std/io/struct.Error.html
 
 <!-- Reference -->
 
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
-[Error Handling]: https://doc.rust-lang.org/book/second-edition/ch09-00-error-handling.html
+[handle errors in Rust]: https://doc.rust-lang.org/book/second-edition/ch09-00-error-handling.html
