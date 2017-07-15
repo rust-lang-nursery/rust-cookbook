@@ -15,7 +15,7 @@
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
-
+| [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -564,7 +564,43 @@ fn main() {
 }
 ```
 
+[ex-regex-replace-named]: #ex-regex-replace-named
+<a name="ex-regex-replace-named"></a>
+## Replace all occurrences of one text pattern with another pattern.
 
+[![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
+
+Replaces all occurences of the hyphenated british english date pattern `2013-01-15` 
+with its equivalent slashed american english date pattern `01/15/2013`.
+
+The method [`Regex::replace_all`] replaces all occurrences of the whole regex. The
+`Replacer` trait helps to figure out the replacement string. This trait is implemented
+for `&str` and allows to use variables like `$abcde` to refer to corresponding named capture groups
+`(?P<abcde>REGEX)` from the search regex. See the [replacement string syntax] for examples
+and information about escaping.
+
+```rust
+extern crate regex;
+#[macro_use] extern crate lazy_static;
+
+use std::borrow::Cow;
+use regex::Regex;
+
+fn reformat_dates(before: &str) -> Cow<str> {
+    lazy_static! {
+        static ref ENGL_DATE_REGEX : Regex = Regex::new(
+            r"(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})"
+            ).unwrap();
+    }
+    ENGL_DATE_REGEX.replace_all(before, "$m/$d/$y")
+}
+
+fn main() {
+    let before = "2012-03-14, 2013-01-01 and 2014-07-05";
+    let after = reformat_dates(before);
+    assert_eq!(after, "03/14/2012, 01/01/2013 and 07/05/2014");
+}
+```
 
 <!-- Categories -->
 
@@ -621,6 +657,8 @@ fn main() {
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
 [`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
 [`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
+[`Regex::replace_all`]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#method.replace_all
+[replacement string syntax]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#replacement-string-syntax
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
