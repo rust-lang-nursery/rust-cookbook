@@ -11,6 +11,7 @@
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Verify and extract login from an email address][ex-verify-extract-email] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 
@@ -360,6 +361,46 @@ fn run() -> Result<()> {
 }
 #
 # quick_main!(run);
+```
+
+[ex-verify-extract-email]: #ex-verify-extract-email
+<a name="ex-verify-extract-email"></a>
+## Verify and extract login from an email address
+
+[![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
+
+Validates that an email address is formatted correctly, and extracts everything
+before the @ symbol.
+
+```rust
+#[macro_use]
+extern crate lazy_static;
+extern crate regex;
+
+use regex::Regex;
+
+fn extract_login(input: &str) -> Option<&str> {
+    lazy_static! {
+        static ref RE: Regex = Regex::new(r"(?x)
+            ^(?P<login>[^@\s]+)@
+            ([[:word:]]+\.)*
+            [[:word:]]+$
+            ").unwrap();
+    }
+    RE.captures(input).and_then(|cap| {
+        cap.name("login").map(|login| login.as_str())
+    })
+}
+
+fn main() {
+    assert_eq!(extract_login(r"I❤email@example.com"), Some(r"I❤email"));
+    assert_eq!(
+        extract_login(r"sdf+sdsfsd.as.sdsd@jhkk.d.rl"),
+        Some(r"sdf+sdsfsd.as.sdsd")
+    );
+    assert_eq!(extract_login(r"More@Than@One@at.com"), None);
+    assert_eq!(extract_login(r"Not an email@email"), None);
+}
 ```
 
 [ex-random-file-access]: #ex-random-file-access
