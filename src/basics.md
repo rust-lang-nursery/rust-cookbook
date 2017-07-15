@@ -14,6 +14,8 @@
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
+| [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
+
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -527,6 +529,43 @@ fn main() {
 }
 ```
 
+[ex-extract-hashtags]: #ex-extract-hashtags
+<a name="ex-extract-hashtags"></a>
+## Extract a list of unique #Hashtags from a text
+
+[![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
+
+Extracts a sorted and deduplicated list of hashtags from a text.
+
+The hashtag regex given here only catches latin hashtags that start with a letter. The complete [twitter hashtag regex] is way more complicated.
+
+```rust
+extern crate regex;
+#[macro_use] extern crate lazy_static;
+
+use regex::Regex;
+use std::collections::HashSet;
+
+/// Note: A HashSet does not contain duplicate values.
+fn extract_hashtags(text: &str) -> HashSet<&str> {
+    lazy_static! {
+        static ref HASHTAG_REGEX : Regex = Regex::new(
+                r"\#[a-zA-Z][0-9a-zA-Z_]*"
+            ).unwrap();
+    }
+    HASHTAG_REGEX.find_iter(text).map(|mat| mat.as_str()).collect()
+}
+
+fn main() {
+    let tweet = "Hey #world, I just got my new #dog, say hello to Till. #dog #forever #2 #_ ";
+    let tags = extract_hashtags(tweet);
+    assert!(tags.contains("#dog") && tags.contains("#forever") && tags.contains("#world"));
+    assert_eq!(tags.len(), 3);
+}
+```
+
+
+
 <!-- Categories -->
 
 [cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
@@ -595,3 +634,4 @@ fn main() {
 
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
 [raw string literals]: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
+[twitter hashtag regex]: https://github.com/twitter/twitter-text/blob/master/java/src/com/twitter/Regex.java#L255
