@@ -9,6 +9,7 @@
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
+| [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
@@ -270,6 +271,62 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-regex-filter-log]: #ex-regex-filter-log
+<a name="ex-regex-filter-log"></a>
+## Filter a log file by matching multiple regular expressions
+
+[![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
+
+Reads a file named `application.log` and only outputs the lines 
+containing “version X.X.X”, some IP address followed by port 443
+(e.g. “192.168.0.1:443”), or a specific warning.
+
+A [`regex::RegexSet`] is built with [`regex::RegexSetBuilder`].
+Since backslashes are very common in regular expressions, using
+[raw string literals] make them more readable.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate regex;
+
+use std::fs::File;
+use std::io::{BufReader, BufRead};
+use regex::RegexSetBuilder;
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Regex(regex::Error);
+#     }
+# }
+#
+fn run() -> Result<()> {
+    let log_path = "application.log";
+    let buffered = BufReader::new(File::open(log_path)?);
+
+    let set = RegexSetBuilder::new(&[
+        r#"version "\d\.\d\.\d""#,
+        r#"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:443"#,
+        r#"warning.*timeout expired"#,
+    ]).case_insensitive(true)
+        .build()?;
+
+    let filtered = buffered
+        .lines()
+        .filter_map(|line| line.ok())
+        .filter(|line| set.is_match(line.as_str()));
+
+    for line in filtered {
+        println!("{}", line);
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-lazy-constant]: #ex-lazy-constant
 <a name="ex-lazy-constant"></a>
 ## Declare lazily evaluated constant
@@ -523,6 +580,8 @@ fn main() {
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
+[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
@@ -535,3 +594,4 @@ fn main() {
 <!-- Reference -->
 
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
+[raw string literals]: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
