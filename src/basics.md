@@ -16,6 +16,7 @@
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
+| [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -602,6 +603,107 @@ fn main() {
 }
 ```
 
+[ex-phone]: #ex-phone
+<a name="ex-phone"></a>
+## Extract phone numbers from text
+
+Processes a string of text using [`Regex::captures_iter`] to capture multiple
+phone numbers.  The example here is for US convention phone numbers.
+
+```rust, no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate regex;
+
+use regex::Regex;
+use std::fmt;
+
+# error_chain!{
+#     foreign_links {
+#         Regex(regex::Error);
+#         Io(std::io::Error);
+#     }
+# }
+#
+#[derive(PartialEq, PartialOrd, Debug)]
+struct PhoneNumber {
+    area: &'static str,
+    exchange: &'static str,
+    subscriber: &'static str,
+}
+
+// Allows printing phone numbers based on country convention.
+impl fmt::Display for PhoneNumber {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "1 ({}) {}-{}",
+            &self.area,
+            &self.exchange,
+            &self.subscriber
+        )
+    }
+}
+
+fn run() -> Result<()> {
+    let phone_text = "
+    +1 505 881 9292 (v) +1 505 778 2212 (c) +1 505 881 9297 (f)
+    (202) 991 9534
+    Alex 5553920011
+    1 (800) 233-2010
+    1.299.339.1020";
+    let re = Regex::new(
+        r"(?x)
+                        (?:\+?1)?                         # Country Code Optional
+                        [\s\.]?
+                        (([2-9]\d{2})|\(([2-9]\d{2})\))  # Area Code
+                        [\s\.\-]?
+                        ([2-9]\d{2})                     # Exchange Code
+                        [\s\.\-]?
+                        (\d{4})                          #Subscriber Number",
+    )?;
+    let mut phone_numbers = re.captures_iter(phone_text).map(|cap| {
+        // Area code populates either capture group 2 or 3.  Group 1 contains optional paranthesis.
+        PhoneNumber {
+            area: if cap.get(2) == None {
+                cap.get(3).map_or("", |m| m.as_str())
+            } else {
+                cap.get(2).map_or("", |m| m.as_str())
+            },
+            exchange: cap.get(4).map_or("", |m| m.as_str()),
+            subscriber: cap.get(5).map_or("", |m| m.as_str()),
+        }
+    });    assert_eq!(
+        phone_numbers.next().map(|m| m.to_string()),
+        Some("1 (505) 881-9292".to_owned())
+    );
+    assert_eq!(
+        phone_numbers.next().map(|m| m.to_string()),
+        Some("1 (505) 778-2212".to_owned())
+    );
+    assert_eq!(
+        phone_numbers.next().map(|m| m.to_string()),
+        Some("1 (505) 881-9297".to_owned())
+    );
+    assert_eq!(
+        phone_numbers.next().map(|m| m.to_string()),
+        Some("1 (202) 991-9534".to_owned())
+    );
+    assert_eq!(
+        phone_numbers.next().map(|m| m.to_string()),
+        Some("1 (555) 392-0011".to_owned())
+    );
+    assert_eq!(
+        phone_numbers.next().map(|m| m.to_string()),
+        Some("1 (800) 233-2010".to_owned())
+    );
+    Ok(())
+}
+#
+# quick_main!(run);
+
+```
+
 <!-- Categories -->
 
 [cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
@@ -653,11 +755,12 @@ fn main() {
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
-[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
-[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
-[`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
-[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
+[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`Regex::replace_all`]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#method.replace_all
+[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
+[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
+[`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
 [replacement string syntax]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#replacement-string-syntax
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html

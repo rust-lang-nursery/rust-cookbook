@@ -34,6 +34,7 @@ community. It needs and welcomes help. For details see
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
+| [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 
 ## [Encoding](encoding.html)
 
@@ -260,6 +261,7 @@ Keep lines sorted.
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-percent-encode]: encoding.html#ex-percent-encode
+[ex-phone]: basics.html#ex-phone
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist
 [ex-rand-float]: basics.html#ex-rand-float
