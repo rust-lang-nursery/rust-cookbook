@@ -8,6 +8,7 @@
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
+| [Read CSV records with different delimeter][ex-csv-delimiter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -344,6 +345,45 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-csv-delimiter]: #ex-csv-delimiter
+<a name="ex-csv-delimiter"></a>
+## Read CSV records with different delimeter
+
+[![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
+
+Reads CSV records with [`delimiter`] other than ','
+
+[`delimiter`]: https://docs.rs/csv/1.0.0-beta.3/csv/struct.ReaderBuilder.html#method.delimiter
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+
+use csv::ReaderBuilder;
+#
+# error_chain! {
+#     foreign_links {
+#         CsvError(csv::Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let data = "name-place-id
+        Mark-Melbourne-46
+        Ashley-Zurich-92";
+
+    let mut reader = ReaderBuilder::new().delimiter(b'-').from_reader(data.as_bytes());
+    for result in reader.records() {
+        println!("{:?}", result?);
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
@@ -361,7 +401,8 @@ fn run() -> Result<()> {
 [toml]: https://docs.rs/toml/
 [url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
-
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
+[csv]: https://docs.rs/csv/
 
 
 <!-- Reference -->
