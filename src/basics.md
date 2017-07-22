@@ -4,7 +4,7 @@
 |--------|--------|------------|
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
-| [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random numbers for simple types][ex-rand-simple] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
@@ -111,9 +111,11 @@ fn decode(mut bytes: &[u8]) -> Result<Payload> {
 # quick_main!(run);
 ```
 
-[ex-rand-float]: #ex-rand-float
-<a name="ex-rand-float"></a>
-## Generate random floating point numbers
+[ex-rand-simple]: #ex-rand-simple
+<a name="ex-rand-simple"></a>
+## Generate random numbers for simple types
+
+The `rand` crate provides a convenient source of psuedo-random numbers.
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
@@ -122,9 +124,28 @@ extern crate rand;
 use rand::Rng;
 
 fn main() {
+    // Each thread has an automatically-initialised random number generator:
     let mut rng = rand::thread_rng();
-    println!("Random f64: {}", rng.gen::<f64>());
+    
+    // Integers are uniformly distributed over the type's whole range:
+    let n1: u32 = rng.gen();
+    let n2: u16 = rng.gen();
+    let n3: u8 = rng.gen();
+    println!("Random u32, u16, u8: {}, {}, {}", n1, n2, n3);
+    println!("Random i32: {}", rng.gen::<i32>());
+    
+    // Floating point numbers are uniformly distributed in the half-open range [0, 1)
+    println!("Random float: {}", rng.gen::<f64>());
+    println!("Random floats: {:?}", (0..5).map(|_| rng.gen()).collect::<Vec<f32>>());
 }
+```
+
+Example output:
+```
+Random u32, u16, u8: 1224630198, 31187, 43
+Random i32: -515338046
+Random float: 0.7258180295601702
+Random floats: [0.6633928, 0.4400041, 0.49633145, 0.02997303, 0.41612816]
 ```
 
 [ex-rand-range]: #ex-rand-range
@@ -142,9 +163,34 @@ use rand::Rng;
 
 fn main() {
     let mut rng = rand::thread_rng();
-    println!("{}", rng.gen_range(0, 10));
+    println!("Integer: {}", rng.gen_range(0, 10));
+    println!("Float: {}", rng.gen_range(0.0, 10.0));
 }
 ```
+
+Alternatively, one can use the [`Range`](https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html) distribution.
+This has the same effect, but may be faster when repeatedly generating numbers
+in the same range.
+
+```rust
+extern crate rand;
+
+use rand::distributions::{Range, IndependentSample};
+
+fn main() {
+    let mut rng = rand::thread_rng();
+    let die = Range::new(1, 7);
+    
+    loop {
+        let throw = die.ind_sample(&mut rng);
+        println!("Roll the die: {}", throw);
+        if throw == 6 {
+            break;
+        }
+    }
+}
+```
+
 
 [ex-rand-dist]: #ex-rand-dist
 <a name="ex-rand-dist"></a>
