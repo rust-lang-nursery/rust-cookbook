@@ -17,6 +17,7 @@
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 | [Extract all links from a webpage][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
+| [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -876,6 +877,76 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-extract-mediawiki-links]: #ex-extract-mediawiki-links
+<a name="ex-extract-mediawiki-links"/>
+## Extract all unique links from a MediaWiki markup
+
+[![reqwest-badge]][reqwest] [![regex-badge]][regex] [![cat-net-badge]][cat-net]
+
+Pull the source of a MediaWiki page using [`reqwest::get`] and then
+look for all entries of internal and external links with
+[`Regex::captures_iter`]. Using [`Cow`] avoids excessive [`String`] allocations.
+
+MediaWiki link syntax is described [here][MediaWiki link syntax].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate lazy_static;
+extern crate reqwest;
+extern crate regex;
+
+use std::io::Read;
+use std::collections::HashSet;
+use std::borrow::Cow;
+use regex::Regex;
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Reqwest(reqwest::Error);
+#         Regex(regex::Error);
+#     }
+# }
+# 
+fn extract_links(content: &str) -> Result<HashSet<Cow<str>>> {
+    lazy_static! {
+        static ref WIKI_REGEX: Regex =
+            Regex::new(r"(?x)
+                \[\[(?P<internal>[^\[\]|]*)[^\[\]]*\]\]    # internal links
+                |
+                (url=|URL\||\[)(?P<external>http.*?)[ \|}] # external links
+            ").unwrap();
+    }
+
+    let links: HashSet<_> = WIKI_REGEX
+        .captures_iter(content)
+        .map(|c| match (c.name("internal"), c.name("external")) {
+            (Some(val), None) => Cow::from(val.as_str().to_lowercase()),
+            (None, Some(val)) => Cow::from(val.as_str()),
+            _ => unreachable!(),
+        })
+        .collect();
+
+    Ok(links)
+}
+
+fn run() -> Result<()> {
+    let mut content = String::new();
+    reqwest::get(
+        "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
+    )?
+        .read_to_string(&mut content)?;
+
+    println!("{:#?}", extract_links(&content)?);
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
@@ -889,6 +960,8 @@ fn run() -> Result<()> {
 
 [hyper-badge]: https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper
 [hyper]: https://docs.rs/hyper/
+[regex]: https://docs.rs/regex/
+[regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
 [select]: https://docs.rs/select/
@@ -907,12 +980,15 @@ fn run() -> Result<()> {
 [GitHub API]: https://developer.github.com/v3/auth/
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [OAuth]: https://oauth.net/getting-started/
+[MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
+[`Cow`]: https://doc.rust-lang.org/std/borrow/enum.Cow.html
 [`Document::from_read`]: https://docs.rs/select/*/select/document/struct.Document.html#method.from_read
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
 [`Name`]: https://docs.rs/select/*/select/predicate/struct.Name.html
+[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
 [`RequestBuilder::body`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html#method.body
 [`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
