@@ -78,6 +78,7 @@ community. It needs and welcomes help. For details see
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 | [Extract all links from a webpage][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
+| [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 
 ## [Application development](app.html)
 
@@ -237,6 +238,7 @@ Keep lines sorted.
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
+[ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-file-skip-dot]: app.html#ex-file-skip-dot
