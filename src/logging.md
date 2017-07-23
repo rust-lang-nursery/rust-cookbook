@@ -7,6 +7,7 @@
 | [Enable log levels per module][ex-log-mod] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to stdout instead of stderr][ex-log-stdout] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages with a custom logger][ex-log-custom-logger] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Use a custom environment variable to set up logging][ex-log-env-variable] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Include timestamp in log messages][ex-log-timestamp] | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
@@ -274,6 +275,50 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-log-env-variable]: #ex-log-env-variable
+<a name="ex-log-env-variable"></a>
+## Use a custom environment variable to set up logging
+
+[![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
+
+Logging is configured with [`LogBuilder`].
+
+[`LogBuilder::parse`] parses `MY_APP_LOG`
+environmental variable contents in the form of [`RUST_LOG`] syntax.
+Then [`LogBuilder::init`] initializes the logger.
+All these steps are normally done internally by [`env_logger::init`].
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate log;
+extern crate env_logger;
+
+use std::env;
+use env_logger::LogBuilder;
+
+# error_chain! {
+#     foreign_links {
+#         EnvLogger(log::SetLoggerError);
+#     }
+# }
+# 
+fn run() -> Result<()> {
+    LogBuilder::new()
+        .parse(&env::var("MY_APP_LOG").unwrap_or_default())
+        .init()?;
+
+    info!("informational message");
+    warn!("warning message");
+    error!("this is an error {}", "message");
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-log-timestamp]: #ex-log-timestamp
 <a name="ex-log-timestamp"></a>
 ## Include timestamp in log messages
@@ -285,9 +330,6 @@ Each log entry calls [`Local::now`] to get the current [`DateTime`] in local tim
 
 The example calls [`LogBuilder::format`] to set a closure which formats each
 message text with timestamp, [`LogRecord::level`] and body ([`LogRecord::args`]).
-Subsequently calls [`LogBuilder::parse`] which parses `MY_APP_LOG` environmental variable contents in the form of [`RUST_LOG`] syntax.
-Finally calls [`LogBuilder::init`] to initialize the logger.
-All these steps are normally done internally by [`env_logger::init`].
 
 ```rust
 # #[macro_use]
@@ -297,9 +339,10 @@ extern crate log;
 extern crate env_logger;
 extern crate chrono;
 
-use chrono::Local;
-use env_logger::LogBuilder;
 use std::env;
+use env_logger::LogBuilder;
+use chrono::Local;
+
 #
 # error_chain! {
 #     foreign_links {
