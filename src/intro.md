@@ -42,6 +42,7 @@ community. It needs and welcomes help. For details see
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
+| [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -158,6 +159,8 @@ Keep lines sorted.
 [clap]: https://docs.rs/clap/
 [crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam/
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
+[csv]: https://docs.rs/csv/
 [data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
 [data-encoding]: https://github.com/ia0/data-encoding
 [env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
@@ -242,6 +245,7 @@ Keep lines sorted.
 [ex-log-syslog]: logging.html#ex-log-syslog
 [ex-log-timestamp]: logging.html#ex-log-timestamp
 [ex-log-stdout]: logging.html#ex-log-stdout
+[ex-invalid-csv]: encoding.html#ex-invalid-csv
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-percent-encode]: encoding.html#ex-percent-encode
