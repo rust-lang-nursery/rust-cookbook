@@ -22,9 +22,9 @@ community. It needs and welcomes help. For details see
 |--------|--------|------------|
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
-| [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random numbers][ex-rand] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
-| [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random number distributions][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -247,7 +247,7 @@ Keep lines sorted.
 [ex-percent-encode]: encoding.html#ex-percent-encode
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist
-[ex-rand-float]: basics.html#ex-rand-float
+[ex-rand]: basics.html#ex-rand
 [ex-rand-range]: basics.html#ex-rand-range
 [ex-random-port-tcp]: net.html#ex-random-port-tcp
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
