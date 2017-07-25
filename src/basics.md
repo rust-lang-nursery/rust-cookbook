@@ -192,10 +192,11 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-You've already seen how to create numbers with uniform distribution [above][ex-rand-range]
-(using [`Range`]). Other distributions are used in the same way: create a distribution, then
-sample from that distribution (using [`IndependentSample::ind_sample`]) with the help of
-a random-number generator (`rng`).
+By default, random numbers are generated with a uniform distribution.
+To generate numbers with other distributions you create a
+distribution, then sample from that distribution (using
+[`IndependentSample::ind_sample`]) with the help of a random-number
+generator (`rng`).
 
 The [distributions available are documented here][rand-distributions]. An example using the
 [`Normal`] distribution is shown below.
