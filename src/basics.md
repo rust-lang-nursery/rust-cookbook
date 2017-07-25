@@ -4,9 +4,9 @@
 |--------|--------|------------|
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
-| [Generate random floating point numbers][ex-rand-float] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random numbers][ex-rand] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
-| [Generate random numbers with normal distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random distributions][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
@@ -114,9 +114,11 @@ fn decode(mut bytes: &[u8]) -> Result<Payload> {
 # quick_main!(run);
 ```
 
-[ex-rand-float]: #ex-rand-float
-<a name="ex-rand-float"></a>
-## Generate random floating point numbers
+[ex-rand]: #ex-rand
+<a name="ex-rand"></a>
+## Generate random numbers
+
+The [`rand`] crate provides a convenient source of psuedo-random numbers.
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
@@ -125,8 +127,17 @@ extern crate rand;
 use rand::Rng;
 
 fn main() {
+    // Each thread has an automatically-initialised random number generator:
     let mut rng = rand::thread_rng();
-    println!("Random f64: {}", rng.gen::<f64>());
+    
+    // Integers are uniformly distributed over the type's whole range:
+    let n1: u8 = rng.gen();
+    let n2: u16 = rng.gen();
+    println!("Random u8: {}; random u16: {}", n1, n2);
+    println!("Random i32: {}", rng.gen::<i32>());
+    
+    // Floating point numbers are uniformly distributed in the half-open range [0, 1)
+    println!("Random float: {}", rng.gen::<f64>());
 }
 ```
 
@@ -145,18 +156,48 @@ use rand::Rng;
 
 fn main() {
     let mut rng = rand::thread_rng();
-    println!("{}", rng.gen_range(0, 10));
+    println!("Integer: {}", rng.gen_range(0, 10));
+    println!("Float: {}", rng.gen_range(0.0, 10.0));
 }
 ```
 
+Alternatively, one can use the [`Range`] distribution (otherwise known as uniform).
+This has the same effect, but may be faster when repeatedly generating numbers
+in the same range.
+
+```rust
+extern crate rand;
+
+use rand::distributions::{Range, IndependentSample};
+
+fn main() {
+    let mut rng = rand::thread_rng();
+    let die = Range::new(1, 7);
+    
+    loop {
+        let throw = die.ind_sample(&mut rng);
+        println!("Roll the die: {}", throw);
+        if throw == 6 {
+            break;
+        }
+    }
+}
+```
+
+
 [ex-rand-dist]: #ex-rand-dist
 <a name="ex-rand-dist"></a>
-## Generate random numbers with normal distribution
+## Random number distributions
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-Creates a [`Normal`] distribution with mean `3` and standard deviation `5`
-and generates a random value with [`IndependentSample::ind_sample`].
+You've already seen how to create numbers with uniform distribution [above][ex-rand-range]
+(using [`Range`]). Other distributions are used in the same way: create a distribution, then
+sample from that distribution (using [`IndependentSample::ind_sample`]) with the help of
+a random-number generator (`rng`).
+
+The [distributions available are documented here][rand-distributions]. An example using the
+[`Normal`] distribution is shown below.
 
 ```rust
 extern crate rand;
@@ -164,10 +205,12 @@ extern crate rand;
 use rand::distributions::{Normal, IndependentSample};
 
 fn main() {
-    let normal = Normal::new(3.0, 5.0);
     let mut rng = rand::thread_rng();
+    
+    // mean 2, standard deviation 3:
+    let normal = Normal::new(2.0, 3.0);
     let v = normal.ind_sample(&mut rng);
-    println!("{} is from a N(3, 25) distribution", v)
+    println!("{} is from a N(2, 9) distribution", v)
 }
 ```
 
@@ -652,8 +695,11 @@ fn main() {
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
+[`rand`]: https://doc.rust-lang.org/rand
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
+[`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
+[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
 [`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
 [`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
