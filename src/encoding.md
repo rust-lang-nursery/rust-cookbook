@@ -8,6 +8,8 @@
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
+| [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
+| [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -344,6 +346,99 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-serialize-csv]: #ex-serialize-csv
+<a name="ex-serialize-csv"></a>
+## Serialize records to CSV
+
+[![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
+
+This example shows how to serialize a Rust tuple. [`csv::writer`] supports automatic
+serialization from Rust types into CSV records. [`write_record`] is used when writing
+a simple record that contains string-like data only, [`serialize`] is used when data
+consists of more complex values like numbers, floats or optional values. Since CSV
+writer uses internal buffer, always explicitly [`flush`] when done.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+
+use std::io;
+#
+# error_chain! {
+#     foreign_links {
+#         CSVError(csv::Error);
+#         IOError(std::io::Error);
+#    }
+# }
+
+fn run() -> Result<()> {
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    wtr.write_record(&["Name", "Place", "ID"])?;
+
+    wtr.serialize(("Mark", "Sydney", 87))?;
+    wtr.serialize(("Ashley", "Dublin", 32))?;
+    wtr.serialize(("Akshat", "Delhi", 11))?;
+
+    wtr.flush()?;
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-csv-serde]: #ex-csv-serde
+<a name="ex-csv-serde"></a>
+## Serialize records to CSV using Serde
+
+[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
+
+The following example shows how to serialize custom structs as CSV records using
+the [serde] crate.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+extern crate serde;
+#[macro_use]
+extern crate serde_derive;
+
+use std::io;
+#
+# error_chain! {
+#    foreign_links {
+#        IOError(std::io::Error);
+#        CSVError(csv::Error);
+#    }
+# }
+
+#[derive(Debug, Serialize)]
+struct Record<'a> {
+    name: &'a str,
+    place: &'a str,
+    id: u64,
+}
+
+fn run() -> Result<()> {
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    let rec1 = Record { name: "Mark", place: "Melbourne", id: 56};
+    let rec2 = Record { name: "Ashley", place: "Sydney", id: 64};
+    let rec3 = Record { name: "Akshat", place: "Delhi", id: 98};
+
+    wtr.serialize(rec1)?;
+    wtr.serialize(rec2)?;
+    wtr.serialize(rec3)?;
+
+    wtr.flush()?;
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
@@ -361,8 +456,10 @@ fn run() -> Result<()> {
 [toml]: https://docs.rs/toml/
 [url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
-
-
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
+[csv]: https://docs.rs/csv/
+[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
+[serde]: https://docs.rs/serde/
 
 <!-- Reference -->
 
@@ -372,3 +469,7 @@ fn run() -> Result<()> {
 [application/x-www-form-urlencoded]: https://url.spec.whatwg.org/#application/x-www-form-urlencoded
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/1.4.0/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
+[`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
+[`write_record`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record
+[`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize
+[`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
