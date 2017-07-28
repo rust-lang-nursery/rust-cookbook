@@ -17,6 +17,7 @@
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
+| [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-filesystem-badge]][cat-filesystem] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -748,6 +749,63 @@ fn run() -> Result<()> {
 
 ```
 
+[ex-sha-digest]: #ex-sha-digest
+<a name="ex-sha-digest"></a>
+## Calculate the SHA-256 digest of a file
+
+[![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-filesystem-badge]][cat-filesystem]
+
+Writes some data to a file, then calculates the SHA-256 digest of
+the file's contents using [`digest::Context`].
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+
+extern crate data_encoding;
+extern crate ring;
+
+use data_encoding::HEXUPPER;
+use ring::digest::{Context, SHA256};
+use std::fs::File;
+use std::io::{BufReader, Read, Write};
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Decode(data_encoding::DecodeError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let path = "file.txt";
+
+    let mut output = File::create(path)?;
+    write!(output, "We will generate a digest of this text")?;
+
+    let input = File::open(path)?;
+    let mut reader = BufReader::new(input);
+    let mut context = Context::new(&SHA256);
+
+    loop {
+        let mut buffer = [0; 1024];
+        let count = reader.read(&mut buffer[..])?;
+        if count == 0 {
+            break;
+        }
+        context.update(&buffer[..count]);
+    }
+
+    let digest = context.finish();
+    // digest.as_ref() provides the digest as a byte slice: &[u8]
+    println!("SHA-256 digest is {}", HEXUPPER.encode(digest.as_ref()));
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
@@ -773,6 +831,8 @@ fn run() -> Result<()> {
 [bitflags]: https://docs.rs/bitflags/
 [byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
+[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
+[data-encoding]: https://github.com/ia0/data-encoding
 [lazy_static]: https://docs.rs/lazy_static/
 [lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
@@ -783,6 +843,8 @@ fn run() -> Result<()> {
 [regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
 [memmap]: https://docs.rs/memmap/
 [memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
+[ring]: https://docs.rs/ring/
+[ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
 
 <!-- API links -->
 
@@ -818,6 +880,7 @@ fn run() -> Result<()> {
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
 [`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
+[`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 
 <!-- Reference -->
 
