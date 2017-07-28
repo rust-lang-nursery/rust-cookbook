@@ -755,21 +755,21 @@ fn run() -> Result<()> {
 
 [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-filesystem-badge]][cat-filesystem]
 
-Writes some data to a file, then calculates the SHA-256 digest of
+Writes some data to a file, then calculates the SHA-256 [digest] of
 the file's contents using [`digest::Context`].
 
 ```rust
 # #[macro_use]
 # extern crate error_chain;
-
+#
 extern crate data_encoding;
 extern crate ring;
 
 use data_encoding::HEXUPPER;
-use ring::digest::{Context, SHA256};
+use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;
 use std::io::{BufReader, Read, Write};
-
+#
 # error_chain! {
 #     foreign_links {
 #         Io(std::io::Error);
@@ -777,16 +777,8 @@ use std::io::{BufReader, Read, Write};
 #     }
 # }
 
-fn run() -> Result<()> {
-    let path = "file.txt";
-
-    let mut output = File::create(path)?;
-    write!(output, "We will generate a digest of this text")?;
-
-    let input = File::open(path)?;
-    let mut reader = BufReader::new(input);
+fn sha256_digest_from_read<R: Read>(mut reader: R) -> Result<Digest> {
     let mut context = Context::new(&SHA256);
-
     loop {
         let mut buffer = [0; 1024];
         let count = reader.read(&mut buffer[..])?;
@@ -796,7 +788,19 @@ fn run() -> Result<()> {
         context.update(&buffer[..count]);
     }
 
-    let digest = context.finish();
+    Ok(context.finish())
+}
+
+fn run() -> Result<()> {
+    let path = "file.txt";
+
+    let mut output = File::create(path)?;
+    write!(output, "We will generate a digest of this text")?;
+
+    let input = File::open(path)?;
+    let reader = BufReader::new(input);
+    let digest = sha256_digest_from_read(reader)?;
+
     // digest.as_ref() provides the digest as a byte slice: &[u8]
     println!("SHA-256 digest is {}", HEXUPPER.encode(digest.as_ref()));
 
@@ -832,7 +836,7 @@ fn run() -> Result<()> {
 [byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
 [data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
-[data-encoding]: https://github.com/ia0/data-encoding
+[data-encoding]: https://docs.rs/data-encoding/
 [lazy_static]: https://docs.rs/lazy_static/
 [lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
@@ -881,6 +885,7 @@ fn run() -> Result<()> {
 [`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
+[digest]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
 
 <!-- Reference -->
 
