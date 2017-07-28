@@ -35,6 +35,8 @@ community. It needs and welcomes help. For details see
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
+| [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-filesystem-badge]][cat-filesystem] |
+
 
 ## [Encoding](encoding.html)
 
@@ -200,6 +202,8 @@ Keep lines sorted.
 [regex]: https://docs.rs/regex/
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
+[ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
+[ring]: https://docs.rs/ring/
 [same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
 [same_file]: https://docs.rs/same-file/
 [select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
@@ -276,6 +280,7 @@ Keep lines sorted.
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
 [ex-serialize-csv]: encoding.html#ex-serialize-csv
+[ex-sha-digest]: basics.html#ex-sha-digest
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-tar-compress]: app.html#ex-tar-compress
 [ex-tar-decompress]: app.html#ex-tar-decompress

@@ -553,7 +553,7 @@ fn run() -> Result<()> {
 [base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
 [data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
-[data-encoding]: https://github.com/ia0/data-encoding
+[data-encoding]: https://docs.rs/data-encoding/
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
 [toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
