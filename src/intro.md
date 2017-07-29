@@ -35,7 +35,7 @@ community. It needs and welcomes help. For details see
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
-| [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 
 
 ## [Encoding](encoding.html)
@@ -135,6 +135,8 @@ Keep lines sorted.
 [cat-compression]: https://crates.io/categories/compression
 [cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
 [cat-concurrency]: https://crates.io/categories/concurrency
+[cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
+[cat-cryptography]: https://crates.io/categories/cryptography
 [cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
 [cat-science]: https://crates.io/categories/science
 [cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
@@ -173,7 +175,7 @@ Keep lines sorted.
 [csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
 [csv]: https://docs.rs/csv/
 [data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
-[data-encoding]: https://github.com/ia0/data-encoding
+[data-encoding]: https://docs.rs/data-encoding/
 [env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
 [flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2

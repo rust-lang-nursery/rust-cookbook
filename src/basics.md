@@ -17,7 +17,7 @@
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
-| [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -753,15 +753,14 @@ fn run() -> Result<()> {
 <a name="ex-sha-digest"></a>
 ## Calculate the SHA-256 digest of a file
 
-[![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-filesystem-badge]][cat-filesystem]
+[![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-cryptography-badge]][cat-cryptography]
 
-Writes some data to a file, then calculates the SHA-256 [digest] of
+Writes some data to a file, then calculates the SHA-256 [`digest::Digest`] of
 the file's contents using [`digest::Context`].
 
 ```rust
 # #[macro_use]
 # extern crate error_chain;
-#
 extern crate data_encoding;
 extern crate ring;
 
@@ -777,7 +776,7 @@ use std::io::{BufReader, Read, Write};
 #     }
 # }
 
-fn sha256_digest_from_read<R: Read>(mut reader: R) -> Result<Digest> {
+fn sha256_digest<R: Read>(mut reader: R) -> Result<Digest> {
     let mut context = Context::new(&SHA256);
     loop {
         let mut buffer = [0; 1024];
@@ -799,7 +798,7 @@ fn run() -> Result<()> {
 
     let input = File::open(path)?;
     let reader = BufReader::new(input);
-    let digest = sha256_digest_from_read(reader)?;
+    let digest = sha256_digest(reader)?;
 
     // digest.as_ref() provides the digest as a byte slice: &[u8]
     println!("SHA-256 digest is {}", HEXUPPER.encode(digest.as_ref()));
@@ -816,6 +815,8 @@ fn run() -> Result<()> {
 [cat-no-std]: https://crates.io/categories/no-std
 [cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
 [cat-caching]: https://crates.io/categories/caching
+[cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
+[cat-cryptography]: https://crates.io/categories/cryptography
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
 [cat-encoding]: https://crates.io/categories/encoding
 [cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
@@ -885,7 +886,7 @@ fn run() -> Result<()> {
 [`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
-[digest]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
+[`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
 
 <!-- Reference -->
 
