@@ -14,7 +14,7 @@ contribute to, and an easy to way get involved with the Rust
 community. It needs and welcomes help. For details see
 [CONTRIBUTING.md].
 
-[CONTRIBUTING.md]: https://github.com/brson/rust-cookbook/blob/master/CONTRIBUTING.md
+[CONTRIBUTING.md]: https://github.com/rust-lang-nursery/rust-cookbook/blob/master/CONTRIBUTING.md
 
 ## [Basics](basics.html)
 

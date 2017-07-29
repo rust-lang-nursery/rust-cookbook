@@ -1,7 +1,7 @@
 # A Rust Cookbook &emsp; [![Build Status]][travis]
 
-[Build Status]: https://api.travis-ci.org/brson/rust-cookbook.svg?branch=master
-[travis]: https://travis-ci.org/brson/rust-cookbook
+[Build Status]: https://api.travis-ci.org/rust-lang-nursery/rust-cookbook.svg?branch=master
+[travis]: https://travis-ci.org/rust-lang-nursery/rust-cookbook
 
 **[Read it here]**.
 
@@ -12,7 +12,7 @@ using the crates of the Rust ecosystem.
 These examples are complete, and suitable for copying directly into
 new cargo projects. They are tested and guaranteed to work.
 
-[Read it here]: https://brson.github.io/rust-cookbook
+[Read it here]: https://rust-lang-nursery.github.io/rust-cookbook
 
 ## Contributing
 
@@ -22,7 +22,7 @@ community. It needs and welcomes help.
 
 For details see [CONTRIBUTING.md] on GitHub.
 
-[CONTRIBUTING.md]: https://github.com/brson/rust-cookbook/blob/master/CONTRIBUTING.md
+[CONTRIBUTING.md]: https://github.com/rust-lang-nursery/rust-cookbook/blob/master/CONTRIBUTING.md
 
 ## License
 

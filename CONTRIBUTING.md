@@ -13,7 +13,7 @@ contribute to. Help is welcome.
 To start, clone the cookbook from git and navigate to that directory:
 
 ```
-git clone https://github.com/brson/rust-cookbook.git
+git clone https://github.com/rust-lang-nursery/rust-cookbook.git
 cd rust-cookbook
 ```
 
@@ -82,9 +82,9 @@ Contribution will be open to a broader set of crates in the future.
 For more about which crates are represented in the cookbook, see ["a
 note about crate representation"][which-crates] in the cookbook.
 
-[example]: https://github.com/brson/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3Aexample
-[tracking issue]: https://github.com/brson/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3A%22tracking+issue%22
-[which-crates]: https://brson.github.io/rust-cookbook/about.html#a-note-about-crate-representation
+[example]: https://github.com/rust-lang-nursery/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3Aexample
+[tracking issue]: https://github.com/rust-lang-nursery/rust-cookbook/issues?q=is%3Aissue+is%3Aopen+label%3A%22tracking+issue%22
+[which-crates]: https://rust-lang-nursery.github.io/rust-cookbook/about.html#a-note-about-crate-representation
 [libz blitz]: https://internals.rust-lang.org/t/rust-libz-blitz/5184
 
 ## Adding an example
@@ -100,7 +100,7 @@ Adding an example involves:
 
 The finished commit will look something like [this one].
 
-[this one]: https://github.com/brson/rust-cookbook/commit/e698443f2af08d3106d953c68c1977eba3c3526c
+[this one]: https://github.com/rust-lang-nursery/rust-cookbook/commit/e698443f2af08d3106d953c68c1977eba3c3526c
 
 Examples are presently organized in three ways:
 
@@ -121,7 +121,7 @@ but since the cookbook is so new, quite possibly not. Ask on thread.
 For most steps you can simply follow the lead of existing examples.
 The art comes in writing effective examples.
 
-["how to read this book"]: https://brson.github.io/rust-cookbook/about.html#how-to-read-this-book
+["how to read this book"]: https://rust-lang-nursery.github.io/rust-cookbook/about.html#how-to-read-this-book
 
 ## Example guidelines
 
@@ -162,7 +162,7 @@ supports the use case and might not be obvious to someone new. Say the
 minimum possible about aspects that don't directly support the use
 case. See ["basics"] for examples.
 
-["basics"]: https://brson.github.io/rust-cookbook/basics.html
+["basics"]: https://rust-lang-nursery.github.io/rust-cookbook/basics.html
 
 Hyperlink all references to APIs, either on doc.rust-lang.org/std or
 docs.rs, and style them as `code`.
@@ -171,4 +171,4 @@ Finally, this book is intended to also demonstrate the integration
 of crates that work well together. Super bonus points for examples
 that feature multiple crates sensibly.
 
-[errors]: https://brson.github.io/rust-cookbook/about.html#a-note-about-error-handling
+[errors]: https://rust-lang-nursery.github.io/rust-cookbook/about.html#a-note-about-error-handling

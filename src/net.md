@@ -396,7 +396,7 @@ struct User {
 
 fn run() -> Result<()> {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
-                              owner = "brson",
+                              owner = "rust-lang-nursery",
                               repo = "rust-cookbook");
     println!("{}", request_url);
     let mut response = reqwest::get(&request_url)?;
