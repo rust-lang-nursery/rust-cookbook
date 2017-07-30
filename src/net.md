@@ -286,7 +286,7 @@ use std::io::Read;
 # error_chain! {
 #     foreign_links {
 #         Io(std::io::Error);
-#         HttpReqest(reqwest::Error);
+#         HttpRequest(reqwest::Error);
 #     }
 # }
 
@@ -330,7 +330,7 @@ use tempdir::TempDir;
 # error_chain! {
 #     foreign_links {
 #         Io(std::io::Error);
-#         HttpReqest(reqwest::Error);
+#         HttpRequest(reqwest::Error);
 #     }
 # }
 
@@ -563,7 +563,7 @@ use std::env;
 # error_chain! {
 #     foreign_links {
 #         EnvVar(env::VarError);
-#         HttpReqest(reqwest::Error);
+#         HttpRequest(reqwest::Error);
 #     }
 # }
 
@@ -756,7 +756,7 @@ use reqwest::Client;
 #
 # error_chain! {
 #     foreign_links {
-#         HttpReqest(reqwest::Error);
+#         HttpRequest(reqwest::Error);
 #         IoError(::std::io::Error);
 #     }
 # }
