@@ -652,41 +652,36 @@ fn main() {
 <a name="ex-phone"></a>
 ## Extract phone numbers from text
 
+[![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
+
 Processes a string of text using [`Regex::captures_iter`] to capture multiple
 phone numbers.  The example here is for US convention phone numbers.
 
-```rust, no_run
+```rust
 # #[macro_use]
 # extern crate error_chain;
 extern crate regex;
 
 use regex::Regex;
 use std::fmt;
-
+#
 # error_chain!{
 #     foreign_links {
 #         Regex(regex::Error);
 #         Io(std::io::Error);
 #     }
 # }
-#
-#[derive(PartialEq, PartialOrd, Debug)]
-struct PhoneNumber {
-    area: &'static str,
-    exchange: &'static str,
-    subscriber: &'static str,
+
+struct PhoneNumber<'a> {
+    area: &'a str,
+    exchange: &'a str,
+    subscriber: &'a str,
 }
 
 // Allows printing phone numbers based on country convention.
-impl fmt::Display for PhoneNumber {
+impl<'a> fmt::Display for PhoneNumber<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "1 ({}) {}-{}",
-            &self.area,
-            &self.exchange,
-            &self.subscriber
-        )
+        write!(f, "1 ({}) {}-{}", self.area, self.exchange, self.subscriber)
     }
 }
 
@@ -697,56 +692,49 @@ fn run() -> Result<()> {
     Alex 5553920011
     1 (800) 233-2010
     1.299.339.1020";
+
     let re = Regex::new(
-        r"(?x)
-                        (?:\+?1)?                         # Country Code Optional
-                        [\s\.]?
-                        (([2-9]\d{2})|\(([2-9]\d{2})\))  # Area Code
-                        [\s\.\-]?
-                        ([2-9]\d{2})                     # Exchange Code
-                        [\s\.\-]?
-                        (\d{4})                          #Subscriber Number",
+        r#"(?x)
+          (?:\+?1)?                       # Country Code Optional
+          [\s\.]?
+          (([2-9]\d{2})|\(([2-9]\d{2})\)) # Area Code
+          [\s\.\-]?
+          ([2-9]\d{2})                    # Exchange Code
+          [\s\.\-]?
+          (\d{4})                         # Subscriber Number"#,
     )?;
-    let mut phone_numbers = re.captures_iter(phone_text).map(|cap| {
-        // Area code populates either capture group 2 or 3.  Group 1 contains optional paranthesis.
-        PhoneNumber {
-            area: if cap.get(2) == None {
-                cap.get(3).map_or("", |m| m.as_str())
-            } else {
-                cap.get(2).map_or("", |m| m.as_str())
-            },
-            exchange: cap.get(4).map_or("", |m| m.as_str()),
-            subscriber: cap.get(5).map_or("", |m| m.as_str()),
+
+    let phone_numbers = re.captures_iter(phone_text).filter_map(|cap| {
+        // Area code populates either capture group 2 or 3.
+        // Group 1 contains optional parenthesis.
+        let groups = (cap.get(2).or(cap.get(3)), cap.get(4), cap.get(5));
+        match groups {
+            (Some(area), Some(ext), Some(sub)) => Some(PhoneNumber {
+                area: area.as_str(),
+                exchange: ext.as_str(),
+                subscriber: sub.as_str(),
+            }),
+            _ => None,
         }
-    });    assert_eq!(
-        phone_numbers.next().map(|m| m.to_string()),
-        Some("1 (505) 881-9292".to_owned())
-    );
+    });
+
     assert_eq!(
-        phone_numbers.next().map(|m| m.to_string()),
-        Some("1 (505) 778-2212".to_owned())
+        phone_numbers.map(|m| m.to_string()).collect::<Vec<_>>(),
+        vec![
+            "1 (505) 881-9292",
+            "1 (505) 778-2212",
+            "1 (505) 881-9297",
+            "1 (202) 991-9534",
+            "1 (555) 392-0011",
+            "1 (800) 233-2010",
+            "1 (299) 339-1020",
+        ]
     );
-    assert_eq!(
-        phone_numbers.next().map(|m| m.to_string()),
-        Some("1 (505) 881-9297".to_owned())
-    );
-    assert_eq!(
-        phone_numbers.next().map(|m| m.to_string()),
-        Some("1 (202) 991-9534".to_owned())
-    );
-    assert_eq!(
-        phone_numbers.next().map(|m| m.to_string()),
-        Some("1 (555) 392-0011".to_owned())
-    );
-    assert_eq!(
-        phone_numbers.next().map(|m| m.to_string()),
-        Some("1 (800) 233-2010".to_owned())
-    );
+
     Ok(())
 }
 #
 # quick_main!(run);
-
 ```
 
 [ex-sha-digest]: #ex-sha-digest
