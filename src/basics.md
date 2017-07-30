@@ -6,7 +6,7 @@
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate random numbers][ex-rand] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
-| [Generate random distributions][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
@@ -120,24 +120,29 @@ fn decode(mut bytes: &[u8]) -> Result<Payload> {
 <a name="ex-rand"></a>
 ## Generate random numbers
 
-The [`rand`] crate provides a convenient source of pseudo-random numbers.
-
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
+
+The [rand] crate provides a convenient source of pseudo-random numbers.
+Numbers are generated with with help of a random-number
+generator [`rand::Rng`] obtained via [`rand::thread_rng`].
 
 ```rust
 extern crate rand;
+
 use rand::Rng;
 
 fn main() {
     // Each thread has an automatically-initialised random number generator:
     let mut rng = rand::thread_rng();
-    
+
     // Integers are uniformly distributed over the type's whole range:
     let n1: u8 = rng.gen();
     let n2: u16 = rng.gen();
-    println!("Random u8: {}; random u16: {}", n1, n2);
+    println!("Random u8: {}", n1);
+    println!("Random u16: {}", n2);
+    println!("Random u32: {}", rng.gen::<u32>());
     println!("Random i32: {}", rng.gen::<i32>());
-    
+
     // Floating point numbers are uniformly distributed in the half-open range [0, 1)
     println!("Random float: {}", rng.gen::<f64>());
 }
@@ -149,7 +154,7 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-Generates a random value within `[0, 10)` range (not including `10`) with [`Rng::gen_range`].
+Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::gen_range`].
 
 ```rust
 extern crate rand;
@@ -163,7 +168,7 @@ fn main() {
 }
 ```
 
-Alternatively, one can use the [`Range`] distribution (otherwise known as uniform).
+Alternatively, one can use [`Range`] to obtain values with [uniform distribution].
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.
 
@@ -175,7 +180,7 @@ use rand::distributions::{Range, IndependentSample};
 fn main() {
     let mut rng = rand::thread_rng();
     let die = Range::new(1, 7);
-    
+
     loop {
         let throw = die.ind_sample(&mut rng);
         println!("Roll the die: {}", throw);
@@ -189,15 +194,16 @@ fn main() {
 
 [ex-rand-dist]: #ex-rand-dist
 <a name="ex-rand-dist"></a>
-## Random number distributions
+
+## Generate random numbers with given distribution
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-By default, random numbers are generated with a uniform distribution.
-To generate numbers with other distributions you create a
-distribution, then sample from that distribution (using
-[`IndependentSample::ind_sample`]) with the help of a random-number
-generator (`rng`).
+By default, random numbers are generated with [uniform distribution].
+To generate numbers with other distributions you instantiate a
+distribution, then sample from that distribution using
+[`IndependentSample::ind_sample`] with help of a random-number
+generator [`rand::Rng`].
 
 The [distributions available are documented here][rand-distributions]. An example using the
 [`Normal`] distribution is shown below.
@@ -209,7 +215,7 @@ use rand::distributions::{Normal, IndependentSample};
 
 fn main() {
     let mut rng = rand::thread_rng();
-    
+
     // mean 2, standard deviation 3:
     let normal = Normal::new(2.0, 3.0);
     let v = normal.ind_sample(&mut rng);
@@ -228,6 +234,7 @@ Implements the [`rand::Rand`] trait for `Point` in order to allow random generat
 
 ```rust
 extern crate rand;
+
 use rand::{Rng, Rand};
 
 #[derive(Debug)]
@@ -766,9 +773,10 @@ use std::io::{BufReader, Read, Write};
 
 fn sha256_digest<R: Read>(mut reader: R) -> Result<Digest> {
     let mut context = Context::new(&SHA256);
+    let mut buffer = [0; 1024];
+
     loop {
-        let mut buffer = [0; 1024];
-        let count = reader.read(&mut buffer[..])?;
+        let count = reader.read(&mut buffer)?;
         if count == 0 {
             break;
         }
@@ -853,7 +861,6 @@ fn run() -> Result<()> {
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
-[`rand`]: https://doc.rust-lang.org/rand
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`Regex::replace_all`]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#method.replace_all
@@ -862,6 +869,8 @@ fn run() -> Result<()> {
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
+[`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
+[`rand::thread_rng`]: https://doc.rust-lang.org/rand/rand/fn.thread_rng.html
 [`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
 [`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
 [replacement string syntax]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#replacement-string-syntax
@@ -881,3 +890,4 @@ fn run() -> Result<()> {
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
 [raw string literals]: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
 [twitter hashtag regex]: https://github.com/twitter/twitter-text/blob/master/java/src/com/twitter/Regex.java#L255
+[uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)
