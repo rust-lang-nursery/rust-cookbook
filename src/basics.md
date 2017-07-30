@@ -120,7 +120,7 @@ fn decode(mut bytes: &[u8]) -> Result<Payload> {
 <a name="ex-rand"></a>
 ## Generate random numbers
 
-The [`rand`] crate provides a convenient source of psuedo-random numbers.
+The [`rand`] crate provides a convenient source of pseudo-random numbers.
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
@@ -583,7 +583,7 @@ fn main() {
 
 Extracts a sorted and deduplicated list of hashtags from a text.
 
-The hashtag regex given here only catches latin hashtags that start with a letter. The complete [twitter hashtag regex] is way more complicated.
+The hashtag regex given here only catches Latin hashtags that start with a letter. The complete [twitter hashtag regex] is way more complicated.
 
 ```rust
 extern crate regex;
@@ -616,8 +616,8 @@ fn main() {
 
 [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
 
-Replaces all occurences of the hyphenated british english date pattern `2013-01-15` 
-with its equivalent slashed american english date pattern `01/15/2013`.
+Replaces all occurrences of the hyphenated British English date pattern `2013-01-15` 
+with its equivalent slashed American English date pattern `01/15/2013`.
 
 The method [`Regex::replace_all`] replaces all occurrences of the whole regex. The
 `Replacer` trait helps to figure out the replacement string. This trait is implemented

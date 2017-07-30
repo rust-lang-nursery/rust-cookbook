@@ -21,7 +21,7 @@ common tasks.
 The cookbook [index] contains the full list of recipes, organized into
 a number of sections: "basics", "encoding", "concurrency", etc.  The
 sections themselves are more or less ordered in progression, with
-later sections being more advanced, and occassionally building on
+later sections being more advanced, and occasionally building on
 concepts from earlier sections.
 
 Within the index, each section contains a list of recipes. The recipes

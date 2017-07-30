@@ -256,8 +256,8 @@ fn run() -> Result<()> {
 [![same_file-badge]][same_file] [![cat-filesystem-badge]][cat-filesystem]
 
 Use [`same_file::is_same_file`] to detect loops for a given path.
-For example, a loop could be created on a unix system via sym links:
-```
+For example, a loop could be created on a Unix system via symlinks:
+```bash
 mkdir -p /tmp/foo/bar/baz
 ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 ```
@@ -301,7 +301,7 @@ fn main() {
 
 [![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
 
-Find recusively in the current directory duplicate filenames,
+Find recursively in the current directory duplicate filenames,
 printing them only once.
 
 ```rust,no_run
@@ -452,11 +452,11 @@ fn main() {
 
 [![glob-badge]][glob] [![cat-filesystem-badge]][cat-filesystem]
 
-Recursively find all png files in the current directory.
+Recursively find all PNG files in the current directory.
 In this case, the `**` pattern matches the current directory and all subdirectories.
 
 You can also use the `**` pattern for any directory, not just the current one.
-For example, `/media/**/*.png` would match all pngs in `media` and it's subdirectories.
+For example, `/media/**/*.png` would match all PNGs in `media` and it's subdirectories.
 
 ```rust,no_run
 # #[macro_use]
