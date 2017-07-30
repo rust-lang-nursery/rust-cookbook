@@ -122,8 +122,7 @@ fn decode(mut bytes: &[u8]) -> Result<Payload> {
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-The [rand] crate provides a convenient source of pseudo-random numbers.
-Numbers are generated with with help of a random-number
+Generates random numbers with help of random-number
 generator [`rand::Rng`] obtained via [`rand::thread_rng`].
 
 ```rust
