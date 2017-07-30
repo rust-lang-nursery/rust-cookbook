@@ -589,7 +589,7 @@ fn main() {
 
 Extracts a sorted and deduplicated list of hashtags from a text.
 
-The hashtag regex given here only catches Latin hashtags that start with a letter. The complete [twitter hashtag regex] is way more complicated.
+The hashtag regex given here only catches Latin hashtags that start with a letter. The complete [twitter hashtag regex] is much more complicated.
 
 ```rust
 extern crate regex;
@@ -888,5 +888,5 @@ fn run() -> Result<()> {
 
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
 [raw string literals]: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
-[twitter hashtag regex]: https://github.com/twitter/twitter-text/blob/master/java/src/com/twitter/Regex.java#L255
+[twitter hashtag regex]: https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255
 [uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)
