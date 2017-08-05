@@ -837,7 +837,7 @@ fn run() -> Result<()> {
 [lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.17.0-blue.svg
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.19.0-blue.svg
 [std]: https://doc.rust-lang.org/std
 [regex]: https://docs.rs/regex/
 [regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex

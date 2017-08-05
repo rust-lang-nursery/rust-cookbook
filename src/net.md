@@ -969,7 +969,7 @@ fn run() -> Result<()> {
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde]: https://docs.rs/serde/
 [std]: https://doc.rust-lang.org/std
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.17.0-blue.svg
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.19.0-blue.svg
 [tempdir-badge]: https://badge-cache.kominick.com/crates/v/tempdir.svg?label=tempdir
 [tempdir]: https://docs.rs/tempdir/
 [url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
