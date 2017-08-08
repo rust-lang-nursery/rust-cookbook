@@ -476,10 +476,10 @@ struct Record {
 
 fn run() -> Result<()> {
     let data = "name,place,id
-                mark,sydney,46.5
-                ashley,zurich,92
-                akshat,delhi,37
-                alisha,colombo,xyz";
+mark,sydney,46.5
+ashley,zurich,92
+akshat,delhi,37
+alisha,colombo,xyz";
 
     let mut rdr = csv::Reader::from_reader(data.as_bytes());
     for result in rdr.deserialize() {
@@ -529,8 +529,8 @@ use csv::ReaderBuilder;
 
 fn run() -> Result<()> {
     let data = "name-place-id
-        Mark-Melbourne-46
-        Ashley-Zurich-92";
+Mark-Melbourne-46
+Ashley-Zurich-92";
 
     let mut reader = ReaderBuilder::new().delimiter(b'-').from_reader(data.as_bytes());
     for result in reader.records() {
