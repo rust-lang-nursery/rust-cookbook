@@ -30,6 +30,7 @@ community. It needs and welcomes help. For details see
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Verify and extract login from an email address][ex-verify-extract-email] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
@@ -268,6 +269,7 @@ Keep lines sorted.
 [ex-invalid-csv]: encoding.html#ex-invalid-csv
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
+[ex-verify-extract-email]: basics.html#ex-verify-extract-email
 [ex-percent-encode]: encoding.html#ex-percent-encode
 [ex-phone]: basics.html#ex-phone
 [ex-rand-custom]: basics.html#ex-rand-custom
