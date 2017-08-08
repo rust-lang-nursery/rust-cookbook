@@ -12,13 +12,13 @@
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
-| [Verify and extract login from an email address][ex-verify-extract-email] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
-| [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
+| [Verify and extract login from an email address][ex-verify-extract-email] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Extract a list of unique #Hashtags from a text][ex-extract-hashtags] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
+| [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
+| [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -478,7 +478,7 @@ fn run() -> Result<()> {
 <a name="ex-verify-extract-email"></a>
 ## Verify and extract login from an email address
 
-[![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
+[![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
 
 Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol.
@@ -514,114 +514,6 @@ fn main() {
 }
 ```
 
-[ex-random-file-access]: #ex-random-file-access
-<a name="ex-random-file-access"></a>
-## Access a file randomly using a memory map
-
-[![memmap-badge]][memmap] [![cat-filesystem-badge]][cat-filesystem]
-
-Creates a memory map of a file using [memmap] and simulates some non-sequential
-reads from the file. Using a memory map means you just index into a slice rather
-than dealing with [`seek`]ing around in a File.
-
-The [`Mmap::as_slice`] function is only safe if we can guarantee that the file
-behind the memory map is not being modified at the same time by another process,
-as this would be a [race condition][race-condition-file].
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate memmap;
-
-use memmap::{Mmap, Protection};
-# use std::fs::File;
-# use std::io::Write;
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-
-fn run() -> Result<()> {
-#     write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
-#
-    let map = Mmap::open_path("content.txt", Protection::Read)?;
-    let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
-    // This is only safe if no other code is modifying the file at the same time
-    unsafe {
-        let map = map.as_slice();
-        assert_eq!(&map[3..13], b"hovercraft");
-        // I'm using an iterator here to change indexes to bytes
-        let random_bytes: Vec<u8> = random_indexes.iter()
-            .map(|&idx| map[idx])
-            .collect();
-        assert_eq!(&random_bytes[..], b"My loaf!");
-    }
-    Ok(())
-}
-#
-# quick_main!(run);
-```
-
-[ex-bitflags]: #ex-bitflags
-<a name="ex-bitflags"></a>
-## Define and operate on a type represented as a bitfield
-
-[![bitflags-badge]][bitflags] [![cat-no-std-badge]][cat-no-std]
-
-Creates typesafe bitfield type `MyFlags` with help of [`bitflags!`] macro
-and implements elementary `clear` operation as well as [`Display`] trait for it.
-Subsequently, shows basic bitwise operations and formatting.
-
-```rust
-#[macro_use]
-extern crate bitflags;
-
-use std::fmt;
-
-bitflags! {
-    struct MyFlags: u32 {
-        const FLAG_A       = 0b00000001;
-        const FLAG_B       = 0b00000010;
-        const FLAG_C       = 0b00000100;
-        const FLAG_ABC     = FLAG_A.bits
-                           | FLAG_B.bits
-                           | FLAG_C.bits;
-    }
-}
-
-impl MyFlags {
-    pub fn clear(&mut self) -> &mut MyFlags {
-        self.bits = 0;  // The `bits` field can be accessed from within the
-                        // same module where the `bitflags!` macro was invoked.
-        self
-    }
-}
-
-impl fmt::Display for MyFlags {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:032b}", self.bits)
-    }
-}
-
-fn main() {
-    let e1 = FLAG_A | FLAG_C;
-    let e2 = FLAG_B | FLAG_C;
-    assert_eq!((e1 | e2), FLAG_ABC);   // union
-    assert_eq!((e1 & e2), FLAG_C);     // intersection
-    assert_eq!((e1 - e2), FLAG_A);     // set difference
-    assert_eq!(!e2, FLAG_A);           // set complement
-
-    let mut flags = FLAG_ABC;
-    assert_eq!(format!("{}", flags), "00000000000000000000000000000111");
-    assert_eq!(format!("{}", flags.clear()), "00000000000000000000000000000000");
-    // Debug trait is automatically derived for the MyFlags through `bitflags!`
-    assert_eq!(format!("{:?}", FLAG_B), "FLAG_B");
-    assert_eq!(format!("{:?}", FLAG_A | FLAG_B), "FLAG_A | FLAG_B");
-}
-```
-
 [ex-extract-hashtags]: #ex-extract-hashtags
 <a name="ex-extract-hashtags"></a>
 ## Extract a list of unique #Hashtags from a text
@@ -634,7 +526,8 @@ The hashtag regex given here only catches Latin hashtags that start with a lette
 
 ```rust
 extern crate regex;
-#[macro_use] extern crate lazy_static;
+#[macro_use]
+extern crate lazy_static;
 
 use regex::Regex;
 use std::collections::HashSet;
@@ -674,7 +567,8 @@ and information about escaping.
 
 ```rust
 extern crate regex;
-#[macro_use] extern crate lazy_static;
+#[macro_use]
+extern crate lazy_static;
 
 use std::borrow::Cow;
 use regex::Regex;
@@ -839,6 +733,114 @@ fn run() -> Result<()> {
     // digest.as_ref() provides the digest as a byte slice: &[u8]
     println!("SHA-256 digest is {}", HEXUPPER.encode(digest.as_ref()));
 
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-bitflags]: #ex-bitflags
+<a name="ex-bitflags"></a>
+## Define and operate on a type represented as a bitfield
+
+[![bitflags-badge]][bitflags] [![cat-no-std-badge]][cat-no-std]
+
+Creates typesafe bitfield type `MyFlags` with help of [`bitflags!`] macro
+and implements elementary `clear` operation as well as [`Display`] trait for it.
+Subsequently, shows basic bitwise operations and formatting.
+
+```rust
+#[macro_use]
+extern crate bitflags;
+
+use std::fmt;
+
+bitflags! {
+    struct MyFlags: u32 {
+        const FLAG_A       = 0b00000001;
+        const FLAG_B       = 0b00000010;
+        const FLAG_C       = 0b00000100;
+        const FLAG_ABC     = FLAG_A.bits
+                           | FLAG_B.bits
+                           | FLAG_C.bits;
+    }
+}
+
+impl MyFlags {
+    pub fn clear(&mut self) -> &mut MyFlags {
+        self.bits = 0;  // The `bits` field can be accessed from within the
+                        // same module where the `bitflags!` macro was invoked.
+        self
+    }
+}
+
+impl fmt::Display for MyFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:032b}", self.bits)
+    }
+}
+
+fn main() {
+    let e1 = FLAG_A | FLAG_C;
+    let e2 = FLAG_B | FLAG_C;
+    assert_eq!((e1 | e2), FLAG_ABC);   // union
+    assert_eq!((e1 & e2), FLAG_C);     // intersection
+    assert_eq!((e1 - e2), FLAG_A);     // set difference
+    assert_eq!(!e2, FLAG_A);           // set complement
+
+    let mut flags = FLAG_ABC;
+    assert_eq!(format!("{}", flags), "00000000000000000000000000000111");
+    assert_eq!(format!("{}", flags.clear()), "00000000000000000000000000000000");
+    // Debug trait is automatically derived for the MyFlags through `bitflags!`
+    assert_eq!(format!("{:?}", FLAG_B), "FLAG_B");
+    assert_eq!(format!("{:?}", FLAG_A | FLAG_B), "FLAG_A | FLAG_B");
+}
+```
+
+[ex-random-file-access]: #ex-random-file-access
+<a name="ex-random-file-access"></a>
+## Access a file randomly using a memory map
+
+[![memmap-badge]][memmap] [![cat-filesystem-badge]][cat-filesystem]
+
+Creates a memory map of a file using [memmap] and simulates some non-sequential
+reads from the file. Using a memory map means you just index into a slice rather
+than dealing with [`seek`]ing around in a File.
+
+The [`Mmap::as_slice`] function is only safe if we can guarantee that the file
+behind the memory map is not being modified at the same time by another process,
+as this would be a [race condition][race-condition-file].
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate memmap;
+
+use memmap::{Mmap, Protection};
+# use std::fs::File;
+# use std::io::Write;
+#
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+#     write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
+#
+    let map = Mmap::open_path("content.txt", Protection::Read)?;
+    let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
+    // This is only safe if no other code is modifying the file at the same time
+    unsafe {
+        let map = map.as_slice();
+        assert_eq!(&map[3..13], b"hovercraft");
+        // I'm using an iterator here to change indexes to bytes
+        let random_bytes: Vec<u8> = random_indexes.iter()
+            .map(|&idx| map[idx])
+            .collect();
+        assert_eq!(&random_bytes[..], b"My loaf!");
+    }
     Ok(())
 }
 #

@@ -786,7 +786,7 @@ fn run() -> Result<()> {
 In this example, the port is displayed on the console, and the program will
 listen until a request is made.
 
-```rust, no_run
+```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
 #
