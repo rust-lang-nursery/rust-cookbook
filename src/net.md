@@ -415,9 +415,9 @@ fn run() -> Result<()> {
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-Query the [GitHub Users Endpoint](https://api.github.com/users) using a HEAD request and then inspect the
+Query the [GitHub Users Endpoint](https://api.github.com/users) using a HEAD request ([`Client::head`]) and then inspect the
 response code to determine success. This is a quick way to query a rest resource without
-needing to receive a body. You can also configure the [`reqwest::Client`] to use a timeout
+needing to receive a body. You can also configure the [`reqwest::Client`] with [`ClientBuilder::timeout`]
 which ensures that a request will not last longer than what is passed to the timeout function.
 
 ```rust,no_run
@@ -426,7 +426,7 @@ which ensures that a request will not last longer than what is passed to the tim
 extern crate reqwest;
 
 use std::time::Duration;
-use reqwest::Client;
+use reqwest::ClientBuilder;
 #
 # error_chain! {
 #     foreign_links {
@@ -435,20 +435,20 @@ use reqwest::Client;
 # }
 
 fn run() -> Result<()> {
-    let request_url = "https://api.github.com/users/ferris-the-crab";
+    let user = "ferris-the-crab";
+    let request_url = format!("https://api.github.com/users/{}", user);
     println!("{}", request_url);
 
     // The timeout for the request is set to 5 seconds.
     let timeout = Duration::new(5, 0);
 
-    let mut client = Client::new()?;
-    client.timeout(timeout);
-    let response = client.head(request_url).send()?;
+    let client = ClientBuilder::new()?.timeout(timeout).build()?;
+    let response = client.head(&request_url)?.send()?;
 
     if response.status().is_success() {
-        println!("ferris-the-crab is a user!");
+        println!("{} is a user!", user);
     } else {
-        println!("ferris-the-crab is not a user!");
+        println!("{} is not a user!", user);
     }
 
     Ok(())
@@ -513,8 +513,8 @@ fn run() -> Result<()> {
                                      &[("lang", "rust"), ("browser", "servo")])?;
 
     let mut response = client
-        .get(url)
-        .header(UserAgent("Rust-test".to_owned()))
+        .get(url)?
+        .header(UserAgent::new("Rust-test"))
         .header(Authorization(Bearer { token: "DEadBEEfc001cAFeEDEcafBAd".to_owned() }))
         .header(XPoweredBy("Guybrush Threepwood".to_owned()))
         .send()?;
@@ -592,9 +592,9 @@ fn run() -> Result<()> {
     let request_url = "https://api.github.com/gists";
     let client = reqwest::Client::new()?;
     let mut response = client
-        .post(request_url)
+        .post(request_url)?
         .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
-        .json(&gist_body)
+        .json(&gist_body)?
         .send()?;
 
     let gist: Gist = response.json()?;
@@ -604,7 +604,7 @@ fn run() -> Result<()> {
     let request_url = format!("{}/{}",request_url, gist.id);
     let client = reqwest::Client::new()?;
     let response = client
-        .delete(&request_url)
+        .delete(&request_url)?
         .basic_auth(gh_user, Some(gh_pass))
         .send()?;
 
@@ -699,7 +699,7 @@ impl ReverseDependencies {
                           self.page,
                           self.per_page);
 
-        let response = self.client.get(&url).send()?.json::<ApiResponse>()?;
+        let response = self.client.get(&url)?.send()?.json::<ApiResponse>()?;
         self.dependencies = response.dependencies.into_iter();
         self.total = response.meta.total;
         Ok(self.dependencies.next())
@@ -767,7 +767,7 @@ fn run() -> Result<()> {
     let client = Client::new()?;
 
     // blocks until paste.rs returns a response
-    let mut response = client.post(paste_api).body(file).send()?;
+    let mut response = client.post(paste_api)?.body(file).send()?;
     let mut response_body = String::new();
     response.read_to_string(&mut response_body)?;
     println!("Your paste is located at: {}", response_body);
@@ -981,8 +981,10 @@ fn run() -> Result<()> {
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [OAuth]: https://oauth.net/getting-started/
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
+[`ClientBuilder::timeout`]: https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.timeout
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
+[`Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
 [`Cow`]: https://doc.rust-lang.org/std/borrow/enum.Cow.html
 [`Document::from_read`]: https://docs.rs/select/*/select/document/struct.Document.html#method.from_read
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
