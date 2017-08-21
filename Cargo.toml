@@ -45,7 +45,7 @@ url = "1.5"
 walkdir = "1.0.7"
 
 [target.'cfg(target_os = "linux")'.dependencies]
-syslog = "3.2.0"
+syslog = "3.3.0"
 
 [build-dependencies]
 skeptic = "0.12"
