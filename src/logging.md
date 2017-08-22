@@ -386,6 +386,7 @@ with [`syslog::init`]. [`syslog::Facility`] indicates type of program submitting
 and `Option<&str>` holds optional application name.
 
 ```rust,no_run
+# #![allow(unused_imports)]
 # #[macro_use]
 # extern crate error_chain;
 #[macro_use]
@@ -397,6 +398,7 @@ use log::LogLevelFilter;
 # #[cfg(target_os = "linux")]
 use syslog::Facility;
 #
+# #[cfg(target_os = "linux")]
 # error_chain! {
 #     foreign_links {
 #         SetLogger(syslog::SyslogError);
@@ -413,6 +415,8 @@ fn run() -> Result<()> {
     Ok(())
 }
 #
+# #[cfg(not(target_os = "linux"))]
+# error_chain! {}
 # #[cfg(not(target_os = "linux"))]
 # fn run() -> Result<()> {
 #     Ok(())

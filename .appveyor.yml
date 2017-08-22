@@ -6,8 +6,8 @@ environment:
     CRATE_NAME: rust-cookbook
 
   matrix:
-    - TARGET: x86_64-pc-windows-gnu
-      RUST_VERSION: stable
+    # - TARGET: x86_64-pc-windows-gnu
+    #  RUST_VERSION: stable
     - TARGET: x86_64-pc-windows-msvc
       RUST_VERSION: stable
     - TARGET: x86_64-pc-windows-msvc
