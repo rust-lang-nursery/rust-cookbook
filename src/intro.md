@@ -53,6 +53,7 @@ community. It needs and welcomes help. For details see
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Read CSV records with different delimeter][ex-csv-delimiter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
+| [Filter CSV records matching a predicate][ex-csv-filter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -300,3 +301,4 @@ Keep lines sorted.
 [ex-urlencoded]: encoding.html#ex-urlencoded
 [ex-random-file-access]: basics.html#ex-random-file-access
 [ex-regex-replace-named]: basics.html#ex-regex-replace-named
+[ex-csv-filter]: encoding.html#ex-csv-filter
