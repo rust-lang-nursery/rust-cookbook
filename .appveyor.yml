@@ -1,17 +1,48 @@
+# Based on the "trust" template v0.1.1
+# https://github.com/japaric/trust/tree/v0.1.1
+
 environment:
+  global:
+    CRATE_NAME: rust-cookbook
+
   matrix:
-  - TARGET: x86_64-pc-windows-msvc
+    - TARGET: x86_64-pc-windows-gnu
+      RUST_VERSION: stable
+    - TARGET: x86_64-pc-windows-msvc
+      RUST_VERSION: stable
+    - TARGET: x86_64-pc-windows-msvc
+      RUST_VERSION: nightly
 
 install:
-  - appveyor-retry appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
-  - rustup-init.exe -y --default-host x86_64-pc-windows-msvc
+  - ps: >-
+      If ($Env:TARGET -eq 'x86_64-pc-windows-gnu') {
+        $Env:PATH += ';C:\msys64\mingw64\bin'
+      } ElseIf ($Env:TARGET -eq 'i686-pc-windows-gnu') {
+        $Env:PATH += ';C:\msys64\mingw32\bin'
+      }
+  - curl -sSf -o rustup-init.exe https://win.rustup.rs/
+  - rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
   - set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
-  - rustc -vV
-  - cargo -vV
-  - cargo install mdbook --vers '0.0.22' --debug
-
-build: false
+  - rustc -Vv
+  - cargo -V
 
 test_script:
+  - cargo build
   - cargo test
-  - mdbook build
+
+cache:
+  - C:\Users\appveyor\.cargo\registry
+  - target
+
+branches:
+  only:
+    # Release tags
+    - /^v\d+\.\d+\.\d+.*$/
+    - master
+
+notifications:
+  - provider: Email
+    on_build_success: false
+
+# Building is done in the test phase, so we disable Appveyor's build phase.
+build: false
