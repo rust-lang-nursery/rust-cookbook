@@ -6,6 +6,7 @@
 | [Decompress a tarball][ex-tar-decompress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Compress a directory into a tarball][ex-tar-compress] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
 | [Decompress a tarball while removing a prefix from the paths][ex-tar-strip-prefix] | [![flate2-badge]][flate2] [![tar-badge]][tar] | [![cat-compression-badge]][cat-compression] |
+| [Avoid writing and reading from a same file][ex-avoid-read-write] | [![same_file-badge]][same_file] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find loops for a given path][ex-find-file-loops] | [![same_file-badge]][same_file] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
@@ -247,6 +248,62 @@ fn run() -> Result<()> {
 }
 #
 # quick_main!(run);
+```
+
+[ex-avoid-read-write]: #ex-avoid-read-write
+<a name="ex-avoid-read-write"></a>
+## Avoid writing and reading from a same file
+
+[![same_file-badge]][same_file] [![cat-filesystem-badge]][cat-filesystem]
+
+Use [`same_file::Handle`] to a file that can be tested for equality with
+other handles. In this example, the handles of file to be read from and
+to be written to are tested for equality.
+```bash
+cargo run
+```
+will display the contents of the file if the two files are not same and
+```bash
+cargo run >> ./new.txt
+```
+will display the error (because the two files are same).
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate same_file;
+
+use same_file::Handle;
+use std::path::Path;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+#
+# error_chain! {
+#     foreign_links {
+#          IOError(::std::io::Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let path_to_read = Path::new("new.txt");
+
+    let stdout_handle = Handle::stdout()?;
+    let handle = Handle::from_path(path_to_read)?;
+
+    if stdout_handle == handle {
+        bail!("You are reading and writing to the same file");
+    } else {
+        let file = File::open(&path_to_read)?;
+        let file = BufReader::new(file);
+        for (num, line) in file.lines().enumerate() {
+            println!("{} : {}", num, line?.to_uppercase());
+        }
+    }
+
+    Ok(())
+}
+#
+#quick_main!(run);
 ```
 
 [ex-find-file-loops]: #ex-find-file-loops
@@ -561,6 +618,7 @@ fn run() -> Result<()> {
 [`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html
 [`Path::strip_prefix`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix
 [`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
+[`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
 [`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
 [`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
