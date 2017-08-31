@@ -303,7 +303,7 @@ fn run() -> Result<()> {
     Ok(())
 }
 #
-#quick_main!(run);
+# quick_main!(run);
 ```
 
 [ex-find-file-loops]: #ex-find-file-loops
