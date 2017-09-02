@@ -4,6 +4,7 @@
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Generate thumbnails for all .jpg in current directory][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
 
@@ -70,7 +71,102 @@ fn main() {
 }
 ```
 
+[ex-rayon-thumbnails]: #ex-rayon-thumbnails
+<a name="ex-rayon-thumbnails"></a>
+## Generate thumbnails for all .jpg in current directory
 
+[![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency] [![cat-filesystem-badge]][cat-filesystem]
+
+This example uses the `glob`, `image`, and `rayon` crates to generate thumbnails for all .jpg files in the current directory. 
+The thumbnails are stored in a new folder called `thumbnails`.
+
+Files are found with [`glob::glob_with`] so we can match case insensitively on both `.jpg` and `.JPG`.
+Images are then resized in parallel with [`par_iter`] using [`DynamicImage::resize`].
+
+
+```rust
+extern crate glob;
+extern crate image;
+extern crate rayon;
+
+use std::path::{Path, PathBuf};
+use std::fs;
+use std::fs::File;
+
+use glob::{glob_with, MatchOptions};
+use image::{FilterType, ImageResult};
+use rayon::prelude::*;
+
+fn main() {
+    let files = find_jpg();
+    println!("Found {} files to convert", files.len());
+    
+    for problem in parallel_resize(&files, Path::new("thumbnails"), 300) {
+        println!("{:?} failed with error: {}", problem.file_path, problem.err);
+    }
+}
+
+/// Find all files that have a `.jpg` extension in the current directory
+fn find_jpg() -> Vec<PathBuf> {
+    let mut paths = Vec::new();
+
+    // use `glob_with()` and MatchOptions so we can match case insensitively to .jpg
+    let options = MatchOptions {
+        case_sensitive: false,
+        require_literal_separator: false,
+        require_literal_leading_dot: false,
+    };
+
+    for entry in glob_with("*.jpg", &options).expect("Failed to read glob pattern") {
+        match entry {
+            Ok(path) => paths.push(path),
+            Err(e) => println!("Error with: {:?}", e),
+        }
+    }
+
+    paths
+}
+
+/// Resize `file` to have a maximum dimension of `longest_edge` and save the resized
+/// image to the `thumb_dir` folder
+fn resize_jpg(file: &Path, thumb_dir: &Path, longest_edge: u32) -> ImageResult<()> {
+    // create the folder if it doesn't already exist
+    fs::create_dir_all(thumb_dir)?;
+
+    let img = image::open(file)?;
+    let img = img.resize(longest_edge, longest_edge, FilterType::Nearest);
+
+    let output_path = thumb_dir.join(file);
+
+    let ref mut fout = File::create(output_path.as_path())?;
+    img.save(fout, image::JPEG)?;
+
+    Ok(())
+}
+
+#[derive(Debug)]
+struct ImageProblem {
+    file_path: PathBuf,
+    err: image::ImageError,
+}
+
+/// Wrapper for `resize_jpg` to resize multiple images at the same time with rayon
+/// Returns a vector of the files that had an error during conversion, along with the actual error
+fn parallel_resize(files: &[PathBuf], thumb_dir: &Path, longest_edge: u32) -> Vec<ImageProblem> {
+    files
+        .par_iter()
+        .map(|path| {
+            resize_jpg(path, thumb_dir, longest_edge).map_err(|e| {
+                ImageProblem {
+                    file_path: path.clone(),
+                    err: e,
+                }
+            })
+        })
+        .filter_map(|x| x.err())
+        .collect()
+}
+```
 
 [ex-crossbeam-spawn]: #ex-crossbeam-spawn
 <a name="ex-crossbeam-spawn"></a>
@@ -236,6 +332,8 @@ fn run() -> Result<()> {
 
 [cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
 [cat-concurrency]: https://crates.io/categories/concurrency
+[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
+[cat-filesystem]: https://crates.io/categories/filesystem
 [cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
 [cat-rendering]: https://crates.io/categories/rendering
 [cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
@@ -245,6 +343,8 @@ fn run() -> Result<()> {
 
 [crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam/
+[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
+[glob]: https://docs.rs/glob/
 [image-badge]: https://badge-cache.kominick.com/crates/v/image.svg?label=image
 [image]: https://docs.rs/image/
 [num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
@@ -260,6 +360,8 @@ fn run() -> Result<()> {
 
 <!-- Reference -->
 
+[`DynamicImage::resize`]: https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize
+[`glob::glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
 [Julia set]: https://en.wikipedia.org/wiki/Julia_set
 [`ImageBuffer::new`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new
 [`ImageBuffer::put_pixel`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel
@@ -274,5 +376,6 @@ fn run() -> Result<()> {
 [`mpsc::channel`]: https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html
 [`multiple options`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
+[`par_iter`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter
 [`par_iter_mut`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut
 [`par_sort_unstable`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable
