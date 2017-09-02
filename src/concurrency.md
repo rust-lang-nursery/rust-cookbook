@@ -4,6 +4,7 @@
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
 
@@ -70,7 +71,89 @@ fn main() {
 }
 ```
 
+[ex-rayon-thumbnails]: #ex-rayon-thumbnails
+<a name="ex-rayon-thumbnails"></a>
+## Generate jpg thumbnails in parallel
 
+[![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency] [![cat-filesystem-badge]][cat-filesystem]
+
+This example generates thumbnails for all .jpg in the current directory and saves them in a new folder called `thumbnails`.
+
+Files are found using [`glob::glob_with`] to match case insensitively on both `.jpg` and `.JPG`. `rayon` is then used to resize images in parallel using [`par_iter`] along with the `make_thumbnail()` helper function which internally uses [`DynamicImage::resize`].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate glob;
+extern crate image;
+extern crate rayon;
+
+use std::path::Path;
+use std::fs::{create_dir_all, File};
+
+# use error_chain::ChainedError;
+use glob::{glob_with, MatchOptions};
+use image::{FilterType, ImageError};
+use rayon::prelude::*;
+
+# error_chain! {
+#     foreign_links {
+#         Image(ImageError);
+#         Io(std::io::Error);
+#         Glob(glob::PatternError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    // find all files in current directory that have a .jpg extension
+    // use the default MatchOptions so the search is case insensitive
+    let options: MatchOptions = Default::default();
+    let files: Vec<_> = glob_with("*.jpg", &options)?
+        .filter_map(|x| x.ok())
+        .collect();
+
+    if files.len() == 0 {
+        bail!("No .jpg files found in current directory");
+    }
+
+    let thumb_dir = "thumbnails";
+    create_dir_all(thumb_dir)?;
+
+    println!("Saving {} thumbnails into '{}'...", files.len(), thumb_dir);
+
+    let image_failures: Vec<_> = files
+        .par_iter()
+        .map(|path| {
+            make_thumbnail(path, thumb_dir, 300)
+                .map_err(|e| e.chain_err(|| path.display().to_string()))
+        })
+        .filter_map(|x| x.err())
+        .collect();
+
+    for failure in &image_failures {
+        println!("{}", failure.display_chain());
+    }
+
+    println!("{} thumbnails saved successfully", files.len() - image_failures.len());
+    Ok(())
+}
+
+/// Resize `original` to have a maximum dimension of `longest_edge` and save the
+/// resized image to the `thumb_dir` folder
+fn make_thumbnail<PA, PB>(original: PA, thumb_dir: PB, longest_edge: u32) -> Result<()>
+where
+    PA: AsRef<Path>,
+    PB: AsRef<Path>,
+{
+    let img = image::open(original.as_ref())?;
+    let fout = &mut File::create(thumb_dir.as_ref().join(original))?;
+
+    Ok(img.resize(longest_edge, longest_edge, FilterType::Nearest)
+        .save(fout, image::JPEG)?)
+}
+#
+# quick_main!(run);
+```
 
 [ex-crossbeam-spawn]: #ex-crossbeam-spawn
 <a name="ex-crossbeam-spawn"></a>
@@ -236,6 +319,8 @@ fn run() -> Result<()> {
 
 <!-- API Reference -->
 
+[`DynamicImage::resize`]: https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize
+[`glob::glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
 [`ImageBuffer::new`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new
 [`ImageBuffer::put_pixel`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel
 [`ImageBuffer::save`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save
@@ -249,6 +334,7 @@ fn run() -> Result<()> {
 [`mpsc::channel`]: https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html
 [`multiple options`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
+[`par_iter`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter
 [`par_iter_mut`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut
 [`par_sort_unstable`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable
 
