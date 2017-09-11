@@ -1,0 +1,9 @@
+title = "Rust Cookbook"
+description = "Collection of useful Rust code examples"
+author = "Rust Language Community"
+
+[output.html]
+additional-css = ["theme/custom.css"]
+
+[output.html.playpen]
+editable = false
