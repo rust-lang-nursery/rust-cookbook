@@ -27,6 +27,7 @@ install:
   - cargo -V
 
 test_script:
+  - cargo clean
   - cargo build
   - cargo test
 
