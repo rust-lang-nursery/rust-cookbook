@@ -4,7 +4,7 @@
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
-| [Generate thumbnails for all .jpg in current directory][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+| [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
 
@@ -73,7 +73,7 @@ fn main() {
 
 [ex-rayon-thumbnails]: #ex-rayon-thumbnails
 <a name="ex-rayon-thumbnails"></a>
-## Generate thumbnails for all .jpg in current directory
+## Generate jpg thumbnails in parallel
 
 [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency] [![cat-filesystem-badge]][cat-filesystem]
 
@@ -81,91 +81,74 @@ This example uses the `glob`, `image`, and `rayon` crates to generate thumbnails
 The thumbnails are stored in a new folder called `thumbnails`.
 
 Files are found with [`glob::glob_with`] so we can match case insensitively on both `.jpg` and `.JPG`.
-Images are then resized in parallel with [`par_iter`] using [`DynamicImage::resize`].
 
-
-```rust
+```rust,no_run
+#[macro_use]
+extern crate error_chain;
 extern crate glob;
 extern crate image;
 extern crate rayon;
 
-use std::path::{Path, PathBuf};
-use std::fs;
-use std::fs::File;
+use std::path::Path;
+use std::fs::{create_dir_all, File};
 
 use glob::{glob_with, MatchOptions};
-use image::{FilterType, ImageResult};
+use image::{FilterType, ImageError};
 use rayon::prelude::*;
 
-fn main() {
-    let files = find_jpg();
-    println!("Found {} files to convert", files.len());
-    
-    for problem in parallel_resize(&files, Path::new("thumbnails"), 300) {
-        println!("{:?} failed with error: {}", problem.file_path, problem.err);
+error_chain! {
+    foreign_links {
+        Image(ImageError);
+        Io(std::io::Error);
+        Glob(glob::PatternError);
     }
 }
 
-/// Find all files that have a `.jpg` extension in the current directory
-fn find_jpg() -> Vec<PathBuf> {
-    let mut paths = Vec::new();
+fn run() -> Result<()> {
+    // find all files in current directory that have a .jpg extension
+    // use the default MatchOptions so the search is case insensitive
+    let options: MatchOptions = Default::default();
+    let files: Vec<_> = glob_with("*.jpg", &options)?
+        .filter_map(|x| x.ok())
+        .collect();
 
-    // use `glob_with()` and MatchOptions so we can match case insensitively to .jpg
-    let options = MatchOptions {
-        case_sensitive: false,
-        require_literal_separator: false,
-        require_literal_leading_dot: false,
-    };
+    let thumb_dir = Path::new("thumbnails");
+    create_dir_all(thumb_dir)?;
 
-    for entry in glob_with("*.jpg", &options).expect("Failed to read glob pattern") {
-        match entry {
-            Ok(path) => paths.push(path),
-            Err(e) => println!("Error with: {:?}", e),
-        }
+    println!("Saving {} thumbnails into {:?}", files.len(), thumb_dir);
+
+    let image_failures: Vec<String> = files
+        .par_iter()
+        .map(|path| -> std::result::Result<(), String> {
+            match make_thumbnail(path, thumb_dir, 300) {
+                Ok(_) => Ok(()),
+                Err(e) => Err(format!("{:?} failed: {}", path, e)),
+            }
+        })
+        .filter_map(|x| x.err())
+        .collect();
+
+    for failure in image_failures {
+        println!("{}", failure);
     }
 
-    paths
-}
-
-/// Resize `file` to have a maximum dimension of `longest_edge` and save the resized
-/// image to the `thumb_dir` folder
-fn resize_jpg(file: &Path, thumb_dir: &Path, longest_edge: u32) -> ImageResult<()> {
-    // create the folder if it doesn't already exist
-    fs::create_dir_all(thumb_dir)?;
-
-    let img = image::open(file)?;
-    let img = img.resize(longest_edge, longest_edge, FilterType::Nearest);
-
-    let output_path = thumb_dir.join(file);
-
-    let ref mut fout = File::create(output_path.as_path())?;
-    img.save(fout, image::JPEG)?;
-
+    println!("Done");
     Ok(())
 }
 
-#[derive(Debug)]
-struct ImageProblem {
-    file_path: PathBuf,
-    err: image::ImageError,
+/// Resize `original` to have a maximum dimension of `longest_edge` and save the resized
+/// image to the `thumb_dir` folder
+fn make_thumbnail(original: &Path, thumb_dir: &Path, longest_edge: u32) -> Result<()> {
+    let output_path = thumb_dir.join(original);
+    let fout = &mut File::create(output_path)?;
+
+    image::open(&original)?
+        .resize(longest_edge, longest_edge, FilterType::Nearest)
+        .save(fout, image::JPEG)?;
+    Ok(())
 }
 
-/// Wrapper for `resize_jpg` to resize multiple images at the same time with rayon
-/// Returns a vector of the files that had an error during conversion, along with the actual error
-fn parallel_resize(files: &[PathBuf], thumb_dir: &Path, longest_edge: u32) -> Vec<ImageProblem> {
-    files
-        .par_iter()
-        .map(|path| {
-            resize_jpg(path, thumb_dir, longest_edge).map_err(|e| {
-                ImageProblem {
-                    file_path: path.clone(),
-                    err: e,
-                }
-            })
-        })
-        .filter_map(|x| x.err())
-        .collect()
-}
+quick_main!(run);
 ```
 
 [ex-crossbeam-spawn]: #ex-crossbeam-spawn
