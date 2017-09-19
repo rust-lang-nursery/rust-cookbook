@@ -136,14 +136,13 @@ fn run() -> Result<()> {
     Ok(())
 }
 
-/// Resize `original` to have a maximum dimension of `longest_edge` and save the resized
-/// image to the `thumb_dir` folder
+/// Resize `original` to have a maximum dimension of `longest_edge` and save the
+/// resized image to the `thumb_dir` folder
 fn make_thumbnail(original: &Path, thumb_dir: &Path, longest_edge: u32) -> Result<()> {
-    let output_path = thumb_dir.join(original);
-    let fout = &mut File::create(output_path)?;
+    let img = image::open(original)?;
+    let fout = &mut File::create(thumb_dir.join(original))?;
 
-    image::open(original)?
-        .resize(longest_edge, longest_edge, FilterType::Nearest)
+    img.resize(longest_edge, longest_edge, FilterType::Nearest)
         .save(fout, image::JPEG)?;
     Ok(())
 }
