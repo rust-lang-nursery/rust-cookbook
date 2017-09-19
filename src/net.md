@@ -744,7 +744,7 @@ content to send by reading the file, and [`RequestBuilder::send`] blocks until
 the file uploads and the response is received.  The response is read with
 [`read_to_string`], and finally displayed in the console.
 
-```rust no_run
+```rust,no_run
 extern crate reqwest;
 
 # #[macro_use]
