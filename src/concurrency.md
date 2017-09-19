@@ -142,7 +142,7 @@ fn make_thumbnail(original: &Path, thumb_dir: &Path, longest_edge: u32) -> Resul
     let output_path = thumb_dir.join(original);
     let fout = &mut File::create(output_path)?;
 
-    image::open(&original)?
+    image::open(original)?
         .resize(longest_edge, longest_edge, FilterType::Nearest)
         .save(fout, image::JPEG)?;
     Ok(())
