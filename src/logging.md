@@ -479,40 +479,23 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-<!-- Categories -->
+{{#include links.md}}
 
-[cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
-[cat-debugging]: https://crates.io/categories/debugging
+<!-- API Reference -->
 
-<!-- Crates -->
-
-[chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
-[chrono]: https://docs.rs/chrono/
-[env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
-[env_logger]: https://docs.rs/env_logger/
-[log-badge]: https://badge-cache.kominick.com/crates/v/log.svg?label=log
-[log4rs-badge]: https://badge-cache.kominick.com/crates/v/log4rs.svg?label=log4rs
-[log4rs]: https://docs.rs/log4rs/
-[log]: https://docs.rs/log/
-[syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
-[syslog]: https://docs.rs/syslog/
-
-<!-- Reference -->
-
-[UNIX syslog]: https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html#method.format
 [`DateTime`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html
 [`Local::now`]: https://docs.rs/chrono/*/chrono/offset/local/struct.Local.html#method.now
-[`LogBuilder`]: https://doc.rust-lang.org/log/env_logger/struct.Builder.html
 [`LogBuilder::format`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.format
 [`LogBuilder::init`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.init
 [`LogBuilder::parse`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.parse
 [`LogBuilder::target`]: https://doc.rust-lang.org/log/env_logger/struct.Builder.html#method.target
+[`LogBuilder`]: https://doc.rust-lang.org/log/env_logger/struct.Builder.html
 [`LogRecord::args`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.args
 [`LogRecord::level`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.level
 [`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
-[`env_logger::init`]: https://doc.rust-lang.org/log/env_logger/fn.init.html
 [`Target::Stdout`]: https://doc.rust-lang.org/log/env_logger/enum.Target.html
+[`env_logger::init`]: https://doc.rust-lang.org/log/env_logger/fn.init.html
 [`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
 [`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
 [`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
@@ -523,3 +506,7 @@ fn run() -> Result<()> {
 [`strftime::specifiers`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html#specifiers
 [`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
 [`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
+
+<!-- Other Reference -->
+
+[UNIX syslog]: https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html
