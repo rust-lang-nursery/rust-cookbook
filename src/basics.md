@@ -847,49 +847,9 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-<!-- Categories -->
+{{#include links.md}}
 
-[cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
-[cat-no-std]: https://crates.io/categories/no-std
-[cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
-[cat-caching]: https://crates.io/categories/caching
-[cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
-[cat-cryptography]: https://crates.io/categories/cryptography
-[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
-[cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
-[cat-filesystem]: https://crates.io/categories/filesystem
-[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
-[cat-science]: https://crates.io/categories/science
-[cat-os-badge]: https://badge-cache.kominick.com/badge/OS--x.svg?style=social
-[cat-os]: https://crates.io/categories/os
-[cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
-[cat-rust-patterns]: https://crates.io/categories/rust-patterns
-[cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
-[cat-text-processing]: https://crates.io/categories/text-processing
-
-<!-- Crates -->
-
-[bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
-[bitflags]: https://docs.rs/bitflags/
-[byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
-[byteorder]: https://docs.rs/byteorder/
-[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
-[data-encoding]: https://docs.rs/data-encoding/
-[lazy_static]: https://docs.rs/lazy_static/
-[lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
-[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
-[rand]: https://docs.rs/rand/
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.19.0-blue.svg
-[std]: https://doc.rust-lang.org/std
-[regex]: https://docs.rs/regex/
-[regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
-[memmap]: https://docs.rs/memmap/
-[memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
-[ring]: https://docs.rs/ring/
-[ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
-
-<!-- API links -->
+<!-- API Reference -->
 
 [`bitflags!`]: https://docs.rs/bitflags/*/bitflags/macro.bitflags.html
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
@@ -908,14 +868,12 @@ fn run() -> Result<()> {
 [`Regex::replace_all`]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#method.replace_all
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
-[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
 [`rand::thread_rng`]: https://doc.rust-lang.org/rand/rand/fn.thread_rng.html
 [`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
 [`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
-[replacement string syntax]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#replacement-string-syntax
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
@@ -926,8 +884,10 @@ fn run() -> Result<()> {
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
+[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
+[replacement string syntax]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#replacement-string-syntax
 
-<!-- Reference -->
+<!-- Other Reference -->
 
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
 [raw string literals]: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
