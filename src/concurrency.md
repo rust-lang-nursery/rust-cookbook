@@ -322,35 +322,7 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-<!-- Categories -->
-
-[cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
-[cat-concurrency]: https://crates.io/categories/concurrency
-[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
-[cat-filesystem]: https://crates.io/categories/filesystem
-[cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
-[cat-rendering]: https://crates.io/categories/rendering
-[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
-[cat-science]: https://crates.io/categories/science
-
-<!-- Crates -->
-
-[crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
-[crossbeam]: https://docs.rs/crossbeam/
-[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
-[glob]: https://docs.rs/glob/
-[image-badge]: https://badge-cache.kominick.com/crates/v/image.svg?label=image
-[image]: https://docs.rs/image/
-[num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
-[num]: https://docs.rs/num/
-[num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
-[num_cpus]: https://docs.rs/num_cpus/
-[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
-[rand]: https://docs.rs/rand/
-[rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
-[rayon]: https://docs.rs/rayon/
-[threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
-[threadpool]: https://docs.rs/threadpool/
+{{#include links.md}}
 
 <!-- Reference -->
 
@@ -373,3 +345,7 @@ fn run() -> Result<()> {
 [`par_iter`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter
 [`par_iter_mut`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut
 [`par_sort_unstable`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable
+
+<!-- Other Reference -->
+
+[Julia set]: https://en.wikipedia.org/wiki/Julia_set

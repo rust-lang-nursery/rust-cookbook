@@ -16,7 +16,7 @@
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
-| [Extract all links from a webpage][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
+| [Extract all links from a webpage HTML][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
@@ -634,7 +634,6 @@ of each page.
 # extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
-extern crate serde;
 extern crate reqwest;
 #
 # error_chain! {
@@ -835,7 +834,7 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 
 [ex-extract-links-webpage]: #ex-extract-links-webpage
 <a name="ex-extract-links-webpage"/>
-## Extract all links from a webpage
+## Extract all links from a webpage HTML
 
 [![reqwest-badge]][reqwest] [![select-badge]][select] [![cat-net-badge]][cat-net]
 
@@ -947,44 +946,14 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-<!-- Categories -->
+{{#include links.md}}
 
-[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
-[cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
-[cat-filesystem]: https://crates.io/categories/filesystem
-[cat-net-badge]: https://badge-cache.kominick.com/badge/net--x.svg?style=social
-[cat-net]: https://crates.io/categories/network-programming
+<!-- API Reference -->
 
-<!-- Crates -->
-
-[hyper-badge]: https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper
-[hyper]: https://docs.rs/hyper/
-[regex]: https://docs.rs/regex/
-[regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
-[reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
-[reqwest]: https://docs.rs/reqwest/
-[select]: https://docs.rs/select/
-[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
-[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
-[serde]: https://docs.rs/serde/
-[std]: https://doc.rust-lang.org/std
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.19.0-blue.svg
-[tempdir-badge]: https://badge-cache.kominick.com/crates/v/tempdir.svg?label=tempdir
-[tempdir]: https://docs.rs/tempdir/
-[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
-[url]: https://docs.rs/url/
-
-<!-- Reference -->
-
-[GitHub API]: https://developer.github.com/v3/auth/
-[HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
-[OAuth]: https://oauth.net/getting-started/
-[MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
-[`ClientBuilder::timeout`]: https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.timeout
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
-[`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
 [`Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
+[`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
+[`ClientBuilder::timeout`]: https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.timeout
 [`Cow`]: https://doc.rust-lang.org/std/borrow/enum.Cow.html
 [`Document::from_read`]: https://docs.rs/select/*/select/document/struct.Document.html#method.from_read
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
@@ -1028,3 +997,10 @@ fn run() -> Result<()> {
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
 [`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
+
+<!-- Other Reference -->
+
+[GitHub API]: https://developer.github.com/v3/auth/
+[HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
+[MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
+[OAuth]: https://oauth.net/getting-started/

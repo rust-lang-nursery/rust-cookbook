@@ -134,7 +134,6 @@ Parse TOML into your own structs using Serde:
 # extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
-extern crate serde;
 extern crate toml;
 
 use std::collections::HashMap;
@@ -404,7 +403,6 @@ the [serde] crate.
 # #[macro_use]
 # extern crate error_chain;
 extern crate csv;
-extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
@@ -457,7 +455,6 @@ converts invalid data to None values.
 # #[macro_use]
 # extern crate error_chain;
 extern crate csv;
-extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
@@ -508,7 +505,6 @@ Reads CSV records with [`delimiter`] other than ','
 # #[macro_use]
 # extern crate error_chain;
 extern crate csv;
-extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
@@ -597,38 +593,21 @@ West Hollywood,CA,37031,34.0900000,-118.3608333";
 
 _Disclaimer: this example has been adapted from [the csv crate tutorial](https://docs.rs/csv/*/csv/tutorial/index.html#filter-by-search)_.
 
-<!-- Categories -->
+{{#include links.md}}
 
-[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
-[cat-encoding]: https://crates.io/categories/encoding
+<!-- API Reference -->
 
-<!-- Crates -->
-
-[base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
-[base64]: https://docs.rs/base64/
-[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
-[data-encoding]: https://docs.rs/data-encoding/
-[serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
-[serde-json]: https://docs.serde.rs/serde_json/
-[toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
-[toml]: https://docs.rs/toml/
-[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
-[url]: https://docs.rs/url/
-[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
-[csv]: https://docs.rs/csv/
-[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
-[serde]: https://docs.rs/serde/
-
-<!-- Reference -->
-
-[percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding
-[`utf8_percent_encode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.utf8_percent_encode.html
-[`percent_decode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.percent_decode.html
-[application/x-www-form-urlencoded]: https://url.spec.whatwg.org/#application/x-www-form-urlencoded
+[`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
+[`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
+[`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/1.4.0/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
-[`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
-[`write_record`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record
+[`percent_decode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.percent_decode.html
 [`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize
-[`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
-[`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
+[`utf8_percent_encode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.utf8_percent_encode.html
+[`write_record`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record
+
+<!-- Other Reference -->
+
+[application/x-www-form-urlencoded]: https://url.spec.whatwg.org/#application/x-www-form-urlencoded
+[percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding

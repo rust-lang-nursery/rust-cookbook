@@ -580,31 +580,9 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-<!-- Categories -->
+{{#include links.md}}
 
-[cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
-[cat-command-line]: https://crates.io/categories/command-line-interface
-[cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
-[cat-compression]: https://crates.io/categories/compression
-[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
-[cat-filesystem]: https://crates.io/categories/filesystem
-
-<!-- Crates -->
-
-[clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
-[clap]: https://docs.rs/clap/
-[flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2
-[flate2]: https://docs.rs/flate2/
-[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
-[glob]: https://docs.rs/glob/
-[same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
-[same_file]: https://docs.rs/same-file/
-[tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
-[tar]: https://docs.rs/tar/
-[walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
-[walkdir]: https://docs.rs/walkdir/
-
-<!-- Reference -->
+<!-- API Reference -->
 
 [`Archive::entries`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.entries
 [`Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack

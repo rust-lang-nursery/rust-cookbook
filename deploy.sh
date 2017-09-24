@@ -7,8 +7,10 @@ if [ -z "${TRAVIS_BRANCH:-}" ]; then
     exit 1
 fi
 
-if [ "$TRAVIS_BRANCH" != "master" ]; then
-    echo "This commit was made against '$TRAVIS_BRANCH' and not master! No deploy!"
+if [[ "$TRAVIS_BRANCH" != "master" || "$TRAVIS_RUST_VERSION" != "stable" || "$TRAVIS_OS_NAME" != "linux" ]]; then
+    echo "This commit was made against '$TRAVIS_BRANCH' with '$TRAVIS_RUST_VERSION' on '$TRAVIS_OS_NAME'."
+    echo "Instead of 'master' branch with 'stable' on 'linux'!"
+    echo "Not deploying!"
     exit 0
 fi
 
