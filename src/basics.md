@@ -760,9 +760,9 @@ bitflags! {
         const FLAG_A       = 0b00000001;
         const FLAG_B       = 0b00000010;
         const FLAG_C       = 0b00000100;
-        const FLAG_ABC     = FLAG_A.bits
-                           | FLAG_B.bits
-                           | FLAG_C.bits;
+        const FLAG_ABC     = Self::FLAG_A.bits
+                           | Self::FLAG_B.bits
+                           | Self::FLAG_C.bits;
     }
 }
 
@@ -781,19 +781,19 @@ impl fmt::Display for MyFlags {
 }
 
 fn main() {
-    let e1 = FLAG_A | FLAG_C;
-    let e2 = FLAG_B | FLAG_C;
-    assert_eq!((e1 | e2), FLAG_ABC);   // union
-    assert_eq!((e1 & e2), FLAG_C);     // intersection
-    assert_eq!((e1 - e2), FLAG_A);     // set difference
-    assert_eq!(!e2, FLAG_A);           // set complement
+    let e1 = MyFlags::FLAG_A | MyFlags::FLAG_C;
+    let e2 = MyFlags::FLAG_B | MyFlags::FLAG_C;
+    assert_eq!((e1 | e2), MyFlags::FLAG_ABC);   // union
+    assert_eq!((e1 & e2), MyFlags::FLAG_C);     // intersection
+    assert_eq!((e1 - e2), MyFlags::FLAG_A);     // set difference
+    assert_eq!(!e2, MyFlags::FLAG_A);           // set complement
 
-    let mut flags = FLAG_ABC;
+    let mut flags = MyFlags::FLAG_ABC;
     assert_eq!(format!("{}", flags), "00000000000000000000000000000111");
     assert_eq!(format!("{}", flags.clear()), "00000000000000000000000000000000");
     // Debug trait is automatically derived for the MyFlags through `bitflags!`
-    assert_eq!(format!("{:?}", FLAG_B), "FLAG_B");
-    assert_eq!(format!("{:?}", FLAG_A | FLAG_B), "FLAG_A | FLAG_B");
+    assert_eq!(format!("{:?}", MyFlags::FLAG_B), "FLAG_B");
+    assert_eq!(format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B), "FLAG_A | FLAG_B");
 }
 ```
 
