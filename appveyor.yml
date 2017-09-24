@@ -31,10 +31,6 @@ test_script:
   - cargo build
   - cargo test
 
-cache:
-  - C:\Users\appveyor\.cargo\registry
-  - target
-
 branches:
   only:
     # Release tags
