@@ -134,7 +134,6 @@ Parse TOML into your own structs using Serde:
 # extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
-extern crate serde;
 extern crate toml;
 
 use std::collections::HashMap;
@@ -404,7 +403,6 @@ the [serde] crate.
 # #[macro_use]
 # extern crate error_chain;
 extern crate csv;
-extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
@@ -457,7 +455,6 @@ converts invalid data to None values.
 # #[macro_use]
 # extern crate error_chain;
 extern crate csv;
-extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
@@ -508,7 +505,6 @@ Reads CSV records with [`delimiter`] other than ','
 # #[macro_use]
 # extern crate error_chain;
 extern crate csv;
-extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 

@@ -634,7 +634,6 @@ of each page.
 # extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
-extern crate serde;
 extern crate reqwest;
 #
 # error_chain! {
