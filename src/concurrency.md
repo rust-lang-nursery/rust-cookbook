@@ -77,10 +77,9 @@ fn main() {
 
 [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency] [![cat-filesystem-badge]][cat-filesystem]
 
-This example uses the `glob`, `image`, and `rayon` crates to generate thumbnails for all .jpg files in the current directory. 
-The thumbnails are stored in a new folder called `thumbnails`.
+This example generates thumbnails for all .jpg in the current directory and saves them in a new folder called `thumbnails`.
 
-Files are found using [`glob::glob_with`] to match case insensitively on both `.jpg` and `.JPG`. `rayon` is then used to resize multiple images at once using [`par_iter`] along with the `make_thumbnail()` function which internally uses [`DynamicImage::resize`] for the image resizing.
+Files are found using [`glob::glob_with`] to match case insensitively on both `.jpg` and `.JPG`. `rayon` is then used to resize images in parallel using [`par_iter`] along with the `make_thumbnail()` helper function which internally uses [`DynamicImage::resize`].
 
 ```rust,no_run
 # #[macro_use]
@@ -324,11 +323,10 @@ fn run() -> Result<()> {
 
 {{#include links.md}}
 
-<!-- Reference -->
+<!-- API Reference -->
 
 [`DynamicImage::resize`]: https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize
 [`glob::glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
-[Julia set]: https://en.wikipedia.org/wiki/Julia_set
 [`ImageBuffer::new`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new
 [`ImageBuffer::put_pixel`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel
 [`ImageBuffer::save`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save
