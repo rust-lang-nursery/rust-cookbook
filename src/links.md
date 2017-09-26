@@ -17,6 +17,8 @@ Keep lines sorted.
 [cat-cryptography]: https://crates.io/categories/cryptography
 [cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
 [cat-debugging]: https://crates.io/categories/debugging
+[cat-development-tools-badge]: https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social
+[cat-development-tools]: https://crates.io/categories/development-tools
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
 [cat-encoding]: https://crates.io/categories/encoding
 [cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
@@ -44,6 +46,8 @@ Keep lines sorted.
 [bitflags]: https://docs.rs/bitflags/
 [byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
+[cc-badge]: https://badge-cache.kominick.com/crates/v/cc.svg?label=cc
+[cc]: https://docs.rs/cc
 [chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
 [chrono]: https://docs.rs/chrono/
 [clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
