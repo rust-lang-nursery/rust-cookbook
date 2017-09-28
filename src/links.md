@@ -90,6 +90,8 @@ Keep lines sorted.
 [same_file]: https://docs.rs/same-file/
 [select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
 [select]: https://docs.rs/select/
+[semver-badge]: https://badge-cache.kominick.com/crates/v/semver.svg?label=semver
+[semver]: https://docs.rs/semver/
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
