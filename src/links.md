@@ -11,6 +11,8 @@ Keep lines sorted.
 [cat-command-line]: https://crates.io/categories/command-line-interface
 [cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
 [cat-compression]: https://crates.io/categories/compression
+[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
+[cat-config]: https://crates.io/categories/config
 [cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
 [cat-concurrency]: https://crates.io/categories/concurrency
 [cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
@@ -94,6 +96,8 @@ Keep lines sorted.
 [same_file]: https://docs.rs/same-file/
 [select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
 [select]: https://docs.rs/select/
+[semver-badge]: https://badge-cache.kominick.com/crates/v/semver.svg?label=semver
+[semver]: https://docs.rs/semver/
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
