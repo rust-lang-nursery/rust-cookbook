@@ -102,6 +102,7 @@ community. It needs and welcomes help. For details see
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 
 ## [Logging](logging.html)
 
@@ -173,6 +174,7 @@ community. It needs and welcomes help. For details see
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
+[ex-semver-increment]: app.html#ex-semver-increment
 [ex-serialize-csv]: encoding.html#ex-serialize-csv
 [ex-sha-digest]: basics.html#ex-sha-digest
 [ex-std-read-lines]: basics.html#ex-std-read-lines

@@ -14,6 +14,7 @@
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | help |
 
 
 [ex-clap-basic]: #ex-clap-basic
@@ -580,6 +581,47 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-semver-increment]: #ex-semver-increment
+<a name="ex-semver-increment"></a>
+## Parse and increment a version string.
+
+[![semver-badge]][semver] [![cat-config-badge]][cat-config]
+
+Construct a [`semver::Version`] from a string literal, then increment it by patch, minor, and major version number one by one.
+
+Note that in accordance with the [Semantic Versioning Specification], incrementing the minor version number resets the patch version number to 0 and incrementing the major version number resets both the minor and patch version numbers to 0.
+
+[Semantic Versioning Specification]: http://semver.org/
+
+```rust
+extern crate semver;
+
+use semver::Version;
+
+fn main() {
+    let mut release = Version::parse("0.2.6").unwrap();
+    assert!(release == Version {
+        major: 0,
+        minor: 2,
+        patch: 6,
+        pre: vec!(),
+        build: vec!(),
+    });
+
+    release.increment_patch();
+    assert_eq!(release, Version::parse("0.2.7").unwrap());
+    println!("New patch release: v{}", release);
+
+    release.increment_minor();
+    assert_eq!(release, Version::parse("0.3.0").unwrap());
+    println!("New minor release: v{}", release);
+
+    release.increment_major();
+    assert_eq!(release, Version::parse("1.0.0").unwrap());
+    println!("New major release: v{}", release);
+}
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -597,6 +639,11 @@ fn run() -> Result<()> {
 [`Path::strip_prefix`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix
 [`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
+[`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html
+[`semver::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
+[`semver::increment_patch`]: https://docs.rs/semver/*/semver/struct.Version.html#method.increment_patch
+[`semver::increment_minor`]: https://docs.rs/semver/*/semver/struct.Version.html#method.increment_minor
+[`semver::increment_major`]: https://docs.rs/semver/*/semver/struct.Version.html#method.increment_major
 [`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
 [`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
