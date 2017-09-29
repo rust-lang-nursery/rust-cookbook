@@ -11,6 +11,8 @@ Keep lines sorted.
 [cat-command-line]: https://crates.io/categories/command-line-interface
 [cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
 [cat-compression]: https://crates.io/categories/compression
+[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
+[cat-config]: https://crates.io/categories/config
 [cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
 [cat-concurrency]: https://crates.io/categories/concurrency
 [cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
