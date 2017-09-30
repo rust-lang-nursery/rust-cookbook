@@ -19,6 +19,7 @@
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -847,6 +848,22 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-check-cpu-cores]: #ex-check-cpu-cores
+<a name="ex-check-cpu-cores"></a>
+## Check number of logical cpu cores
+
+[![num_cpus-badge]][num_cpus] [![cat-hardware-support-badge]][cat-hardware-support]
+
+Shows the number of logical cpu cores in current machine using [`num_cpus::get`].
+
+```rust
+extern crate num_cpus;
+
+fn main() {
+    println!("Number of logical cores is {}", num_cpus::get());
+}
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -862,6 +879,7 @@ fn run() -> Result<()> {
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+[`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter

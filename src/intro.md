@@ -37,6 +37,7 @@ community. It needs and welcomes help. For details see
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 
 
 ## [Encoding](encoding.html)
@@ -136,6 +137,7 @@ community. It needs and welcomes help. For details see
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-cc-static-bundled]: build_tools.html#ex-cc-static-bundled
 [ex-check-broken-links]: net.html#ex-check-broken-links
+[ex-check-cpu-cores]: basics.html#ex-check-cpu-cores
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
 [ex-csv-serde]: encoding.html#ex-csv-serde
