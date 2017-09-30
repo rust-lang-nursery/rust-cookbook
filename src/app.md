@@ -608,7 +608,7 @@ use semver::Version;
 
 fn run() -> Result<()> {
     let mut release = Version::parse("0.2.6")?;
-    assert!(release == Version {
+    assert_eq!(release, Version {
         major: 0,
         minor: 2,
         patch: 6,
