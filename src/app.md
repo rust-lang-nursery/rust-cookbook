@@ -587,11 +587,9 @@ fn run() -> Result<()> {
 
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]
 
-Construct a [`semver::Version`] from a string literal using [`Version::parse`], then increment it by patch, minor, and major version number one by one.
+Constructs a [`semver::Version`] from a string literal using [`Version::parse`], then increments it by patch, minor, and major version number one by one.
 
 Note that in accordance with the [Semantic Versioning Specification], incrementing the minor version number resets the patch version number to 0 and incrementing the major version number resets both the minor and patch version numbers to 0.
-
-[Semantic Versioning Specification]: http://semver.org/
 
 ```rust
 # #[macro_use]
@@ -664,3 +662,7 @@ fn run() -> Result<()> {
 [`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
 [`tar::Entries`]: https://docs.rs/tar/*/tar/struct.Entries.html
 [`tar::Entry`]: https://docs.rs/tar/*/tar/struct.Entry.html
+
+<!-- Other Reference -->
+
+[Semantic Versioning Specification]: http://semver.org/
