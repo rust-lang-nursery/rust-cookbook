@@ -19,6 +19,7 @@
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -845,6 +846,31 @@ fn run() -> Result<()> {
 }
 #
 # quick_main!(run);
+```
+
+[ex-check-cpu-cores]: #ex-check-cpu-cores
+<a name="ex-check-cpu-cores"></a>
+## Check number of logical cpu cores
+
+[![num_cpus-badge]][num_cpus] [![cat-hardware-support-badge]][cat-hardware-support]
+
+Counts the number of logical cpu cores in current machine.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate num_cpus;
+#
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
+# }
+
+fn main() {
+    let num = num_cpus::get();
+    println!("Number of logical cores are {}",num);
+}
 ```
 
 {{#include links.md}}
