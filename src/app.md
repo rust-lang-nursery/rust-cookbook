@@ -653,9 +653,6 @@ fn run() -> Result<()> {
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html
 [`Version::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
-[`semver::increment_patch`]: https://docs.rs/semver/*/semver/struct.Version.html#method.increment_patch
-[`semver::increment_minor`]: https://docs.rs/semver/*/semver/struct.Version.html#method.increment_minor
-[`semver::increment_major`]: https://docs.rs/semver/*/semver/struct.Version.html#method.increment_major
 [`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
 [`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
