@@ -594,12 +594,20 @@ Note that in accordance with the [Semantic Versioning Specification], incrementi
 [Semantic Versioning Specification]: http://semver.org/
 
 ```rust
+# #[macro_use]
+# extern crate error_chain;
 extern crate semver;
 
 use semver::Version;
+#
+# error_chain! {
+#     foreign_links {
+#         SemVer(semver::SemVerError);
+#     }
+# }
 
-fn main() {
-    let mut release = Version::parse("0.2.6").unwrap();
+fn run() -> Result<()> {
+    let mut release = Version::parse("0.2.6")?;
     assert!(release == Version {
         major: 0,
         minor: 2,
@@ -609,17 +617,21 @@ fn main() {
     });
 
     release.increment_patch();
-    assert_eq!(release, Version::parse("0.2.7").unwrap());
+    assert_eq!(release, Version::parse("0.2.7")?);
     println!("New patch release: v{}", release);
 
     release.increment_minor();
-    assert_eq!(release, Version::parse("0.3.0").unwrap());
+    assert_eq!(release, Version::parse("0.3.0")?);
     println!("New minor release: v{}", release);
 
     release.increment_major();
-    assert_eq!(release, Version::parse("1.0.0").unwrap());
+    assert_eq!(release, Version::parse("1.0.0")?);
     println!("New major release: v{}", release);
+
+    Ok(())
 }
+#
+# quick_main!(run);
 ```
 
 {{#include links.md}}
