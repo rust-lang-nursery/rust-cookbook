@@ -19,6 +19,7 @@
 | [Extract all links from a webpage HTML][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
 | [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
+| [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -837,7 +838,7 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [![reqwest-badge]][reqwest] [![select-badge]][select] [![cat-net-badge]][cat-net]
 
 Use [`reqwest::get`] to perform a HTTP GET request and then use [`Document::from_read`] to parse the response into a HTML document.
-We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a". 
+We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a".
 This returns a [`Selection`] that we [`filter_map`] on to retrieve the urls from links that have the "href" [`attr`].
 
 ```rust,no_run
@@ -981,7 +982,7 @@ use regex::Regex;
 #         Regex(regex::Error);
 #     }
 # }
-# 
+#
 fn extract_links(content: &str) -> Result<HashSet<Cow<str>>> {
     lazy_static! {
         static ref WIKI_REGEX: Regex =
@@ -1012,6 +1013,87 @@ fn run() -> Result<()> {
         .read_to_string(&mut content)?;
 
     println!("{:#?}", extract_links(&content)?);
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-progress-with-range]: #ex-progress-with-range
+<a name="ex-progress-with-range"/>
+## Make a partial download with HTTP range headers
+
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
+
+Download content using [`reqwest::get`] and setting the [`reqwest::header::Range`] to do partial
+downloads, and between these show a basic progress bar.
+
+Range header, defined in [RFC7233][HTTP Range RFC7233].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate reqwest;
+extern crate url;
+
+use reqwest::header::{Range, ContentRange, ContentRangeSpec};
+use url::Url;
+
+use std::io::{Read, Write};
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Reqwest(reqwest::Error);
+#         UrlParse(url::ParseError);
+#     }
+# }
+
+const TOTAL_CHUNKS: u64 = 20;
+
+fn run() -> Result<()> {
+    let client = reqwest::Client::new()?;
+
+    let url = Url::parse("https://httpbin.org/range/1024?duration=2")?;
+    let response = client.head(url.to_owned())?.send()?;
+
+    if let Some(range) = response.headers().get::<ContentRange>() {
+        if let ContentRangeSpec::Bytes { instance_length, .. } = **range {
+            let content_length = instance_length.unwrap_or(0);
+            let chunk_size = content_length / TOTAL_CHUNKS;
+
+            let mut content: Vec<u8> = Vec::with_capacity(content_length as usize);
+            print!("content-lenght {} download in progress", content_length);
+
+            for chunk in 0..TOTAL_CHUNKS {
+                print!(".");
+                std::io::stdout().flush()?;
+
+                let mut response = client
+                    .get(url.to_owned())?
+                    .header(Range::bytes(
+                        chunk * chunk_size,
+                        (chunk + 1) * chunk_size - 1,
+                    ))
+                    .send()?;
+                response.read_to_end(&mut content)?;
+            }
+
+            if content_length % TOTAL_CHUNKS != 0 {
+                let mut response = client
+                    .get(url.to_owned())?
+                    .header(Range::bytes(TOTAL_CHUNKS * chunk_size, content_length - 1))
+                    .send()?;
+                response.read_to_end(&mut content)?;
+            }
+
+            assert_eq!(content_length as usize, content.len());
+            println!("finished with success!");
+        } else {
+            bail!("response doesn't include the expected ranges");
+        }
+    }
 
     Ok(())
 }
@@ -1067,6 +1149,7 @@ fn run() -> Result<()> {
 [`reqwest::RequestBuilder`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
+[`reqwest::header::Range`]: https://docs.rs/reqwest/0.7.3/reqwest/header/enum.Range.html
 [`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
@@ -1080,3 +1163,4 @@ fn run() -> Result<()> {
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
 [OAuth]: https://oauth.net/getting-started/
+[HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1
