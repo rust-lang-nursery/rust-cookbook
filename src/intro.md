@@ -84,6 +84,7 @@ community. It needs and welcomes help. For details see
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 | [Extract all links from a webpage HTML][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
+| [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 
 ## [Application development](app.html)
@@ -125,6 +126,7 @@ community. It needs and welcomes help. For details see
 [ex-base64]: encoding.html#ex-base64
 [ex-bitflags]: basics.html#ex-bitflags
 [ex-byteorder-le]: basics.html#ex-byteorder-le
+[ex-check-broken-links]: net.html#ex-check-broken-links
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
 [ex-csv-serde]: encoding.html#ex-csv-serde
