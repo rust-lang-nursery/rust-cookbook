@@ -854,18 +854,11 @@ fn run() -> Result<()> {
 
 [![num_cpus-badge]][num_cpus] [![cat-hardware-support-badge]][cat-hardware-support]
 
-Counts the number of logical cpu cores in current machine.
+Shows the number of logical cpu cores in current machine using [`num_cpus::get`].
 
 ```rust
 # #[macro_use]
-# extern crate error_chain;
 extern crate num_cpus;
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
 
 fn main() {
     let num = num_cpus::get();
@@ -888,6 +881,7 @@ fn main() {
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+[`num_cpus::get`]: https://docs.rs/num_cpus/1.7.0/num_cpus/fn.get.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
