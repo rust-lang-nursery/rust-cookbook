@@ -15,6 +15,7 @@
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
+| [Parse a complex version string][ex-semver-complex] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 
 
 [ex-clap-basic]: #ex-clap-basic
@@ -625,6 +626,59 @@ fn run() -> Result<()> {
     release.increment_major();
     assert_eq!(release, Version::parse("1.0.0")?);
     println!("New major release: v{}", release);
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-semver-complex]: #ex-semver-complex
+<a name="ex-semver-complex"></a>
+## Parse a complex version string.
+
+[![semver-badge]][semver] [![cat-config-badge]][cat-config]
+
+Constructs a [`semver::Version`] from a complex version string using [`Version::parse`]. The string
+contains pre-release and build metadata as defined in the [Semantic Versioning Specification].
+
+Note that, in accordance with the Specification, build metadata is parsed but not considered when
+comparing versions. In other words, two versions may be equal even if their build strings differ.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate semver;
+
+use semver::{Identifier, Version};
+#
+# error_chain! {
+#     foreign_links {
+#         SemVer(semver::SemVerError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let version_str = "1.0.49-125+g72ee7853";
+    let parsed_version = Version::parse(version_str)?;
+
+    assert_eq!(
+        parsed_version,
+        Version {
+            major: 1,
+            minor: 0,
+            patch: 49,
+            pre: vec![Identifier::Numeric(125)],
+            build: vec![],
+        }
+    );
+    assert_eq!(
+        parsed_version.build,
+        vec![Identifier::AlphaNumeric(String::from("g72ee7853"))]
+    );
+
+    let serialized_version = parsed_version.to_string();
+    assert_eq!(version_str, &serialized_version);
 
     Ok(())
 }
