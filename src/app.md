@@ -14,6 +14,7 @@
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 
 
 [ex-clap-basic]: #ex-clap-basic
@@ -580,6 +581,57 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-semver-increment]: #ex-semver-increment
+<a name="ex-semver-increment"></a>
+## Parse and increment a version string.
+
+[![semver-badge]][semver] [![cat-config-badge]][cat-config]
+
+Constructs a [`semver::Version`] from a string literal using [`Version::parse`], then increments it by patch, minor, and major version number one by one.
+
+Note that in accordance with the [Semantic Versioning Specification], incrementing the minor version number resets the patch version number to 0 and incrementing the major version number resets both the minor and patch version numbers to 0.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate semver;
+
+use semver::Version;
+#
+# error_chain! {
+#     foreign_links {
+#         SemVer(semver::SemVerError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let mut release = Version::parse("0.2.6")?;
+    assert_eq!(release, Version {
+        major: 0,
+        minor: 2,
+        patch: 6,
+        pre: vec!(),
+        build: vec!(),
+    });
+
+    release.increment_patch();
+    assert_eq!(release, Version::parse("0.2.7")?);
+    println!("New patch release: v{}", release);
+
+    release.increment_minor();
+    assert_eq!(release, Version::parse("0.3.0")?);
+    println!("New minor release: v{}", release);
+
+    release.increment_major();
+    assert_eq!(release, Version::parse("1.0.0")?);
+    println!("New major release: v{}", release);
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -597,6 +649,8 @@ fn run() -> Result<()> {
 [`Path::strip_prefix`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix
 [`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
+[`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html
+[`Version::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
 [`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
 [`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
 [`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
@@ -608,3 +662,7 @@ fn run() -> Result<()> {
 [`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
 [`tar::Entries`]: https://docs.rs/tar/*/tar/struct.Entries.html
 [`tar::Entry`]: https://docs.rs/tar/*/tar/struct.Entry.html
+
+<!-- Other Reference -->
+
+[Semantic Versioning Specification]: http://semver.org/

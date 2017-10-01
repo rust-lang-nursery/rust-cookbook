@@ -11,12 +11,16 @@ Keep lines sorted.
 [cat-command-line]: https://crates.io/categories/command-line-interface
 [cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
 [cat-compression]: https://crates.io/categories/compression
+[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
+[cat-config]: https://crates.io/categories/config
 [cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
 [cat-concurrency]: https://crates.io/categories/concurrency
 [cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
 [cat-cryptography]: https://crates.io/categories/cryptography
 [cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
 [cat-debugging]: https://crates.io/categories/debugging
+[cat-development-tools-badge]: https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social
+[cat-development-tools]: https://crates.io/categories/development-tools
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
 [cat-encoding]: https://crates.io/categories/encoding
 [cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
@@ -44,6 +48,8 @@ Keep lines sorted.
 [bitflags]: https://docs.rs/bitflags/
 [byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
 [byteorder]: https://docs.rs/byteorder/
+[cc-badge]: https://badge-cache.kominick.com/crates/v/cc.svg?label=cc
+[cc]: https://docs.rs/cc
 [chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
 [chrono]: https://docs.rs/chrono/
 [clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
@@ -90,6 +96,8 @@ Keep lines sorted.
 [same_file]: https://docs.rs/same-file/
 [select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
 [select]: https://docs.rs/select/
+[semver-badge]: https://badge-cache.kominick.com/crates/v/semver.svg?label=semver
+[semver]: https://docs.rs/semver/
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/

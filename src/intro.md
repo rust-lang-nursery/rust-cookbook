@@ -103,6 +103,7 @@ community. It needs and welcomes help. For details see
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 
 ## [Logging](logging.html)
 
@@ -118,6 +119,13 @@ community. It needs and welcomes help. For details see
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 
+## [Build Time Tooling](build_tools.html)
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Compile and link statically to a bundled C library][ex-cc-static-bundled] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
+
+
 {{#include links.md}}
 
 <!-- Examples -->
@@ -126,6 +134,7 @@ community. It needs and welcomes help. For details see
 [ex-base64]: encoding.html#ex-base64
 [ex-bitflags]: basics.html#ex-bitflags
 [ex-byteorder-le]: basics.html#ex-byteorder-le
+[ex-cc-static-bundled]: build_tools.html#ex-cc-static-bundled
 [ex-check-broken-links]: net.html#ex-check-broken-links
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
@@ -175,6 +184,7 @@ community. It needs and welcomes help. For details see
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
+[ex-semver-increment]: app.html#ex-semver-increment
 [ex-serialize-csv]: encoding.html#ex-serialize-csv
 [ex-sha-digest]: basics.html#ex-sha-digest
 [ex-std-read-lines]: basics.html#ex-std-read-lines
