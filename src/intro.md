@@ -103,6 +103,7 @@ community. It needs and welcomes help. For details see
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
+| [Parse a complex version string][ex-semver-complex] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 
 ## [Logging](logging.html)
 
@@ -182,6 +183,7 @@ community. It needs and welcomes help. For details see
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
+[ex-semver-complex]: app.html#ex-semver-complex
 [ex-semver-increment]: app.html#ex-semver-increment
 [ex-serialize-csv]: encoding.html#ex-serialize-csv
 [ex-sha-digest]: basics.html#ex-sha-digest
