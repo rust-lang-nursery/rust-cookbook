@@ -25,6 +25,8 @@ Keep lines sorted.
 [cat-encoding]: https://crates.io/categories/encoding
 [cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
 [cat-filesystem]: https://crates.io/categories/filesystem
+[cat-hardware-support-badge]: https://badge-cache.kominick.com/badge/hardware_support--x.svg?style=social
+[cat-hardware-support]: https://crates.io/categories/hardware-support
 [cat-net-badge]: https://badge-cache.kominick.com/badge/net--x.svg?style=social
 [cat-net]: https://crates.io/categories/network-programming
 [cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
