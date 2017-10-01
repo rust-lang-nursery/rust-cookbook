@@ -9,6 +9,7 @@
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
+| [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -321,6 +322,80 @@ fn run() -> Result<()> {
     }
 
     Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-parse-subprocess-input]: #ex-parse-subprocess-input
+<a name="ex-parse-subprocess-input"></a>
+## Run an external command passing it stdin and check for an error code
+
+[![regex-badge]][regex] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
+
+Opens the `python` interpreter using an external [`Command`] and passes it a python statement
+for execution. [`Output`] of said statement is then parsed using [`Regex`] and aggregated for all unique words used in output.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate regex;
+
+use regex::Regex;
+use std::io::Write;
+use std::ops::Deref;
+use std::process::{Command, Stdio};
+
+# error_chain!{
+#     foreign_links {
+#         Io(std::io::Error);
+#         Regex(regex::Error);
+#         Utf8(std::string::FromUtf8Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let mut child = Command::new("python").stdin(Stdio::piped())
+        .stderr(Stdio::piped())
+        .stdout(Stdio::piped())
+        .spawn()?;
+
+    {
+        match child.stdin.as_mut() {
+            None => return Err("Child process stdin has not been captured!".into()),
+            Some(stdin) => {
+                stdin.write_all(b"import this; copyright(); credits(); exit()")?;
+            }
+        }
+    }
+
+    let output = child.wait_with_output()?;
+
+    if output.status.success() {
+        match String::from_utf8(output.stdout) {
+            Err(e) => Err(e.into()),
+            Ok(s) => {
+                let re = Regex::new(r"[[:punct:]&&[^']]")?;
+                {
+                    let stripped = re.replace_all(&s, " ");
+                    let mut result = stripped.deref()
+                        .split_whitespace()
+                        .map(|s| s.to_lowercase())
+                        .collect::<Vec<String>>();
+                    result.sort();
+                    result.dedup();
+                    println!("Found {} unique words:", result.len());
+                    println!("{:#?}", result);
+                }
+                Ok(())
+            }
+        }
+    } else {
+        match String::from_utf8(output.stderr) {
+            Err(e) => Err(e.into()),
+            Ok(s) => Err(format!("External command failed:\n {}", s).into()),
+        }
+    }
 }
 #
 # quick_main!(run);
