@@ -65,7 +65,7 @@ community. It needs and welcomes help. For details see
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
-| [Calculate SHA1 sum of *.iso files concurrently][threadpool-walk]  | [![threadpool-badge]][threadpool] [![walkdir-badge]][walkdir] [![num_cpus-badge]][num_cpus] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+| [Calculate SHA1 sum of *.iso files concurrently][ex-threadpool-walk]  | [![threadpool-badge]][threadpool] [![walkdir-badge]][walkdir] [![num_cpus-badge]][num_cpus] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Networking](net.html)
 
@@ -144,6 +144,7 @@ community. It needs and welcomes help. For details see
 [ex-csv-serde]: encoding.html#ex-csv-serde
 [ex-csv-delimiter]: encoding.html#ex-csv-delimiter
 [ex-threadpool-fractal]: concurrency.html#ex-threadpool-fractal
+[ex-threadpool-walk]: concurrency.html#ex-threadpool-walk
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
