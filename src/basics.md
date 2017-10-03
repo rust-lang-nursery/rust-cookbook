@@ -9,6 +9,7 @@
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
+| [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -320,6 +321,70 @@ fn run() -> Result<()> {
     for commit in commits {
         println!("{:?}", commit);
     }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-run-piped-external-commands]: #ex-run-piped-external-commands
+<a name="ex-run-piped-external-commands"></a>
+## Run piped external commands
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Shows up to the 10<sup>th</sup> biggest files and subdirectories in
+the current working directory. It is equivalant to run: `du -ah . |
+sort -hr | head -n 10`.
+
+It spawns Unix processes which are represented as [`Command`]s. In
+order to capture the output of a child process it is necessary to
+create a new [`Stdio::piped`] between parent and child.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::process::{Command, Stdio};
+#
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Utf8(std::string::FromUtf8Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let directory = std::env::current_dir()?;
+    let du_output = Command::new("du")
+        .arg("-ah")
+        .arg(&directory)
+        .stdout(Stdio::piped())
+        .spawn()?
+        .stdout
+        .ok_or_else(|| "Could not capture `du` standard output.")?;
+
+    let sort_output = Command::new("sort")
+        .arg("-hr")
+        .stdin(du_output)
+        .stdout(Stdio::piped())
+        .spawn()?
+        .stdout
+        .ok_or_else(|| "Could not capture `sort` standard output.")?;
+
+    let head_output = Command::new("head")
+        .args(&["-n", "10"])
+        .stdin(sort_output)
+        .stdout(Stdio::piped())
+        .spawn()?
+        .wait_with_output()?;
+
+    println!(
+        "Top 10 biggest files and directories in '{}':\n{}",
+        directory.display(),
+        String::from_utf8(head_output.stdout)?
+    );
 
     Ok(())
 }
@@ -904,6 +969,7 @@ fn main() {
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#replacement-string-syntax
+[`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 
 <!-- Other Reference -->
 
