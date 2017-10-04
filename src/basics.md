@@ -398,7 +398,7 @@ fn run() -> Result<()> {
 
 [![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
 
-Reads a file named `application.log` and only outputs the lines 
+Reads a file named `application.log` and only outputs the lines
 containing “version X.X.X”, some IP address followed by port 443
 (e.g. “192.168.0.1:443”), or a specific warning.
 
@@ -622,7 +622,7 @@ fn main() {
 
 [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
 
-Replaces all occurrences of the hyphenated British English date pattern `2013-01-15` 
+Replaces all occurrences of the hyphenated British English date pattern `2013-01-15`
 with its equivalent slashed American English date pattern `01/15/2013`.
 
 The method [`Regex::replace_all`] replaces all occurrences of the whole regex. The
@@ -937,39 +937,39 @@ fn main() {
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
 [`BufRead`]: https://doc.rust-lang.org/std/io/trait.BufRead.html
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
+[`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
+[`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
+[`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
 [`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
-[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
+[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
+[`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
+[`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
-[`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
+[`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
+[`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
+[`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
-[`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
-[`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
-[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
-[`Regex::replace_all`]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#method.replace_all
+[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
-[`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
-[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
 [`rand::thread_rng`]: https://doc.rust-lang.org/rand/rand/fn.thread_rng.html
-[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
+[`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
+[`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
+[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
-[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
-[`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
-[`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
-[`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
+[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
+[`Regex::replace_all`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.replace_all
+[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
-[`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
-[`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
-[`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
-[`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
-[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
-[replacement string syntax]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#replacement-string-syntax
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
+[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
+[replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
 <!-- Other Reference -->
 
