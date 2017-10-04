@@ -443,8 +443,8 @@ fn run() -> Result<()> {
     // The timeout for the request is set to 5 seconds.
     let timeout = Duration::new(5, 0);
 
-    let client = ClientBuilder::new()?.timeout(timeout).build()?;
-    let response = client.head(&request_url)?.send()?;
+    let client = ClientBuilder::new().timeout(timeout).build()?;
+    let response = client.head(&request_url).send()?;
 
     if response.status().is_success() {
         println!("{} is a user!", user);
@@ -487,6 +487,7 @@ extern crate serde_derive;
 
 use std::collections::HashMap;
 use url::Url;
+use reqwest::Client;
 use reqwest::header::{UserAgent, Authorization, Bearer};
 
 // Custom header type
@@ -506,15 +507,13 @@ pub struct HeadersEcho {
 # }
 
 fn run() -> Result<()> {
-    let client = reqwest::Client::new()?;
-
     // Make request to webservice that will respond with JSON dict containing
     // the headders set on HTTP GET request.
     let url = Url::parse_with_params("http://httpbin.org/headers",
                                      &[("lang", "rust"), ("browser", "servo")])?;
 
-    let mut response = client
-        .get(url)?
+    let mut response = Client::new()
+        .get(url)
         .header(UserAgent::new("Rust-test"))
         .header(Authorization(Bearer { token: "DEadBEEfc001cAFeEDEcafBAd".to_owned() }))
         .header(XPoweredBy("Guybrush Threepwood".to_owned()))
@@ -560,6 +559,7 @@ extern crate serde_derive;
 extern crate serde_json;
 
 use std::env;
+use reqwest::Client;
 #
 # error_chain! {
 #     foreign_links {
@@ -591,11 +591,10 @@ fn run() -> Result<()> {
 
     // create the gist
     let request_url = "https://api.github.com/gists";
-    let client = reqwest::Client::new()?;
-    let mut response = client
-        .post(request_url)?
+    let mut response = Client::new()
+        .post(request_url)
         .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
-        .json(&gist_body)?
+        .json(&gist_body)
         .send()?;
 
     let gist: Gist = response.json()?;
@@ -603,9 +602,8 @@ fn run() -> Result<()> {
 
     // delete the gist
     let request_url = format!("{}/{}",request_url, gist.id);
-    let client = reqwest::Client::new()?;
-    let response = client
-        .delete(&request_url)?
+    let response = Client::new()
+        .delete(&request_url)
         .basic_auth(gh_user, Some(gh_pass))
         .send()?;
 
@@ -674,7 +672,7 @@ impl ReverseDependencies {
         Ok(ReverseDependencies {
                crate_id: crate_id.to_owned(),
                dependencies: vec![].into_iter(),
-               client: reqwest::Client::new()?,
+               client: reqwest::Client::new(),
                page: 0,
                per_page: 100,
                total: 0,
@@ -699,7 +697,7 @@ impl ReverseDependencies {
                           self.page,
                           self.per_page);
 
-        let response = self.client.get(&url)?.send()?.json::<ApiResponse>()?;
+        let response = self.client.get(&url).send()?.json::<ApiResponse>()?;
         self.dependencies = response.dependencies.into_iter();
         self.total = response.meta.total;
         Ok(self.dependencies.next())
@@ -764,10 +762,9 @@ use reqwest::Client;
 fn run() -> Result<()> {
     let paste_api = "https://paste.rs";
     let file = File::open("message")?;
-    let client = Client::new()?;
 
     // blocks until paste.rs returns a response
-    let mut response = client.post(paste_api)?.body(file).send()?;
+    let mut response = Client::new().post(paste_api).body(file).send()?;
     let mut response_body = String::new();
     response.read_to_string(&mut response_body)?;
     println!("Your paste is located at: {}", response_body);
