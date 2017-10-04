@@ -37,6 +37,7 @@ community. It needs and welcomes help. For details see
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
+| [Sign and verify a message with an HMAC digest][ex-hmac] | [![ring-badge]][ring] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
@@ -199,6 +200,7 @@ community. It needs and welcomes help. For details see
 [ex-semver-prerelease]: app.html#ex-semver-prerelease
 [ex-serialize-csv]: encoding.html#ex-serialize-csv
 [ex-sha-digest]: basics.html#ex-sha-digest
+[ex-hmac]: basics.html#ex-hmac
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-tar-compress]: app.html#ex-tar-compress
 [ex-tar-decompress]: app.html#ex-tar-decompress
