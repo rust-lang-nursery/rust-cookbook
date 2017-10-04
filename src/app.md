@@ -606,26 +606,30 @@ use semver::Version;
 # }
 
 fn run() -> Result<()> {
-    let mut release = Version::parse("0.2.6")?;
-    assert_eq!(release, Version {
-        major: 0,
-        minor: 2,
-        patch: 6,
-        pre: vec!(),
-        build: vec!(),
-    });
+    let mut parsed_version = Version::parse("0.2.6")?;
 
-    release.increment_patch();
-    assert_eq!(release, Version::parse("0.2.7")?);
-    println!("New patch release: v{}", release);
+    assert_eq!(
+        parsed_version,
+        Version {
+            major: 0,
+            minor: 2,
+            patch: 6,
+            pre: vec![],
+            build: vec![],
+        }
+    );
 
-    release.increment_minor();
-    assert_eq!(release, Version::parse("0.3.0")?);
-    println!("New minor release: v{}", release);
+    parsed_version.increment_patch();
+    assert_eq!(parsed_version.to_string(), "0.2.7");
+    println!("New patch release: v{}", parsed_version);
 
-    release.increment_major();
-    assert_eq!(release, Version::parse("1.0.0")?);
-    println!("New major release: v{}", release);
+    parsed_version.increment_minor();
+    assert_eq!(parsed_version.to_string(), "0.3.0");
+    println!("New minor release: v{}", parsed_version);
+
+    parsed_version.increment_major();
+    assert_eq!(parsed_version.to_string(), "1.0.0");
+    println!("New major release: v{}", parsed_version);
 
     Ok(())
 }
@@ -678,7 +682,7 @@ fn run() -> Result<()> {
     );
 
     let serialized_version = parsed_version.to_string();
-    assert_eq!(version_str, &serialized_version);
+    assert_eq!(&serialized_version, version_str);
 
     Ok(())
 }
