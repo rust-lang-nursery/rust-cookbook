@@ -18,6 +18,7 @@
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
+| [Sign and verify a message with an HMAC digest][ex-hmac] | [![ring-badge]][ring] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
@@ -805,6 +806,44 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-hmac]: #ex-hmac
+<a name="ex-hmac"></a>
+## Sign and verify a message with HMAC digest
+
+[![ring-badge]][ring] [![cat-cryptography-badge]][cat-cryptography]
+
+Uses [`ring::hmac`] to creates a [`hmac::Signature`] of a string then verifies the signiture is correct.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate ring;
+# 
+# error_chain! {
+#     foreign_links {
+#         Ring(ring::error::Unspecified);
+#     }
+# }
+
+use ring::{digest, hmac, rand};
+use ring::rand::SecureRandom;
+
+fn run() -> Result<()> {
+    let mut key_value = [0u8; 48];
+    let rng = rand::SystemRandom::new();
+    rng.fill(&mut key_value)?;
+    let key = hmac::SigningKey::new(&digest::SHA256, &key_value);
+
+    let message = "Legitimate and important message.";
+    let signature = hmac::sign(&key, message.as_bytes());
+    hmac::verify_with_own_key(&key, message.as_bytes(), signature.as_ref())?;
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-bitflags]: #ex-bitflags
 <a name="ex-bitflags"></a>
 ## Define and operate on a type represented as a bitfield
@@ -940,6 +979,8 @@ fn main() {
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
+[`ring::hmac`]: https://docs.rs/ring/*/ring/hmac/
+[`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
