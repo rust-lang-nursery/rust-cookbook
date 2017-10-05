@@ -9,6 +9,7 @@
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
+| [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -328,6 +329,61 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-parse-subprocess-input]: #ex-parse-subprocess-input
+<a name="ex-parse-subprocess-input"></a>
+## Run an external command passing it stdin and check for an error code
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Opens the `python` interpreter using an external [`Command`] and passes it a python statement
+for execution. [`Output`] of said statement is then parsed.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::collections::HashSet;
+use std::io::Write;
+use std::process::{Command, Stdio};
+#
+# error_chain!{
+#     errors { CmdError }
+#     foreign_links {
+#         Io(std::io::Error);
+#         Utf8(std::string::FromUtf8Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let mut child = Command::new("python").stdin(Stdio::piped())
+        .stderr(Stdio::piped())
+        .stdout(Stdio::piped())
+        .spawn()?;
+
+    child.stdin
+        .as_mut()
+        .ok_or("Child process stdin has not been captured!")?
+        .write_all(b"import this; copyright(); credits(); exit()")?;
+
+    let output = child.wait_with_output()?;
+
+    if output.status.success() {
+        let raw_output = String::from_utf8(output.stdout)?;
+        let words = raw_output.split_whitespace()
+            .map(|s| s.to_lowercase())
+            .collect::<HashSet<_>>();
+        println!("Found {} unique words:", words.len());
+        println!("{:#?}", words);
+        Ok(())
+    } else {
+        let err = String::from_utf8(output.stderr)?;
+        bail!("External command failed:\n {}", err)
+    }
+}
+#
+# quick_main!(run);
+```
+
 [ex-run-piped-external-commands]: #ex-run-piped-external-commands
 <a name="ex-run-piped-external-commands"></a>
 ## Run piped external commands
@@ -335,7 +391,7 @@ fn run() -> Result<()> {
 [![std-badge]][std] [![cat-os-badge]][cat-os]
 
 Shows up to the 10<sup>th</sup> biggest files and subdirectories in
-the current working directory. It is equivalant to run: `du -ah . |
+the current working directory. It is equivalent to run: `du -ah . |
 sort -hr | head -n 10`.
 
 It spawns Unix processes which are represented as [`Command`]s. In
