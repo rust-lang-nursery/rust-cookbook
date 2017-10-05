@@ -10,6 +10,7 @@
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
+| [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -20,6 +21,7 @@
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 
 
 [ex-std-read-lines]: #ex-std-read-lines
@@ -382,13 +384,77 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-run-piped-external-commands]: #ex-run-piped-external-commands
+<a name="ex-run-piped-external-commands"></a>
+## Run piped external commands
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Shows up to the 10<sup>th</sup> biggest files and subdirectories in
+the current working directory. It is equivalent to run: `du -ah . |
+sort -hr | head -n 10`.
+
+It spawns Unix processes which are represented as [`Command`]s. In
+order to capture the output of a child process it is necessary to
+create a new [`Stdio::piped`] between parent and child.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::process::{Command, Stdio};
+#
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Utf8(std::string::FromUtf8Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let directory = std::env::current_dir()?;
+    let du_output = Command::new("du")
+        .arg("-ah")
+        .arg(&directory)
+        .stdout(Stdio::piped())
+        .spawn()?
+        .stdout
+        .ok_or_else(|| "Could not capture `du` standard output.")?;
+
+    let sort_output = Command::new("sort")
+        .arg("-hr")
+        .stdin(du_output)
+        .stdout(Stdio::piped())
+        .spawn()?
+        .stdout
+        .ok_or_else(|| "Could not capture `sort` standard output.")?;
+
+    let head_output = Command::new("head")
+        .args(&["-n", "10"])
+        .stdin(sort_output)
+        .stdout(Stdio::piped())
+        .spawn()?
+        .wait_with_output()?;
+
+    println!(
+        "Top 10 biggest files and directories in '{}':\n{}",
+        directory.display(),
+        String::from_utf8(head_output.stdout)?
+    );
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-regex-filter-log]: #ex-regex-filter-log
 <a name="ex-regex-filter-log"></a>
 ## Filter a log file by matching multiple regular expressions
 
 [![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
 
-Reads a file named `application.log` and only outputs the lines 
+Reads a file named `application.log` and only outputs the lines
 containing “version X.X.X”, some IP address followed by port 443
 (e.g. “192.168.0.1:443”), or a specific warning.
 
@@ -612,7 +678,7 @@ fn main() {
 
 [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
 
-Replaces all occurrences of the hyphenated British English date pattern `2013-01-15` 
+Replaces all occurrences of the hyphenated British English date pattern `2013-01-15`
 with its equivalent slashed American English date pattern `01/15/2013`.
 
 The method [`Regex::replace_all`] replaces all occurrences of the whole regex. The
@@ -903,6 +969,22 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-check-cpu-cores]: #ex-check-cpu-cores
+<a name="ex-check-cpu-cores"></a>
+## Check number of logical cpu cores
+
+[![num_cpus-badge]][num_cpus] [![cat-hardware-support-badge]][cat-hardware-support]
+
+Shows the number of logical cpu cores in current machine using [`num_cpus::get`].
+
+```rust
+extern crate num_cpus;
+
+fn main() {
+    println!("Number of logical cores is {}", num_cpus::get());
+}
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -911,37 +993,39 @@ fn run() -> Result<()> {
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
 [`BufRead`]: https://doc.rust-lang.org/std/io/trait.BufRead.html
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
+[`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
+[`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
+[`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
 [`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
-[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
-[`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
-[`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
-[`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
+[`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
-[`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
-[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
-[`Regex::replace_all`]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#method.replace_all
+[`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
+[`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
+[`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
+[`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
+[`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+[`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
+[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
-[`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
-[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
 [`rand::thread_rng`]: https://doc.rust-lang.org/rand/rand/fn.thread_rng.html
-[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
+[`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
+[`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
+[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
-[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
-[`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
-[`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
-[`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
+[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
+[`Regex::replace_all`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.replace_all
+[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
-[`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
-[`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
-[`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
-[`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
+[`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
-[replacement string syntax]: https://docs.rs/regex/0.2.2/regex/struct.Regex.html#replacement-string-syntax
+[replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
 <!-- Other Reference -->
 

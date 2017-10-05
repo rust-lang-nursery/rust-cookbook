@@ -28,6 +28,7 @@ community. It needs and welcomes help. For details see
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -38,6 +39,7 @@ community. It needs and welcomes help. For details see
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 
 
 ## [Encoding](encoding.html)
@@ -65,6 +67,7 @@ community. It needs and welcomes help. For details see
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
+| [Calculate SHA1 sum of *.iso files concurrently][ex-threadpool-walk]  | [![threadpool-badge]][threadpool] [![walkdir-badge]][walkdir] [![num_cpus-badge]][num_cpus] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Networking](net.html)
 
@@ -85,6 +88,7 @@ community. It needs and welcomes help. For details see
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 | [Extract all links from a webpage HTML][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
+| [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 
 ## [Application development](app.html)
@@ -103,6 +107,8 @@ community. It needs and welcomes help. For details see
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
+| [Parse a complex version string][ex-semver-complex] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 
 ## [Logging](logging.html)
 
@@ -118,6 +124,13 @@ community. It needs and welcomes help. For details see
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
 
+## [Build Time Tooling](build_tools.html)
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Compile and link statically to a bundled C library][ex-cc-static-bundled] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
+
+
 {{#include links.md}}
 
 <!-- Examples -->
@@ -126,11 +139,15 @@ community. It needs and welcomes help. For details see
 [ex-base64]: encoding.html#ex-base64
 [ex-bitflags]: basics.html#ex-bitflags
 [ex-byteorder-le]: basics.html#ex-byteorder-le
+[ex-cc-static-bundled]: build_tools.html#ex-cc-static-bundled
+[ex-check-broken-links]: net.html#ex-check-broken-links
+[ex-check-cpu-cores]: basics.html#ex-check-cpu-cores
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
 [ex-csv-serde]: encoding.html#ex-csv-serde
 [ex-csv-delimiter]: encoding.html#ex-csv-delimiter
 [ex-threadpool-fractal]: concurrency.html#ex-threadpool-fractal
+[ex-threadpool-walk]: concurrency.html#ex-threadpool-walk
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
@@ -159,6 +176,7 @@ community. It needs and welcomes help. For details see
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-parse-subprocess-input]: basics.html#ex-parse-subprocess-input
+[ex-run-piped-external-commands]: basics.html#ex-run-piped-external-commands
 [ex-verify-extract-email]: basics.html#ex-verify-extract-email
 [ex-percent-encode]: encoding.html#ex-percent-encode
 [ex-phone]: basics.html#ex-phone
@@ -175,6 +193,8 @@ community. It needs and welcomes help. For details see
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
+[ex-semver-complex]: app.html#ex-semver-complex
+[ex-semver-increment]: app.html#ex-semver-increment
 [ex-serialize-csv]: encoding.html#ex-serialize-csv
 [ex-sha-digest]: basics.html#ex-sha-digest
 [ex-std-read-lines]: basics.html#ex-std-read-lines
