@@ -1069,8 +1069,8 @@ fn run() -> Result<()> {
     println!("content-lenght: {} download in progress..", content_length);
 
     let mut chunk_starts: u64 = 0;
-    let mut chunk_ends = if (chunk_starts + 100) > content_length {
-        content_length % 100 - 1
+    let mut chunk_ends = if 100 > content_length {
+        content_length - 1
     } else {
         99
     };
