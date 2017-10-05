@@ -9,6 +9,7 @@ See crates.io's [documentation on the matter][build-script-docs] for more inform
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Compile and link statically to a bundled C library][ex-cc-static-bundled] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
+| [Compile and link statically to a bundled C++ library][ex-cc-static-bundled-cpp] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 
 
 [ex-cc-static-bundled]: #ex-cc-static-bundled
@@ -110,6 +111,66 @@ fn run() -> Result<()> {
 ```
 
 
+
+[ex-cc-static-bundled-cpp]: #ex-cc-static-bundled-cpp
+<a name="ex-cc-static-bundled-cpp"></a>
+## Compile and link statically to a bundled C++ library
+
+[![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
+
+Linking a bundled C++ library is almost the same as linking it with a C library. The main difference is the [`cpp`][cc-build-cpp] option that should be put to `true` and the addition of `extern "C"` in the foo.cpp file.
+
+
+### `Cargo.toml`
+
+```toml
+[package]
+...
+build = "build.rs"
+
+[build-dependencies]
+cc = "1"
+```
+
+### `build.rs`
+
+```rust,no_run
+extern crate cc;
+
+fn main() {
+    cc::Build::new()
+        .cpp(true)
+        .file("src/foo.cpp")
+        .compile("foo");   
+}
+```
+
+### `src/foo.cpp`
+
+```cpp
+extern "C" {
+    int multiply(int x, int y);
+}
+
+int multiply() {
+    return x*y;
+}
+```
+
+### `src/main.rs`
+
+```rust,ignore
+extern {
+    fn multiply(x : i32, y : i32);
+}
+
+fn main(){
+    unsafe {
+        println!("{}", multiply(5,7));
+    }   
+}
+```
+
 {{#include links.md}}
 
 <!-- Other Reference -->
@@ -120,4 +181,4 @@ fn run() -> Result<()> {
 [cc-build-include]: https://docs.rs/cc/*/cc/struct.Build.html#method.include
 [cc-build-flag]: https://docs.rs/cc/*/cc/struct.Build.html#method.flag
 [cc-build-compile]: https://docs.rs/cc/*/cc/struct.Build.html#method.compile
-
+[cc-build-cpp]: https://docs.rs/cc/*/cc/struct.Build.html#method.cpp
