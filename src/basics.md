@@ -339,11 +339,11 @@ for execution. [`Output`] of said statement is then parsed.
 ```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
-
+#
 use std::collections::HashSet;
 use std::io::Write;
 use std::process::{Command, Stdio};
-
+#
 # error_chain!{
 #     errors { CmdError }
 #     foreign_links {
@@ -378,7 +378,7 @@ fn run() -> Result<()> {
         bail!("External command failed:\n {}", err)
     }
 }
-
+#
 # quick_main!(run);
 ```
 
