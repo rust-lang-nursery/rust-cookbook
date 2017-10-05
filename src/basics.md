@@ -331,25 +331,23 @@ fn run() -> Result<()> {
 <a name="ex-parse-subprocess-input"></a>
 ## Run an external command passing it stdin and check for an error code
 
-[![regex-badge]][regex] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
+[![std-badge]][std] [![cat-os-badge]][cat-os]
 
 Opens the `python` interpreter using an external [`Command`] and passes it a python statement
-for execution. [`Output`] of said statement is then parsed using [`Regex`] and aggregated for all unique words used in output.
+for execution. [`Output`] of said statement is then parsed.
 
 ```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
-extern crate regex;
 
-use regex::Regex;
+use std::collections::HashSet;
 use std::io::Write;
-use std::ops::Deref;
 use std::process::{Command, Stdio};
 
 # error_chain!{
+#     errors { CmdError }
 #     foreign_links {
 #         Io(std::io::Error);
-#         Regex(regex::Error);
 #         Utf8(std::string::FromUtf8Error);
 #     }
 # }
@@ -360,44 +358,27 @@ fn run() -> Result<()> {
         .stdout(Stdio::piped())
         .spawn()?;
 
-    {
-        match child.stdin.as_mut() {
-            None => return Err("Child process stdin has not been captured!".into()),
-            Some(stdin) => {
-                stdin.write_all(b"import this; copyright(); credits(); exit()")?;
-            }
-        }
-    }
+    child.stdin
+        .as_mut()
+        .ok_or("Child process stdin has not been captured!")?
+        .write_all(b"import this; copyright(); credits(); exit()")?;
 
     let output = child.wait_with_output()?;
 
     if output.status.success() {
-        match String::from_utf8(output.stdout) {
-            Err(e) => Err(e.into()),
-            Ok(s) => {
-                let re = Regex::new(r"[[:punct:]&&[^']]")?;
-                {
-                    let stripped = re.replace_all(&s, " ");
-                    let mut result = stripped.deref()
-                        .split_whitespace()
-                        .map(|s| s.to_lowercase())
-                        .collect::<Vec<String>>();
-                    result.sort();
-                    result.dedup();
-                    println!("Found {} unique words:", result.len());
-                    println!("{:#?}", result);
-                }
-                Ok(())
-            }
-        }
+        let raw_output = String::from_utf8(output.stdout)?;
+        let words = raw_output.split_whitespace()
+            .map(|s| s.to_lowercase())
+            .collect::<HashSet<_>>();
+        println!("Found {} unique words:", words.len());
+        println!("{:#?}", words);
+        Ok(())
     } else {
-        match String::from_utf8(output.stderr) {
-            Err(e) => Err(e.into()),
-            Ok(s) => Err(format!("External command failed:\n {}", s).into()),
-        }
+        let err = String::from_utf8(output.stderr)?;
+        bail!("External command failed:\n {}", err)
     }
 }
-#
+
 # quick_main!(run);
 ```
 
