@@ -16,6 +16,7 @@
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Parse a complex version string][ex-semver-complex] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
+| [Check if given version is pre-release][ex-semver-prerelease] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 
 
 [ex-clap-basic]: #ex-clap-basic
@@ -690,6 +691,40 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-semver-prerelease]: #ex-semver-prerelease
+<a name="ex-semver-prerelease"></a>
+## Check if given version is pre-release.
+
+[![semver-badge]][semver] [![cat-config-badge]][cat-config]
+
+Given two versions, we assert (by using [`is_prerelease`]) that one is pre-release and that the other is not.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate semver;
+
+use semver::Version;
+#
+# error_chain! {
+#     foreign_links {
+#         SemVer(semver::SemVerError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let version_1 = Version::parse("1.0.0-alpha")?;
+    let version_2 = Version::parse("1.0.0")?;
+
+    assert!(version_1.is_prerelease());
+    assert!(!version_2.is_prerelease());
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -716,6 +751,7 @@ fn run() -> Result<()> {
 [`WalkDirIterator::filter_entry`]: https://docs.rs/walkdir/*/walkdir/trait.WalkDirIterator.html#method.filter_entry
 [`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
 [`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
+[`is_prerelease`]: https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease
 [`tar::Archive`]: https://docs.rs/tar/*/tar/struct.Archive.html
 [`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
 [`tar::Entries`]: https://docs.rs/tar/*/tar/struct.Entries.html
