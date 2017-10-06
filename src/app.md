@@ -17,6 +17,7 @@
 | [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Parse a complex version string][ex-semver-complex] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Check if given version is pre-release][ex-semver-prerelease] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
+| [Check external command version for compatibility][ex-semver-command] | [![semver-badge]][semver] | [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os]
 
 
 [ex-clap-basic]: #ex-clap-basic
@@ -725,6 +726,59 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-semver-command]: #ex-semver-command
+<a name="ex-semver-command"></a>
+## Check external command version for compatibility
+[![semver-badge]][semver] [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os]
+
+Runs `git --version` using [`Command`], then parses the version number into a [`semver::Version`]
+using [`Version::parse`]. A [`semver::VersionReq`] is used to compare the parsed version to a 
+minimum version requirement.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate semver;
+
+use std::process::Command;
+use semver::{Version, VersionReq};
+#
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Utf8(std::string::FromUtf8Error);
+#         SemVer(semver::SemVerError);
+#         SemVerReq(semver::ReqParseError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let version_constraint = "> 1.12.0";
+    let version_test = VersionReq::parse(version_constraint)?;
+    let output = Command::new("git").arg("--version").output()?;
+
+    if !output.status.success() {
+        bail!("Command executed with failing error code");
+    }
+
+    let stdout = String::from_utf8(output.stdout)?;
+    // `git --version` output: "git version x.y.z"
+    let version = stdout.split(" ").last().ok_or_else(|| {
+        "Invalid command output"
+    })?;
+    let parsed_version = Version::parse(version)?;
+
+    if !version_test.matches(&parsed_version) {
+        bail!("Command version lower than minimum supported version (found {}, need {})",
+            parsed_version, version_constraint);
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -732,6 +786,7 @@ fn run() -> Result<()> {
 [`Archive::entries`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.entries
 [`Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack
 [`Builder::append_dir_all`]: https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all
+[`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
 [`Entry::unpack`]: https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
@@ -743,6 +798,7 @@ fn run() -> Result<()> {
 [`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html
+[`semver::VersionReq`]: https://docs.rs/semver/*/semver/struct.VersionReq.html
 [`Version::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
 [`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
 [`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
