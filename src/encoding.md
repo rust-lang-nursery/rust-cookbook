@@ -11,6 +11,7 @@
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Read CSV records][ex-csv-read] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Read CSV records with different delimeter][ex-csv-delimiter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Filter CSV records matching a predicate][ex-csv-filter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 
@@ -491,6 +492,100 @@ alisha,colombo,xyz";
 # quick_main!(run);
 ```
 
+[ex-csv-read]: #ex-csv-read
+<a name="ex-csv-read"></a>
+## Read CSV records
+
+[![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
+
+Reads standard CSV records into [`csv::StringRecord`] — a weakly typed
+data representation. It expects to read valid UTF-8 rows. One the
+ohter hand, if invalid UTF-8 data has to be read, then prefer using
+[`csv::ByteRecord`], since it makes no assumptions about UTF-8.
+
+```rust
+extern crate csv;
+# #[macro_use]
+# extern crate error_chain;
+#
+# error_chain! {
+#     foreign_links {
+#         Reader(csv::Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let csv = "year,make,model,description
+1948,Porsche,356,Luxury sports car
+1967,Ford,Mustang fastback 1967,American car";
+
+    let mut reader = csv::Reader::from_reader(csv.as_bytes());
+    for record in reader.records() {
+        let record = record?;
+        println!(
+            "In {}, {} built the {} model. It is a {}.",
+            &record[0],
+            &record[1],
+            &record[2],
+            &record[3]
+        );
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+This is like the previous example, however Serde is used to
+deserialize data into strongly type structures. See the
+[`csv::Reader::deserialize`] method.
+
+```rust
+extern crate csv;
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate serde_derive;
+
+# error_chain! {
+#     foreign_links {
+#         Reader(csv::Error);
+#     }
+# }
+#
+#[derive(Debug, Deserialize)]
+struct Record {
+    year: u16,
+    make: String,
+    model: String,
+    description: String,
+}
+
+fn run() -> Result<()> {
+    let csv = "year,make,model,description
+1948,Porsche,356,Luxury sports car
+1967,Ford,Mustang fastback 1967,American car";
+
+    let mut reader = csv::Reader::from_reader(csv.as_bytes());
+
+    for record in reader.deserialize() {
+        let record: Record = record?;
+        println!(
+            "In {}, {} built the {} model. It is a {}.",
+            record.year,
+            record.make,
+            record.model,
+            record.description
+        );
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-csv-delimiter]: #ex-csv-delimiter
 <a name="ex-csv-delimiter"></a>
 ## Read CSV records with different delimeter
@@ -597,8 +692,11 @@ _Disclaimer: this example has been adapted from [the csv crate tutorial](https:/
 
 <!-- API Reference -->
 
-[`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
+[`csv::ByteRecord`]: https://docs.rs/csv/*/csv/struct.ByteRecord.html
 [`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
+[`csv::Reader::deserialize`]: https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize
+[`csv::StringRecord`]: https://docs.rs/csv/*/csv/struct.StringRecord.html
+[`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
 [`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/1.4.0/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
