@@ -118,7 +118,7 @@ fn run() -> Result<()> {
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 
-Linking a bundled C++ library is almost the same as linking it with a C library. The main difference is the [`cpp`][cc-build-cpp] option that should be put to `true` and the addition of `extern "C"` in the foo.cpp file.
+Linking a bundled C++ library is very similar to linking a bundled C library. The two core differences when compiling and statically linking a bundled C++ library are specifying a C++ compiler via the builder method [`cpp(true)`][cc-build-cpp] and preventing name mangling by the C++ compiler by adding the `extern "C"` section at the top of our C++ source file.
 
 
 ### `Cargo.toml`
