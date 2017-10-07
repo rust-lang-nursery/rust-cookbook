@@ -131,7 +131,7 @@ community. It needs and welcomes help. For details see
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Compile and link statically to a bundled C library][ex-cc-static-bundled] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
-
+| [Compile and link statically to a bundled C++ library][ex-cc-static-bundled-cpp]  | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 
 {{#include links.md}}
 
@@ -142,6 +142,7 @@ community. It needs and welcomes help. For details see
 [ex-bitflags]: basics.html#ex-bitflags
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-cc-static-bundled]: build_tools.html#ex-cc-static-bundled
+[ex-cc-static-bundled-cpp]: build_tools.html#ex-cc-static-bundled-cpp
 [ex-check-broken-links]: net.html#ex-check-broken-links
 [ex-check-cpu-cores]: basics.html#ex-check-cpu-cores
 [ex-clap-basic]: app.html#ex-clap-basic
