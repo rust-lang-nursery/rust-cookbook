@@ -20,6 +20,7 @@
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Sign and verify a message with an HMAC digest][ex-hmac] | [![ring-badge]][ring] | [![cat-cryptography-badge]][cat-cryptography] |
+| [Salt and hash a password with PBKDF2][ex-pbkdf2] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
@@ -900,6 +901,82 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-pbkdf2]: #ex-pbkdf2
+<a name="ex-pbkdf2"></a>
+## Salt and hash a password with PBKDF2
+
+[![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-cryptography-badge]][cat-cryptography]
+
+Uses [`ring::pbkdf2`] to hash a salted password using the PBKDF2 key derivation
+function [`pbkdf2::derive`] and then verifies the hash is correct with
+[`pbkdf2::verify`]. The salt is generated using
+[`SecureRandom::fill`], which fills the salt byte array with
+securely generated random numbers.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate data_encoding;
+extern crate ring;
+#
+# error_chain! {
+#   foreign_links {
+#     Ring(ring::error::Unspecified);
+#   }
+# }
+
+use data_encoding::HEXUPPER;
+use ring::{digest, pbkdf2, rand};
+use ring::rand::SecureRandom;
+
+fn run() -> Result<()> {
+  const CREDENTIAL_LEN: usize = digest::SHA512_OUTPUT_LEN;
+  const N_ITER: u32 = 100_000;
+  let rng = rand::SystemRandom::new();
+
+  // Generate salt
+  let mut salt = [0u8; CREDENTIAL_LEN];
+  rng.fill(&mut salt)?;
+
+  // Hash password
+  let password = "Guess Me If You Can!";
+  let mut pbkdf2_hash = [0u8; CREDENTIAL_LEN];
+  pbkdf2::derive(
+      &digest::SHA512,
+      N_ITER,
+      &salt,
+      password.as_bytes(),
+      &mut pbkdf2_hash,
+  );
+  println!("Salt: {}", HEXUPPER.encode(&salt));
+  println!("PBKDF2 hash: {}", HEXUPPER.encode(&pbkdf2_hash));
+
+  // Verify hash with correct password and wrong password
+  let should_succeed = pbkdf2::verify(
+      &digest::SHA512,
+      N_ITER,
+      &salt,
+      password.as_bytes(),
+      &pbkdf2_hash,
+  );
+  let wrong_password = "Definitely not the correct password";
+  let should_fail = pbkdf2::verify(
+      &digest::SHA512,
+      N_ITER,
+      &salt,
+      wrong_password.as_bytes(),
+      &pbkdf2_hash,
+  );
+
+  assert!(should_succeed.is_ok());
+  assert!(!should_fail.is_ok());
+
+  Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-bitflags]: #ex-bitflags
 <a name="ex-bitflags"></a>
 ## Define and operate on a type represented as a bitfield
@@ -1050,6 +1127,8 @@ fn main() {
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
+[`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
+[`pbkdf2::verify`]: https://docs.rs/ring/*/ring/pbkdf2/fn.verify.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
@@ -1061,8 +1140,10 @@ fn main() {
 [`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
 [`Regex::replace_all`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.replace_all
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`ring::pbkdf2`]: https://docs.rs/ring/*/ring/pbkdf2/index.html
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
+[`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html

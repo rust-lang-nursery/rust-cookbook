@@ -38,6 +38,7 @@ community. It needs and welcomes help. For details see
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Sign and verify a message with an HMAC digest][ex-hmac] | [![ring-badge]][ring] | [![cat-cryptography-badge]][cat-cryptography] |
+| [Salt and hash a password with PBKDF2][ex-pbkdf2] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
@@ -182,6 +183,7 @@ community. It needs and welcomes help. For details see
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-parse-subprocess-input]: basics.html#ex-parse-subprocess-input
+[ex-pbkdf2]: basics.html#ex-pbkdf2
 [ex-run-piped-external-commands]: basics.html#ex-run-piped-external-commands
 [ex-verify-extract-email]: basics.html#ex-verify-extract-email
 [ex-percent-encode]: encoding.html#ex-percent-encode
