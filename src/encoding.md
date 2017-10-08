@@ -8,12 +8,12 @@
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
-| [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
-| [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
-| [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Read CSV records][ex-csv-read] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Read CSV records with different delimeter][ex-csv-delimiter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Filter CSV records matching a predicate][ex-csv-filter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
+| [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
+| [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -349,149 +349,6 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[ex-serialize-csv]: #ex-serialize-csv
-<a name="ex-serialize-csv"></a>
-## Serialize records to CSV
-
-[![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
-
-This example shows how to serialize a Rust tuple. [`csv::writer`] supports automatic
-serialization from Rust types into CSV records. [`write_record`] is used when writing
-a simple record that contains string-like data only, [`serialize`] is used when data
-consists of more complex values like numbers, floats or optional values. Since CSV
-writer uses internal buffer, always explicitly [`flush`] when done.
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate csv;
-
-use std::io;
-#
-# error_chain! {
-#     foreign_links {
-#         CSVError(csv::Error);
-#         IOError(std::io::Error);
-#    }
-# }
-
-fn run() -> Result<()> {
-    let mut wtr = csv::Writer::from_writer(io::stdout());
-
-    wtr.write_record(&["Name", "Place", "ID"])?;
-
-    wtr.serialize(("Mark", "Sydney", 87))?;
-    wtr.serialize(("Ashley", "Dublin", 32))?;
-    wtr.serialize(("Akshat", "Delhi", 11))?;
-
-    wtr.flush()?;
-    Ok(())
-}
-#
-# quick_main!(run);
-```
-
-[ex-csv-serde]: #ex-csv-serde
-<a name="ex-csv-serde"></a>
-## Serialize records to CSV using Serde
-
-[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
-
-The following example shows how to serialize custom structs as CSV records using
-the [serde] crate.
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate csv;
-#[macro_use]
-extern crate serde_derive;
-
-use std::io;
-#
-# error_chain! {
-#    foreign_links {
-#        IOError(std::io::Error);
-#        CSVError(csv::Error);
-#    }
-# }
-
-#[derive(Debug, Serialize)]
-struct Record<'a> {
-    name: &'a str,
-    place: &'a str,
-    id: u64,
-}
-
-fn run() -> Result<()> {
-    let mut wtr = csv::Writer::from_writer(io::stdout());
-
-    let rec1 = Record { name: "Mark", place: "Melbourne", id: 56};
-    let rec2 = Record { name: "Ashley", place: "Sydney", id: 64};
-    let rec3 = Record { name: "Akshat", place: "Delhi", id: 98};
-
-    wtr.serialize(rec1)?;
-    wtr.serialize(rec2)?;
-    wtr.serialize(rec3)?;
-
-    wtr.flush()?;
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
-
-[ex-invalid-csv]: #ex-invalid-csv
-<a name="ex-invalid-csv"></a>
-## Handle invalid CSV data with Serde
-
-[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
-
-CSV files often contain invalid data. For these cases, the csv crate
-provides a custom deserializer, [`csv::invalid_option`], which automatically
-converts invalid data to None values.
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate csv;
-#[macro_use]
-extern crate serde_derive;
-
-#[derive(Debug, Deserialize)]
-struct Record {
-    name: String,
-    place: String,
-    #[serde(deserialize_with = "csv::invalid_option")]
-    id: Option<u64>,
-}
-#
-# error_chain! {
-#     foreign_links {
-#         CsvError(csv::Error);
-#     }
-# }
-
-fn run() -> Result<()> {
-    let data = "name,place,id
-mark,sydney,46.5
-ashley,zurich,92
-akshat,delhi,37
-alisha,colombo,xyz";
-
-    let mut rdr = csv::Reader::from_reader(data.as_bytes());
-    for result in rdr.deserialize() {
-        let record: Record = result?;
-        println!("{:?}", record);
-    }
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
-
 [ex-csv-read]: #ex-csv-read
 <a name="ex-csv-read"></a>
 ## Read CSV records
@@ -554,7 +411,7 @@ extern crate serde_derive;
 #     }
 # }
 #
-#[derive(Debug, Deserialize)]
+#[derive(Deserialize)]
 struct Record {
     year: u16,
     make: String,
@@ -687,6 +544,149 @@ West Hollywood,CA,37031,34.0900000,-118.3608333";
 ```
 
 _Disclaimer: this example has been adapted from [the csv crate tutorial](https://docs.rs/csv/*/csv/tutorial/index.html#filter-by-search)_.
+
+[ex-invalid-csv]: #ex-invalid-csv
+<a name="ex-invalid-csv"></a>
+## Handle invalid CSV data with Serde
+
+[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
+
+CSV files often contain invalid data. For these cases, the csv crate
+provides a custom deserializer, [`csv::invalid_option`], which automatically
+converts invalid data to None values.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+#[macro_use]
+extern crate serde_derive;
+
+#[derive(Debug, Deserialize)]
+struct Record {
+    name: String,
+    place: String,
+    #[serde(deserialize_with = "csv::invalid_option")]
+    id: Option<u64>,
+}
+#
+# error_chain! {
+#     foreign_links {
+#         CsvError(csv::Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let data = "name,place,id
+mark,sydney,46.5
+ashley,zurich,92
+akshat,delhi,37
+alisha,colombo,xyz";
+
+    let mut rdr = csv::Reader::from_reader(data.as_bytes());
+    for result in rdr.deserialize() {
+        let record: Record = result?;
+        println!("{:?}", record);
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-serialize-csv]: #ex-serialize-csv
+<a name="ex-serialize-csv"></a>
+## Serialize records to CSV
+
+[![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
+
+This example shows how to serialize a Rust tuple. [`csv::writer`] supports automatic
+serialization from Rust types into CSV records. [`write_record`] is used when writing
+a simple record that contains string-like data only, [`serialize`] is used when data
+consists of more complex values like numbers, floats or optional values. Since CSV
+writer uses internal buffer, always explicitly [`flush`] when done.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+
+use std::io;
+#
+# error_chain! {
+#     foreign_links {
+#         CSVError(csv::Error);
+#         IOError(std::io::Error);
+#    }
+# }
+
+fn run() -> Result<()> {
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    wtr.write_record(&["Name", "Place", "ID"])?;
+
+    wtr.serialize(("Mark", "Sydney", 87))?;
+    wtr.serialize(("Ashley", "Dublin", 32))?;
+    wtr.serialize(("Akshat", "Delhi", 11))?;
+
+    wtr.flush()?;
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-csv-serde]: #ex-csv-serde
+<a name="ex-csv-serde"></a>
+## Serialize records to CSV using Serde
+
+[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
+
+The following example shows how to serialize custom structs as CSV records using
+the [serde] crate.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+#[macro_use]
+extern crate serde_derive;
+
+use std::io;
+#
+# error_chain! {
+#    foreign_links {
+#        IOError(std::io::Error);
+#        CSVError(csv::Error);
+#    }
+# }
+
+#[derive(Serialize)]
+struct Record<'a> {
+    name: &'a str,
+    place: &'a str,
+    id: u64,
+}
+
+fn run() -> Result<()> {
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    let rec1 = Record { name: "Mark", place: "Melbourne", id: 56};
+    let rec2 = Record { name: "Ashley", place: "Sydney", id: 64};
+    let rec3 = Record { name: "Akshat", place: "Delhi", id: 98};
+
+    wtr.serialize(rec1)?;
+    wtr.serialize(rec2)?;
+    wtr.serialize(rec3)?;
+
+    wtr.flush()?;
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
 
 {{#include links.md}}
 
