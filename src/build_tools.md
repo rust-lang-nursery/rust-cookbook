@@ -10,7 +10,7 @@ See crates.io's [documentation on the matter][build-script-docs] for more inform
 |--------|--------|------------|
 | [Compile and link statically to a bundled C library][ex-cc-static-bundled] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 | [Compile and link statically to a bundled C++ library][ex-cc-static-bundled-cpp] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
-
+| [Compile a C library while setting custom defines][ex-cc-custom-defines] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 
 [ex-cc-static-bundled]: #ex-cc-static-bundled
 <a name="ex-cc-static-bundled"></a>
@@ -171,6 +171,73 @@ fn main(){
 }
 ```
 
+[ex-cc-custom-defines]: #ex-cc-custom-defines
+<a name="ex-cc-custom-defines"></a>
+## Compile a C library while setting custom defines
+
+[![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
+
+It is simple to build bundled C code with custom defines using [`cc::Build::define`][cc-build-define]. 
+It takes an [`Option`] value, so it is possible to create defines such as `#define FLAG`
+as well as `#define VALUE 123`. This example builds a bundled C file with dynamic defines set in 
+`build.rs` and prints `Welcome to foo - version 1.0.2` when run. Cargo sets some [environment 
+variables][cargo-env] which may be useful for some custom defines.
+
+
+### `Cargo.toml`
+
+```toml
+[package]
+...
+version = "1.0.2"
+build = "build.rs"
+
+[build-dependencies]
+cc = "1"
+```
+
+### `build.rs`
+
+```rust,no_run
+extern crate cc;
+
+fn main() {
+    cc::Build::new()
+        .define("APP_NAME", "\"foo\"")
+        .define("VERSION", format!("\"{}\"", env!("CARGO_PKG_VERSION")).as_str())
+        .define("WELCOME", None)
+        .file("src/foo.c")
+        .compile("foo");
+}
+```
+
+### `src/foo.c`
+
+```c
+#include <stdio.h>
+
+void print_app_info() {
+#ifdef WELCOME
+    printf("Welcome to ");
+#endif
+    printf("%s - version %s\n", APP_NAME, VERSION);
+}
+```
+
+### `src/main.rs`
+
+```rust,ignore
+extern {
+    fn print_app_info();
+}
+
+fn main(){
+    unsafe {
+        print_app_info();
+    }   
+}
+```
+
 {{#include links.md}}
 
 <!-- Other Reference -->
@@ -178,7 +245,10 @@ fn main(){
 [build-script-docs]: http://doc.crates.io/build-script.html
 [playground]: https://play.rust-lang.org
 [cc-build]: https://docs.rs/cc/*/cc/struct.Build.html
+[cc-build-define]: https://docs.rs/cc/1.0.0/cc/struct.Build.html#method.define
 [cc-build-include]: https://docs.rs/cc/*/cc/struct.Build.html#method.include
 [cc-build-flag]: https://docs.rs/cc/*/cc/struct.Build.html#method.flag
 [cc-build-compile]: https://docs.rs/cc/*/cc/struct.Build.html#method.compile
 [cc-build-cpp]: https://docs.rs/cc/*/cc/struct.Build.html#method.cpp
+[`Option`]: https://doc.rust-lang.org/std/option/enum.Option.html
+[cargo-env]: http://doc.crates.io/environment-variables.html#environment-variables-cargo-sets-for-crates
