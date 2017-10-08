@@ -1039,9 +1039,10 @@ Range header, defined in [RFC7233][HTTP Range RFC7233].
 # extern crate error_chain;
 extern crate reqwest;
 
-use std::io::Read;
+use std::io::{Read, Write};
+use std::fs::File;
 
-use reqwest::header::{Range, ContentRange, ContentRangeSpec};
+use reqwest::header::{ContentRange, ContentRangeSpec, Range};
 
 # error_chain! {
 #     foreign_links {
@@ -1049,6 +1050,82 @@ use reqwest::header::{Range, ContentRange, ContentRangeSpec};
 #         Reqwest(reqwest::Error);
 #     }
 # }
+
+const BUFFER_SIZE: u64 = 100;
+
+struct PartialRange {
+    content_length: u64,
+    range_ends: u64,
+    ranges: Vec<u64>,
+}
+
+impl PartialRange {
+    pub fn new(content_range: &ContentRangeSpec) -> PartialRange {
+        let (content_length, range_starts, range_ends) = match *content_range {
+            ContentRangeSpec::Bytes {
+                range: Some(range),
+                instance_length: Some(content_length),
+            } => (content_length, range.0, range.1),
+            _ => (0, 0, 0),
+        };
+
+        let ranges: Vec<u64> = (range_starts..((range_ends - range_starts) / BUFFER_SIZE + 1))
+            .map(|c| c * BUFFER_SIZE)
+            .collect();
+
+        PartialRange {
+            content_length,
+            range_ends,
+            ranges,
+        }
+    }
+
+    pub fn iter(&self) -> PartialRangeIterator {
+        PartialRangeIterator::new(self.range_ends, &self.ranges)
+    }
+}
+
+struct PartialRangeIterator<'a> {
+    ranges: &'a [u64],
+    range_ends: u64,
+    next_start: Option<u64>,
+}
+
+impl<'a> PartialRangeIterator<'a> {
+    pub fn new(range_ends: u64, ranges: &'a [u64]) -> PartialRangeIterator<'a> {
+        PartialRangeIterator {
+            ranges,
+            range_ends,
+            next_start: if ranges.is_empty() { None } else { Some(0) },
+        }
+    }
+}
+
+impl<'a> Iterator for PartialRangeIterator<'a> {
+    type Item = Range;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.next_start.is_none() {
+            None
+        } else {
+            let next_start = self.next_start.unwrap();
+            self.next_start = if next_start == (self.ranges.len() - 1) as u64 {
+                None
+            } else {
+                Some(next_start + 1)
+            };
+
+            if self.next_start.is_none() {
+                Some(Range::bytes(next_start * BUFFER_SIZE, self.range_ends))
+            } else {
+                Some(Range::bytes(
+                    next_start * BUFFER_SIZE,
+                    (next_start * BUFFER_SIZE) + BUFFER_SIZE - 1,
+                ))
+            }
+        }
+    }
+}
 
 fn run() -> Result<()> {
     let client = reqwest::Client::new();
@@ -1060,28 +1137,14 @@ fn run() -> Result<()> {
         "response doesn't include the expected ranges",
     )?;
 
-    let content_length = match **range {
-        ContentRangeSpec::Bytes { instance_length: Some(len), .. } => len,
-        _ => bail!("response doesn't include the expected ranges"),
-    };
+    let mut output_file = File::create("download.bin")?;
+    let ranges = PartialRange::new(range);
 
-    let mut content: Vec<u8> = Vec::with_capacity(content_length as usize);
-    println!("content-lenght: {} download in progress..", content_length);
+    println!("starting download...");
+    for range in ranges.iter() {
+        println!("range {}", range);
 
-    let mut chunk_starts: u64 = 0;
-    let mut chunk_ends = if 100 > content_length {
-        content_length - 1
-    } else {
-        99
-    };
-
-    while chunk_starts < content_length {
-        println!("{}-{}", chunk_starts, chunk_ends);
-
-        let mut response = client
-            .get(url)
-            .header(Range::bytes(chunk_starts, chunk_ends))
-            .send()?;
+        let mut response = client.get(url).header(range).send()?;
 
         if response.status() != reqwest::StatusCode::PartialContent &&
             response.status() != reqwest::StatusCode::Ok
@@ -1089,18 +1152,13 @@ fn run() -> Result<()> {
             bail!("Unexpected server response: {}", response.status())
         }
 
+        let mut content: Vec<u8> = Vec::with_capacity(BUFFER_SIZE as usize);
         response.read_to_end(&mut content)?;
 
-        chunk_starts += 100;
-        chunk_ends += if (chunk_ends + 100) > content_length {
-            content_length % 100
-        } else {
-            100
-        };
+        output_file.write_all(&content)?;
     }
 
     println!("finished with success!");
-
     Ok(())
 }
 #
