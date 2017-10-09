@@ -64,6 +64,8 @@ Keep lines sorted.
 [data-encoding]: https://docs.rs/data-encoding/
 [env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
+[error-chain-badge]: https://badge-cache.kominick.com/crates/v/error-chain.svg?label=error-chain
+[error-chain]: https://docs.rs/error-chain/
 [flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2
 [flate2]: https://docs.rs/flate2/
 [glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob

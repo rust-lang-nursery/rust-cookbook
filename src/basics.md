@@ -24,7 +24,7 @@
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
-
+| [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -866,7 +866,7 @@ Uses [`ring::hmac`] to creates a [`hmac::Signature`] of a string then verifies t
 # #[macro_use]
 # extern crate error_chain;
 extern crate ring;
-# 
+#
 # error_chain! {
 #     foreign_links {
 #         Ring(ring::error::Unspecified);
@@ -1092,14 +1092,112 @@ fn main() {
 }
 ```
 
+[ex-error-chain-backtrace]: #ex-error-chain-backtrace
+<a name="ex-error-chain-backtrace"></a>
+## Obtain backtrace of complex error scenarios
+
+[![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
+
+This recipe shows how to handle a complex error scenario and then
+print a backtrace. It relies on [`chain_err`] to extend errors by
+appending new errors. The error stack can be unwinded, thus providing
+a better context to understand why an error was raised.
+
+The below recipes attemps to deserialize the value `256` into a
+`u8`. An error will bubble up from Serde then csv and finaly up to the
+user code.
+
+```rust
+# extern crate csv;
+#[macro_use]
+extern crate error_chain;
+# #[macro_use]
+# extern crate serde_derive;
+#
+# use std::fmt;
+#
+# error_chain! {
+#     foreign_links {
+#         Reader(csv::Error);
+#     }
+# }
+
+#[derive(Debug, Deserialize)]
+struct Rgb {
+    red: u8,
+    blue: u8,
+    green: u8,
+}
+
+impl Rgb {
+    fn from_reader(csv_data: &[u8]) -> Result<Rgb> {
+        let color: Rgb = csv::Reader::from_reader(csv_data)
+            .deserialize()
+            .nth(0)
+            .ok_or("Cannot deserialize the first CSV record")?
+            .chain_err(|| "Cannot deserialize RGB color")?;
+
+        Ok(color)
+    }
+}
+
+# impl fmt::UpperHex for Rgb {
+#     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+#         let hexa = u32::from(self.red) << 16 | u32::from(self.blue) << 8 | u32::from(self.green);
+#         write!(f, "{:X}", hexa)
+#     }
+# }
+#
+fn run() -> Result<()> {
+    let csv = "red,blue,green
+102,256,204";
+
+    let rgb = Rgb::from_reader(csv.as_bytes()).chain_err(|| "Cannot read CSV data")?;
+    println!("{:?} to hexadecimal #{:X}", rgb, rgb);
+
+    Ok(())
+}
+
+fn main() {
+    if let Err(ref errors) = run() {
+        eprintln!("Error level - description");
+        errors
+            .iter()
+            .enumerate()
+            .for_each(|(index, error)| eprintln!("└> {} - {}", index, error));
+
+        if let Some(backtrace) = errors.backtrace() {
+            eprintln!("{:?}", backtrace);
+        }
+#
+#         // In a real use case, errors should handled. For example:
+#         // ::std::process::exit(1);
+    }
+}
+```
+
+Backtrace error rendered:
+
+```text
+Error level - description
+└> 0 - Cannot read CSV data
+└> 1 - Cannot deserialize RGB color
+└> 2 - CSV deserialize error: record 1 (line: 2, byte: 15): field 1: number too large to fit in target type
+└> 3 - field 1: number too large to fit in target type
+```
+
+Run the recipe with `RUST_BACKTRACE=1` to display a detailed [`backtrace`] associated with this error.
+
 {{#include links.md}}
 
 <!-- API Reference -->
 
+[`backtrace`]: https://docs.rs/error-chain/*/error_chain/trait.ChainedError.html#tymethod.backtrace
 [`bitflags!`]: https://docs.rs/bitflags/*/bitflags/macro.bitflags.html
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
 [`BufRead`]: https://doc.rust-lang.org/std/io/trait.BufRead.html
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
+[`chain_err`]: https://docs.rs/error-chain/*/error_chain/index.html#chaining-errors
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
