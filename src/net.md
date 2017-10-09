@@ -1051,86 +1051,50 @@ use reqwest::header::{ContentRange, ContentRangeSpec, Range};
 #     }
 # }
 
-const BUFFER_SIZE: u64 = 100;
-
-struct PartialRange {
-    content_length: u64,
-    range_ends: u64,
-    ranges: Vec<u64>,
+#[derive(Debug)]
+struct PartialRangeIter {
+    start: u64,
+    end: u64,
+    buffer_size: usize,
 }
 
-impl PartialRange {
-    pub fn new(content_range: &ContentRangeSpec) -> PartialRange {
-        let (content_length, range_starts, range_ends) = match *content_range {
-            ContentRangeSpec::Bytes {
-                range: Some(range),
-                instance_length: Some(content_length),
-            } => (content_length, range.0, range.1),
-            _ => (0, 0, 0),
-        };
-
-        let ranges: Vec<u64> = (range_starts..((range_ends - range_starts) / BUFFER_SIZE + 1))
-            .map(|c| c * BUFFER_SIZE)
-            .collect();
-
-        PartialRange {
-            content_length,
-            range_ends,
-            ranges,
+impl PartialRangeIter {
+    pub fn new(content_range: &ContentRangeSpec, buffer_size: usize) -> Result<PartialRangeIter> {
+        if buffer_size == 0 {
+            Err("invalid buffer_size, give a value greater than zero.")?;
         }
-    }
 
-    pub fn iter(&self) -> PartialRangeIterator {
-        PartialRangeIterator::new(self.range_ends, &self.ranges)
-    }
-}
-
-struct PartialRangeIterator<'a> {
-    ranges: &'a [u64],
-    range_ends: u64,
-    next_start: Option<u64>,
-}
-
-impl<'a> PartialRangeIterator<'a> {
-    pub fn new(range_ends: u64, ranges: &'a [u64]) -> PartialRangeIterator<'a> {
-        PartialRangeIterator {
-            ranges,
-            range_ends,
-            next_start: if ranges.is_empty() { None } else { Some(0) },
+        match *content_range {
+            ContentRangeSpec::Bytes { range: Some(range), .. } => Ok(PartialRangeIter {
+                start: range.0,
+                end: range.1,
+                buffer_size,
+            }),
+            _ => Err("invalid range specification")?,
         }
     }
 }
 
-impl<'a> Iterator for PartialRangeIterator<'a> {
+impl Iterator for PartialRangeIter {
     type Item = Range;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if self.next_start.is_none() {
+        if self.start > self.end {
             None
         } else {
-            let next_start = self.next_start.unwrap();
-            self.next_start = if next_start == (self.ranges.len() - 1) as u64 {
-                None
-            } else {
-                Some(next_start + 1)
-            };
-
-            if self.next_start.is_none() {
-                Some(Range::bytes(next_start * BUFFER_SIZE, self.range_ends))
-            } else {
-                Some(Range::bytes(
-                    next_start * BUFFER_SIZE,
-                    (next_start * BUFFER_SIZE) + BUFFER_SIZE - 1,
-                ))
-            }
+            let old_start = self.start;
+            self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
+            Some(Range::bytes(old_start, self.start - 1))
         }
     }
 }
+
 
 fn run() -> Result<()> {
     let client = reqwest::Client::new();
 
-    let url = "https://httpbin.org/range/1024?duration=2";
+    // For the purpose of this example is only a small download of 102400 bytes.
+    let url = "https://httpbin.org/range/102400?duration=2";
     let response = client.head(url).send()?;
 
     let range = response.headers().get::<ContentRange>().ok_or(
@@ -1138,24 +1102,25 @@ fn run() -> Result<()> {
     )?;
 
     let mut output_file = File::create("download.bin")?;
-    let ranges = PartialRange::new(range);
+
+    let mut content_buffer: Vec<u8> = Vec::with_capacity(10000);
+    let ranges = PartialRangeIter::new(range, content_buffer.capacity())?;
 
     println!("starting download...");
-    for range in ranges.iter() {
-        println!("range {}", range);
+    for range in ranges {
+        println!("range {:?}", range);
 
         let mut response = client.get(url).header(range).send()?;
 
-        if response.status() != reqwest::StatusCode::PartialContent &&
-            response.status() != reqwest::StatusCode::Ok
+        if !(response.status() == reqwest::StatusCode::Ok ||
+                 response.status() == reqwest::StatusCode::PartialContent)
         {
             bail!("Unexpected server response: {}", response.status())
         }
 
-        let mut content: Vec<u8> = Vec::with_capacity(BUFFER_SIZE as usize);
-        response.read_to_end(&mut content)?;
-
-        output_file.write_all(&content)?;
+        response.read_to_end(&mut content_buffer)?;
+        output_file.write_all(&content_buffer)?;
+        content_buffer.clear();
     }
 
     println!("finished with success!");
