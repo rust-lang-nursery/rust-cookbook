@@ -19,6 +19,7 @@
 | [Extract all links from a webpage HTML][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
 | [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
+| [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -837,7 +838,7 @@ After sending data in telnet press `ctrl-]` and type `quit`.
 [![reqwest-badge]][reqwest] [![select-badge]][select] [![cat-net-badge]][cat-net]
 
 Use [`reqwest::get`] to perform a HTTP GET request and then use [`Document::from_read`] to parse the response into a HTML document.
-We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a". 
+We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a".
 This returns a [`Selection`] that we [`filter_map`] on to retrieve the urls from links that have the "href" [`attr`].
 
 ```rust,no_run
@@ -981,7 +982,7 @@ use regex::Regex;
 #         Regex(regex::Error);
 #     }
 # }
-# 
+#
 fn extract_links(content: &str) -> Result<HashSet<Cow<str>>> {
     lazy_static! {
         static ref WIKI_REGEX: Regex =
@@ -1019,6 +1020,116 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-progress-with-range]: #ex-progress-with-range
+<a name="ex-progress-with-range"/>
+## Make a partial download with HTTP range headers
+
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
+
+Uses [`reqwest::Client::head`] to get the content-length and validate if the server sets the header
+[`reqwest::header::ContentRange`], required to confirm the support of partial downloads.
+
+If supported downloads the content using [`reqwest::get`], setting the [`reqwest::header::Range`]
+to do partial downloads in chunks of 100 bytes, between these writes basic progress messages.
+
+Range header, defined in [RFC7233][HTTP Range RFC7233].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate reqwest;
+
+use std::io::{Read, Write};
+use std::fs::File;
+
+use reqwest::header::{ContentRange, ContentRangeSpec, Range};
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Reqwest(reqwest::Error);
+#     }
+# }
+
+#[derive(Debug)]
+struct PartialRangeIter {
+    start: u64,
+    end: u64,
+    buffer_size: usize,
+}
+
+impl PartialRangeIter {
+    pub fn new(content_range: &ContentRangeSpec, buffer_size: usize) -> Result<PartialRangeIter> {
+        if buffer_size == 0 {
+            Err("invalid buffer_size, give a value greater than zero.")?;
+        }
+
+        match *content_range {
+            ContentRangeSpec::Bytes { range: Some(range), .. } => Ok(PartialRangeIter {
+                start: range.0,
+                end: range.1,
+                buffer_size,
+            }),
+            _ => Err("invalid range specification")?,
+        }
+    }
+}
+
+impl Iterator for PartialRangeIter {
+    type Item = Range;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.start > self.end {
+            None
+        } else {
+            let old_start = self.start;
+            self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
+            Some(Range::bytes(old_start, self.start - 1))
+        }
+    }
+}
+
+
+fn run() -> Result<()> {
+    let client = reqwest::Client::new();
+
+    // For the purpose of this example is only a small download of 102400 bytes.
+    let url = "https://httpbin.org/range/102400?duration=2";
+    let response = client.head(url).send()?;
+
+    let range = response.headers().get::<ContentRange>().ok_or(
+        "response doesn't include the expected ranges",
+    )?;
+
+    let mut output_file = File::create("download.bin")?;
+
+    let mut content_buffer: Vec<u8> = Vec::with_capacity(10000);
+    let ranges = PartialRangeIter::new(range, content_buffer.capacity())?;
+
+    println!("starting download...");
+    for range in ranges {
+        println!("range {:?}", range);
+
+        let mut response = client.get(url).header(range).send()?;
+
+        if !(response.status() == reqwest::StatusCode::Ok ||
+                 response.status() == reqwest::StatusCode::PartialContent)
+        {
+            bail!("Unexpected server response: {}", response.status())
+        }
+
+        response.read_to_end(&mut content_buffer)?;
+        output_file.write_all(&content_buffer)?;
+        content_buffer.clear();
+    }
+
+    println!("finished with success!");
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1035,7 +1146,7 @@ fn run() -> Result<()> {
 [`Position::BeforePath`]: https://docs.rs/url/*/url/enum.Position.html#variant.BeforePath
 [`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
-[`RequestBuilder::body`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html#method.body
+[`RequestBuilder::body`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.body
 [`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
 [`RequestBuilder::json`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
@@ -1064,9 +1175,12 @@ fn run() -> Result<()> {
 [`parse`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
 [`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
-[`reqwest::RequestBuilder`]: https://docs.rs/reqwest/0.6.2/reqwest/struct.RequestBuilder.html
+[`reqwest::RequestBuilder`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
+[`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
+[`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
+[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.htm
 [`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
@@ -1080,3 +1194,4 @@ fn run() -> Result<()> {
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
 [OAuth]: https://oauth.net/getting-started/
+[HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1
