@@ -222,6 +222,7 @@ community. It needs and welcomes help. For details see
 [ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-urlencoded]: encoding.html#ex-urlencoded
+[ex-progress-with-range]: net.html#ex-random-file-access
 [ex-random-file-access]: basics.html#ex-random-file-access
 [ex-regex-replace-named]: basics.html#ex-regex-replace-named
 [ex-csv-filter]: encoding.html#ex-csv-filter
