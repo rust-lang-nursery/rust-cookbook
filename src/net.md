@@ -1029,101 +1029,94 @@ fn run() -> Result<()> {
 Uses [`reqwest::Client::head`] to get the content-length and validate if the server sets the header
 [`reqwest::header::ContentRange`], required to confirm the support of partial downloads.
 
-If supported downloads the content using [`reqwest::get`], setting the [`reqwest::header::Range`]
-to do partial downloads in chunks of 100 bytes, between these writes basic progress messages.
+If supported, downloads the content using [`reqwest::get`], setting the [`reqwest::header::Range`]
+to do partial downloads printing basic progress messages.
+ in chunks of 10240 bytes
 
-Range header, defined in [RFC7233][HTTP Range RFC7233].
+Range header is defined in [RFC7233][HTTP Range RFC7233].
 
 ```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
 extern crate reqwest;
 
-use std::io::{Read, Write};
 use std::fs::File;
-
 use reqwest::header::{ContentRange, ContentRangeSpec, Range};
-
+use reqwest::StatusCode;
+#
 # error_chain! {
 #     foreign_links {
 #         Io(std::io::Error);
 #         Reqwest(reqwest::Error);
 #     }
 # }
-
-#[derive(Debug)]
-struct PartialRangeIter {
-    start: u64,
-    end: u64,
-    buffer_size: usize,
-}
-
-impl PartialRangeIter {
-    pub fn new(content_range: &ContentRangeSpec, buffer_size: usize) -> Result<PartialRangeIter> {
-        if buffer_size == 0 {
-            Err("invalid buffer_size, give a value greater than zero.")?;
-        }
-
-        match *content_range {
-            ContentRangeSpec::Bytes { range: Some(range), .. } => Ok(PartialRangeIter {
-                start: range.0,
-                end: range.1,
-                buffer_size,
-            }),
-            _ => Err("invalid range specification")?,
-        }
-    }
-}
-
-impl Iterator for PartialRangeIter {
-    type Item = Range;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.start > self.end {
-            None
-        } else {
-            let old_start = self.start;
-            self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
-            Some(Range::bytes(old_start, self.start - 1))
-        }
-    }
-}
-
+#
+# struct PartialRangeIter {
+#     start: u64,
+#     end: u64,
+#     buffer_size: u32,
+# }
+#
+# impl PartialRangeIter {
+#     pub fn new(content_range: &ContentRangeSpec, buffer_size: u32) -> Result<Self> {
+#         if buffer_size == 0 {
+#             Err("invalid buffer_size, give a value greater than zero.")?;
+#         }
+#
+#         match *content_range {
+#             ContentRangeSpec::Bytes { range: Some(range), .. } => Ok(PartialRangeIter {
+#                 start: range.0,
+#                 end: range.1,
+#                 buffer_size,
+#             }),
+#             _ => Err("invalid range specification")?,
+#         }
+#     }
+# }
+#
+# impl Iterator for PartialRangeIter {
+#     type Item = Range;
+#
+#     fn next(&mut self) -> Option<Self::Item> {
+#         if self.start > self.end {
+#             None
+#         } else {
+#             let prev_start = self.start;
+#             self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
+#             Some(Range::bytes(prev_start, self.start - 1))
+#         }
+#     }
+# }
 
 fn run() -> Result<()> {
-    let client = reqwest::Client::new();
-
-    // For the purpose of this example is only a small download of 102400 bytes.
+    // For the purpose of this example only a small download of 102400 bytes
+    // with chunk size of 10240 bytes is used.
     let url = "https://httpbin.org/range/102400?duration=2";
-    let response = client.head(url).send()?;
+    const CHUNK_SIZE: u32 = 10240;
 
+    let client = reqwest::Client::new();
+    let response = client.head(url).send()?;
     let range = response.headers().get::<ContentRange>().ok_or(
         "response doesn't include the expected ranges",
     )?;
 
     let mut output_file = File::create("download.bin")?;
 
-    let mut content_buffer: Vec<u8> = Vec::with_capacity(10000);
-    let ranges = PartialRangeIter::new(range, content_buffer.capacity())?;
-
     println!("starting download...");
-    for range in ranges {
-        println!("range {:?}", range);
+    for range in PartialRangeIter::new(range, CHUNK_SIZE)? {
 
+        println!("range {:?}", range);
         let mut response = client.get(url).header(range).send()?;
 
-        if !(response.status() == reqwest::StatusCode::Ok ||
-                 response.status() == reqwest::StatusCode::PartialContent)
-        {
-            bail!("Unexpected server response: {}", response.status())
+        let status = response.status();
+        if !(status == StatusCode::Ok || status == StatusCode::PartialContent) {
+            bail!("Unexpected server response: {}", status)
         }
 
-        response.read_to_end(&mut content_buffer)?;
-        output_file.write_all(&content_buffer)?;
-        content_buffer.clear();
+        std::io::copy(&mut response, &mut output_file)?;
     }
 
-    println!("finished with success!");
+    println!("Finished with success!");
     Ok(())
 }
 #
