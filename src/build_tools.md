@@ -177,11 +177,11 @@ fn main(){
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 
-It is simple to build bundled C code with custom defines using [`cc::Build::define`][cc-build-define]. 
-It takes an [`Option`] value, so it is possible to create defines such as `#define FLAG`
-as well as `#define VALUE 123`. This example builds a bundled C file with dynamic defines set in 
-`build.rs` and prints `Welcome to foo - version 1.0.2` when run. Cargo sets some [environment 
-variables][cargo-env] which may be useful for some custom defines.
+It is simple to build bundled C code with custom defines using [`cc::Build::define`]. 
+It takes an [`Option`] value, so it is possible to create defines such as `#define APP_NAME "foo"`
+as well as `#define WELCOME` (pass `None` as the value for a value-less defne). This example builds
+a bundled C file with dynamic defines set in `build.rs` and prints "**Welcome to foo - version 1.0.2**"
+when run. Cargo sets some [environment variables][cargo-env] which may be useful for some custom defines.
 
 
 ### `Cargo.toml`
@@ -245,7 +245,7 @@ fn main(){
 [build-script-docs]: http://doc.crates.io/build-script.html
 [playground]: https://play.rust-lang.org
 [cc-build]: https://docs.rs/cc/*/cc/struct.Build.html
-[cc-build-define]: https://docs.rs/cc/1.0.0/cc/struct.Build.html#method.define
+[`cc::Build::define`]: https://docs.rs/cc/*/cc/struct.Build.html#method.define
 [cc-build-include]: https://docs.rs/cc/*/cc/struct.Build.html#method.include
 [cc-build-flag]: https://docs.rs/cc/*/cc/struct.Build.html#method.flag
 [cc-build-compile]: https://docs.rs/cc/*/cc/struct.Build.html#method.compile
