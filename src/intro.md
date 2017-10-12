@@ -136,6 +136,7 @@ community. It needs and welcomes help. For details see
 |--------|--------|------------|
 | [Compile and link statically to a bundled C library][ex-cc-static-bundled] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 | [Compile and link statically to a bundled C++ library][ex-cc-static-bundled-cpp]  | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
+| [Compile a C library while setting custom defines][ex-cc-custom-defines] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 
 {{#include links.md}}
 
@@ -147,6 +148,7 @@ community. It needs and welcomes help. For details see
 [ex-byteorder-le]: basics.html#ex-byteorder-le
 [ex-cc-static-bundled]: build_tools.html#ex-cc-static-bundled
 [ex-cc-static-bundled-cpp]: build_tools.html#ex-cc-static-bundled-cpp
+[ex-cc-custom-defines]: build_tools.html#ex-cc-custom-defines
 [ex-check-broken-links]: net.html#ex-check-broken-links
 [ex-check-cpu-cores]: basics.html#ex-check-cpu-cores
 [ex-clap-basic]: app.html#ex-clap-basic
