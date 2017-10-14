@@ -20,6 +20,7 @@
 | [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 | [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Handling the Github rate limit error condition][ex-rate-limit-exceeded] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -1123,6 +1124,99 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-rate-limit-exceeded]: #ex-rate-limit-exceeded
+<a name="ex-rate-limit-exceeded"/>
+## Handling the Github rate limit error condition
+
+[![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![cat-net-badge]][cat-net]
+
+This example uses the [GitHub API - Rate limiting], as an example of how to handle error conditions.
+
+
+```rust,no_run
+#[macro_use]
+extern crate error_chain;
+#[macro_use]
+extern crate hyper;
+extern crate reqwest;
+# extern crate rayon;
+
+use std::time::{Duration, UNIX_EPOCH};
+
+use reqwest::StatusCode;
+# use rayon::prelude::*;
+
+error_chain! {
+    errors {
+        RateLimitExceded(quote: usize, lease_secs: u64) {
+            description("rate limit exceeded")
+            display("rate limit exceeded the {} calls, the next call will be allowed within {} seconds", quote, lease_secs)
+        }
+    }
+#    foreign_links {
+#        Io(std::io::Error);
+#        Time(std::time::SystemTimeError);
+#        Reqwest(reqwest::Error);
+#    }
+}
+
+header! { (XRateLimitLimit, "X-RateLimit-Limit") => [usize] }
+header! { (XRateLimitRemaining, "X-RateLimit-Remaining") => [usize] }
+header! { (XRateLimitReset, "X-RateLimit-Reset") => [u64] }
+
+fn run() -> Result<()> {
+    let url = "https://api.github.com/users/rust-lang-nursery ";
+    let client = reqwest::Client::new();
+
+#   let response = client.get(url).send()?;
+#
+#   // for the purpose of this example will exaust the limit off calls
+#   if response.status() == StatusCode::Ok {
+#       let rate_remaining = response.headers().get::<XRateLimitRemaining>().ok_or(
+#           "response doesn't include the expected X-RateLimit-Remaining header",
+#       )?;
+#
+#       (0..**rate_remaining).into_par_iter().for_each(|_| {
+#           client.get(url).send().expect("request failed");
+#       });
+#   }
+#
+    let response = client.get(url).send()?;
+
+    let rate_limit = response.headers().get::<XRateLimitLimit>().ok_or(
+        "response doesn't include the expected X-RateLimit-Limit header",
+    )?;
+
+    let rate_remaining = response.headers().get::<XRateLimitRemaining>().ok_or(
+        "response doesn't include the expected X-RateLimit-Remaining header",
+    )?;
+
+    let rate_reset_at = response.headers().get::<XRateLimitReset>().ok_or(
+        "response doesn't include the expected X-RateLimit-Reset header",
+    )?;
+
+    let rate_reset_within = Duration::from_secs(**rate_reset_at) - UNIX_EPOCH.elapsed()?;
+
+    if response.status() == StatusCode::Forbidden && **rate_remaining == 0 {
+        bail!(ErrorKind::RateLimitExceded(
+            **rate_limit,
+            rate_reset_within.as_secs(),
+        ));
+    }
+
+    println!(
+        "Rate limit is currently {}/{}, the reset of this limit will be within {} seconds.",
+        **rate_remaining,
+        **rate_limit,
+        rate_reset_within.as_secs(),
+    );
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1177,6 +1271,8 @@ fn run() -> Result<()> {
 [`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
 [`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
+[`std::time::Duration`]: https://doc.rust-lang.org/stable/std/time/struct.Duration.html
+[`std::time::UNIX_EPOCH`]: https://doc.rust-lang.org/stable/std/time/constant.UNIX_EPOCH.html
 [`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
 [`url::Parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
 [`url::ParseOptions`]: https://docs.rs/url/*/url/struct.ParseOptions.html
@@ -1184,6 +1280,7 @@ fn run() -> Result<()> {
 <!-- Other Reference -->
 
 [GitHub API]: https://developer.github.com/v3/auth/
+[GitHub API - Rate limiting]: https://developer.github.com/v3/#rate-limiting
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
 [OAuth]: https://oauth.net/getting-started/
