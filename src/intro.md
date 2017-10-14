@@ -109,6 +109,7 @@ community. It needs and welcomes help. For details see
 | [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 | [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Handle a rate-limited API][ex-handle-rate-limited-api] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] | [![cat-net-badge]][cat-net] |
 
 ## [Application development](app.html)
 
@@ -263,3 +264,4 @@ community. It needs and welcomes help. For details see
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-urlencoded]: encoding.html#ex-urlencoded
 [ex-verify-extract-email]: basics.html#ex-verify-extract-email
+[ex-handle-rate-limited-api]: net.html#ex-handle-rate-limited-api
