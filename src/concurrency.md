@@ -3,6 +3,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Check the elements of an array against a predicate in parallel][ex-rayon-any-all] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Search items using given predicate in parallel][ex-rayon-parallel-search] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
@@ -32,6 +33,40 @@ fn main() {
     arr.par_iter_mut().for_each(|p| *p -= 1);
 
     println!("{:?}", arr);
+}
+```
+
+[ex-rayon-any-all]: #ex-rayon-any-all
+<a name="ex-rayon-any-all"></a>
+## Check the elements of an array against a predicate in parallel
+
+[![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
+
+The `rayon` provides a [`ParallelIterator`] trait which includes parallelized implementations of many of the methods from the standard library's [`Iterator`] trait.
+
+This example demonstrates using the [`any`] and [`all`] methods. [`any`] checks in parallel whether any element of the iterator matches the predicate, and returns as soon as one is found. [`all`] checks in parallel whether all elements of the iterator match the predicate, and returns as soon as a non-matching element is found.
+
+```rust
+extern crate rayon;
+
+use rayon::prelude::*;
+
+fn main() {
+    let mut vec = vec![2, 4, 6, 8];
+
+    let any_odd = vec.par_iter().any(|n| (*n % 2) != 0);
+    assert!(!any_odd);
+
+    let all_even = vec.par_iter().all(|n| (*n % 2) == 0);
+    assert!(all_even);
+
+    vec.push(3);
+
+    let any_odd = vec.par_iter().any(|n| (*n % 2) != 0);
+    assert!(any_odd);
+
+    let all_even = vec.par_iter().all(|n| (*n % 2) == 0);
+    assert!(!all_even);
 }
 ```
 
@@ -115,7 +150,7 @@ fn main() {
         .map(|x| x.age)
         .filter(|&x| x > 30)
         .reduce(|| 0, |x, y| x + y);
-    
+
     let alt_sum_30: u32 = v.par_iter()
         .map(|x| x.age)
         .filter(|&x| x > 30)
@@ -519,6 +554,10 @@ fn run() -> Result<()> {
 [`rayon::sum`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.sum
 [`std::find`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.find
 [`Walkdir::new`]: https://docs.rs/walkdir/1.0.7/walkdir/struct.WalkDir.html#method.new
+[`ParallelIterator`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html
+[`Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
+[`any`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any
+[`all`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all
 
 <!-- Other Reference -->
 
