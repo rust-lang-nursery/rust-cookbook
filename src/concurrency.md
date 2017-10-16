@@ -42,9 +42,9 @@ fn main() {
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 
-The `rayon` provides a [`ParallelIterator`] trait which includes parallelized implementations of many of the methods from the standard library's [`Iterator`] trait.
+The `rayon` crate provides a [`ParallelIterator`] trait which includes parallelized implementations of many of the methods from the standard library's [`Iterator`] trait.
 
-This example demonstrates using the [`any`] and [`all`] methods. [`any`] checks in parallel whether any element of the iterator matches the predicate, and returns as soon as one is found. [`all`] checks in parallel whether all elements of the iterator match the predicate, and returns as soon as a non-matching element is found.
+This example demonstrates using the [`rayon::any`] and [`rayon::all`] methods. [`rayon::any`] checks in parallel whether any element of the iterator matches the predicate, and returns as soon as one is found. [`rayon::all`] checks in parallel whether all elements of the iterator match the predicate, and returns as soon as a non-matching element is found.
 
 ```rust
 extern crate rayon;
@@ -556,8 +556,8 @@ fn run() -> Result<()> {
 [`Walkdir::new`]: https://docs.rs/walkdir/1.0.7/walkdir/struct.WalkDir.html#method.new
 [`ParallelIterator`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html
 [`Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
-[`any`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any
-[`all`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all
+[`rayon::any`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any
+[`rayon::all`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all
 
 <!-- Other Reference -->
 
