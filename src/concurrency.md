@@ -131,9 +131,7 @@ fn run() -> Result<()> {
         .filter_map(|x| x.err())
         .collect();
 
-    for failure in &image_failures {
-        println!("{}", failure.display_chain());
-    }
+    image_failures.iter().for_each(|x| println!("{}", x.display_chain()));
 
     println!("{} thumbnails saved successfully", files.len() - image_failures.len());
     Ok(())

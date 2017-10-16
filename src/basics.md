@@ -309,8 +309,7 @@ fn run() -> Result<()> {
                                ([0-9a-fA-F]+) # commit hash
                                (.*)           # The commit message")?;
 
-    let stdout = String::from_utf8(output.stdout)?;
-    let commits = stdout
+    String::from_utf8(output.stdout)?
         .lines()
         .filter_map(|line| pattern.captures(line))
         .map(|cap| {
@@ -319,11 +318,8 @@ fn run() -> Result<()> {
                      message: cap[2].trim().to_string(),
                  }
              })
-        .take(5);
-
-    for commit in commits {
-        println!("{:?}", commit);
-    }
+        .take(5)
+        .for_each(|x| println!("{:?}", x));
 
     Ok(())
 }
@@ -491,14 +487,11 @@ fn run() -> Result<()> {
     ]).case_insensitive(true)
         .build()?;
 
-    let filtered = buffered
+    buffered
         .lines()
         .filter_map(|line| line.ok())
-        .filter(|line| set.is_match(line.as_str()));
-
-    for line in filtered {
-        println!("{}", line);
-    }
+        .filter(|line| set.is_match(line.as_str()))
+        .for_each(|x| println!("{}", x));
 
     Ok(())
 }
@@ -586,9 +579,7 @@ fn run() -> Result<()> {
         // acquire access
         let db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
 
-        for (i, item) in db.iter().enumerate() {
-            println!("{}: {}", i, item);
-        }
+        db.iter().enumerate().for_each(|(i, item)| println!("{}: {}", i, item));
         // release access
     }
     insert("grape")?;

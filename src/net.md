@@ -860,14 +860,10 @@ use select::predicate::Name;
 fn run() -> Result<()> {
     let res = reqwest::get("https://www.rust-lang.org/en-US/")?;
 
-    let document = Document::from_read(res)?;
-
-    let links = document.find(Name("a"))
-        .filter_map(|n| n.attr("href"));
-
-    for link in links {
-        println!("{}", link);
-    }
+    Document::from_read(res)?
+        .find(Name("a"))
+        .filter_map(|n| n.attr("href"))
+        .for_each(|x| println!("{}", x));
 
     Ok(())
 }
@@ -940,9 +936,10 @@ fn run() -> Result<()> {
         .filter_map(|link| base_parser.parse(link).ok())
         .collect();
 
-    for link in links.iter().filter(|link| check_link(link).ok() == Some(false)) {
-        println!("{} is broken.", link);
-    }
+    links
+        .iter()
+        .filter(|link| check_link(link).ok() == Some(false))
+        .for_each(|x| println!("{} is broken.", x));
 
     Ok(())
 }
