@@ -234,7 +234,9 @@ fn run() -> Result<()> {
     let file = File::open("archive.tar.gz")?;
     let mut archive = Archive::new(GzDecoder::new(file)?);
     let prefix = "bundle/logs";
-    let entries = archive
+
+    println!("Extracted the following files:");
+    archive
         .entries()?
         .filter_map(|e| e.ok())
         .map(|mut entry| -> Result<PathBuf> {
@@ -242,12 +244,10 @@ fn run() -> Result<()> {
             let path = entry.path()?.strip_prefix(prefix)?.to_owned();
             entry.unpack(&path)?;
             Ok(path)
-        });
+        })
+        .filter_map(|e| e.ok())
+        .for_each(|x| println!("> {}", x.display()));
 
-    println!("Extracted the following files:");
-    for path in entries.filter_map(|e| e.ok()) {
-        println!("> {}", path.display());
-    }
     Ok(())
 }
 #
@@ -467,12 +467,11 @@ fn is_not_hidden(entry: &DirEntry) -> bool {
 }
 
 fn main() {
-    for result in WalkDir::new(".")
-            .into_iter()
-            .filter_entry(|e| is_not_hidden(e))
-            .filter_map(|v| v.ok()) {
-        println!("{}", result.path().display());
-    }
+    WalkDir::new(".")
+        .into_iter()
+        .filter_entry(|e| is_not_hidden(e))
+        .filter_map(|v| v.ok())
+        .for_each(|x| println!("{}", x.path().display()));
 }
 ```
 
