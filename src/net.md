@@ -20,7 +20,7 @@
 | [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 | [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
-| [Handling the Github rate limit error condition][ex-rate-limit-exceeded] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] | [![cat-net-badge]][cat-net] |
+| [Handle a rate-limited API][ex-handle-rate-limited-api] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] | [![cat-net-badge]][cat-net] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -1124,14 +1124,17 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[ex-rate-limit-exceeded]: #ex-rate-limit-exceeded
-<a name="ex-rate-limit-exceeded"/>
-## Handling the Github rate limit error condition
+[ex-handle-rate-limited-api]: #ex-handle-rate-limited-api
+<a name="ex-handle-rate-limited-api"/>
+## Handle a rate-limited API
 
 [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![cat-net-badge]][cat-net]
 
 This example uses the [GitHub API - Rate limiting], as an example of how to handle error conditions.
 
+For that defines three custom headers using the [`hyper::header!`] macro to read the values sent by
+the server, and checks for [`reqwest::StatusCode::Forbidden`]. If the rate limit was excided raises
+an exception with a detailed message containing the information provided in the custom headers.
 
 ```rust,no_run
 #[macro_use]
@@ -1264,6 +1267,7 @@ fn run() -> Result<()> {
 [`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
 [`reqwest::RequestBuilder`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
+[`reqwest::StatusCode::Forbidden`]: https://docs.rs/reqwest/*/reqwest/enum.StatusCode.html#variant.Forbidden
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
 [`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
 [`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
