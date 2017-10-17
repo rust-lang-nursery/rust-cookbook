@@ -147,9 +147,10 @@ The example should have minimal code that doesn't directly support the
 description of the example. Keep extra functions and types to a
 minimum.
 
-Follow the error handling templates in ["A note about error
-handling"][errors]. Examples always set up error handling correctly and
-propagate errors with `?` (not `try!`).
+When an example must handle the possibility of errors, follow the error handling
+templates in ["A note about error handling"][errors]. Examples always set up
+error handling correctly and propagate errors with `?` (not `try!`). If there
+is no need for error handling in the example, using `main()` is appropriate.
 
 Don't use glob imports, even for preludes, so that users can see what
 traits they are calling. (Some crates might consider using glob
