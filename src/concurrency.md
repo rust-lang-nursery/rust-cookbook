@@ -3,6 +3,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Search items using given predicate in parallel][ex-rayon-parallel-search] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
@@ -69,6 +70,40 @@ fn main() {
 
     // [4]
     vec.par_sort_unstable();
+}
+```
+
+[ex-rayon-parallel-search]: #ex-rayon-parallel-search
+<a name="ex-rayon-parallel-search"></a>
+## Search items using given predicate in parallel
+
+[![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
+
+This example uses [`rayon::find_any`] and [`par_iter`] to search a vector in
+parallel for an element satisfying the predicate in the given closure.
+
+If there are multiple elements satisfying the predicate defined in the closure
+argument of [`rayon::find_any`], we are only guaranteed that one of them will be
+found, but not necessarily that the first will be found.
+
+Also note that the argument to the closure is a reference to a reference
+(`&&x`). Please see the discussion on [`std::find`] for additional details.
+
+```rust
+extern crate rayon;
+
+use rayon::prelude::*;
+
+fn main() {
+    let v = vec![6, 2, 1, 9, 3, 8, 11];
+
+    let f1 = v.par_iter().find_any(|&&x| x == 9);
+    let f2 = v.par_iter().find_any(|&&x| x % 2 == 0 && x > 6);
+    let f3 = v.par_iter().find_any(|&&x| x > 8);
+
+    assert_eq!(f1, Some(&9));
+    assert_eq!(f2, Some(&8));
+    assert!(f3 > Some(&8));
 }
 ```
 
@@ -421,6 +456,8 @@ fn run() -> Result<()> {
 [`par_iter`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter
 [`par_iter_mut`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut
 [`par_sort_unstable`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable
+[`rayon::find_any`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.find_any
+[`std::find`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.find
 [`Walkdir::new`]: https://docs.rs/walkdir/1.0.7/walkdir/struct.WalkDir.html#method.new
 
 <!-- Other Reference -->
