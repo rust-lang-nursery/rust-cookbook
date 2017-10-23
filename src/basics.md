@@ -26,6 +26,7 @@
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1214,6 +1215,35 @@ fn main() {
     let duration = start.elapsed();
     
     println!("Time elapsed in expensive_function() is: {:?}", duration);
+}
+```
+
+[ex-format-datetime]: #ex-format-datetime
+<a name="ex-format-datetime"></a>
+## Display formatted date and time
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Displays UTC in the well-known formats RFC 2822 and RFC 3339, and in a custom
+format.
+
+```rust
+extern crate chrono;
+use chrono::{DateTime, Utc};
+
+fn main() {
+    // Get coordinated universal time (UTC)
+    let utc: DateTime<Utc> = Utc::now();
+    println!("UTC is: {}", utc);
+
+    // Display formatted date and time using RFC 2822
+    println!("UTC in RFC 2822 is: {}", utc.to_rfc2822());
+
+    // Display formatted date and time using RFC 3339
+    println!("UTC in RFC 3339 is: {}", utc.to_rfc3339());
+
+    // Display formatted date and time using a custom format
+    const CUSTOM_FORMAT: &str = "%a %b %e %T %Y";
+    println!("UTC in a custom format is: {}", utc.format(CUSTOM_FORMAT));
 }
 ```
 

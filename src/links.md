@@ -17,6 +17,8 @@ Keep lines sorted.
 [cat-concurrency]: https://crates.io/categories/concurrency
 [cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
 [cat-cryptography]: https://crates.io/categories/cryptography
+[cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
+[cat-date-and-time]: https://crates.io/categories/date-and-time
 [cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
 [cat-debugging]: https://crates.io/categories/debugging
 [cat-development-tools-badge]: https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social
