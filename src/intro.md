@@ -69,6 +69,7 @@ community. It needs and welcomes help. For details see
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Search items using given predicate in parallel][ex-rayon-parallel-search] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
@@ -201,6 +202,7 @@ community. It needs and welcomes help. For details see
 [ex-rand-range]: basics.html#ex-rand-range
 [ex-random-port-tcp]: net.html#ex-random-port-tcp
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
+[ex-rayon-map-reduce]: concurrency.html#ex-rayon-map-reduce
 [ex-rayon-parallel-search]: concurrency.html#ex-rayon-parallel-search
 [ex-rayon-parallel-sort]: concurrency.html#ex-rayon-parallel-sort
 [ex-rayon-thumbnails]: concurrency.html#ex-rayon-thumbnails
