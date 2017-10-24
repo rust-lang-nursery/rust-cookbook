@@ -25,6 +25,7 @@
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1188,6 +1189,48 @@ Error level - description
 
 Run the recipe with `RUST_BACKTRACE=1` to display a detailed [`backtrace`] associated with this error.
 
+[ex-measure-elapsed-time]: #ex-measure-elapsed-time
+<a name="ex-measure-elapsed-time"></a>
+## Measure the elapsed time between two code sections
+
+[![std-badge]][std] [![cat-time-badge]][cat-time]
+
+One way to get the elapsed time is to directly use the method 
+[`time::Instant::elapsed`].
+
+```rust
+use std::time::{Duration, Instant};
+use std::thread;
+
+fn expensive_function() {
+    thread::sleep(Duration::from_millis(10));
+}
+
+fn main() {
+    let start = Instant::now();
+    expensive_function();
+    let duration = start.elapsed();
+    
+    println!("Time elapsed in expensive_function() is: {:?}", duration);
+}
+```
+Another way to get the time [`Duration`] is as a difference of two 
+time [`Instant`] objects.
+
+```text
+let start = Instant::now();
+expensive_function();
+let duration = Instant::now() - start();
+```
+
+This is the fastest way of getting some quick and dirty 
+profiling of some parts of your program.
+
+To get better data about how time is spent doing various things in your app,
+you can use the same profilers that you would use with C/C++ programs 
+like ftrace, perf, lttng, CodeXL, and others.
+
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1215,6 +1258,10 @@ Run the recipe with `RUST_BACKTRACE=1` to display a detailed [`backtrace`] assoc
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
+[`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now
+[`Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
+[`Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
+[`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
 [`pbkdf2::verify`]: https://docs.rs/ring/*/ring/pbkdf2/fn.verify.html
