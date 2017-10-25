@@ -1223,8 +1223,8 @@ fn main() {
 ## Display formatted date and time
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
-Gets and displays the current time in UTC in the well-known formats RFC 2822 and
-RFC 3339, and in a custom format.
+Gets and displays the current time in UTC using [`Utc::now`] in the well-known
+formats RFC 2822 and RFC 3339, and in a custom format.
 
 ```rust
 extern crate chrono;
@@ -1291,6 +1291,7 @@ fn main() {
 [`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
+[`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
