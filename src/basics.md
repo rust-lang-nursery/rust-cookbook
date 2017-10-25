@@ -1195,16 +1195,18 @@ Run the recipe with `RUST_BACKTRACE=1` to display a detailed [`backtrace`] assoc
 
 [![std-badge]][std] [![cat-time-badge]][cat-time]
 
-One way to get the elapsed time is to directly use the method 
-[`time::Instant::elapsed`].
+Measures [`time::Instant::elapsed`] since [`time::Instant::now`].
+
+Calling [`time::Instant::elapsed`] returns a [`time::Duration`] that we print at the end of the example.
+This method will not mutate or reset the [`time::Instant`] object.
 
 ```rust
 use std::time::{Duration, Instant};
-use std::thread;
-
-fn expensive_function() {
-    thread::sleep(Duration::from_millis(10));
-}
+# use std::thread;
+# 
+# fn expensive_function() {
+#     thread::sleep(Duration::from_secs(1));
+# }
 
 fn main() {
     let start = Instant::now();
@@ -1214,22 +1216,6 @@ fn main() {
     println!("Time elapsed in expensive_function() is: {:?}", duration);
 }
 ```
-Another way to get the time [`Duration`] is as a difference of two 
-time [`Instant`] objects.
-
-```rust,no_run
-let start = Instant::now();
-expensive_function();
-let duration = Instant::now() - start();
-```
-
-This is the fastest way of getting some quick and dirty 
-profiling of some parts of your program.
-
-To get better data about how time is spent doing various things in your app,
-you can use the same profilers that you would use with C/C++ programs 
-like ftrace, perf, lttng, CodeXL, and others.
-
 
 {{#include links.md}}
 
@@ -1259,8 +1245,8 @@ like ftrace, perf, lttng, CodeXL, and others.
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now
-[`Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
-[`Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
+[`time::Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
+[`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
 [`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
