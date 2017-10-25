@@ -1217,7 +1217,7 @@ fn main() {
 Another way to get the time [`Duration`] is as a difference of two 
 time [`Instant`] objects.
 
-```text
+```rust,no_run
 let start = Instant::now();
 expensive_function();
 let duration = Instant::now() - start();
