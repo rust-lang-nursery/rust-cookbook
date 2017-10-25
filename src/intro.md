@@ -26,6 +26,7 @@ community. It needs and welcomes help. For details see
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Measure time to push an element onto a Vector and a Linked List][ex-std-time-measure] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
@@ -215,6 +216,7 @@ community. It needs and welcomes help. For details see
 [ex-sha-digest]: basics.html#ex-sha-digest
 [ex-hmac]: basics.html#ex-hmac
 [ex-std-read-lines]: basics.html#ex-std-read-lines
+[ex-std-time-measure]: basics.html#ex-std-time-measure
 [ex-tar-compress]: app.html#ex-tar-compress
 [ex-tar-decompress]: app.html#ex-tar-decompress
 [ex-tar-strip-prefix]: app.html#ex-tar-strip-prefix

@@ -8,6 +8,7 @@
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Measure time to push an element onto a Vector and a Linked List][ex-std-time-measure] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
@@ -266,6 +267,70 @@ fn main() {
     println!("Random Point: {:?}", rand_point);
 }
 ```
+
+[ex-std-time-measure]: #ex-std-time-measure
+<a name="ex-std-time-measure"></a>
+## Measure time to push an element onto a Vector and a Linked List
+
+Pushes every 0 through 1,000,000 onto a [`Vector`] and a [`LinkedList`], and measures
+how long every push operation takes using [`Instant::Measure`]. Then, it demonstrates
+that a [`Vector`]'s push operation is faster in the average case, and a [`LinkedList`]'s
+push operation is faster in the maximum case.
+
+```rust
+use std::collections::LinkedList;
+use std::time::{Duration, Instant};
+
+fn main() {
+    // Measure the time to add an element to a linked list versus a vector.
+    let iterations = 1_000_000;
+    let mut vec = Vec::new();
+    let mut ll = LinkedList::new();
+    let mut vec_add_avg = Duration::from_secs(0_u64);
+    let mut ll_add_avg = Duration::from_secs(0_u64);
+    let mut vec_add_max = Duration::from_secs(0_u64);
+    let mut ll_add_max = Duration::from_secs(0_u64);
+    for i in 0..iterations {
+        let init_now = Instant::now();
+        vec.push(i);
+        let vec_now = Instant::now();
+        ll.push_back(i);
+        let ll_now = Instant::now();
+        let vec_push_time = vec_now.duration_since(init_now);
+        let ll_push_time = ll_now.duration_since(vec_now);
+        vec_add_avg = vec_add_avg.checked_add(vec_push_time).expect(
+            "Duration overflowed",
+        );
+        ll_add_avg = ll_add_avg.checked_add(ll_push_time).expect(
+            "Duration overflowed",
+        );
+        vec_add_max = vec_add_max.max(vec_push_time);
+        ll_add_max = ll_add_max.max(ll_push_time);
+    }
+    vec_add_avg = vec_add_avg.checked_div(iterations).expect(
+        "Panics if mil_seconds is zero",
+    );
+    ll_add_avg = ll_add_avg.checked_div(iterations).expect(
+        "Panics if mil_seconds is zero",
+    );
+    assert!(vec_add_avg.lt(&ll_add_avg));
+    assert!(ll_add_max.lt(&vec_add_max));
+    println!(
+        "Vector average add: {:?}, Vector max add: {:?}",
+        vec_add_avg,
+        vec_add_max
+    );
+    println!(
+        "Linked List average add: {:?}, Linked List max add: {:?}",
+        ll_add_avg,
+        ll_add_max
+    );
+}
+```
+
+In this case, Vector's push operation lost out in its maximum run time. Instead
+of [`Vec::new`], try constructing the Vector with [`Vec::with_capcity`] and
+using `iterations` as its argument. What wins now?
 
 [ex-parse-subprocess-output]: #ex-parse-subprocess-output
 <a name="ex-parse-subprocess-output"></a>
