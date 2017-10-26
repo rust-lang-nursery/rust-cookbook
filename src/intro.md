@@ -43,6 +43,7 @@ community. It needs and welcomes help. For details see
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 
 ## [Encoding](encoding.html)
 
@@ -161,6 +162,7 @@ community. It needs and welcomes help. For details see
 [ex-threadpool-walk]: concurrency.html#ex-threadpool-walk
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-error-chain-backtrace]: basics.html#ex-error-chain-backtrace
+[ex-measure-elapsed-time]: basics.html#ex-measure-elapsed-time
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
 [ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links

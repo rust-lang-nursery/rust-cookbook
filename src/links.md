@@ -37,6 +37,8 @@ Keep lines sorted.
 [cat-rendering]: https://crates.io/categories/rendering
 [cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
 [cat-rust-patterns]: https://crates.io/categories/rust-patterns
+[cat-time-badge]: https://badge-cache.kominick.com/badge/time--x.svg?style=social
+[cat-time]: https://crates.io/categories/date-and-time
 [cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
 [cat-science]: https://crates.io/categories/science
 [cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
