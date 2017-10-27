@@ -26,6 +26,7 @@
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1217,6 +1218,30 @@ fn main() {
 }
 ```
 
+[ex-format-datetime]: #ex-format-datetime
+<a name="ex-format-datetime"></a>
+## Display formatted date and time
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Gets and displays the current time in UTC using [`Utc::now`]. Formats the
+current time in the well-known formats [RFC 2822] using [`DateTime::to_rfc2822`]
+and [RFC 3339] using [`DateTime::to_rfc3339`], and in a custom format using
+[`DateTime::format`].
+
+```rust
+extern crate chrono;
+use chrono::{DateTime, Utc};
+
+fn main() {
+    let now: DateTime<Utc> = Utc::now();
+
+    println!("UTC now is: {}", now);
+    println!("UTC now in RFC 2822 is: {}", now.to_rfc2822());
+    println!("UTC now in RFC 3339 is: {}", now.to_rfc3339());
+    println!("UTC now in a custom format is: {}", now.format("%a %b %e %T %Y"));
+}
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1268,6 +1293,10 @@ fn main() {
 [`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
+[`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
+[`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
+[`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
@@ -1275,5 +1304,7 @@ fn main() {
 
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
 [raw string literals]: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
+[RFC 2822]: https://www.ietf.org/rfc/rfc2822.txt
+[RFC 3339]: https://www.ietf.org/rfc/rfc3339.txt
 [twitter hashtag regex]: https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255
 [uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)

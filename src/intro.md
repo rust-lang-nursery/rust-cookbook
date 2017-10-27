@@ -44,6 +44,7 @@ community. It needs and welcomes help. For details see
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 ## [Encoding](encoding.html)
 
@@ -159,6 +160,7 @@ community. It needs and welcomes help. For details see
 [ex-csv-serde]: encoding.html#ex-csv-serde
 [ex-csv-read]: encoding.html#ex-csv-read
 [ex-csv-delimiter]: encoding.html#ex-csv-delimiter
+[ex-format-datetime]: basics.html#ex-format-datetime
 [ex-threadpool-fractal]: concurrency.html#ex-threadpool-fractal
 [ex-threadpool-walk]: concurrency.html#ex-threadpool-walk
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
