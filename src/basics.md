@@ -11,6 +11,7 @@
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Redirect both stdout and stderr of child process to the same file][ex-redirect-stdout-stderr-same-file] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -441,6 +442,53 @@ fn run() -> Result<()> {
         directory.display(),
         String::from_utf8(head_output.stdout)?
     );
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-redirect-stdout-stderr-same-file]: #ex-redirect-stdout-stderr-same-file
+<a name="ex-redirect-stdout-stderr-same-file"></a>
+## Redirect both stdout and stderr of child process to the same file
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Spawns a child process and redirects `stdout` and `stderr` to the same
+file. It follows the same idea as [run piped external
+commands](#ex-run-piped-external-commands), however [`process::Stdio`]
+will write to the provided files and beforehand, [`File::try_clone`]
+is used to reference the same file handle for `stdout` and
+`stderr`. It will ensure that both handles write with the same cursor
+position.
+
+The below recipe is equivalent to run the Unix shell command `ls
+. oops >out.txt 2>&1`.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::fs::File;
+use std::process::{Command, Stdio};
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
+# }
+#
+fn run() -> Result<()> {
+    let outputs = File::create("out.txt")?;
+    let errors = outputs.try_clone()?;
+
+    Command::new("ls")
+        .args(&[".", "oops"])
+        .stdout(Stdio::from(outputs))
+        .stderr(Stdio::from(errors))
+        .spawn()?
+        .wait_with_output()?;
 
     Ok(())
 }
@@ -1204,7 +1252,7 @@ This method will not mutate or reset the [`time::Instant`] object.
 ```rust
 use std::time::{Duration, Instant};
 # use std::thread;
-# 
+#
 # fn expensive_function() {
 #     thread::sleep(Duration::from_secs(1));
 # }
@@ -1213,7 +1261,7 @@ fn main() {
     let start = Instant::now();
     expensive_function();
     let duration = start.elapsed();
-    
+
     println!("Time elapsed in expensive_function() is: {:?}", duration);
 }
 ```
@@ -1293,6 +1341,8 @@ fn main() {
 [`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
+[`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
+[`File::try_clone`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.try_clone
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
 [`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
 [`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
