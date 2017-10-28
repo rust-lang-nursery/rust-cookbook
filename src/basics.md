@@ -862,7 +862,7 @@ fn run() -> Result<()> {
 
 [![ring-badge]][ring] [![cat-cryptography-badge]][cat-cryptography]
 
-Uses [`ring::hmac`] to creates a [`hmac::Signature`] of a string then verifies the signiture is correct.
+Uses [`ring::hmac`] to creates a [`hmac::Signature`] of a string then verifies the signature is correct.
 
 ```rust
 # #[macro_use]
@@ -1105,8 +1105,8 @@ print a backtrace. It relies on [`chain_err`] to extend errors by
 appending new errors. The error stack can be unwinded, thus providing
 a better context to understand why an error was raised.
 
-The below recipes attemps to deserialize the value `256` into a
-`u8`. An error will bubble up from Serde then csv and finaly up to the
+The below recipes attempts to deserialize the value `256` into a
+`u8`. An error will bubble up from Serde then csv and finally up to the
 user code.
 
 ```rust

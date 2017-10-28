@@ -81,7 +81,7 @@ fn main() {
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 
 This example uses [`rayon::filter`], [`rayon::map`], and [`rayon::reduce`]
-to calculate the coniditional average age of a vector of `Person` objects.
+to calculate the conditional average age of a vector of `Person` objects.
 
 [`rayon::filter`] allows us to (in parallel) conditionally include elements from
 a collection that satisfy the given predicate.  Similarly, [`rayon::map`] and

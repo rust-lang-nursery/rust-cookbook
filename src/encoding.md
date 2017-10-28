@@ -9,7 +9,7 @@
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 | [Read CSV records][ex-csv-read] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
-| [Read CSV records with different delimeter][ex-csv-delimiter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
+| [Read CSV records with different delimiter][ex-csv-delimiter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Filter CSV records matching a predicate][ex-csv-filter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
@@ -356,8 +356,8 @@ fn run() -> Result<()> {
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
 Reads standard CSV records into [`csv::StringRecord`] — a weakly typed
-data representation. It expects to read valid UTF-8 rows. One the
-ohter hand, if invalid UTF-8 data has to be read, then prefer using
+data representation. It expects to read valid UTF-8 rows. On the
+other hand, if invalid UTF-8 data has to be read, then prefer using
 [`csv::ByteRecord`], since it makes no assumptions about UTF-8.
 
 ```rust
@@ -445,7 +445,7 @@ fn run() -> Result<()> {
 
 [ex-csv-delimiter]: #ex-csv-delimiter
 <a name="ex-csv-delimiter"></a>
-## Read CSV records with different delimeter
+## Read CSV records with different delimiter
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
