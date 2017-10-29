@@ -45,6 +45,7 @@ community. It needs and welcomes help. For details see
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 ## [Encoding](encoding.html)
 
@@ -191,6 +192,7 @@ community. It needs and welcomes help. For details see
 [ex-log-stdout]: logging.html#ex-log-stdout
 [ex-invalid-csv]: encoding.html#ex-invalid-csv
 [ex-paginated-api]: net.html#ex-paginated-api
+[ex-parse-datetime]: basics.html#ex-parse-datetime
 [ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-parse-subprocess-input]: basics.html#ex-parse-subprocess-input
 [ex-pbkdf2]: basics.html#ex-pbkdf2
