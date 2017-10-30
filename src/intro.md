@@ -68,6 +68,7 @@ community. It needs and welcomes help. For details see
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Test in parallel if any or all elements of a collection match a given predicate][ex-rayon-any-all] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Search items using given predicate in parallel][ex-rayon-parallel-search] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
@@ -204,6 +205,7 @@ community. It needs and welcomes help. For details see
 [ex-rand-range]: basics.html#ex-rand-range
 [ex-random-port-tcp]: net.html#ex-random-port-tcp
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
+[ex-rayon-any-all]: concurrency.html#ex-rayon-any-all
 [ex-rayon-map-reduce]: concurrency.html#ex-rayon-map-reduce
 [ex-rayon-parallel-search]: concurrency.html#ex-rayon-parallel-search
 [ex-rayon-parallel-sort]: concurrency.html#ex-rayon-parallel-sort
