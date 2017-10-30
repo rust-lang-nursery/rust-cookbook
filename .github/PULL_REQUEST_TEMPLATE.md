@@ -2,6 +2,7 @@ fixes #ISSUE_ID
 
 :tada: Hi and welcome! Please read the text below and remove it - Thank you! :smile: :tada:
 
+No worries if anything in these lists is unclear. Just submit the PR and ask away! :+1:
 
 --------------------------
 ### Things to check before submitting a PR
