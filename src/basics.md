@@ -29,6 +29,7 @@
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1343,6 +1344,47 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-datetime-arithmetic]: #ex-datetime-arithmetic
+<a name="ex-datetime-arithmetic"></a>
+## Perform checked date and time calculations
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Calculates and displays the date and time two weeks from now using
+[`DateTime::checked_add_signed`] and the date of the day before that using
+[`DateTime::checked_sub_signed`]. The methods return None if the date and time
+cannot be calculated.
+
+Escape sequences that are available for the
+[`DateTime::format`] can be found at [`chrono::format::strftime`].
+
+```rust
+extern crate chrono;
+use chrono::{DateTime, Duration, Utc};
+
+fn day_earlier(date_time: DateTime<Utc>) -> Option<DateTime<Utc>> {
+    date_time.checked_sub_signed(Duration::days(1))
+}
+
+fn main() {
+    let now = Utc::now();
+    println!("{}", now);
+
+    let almost_three_weeks_from_now = now.checked_add_signed(Duration::weeks(2))
+            .and_then(|in_2weeks| in_2weeks.checked_add_signed(Duration::weeks(1)))
+            .and_then(day_earlier);
+
+    match almost_three_weeks_from_now {
+        Some(x) => println!("{}", x),
+        None => eprintln!("Almost three weeks from now overflows!"),
+    }
+
+    match now.checked_add_signed(Duration::max_value()) {
+        Some(x) => println!("{}", x),
+        None => eprintln!("We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."),
+    }
+}
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1361,9 +1403,10 @@ fn run() -> Result<()> {
 [`DateTime::parse_from_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc3339
 [`DateTime::parse_from_str`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_str
 [`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
-[`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
 [`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
-[`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::checked_add_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed
+[`DateTime::checked_sub_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_sub_signed
 [`DateTime`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
