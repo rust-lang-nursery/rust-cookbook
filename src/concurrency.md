@@ -525,37 +525,37 @@ fn run() -> Result<()> {
 
 <!-- API Reference -->
 
+[`crossbeam::scope`]: https://docs.rs/crossbeam/*/crossbeam/fn.scope.html
 [`DynamicImage::resize`]: https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize
 [`glob::glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
 [`ImageBuffer::new`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new
 [`ImageBuffer::put_pixel`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel
 [`ImageBuffer::save`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save
-[`Receiver::recv`]: https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv
-[`Rgb::from_channels`]: https://docs.rs/image/*/image/struct.Rgb.html#method.from_channels
-[`Scope::spawn`]: https://docs.rs/crossbeam/0.*/crossbeam/struct.Scope.html#method.spawn
-[`stable sorting`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort
-[`ThreadPool::execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute
-[`ThreadPool`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html
-[`crossbeam::scope`]: https://docs.rs/crossbeam/0.*/crossbeam/fn.scope.html
+[`Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
 [`mpsc::channel`]: https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html
 [`multiple options`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
-[`par_iter`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter
 [`par_iter_mut`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut
+[`par_iter`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter
 [`par_sort_unstable`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable
+[`ParallelIterator`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html
+[`rayon::all`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all
+[`rayon::any`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any
 [`rayon::filter`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.filter
 [`rayon::find_any`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.find_any
 [`rayon::map`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.map
 [`rayon::reduce`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.reduce
 [`rayon::sum`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.sum
-[`std::find`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.find
-[`Walkdir::new`]: https://docs.rs/walkdir/1.0.7/walkdir/struct.WalkDir.html#method.new
-[`ParallelIterator`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html
-[`Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
-[`rayon::any`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any
-[`rayon::all`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all
-[`std::any`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.any
+[`Receiver::recv`]: https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv
+[`Rgb::from_channels`]: https://docs.rs/image/*/image/struct.Rgb.html#method.from_channels
+[`Scope::spawn`]: https://docs.rs/crossbeam/*/crossbeam/struct.Scope.html#method.spawn
+[`stable sorting`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort
 [`std::all`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.all
+[`std::any`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.any
+[`std::find`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.find
+[`ThreadPool::execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute
+[`ThreadPool`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html
+[`Walkdir::new`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new
 
 <!-- Other Reference -->
 

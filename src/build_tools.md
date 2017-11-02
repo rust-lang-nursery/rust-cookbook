@@ -242,13 +242,13 @@ fn main(){
 
 <!-- Other Reference -->
 
-[build-script-docs]: http://doc.crates.io/build-script.html
-[playground]: https://play.rust-lang.org
-[cc-build]: https://docs.rs/cc/*/cc/struct.Build.html
 [`cc::Build::define`]: https://docs.rs/cc/*/cc/struct.Build.html#method.define
-[cc-build-include]: https://docs.rs/cc/*/cc/struct.Build.html#method.include
-[cc-build-flag]: https://docs.rs/cc/*/cc/struct.Build.html#method.flag
+[`Option`]: https://doc.rust-lang.org/std/option/enum.Option.html
+[build-script-docs]: http://doc.crates.io/build-script.html
+[cargo-env]: http://doc.crates.io/environment-variables.html#environment-variables-cargo-sets-for-crates
 [cc-build-compile]: https://docs.rs/cc/*/cc/struct.Build.html#method.compile
 [cc-build-cpp]: https://docs.rs/cc/*/cc/struct.Build.html#method.cpp
-[`Option`]: https://doc.rust-lang.org/std/option/enum.Option.html
-[cargo-env]: http://doc.crates.io/environment-variables.html#environment-variables-cargo-sets-for-crates
+[cc-build-flag]: https://docs.rs/cc/*/cc/struct.Build.html#method.flag
+[cc-build-include]: https://docs.rs/cc/*/cc/struct.Build.html#method.include
+[cc-build]: https://docs.rs/cc/*/cc/struct.Build.html
+[playground]: https://play.rust-lang.org

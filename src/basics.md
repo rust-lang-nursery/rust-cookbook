@@ -1086,7 +1086,7 @@ Creates a memory map of a file using [memmap] and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
 than dealing with [`seek`]ing around in a File.
 
-The [`Mmap::as_slice`] function is only safe if we can guarantee that the file
+The [`Mmap::map`] function is only safe if we can guarantee that the file
 behind the memory map is not being modified at the same time by another process,
 as this would be a [race condition][race-condition-file].
 
@@ -1095,7 +1095,7 @@ as this would be a [race condition][race-condition-file].
 # extern crate error_chain;
 extern crate memmap;
 
-use memmap::{Mmap, Protection};
+use memmap::Mmap;
 # use std::fs::File;
 # use std::io::Write;
 #
@@ -1108,18 +1108,16 @@ use memmap::{Mmap, Protection};
 fn run() -> Result<()> {
 #     write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
 #
-    let map = Mmap::open_path("content.txt", Protection::Read)?;
+    let file = File::open("content.txt")?;
+    let map = unsafe { Mmap::map(&file)? };
+
     let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
-    // This is only safe if no other code is modifying the file at the same time
-    unsafe {
-        let map = map.as_slice();
-        assert_eq!(&map[3..13], b"hovercraft");
-        // I'm using an iterator here to change indexes to bytes
-        let random_bytes: Vec<u8> = random_indexes.iter()
-            .map(|&idx| map[idx])
-            .collect();
-        assert_eq!(&random_bytes[..], b"My loaf!");
-    }
+    assert_eq!(&map[3..13], b"hovercraft");
+    // I'm using an iterator here to change indexes to bytes
+    let random_bytes: Vec<u8> = random_indexes.iter()
+        .map(|&idx| map[idx])
+        .collect();
+    assert_eq!(&random_bytes[..], b"My loaf!");
     Ok(())
 }
 #
@@ -1301,29 +1299,29 @@ fn main() {
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
 [`chain_err`]: https://docs.rs/error-chain/*/error_chain/index.html#chaining-errors
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
+[`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
-[`ring::hmac`]: https://docs.rs/ring/*/ring/hmac/
-[`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
+[`File::try_clone`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.try_clone
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
+[`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
-[`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
+[`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
-[`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now
-[`time::Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
-[`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
-[`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
 [`pbkdf2::verify`]: https://docs.rs/ring/*/ring/pbkdf2/fn.verify.html
+[`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
@@ -1335,18 +1333,18 @@ fn main() {
 [`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
 [`Regex::replace_all`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.replace_all
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`ring::hmac`]: https://docs.rs/ring/*/ring/hmac/
 [`ring::pbkdf2`]: https://docs.rs/ring/*/ring/pbkdf2/index.html
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
-[`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
-[`File::try_clone`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.try_clone
+[`time::Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
+[`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
+[`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now
+[`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
-[`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
-[`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
-[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 

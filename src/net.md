@@ -1124,6 +1124,7 @@ fn run() -> Result<()> {
 
 <!-- API Reference -->
 
+[`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
 [`Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
@@ -1131,19 +1132,39 @@ fn run() -> Result<()> {
 [`Cow`]: https://doc.rust-lang.org/std/borrow/enum.Cow.html
 [`Document::from_read`]: https://docs.rs/select/*/select/document/struct.Document.html#method.from_read
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
+[`filter_map`]: https://doc.rust-lang.org/core/iter/trait.Iterator.html#method.filter_map
+[`find`]: https://docs.rs/select/*/select/document/struct.Document.html#method.find
+[`header::Authorization`]: https://docs.rs/hyper/*/hyper/header/struct.Authorization.html
+[`header::UserAgent`]: https://docs.rs/hyper/*/hyper/header/struct.UserAgent.html
+[`hyper::header!`]: https://docs.rs/hyper/*/hyper/macro.header.html
+[`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
 [`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
+[`join`]: https://docs.rs/url/*/url/struct.Url.html#method.join
 [`Name`]: https://docs.rs/select/*/select/predicate/struct.Name.html
+[`origin`]: https://docs.rs/url/*/url/struct.Url.html#method.origin
+[`parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
 [`Position::BeforePath`]: https://docs.rs/url/*/url/enum.Position.html#variant.BeforePath
+[`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
 [`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
 [`RequestBuilder::body`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.body
 [`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
 [`RequestBuilder::json`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
+[`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
+[`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
+[`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
+[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.htm
+[`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
+[`reqwest::RequestBuilder`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html
+[`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
 [`Response::json`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.json
 [`Response::url`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url
 [`Selection`]: https://docs.rs/select/*/select/selection/struct.Selection.html
+[`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
+[`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`SocketAddrV4`]: https://doc.rust-lang.org/std/net/struct.SocketAddrV4.html
+[`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`TcpListener::accept`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.accept
 [`TcpListener::bind`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind
@@ -1151,37 +1172,16 @@ fn run() -> Result<()> {
 [`TcpStream`]: https://doc.rust-lang.org/std/net/struct.TcpStream.html
 [`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
 [`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
-[`Url::parse_with_params`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse_with_params
-[`Url`]: https://docs.rs/url/1.*/url/struct.Url.html
-[`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr
-[`filter_map`]: https://doc.rust-lang.org/core/iter/trait.Iterator.html#method.filter_map
-[`find`]: https://docs.rs/select/*/select/document/struct.Document.html#method.find
-[`header::Authorization`]: https://docs.rs/hyper/*/hyper/header/struct.Authorization.html
-[`header::UserAgent`]: https://docs.rs/hyper/*/hyper/header/struct.UserAgent.html
-[`hyper::header!`]: https://docs.rs/hyper/*/hyper/macro.header.html
-[`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
-[`join`]: https://docs.rs/url/1.*/url/struct.Url.html#method.join
-[`origin`]: https://docs.rs/url/1.*/url/struct.Url.html#method.origin
-[`parse`]: https://docs.rs/url/1.*/url/struct.Url.html#method.parse
-[`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
-[`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
-[`reqwest::RequestBuilder`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html
-[`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
-[`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
-[`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
-[`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
-[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.htm
-[`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
-[`serde_json::json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
-[`std::iter::Iterator`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html
-[`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
+[`Url::parse_with_params`]: https://docs.rs/url/*/url/struct.Url.html#method.parse_with_params
 [`url::Parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
 [`url::ParseOptions`]: https://docs.rs/url/*/url/struct.ParseOptions.html
+[`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
+[`Url`]: https://docs.rs/url/*/url/struct.Url.html
 
 <!-- Other Reference -->
 
 [GitHub API]: https://developer.github.com/v3/auth/
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
+[HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
 [OAuth]: https://oauth.net/getting-started/
-[HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1

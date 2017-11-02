@@ -449,14 +449,14 @@ fn run() -> Result<()> {
 
 [![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
 
-Uses [`WalkDirIterator::filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory.
+Uses [`filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory.
 
 Root dir `"."` is yielded due to [`WalkDir::depth`] usage in `is_not_hidden` predicate.
 
 ```rust,no_run
 extern crate walkdir;
 
-use walkdir::{DirEntry, WalkDir, WalkDirIterator};
+use walkdir::{DirEntry, WalkDir};
 
 fn is_not_hidden(entry: &DirEntry) -> bool {
     entry
@@ -789,28 +789,28 @@ fn run() -> Result<()> {
 [`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
 [`Entry::unpack`]: https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
+[`filter_entry`]: https://docs.rs/walkdir/*/walkdir/struct.IntoIter.html#method.filter_entry
+[`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
+[`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
 [`GzDecoder`]: https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html
 [`GzEncoder`]: https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html
+[`is_prerelease`]: https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease
 [`Iterator::filter`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter
 [`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html
 [`Path::strip_prefix`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix
-[`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
+[`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html
 [`semver::VersionReq`]: https://docs.rs/semver/*/semver/struct.VersionReq.html
-[`Version::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
-[`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
-[`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
-[`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
-[`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
-[`WalkDirIterator::filter_entry`]: https://docs.rs/walkdir/*/walkdir/trait.WalkDirIterator.html#method.filter_entry
-[`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
-[`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
-[`is_prerelease`]: https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease
 [`tar::Archive`]: https://docs.rs/tar/*/tar/struct.Archive.html
 [`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
 [`tar::Entries`]: https://docs.rs/tar/*/tar/struct.Entries.html
 [`tar::Entry`]: https://docs.rs/tar/*/tar/struct.Entry.html
+[`Version::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
+[`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
+[`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
+[`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
+[`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
 
 <!-- Other Reference -->
 
