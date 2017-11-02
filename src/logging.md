@@ -10,7 +10,7 @@
 | [Use a custom environment variable to set up logging][ex-log-env-variable] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Include timestamp in log messages][ex-log-timestamp] | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
-| [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] [![log4rs-badge]][log4rs] | [![cat-debugging-badge]][cat-debugging] |
 
 [ex-log-debug]: #ex-log-debug
 <a name="ex-log-debug"></a>
