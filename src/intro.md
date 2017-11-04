@@ -47,6 +47,7 @@ community. It needs and welcomes help. For details see
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 ## [Encoding](encoding.html)
 
@@ -164,11 +165,13 @@ community. It needs and welcomes help. For details see
 [ex-csv-filter]: encoding.html#ex-csv-filter
 [ex-csv-read]: encoding.html#ex-csv-read
 [ex-csv-serde]: encoding.html#ex-csv-serde
+[ex-datetime-arithmetic]: basics.html#ex-datetime-arithmetic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-error-chain-backtrace]: basics.html#ex-error-chain-backtrace
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links
+[ex-format-datetime]: basics.html#ex-format-datetime
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-file-sizes]: app.html#ex-file-sizes
