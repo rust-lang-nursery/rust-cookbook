@@ -45,6 +45,7 @@ community. It needs and welcomes help. For details see
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [Converting date to unix timestamp and vice versa][ex-convert-datetime-timestamp] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
@@ -160,6 +161,7 @@ community. It needs and welcomes help. For details see
 [ex-check-broken-links]: net.html#ex-check-broken-links
 [ex-check-cpu-cores]: basics.html#ex-check-cpu-cores
 [ex-clap-basic]: app.html#ex-clap-basic
+[ex-convert-datetime-timestamp]: basics.html#ex-convert-datetime-timestamp
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
 [ex-csv-delimiter]: encoding.html#ex-csv-delimiter
 [ex-csv-filter]: encoding.html#ex-csv-filter

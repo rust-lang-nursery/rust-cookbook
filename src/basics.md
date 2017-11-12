@@ -27,6 +27,7 @@
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [Converting date to unix timestamp and vice versa][ex-convert-datetime-timestamp] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
@@ -1266,6 +1267,37 @@ fn main() {
 }
 ```
 
+[ex-convert-datetime-timestamp]: #ex-convert-datetime-timestamp
+<a name="ex-convert-datetime-timestamp"></a>
+## Converting date to unix timestamp and vice versa
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Converts a date given by [`NaiveDate::from_ymd`] and [`NaiveTime::from_hms`]
+to the number of seconds since January 1, 1970 0:00:00 UTC using [`NaiveDateTime::timestamp`].
+Then it calculates what was the date after one billion seconds
+since January 1, 1970 0:00:00 UTC, using [`NaiveDateTime::from_timestamp`].
+
+```rust
+extern crate chrono;
+
+use chrono::{NaiveDate, NaiveDateTime};
+
+fn main() {
+    let date_time: NaiveDateTime = NaiveDate::from_ymd(2017, 11, 12).and_hms(17, 33, 44);
+    let seconds_since_date_time: i64 = date_time.timestamp();
+    println!(
+        "Number of seconds between 1970-01-01 00:00:00 and {} is {}.",
+        date_time, seconds_since_date_time);
+
+    let billion_seconds: i64 = 1_000_000_000;
+    let date_time_after_a_billion_seconds = NaiveDateTime::from_timestamp(billion_seconds, 0);
+    println!(
+        "Date after a billion seconds from 1970-01-01 00:00:00 was {}.",
+        date_time_after_a_billion_seconds);
+}
+```
+
+
 [ex-format-datetime]: #ex-format-datetime
 <a name="ex-format-datetime"></a>
 ## Display formatted date and time
@@ -1423,8 +1455,12 @@ fn main() {
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
 [`NaiveDate`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html
+[`NaiveDate::from_ymd`]: https://docs.rs/chrono/0.4.0/chrono/naive/struct.NaiveDate.html#method.from_ymd
 [`NaiveDateTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html
+[`NaiveDateTime::from_timestamp`]: https://docs.rs/chrono/0.4.0/chrono/naive/struct.NaiveDateTime.html#method.from_timestamp
+[`NaiveDateTime::timestamp`]: https://docs.rs/chrono/0.4.0/chrono/naive/struct.NaiveDateTime.html#method.timestamp
 [`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
+[`NaiveTime::from_hms`]: https://docs.rs/chrono/0.4.0/chrono/naive/struct.NaiveTime.html#method.from_hms
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
