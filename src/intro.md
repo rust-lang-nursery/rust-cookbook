@@ -48,7 +48,7 @@ community. It needs and welcomes help. For details see
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
-| [Examine a DateTime struct via Datelike and Timelike traits][ex-examine-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 ## [Encoding](encoding.html)
 
@@ -169,7 +169,7 @@ community. It needs and welcomes help. For details see
 [ex-datetime-arithmetic]: basics.html#ex-datetime-arithmetic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-error-chain-backtrace]: basics.html#ex-error-chain-backtrace
-[ex-examine-datetime]: basics.html#ex-examine-datetime
+[ex-examine-date-and-time]: basics.html#ex-examine-date-and-time
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links

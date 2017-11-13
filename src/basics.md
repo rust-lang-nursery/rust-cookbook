@@ -30,7 +30,7 @@
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
-| [Examine a DateTime struct via Datelike and Timelike traits][ex-examine-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1386,9 +1386,9 @@ fn main() {
 }
 ```
 
-[ex-examine-datetime]: #ex-examine-datetime
-<a name="ex-examine-datetime"></a>
-## Examine a DateTime struct via Datelike and Timelike traits
+[ex-examine-date-and-time]: #ex-examine-date-and-time
+<a name="ex-examine-date-and-time"></a>
+## Examine the date and time
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
 Gets the current UTC [`DateTime`] and its hour/minute/second via [`Timelike`]
