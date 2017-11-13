@@ -30,6 +30,7 @@
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine a DateTime struct via Datelike and Timelike traits][ex-examine-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1385,6 +1386,44 @@ fn main() {
 }
 ```
 
+[ex-examine-datetime]: #ex-examine-datetime
+<a name="ex-examine-datetime"></a>
+## Examine a DateTime struct via Datelike and Timelike traits
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Gets the current UTC [`DateTime`] and its hour/minute/second via [`Timelike`]
+and its year/month/day/weekday via [`Datelike`].
+
+```rust
+extern crate chrono;
+use chrono::{Datelike, Timelike, Utc};
+
+fn main() {
+    let now = Utc::now();
+
+    // available due to chrono::Timelike
+    let second = now.second();
+    let minute = now.minute();
+    let (is_pm, hour) = now.hour12();
+    let am_pm_str = if is_pm { "PM" } else { "AM" };
+    println!("The current UTC time is {:02}:{:02}:{:02} {}",
+        hour, minute, second, am_pm_str);
+    println!("And there have been {} seconds since midnight",
+        now.num_seconds_from_midnight());
+
+    // available due to chrono::Datelike
+    let (is_common_era, year) = now.year_ce();
+    let common_era_str = if is_common_era { "CE" } else { "BCE" };
+    let month = now.month();
+    let day = now.day();
+    let weekday = now.weekday();
+    println!("The current UTC date is {}-{:02}-{:02} {:?} ({})",
+        year, month, day, weekday, common_era_str);
+    println!("And the Common Era began {} days ago",
+        now.num_days_from_ce());
+}
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1397,6 +1436,7 @@ fn main() {
 [`chain_err`]: https://docs.rs/error-chain/*/error_chain/index.html#chaining-errors
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
+[`Datelike`]: https://docs.rs/chrono/*/chrono/trait.Datelike.html
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [`DateTime::parse_from_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc2822
@@ -1453,6 +1493,7 @@ fn main() {
 [`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
 [`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now
 [`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
+[`Timelike`]: https://docs.rs/chrono/*/chrono/trait.Timelike.html
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
