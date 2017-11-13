@@ -1402,25 +1402,33 @@ fn main() {
     let now = Utc::now();
 
     // available due to chrono::Timelike
-    let second = now.second();
-    let minute = now.minute();
     let (is_pm, hour) = now.hour12();
-    let am_pm_str = if is_pm { "PM" } else { "AM" };
-    println!("The current UTC time is {:02}:{:02}:{:02} {}",
-        hour, minute, second, am_pm_str);
-    println!("And there have been {} seconds since midnight",
-        now.num_seconds_from_midnight());
+    println!(
+        "The current UTC time is {:02}:{:02}:{:02} {}",
+        hour,
+        now.minute(),
+        now.second(),
+        if is_pm { "PM" } else { "AM" }
+    );
+    println!(
+        "And there have been {} seconds since midnight",
+        now.num_seconds_from_midnight()
+    );
 
     // available due to chrono::Datelike
     let (is_common_era, year) = now.year_ce();
-    let common_era_str = if is_common_era { "CE" } else { "BCE" };
-    let month = now.month();
-    let day = now.day();
-    let weekday = now.weekday();
-    println!("The current UTC date is {}-{:02}-{:02} {:?} ({})",
-        year, month, day, weekday, common_era_str);
-    println!("And the Common Era began {} days ago",
-        now.num_days_from_ce());
+    println!(
+        "The current UTC date is {}-{:02}-{:02} {:?} ({})",
+        year,
+        now.month(),
+        now.day(),
+        now.weekday(),
+        if is_common_era { "CE" } else { "BCE" }
+    );
+    println!(
+        "And the Common Era began {} days ago",
+        now.num_days_from_ce()
+    );
 }
 ```
 
