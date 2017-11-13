@@ -1401,7 +1401,6 @@ use chrono::{Datelike, Timelike, Utc};
 fn main() {
     let now = Utc::now();
 
-    // available due to chrono::Timelike
     let (is_pm, hour) = now.hour12();
     println!(
         "The current UTC time is {:02}:{:02}:{:02} {}",
@@ -1415,7 +1414,6 @@ fn main() {
         now.num_seconds_from_midnight()
     );
 
-    // available due to chrono::Datelike
     let (is_common_era, year) = now.year_ce();
     println!(
         "The current UTC date is {}-{:02}-{:02} {:?} ({})",
