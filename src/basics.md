@@ -28,9 +28,11 @@
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 | [Convert date to UNIX timestamp and vice versa][ex-convert-datetime-timestamp] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Convert a local time to an another UTC timezone and vice versa][ex-convert-datetime-timezone] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1266,6 +1268,32 @@ fn main() {
     println!("Time elapsed in expensive_function() is: {:?}", duration);
 }
 ```
+[ex-convert-datetime-timezone]: #ex-convert-datetime-timezone
+<a name="ex-convert-datetime-timezone"></a>
+## Convert a local time to an another UTC timezone and vice versa
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Gets the local time and displays it using [`offset::Local::now`] and then converts it to the UTC standard using the [`DateTime::from_utc`] struct method. A time is then converted using the [`offset::FixedOffset`] struct and the UTC time is then converted to UTC+8 and UTC-2.
+
+```rust
+extern crate chrono;
+
+use chrono::{DateTime, FixedOffset, Local, Utc};
+
+fn main() {
+    let local_time = Local::now();
+    let utc_time = DateTime::<Utc>::from_utc(local_time.naive_utc(), Utc);
+    let china_timezone = FixedOffset::east(8 * 3600);
+    let rio_timezone = FixedOffset::west(2 * 3600);
+    println!("Local time now is {}", local_time);
+    println!("UTC time now is {}", utc_time);
+    println!(
+        "Time in Hong Kong now is {}",
+        utc_time.with_timezone(&china_timezone)
+    );
+    println!("Time in Rio de Janeiro now is {}", utc_time.with_timezone(&rio_timezone));
+}
+```
 
 [ex-convert-datetime-timestamp]: #ex-convert-datetime-timestamp
 <a name="ex-convert-datetime-timestamp"></a>
@@ -1275,7 +1303,7 @@ fn main() {
 Converts a date given by [`NaiveDate::from_ymd`] and [`NaiveTime::from_hms`]
 to [UNIX timestamp] using [`NaiveDateTime::timestamp`].
 Then it calculates what was the date after one billion seconds
-since 1970-01-01 00:00:00, using [`NaiveDateTime::from_timestamp`].
+since January 1, 1970 0:00:00 UTC, using [`NaiveDateTime::from_timestamp`].
 
 ```rust
 extern crate chrono;
@@ -1414,6 +1442,50 @@ fn main() {
 }
 ```
 
+[ex-examine-date-and-time]: #ex-examine-date-and-time
+<a name="ex-examine-date-and-time"></a>
+## Examine the date and time
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Gets the current UTC [`DateTime`] and its hour/minute/second via [`Timelike`]
+and its year/month/day/weekday via [`Datelike`].
+
+```rust
+extern crate chrono;
+use chrono::{Datelike, Timelike, Utc};
+
+fn main() {
+    let now = Utc::now();
+
+    let (is_pm, hour) = now.hour12();
+    println!(
+        "The current UTC time is {:02}:{:02}:{:02} {}",
+        hour,
+        now.minute(),
+        now.second(),
+        if is_pm { "PM" } else { "AM" }
+    );
+    println!(
+        "And there have been {} seconds since midnight",
+        now.num_seconds_from_midnight()
+    );
+
+    let (is_common_era, year) = now.year_ce();
+    println!(
+        "The current UTC date is {}-{:02}-{:02} {:?} ({})",
+        year,
+        now.month(),
+        now.day(),
+        now.weekday(),
+        if is_common_era { "CE" } else { "BCE" }
+    );
+    println!(
+        "And the Common Era began {} days ago",
+        now.num_days_from_ce()
+    );
+}
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1426,6 +1498,7 @@ fn main() {
 [`chain_err`]: https://docs.rs/error-chain/*/error_chain/index.html#chaining-errors
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
+[`Datelike`]: https://docs.rs/chrono/*/chrono/trait.Datelike.html
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [`DateTime::parse_from_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc2822
@@ -1434,6 +1507,7 @@ fn main() {
 [`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
 [`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::from_utc`]:https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc
 [`DateTime::checked_add_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed
 [`DateTime::checked_sub_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_sub_signed
 [`DateTime`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html
@@ -1461,6 +1535,8 @@ fn main() {
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
+[`offset::FixedOffset`]: https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html
+[`offset::Local::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now
 [`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
 [`pbkdf2::verify`]: https://docs.rs/ring/*/ring/pbkdf2/fn.verify.html
 [`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
@@ -1486,6 +1562,7 @@ fn main() {
 [`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
 [`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now
 [`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
+[`Timelike`]: https://docs.rs/chrono/*/chrono/trait.Timelike.html
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax

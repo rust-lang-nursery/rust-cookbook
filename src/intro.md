@@ -46,9 +46,11 @@ community. It needs and welcomes help. For details see
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 | [Convert date to UNIX timestamp and vice versa][ex-convert-datetime-timestamp] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Convert a local time to an another UTC timezone and vice versa][ex-convert-datetime-timezone] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 ## [Encoding](encoding.html)
 
@@ -162,6 +164,7 @@ community. It needs and welcomes help. For details see
 [ex-check-cpu-cores]: basics.html#ex-check-cpu-cores
 [ex-clap-basic]: app.html#ex-clap-basic
 [ex-convert-datetime-timestamp]: basics.html#ex-convert-datetime-timestamp
+[ex-convert-datetime-timezone]: basics.html#ex-convert-datetime-timezone
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
 [ex-csv-delimiter]: encoding.html#ex-csv-delimiter
 [ex-csv-filter]: encoding.html#ex-csv-filter
@@ -170,6 +173,7 @@ community. It needs and welcomes help. For details see
 [ex-datetime-arithmetic]: basics.html#ex-datetime-arithmetic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-error-chain-backtrace]: basics.html#ex-error-chain-backtrace
+[ex-examine-date-and-time]: basics.html#ex-examine-date-and-time
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links
