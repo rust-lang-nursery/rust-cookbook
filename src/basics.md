@@ -1275,7 +1275,7 @@ fn main() {
 Converts a date given by [`NaiveDate::from_ymd`] and [`NaiveTime::from_hms`]
 to [UNIX timestamp] using [`NaiveDateTime::timestamp`].
 Then it calculates what was the date after one billion seconds
-since [UNIX timestamp], using [`NaiveDateTime::from_timestamp`].
+since 1970-01-01 00:00:00, using [`NaiveDateTime::from_timestamp`].
 
 ```rust
 extern crate chrono;
