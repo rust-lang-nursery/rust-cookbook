@@ -43,6 +43,7 @@ community. It needs and welcomes help. For details see
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
+| [Avoid discarding errors during error conversions][ex-error-chain-avoid-discarding] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 | [Convert a local time to an another UTC timezone and vice versa][ex-convert-datetime-timezone] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
@@ -170,6 +171,7 @@ community. It needs and welcomes help. For details see
 [ex-csv-serde]: encoding.html#ex-csv-serde
 [ex-datetime-arithmetic]: basics.html#ex-datetime-arithmetic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
+[ex-error-chain-avoid-discarding]: basics.html#ex-error-chain-avoid-discarding
 [ex-error-chain-backtrace]: basics.html#ex-error-chain-backtrace
 [ex-examine-date-and-time]: basics.html#ex-examine-date-and-time
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
