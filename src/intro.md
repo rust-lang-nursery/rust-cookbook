@@ -127,6 +127,7 @@ community. It needs and welcomes help. For details see
 | [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Parse a complex version string][ex-semver-complex] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Check if given version is pre-release][ex-semver-prerelease] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
+| [Find the latest version satisfying given range][ex-semver-latest] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Check external command version for compatibility][ex-semver-command] | [![semver-badge]][semver] | [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os]
 
 ## [Logging](logging.html)
@@ -238,6 +239,7 @@ community. It needs and welcomes help. For details see
 [ex-semver-command]: app.html#ex-semver-command
 [ex-semver-complex]: app.html#ex-semver-complex
 [ex-semver-increment]: app.html#ex-semver-increment
+[ex-semver-latest]: app.html#ex-semver-latest
 [ex-semver-prerelease]: app.html#ex-semver-prerelease
 [ex-serialize-csv]: encoding.html#ex-serialize-csv
 [ex-sha-digest]: basics.html#ex-sha-digest
