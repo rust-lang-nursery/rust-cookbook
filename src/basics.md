@@ -12,6 +12,7 @@
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Redirect both stdout and stderr of child process to the same file][ex-redirect-stdout-stderr-same-file] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Continuously process child process' outputs][ex-continuous-process-output] | [![std-badge]][std] | [![cat-os-badge]][cat-os][![cat-text-processing-badge]][cat-text-processing] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -497,6 +498,55 @@ fn run() -> Result<()> {
         .wait_with_output()?;
 
     Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-continuous-process-output]: #ex-continuous-process-output
+<a name="ex-continuous-process-output"></a>
+## Continuously process child process' outputs
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Contrary to [Run an external command and process
+stdout](#ex-parse-subprocess-output), while an external [`Command`] is
+running, process its standard output without waiting it to finish. A
+new pipe is created by [`Stdio::piped`] and it is read continuously by
+a [`BufReader`].
+
+The below recipe is equivalent to run the Unix shell command
+`journalctl | grep usb`.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::process::{Command, Stdio};
+use std::io::{BufRead, BufReader};
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
+# }
+#
+fn run() -> Result<()> {
+    let stdout = Command::new("journalctl")
+        .stdout(Stdio::piped())
+        .spawn()?
+        .stdout
+        .ok_or_else(|| "Could not capture standard output.")?;
+
+    let reader = BufReader::new(stdout);
+
+    reader
+        .lines()
+        .filter_map(|line| line.ok())
+        .filter(|line| line.find("usb").is_some())
+        .for_each(|line| println!("{}", line));
+
+     Ok(())
 }
 #
 # quick_main!(run);

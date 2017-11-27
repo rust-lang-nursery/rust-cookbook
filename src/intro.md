@@ -30,6 +30,7 @@ community. It needs and welcomes help. For details see
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Redirect both stdout and stderr of child process to the same file][ex-redirect-stdout-stderr-same-file] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Continuously process child process' outputs][ex-continuous-process-output] | [![std-badge]][std] | [![cat-os-badge]][cat-os][![cat-text-processing-badge]][cat-text-processing] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -164,6 +165,7 @@ community. It needs and welcomes help. For details see
 [ex-check-broken-links]: net.html#ex-check-broken-links
 [ex-check-cpu-cores]: basics.html#ex-check-cpu-cores
 [ex-clap-basic]: app.html#ex-clap-basic
+[ex-continuous-process-output]: basics.html#ex-continuous-process-output
 [ex-convert-datetime-timestamp]: basics.html#ex-convert-datetime-timestamp
 [ex-convert-datetime-timezone]: basics.html#ex-convert-datetime-timezone
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
