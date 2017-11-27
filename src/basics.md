@@ -8,6 +8,8 @@
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Create random passwords from a set of alphanumeric characters][ex-rand-passwd] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
+| [Create random passwords from a set of user-defined characters][ex-rand-choose] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
@@ -274,6 +276,52 @@ fn main() {
     let rand_point: Point = rng.gen();
     println!("Random tuple: {:?}", rand_tuple);
     println!("Random Point: {:?}", rand_point);
+}
+```
+
+[ex-rand-passwd]: #ex-rand-passwd
+<a name="ex-rand-passwd"></a>
+## Create random passwords from a set of alphanumeric characters
+
+[![rand-badge]][rand] [![cat-os-badge]][cat-os]
+
+Randomly generates a string of given length ASCII characters in the range `A-Z, a-z, 0-9`, with [`gen_ascii_chars`].
+
+```rust
+extern crate rand;
+
+use rand::{thread_rng, Rng};
+
+fn main() {
+    let rand_string: String = thread_rng().gen_ascii_chars().take(30).collect();
+    println!("{}", rand_string);
+}
+```
+
+[ex-rand-choose]: #ex-rand-choose
+<a name="ex-rand-choose"></a>
+## Create random passwords from a set of user-defined characters
+
+[![rand-badge]][rand] [![cat-os-badge]][cat-os]
+
+Randomly generates a string of given length ASCII characters with custom user-defined bytestring, with [`choose`].
+
+```rust
+extern crate rand;
+
+use rand::{thread_rng, Rng};
+
+fn main() {
+    const CHARSET: &[u8] =  b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+    abcdefghijklmnopqrstuvwxyz\
+    0123456789)(*&^%$#@!~";
+
+    let mut rng = thread_rng();
+    let password: Option<String> = (0..30)
+        .map(|_| Some(*rng.choose(CHARSET)? as char))
+        .collect();
+
+    println!("{:?}", password);
 }
 ```
 
@@ -1615,6 +1663,7 @@ fn main() {
 [`BufRead`]: https://doc.rust-lang.org/std/io/trait.BufRead.html
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
 [`chain_err`]: https://docs.rs/error-chain/*/error_chain/index.html#chaining-errors
+[`choose`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.choose
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`Datelike`]: https://docs.rs/chrono/*/chrono/trait.Datelike.html
@@ -1639,6 +1688,7 @@ fn main() {
 [`File::try_clone`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.try_clone
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`foreign_links`]: https://docs.rs/error-chain/*/error_chain/#foreign-links
+[`gen_ascii_chars`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.gen_ascii_chars
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
 [`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample

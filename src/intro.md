@@ -26,6 +26,8 @@ community. It needs and welcomes help. For details see
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Create random passwords from a set of alphanumeric characters][ex-rand-passwd] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
+| [Create random passwords from a set of user-defined characters][ex-rand-choose] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
@@ -218,6 +220,8 @@ community. It needs and welcomes help. For details see
 [ex-progress-with-range]: net.html#ex-progress-with-range
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist
+[ex-rand-choose]: basics.html#ex-rand-choose
+[ex-rand-passwd]: basics.html#ex-rand-passwd
 [ex-rand-range]: basics.html#ex-rand-range
 [ex-rand]: basics.html#ex-rand
 [ex-random-file-access]: basics.html#ex-random-file-access
