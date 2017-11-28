@@ -738,7 +738,7 @@ Given a list of version &strs, finds the latest [semver::Version] that satisfyin
 # extern crate error_chain;
 extern crate semver;
 
-use semver::{Version, VersionReq};
+use semver::{Version, VersionReq, AlphaNumeric, Numeric};
 #
 # error_chain! {
 #     foreign_links {
@@ -746,10 +746,25 @@ use semver::{Version, VersionReq};
 #     }
 # }
 
+fn version_latest<'a>(
+    version_req_str: &str,
+    version_str_vec: &'a Vec<&str>,
+) -> Result<Version, &'a str> {
+    let vreq = VersionReq::parse(version_req_str)?;
+
+    version_str_vec
+        .iter()
+        .filter_map(|s| Version::parse(s).ok())
+        .filter(|s| vreq.matches(s))
+        .max()
+        .ok_or_else(|| "Unable to find version satisfying given range")
+}
+
 fn run() -> Result<()> {
+/*
     let req = VersionReq::parse("<= 1.0.0")?;
 
-    let version_latest = ["0.9.0", "1.0.0", "1.0.1"]
+    let ver_latest = vec!["0.9.0", "1.0.0", "1.0.1"]
         .iter()
         .filter_map(|s| Version::parse(s).ok())
         .filter(|s| req.matches(s))
@@ -757,12 +772,63 @@ fn run() -> Result<()> {
         .ok_or_else(|| "Unable to find version satisfying given range");
 
     assert_eq!(
-        version_latest,
+        ver_latest,
         Ok(Version {
             major: 1,
             minor: 0,
             patch: 0,
             pre: vec![],
+            build: vec![],
+        })
+    );
+
+    let req = VersionReq::parse(">1.2.3-alpha.3")?;
+
+    let ver_latest = vec!["1.2.3-alpha.3", "1.2.3-alpha.4", "1.2.3-alpha.10", "3.4.5-alpha.9"]
+        .iter()
+        .filter_map(|s| Version::parse(s).ok())
+        .filter(|s| req.matches(s))
+        .max()
+        .ok_or_else(|| "Unable to find version satisfying given range");
+
+    assert_eq!(
+        ver_latest,
+        Ok(Version {
+            major: 1,
+            minor: 2,
+            patch: 3,
+            pre: vec![AlphaNumeric(String::from("alpha")), Numeric(10)],
+            build: vec![],
+        })
+    );
+*/
+
+    assert_eq!(
+        version_latest("<= 1.0.0", &vec!["0.9.0", "1.0.0", "1.0.1"]),
+        Ok(Version {
+            major: 1,
+            minor: 0,
+            patch: 0,
+            pre: vec![],
+            build: vec![],
+        })
+    );
+
+    assert_eq!(
+        version_latest(
+            ">1.2.3-alpha.3",
+            &vec![
+                "1.2.3-alpha.3",
+                "1.2.3-alpha.4",
+                "1.2.3-alpha.10",
+                "3.4.5-alpha.9",
+            ]
+        ),
+        Ok(Version {
+            major: 1,
+            minor: 2,
+            patch: 3,
+            pre: vec![AlphaNumeric(String::from("alpha")), Numeric(10)],
             build: vec![],
         })
     );
@@ -845,7 +911,6 @@ fn run() -> Result<()> {
 [`is_prerelease`]: https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease
 [`Iterator::filter`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter
 [`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html
-[`max`]: https://doc.rust-lang.org/std/cmp/fn.max.html
 [`Path::strip_prefix`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
 [`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
