@@ -11,10 +11,10 @@ Keep lines sorted.
 [cat-command-line]: https://crates.io/categories/command-line-interface
 [cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
 [cat-compression]: https://crates.io/categories/compression
-[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
-[cat-config]: https://crates.io/categories/config
 [cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
 [cat-concurrency]: https://crates.io/categories/concurrency
+[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
+[cat-config]: https://crates.io/categories/config
 [cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
 [cat-cryptography]: https://crates.io/categories/cryptography
 [cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
@@ -39,12 +39,12 @@ Keep lines sorted.
 [cat-rendering]: https://crates.io/categories/rendering
 [cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
 [cat-rust-patterns]: https://crates.io/categories/rust-patterns
-[cat-time-badge]: https://badge-cache.kominick.com/badge/time--x.svg?style=social
-[cat-time]: https://crates.io/categories/date-and-time
 [cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
 [cat-science]: https://crates.io/categories/science
 [cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
 [cat-text-processing]: https://crates.io/categories/text-processing
+[cat-time-badge]: https://badge-cache.kominick.com/badge/time--x.svg?style=social
+[cat-time]: https://crates.io/categories/date-and-time
 
 <!-- Crates -->
 
@@ -110,7 +110,7 @@ Keep lines sorted.
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
 [serde]: https://docs.rs/serde/
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.19.0-blue.svg
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.22.1-blue.svg
 [std]: https://doc.rust-lang.org/std
 [syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/

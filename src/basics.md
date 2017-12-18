@@ -8,9 +8,13 @@
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Create random passwords from a set of alphanumeric characters][ex-rand-passwd] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
+| [Create random passwords from a set of user-defined characters][ex-rand-choose] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Redirect both stdout and stderr of child process to the same file][ex-redirect-stdout-stderr-same-file] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Continuously process child process' outputs][ex-continuous-process-output] | [![std-badge]][std] | [![cat-os-badge]][cat-os][![cat-text-processing-badge]][cat-text-processing] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -24,9 +28,15 @@
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
+| [Avoid discarding errors during error conversions][ex-error-chain-avoid-discarding] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [Convert date to UNIX timestamp and vice versa][ex-convert-datetime-timestamp] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Convert a local time to an another UTC timezone and vice versa][ex-convert-datetime-timezone] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -269,6 +279,52 @@ fn main() {
 }
 ```
 
+[ex-rand-passwd]: #ex-rand-passwd
+<a name="ex-rand-passwd"></a>
+## Create random passwords from a set of alphanumeric characters
+
+[![rand-badge]][rand] [![cat-os-badge]][cat-os]
+
+Randomly generates a string of given length ASCII characters in the range `A-Z, a-z, 0-9`, with [`gen_ascii_chars`].
+
+```rust
+extern crate rand;
+
+use rand::{thread_rng, Rng};
+
+fn main() {
+    let rand_string: String = thread_rng().gen_ascii_chars().take(30).collect();
+    println!("{}", rand_string);
+}
+```
+
+[ex-rand-choose]: #ex-rand-choose
+<a name="ex-rand-choose"></a>
+## Create random passwords from a set of user-defined characters
+
+[![rand-badge]][rand] [![cat-os-badge]][cat-os]
+
+Randomly generates a string of given length ASCII characters with custom user-defined bytestring, with [`choose`].
+
+```rust
+extern crate rand;
+
+use rand::{thread_rng, Rng};
+
+fn main() {
+    const CHARSET: &[u8] =  b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+    abcdefghijklmnopqrstuvwxyz\
+    0123456789)(*&^%$#@!~";
+
+    let mut rng = thread_rng();
+    let password: Option<String> = (0..30)
+        .map(|_| Some(*rng.choose(CHARSET)? as char))
+        .collect();
+
+    println!("{:?}", password);
+}
+```
+
 [ex-parse-subprocess-output]: #ex-parse-subprocess-output
 <a name="ex-parse-subprocess-output"></a>
 ## Run an external command and process stdout
@@ -443,6 +499,102 @@ fn run() -> Result<()> {
     );
 
     Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-redirect-stdout-stderr-same-file]: #ex-redirect-stdout-stderr-same-file
+<a name="ex-redirect-stdout-stderr-same-file"></a>
+## Redirect both stdout and stderr of child process to the same file
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Spawns a child process and redirects `stdout` and `stderr` to the same
+file. It follows the same idea as [run piped external
+commands](#ex-run-piped-external-commands), however [`process::Stdio`]
+will write to the provided files and beforehand, [`File::try_clone`]
+is used to reference the same file handle for `stdout` and
+`stderr`. It will ensure that both handles write with the same cursor
+position.
+
+The below recipe is equivalent to run the Unix shell command `ls
+. oops >out.txt 2>&1`.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::fs::File;
+use std::process::{Command, Stdio};
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
+# }
+#
+fn run() -> Result<()> {
+    let outputs = File::create("out.txt")?;
+    let errors = outputs.try_clone()?;
+
+    Command::new("ls")
+        .args(&[".", "oops"])
+        .stdout(Stdio::from(outputs))
+        .stderr(Stdio::from(errors))
+        .spawn()?
+        .wait_with_output()?;
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-continuous-process-output]: #ex-continuous-process-output
+<a name="ex-continuous-process-output"></a>
+## Continuously process child process' outputs
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Contrary to [Run an external command and process
+stdout](#ex-parse-subprocess-output), while an external [`Command`] is
+running, process its standard output without waiting it to finish. A
+new pipe is created by [`Stdio::piped`] and it is read continuously by
+a [`BufReader`].
+
+The below recipe is equivalent to run the Unix shell command
+`journalctl | grep usb`.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::process::{Command, Stdio};
+use std::io::{BufRead, BufReader};
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#     }
+# }
+#
+fn run() -> Result<()> {
+    let stdout = Command::new("journalctl")
+        .stdout(Stdio::piped())
+        .spawn()?
+        .stdout
+        .ok_or_else(|| "Could not capture standard output.")?;
+
+    let reader = BufReader::new(stdout);
+
+    reader
+        .lines()
+        .filter_map(|line| line.ok())
+        .filter(|line| line.find("usb").is_some())
+        .for_each(|line| println!("{}", line));
+
+     Ok(())
 }
 #
 # quick_main!(run);
@@ -1038,7 +1190,7 @@ Creates a memory map of a file using [memmap] and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
 than dealing with [`seek`]ing around in a File.
 
-The [`Mmap::as_slice`] function is only safe if we can guarantee that the file
+The [`Mmap::map`] function is only safe if we can guarantee that the file
 behind the memory map is not being modified at the same time by another process,
 as this would be a [race condition][race-condition-file].
 
@@ -1047,7 +1199,7 @@ as this would be a [race condition][race-condition-file].
 # extern crate error_chain;
 extern crate memmap;
 
-use memmap::{Mmap, Protection};
+use memmap::Mmap;
 # use std::fs::File;
 # use std::io::Write;
 #
@@ -1060,18 +1212,16 @@ use memmap::{Mmap, Protection};
 fn run() -> Result<()> {
 #     write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
 #
-    let map = Mmap::open_path("content.txt", Protection::Read)?;
+    let file = File::open("content.txt")?;
+    let map = unsafe { Mmap::map(&file)? };
+
     let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
-    // This is only safe if no other code is modifying the file at the same time
-    unsafe {
-        let map = map.as_slice();
-        assert_eq!(&map[3..13], b"hovercraft");
-        // I'm using an iterator here to change indexes to bytes
-        let random_bytes: Vec<u8> = random_indexes.iter()
-            .map(|&idx| map[idx])
-            .collect();
-        assert_eq!(&random_bytes[..], b"My loaf!");
-    }
+    assert_eq!(&map[3..13], b"hovercraft");
+    // I'm using an iterator here to change indexes to bytes
+    let random_bytes: Vec<u8> = random_indexes.iter()
+        .map(|&idx| map[idx])
+        .collect();
+    assert_eq!(&random_bytes[..], b"My loaf!");
     Ok(())
 }
 #
@@ -1091,6 +1241,74 @@ extern crate num_cpus;
 
 fn main() {
     println!("Number of logical cores is {}", num_cpus::get());
+}
+```
+
+[ex-error-chain-avoid-discarding]: #ex-error-chain-avoid-discarding
+<a name="ex-error-chain-avoid-discarding"></a>
+## Avoid discarding errors during error conversions
+
+[![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
+
+[Matching] on different error types returned by a function is possible
+and relatively compact with [error-chain] crate. To do so,
+[`ErrorKind`] is used to determine the error type.
+
+To illustrate the error matching, a random integer generator web
+service will be queried via [reqwest] and then the response will be
+parsed. Errors can be generated by the Rust standard library,
+[reqwest] and by the web service. [`foreign_links`] are used for well
+defined Rust errors. The `errors` block of the `error_chain!` macro is
+used to create an additional [`ErrorKind`] variant for the web service
+error. Finally, a regular `match` can be used to react differently
+according to the raised error.
+
+```rust
+#[macro_use]
+extern crate error_chain;
+extern crate reqwest;
+
+use std::io::Read;
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        Reqwest(reqwest::Error);
+        ParseIntError(std::num::ParseIntError);
+    }
+
+    errors { RandomResponseError(t: String) }
+}
+
+fn parse_response(mut response: reqwest::Response) -> Result<u32> {
+    let mut body = String::new();
+    response.read_to_string(&mut body)?;
+    body.pop();
+    body.parse::<u32>()
+        .chain_err(|| ErrorKind::RandomResponseError(body))
+}
+
+fn run() -> Result<()> {
+    let url =
+        format!("https://www.random.org/integers/?num=1&min=0&max=10&col=1&base=10&format=plain");
+    let response = reqwest::get(&url)?;
+    let random_value: u32 = parse_response(response)?;
+
+    println!("a random number between 0 and 10: {}", random_value);
+
+    Ok(())
+}
+
+fn main() {
+    if let Err(error) = run() {
+        match *error.kind() {
+            ErrorKind::Io(_) => println!("Standard IO error: {:?}", error),
+            ErrorKind::Reqwest(_) => println!("Reqwest error: {:?}", error),
+            ErrorKind::ParseIntError(_) => println!("Standard parse int error: {:?}", error),
+            ErrorKind::RandomResponseError(_) => println!("User defined error: {:?}", error),
+            _ => println!("Other error: {:?}", error),
+        }
+    }
 }
 ```
 
@@ -1204,7 +1422,7 @@ This method will not mutate or reset the [`time::Instant`] object.
 ```rust
 use std::time::{Duration, Instant};
 # use std::thread;
-# 
+#
 # fn expensive_function() {
 #     thread::sleep(Duration::from_secs(1));
 # }
@@ -1213,8 +1431,62 @@ fn main() {
     let start = Instant::now();
     expensive_function();
     let duration = start.elapsed();
-    
+
     println!("Time elapsed in expensive_function() is: {:?}", duration);
+}
+```
+[ex-convert-datetime-timezone]: #ex-convert-datetime-timezone
+<a name="ex-convert-datetime-timezone"></a>
+## Convert a local time to an another UTC timezone and vice versa
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Gets the local time and displays it using [`offset::Local::now`] and then converts it to the UTC standard using the [`DateTime::from_utc`] struct method. A time is then converted using the [`offset::FixedOffset`] struct and the UTC time is then converted to UTC+8 and UTC-2.
+
+```rust
+extern crate chrono;
+
+use chrono::{DateTime, FixedOffset, Local, Utc};
+
+fn main() {
+    let local_time = Local::now();
+    let utc_time = DateTime::<Utc>::from_utc(local_time.naive_utc(), Utc);
+    let china_timezone = FixedOffset::east(8 * 3600);
+    let rio_timezone = FixedOffset::west(2 * 3600);
+    println!("Local time now is {}", local_time);
+    println!("UTC time now is {}", utc_time);
+    println!(
+        "Time in Hong Kong now is {}",
+        utc_time.with_timezone(&china_timezone)
+    );
+    println!("Time in Rio de Janeiro now is {}", utc_time.with_timezone(&rio_timezone));
+}
+```
+
+[ex-convert-datetime-timestamp]: #ex-convert-datetime-timestamp
+<a name="ex-convert-datetime-timestamp"></a>
+## Convert date to UNIX timestamp and vice versa
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Converts a date given by [`NaiveDate::from_ymd`] and [`NaiveTime::from_hms`]
+to [UNIX timestamp] using [`NaiveDateTime::timestamp`].
+Then it calculates what was the date after one billion seconds
+since January 1, 1970 0:00:00 UTC, using [`NaiveDateTime::from_timestamp`].
+
+```rust
+extern crate chrono;
+
+use chrono::{NaiveDate, NaiveDateTime};
+
+fn main() {
+    let date_time: NaiveDateTime = NaiveDate::from_ymd(2017, 11, 12).and_hms(17, 33, 44);
+    println!(
+        "Number of seconds between 1970-01-01 00:00:00 and {} is {}.",
+        date_time, date_time.timestamp());
+
+    let date_time_after_a_billion_seconds = NaiveDateTime::from_timestamp(1_000_000_000, 0);
+    println!(
+        "Date after a billion seconds since 1970-01-01 00:00:00 was {}.",
+        date_time_after_a_billion_seconds);
 }
 ```
 
@@ -1242,6 +1514,145 @@ fn main() {
 }
 ```
 
+[ex-parse-datetime]: #ex-parse-datetime
+<a name="ex-parse-datetime"></a>
+## Parse string into DateTime struct
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Parses a [`DateTime`] struct from strings representing the well-known formats
+[RFC 2822], [RFC 3339], and a custom format, using
+[`DateTime::parse_from_rfc2822`], [`DateTime::parse_from_rfc3339`], and
+[`DateTime::parse_from_str`] respectively.
+
+Escape sequences that are available for the [`DateTime::parse_from_str`] can be
+found at [`chrono::format::strftime`]. Note that the [`DateTime::parse_from_str`]
+requires that such a DateTime struct must be creatable that it uniquely
+identifies a date and a time. For parsing dates and times without timezones use
+[`NaiveDate`], [`NaiveTime`], and [`NaiveDateTime`].
+
+```rust
+extern crate chrono;
+# #[macro_use]
+# extern crate error_chain;
+#
+use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
+#
+# error_chain! {
+#     foreign_links {
+#         DateParse(chrono::format::ParseError);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let rfc2822 = DateTime::parse_from_rfc2822("Tue, 1 Jul 2003 10:52:37 +0200")?;
+    println!("{}", rfc2822);
+
+    let rfc3339 = DateTime::parse_from_rfc3339("1996-12-19T16:39:57-08:00")?;
+    println!("{}", rfc3339);
+
+    let custom = DateTime::parse_from_str("5.8.1994 8:00 am +0000", "%d.%m.%Y %H:%M %P %z")?;
+    println!("{}", custom);
+
+    let time_only = NaiveTime::parse_from_str("23:56:04", "%H:%M:%S")?;
+    println!("{}", time_only);
+
+    let date_only = NaiveDate::parse_from_str("2015-09-05", "%Y-%m-%d")?;
+    println!("{}", date_only);
+
+    let no_timezone = NaiveDateTime::parse_from_str("2015-09-05 23:56:04", "%Y-%m-%d %H:%M:%S")?;
+    println!("{}", no_timezone);
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-datetime-arithmetic]: #ex-datetime-arithmetic
+<a name="ex-datetime-arithmetic"></a>
+## Perform checked date and time calculations
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Calculates and displays the date and time two weeks from now using
+[`DateTime::checked_add_signed`] and the date of the day before that using
+[`DateTime::checked_sub_signed`]. The methods return None if the date and time
+cannot be calculated.
+
+Escape sequences that are available for the
+[`DateTime::format`] can be found at [`chrono::format::strftime`].
+
+```rust
+extern crate chrono;
+use chrono::{DateTime, Duration, Utc};
+
+fn day_earlier(date_time: DateTime<Utc>) -> Option<DateTime<Utc>> {
+    date_time.checked_sub_signed(Duration::days(1))
+}
+
+fn main() {
+    let now = Utc::now();
+    println!("{}", now);
+
+    let almost_three_weeks_from_now = now.checked_add_signed(Duration::weeks(2))
+            .and_then(|in_2weeks| in_2weeks.checked_add_signed(Duration::weeks(1)))
+            .and_then(day_earlier);
+
+    match almost_three_weeks_from_now {
+        Some(x) => println!("{}", x),
+        None => eprintln!("Almost three weeks from now overflows!"),
+    }
+
+    match now.checked_add_signed(Duration::max_value()) {
+        Some(x) => println!("{}", x),
+        None => eprintln!("We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."),
+    }
+}
+```
+
+[ex-examine-date-and-time]: #ex-examine-date-and-time
+<a name="ex-examine-date-and-time"></a>
+## Examine the date and time
+[![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
+
+Gets the current UTC [`DateTime`] and its hour/minute/second via [`Timelike`]
+and its year/month/day/weekday via [`Datelike`].
+
+```rust
+extern crate chrono;
+use chrono::{Datelike, Timelike, Utc};
+
+fn main() {
+    let now = Utc::now();
+
+    let (is_pm, hour) = now.hour12();
+    println!(
+        "The current UTC time is {:02}:{:02}:{:02} {}",
+        hour,
+        now.minute(),
+        now.second(),
+        if is_pm { "PM" } else { "AM" }
+    );
+    println!(
+        "And there have been {} seconds since midnight",
+        now.num_seconds_from_midnight()
+    );
+
+    let (is_common_era, year) = now.year_ce();
+    println!(
+        "The current UTC date is {}-{:02}-{:02} {:?} ({})",
+        year,
+        now.month(),
+        now.day(),
+        now.weekday(),
+        if is_common_era { "CE" } else { "BCE" }
+    );
+    println!(
+        "And the Common Era began {} days ago",
+        now.num_days_from_ce()
+    );
+}
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1252,30 +1663,55 @@ fn main() {
 [`BufRead`]: https://doc.rust-lang.org/std/io/trait.BufRead.html
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
 [`chain_err`]: https://docs.rs/error-chain/*/error_chain/index.html#chaining-errors
+[`choose`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.choose
+[`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
+[`Datelike`]: https://docs.rs/chrono/*/chrono/trait.Datelike.html
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::parse_from_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc2822
+[`DateTime::parse_from_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc3339
+[`DateTime::parse_from_str`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_str
+[`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
+[`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::from_utc`]:https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc
+[`DateTime::checked_add_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed
+[`DateTime::checked_sub_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_sub_signed
+[`DateTime`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
-[`ring::hmac`]: https://docs.rs/ring/*/ring/hmac/
-[`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
+[`ErrorKind`]: https://docs.rs/error-chain/*/error_chain/example_generated/enum.ErrorKind.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
+[`File::try_clone`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.try_clone
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
+[`foreign_links`]: https://docs.rs/error-chain/*/error_chain/#foreign-links
+[`gen_ascii_chars`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.gen_ascii_chars
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
+[`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
-[`Mmap::as_slice`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.as_slice
+[Matching]:https://docs.rs/error-chain/*/error_chain/#matching-errors
+[`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
+[`NaiveDate`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html
+[`NaiveDate::from_ymd`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html#method.from_ymd
+[`NaiveDateTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html
+[`NaiveDateTime::from_timestamp`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.from_timestamp
+[`NaiveDateTime::timestamp`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp
+[`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
+[`NaiveTime::from_hms`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html#method.from_hms
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
-[`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now
-[`time::Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
-[`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
-[`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
+[`offset::FixedOffset`]: https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html
+[`offset::Local::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now
 [`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
 [`pbkdf2::verify`]: https://docs.rs/ring/*/ring/pbkdf2/fn.verify.html
+[`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
 [`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
@@ -1287,16 +1723,19 @@ fn main() {
 [`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
 [`Regex::replace_all`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.replace_all
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`ring::hmac`]: https://docs.rs/ring/*/ring/hmac/
 [`ring::pbkdf2`]: https://docs.rs/ring/*/ring/pbkdf2/index.html
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
+[`time::Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
+[`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
+[`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now
+[`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
+[`Timelike`]: https://docs.rs/chrono/*/chrono/trait.Timelike.html
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
-[`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
-[`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
-[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
@@ -1308,3 +1747,4 @@ fn main() {
 [RFC 3339]: https://www.ietf.org/rfc/rfc3339.txt
 [twitter hashtag regex]: https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255
 [uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)
+[UNIX timestamp]: https://en.wikipedia.org/wiki/Unix_time

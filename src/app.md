@@ -17,6 +17,7 @@
 | [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Parse a complex version string][ex-semver-complex] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Check if given version is pre-release][ex-semver-prerelease] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
+| [Find the latest version satisfying given range][ex-semver-latest] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Check external command version for compatibility][ex-semver-command] | [![semver-badge]][semver] | [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os]
 
 
@@ -449,14 +450,14 @@ fn run() -> Result<()> {
 
 [![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
 
-Uses [`WalkDirIterator::filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory.
+Uses [`filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory.
 
 Root dir `"."` is yielded due to [`WalkDir::depth`] usage in `is_not_hidden` predicate.
 
 ```rust,no_run
 extern crate walkdir;
 
-use walkdir::{DirEntry, WalkDir, WalkDirIterator};
+use walkdir::{DirEntry, WalkDir};
 
 fn is_not_hidden(entry: &DirEntry) -> bool {
     entry
@@ -725,6 +726,69 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-semver-latest]: #ex-semver-latest
+<a name="ex-semver-latest"></a>
+## Find the latest version satisfying given range
+[![semver-badge]][semver] [![cat-config-badge]][cat-config]
+
+Given a list of version &strs, finds the latest [`semver::Version`] that satisfying a given [`semver::VersionReq`] using [`VersionReq::matches`].
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate semver;
+
+use semver::{Version, VersionReq};
+#
+# error_chain! {
+#     foreign_links {
+#         SemVer(semver::SemVerError);
+#         SemVerReq(semver::ReqParseError);
+#     }
+# }
+
+fn find_max_matching_version<'a, I>(version_req_str: &str, iterable: I) -> Result<Option<Version>>
+where
+    I: IntoIterator<Item = &'a str>,
+{
+    let vreq = VersionReq::parse(version_req_str)?;
+
+    Ok(
+        iterable
+            .into_iter()
+            .filter_map(|s| Version::parse(s).ok())
+            .filter(|s| vreq.matches(s))
+            .max(),
+    )
+}
+
+fn run() -> Result<()> {
+    assert_eq!(
+        find_max_matching_version("<= 1.0.0", vec!["0.9.0", "1.0.0", "1.0.1"])?,
+        Some(Version::parse("1.0.0")?)
+    );
+
+    // Shows Semver precedence for pre-release tags
+    assert_eq!(
+        find_max_matching_version(
+            ">1.2.3-alpha.3",
+            vec![
+                "1.2.3-alpha.3",
+                "1.2.3-alpha.4",
+                "1.2.3-alpha.10",
+                "1.2.3-beta.4",
+                "3.4.5-alpha.9",
+            ]
+        )?,
+        Some(Version::parse("1.2.3-beta.4")?)
+    );
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 [ex-semver-command]: #ex-semver-command
 <a name="ex-semver-command"></a>
 ## Check external command version for compatibility
@@ -789,28 +853,29 @@ fn run() -> Result<()> {
 [`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
 [`Entry::unpack`]: https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
+[`filter_entry`]: https://docs.rs/walkdir/*/walkdir/struct.IntoIter.html#method.filter_entry
+[`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
+[`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
 [`GzDecoder`]: https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html
 [`GzEncoder`]: https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html
+[`is_prerelease`]: https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease
 [`Iterator::filter`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter
 [`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html
 [`Path::strip_prefix`]: https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix
-[`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
+[`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html
 [`semver::VersionReq`]: https://docs.rs/semver/*/semver/struct.VersionReq.html
-[`Version::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
-[`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
-[`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
-[`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
-[`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
-[`WalkDirIterator::filter_entry`]: https://docs.rs/walkdir/*/walkdir/trait.WalkDirIterator.html#method.filter_entry
-[`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links
-[`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
-[`is_prerelease`]: https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease
 [`tar::Archive`]: https://docs.rs/tar/*/tar/struct.Archive.html
 [`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
 [`tar::Entries`]: https://docs.rs/tar/*/tar/struct.Entries.html
 [`tar::Entry`]: https://docs.rs/tar/*/tar/struct.Entry.html
+[`Version::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
+[`VersionReq::matches`]: https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches
+[`WalkDir::depth`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth
+[`WalkDir::DirEntry`]: https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html
+[`WalkDir::max_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth
+[`WalkDir::min_depth`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth
 
 <!-- Other Reference -->
 

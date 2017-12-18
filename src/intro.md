@@ -26,9 +26,13 @@ community. It needs and welcomes help. For details see
 | [Generate random numbers within a range][ex-rand-range] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random numbers with given distribution][ex-rand-dist] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
+| [Create random passwords from a set of alphanumeric characters][ex-rand-passwd] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
+| [Create random passwords from a set of user-defined characters][ex-rand-choose] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Redirect both stdout and stderr of child process to the same file][ex-redirect-stdout-stderr-same-file] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Continuously process child process' outputs][ex-continuous-process-output] | [![std-badge]][std] | [![cat-os-badge]][cat-os][![cat-text-processing-badge]][cat-text-processing] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -42,9 +46,15 @@ community. It needs and welcomes help. For details see
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
+| [Avoid discarding errors during error conversions][ex-error-chain-avoid-discarding] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [Convert date to UNIX timestamp and vice versa][ex-convert-datetime-timestamp] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Convert a local time to an another UTC timezone and vice versa][ex-convert-datetime-timezone] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 ## [Encoding](encoding.html)
 
@@ -69,6 +79,7 @@ community. It needs and welcomes help. For details see
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Test in parallel if any or all elements of a collection match a given predicate][ex-rayon-any-all] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Search items using given predicate in parallel][ex-rayon-parallel-search] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
@@ -119,6 +130,7 @@ community. It needs and welcomes help. For details see
 | [Parse and increment a version string][ex-semver-increment] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Parse a complex version string][ex-semver-complex] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Check if given version is pre-release][ex-semver-prerelease] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
+| [Find the latest version satisfying given range][ex-semver-latest] | [![semver-badge]][semver] | [![cat-config-badge]][cat-config] |
 | [Check external command version for compatibility][ex-semver-command] | [![semver-badge]][semver] | [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os]
 
 ## [Logging](logging.html)
@@ -133,7 +145,7 @@ community. It needs and welcomes help. For details see
 | [Use a custom environment variable to set up logging][ex-log-env-variable] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Include timestamp in log messages][ex-log-timestamp] | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
-| [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] [![log4rs-badge]][log4rs] | [![cat-debugging-badge]][cat-debugging] |
 
 ## [Build Time Tooling](build_tools.html)
 
@@ -151,35 +163,42 @@ community. It needs and welcomes help. For details see
 [ex-base64]: encoding.html#ex-base64
 [ex-bitflags]: basics.html#ex-bitflags
 [ex-byteorder-le]: basics.html#ex-byteorder-le
-[ex-cc-static-bundled]: build_tools.html#ex-cc-static-bundled
-[ex-cc-static-bundled-cpp]: build_tools.html#ex-cc-static-bundled-cpp
 [ex-cc-custom-defines]: build_tools.html#ex-cc-custom-defines
+[ex-cc-static-bundled-cpp]: build_tools.html#ex-cc-static-bundled-cpp
+[ex-cc-static-bundled]: build_tools.html#ex-cc-static-bundled
 [ex-check-broken-links]: net.html#ex-check-broken-links
 [ex-check-cpu-cores]: basics.html#ex-check-cpu-cores
 [ex-clap-basic]: app.html#ex-clap-basic
+[ex-continuous-process-output]: basics.html#ex-continuous-process-output
+[ex-convert-datetime-timestamp]: basics.html#ex-convert-datetime-timestamp
+[ex-convert-datetime-timezone]: basics.html#ex-convert-datetime-timezone
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
-[ex-csv-serde]: encoding.html#ex-csv-serde
 [ex-csv-transform-column]: encoding.html#ex-csv-transform-column
-[ex-csv-read]: encoding.html#ex-csv-read
 [ex-csv-delimiter]: encoding.html#ex-csv-delimiter
-[ex-format-datetime]: basics.html#ex-format-datetime
-[ex-threadpool-fractal]: concurrency.html#ex-threadpool-fractal
-[ex-threadpool-walk]: concurrency.html#ex-threadpool-walk
+[ex-csv-filter]: encoding.html#ex-csv-filter
+[ex-csv-read]: encoding.html#ex-csv-read
+[ex-csv-serde]: encoding.html#ex-csv-serde
+[ex-datetime-arithmetic]: basics.html#ex-datetime-arithmetic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
+[ex-error-chain-avoid-discarding]: basics.html#ex-error-chain-avoid-discarding
 [ex-error-chain-backtrace]: basics.html#ex-error-chain-backtrace
-[ex-measure-elapsed-time]: basics.html#ex-measure-elapsed-time
-[ex-extract-links-webpage]: net.html#ex-extract-links-webpage
+[ex-examine-date-and-time]: basics.html#ex-examine-date-and-time
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
+[ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links
+[ex-format-datetime]: basics.html#ex-format-datetime
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
-[ex-file-skip-dot]: app.html#ex-file-skip-dot
 [ex-file-sizes]: app.html#ex-file-sizes
+[ex-file-skip-dot]: app.html#ex-file-skip-dot
 [ex-find-file-loops]: app.html#ex-find-file-loops
-[ex-global-mut-state]: basics.html#ex-global-mut-state
+[ex-format-datetime]: basics.html#ex-format-datetime
 [ex-glob-recursive]: app.html#ex-glob-recursive
 [ex-glob-with]: app.html#ex-glob-with
+[ex-global-mut-state]: basics.html#ex-global-mut-state
 [ex-hex-encode-decode]: encoding.html#ex-hex-encode-decode
+[ex-hmac]: basics.html#ex-hmac
+[ex-invalid-csv]: encoding.html#ex-invalid-csv
 [ex-json-value]: encoding.html#ex-json-value
 [ex-lazy-constant]: basics.html#ex-lazy-constant
 [ex-log-custom-logger]: logging.html#ex-log-custom-logger
@@ -188,44 +207,54 @@ community. It needs and welcomes help. For details see
 [ex-log-env-variable]: logging.html#ex-log-env-variable
 [ex-log-error]: logging.html#ex-log-error
 [ex-log-mod]: logging.html#ex-log-mod
+[ex-log-stdout]: logging.html#ex-log-stdout
 [ex-log-syslog]: logging.html#ex-log-syslog
 [ex-log-timestamp]: logging.html#ex-log-timestamp
-[ex-log-stdout]: logging.html#ex-log-stdout
-[ex-invalid-csv]: encoding.html#ex-invalid-csv
+[ex-measure-elapsed-time]: basics.html#ex-measure-elapsed-time
 [ex-paginated-api]: net.html#ex-paginated-api
-[ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
+[ex-parse-datetime]: basics.html#ex-parse-datetime
 [ex-parse-subprocess-input]: basics.html#ex-parse-subprocess-input
+[ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
+[ex-parse-subprocess-output]: basics.html#ex-parse-subprocess-output
 [ex-pbkdf2]: basics.html#ex-pbkdf2
-[ex-run-piped-external-commands]: basics.html#ex-run-piped-external-commands
-[ex-verify-extract-email]: basics.html#ex-verify-extract-email
 [ex-percent-encode]: encoding.html#ex-percent-encode
 [ex-phone]: basics.html#ex-phone
+[ex-progress-with-range]: net.html#ex-progress-with-range
 [ex-rand-custom]: basics.html#ex-rand-custom
 [ex-rand-dist]: basics.html#ex-rand-dist
-[ex-rand]: basics.html#ex-rand
+[ex-rand-choose]: basics.html#ex-rand-choose
+[ex-rand-passwd]: basics.html#ex-rand-passwd
 [ex-rand-range]: basics.html#ex-rand-range
+[ex-rand]: basics.html#ex-rand
+[ex-random-file-access]: basics.html#ex-random-file-access
 [ex-random-port-tcp]: net.html#ex-random-port-tcp
+[ex-rayon-any-all]: concurrency.html#ex-rayon-any-all
 [ex-rayon-iter-mut]: concurrency.html#ex-rayon-iter-mut
 [ex-rayon-map-reduce]: concurrency.html#ex-rayon-map-reduce
 [ex-rayon-parallel-search]: concurrency.html#ex-rayon-parallel-search
 [ex-rayon-parallel-sort]: concurrency.html#ex-rayon-parallel-sort
 [ex-rayon-thumbnails]: concurrency.html#ex-rayon-thumbnails
+[ex-redirect-stdout-stderr-same-file]: basics.html#ex-redirect-stdout-stderr-same-file
 [ex-regex-filter-log]: basics.html#ex-regex-filter-log
+[ex-regex-replace-named]: basics.html#ex-regex-replace-named
 [ex-rest-custom-params]: net.html#ex-rest-custom-params
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
+[ex-run-piped-external-commands]: basics.html#ex-run-piped-external-commands
 [ex-semver-command]: app.html#ex-semver-command
 [ex-semver-complex]: app.html#ex-semver-complex
 [ex-semver-increment]: app.html#ex-semver-increment
+[ex-semver-latest]: app.html#ex-semver-latest
 [ex-semver-prerelease]: app.html#ex-semver-prerelease
 [ex-serialize-csv]: encoding.html#ex-serialize-csv
 [ex-sha-digest]: basics.html#ex-sha-digest
-[ex-hmac]: basics.html#ex-hmac
 [ex-std-read-lines]: basics.html#ex-std-read-lines
 [ex-tar-compress]: app.html#ex-tar-compress
 [ex-tar-decompress]: app.html#ex-tar-decompress
 [ex-tar-strip-prefix]: app.html#ex-tar-strip-prefix
+[ex-threadpool-fractal]: concurrency.html#ex-threadpool-fractal
+[ex-threadpool-walk]: concurrency.html#ex-threadpool-walk
 [ex-toml-config]: encoding.html#ex-toml-config
 [ex-url-base]: net.html#ex-url-base
 [ex-url-basic]: net.html#ex-url-basic
@@ -235,7 +264,4 @@ community. It needs and welcomes help. For details see
 [ex-url-parse]: net.html#ex-url-parse
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-urlencoded]: encoding.html#ex-urlencoded
-[ex-progress-with-range]: net.html#ex-progress-with-range
-[ex-random-file-access]: basics.html#ex-random-file-access
-[ex-regex-replace-named]: basics.html#ex-regex-replace-named
-[ex-csv-filter]: encoding.html#ex-csv-filter
+[ex-verify-extract-email]: basics.html#ex-verify-extract-email

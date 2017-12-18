@@ -796,11 +796,11 @@ quick_main!(run);
 [`csv::StringRecord`]: https://docs.rs/csv/*/csv/struct.StringRecord.html
 [`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
 [`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
-[`form_urlencoded::byte_serialize`]: https://docs.rs/url/1.4.0/url/form_urlencoded/fn.byte_serialize.html
+[`form_urlencoded::byte_serialize`]: https://docs.rs/url/*/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
-[`percent_decode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.percent_decode.html
+[`percent_decode`]: https://docs.rs/url/*/url/percent_encoding/fn.percent_decode.html
 [`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize
-[`utf8_percent_encode`]: https://docs.rs/url/1.*/url/percent_encoding/fn.utf8_percent_encode.html
+[`utf8_percent_encode`]: https://docs.rs/url/*/url/percent_encoding/fn.utf8_percent_encode.html
 [`write_record`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record
 
 <!-- Other Reference -->

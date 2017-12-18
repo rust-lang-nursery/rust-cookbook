@@ -10,7 +10,7 @@
 | [Use a custom environment variable to set up logging][ex-log-env-variable] | [![log-badge]][log] [![env_logger-badge]][env_logger] | [![cat-debugging-badge]][cat-debugging] |
 | [Include timestamp in log messages][ex-log-timestamp] | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log to the Unix syslog][ex-log-syslog] | [![log-badge]][log] [![syslog-badge]][syslog] | [![cat-debugging-badge]][cat-debugging] |
-| [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] | [![cat-debugging-badge]][cat-debugging] |
+| [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] [![log4rs-badge]][log4rs] | [![cat-debugging-badge]][cat-debugging] |
 
 [ex-log-debug]: #ex-log-debug
 <a name="ex-log-debug"></a>
@@ -485,7 +485,15 @@ fn run() -> Result<()> {
 
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html#method.format
 [`DateTime`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html
+[`env_logger::init`]: https://doc.rust-lang.org/log/env_logger/fn.init.html
 [`Local::now`]: https://docs.rs/chrono/*/chrono/offset/local/struct.Local.html#method.now
+[`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
+[`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
+[`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
+[`log::Log`]: https://doc.rust-lang.org/log/log/trait.Log.html
+[`log::LogLevel`]: https://doc.rust-lang.org/log/log/enum.LogLevel.html
+[`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
+[`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
 [`LogBuilder::format`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.format
 [`LogBuilder::init`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.init
 [`LogBuilder::parse`]: https://doc.rust-lang.org/log/env_logger/struct.LogBuilder.html#method.parse
@@ -494,18 +502,10 @@ fn run() -> Result<()> {
 [`LogRecord::args`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.args
 [`LogRecord::level`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.level
 [`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
-[`Target::Stdout`]: https://doc.rust-lang.org/log/env_logger/enum.Target.html
-[`env_logger::init`]: https://doc.rust-lang.org/log/env_logger/fn.init.html
-[`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
-[`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
-[`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
-[`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
-[`log::LogLevel`]: https://doc.rust-lang.org/log/log/enum.LogLevel.html
-[`log::Log`]: https://doc.rust-lang.org/log/log/trait.Log.html
-[`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
 [`strftime::specifiers`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html#specifiers
 [`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
 [`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
+[`Target::Stdout`]: https://doc.rust-lang.org/log/env_logger/enum.Target.html
 
 <!-- Other Reference -->
 
