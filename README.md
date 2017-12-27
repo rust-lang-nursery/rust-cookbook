@@ -14,7 +14,18 @@ using the crates of the Rust ecosystem.
 These examples are complete, and suitable for copying directly into
 new cargo projects. They are tested and guaranteed to work.
 
+If you'd like to read it locally, [install Rust], and then:
+
+```bash
+$ git clone https://github.com/rust-lang-nursery/rust-cookbook
+$ cd rust-cookbook
+$ cargo install mdbook
+$ mdbook build
+$ mdbook serve
+```
+
 [Read it here]: https://rust-lang-nursery.github.io/rust-cookbook
+[install Rust]: https://www.rustup.rs
 
 ## Contributing
 
