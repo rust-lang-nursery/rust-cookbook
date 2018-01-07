@@ -1251,33 +1251,49 @@ fn main() {
 
 [![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
-Handles error that occur when we try to open a file that does not exist. We do this using [error-chain], a library that takes care of a lot of boilerplate code needed in order to [handle errors in Rust].
+Handles error that occur when trying to open a file that does not
+exist. It is achieved by using [error-chain], a library that takes
+care of a lot of boilerplate code needed in order to [handle errors in
+Rust].
 
-We call `Io(std::io::Error)` inside `foreign_links` to convert the type `std::io::Error` into error-chain's custom version of it.
+`Io(std::io::Error)` inside [`foreign_links`] allows automatic
+conversion from [`std::io::Error`] into [`error_chain!`] defined type
+implementing the [`Error`] trait.
 
-To handle the result of a function that might return an error, in this example `open_foo`, it must return a `Result`. To handle that result, we use pattern matching on it when calling the function. In this example we print an error message if that result was an error.
+The below recipe will tell how long the system has been running by
+opening the Unix file `/proc/uptime` and parse the content to get the
+first number. Returns uptime unless there is an error.
 
 ```rust
 #[macro_use]
 extern crate error_chain;
 
+use std::fs::File;
+use std::io::Read;
+
 error_chain!{
     foreign_links {
         Io(std::io::Error);
+        ParseInt(::std::num::ParseIntError);
     }
+}
+
+fn read_uptime() -> Result<u64> {
+    let mut uptime = String::new();
+    File::open("/proc/uptime")?.read_to_string(&mut uptime)?;
+
+    Ok(uptime
+        .split('.')
+        .next()
+        .ok_or("Cannot parse uptime data")?
+        .parse()?)
 }
 
 fn main() {
-    if let Err(ref e) = read_foo() {
-        println!("error: {}", e);
-    }
-}
-
-fn read_foo() -> Result<()> {
-    use std::fs::File;
-    File::open("foo.txt")?;
-
-    Ok(())
+    match read_uptime() {
+        Ok(uptime) => println!("uptime: {} seconds", uptime),
+        Err(err) => eprintln!("error: {}", err),
+    };
 }
 ```
 
@@ -1719,6 +1735,8 @@ fn main() {
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
 [`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
+[`error_chain!`]: https://docs.rs/error-chain/*/error_chain/macro.error_chain.html
+[`Error`]: https://doc.rust-lang.org/std/error/trait.Error.html
 [`ErrorKind`]: https://docs.rs/error-chain/*/error_chain/example_generated/enum.ErrorKind.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
@@ -1765,6 +1783,7 @@ fn main() {
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
+[`std::io::Error`]: https://doc.rust-lang.org/std/io/struct.Error.html
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [`time::Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
 [`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
