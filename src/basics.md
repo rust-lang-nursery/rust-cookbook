@@ -559,8 +559,8 @@ fn run() -> Result<()> {
 
 In [Run an external command and process stdout](#ex-parse-subprocess-output),
 processing doesn't start until external [`Command`] is finished.
-The recipe below creates a new pipe by [`Stdio::piped`] and reads
-output continuously as soon as it appears by a [`BufReader`].
+The recipe below creates a new pipe by calling [`Stdio::piped`] and reads
+`stdout` continuously as soon as the [`BufReader`] is updated.
 
 The below recipe is equivalent to the Unix shell command
 `journalctl | grep usb`.
