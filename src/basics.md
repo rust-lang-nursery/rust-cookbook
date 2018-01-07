@@ -1704,17 +1704,17 @@ fn main() {
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`Datelike`]: https://docs.rs/chrono/*/chrono/trait.Datelike.html
+[`DateTime::checked_add_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed
+[`DateTime::checked_sub_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_sub_signed
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::from_utc`]:https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc
 [`DateTime::parse_from_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc2822
 [`DateTime::parse_from_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc3339
 [`DateTime::parse_from_str`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_str
 [`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
 [`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
-[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
-[`DateTime::from_utc`]:https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc
-[`DateTime::checked_add_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed
-[`DateTime::checked_sub_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_sub_signed
 [`DateTime`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
@@ -1730,22 +1730,21 @@ fn main() {
 [`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
-[Matching]:https://docs.rs/error-chain/*/error_chain/#matching-errors
 [`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
-[`NaiveDate`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html
 [`NaiveDate::from_ymd`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html#method.from_ymd
-[`NaiveDateTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html
+[`NaiveDate`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html
 [`NaiveDateTime::from_timestamp`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.from_timestamp
 [`NaiveDateTime::timestamp`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp
-[`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
+[`NaiveDateTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html
 [`NaiveTime::from_hms`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html#method.from_hms
+[`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
-[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`offset::FixedOffset`]: https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html
 [`offset::Local::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now
+[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
 [`pbkdf2::verify`]: https://docs.rs/ring/*/ring/pbkdf2/fn.verify.html
 [`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
@@ -1773,6 +1772,7 @@ fn main() {
 [`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
 [`Timelike`]: https://docs.rs/chrono/*/chrono/trait.Timelike.html
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
+[Matching]:https://docs.rs/error-chain/*/error_chain/#matching-errors
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
