@@ -557,13 +557,12 @@ fn run() -> Result<()> {
 
 [![std-badge]][std] [![cat-os-badge]][cat-os]
 
-Contrary to [Run an external command and process
-stdout](#ex-parse-subprocess-output), while an external [`Command`] is
-running, process its standard output without waiting it to finish. A
-new pipe is created by [`Stdio::piped`] and it is read continuously by
-a [`BufReader`].
+In [Run an external command and process stdout](#ex-parse-subprocess-output),
+processing doesn't start until external [`Command`] is finished.
+The recipe below creates a new pipe by [`Stdio::piped`] and reads
+output continuously as soon as it appears by a [`BufReader`].
 
-The below recipe is equivalent to run the Unix shell command
+The below recipe is equivalent to the Unix shell command
 `journalctl | grep usb`.
 
 ```rust,no_run
