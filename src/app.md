@@ -148,7 +148,7 @@ fn run() -> Result<()> {
     // Open a compressed tarball
     let tar_gz = File::open(path)?;
     // Decompress it
-    let tar = GzDecoder::new(tar_gz)?;
+    let tar = GzDecoder::new(tar_gz);
     // Load the archive from the tarball
     let mut archive = Archive::new(tar);
     // Unpack the archive inside curent working directory
@@ -192,7 +192,7 @@ use flate2::write::GzEncoder;
 
 fn run() -> Result<()> {
     let tar_gz = File::create("archive.tar.gz")?;
-    let enc = GzEncoder::new(tar_gz, Compression::Default);
+    let enc = GzEncoder::new(tar_gz, Compression::default());
     let mut tar = tar::Builder::new(enc);
     tar.append_dir_all("backup/logs", "/var/log")?;
     Ok(())
@@ -233,7 +233,7 @@ use tar::Archive;
 
 fn run() -> Result<()> {
     let file = File::open("archive.tar.gz")?;
-    let mut archive = Archive::new(GzDecoder::new(file)?);
+    let mut archive = Archive::new(GzDecoder::new(file));
     let prefix = "bundle/logs";
 
     println!("Extracted the following files:");
