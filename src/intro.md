@@ -72,6 +72,7 @@ community. It needs and welcomes help. For details see
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Get MIME type from filename][ex-mime-from-filename] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -176,6 +177,7 @@ community. It needs and welcomes help. For details see
 [ex-csv-filter]: encoding.html#ex-csv-filter
 [ex-csv-read]: encoding.html#ex-csv-read
 [ex-csv-serde]: encoding.html#ex-csv-serde
+[ex-mime-from-filename]: encoding.html#ex-mime-from-filename
 [ex-datetime-arithmetic]: basics.html#ex-datetime-arithmetic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-error-chain-avoid-discarding]: basics.html#ex-error-chain-avoid-discarding

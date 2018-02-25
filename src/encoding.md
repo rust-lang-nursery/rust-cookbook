@@ -14,6 +14,7 @@
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Get MIME type from filename][ex-mime-from-filename] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -687,6 +688,68 @@ fn run() -> Result<()> {
 #
 # quick_main!(run);
 ```
+
+
+[ex-mime-from-filename]: #ex-mime-from-filename
+<a name="ex-mime-from-filename"></a>
+## Get MIME type from filename
+
+[![mime-badge]][mime] [![cat-encoding-badge]][cat-encoding]
+
+The following example shows how to return the correct MIME type from a given
+filename using the [mime] crate.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+
+use std::io;
+#
+# error_chain! {
+#    foreign_links {
+#        IOError(std::io::Error);
+#    }
+# }
+
+extern crate mime;
+use mime::Mime;
+
+/// Return the MIME type according to file extension. Default is text/plain
+fn find_mimetype (filename : &String) -> Mime{
+
+    let parts : Vec<&str> = filename.split('.').collect();
+
+	 /// Filter on the file extension
+    let res = match parts.last() {
+            Some(v) =>
+                match *v {
+                    "png" => mime::IMAGE_PNG,
+                    "jpg" => mime::IMAGE_JPEG,
+                    "json" => mime::APPLICATION_JSON,
+                    &_ => mime::TEXT_PLAIN,
+                },
+            None => mime::TEXT_PLAIN,
+        };
+    return res;
+}
+
+fn run() -> Result<()> {
+    let filenames = vec!("foobar.jpg", "foo.bar", "foobar.png");
+    for file in filenames {
+	    let mime = find_mimetype(&file.to_owned());
+	 	println!("MIME for {:?}: {:?}", file, mime);
+	 }
+
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+
+
 
 {{#include links.md}}
 

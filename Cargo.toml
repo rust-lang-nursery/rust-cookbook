@@ -46,6 +46,7 @@ threadpool = "1.6"
 toml = "0.4"
 url = "1.6"
 walkdir = "2.0"
+mime = "0.3.5"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 syslog = "3.3.0"
