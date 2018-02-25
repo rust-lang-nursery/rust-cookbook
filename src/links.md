@@ -63,9 +63,7 @@ Keep lines sorted.
 [crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam/
 [csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
-[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
 [csv]: https://docs.rs/csv/
-[mime]: https://docs.rs/mime/
 [data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
 [data-encoding]: https://docs.rs/data-encoding/
 [env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
@@ -88,6 +86,8 @@ Keep lines sorted.
 [log]: https://docs.rs/log/
 [memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
 [memmap]: https://docs.rs/memmap/
+[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
+[mime]: https://docs.rs/mime/
 [num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
