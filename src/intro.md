@@ -177,7 +177,6 @@ community. It needs and welcomes help. For details see
 [ex-csv-filter]: encoding.html#ex-csv-filter
 [ex-csv-read]: encoding.html#ex-csv-read
 [ex-csv-serde]: encoding.html#ex-csv-serde
-[ex-mime-from-filename]: encoding.html#ex-mime-from-filename
 [ex-datetime-arithmetic]: basics.html#ex-datetime-arithmetic
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-error-chain-avoid-discarding]: basics.html#ex-error-chain-avoid-discarding
@@ -211,6 +210,7 @@ community. It needs and welcomes help. For details see
 [ex-log-syslog]: logging.html#ex-log-syslog
 [ex-log-timestamp]: logging.html#ex-log-timestamp
 [ex-measure-elapsed-time]: basics.html#ex-measure-elapsed-time
+[ex-mime-from-filename]: encoding.html#ex-mime-from-filename
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-datetime]: basics.html#ex-parse-datetime
 [ex-parse-subprocess-input]: basics.html#ex-parse-subprocess-input
