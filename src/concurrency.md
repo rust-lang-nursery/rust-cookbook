@@ -87,7 +87,8 @@ because it is usually faster than [`stable sorting`] algorithms which `rayon` al
 extern crate rand;
 extern crate rayon;
 
-use rand::Rng;
+use rand::{Rng, thread_rng};
+use rand::distributions::Alphanumeric;
 use rayon::prelude::*;
 
 fn main() {
@@ -97,7 +98,8 @@ fn main() {
     // [2]
     vec.par_iter_mut().for_each(|p| {
         // [3]
-        *p = rand::weak_rng().gen_ascii_chars().take(5).collect()
+        let mut rng = thread_rng();
+        *p = (0..5).map(|_| rng.sample(Alphanumeric)).collect();
     });
 
     // [4]

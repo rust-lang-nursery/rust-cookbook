@@ -192,14 +192,15 @@ in the same range.
 ```rust
 extern crate rand;
 
-use rand::distributions::{Range, IndependentSample};
+use rand::Rng;
+use rand::distributions::Range;
 
 fn main() {
     let mut rng = rand::thread_rng();
     let die = Range::new(1, 7);
 
     loop {
-        let throw = die.ind_sample(&mut rng);
+        let throw = rng.sample(die);
         println!("Roll the die: {}", throw);
         if throw == 6 {
             break;
@@ -218,24 +219,24 @@ fn main() {
 
 By default, random numbers are generated with [uniform distribution].
 To generate numbers with other distributions you instantiate a
-distribution, then sample from that distribution using
-[`IndependentSample::ind_sample`] with help of a random-number
-generator [`rand::Rng`].
+distribution, then sample from that distribution using [`Rng::sample`] with
+help of a random-number generator [`rand::Rng`].
 
-The [distributions available are documented here][rand-distributions]. An example using the
-[`Normal`] distribution is shown below.
+The [distributions available are documented here][rand-distributions]. An
+example using the [`Normal`] distribution is shown below.
 
 ```rust
 extern crate rand;
 
-use rand::distributions::{Normal, IndependentSample};
+use rand::Rng;
+use rand::distributions::Normal;
 
 fn main() {
     let mut rng = rand::thread_rng();
 
     // mean 2, standard deviation 3:
     let normal = Normal::new(2.0, 3.0);
-    let v = normal.ind_sample(&mut rng);
+    let v = rng.sample(normal);
     println!("{} is from a N(2, 9) distribution", v)
 }
 ```
@@ -246,13 +247,15 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-Randomly generates a tuple `(i32, bool, f64)` and variable of user defined type `Point`.
-Implements the [`rand::Rand`] trait for `Point` in order to allow random generation.
+Randomly generates a tuple `(i32, bool, f64)` and variable of user defined type
+`Point`. Implements `Point` for [`rand::distributions::Uniform`] in order to
+allow random generation.
 
 ```rust
 extern crate rand;
 
-use rand::{Rng, Rand};
+use rand::Rng;
+use rand::distributions::{Distribution, Uniform};
 
 #[derive(Debug)]
 struct Point {
@@ -260,8 +263,9 @@ struct Point {
     y: i32,
 }
 
-impl Rand for Point {
-    fn rand<R: Rng>(rng: &mut R) -> Point {
+impl Distribution<Point> for Uniform {
+    #[inline]
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Point {
         let (rand_x, rand_y) = rng.gen();
         Point {
             x: rand_x,
@@ -285,15 +289,22 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-os-badge]][cat-os]
 
-Randomly generates a string of given length ASCII characters in the range `A-Z, a-z, 0-9`, with [`gen_ascii_chars`].
+Randomly generates a string of given length ASCII characters in the range
+`A-Z, a-z, 0-9`, with the [`Alphanumeric`] distribution.
 
 ```rust
 extern crate rand;
 
-use rand::{thread_rng, Rng};
+use std::iter;
+use rand::{Rng, thread_rng};
+use rand::distributions::Alphanumeric;
 
 fn main() {
-    let rand_string: String = thread_rng().gen_ascii_chars().take(30).collect();
+    let mut rng = thread_rng();
+    let rand_string: String = iter::repeat(())
+        .map(|()| rng.sample(Alphanumeric))
+        .take(30).collect();
+
     println!("{}", rand_string);
 }
 ```
@@ -304,12 +315,12 @@ fn main() {
 
 [![rand-badge]][rand] [![cat-os-badge]][cat-os]
 
-Randomly generates a string of given length ASCII characters with custom user-defined bytestring, with [`choose`].
+Randomly generates a string of given length ASCII characters with custom user-defined bytestring, with [`Rng::choose`].
 
 ```rust
 extern crate rand;
 
-use rand::{thread_rng, Rng};
+use rand::{Rng, thread_rng};
 
 fn main() {
     const CHARSET: &[u8] =  b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
@@ -1657,13 +1668,13 @@ fn main() {
 
 <!-- API Reference -->
 
+[`Alphanumeric`]: https://docs.rs/rand/*/rand/distributions/Alphanumeric.t.html
 [`backtrace`]: https://docs.rs/error-chain/*/error_chain/trait.ChainedError.html#tymethod.backtrace
 [`bitflags!`]: https://docs.rs/bitflags/*/bitflags/macro.bitflags.html
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
 [`BufRead`]: https://doc.rust-lang.org/std/io/trait.BufRead.html
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
 [`chain_err`]: https://docs.rs/error-chain/*/error_chain/index.html#chaining-errors
-[`choose`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.choose
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`Datelike`]: https://docs.rs/chrono/*/chrono/trait.Datelike.html
@@ -1691,7 +1702,6 @@ fn main() {
 [`gen_ascii_chars`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.gen_ascii_chars
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
 [`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
-[`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
 [Matching]:https://docs.rs/error-chain/*/error_chain/#matching-errors
 [`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map
@@ -1704,7 +1714,7 @@ fn main() {
 [`NaiveDateTime::timestamp`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp
 [`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
 [`NaiveTime::from_hms`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html#method.from_hms
-[`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+[`Normal`]: https://docs.rs/rand/*/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`offset::FixedOffset`]: https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html
@@ -1712,11 +1722,10 @@ fn main() {
 [`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
 [`pbkdf2::verify`]: https://docs.rs/ring/*/ring/pbkdf2/fn.verify.html
 [`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
-[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
-[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
-[`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
-[`rand::thread_rng`]: https://doc.rust-lang.org/rand/rand/fn.thread_rng.html
-[`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
+[`rand::distributions::Uniform`]: https://docs.rs/rand/*/rand/distributions/struct.Uniform.html
+[`rand::Rng`]: https://docs.rs/rand/*/rand/trait.Rng.html
+[`rand::thread_rng`]: https://docs.rs/rand/*/rand/fn.thread_rng.html
+[`Range`]: https://docs.rs/rand/*/rand/distributions/range/struct.Range.html
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 [`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
@@ -1725,7 +1734,9 @@ fn main() {
 [`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
 [`ring::hmac`]: https://docs.rs/ring/*/ring/hmac/
 [`ring::pbkdf2`]: https://docs.rs/ring/*/ring/pbkdf2/index.html
-[`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
+[`Rng::choose`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.choose
+[`Rng::gen_range`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.gen_range
+[`Rng::sample`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.sample
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
@@ -1736,7 +1747,7 @@ fn main() {
 [`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
 [`Timelike`]: https://docs.rs/chrono/*/chrono/trait.Timelike.html
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
-[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
+[rand-distributions]: https://docs.rs/rand/*/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
 <!-- Other Reference -->
