@@ -468,37 +468,42 @@ use std::process::{Command, Stdio};
 # }
 
 fn run() -> Result<()> {
-    let directory = std::env::current_dir()?;
-    let du_output = Command::new("du")
-        .arg("-ah")
-        .arg(&directory)
-        .stdout(Stdio::piped())
-        .spawn()?
-        .stdout
-        .ok_or_else(|| "Could not capture `du` standard output.")?;
+	let directory = std::env::current_dir()?;
+	let mut du_output_child = Command::new("du")
+		.arg("-ah")
+		.arg(&directory)
+		.stdout(Stdio::piped())
+		.spawn()?;
 
-    let sort_output = Command::new("sort")
-        .arg("-hr")
-        .stdin(du_output)
-        .stdout(Stdio::piped())
-        .spawn()?
-        .stdout
-        .ok_or_else(|| "Could not capture `sort` standard output.")?;
+	let du_stdout = du_output_child.stdout.take().expect("Could not capture `du` standard output.");
 
-    let head_output = Command::new("head")
-        .args(&["-n", "10"])
-        .stdin(sort_output)
-        .stdout(Stdio::piped())
-        .spawn()?
-        .wait_with_output()?;
+	let mut sort_output_child = Command::new("sort")
+		.arg("-hr")
+		.stdin(Stdio::from(du_stdout))
+		.stdout(Stdio::piped())
+		.spawn()?;
 
-    println!(
-        "Top 10 biggest files and directories in '{}':\n{}",
-        directory.display(),
-        String::from_utf8(head_output.stdout)?
-    );
+	du_output_child.wait()?;
 
-    Ok(())
+	let mut sort_stdout = sort_output_child.stdout.take().expect("Could not capture `sort` standard output.");
+
+	let head_output_child = Command::new("head")
+		.args(&["-n", "10"])
+		.stdin(Stdio::from(sort_stdout))
+		.stdout(Stdio::piped())
+		.spawn()?;
+
+	sort_output_child.wait()?;
+
+	let mut head_stdout = head_output_child.wait_with_output()?;
+
+	println!(
+		"Top 10 biggest files and directories in '{}':\n{}",
+		directory.display(),
+		String::from_utf8(head_stdout.stdout)?
+	);
+
+	Ok(())
 }
 #
 # quick_main!(run);
