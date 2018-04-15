@@ -136,10 +136,47 @@ Examples in the cookbook have these goals and qualities:
 - They follow best practices and do not take shortcuts.
 - They use consistent error handling.
 
+#### Title
+
 Examples should have a simple single-sentence title that describes
 something a typical Rust user typically wants to do.
 
-Example are intended to be read by complete beginners, and copied into
+> ## Generate random numbers with given distribution
+
+#### Description
+
+Describe traits imported and the methods used. Think about what information
+supports the use case and might not be obvious to someone new. Keep the 
+description to 1-4 sentences, avoiding explanations outside the scope of the 
+code sample.
+
+Use third person narative of the code execution, taking the opportunity
+to link to API documentation.  Hyperlink all references to APIs, either 
+on doc.rust-lang.org/std or docs.rs, and style them as `code`.  Use
+wildcard version specifiers for crate links.
+
+Any requirements to execute the code that are not apparent, such as 
+passing environment flags, or configuring `Cargo.toml` should be added
+after the code sample.
+
+> By default, random numbers are generated with [uniform distribution].
+> To generate numbers with other distributions you instantiate a
+> distribution, then sample from that distribution using
+> [`IndependentSample::ind_sample`] with help of a random-number
+> generator [`rand::Rng`].
+> 
+> The [distributions available are documented here][rand-distributions]. 
+> An example using the [`Normal`] distribution is shown below.
+
+[uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)
+[`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
+[`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
+[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
+[`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+
+#### Code
+
+Examples are intended to be read by complete beginners, and copied into
 projects for experimentation. They should follow best practices and
 not take shortcuts.
 
@@ -149,27 +186,39 @@ minimum.
 
 When an example must handle the possibility of errors, follow the error handling
 templates in ["A note about error handling"][errors]. Examples always set up
-error handling correctly and propagate errors with `?` (not `try!`). If there
-is no need for error handling in the example, using `main()` is appropriate.
+error handling correctly and propagate errors with `?` (not `try!`, `urwrap`, or
+`expect`). If there is no need for error handling in the example, prefer `main()`.
 
-Don't use glob imports, even for preludes, so that users can see what
-traits they are calling. (Some crates might consider using glob
-imports for preludes a best practice, making this awkward.)
+Avoid glob imports (`*`), even for preludes, so that users can see what
+traits are called. (Some crates might consider using glob imports for preludes 
+best practice, making this awkward.)
 
 Examples should be simple and obvious enough that an experienced dev
-won't need comments. Things that should be described include traits
-imported and their methods used. Think about what information here
-supports the use case and might not be obvious to someone new. Say the
-minimum possible about aspects that don't directly support the use
-case. See ["basics"] for examples.
+do not need comments. 
 
-["basics"]: https://rust-lang-nursery.github.io/rust-cookbook/basics.html
+Examples should compile without warnings, clippy lint warnings, or panics.
+The code should be formatted by rustfmt.  Hide all error boilerplate and
+parts of the sample that do not accomplish the subject of the example.
 
-Hyperlink all references to APIs, either on doc.rust-lang.org/std or
-docs.rs, and style them as `code`.
+Mark examples that depend on external systems with `no_run` or remove them
+if they are not required for the example.  Avoid inline comments, preferring
+explanation in the description.
 
-Finally, this book is intended to also demonstrate the integration
-of crates that work well together. Super bonus points for examples
+> ```rust
+> extern crate rand;
+> 
+> use rand::distributions::{Normal, IndependentSample};
+> 
+> fn main() {
+>    let mut rng = rand::thread_rng();
+>    let normal = Normal::new(2.0, 3.0);
+>    let v = normal.ind_sample(&mut rng);
+>    println!("{} is from a N(2, 9) distribution", v)
+> }
+> ```
+
+Finally, this book is intended to demonstrate the integration
+of crates that work well together. We are on the lookout for examples
 that feature multiple crates sensibly.
 
 [errors]: https://rust-lang-nursery.github.io/rust-cookbook/about.html#a-note-about-error-handling
