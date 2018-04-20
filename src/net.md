@@ -1133,8 +1133,8 @@ to parse the response header and checks for [`reqwest::StatusCode::Forbidden`].
 If the response exceeds the rate limit, the example waits and retries.
 
 ```rust,no_run
-#[macro_use]
-extern crate error_chain;
+# #[macro_use]
+# extern crate error_chain;
 #[macro_use]
 extern crate hyper;
 extern crate reqwest;
@@ -1144,12 +1144,6 @@ use std::thread;
 use reqwest::StatusCode;
 #
 # error_chain! {
-#    errors {
-#        RateLimitExceded(quote: usize, lease_secs: u64) {
-#            description("rate limit exceeded")
-#            display("rate limit exceeded the {} calls, the next call will be allowed within {} seconds", quote, lease_secs)
-#        }
-#    }
 #    foreign_links {
 #        Io(std::io::Error);
 #        Time(std::time::SystemTimeError);
@@ -1183,7 +1177,7 @@ fn run() -> Result<()> {
     if response.status() == StatusCode::Forbidden && **rate_remaining == 0 {
         println!("Sleeping for {} seconds.", rate_reset_within.as_secs());
         thread::sleep(rate_reset_within);
-        let _ = run();
+        return run();
     }
     else {
         println!(
