@@ -84,7 +84,7 @@ polymorphic function `Rng::gen()` to generate random types.
 extern crate rand;
 
 use rand::Rng;
-use rand::Rand;
+use rand::distributions::{Uniform, Distribution};
 
 #[derive(Debug)] // Allows us to print using {:?} format specifier
 struct Color { // RGB Color struct
@@ -93,10 +93,11 @@ struct Color { // RGB Color struct
     b: f64,
 }
 
-// Implementing Rand for type Color
-impl Rand for Color {
-    fn rand<R: Rng>(rng: &mut R) -> Self {
-        Color {r: rng.next_f64(), b: rng.next_f64(), g: rng.next_f64()}
+// Implement a Uniform random distribution for Color
+impl Distribution<Color> for Uniform {
+    #[inline]
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Point {
+        Color { r: rng.gen(), g: rng.gen(), b: rng.gen() }
     }
 }
 
@@ -112,4 +113,4 @@ fn main() {
 <!-- Links -->
 
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
-[rand]: https://doc.rust-lang.org/rand/rand/index.html
+[rand]: https://docs.rs/rand/*/rand/index.html
