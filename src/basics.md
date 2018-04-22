@@ -475,7 +475,7 @@ fn run() -> Result<()> {
 		.stdout(Stdio::piped())
 		.spawn()?;
 
-	let du_stdout = du_output_child.stdout.take().expect("Could not capture `du` standard output.");
+	let du_stdout = du_output_child.stdout.take()?;
 
 	let mut sort_output_child = Command::new("sort")
 		.arg("-hr")
@@ -485,7 +485,7 @@ fn run() -> Result<()> {
 
 	du_output_child.wait()?;
 
-	let mut sort_stdout = sort_output_child.stdout.take().expect("Could not capture `sort` standard output.");
+	let mut sort_stdout = sort_output_child.stdout.take()?;
 
 	let head_output_child = Command::new("head")
 		.args(&["-n", "10"])
@@ -495,7 +495,7 @@ fn run() -> Result<()> {
 
 	sort_output_child.wait()?;
 
-	let mut head_stdout = head_output_child.wait_with_output()?;
+	let head_stdout = head_output_child.wait_with_output()?;
 
 	println!(
 		"Top 10 biggest files and directories in '{}':\n{}",
