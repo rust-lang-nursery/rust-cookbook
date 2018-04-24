@@ -28,6 +28,7 @@
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
+| [Handle errors correctly in main][ex-error-chain-simple-error-handling] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Avoid discarding errors during error conversions][ex-error-chain-avoid-discarding] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
@@ -1244,6 +1245,58 @@ fn main() {
 }
 ```
 
+[ex-error-chain-simple-error-handling]: #ex-error-chain-simple-error-handling
+<a name="ex-error-chain-simple-error-handling"></a>
+## Handle errors correctly in main
+
+[![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
+
+Handles error that occur when trying to open a file that does not
+exist. It is achieved by using [error-chain], a library that takes
+care of a lot of boilerplate code needed in order to [handle errors in
+Rust].
+
+`Io(std::io::Error)` inside [`foreign_links`] allows automatic
+conversion from [`std::io::Error`] into [`error_chain!`] defined type
+implementing the [`Error`] trait.
+
+The below recipe will tell how long the system has been running by
+opening the Unix file `/proc/uptime` and parse the content to get the
+first number. Returns uptime unless there is an error.
+
+```rust
+#[macro_use]
+extern crate error_chain;
+
+use std::fs::File;
+use std::io::Read;
+
+error_chain!{
+    foreign_links {
+        Io(std::io::Error);
+        ParseInt(::std::num::ParseIntError);
+    }
+}
+
+fn read_uptime() -> Result<u64> {
+    let mut uptime = String::new();
+    File::open("/proc/uptime")?.read_to_string(&mut uptime)?;
+
+    Ok(uptime
+        .split('.')
+        .next()
+        .ok_or("Cannot parse uptime data")?
+        .parse()?)
+}
+
+fn main() {
+    match read_uptime() {
+        Ok(uptime) => println!("uptime: {} seconds", uptime),
+        Err(err) => eprintln!("error: {}", err),
+    };
+}
+```
+
 [ex-error-chain-avoid-discarding]: #ex-error-chain-avoid-discarding
 <a name="ex-error-chain-avoid-discarding"></a>
 ## Avoid discarding errors during error conversions
@@ -1667,21 +1720,23 @@ fn main() {
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`Datelike`]: https://docs.rs/chrono/*/chrono/trait.Datelike.html
+[`DateTime::checked_add_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed
+[`DateTime::checked_sub_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_sub_signed
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::from_utc`]:https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc
 [`DateTime::parse_from_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc2822
 [`DateTime::parse_from_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc3339
 [`DateTime::parse_from_str`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_str
 [`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
 [`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
-[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
-[`DateTime::from_utc`]:https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc
-[`DateTime::checked_add_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed
-[`DateTime::checked_sub_signed`]: https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_sub_signed
 [`DateTime`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
 [`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
+[`error_chain!`]: https://docs.rs/error-chain/*/error_chain/macro.error_chain.html
+[`Error`]: https://doc.rust-lang.org/std/error/trait.Error.html
 [`ErrorKind`]: https://docs.rs/error-chain/*/error_chain/example_generated/enum.ErrorKind.html
 [`File::create`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.create
 [`File::open`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.open
@@ -1693,22 +1748,21 @@ fn main() {
 [`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
-[Matching]:https://docs.rs/error-chain/*/error_chain/#matching-errors
 [`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
-[`NaiveDate`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html
 [`NaiveDate::from_ymd`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html#method.from_ymd
-[`NaiveDateTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html
+[`NaiveDate`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html
 [`NaiveDateTime::from_timestamp`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.from_timestamp
 [`NaiveDateTime::timestamp`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp
-[`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
+[`NaiveDateTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html
 [`NaiveTime::from_hms`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html#method.from_hms
+[`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
 [`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
-[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`offset::FixedOffset`]: https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html
 [`offset::Local::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now
+[`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
 [`pbkdf2::derive`]: https://docs.rs/ring/*/ring/pbkdf2/fn.derive.html
 [`pbkdf2::verify`]: https://docs.rs/ring/*/ring/pbkdf2/fn.verify.html
 [`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
@@ -1729,6 +1783,7 @@ fn main() {
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`SecureRandom::fill`]: https://docs.rs/ring/*/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
+[`std::io::Error`]: https://doc.rust-lang.org/std/io/struct.Error.html
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [`time::Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
 [`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
@@ -1736,11 +1791,13 @@ fn main() {
 [`time::Instant`]:https://doc.rust-lang.org/std/time/struct.Instant.html
 [`Timelike`]: https://docs.rs/chrono/*/chrono/trait.Timelike.html
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
+[Matching]:https://docs.rs/error-chain/*/error_chain/#matching-errors
 [rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
 <!-- Other Reference -->
 
+[handle errors in Rust]: https://doc.rust-lang.org/book/second-edition/ch09-00-error-handling.html
 [race-condition-file]: https://en.wikipedia.org/wiki/Race_condition#File_systems
 [raw string literals]: https://doc.rust-lang.org/reference/tokens.html#raw-string-literals
 [RFC 2822]: https://www.ietf.org/rfc/rfc2822.txt
