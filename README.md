@@ -46,17 +46,15 @@ For details see [CONTRIBUTING.md] on GitHub.
 
 [CONTRIBUTING.md]: https://github.com/rust-lang-nursery/rust-cookbook/blob/master/CONTRIBUTING.md
 
-## License
+## License [![CC0-badge]][CC0-deed]
 
-Rust Cookbook is licensed under either of
-
- * Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
-   http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license ([LICENSE-MIT](LICENSE-MIT) or
-   http://opensource.org/licenses/MIT)
-
-at your option.
+Rust Cookbook is licensed under Creative Commons Zero v1.0 Universal License
+([LICENSE-CC0](LICENSE-CC0) or https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in Rust Cookbook by you, as defined in the Apache-2.0 license, shall be
-dual licensed as above, without any additional terms or conditions.
+for inclusion in Rust Cookbook by you, as defined in the CC0-1.0 license, shall be
+[dedicated to the public domain][CC0-deed] and licensed as above, without any additional
+terms or conditions.
+
+[CC0-deed]: https://creativecommons.org/publicdomain/zero/1.0/deed.en
+[CC0-badge]: https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/cc-zero.svg
