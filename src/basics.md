@@ -136,15 +136,13 @@ fn decode(mut bytes: &[u8]) -> Result<Payload> {
 # quick_main!(run);
 ```
 
-[ex-rand]: #ex-rand
-<a name="ex-rand"></a>
-## Generate random numbers
+{{#include algorithms/randomness/rand.md}}
 
-[![rand-badge]][rand] [![cat-science-badge]][cat-science]
+{{#include algorithms/randomness/rand-range.md}}
 
-Generates random numbers with help of random-number
-generator [`rand::Rng`] obtained via [`rand::thread_rng`].
+{{#include algorithms/randomness/rand-dist.md}}
 
+<<<<<<< HEAD
 ```rust
 extern crate rand;
 
@@ -332,6 +330,13 @@ fn main() {
     println!("{:?}", password);
 }
 ```
+=======
+{{#include algorithms/randomness/rand-custom.md}}
+
+{{#include algorithms/randomness/rand-passwd.md}}
+
+{{#include algorithms/randomness/rand-choose.md}}
+>>>>>>> dbca385... Add algorithms
 
 [ex-parse-subprocess-output]: #ex-parse-subprocess-output
 <a name="ex-parse-subprocess-output"></a>
