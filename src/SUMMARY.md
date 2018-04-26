@@ -7,6 +7,8 @@
   - [Generate Random Values](algorithms/randomness.md)
 - [Command Line](cli.md)
   - [Argument Parsing](cli/arguments.md)
+- [Compression](compression.md)
+  - [Working with Tarballs](compression/tar.md)
 - [Basics](basics.md)
 - [Encoding](encoding.md)
 - [Concurrency](concurrency.md)
