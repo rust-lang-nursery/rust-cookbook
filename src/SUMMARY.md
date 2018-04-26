@@ -5,7 +5,8 @@
 
 - [Algorithms](algorithms.md)
   - [Generate Random Values](algorithms/randomness.md)
-
+- [Command Line](cli.md)
+  - [Argument Parsing](cli/arguments.md)
 - [Basics](basics.md)
 - [Encoding](encoding.md)
 - [Concurrency](concurrency.md)
