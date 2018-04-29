@@ -24,6 +24,8 @@ community. It needs and welcomes help. For details see
 
 {{#include concurrency.md}}
 
+{{#include cryptography.md}}
+
 ## [Basics](basics.html)
 
 | Recipe | Crates | Categories |
