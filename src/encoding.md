@@ -698,18 +698,10 @@ fn run() -> Result<()> {
 The following example shows how to parse a [`MIME`] type from a string using the [mime] crate. You can handle a possible [`FromStrError`] by providing a default [`MIME`] type in an `unwrap_or` clause.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate mime;
 use mime::{Mime, APPLICATION_OCTET_STREAM};
-#
-# error_chain! {
-#     foreign_links {
-#         IOError(std::io::Error);
-#    }
-# }
 
-fn run() -> Result<()> {
+fn main() {
     let invalid_mime_type = "i n v a l i d";
     let default_mime = invalid_mime_type
         .parse::<Mime>()
@@ -729,11 +721,7 @@ fn run() -> Result<()> {
         "MIME for {:?} was parsed as {:?}",
         valid_mime_type, parsed_mime
     );
-
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 {{#include links.md}}
