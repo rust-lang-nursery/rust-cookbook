@@ -73,6 +73,7 @@ community. It needs and welcomes help. For details see
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -212,6 +213,7 @@ community. It needs and welcomes help. For details see
 [ex-log-syslog]: logging.html#ex-log-syslog
 [ex-log-timestamp]: logging.html#ex-log-timestamp
 [ex-measure-elapsed-time]: basics.html#ex-measure-elapsed-time
+[ex-mime-from-string]: encoding.html#ex-mime-from-string
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-datetime]: basics.html#ex-parse-datetime
 [ex-parse-subprocess-input]: basics.html#ex-parse-subprocess-input

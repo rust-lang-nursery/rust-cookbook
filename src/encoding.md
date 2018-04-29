@@ -14,6 +14,7 @@
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -688,6 +689,53 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-mime-from-string]: #ex-mime-from-string
+<a name="ex-mime-from-string"></a>
+## Get MIME type from string
+
+[![mime-badge]][mime] [![cat-encoding-badge]][cat-encoding]
+
+The following example shows how to parse a [`MIME`] type from a string using the [mime] crate. You can handle a possible [`FromStrError`] by providing a default [`MIME`] type in an `unwrap_or` clause.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate mime;
+use mime::{Mime, APPLICATION_OCTET_STREAM};
+#
+# error_chain! {
+#     foreign_links {
+#         IOError(std::io::Error);
+#    }
+# }
+
+fn run() -> Result<()> {
+    let invalid_mime_type = "i n v a l i d";
+    let default_mime = invalid_mime_type
+        .parse::<Mime>()
+        .unwrap_or(APPLICATION_OCTET_STREAM);
+
+    println!(
+        "MIME for {:?} used default value {:?}",
+        invalid_mime_type, default_mime
+    );
+
+    let valid_mime_type = "TEXT/PLAIN";
+    let parsed_mime = valid_mime_type
+        .parse::<Mime>()
+        .unwrap_or(APPLICATION_OCTET_STREAM);
+
+    println!(
+        "MIME for {:?} was parsed as {:?}",
+        valid_mime_type, parsed_mime
+    );
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -700,6 +748,8 @@ fn run() -> Result<()> {
 [`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/*/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
+[`FromStrError`]: https://docs.rs/mime/*/mime/struct.FromStrError.html
+[`MIME`]: https://docs.rs/mime/*/mime/struct.Mime.html
 [`percent_decode`]: https://docs.rs/url/*/url/percent_encoding/fn.percent_decode.html
 [`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize
 [`utf8_percent_encode`]: https://docs.rs/url/*/url/percent_encoding/fn.utf8_percent_encode.html
