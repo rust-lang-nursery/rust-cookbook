@@ -86,6 +86,8 @@ Keep lines sorted.
 [log]: https://docs.rs/log/
 [memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
 [memmap]: https://docs.rs/memmap/
+[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
+[mime]: https://docs.rs/mime/
 [num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
