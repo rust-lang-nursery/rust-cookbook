@@ -38,6 +38,7 @@
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [File names that have been modified in the last 24 hours for the working directory][ex-file-24-hours-modified] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1705,6 +1706,64 @@ fn main() {
 }
 ```
 
+[ex-file-24-hours-modified]: #ex-file-24-hours-modified
+<a name="ex-file-24-hours-modified"></a>
+## File names that have been modified in the last 24 hours for the working directory
+
+[![std-badge]][std] [![cat-filesystem-badge]][cat-filesystem]
+
+Gets the current working directory by calling [`env::current_dir`],
+then for each entries in [`fs::read_dir`], extracts the
+[`DirEntry::path`] and gets the metada via [`fs::Metadata`]. The
+[`Metadata::modified`] returns the [`SystemTime::elapsed`] time since
+last modification of the entry. It's converted into seconds with
+[`Duration::as_secs`] and compared with 24 hours (24 * 60 * 60
+seconds). [`Metadata::is_file`] is used to filter out directories.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::{env, fs};
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         SystemTimeError(std::time::SystemTimeError);
+#     }
+# }
+#
+fn run() -> Result<()> {
+    let current_dir = env::current_dir()?;
+    println!(
+        "Entries modified in the last 24 hours in {:?}:",
+        current_dir
+    );
+
+    for entry in fs::read_dir(current_dir)? {
+        let entry = entry?;
+        let path = entry.path();
+
+        let metadata = fs::metadata(&path)?;
+        let last_modified = metadata.modified()?.elapsed()?.as_secs();
+
+        if last_modified < 24 * 3600 && metadata.is_file() {
+            println!(
+                "Last modified: {:?} seconds, is read only: {:?}, size: {:?} bytes, filename: {:?}",
+                last_modified,
+                metadata.permissions().readonly(),
+                metadata.len(),
+                path.file_name().ok_or("No filename")?
+            );
+        }
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1733,7 +1792,10 @@ fn main() {
 [`DateTime`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html
 [`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
 [`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
+[`DirEntry::path`]: https://doc.rust-lang.org/std/fs/struct.DirEntry.html#method.path
 [`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
+[`Duration::as_secs`]: https://doc.rust-lang.org/std/time/struct.Duration.html#method.as_secs
+[`env::current_dir`]: https://doc.rust-lang.org/std/env/fn.current_dir.html
 [`error_chain!`]: https://docs.rs/error-chain/*/error_chain/macro.error_chain.html
 [`Error`]: https://doc.rust-lang.org/std/error/trait.Error.html
 [`ErrorKind`]: https://docs.rs/error-chain/*/error_chain/example_generated/enum.ErrorKind.html
@@ -1742,11 +1804,15 @@ fn main() {
 [`File::try_clone`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.try_clone
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
 [`foreign_links`]: https://docs.rs/error-chain/*/error_chain/#foreign-links
+[`fs::Metadata`]: https://doc.rust-lang.org/std/fs/struct.Metadata.html
+[`fs::read_dir`]: https://doc.rust-lang.org/std/fs/fn.read_dir.html
 [`gen_ascii_chars`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.gen_ascii_chars
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
 [`hmac::Signature`]: https://docs.rs/ring/*/ring/hmac/struct.Signature.html
 [`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
+[`Metadata::is_file`]: https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.is_file
+[`Metadata::modified`]: https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.modified
 [`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
@@ -1784,6 +1850,7 @@ fn main() {
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [`std::io::Error`]: https://doc.rust-lang.org/std/io/struct.Error.html
 [`Stdio::piped`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
+[`SystemTime::elapsed`]: https://doc.rust-lang.org/std/time/struct.SystemTime.html#method.elapsed
 [`time::Duration`]: https://doc.rust-lang.org/std/time/struct.Duration.html
 [`time::Instant::elapsed`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed
 [`time::Instant::now`]: https://doc.rust-lang.org/std/time/struct.Instant.html#method.now

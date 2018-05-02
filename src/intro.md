@@ -56,6 +56,7 @@ community. It needs and welcomes help. For details see
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [File names that have been modified in the last 24 hours for the working directory][ex-file-24-hours-modified] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
 
 ## [Encoding](encoding.html)
 
@@ -188,7 +189,7 @@ community. It needs and welcomes help. For details see
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links
-[ex-format-datetime]: basics.html#ex-format-datetime
+[ex-file-24-hours-modified]: basics.html#ex-file-24-hours-modified
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-file-sizes]: app.html#ex-file-sizes
