@@ -21,6 +21,7 @@
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 | [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Handle a rate-limited API][ex-handle-rate-limited-api] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] | [![cat-net-badge]][cat-net] |
+| [Parse the MIME type of a HTTP response][ex-http-response-mime-type] | [![mime-badge]][mime] [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -1194,6 +1195,63 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-http-response-mime-type]: #ex-http-response-mime-type
+<a name="ex-http-response-mime-type"/>
+## Parse the MIME type of a HTTP response
+
+[![reqwest-badge]][reqwest] [![mime-badge]][mime] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
+
+When receiving a HTTP reponse from *reqwest* the [MIME type] or media type can be 
+found in the [Content-Type] header. The header can be looked up by using 
+[`reqwest::Headers::get`] with the generic type [`reqwest::header::ContentType`].
+Because `ContentType` implements Deref with [`mime::Mime`] as a target, parts of the 
+MIME type can be obtained directly. 
+
+The *Mime* crate also has some, commonly used, predefined MIME types. These can be 
+used for comparison and matching on the types. *Reqwest* also exports the *mime* 
+crate, which can be found in the `reqwest::mime` module.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate mime;
+extern crate reqwest;
+
+use reqwest::header::ContentType;
+#
+# error_chain! {
+#    foreign_links {
+#        Reqwest(reqwest::Error);
+#    }
+# }
+
+fn run() -> Result<()> {
+    let response = reqwest::get("https://www.rust-lang.org/logos/rust-logo-32x32.png")?;
+    let headers = response.headers();
+
+    match headers.get::<ContentType>() {
+        None => {
+            println!("The response does not contain a Content-Type header.");
+        }
+        Some(content_type) => {
+            let media_type = match (content_type.type_(), content_type.subtype()) {
+                (mime::TEXT, mime::HTML) => "a HTML document",
+                (mime::TEXT, _) => "a text document",
+                (mime::IMAGE, mime::PNG) => "a PNG image",
+                (mime::IMAGE, _) => "an image",
+                _ => "neither text nor image",
+            };
+
+            println!("The reponse contains {}.", media_type);
+        }
+    };
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1214,6 +1272,7 @@ fn run() -> Result<()> {
 [`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
 [`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
 [`join`]: https://docs.rs/url/*/url/struct.Url.html#method.join
+[`mime::Mime`]: https://docs.rs/mime/*/mime/struct.Mime.html
 [`Name`]: https://docs.rs/select/*/select/predicate/struct.Name.html
 [`origin`]: https://docs.rs/url/*/url/struct.Url.html#method.origin
 [`parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
@@ -1228,8 +1287,10 @@ fn run() -> Result<()> {
 [`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
 [`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
+[`reqwest::header::ContentType`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentType.html
 [`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.htm
 [`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
+[`reqwest::Headers::get`]: https://docs.rs/reqwest/*/reqwest/header/struct.Headers.html#method.get
 [`reqwest::RequestBuilder`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
 [`reqwest::StatusCode::Forbidden`]: https://docs.rs/reqwest/*/reqwest/enum.StatusCode.html#variant.Forbidden
@@ -1255,9 +1316,11 @@ fn run() -> Result<()> {
 
 <!-- Other Reference -->
 
+[Content-Type]: https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Type
 [GitHub API]: https://developer.github.com/v3/auth/
 [GitHub API - Rate limiting]: https://developer.github.com/v3/#rate-limiting
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
+[MIME type]: https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 [OAuth]: https://oauth.net/getting-started/

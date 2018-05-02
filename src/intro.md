@@ -112,6 +112,7 @@ community. It needs and welcomes help. For details see
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 | [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Handle a rate-limited API][ex-handle-rate-limited-api] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] | [![cat-net-badge]][cat-net] |
+| [Parse the MIME type of a HTTP response][ex-http-response-mime-type] | [![mime-badge]][mime] [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 
 ## [Application development](app.html)
 
@@ -241,6 +242,7 @@ community. It needs and welcomes help. For details see
 [ex-regex-filter-log]: basics.html#ex-regex-filter-log
 [ex-regex-replace-named]: basics.html#ex-regex-replace-named
 [ex-rest-custom-params]: net.html#ex-rest-custom-params
+[ex-http-response-mime-type]: net.html#ex-http-response-mime-type
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
