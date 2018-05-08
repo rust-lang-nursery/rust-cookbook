@@ -694,30 +694,34 @@ fn run() -> Result<()> {
 
 [![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 
-Transform a CSV file containing a color name and a hex color into one with a color name and an rgb color
+Transform a CSV file containing a color name and a hex color into one with a
+color name and an rgb color.  Utilizes the [csv] crate to read and write the
+csv file, and [serde] to deserialize and serialize the rows to and from bytes.
+
+See [`csv::Reader::deserialize`], [`serde::Deserialize`], and [`std::str::FromStr`]
 
 ```rust
-extern crate csv;
-#[macro_use]
-extern crate error_chain;
-#[macro_use]
-extern crate serde_derive;
-extern crate serde;
-
-use csv::{Reader, Writer};
-use serde::{de, Deserialize, Deserializer};
-use std::str::FromStr;
-
-error_chain! {
-    foreign_links {
-        CsvError(csv::Error);
-        ParseInt(std::num::ParseIntError);
-        CsvInnerError(csv::IntoInnerError<csv::Writer<Vec<u8>>>);
-        IO(std::fmt::Error);
-        UTF8(std::string::FromUtf8Error);
-    }
-}
-
+#extern crate csv;
+##[macro_use]
+#extern crate error_chain;
+##[macro_use]
+#extern crate serde_derive;
+#extern crate serde;
+#
+#use csv::{Reader, Writer};
+#use serde::{de, Deserialize, Deserializer};
+#use std::str::FromStr;
+#
+#error_chain! {
+#    foreign_links {
+#        CsvError(csv::Error);
+#        ParseInt(std::num::ParseIntError);
+#        CsvInnerError(csv::IntoInnerError<Writer<Vec<u8>>>);
+#        IO(std::fmt::Error);
+#        UTF8(std::string::FromUtf8Error);
+#    }
+#}
+#
 #[derive(Debug)]
 struct HexColor {
     red: u8,
@@ -782,8 +786,8 @@ magenta,#ff00ff"
     println!("{}", written);
     Ok(())
 }
-
-quick_main!(run);
+#
+#quick_main!(run);
 ```
 
 {{#include links.md}}
@@ -791,15 +795,18 @@ quick_main!(run);
 <!-- API Reference -->
 
 [`csv::ByteRecord`]: https://docs.rs/csv/*/csv/struct.ByteRecord.html
-[`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
 [`csv::Reader::deserialize`]: https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize
+[`csv::Reader::deserialize`]: https://docs.rs/csv/\*/csv/struct.Reader.html#method.deserialize
 [`csv::StringRecord`]: https://docs.rs/csv/*/csv/struct.StringRecord.html
 [`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
+[`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
 [`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/*/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
 [`percent_decode`]: https://docs.rs/url/*/url/percent_encoding/fn.percent_decode.html
+[`serde::Deserialize`]: https://docs.rs/serde/\*/serde/trait.Deserialize.html
 [`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize
+[`std::str::FromStr`]: https://doc.rust-lang.org/std/str/trait.FromStr.html
 [`utf8_percent_encode`]: https://docs.rs/url/*/url/percent_encoding/fn.utf8_percent_encode.html
 [`write_record`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record
 
