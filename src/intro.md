@@ -74,6 +74,7 @@ community. It needs and welcomes help. For details see
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Transform one column of a CSV file][ex-csv-transform-column] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
@@ -177,6 +178,7 @@ community. It needs and welcomes help. For details see
 [ex-convert-datetime-timestamp]: basics.html#ex-convert-datetime-timestamp
 [ex-convert-datetime-timezone]: basics.html#ex-convert-datetime-timezone
 [ex-crossbeam-spawn]: concurrency.html#ex-crossbeam-spawn
+[ex-csv-transform-column]: encoding.html#ex-csv-transform-column
 [ex-csv-delimiter]: encoding.html#ex-csv-delimiter
 [ex-csv-filter]: encoding.html#ex-csv-filter
 [ex-csv-read]: encoding.html#ex-csv-read

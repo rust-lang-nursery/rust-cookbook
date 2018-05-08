@@ -14,6 +14,7 @@
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Transform one column of a CSV file][ex-csv-transform-column] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
@@ -688,6 +689,107 @@ fn run() -> Result<()> {
 #
 # quick_main!(run);
 ```
+[ex-csv-transform-column]: #ex-csv-transform-column
+<a name="ex-csv-transform-column"></a>
+## Transform CSV column
+
+[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
+
+Transform a CSV file containing a color name and a hex color into one with a
+color name and an rgb color.  Utilizes the [csv] crate to read and write the
+csv file, and [serde] to deserialize and serialize the rows to and from bytes.
+
+See [`csv::Reader::deserialize`], [`serde::Deserialize`], and [`std::str::FromStr`]
+
+```rust
+extern crate csv;
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+
+use csv::{Reader, Writer};
+use serde::{de, Deserialize, Deserializer};
+use std::str::FromStr;
+#
+# error_chain! {
+#    foreign_links {
+#        CsvError(csv::Error);
+#        ParseInt(std::num::ParseIntError);
+#        CsvInnerError(csv::IntoInnerError<Writer<Vec<u8>>>);
+#        IO(std::fmt::Error);
+#        UTF8(std::string::FromUtf8Error);
+#    }
+# }
+
+#[derive(Debug)]
+struct HexColor {
+    red: u8,
+    green: u8,
+    blue: u8,
+}
+
+#[derive(Debug, Deserialize)]
+struct Row {
+    color_name: String,
+    color: HexColor,
+}
+
+impl FromStr for HexColor {
+    type Err = Error;
+
+    fn from_str(hex_color: &str) -> std::result::Result<Self, Self::Err> {
+        let trimmed = hex_color.trim_matches('#');
+        if trimmed.len() != 6 {
+            Err("Invalid length of hex string".into())
+        } else {
+            Ok(HexColor {
+                red: u8::from_str_radix(&trimmed[..2], 16)?,
+                green: u8::from_str_radix(&trimmed[2..4], 16)?,
+                blue: u8::from_str_radix(&trimmed[4..6], 16)?,
+            })
+        }
+    }
+}
+
+impl<'de> Deserialize<'de> for HexColor {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let s = String::deserialize(deserializer)?;
+        FromStr::from_str(&s).map_err(de::Error::custom)
+    }
+}
+
+fn run() -> Result<()> {
+    let data = "color_name,color
+red,#ff0000
+green,#00ff00
+blue,#0000FF
+periwinkle,#ccccff
+magenta,#ff00ff"
+        .to_owned();
+    let mut out = Writer::from_writer(vec![]);
+    let mut reader = Reader::from_reader(data.as_bytes());
+    for result in reader.deserialize::<Row>() {
+        let res = result?;
+        out.serialize((
+            res.color_name,
+            res.color.red,
+            res.color.green,
+            res.color.blue,
+        ))?;
+    }
+    let written = String::from_utf8(out.into_inner()?)?;
+    assert_eq!(Some("magenta,255,0,255"), written.lines().last());
+    println!("{}", written);
+    Ok(())
+}
+#
+# quick_main!(run);
+```
 
 [ex-mime-from-string]: #ex-mime-from-string
 <a name="ex-mime-from-string"></a>
@@ -729,17 +831,20 @@ fn main() {
 <!-- API Reference -->
 
 [`csv::ByteRecord`]: https://docs.rs/csv/*/csv/struct.ByteRecord.html
-[`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
 [`csv::Reader::deserialize`]: https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize
+[`csv::Reader::deserialize`]: https://docs.rs/csv/\*/csv/struct.Reader.html#method.deserialize
 [`csv::StringRecord`]: https://docs.rs/csv/*/csv/struct.StringRecord.html
 [`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
+[`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
 [`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/*/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
 [`FromStrError`]: https://docs.rs/mime/*/mime/struct.FromStrError.html
 [`MIME`]: https://docs.rs/mime/*/mime/struct.Mime.html
 [`percent_decode`]: https://docs.rs/url/*/url/percent_encoding/fn.percent_decode.html
+[`serde::Deserialize`]: https://docs.rs/serde/\*/serde/trait.Deserialize.html
 [`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize
+[`std::str::FromStr`]: https://doc.rust-lang.org/std/str/trait.FromStr.html
 [`utf8_percent_encode`]: https://docs.rs/url/*/url/percent_encoding/fn.utf8_percent_encode.html
 [`write_record`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record
 
