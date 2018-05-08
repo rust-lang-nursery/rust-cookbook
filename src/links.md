@@ -86,6 +86,8 @@ Keep lines sorted.
 [log]: https://docs.rs/log/
 [memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
 [memmap]: https://docs.rs/memmap/
+[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
+[mime]: https://docs.rs/mime/
 [num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
@@ -110,7 +112,7 @@ Keep lines sorted.
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.serde.rs/serde_json/
 [serde]: https://docs.rs/serde/
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.22.1-blue.svg
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.25.0-blue.svg
 [std]: https://doc.rust-lang.org/std
 [syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/

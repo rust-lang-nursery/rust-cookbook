@@ -46,6 +46,7 @@ community. It needs and welcomes help. For details see
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Check number of logical cpu cores][ex-check-cpu-cores] | [![num_cpus-badge]][num_cpus] | [![cat-hardware-support-badge]][cat-hardware-support] |
+| [Handle errors correctly in main][ex-error-chain-simple-error-handling] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns]
 | [Avoid discarding errors during error conversions][ex-error-chain-avoid-discarding] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Obtain backtrace of complex error scenarios][ex-error-chain-backtrace] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
@@ -55,6 +56,7 @@ community. It needs and welcomes help. For details see
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [File names that have been modified in the last 24 hours for the working directory][ex-file-24-hours-modified] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
 
 ## [Encoding](encoding.html)
 
@@ -73,6 +75,7 @@ community. It needs and welcomes help. For details see
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Transform one column of a CSV file][ex-csv-transform-column] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -110,6 +113,8 @@ community. It needs and welcomes help. For details see
 | [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 | [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Handle a rate-limited API][ex-handle-rate-limited-api] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] | [![cat-net-badge]][cat-net] |
+| [Parse the MIME type of a HTTP response][ex-http-response-mime-type] | [![mime-badge]][mime] [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 
 ## [Application development](app.html)
 
@@ -182,11 +187,12 @@ community. It needs and welcomes help. For details see
 [ex-dedup-filenames]: app.html#ex-dedup-filenames
 [ex-error-chain-avoid-discarding]: basics.html#ex-error-chain-avoid-discarding
 [ex-error-chain-backtrace]: basics.html#ex-error-chain-backtrace
+[ex-error-chain-simple-error-handling]: basics.html#ex-error-chain-simple-error-handling
 [ex-examine-date-and-time]: basics.html#ex-examine-date-and-time
 [ex-extract-hashtags]: basics.html#ex-extract-hashtags
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links
-[ex-format-datetime]: basics.html#ex-format-datetime
+[ex-file-24-hours-modified]: basics.html#ex-file-24-hours-modified
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-file-sizes]: app.html#ex-file-sizes
@@ -211,6 +217,7 @@ community. It needs and welcomes help. For details see
 [ex-log-syslog]: logging.html#ex-log-syslog
 [ex-log-timestamp]: logging.html#ex-log-timestamp
 [ex-measure-elapsed-time]: basics.html#ex-measure-elapsed-time
+[ex-mime-from-string]: encoding.html#ex-mime-from-string
 [ex-paginated-api]: net.html#ex-paginated-api
 [ex-parse-datetime]: basics.html#ex-parse-datetime
 [ex-parse-subprocess-input]: basics.html#ex-parse-subprocess-input
@@ -238,6 +245,7 @@ community. It needs and welcomes help. For details see
 [ex-regex-filter-log]: basics.html#ex-regex-filter-log
 [ex-regex-replace-named]: basics.html#ex-regex-replace-named
 [ex-rest-custom-params]: net.html#ex-rest-custom-params
+[ex-http-response-mime-type]: net.html#ex-http-response-mime-type
 [ex-rest-get]: net.html#ex-rest-get
 [ex-rest-head]: net.html#ex-rest-head
 [ex-rest-post]: net.html#ex-rest-post
@@ -265,3 +273,4 @@ community. It needs and welcomes help. For details see
 [ex-url-rm-frag]: net.html#ex-url-rm-frag
 [ex-urlencoded]: encoding.html#ex-urlencoded
 [ex-verify-extract-email]: basics.html#ex-verify-extract-email
+[ex-handle-rate-limited-api]: net.html#ex-handle-rate-limited-api

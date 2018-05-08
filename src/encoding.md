@@ -15,6 +15,7 @@
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Transform one column of a CSV file][ex-csv-transform-column] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+| [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -701,18 +702,18 @@ csv file, and [serde] to deserialize and serialize the rows to and from bytes.
 See [`csv::Reader::deserialize`], [`serde::Deserialize`], and [`std::str::FromStr`]
 
 ```rust
-#extern crate csv;
-##[macro_use]
-#extern crate error_chain;
-##[macro_use]
-#extern crate serde_derive;
-#extern crate serde;
+extern crate csv;
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+
+use csv::{Reader, Writer};
+use serde::{de, Deserialize, Deserializer};
+use std::str::FromStr;
 #
-#use csv::{Reader, Writer};
-#use serde::{de, Deserialize, Deserializer};
-#use std::str::FromStr;
-#
-#error_chain! {
+# error_chain! {
 #    foreign_links {
 #        CsvError(csv::Error);
 #        ParseInt(std::num::ParseIntError);
@@ -720,8 +721,8 @@ See [`csv::Reader::deserialize`], [`serde::Deserialize`], and [`std::str::FromSt
 #        IO(std::fmt::Error);
 #        UTF8(std::string::FromUtf8Error);
 #    }
-#}
-#
+# }
+
 #[derive(Debug)]
 struct HexColor {
     red: u8,
@@ -787,7 +788,42 @@ magenta,#ff00ff"
     Ok(())
 }
 #
-#quick_main!(run);
+# quick_main!(run);
+```
+
+[ex-mime-from-string]: #ex-mime-from-string
+<a name="ex-mime-from-string"></a>
+## Get MIME type from string
+
+[![mime-badge]][mime] [![cat-encoding-badge]][cat-encoding]
+
+The following example shows how to parse a [`MIME`] type from a string using the [mime] crate. You can handle a possible [`FromStrError`] by providing a default [`MIME`] type in an `unwrap_or` clause.
+
+```rust
+extern crate mime;
+use mime::{Mime, APPLICATION_OCTET_STREAM};
+
+fn main() {
+    let invalid_mime_type = "i n v a l i d";
+    let default_mime = invalid_mime_type
+        .parse::<Mime>()
+        .unwrap_or(APPLICATION_OCTET_STREAM);
+
+    println!(
+        "MIME for {:?} used default value {:?}",
+        invalid_mime_type, default_mime
+    );
+
+    let valid_mime_type = "TEXT/PLAIN";
+    let parsed_mime = valid_mime_type
+        .parse::<Mime>()
+        .unwrap_or(APPLICATION_OCTET_STREAM);
+
+    println!(
+        "MIME for {:?} was parsed as {:?}",
+        valid_mime_type, parsed_mime
+    );
+}
 ```
 
 {{#include links.md}}
@@ -803,6 +839,8 @@ magenta,#ff00ff"
 [`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/*/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
+[`FromStrError`]: https://docs.rs/mime/*/mime/struct.FromStrError.html
+[`MIME`]: https://docs.rs/mime/*/mime/struct.Mime.html
 [`percent_decode`]: https://docs.rs/url/*/url/percent_encoding/fn.percent_decode.html
 [`serde::Deserialize`]: https://docs.rs/serde/\*/serde/trait.Deserialize.html
 [`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize

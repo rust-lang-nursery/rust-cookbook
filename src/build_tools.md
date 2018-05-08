@@ -152,7 +152,7 @@ extern "C" {
     int multiply(int x, int y);
 }
 
-int multiply() {
+int multiply(int x, int y) {
     return x*y;
 }
 ```
@@ -161,7 +161,7 @@ int multiply() {
 
 ```rust,ignore
 extern {
-    fn multiply(x : i32, y : i32);
+    fn multiply(x : i32, y : i32) -> i32;
 }
 
 fn main(){
