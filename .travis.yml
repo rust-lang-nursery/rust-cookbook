@@ -12,8 +12,21 @@ env:
   global:
   - secure: m28oDDxTcaLlbCXv9la/yz0PzafOCDuhOhmHRoc1ELQC0wc3r6HT3a2myrP5ewQQhaxYDzd2XXYDJB3odFV1qLQOp0hFDgNn/w3ctWZpJdLxIJN6dsaPL/azhE2hz7T+SPEoWLwTW1va6bu4wwzSOykt9//RIK0ZoyVMCRSAlMB965iMV2Nkw7SWdQZ8SlskMVk8sB103N5+WTtt6rse54jHnXTpFEq9q0EAXC1R3GBDKEWB7iwb0c++Kw46Fz86ZJJDotiVuxMtsEk0VfT0Yxx665is5Ko6sV4cahbuXqMIqYYEfqpTHNHadHWD1m1i32hW9Rjtt9fFZ+a8m9zfTixPlkfOZvQ94RnD2zqv9qiwFr8oR7t2SsZaB4aqPlJd45DqgnwQ1B0cmrUAsjSB2+1DQDkR4FgKFB/o1c6F6g8imNh+2OwiZXVLwIimXNJQ5xfZeObXFMrEZ0+uj7oxFX49EcwE/SvwsVJHST3/zL5QuQwa9/uVhW/x135/Z2ypVao2xydpow/KL8VwhX9YsOSP5ApffL4OLJ5hE9qwS/SShHGg8AenFqqm/UNFqWDU+C097YaWvG5PEvCVXvOofic65AUTCmwB+h3MSQmZIqz2sb/kwdbtkoRRR6maMgelQmg1JdIfQcKeTJIStIihjk54VENHPVAslz0oV7Ia5Bo=
 
+matrix:
+  include:
+    - rust: stable
+      os: linux
+      env: CONTENT_TESTS=1
+  allow_failures:
+    - rust: stable
+      os: linux
+      env: CONTENT_TESTS=1
+
+
 before_install:
-  - cargo install mdbook --vers '0.1.7' --debug
+  - ./ci/install_deps.sh
   - export PATH=$HOME/.cargo/bin:$PATH
 
-after_success: ./deploy.sh
+script: ./ci/test_script.sh
+
+after_success: ./ci/deploy.sh
