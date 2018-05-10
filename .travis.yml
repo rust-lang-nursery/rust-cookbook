@@ -17,11 +17,19 @@ matrix:
     - rust: stable
       os: linux
       env: CONTENT_TESTS=1
+    - rust: stable
+      os: linux
+      env: CONTENT_TESTS=1 CONTENT_TESTS_LINKS=1
   allow_failures:
     - rust: stable
       os: linux
-      env: CONTENT_TESTS=1
+      env: CONTENT_TESTS=1 CONTENT_TESTS_LINKS=1
 
+addons:
+  apt:
+    packages:
+      - aspell
+      - aspell-en
 
 before_install:
   - ./ci/install_deps.sh

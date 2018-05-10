@@ -151,7 +151,7 @@ fn run() -> Result<()> {
     let tar = GzDecoder::new(tar_gz);
     // Load the archive from the tarball
     let mut archive = Archive::new(tar);
-    // Unpack the archive inside curent working directory
+    // Unpack the archive inside current working directory
     archive.unpack(".")?;
 
     Ok(())

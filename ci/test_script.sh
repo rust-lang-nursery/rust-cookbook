@@ -20,10 +20,7 @@ program_installed() {
 
 if [[ "${CONTENT_TESTS:-}" == 1 ]]; then
     # Ensure required programs are installed
-    if [ $(program_installed htmlproofer) == 0 ]; then
-        echo "Please install htmlproofer: gem install html-proofer"
-        exit 1
-    elif [ $(program_installed mdbook) == 0 ]; then
+    if [ $(program_installed mdbook) == 0 ]; then
         echo "Please install mdbook: cargo install mdbook."
         exit 1
     fi
@@ -31,7 +28,17 @@ if [[ "${CONTENT_TESTS:-}" == 1 ]]; then
     echo "Testing markup and descriptions"
     echo "Building site to book/"
     mdbook build
-    htmlproofer --empty-alt-ignore ./book/
+    echo "Checking spelling"
+    ./ci/spellcheck.sh list
+
+    if [[ "${CONTENT_TESTS_LINKS:-}" == 1 ]]; then
+        if [ $(program_installed htmlproofer) == 0 ]; then
+            echo "Please install htmlproofer: gem install html-proofer"
+            exit 1
+        fi
+        echo "Checking links"
+        htmlproofer --empty-alt-ignore ./book/
+    fi
 else
     echo "Testing code snippets"
     cargo build --verbose

@@ -11,7 +11,10 @@ fi
 
 if [[ "${CONTENT_TESTS:-}" == 1 ]]; then
     echo "Installing additional dependencies"
-    gem install html-proofer
+
+    if [[ "${CONTENT_TESTS_LINKS:-}" == 1 ]]; then
+        gem install html-proofer
+    fi
     cargo install mdbook --vers '0.1.7' --debug
 fi
 

@@ -179,7 +179,7 @@ fn main(){
 
 It is simple to build bundled C code with custom defines using [`cc::Build::define`]. 
 It takes an [`Option`] value, so it is possible to create defines such as `#define APP_NAME "foo"`
-as well as `#define WELCOME` (pass `None` as the value for a value-less defne). This example builds
+as well as `#define WELCOME` (pass `None` as the value for a value-less define). This example builds
 a bundled C file with dynamic defines set in `build.rs` and prints "**Welcome to foo - version 1.0.2**"
 when run. Cargo sets some [environment variables][cargo-env] which may be useful for some custom defines.
 
