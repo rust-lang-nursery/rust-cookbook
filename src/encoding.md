@@ -2,8 +2,6 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
-| [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
@@ -14,6 +12,7 @@
 | [Handle invalid CSV data with Serde][ex-invalid-csv] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+<<<<<<< HEAD
 | [Transform one column of a CSV file][ex-csv-transform-column] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 
@@ -852,3 +851,22 @@ fn main() {
 
 [application/x-www-form-urlencoded]: https://url.spec.whatwg.org/#application/x-www-form-urlencoded
 [percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding
+=======
+| [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
+| [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
+
+[ex-percent-encode]: encoding/strings.html#percent-encode-a-string
+[ex-urlencoded]: encoding/strings.html#encode-a-string-as-applicationx-www-form-urlencoded
+[ex-hex-encode-decode]: encoding/strings.html#encode-and-decode-hex
+[ex-base64]: encoding/strings.html#encode-and-decode-base64
+[ex-csv-read]: encoding/csv.html#read-csv-records
+[ex-csv-delimiter]: encoding/csv.html#read-csv-records-with-different-delimiter
+[ex-csv-filter]: encoding/csv.html#filter-csv-records-matching-a-predicate
+[ex-invalid-csv]: encoding/csv.html#handle-invalid-csv-data-with-serde
+[ex-serialize-csv]: encoding/csv.html#serialize-records-to-csv
+[ex-csv-serde]: encoding/csv.html#serialize-records-to-csv-using-serde
+[ex-json-value]: complex.html#serialize-and-deserialize-unstructured-json
+[ex-toml-config]: encoding/complex.html#deserialize-a-toml-configuration-file
+
+{{#include links.md}}
+>>>>>>> 49038d7... Encoding
