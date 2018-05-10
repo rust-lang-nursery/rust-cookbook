@@ -42,48 +42,7 @@
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
-## Read lines of strings from a file
-
-[![std-badge]][std] [![cat-filesystem-badge]][cat-filesystem]
-
-Writes a three-line message to a file, then reads it back a line at a
-time with the [`Lines`] iterator created by
-[`BufRead::lines`]. [`BufRead`] is a trait, and the most common way to
-get one is from a [`BufReader`], which is constructed from some type
-that implements [`Read`], here a [`File`]. The [`File`] is opened
-for writing with [`File::create`], and reading with [`File::open`].
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-#
-use std::fs::File;
-use std::io::{Write, BufReader, BufRead};
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-
-fn run() -> Result<()> {
-    let path = "lines.txt";
-
-    let mut output = File::create(path)?;
-    write!(output, "Rust\n💖\nFun")?;
-
-    let input = File::open(path)?;
-    let buffered = BufReader::new(input);
-
-    for line in buffered.lines() {
-        println!("{}", line?);
-    }
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
+{{#include file/read-write/read-file.md}}
 
 [ex-byteorder-le]: #ex-byteorder-le
 <a name="ex-byteorder-le"></a>
@@ -884,51 +843,8 @@ fn run() -> Result<()> {
 
 [ex-random-file-access]: #ex-random-file-access
 <a name="ex-random-file-access"></a>
-## Access a file randomly using a memory map
 
-[![memmap-badge]][memmap] [![cat-filesystem-badge]][cat-filesystem]
-
-Creates a memory map of a file using [memmap] and simulates some non-sequential
-reads from the file. Using a memory map means you just index into a slice rather
-than dealing with [`seek`]ing around in a File.
-
-The [`Mmap::map`] function is only safe if we can guarantee that the file
-behind the memory map is not being modified at the same time by another process,
-as this would be a [race condition][race-condition-file].
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate memmap;
-
-use memmap::Mmap;
-# use std::fs::File;
-# use std::io::Write;
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-
-fn run() -> Result<()> {
-#     write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
-#
-    let file = File::open("content.txt")?;
-    let map = unsafe { Mmap::map(&file)? };
-
-    let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
-    assert_eq!(&map[3..13], b"hovercraft");
-    // I'm using an iterator here to change indexes to bytes
-    let random_bytes: Vec<u8> = random_indexes.iter()
-        .map(|&idx| map[idx])
-        .collect();
-    assert_eq!(&random_bytes[..], b"My loaf!");
-    Ok(())
-}
-#
-# quick_main!(run);
-```
+{{#include file/read-write/memmap.md}}
 
 [ex-check-cpu-cores]: #ex-check-cpu-cores
 <a name="ex-check-cpu-cores"></a>

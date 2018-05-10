@@ -30,6 +30,10 @@ community. It needs and welcomes help. For details see
 
 {{#include development_tools.md}}
 
+{{#include encoding.md}}
+
+{{#include file.md}}
+
 ## [Basics](basics.html)
 
 | Recipe | Crates | Categories |
