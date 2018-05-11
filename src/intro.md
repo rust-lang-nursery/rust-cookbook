@@ -34,6 +34,12 @@ community. It needs and welcomes help. For details see
 
 {{#include file.md}}
 
+{{#include hardware.md}}
+
+{{#include net.md}}
+
+{{#include os.md}}
+
 ## [Basics](basics.html)
 
 | Recipe | Crates | Categories |

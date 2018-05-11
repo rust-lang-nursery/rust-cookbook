@@ -1,16 +1,26 @@
 # Networking
 
-
 | Recipe | Crates | Categories |
 |--------|--------|------------|
+| [Parse a URL from a string to a `Url` type][ex-url-parse] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Create a base URL by removing path segments][ex-url-base] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Create new URLs from a base URL][ex-url-new-from-base] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Extract the URL origin (scheme / host / port)][ex-url-origin] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Remove fragment identifiers and query pairs from a URL][ex-url-rm-frag] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Download a file to a temporary directory][ex-url-download] | [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] | [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem] |
+| [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Consume a paginated RESTful API][ex-paginated-api] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [Check if an API resource exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Set custom headers and URL parameters for a REST request][ex-rest-custom-params] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
+| [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+| [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Listen on unused port TCP/IP][ex-random-port-tcp] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
-<<<<<<< HEAD
 | [Extract all links from a webpage HTML][ex-extract-links-webpage] | [![reqwest-badge]][reqwest] [![select-badge]][select] | [![cat-net-badge]][cat-net] |
 | [Check webpage for broken links][ex-check-broken-links] | [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Extract all unique links from a MediaWiki markup][ex-extract-mediawiki-links] | [![reqwest-badge]][reqwest] [![regex-badge]][regex] | [![cat-net-badge]][cat-net] |
 | [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Handle a rate-limited API][ex-handle-rate-limited-api] | [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] | [![cat-net-badge]][cat-net] |
-| [Parse the MIME type of a HTTP response][ex-http-response-mime-type] | [![mime-badge]][mime] [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 
 [ex-url-parse]: #ex-url-parse
 <a name="ex-url-parse"/>
@@ -566,61 +576,580 @@ struct Gist {
     html_url: String,
     // remaining fields not deserialized for brevity
 }
-=======
->>>>>>> 0df081c... Hardware Net OS
 
-[ex-random-port-tcp]: net/server.html#listen-on-unused-port-tcpip
+fn run() -> Result<()> {
+    let gh_user = env::var("GH_USER")?;
+    let gh_pass = env::var("GH_PASS")?;
 
-[ex-http-response-mime-type]: #ex-http-response-mime-type
-<a name="ex-http-response-mime-type"/>
-## Parse the MIME type of a HTTP response
+    // The type `gist_body` is `serde_json::Value`
+    let gist_body = json!({
+        "description": "the description for this gist",
+        "public": true,
+        "files": {
+             "main.rs": {
+             "content": r#"fn main() { println!("hello world!");}"#
+            }
+        }});
 
-[![reqwest-badge]][reqwest] [![mime-badge]][mime] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
+    // create the gist
+    let request_url = "https://api.github.com/gists";
+    let mut response = Client::new()
+        .post(request_url)
+        .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
+        .json(&gist_body)
+        .send()?;
 
-When receiving a HTTP reponse from *reqwest* the [MIME type] or media type can be 
-found in the [Content-Type] header. The header can be looked up by using 
-[`reqwest::Headers::get`] with the generic type [`reqwest::header::ContentType`].
-Because `ContentType` implements Deref with [`mime::Mime`] as a target, parts of the 
-MIME type can be obtained directly. 
+    let gist: Gist = response.json()?;
+    println!("Created {:?}", gist);
 
-The *Mime* crate also has some, commonly used, predefined MIME types. These can be 
-used for comparison and matching on the types. *Reqwest* also exports the *mime* 
-crate, which can be found in the `reqwest::mime` module.
+    // delete the gist
+    let request_url = format!("{}/{}",request_url, gist.id);
+    let response = Client::new()
+        .delete(&request_url)
+        .basic_auth(gh_user, Some(gh_pass))
+        .send()?;
+
+    println!("Gist {} deleted! Status code: {}",gist.id, response.status());
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+For the sake of simplicity the example uses [HTTP Basic Auth] in order to
+authorize access to [GitHub API]. A more typical use case would be to
+employ one of the much more complex [OAuth] authorization flows.
+
+[ex-paginated-api]: #ex-paginated-api
+<a name="ex-paginated-api"></a>
+## Consume a paginated RESTful API
+
+[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
+
+Wraps a paginated web API in a convenient Rust iterator. The iterator lazily
+fetches the next page of results from the remote server as it arrives at the end
+of each page.
 
 ```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
-extern crate mime;
+#[macro_use]
+extern crate serde_derive;
+extern crate reqwest;
+#
+# error_chain! {
+#     foreign_links {
+#         Reqwest(reqwest::Error);
+#     }
+# }
+
+#[derive(Deserialize)]
+struct ApiResponse {
+    dependencies: Vec<Dependency>,
+    meta: Meta,
+}
+
+// Could capture more fields here if needed
+#[derive(Deserialize)]
+struct Dependency {
+    crate_id: String,
+}
+
+#[derive(Deserialize)]
+struct Meta {
+    total: u32,
+}
+
+struct ReverseDependencies {
+    crate_id: String,
+    dependencies: <Vec<Dependency> as IntoIterator>::IntoIter,
+    client: reqwest::Client,
+    page: u32,
+    per_page: u32,
+    total: u32,
+}
+
+impl ReverseDependencies {
+    fn of(crate_id: &str) -> Result<Self> {
+        Ok(ReverseDependencies {
+               crate_id: crate_id.to_owned(),
+               dependencies: vec![].into_iter(),
+               client: reqwest::Client::new(),
+               page: 0,
+               per_page: 100,
+               total: 0,
+           })
+    }
+
+    fn try_next(&mut self) -> Result<Option<Dependency>> {
+        // If the previous page has a dependency that hasn't been looked at.
+        if let Some(dep) = self.dependencies.next() {
+            return Ok(Some(dep));
+        }
+
+        // If there are no more reverse dependencies.
+        if self.page > 0 && self.page * self.per_page >= self.total {
+            return Ok(None);
+        }
+
+        // Fetch the next page.
+        self.page += 1;
+        let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&per_page={}",
+                          self.crate_id,
+                          self.page,
+                          self.per_page);
+
+        let response = self.client.get(&url).send()?.json::<ApiResponse>()?;
+        self.dependencies = response.dependencies.into_iter();
+        self.total = response.meta.total;
+        Ok(self.dependencies.next())
+    }
+}
+
+impl Iterator for ReverseDependencies {
+    type Item = Result<Dependency>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        // Some juggling required here because `try_next` returns a result
+        // containing an option, while `next` is supposed to return an option
+        // containing a result.
+        match self.try_next() {
+            Ok(Some(dep)) => Some(Ok(dep)),
+            Ok(None) => None,
+            Err(err) => Some(Err(err)),
+        }
+    }
+}
+
+fn run() -> Result<()> {
+    for dep in ReverseDependencies::of("serde")? {
+        println!("reverse dependency: {}", dep?.crate_id);
+    }
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-file-post]: #ex-file-post
+<a name="ex-file-post"/>
+## POST a file to paste-rs.
+
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
+
+A connection is established to https://paste.rs using [`reqwest::Client`],
+following the [`reqwest::RequestBuilder`] pattern.  Calling [`Client::post`]
+with a URL establishes the destination, [`RequestBuilder::body`] sets the
+content to send by reading the file, and [`RequestBuilder::send`] blocks until
+the file uploads and the response is received.  The response is read with
+[`read_to_string`], and finally displayed in the console.
+
+```rust,no_run
 extern crate reqwest;
 
-use reqwest::header::ContentType;
+# #[macro_use]
+# extern crate error_chain;
+#
+use std::fs::File;
+use std::io::Read;
+use reqwest::Client;
+#
+# error_chain! {
+#     foreign_links {
+#         HttpRequest(reqwest::Error);
+#         IoError(::std::io::Error);
+#     }
+# }
+
+fn run() -> Result<()> {
+    let paste_api = "https://paste.rs";
+    let file = File::open("message")?;
+
+    // blocks until paste.rs returns a response
+    let mut response = Client::new().post(paste_api).body(file).send()?;
+    let mut response_body = String::new();
+    response.read_to_string(&mut response_body)?;
+    println!("Your paste is located at: {}", response_body);
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-random-port-tcp]: #ex-random-port-tcp
+<a name="ex-random-port-tcp"></a>
+{{#include net/server/listen-unused.md}}
+
+The `std` library is leveraged to make a well formed IP/port with the
+[`SocketAddrV4`] and [`Ipv4Addr`] structs.  An unused random port is requested
+by passing 0 to [`TcpListener::bind`].  The assigned address is available via
+[`TcpListener::local_addr`].
+
+[`TcpListener::accept`] synchronously waits for an incoming connection and
+returns a `(`[`TcpStream`],  [`SocketAddrV4`]`)` representing the request.
+Reading on the socket with [`read_to_string`] will wait until the connection is
+closed which can be tested with `telnet ip port`.  For example, if the program
+shows Listening on 127.0.0.1:11500, run
+
+`telnet 127.0.0.1 11500`
+
+After sending data in telnet press `ctrl-]` and type `quit`.
+
+[ex-extract-links-webpage]: #ex-extract-links-webpage
+<a name="ex-extract-links-webpage"/>
+## Extract all links from a webpage HTML
+
+[![reqwest-badge]][reqwest] [![select-badge]][select] [![cat-net-badge]][cat-net]
+
+Use [`reqwest::get`] to perform a HTTP GET request and then use [`Document::from_read`] to parse the response into a HTML document.
+We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a".
+This returns a [`Selection`] that we [`filter_map`] on to retrieve the urls from links that have the "href" [`attr`].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate reqwest;
+extern crate select;
+
+use select::document::Document;
+use select::predicate::Name;
 #
 # error_chain! {
 #    foreign_links {
-#        Reqwest(reqwest::Error);
+#        ReqError(reqwest::Error);
+#        IoError(std::io::Error);
 #    }
 # }
 
 fn run() -> Result<()> {
-    let response = reqwest::get("https://www.rust-lang.org/logos/rust-logo-32x32.png")?;
-    let headers = response.headers();
+    let res = reqwest::get("https://www.rust-lang.org/en-US/")?;
 
-    match headers.get::<ContentType>() {
-        None => {
-            println!("The response does not contain a Content-Type header.");
-        }
-        Some(content_type) => {
-            let media_type = match (content_type.type_(), content_type.subtype()) {
-                (mime::TEXT, mime::HTML) => "a HTML document",
-                (mime::TEXT, _) => "a text document",
-                (mime::IMAGE, mime::PNG) => "a PNG image",
-                (mime::IMAGE, _) => "an image",
-                _ => "neither text nor image",
-            };
+    Document::from_read(res)?
+        .find(Name("a"))
+        .filter_map(|n| n.attr("href"))
+        .for_each(|x| println!("{}", x));
 
-            println!("The reponse contains {}.", media_type);
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-check-broken-links]: #ex-check-broken-links
+<a name="ex-check-broken-links"/>
+## Check a webpage for broken links
+
+[![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] [![cat-net-badge]][cat-net]
+
+We call "get_base_url" to retrieve the base URL. If the document has a "base" tag, we get the "href" [`attr`] from the first occurrence of the "base" tag. This is then used as the base URL. Otherwise, we can use [`Position::BeforePath`] with the original URL to get the base of that URL.
+
+We iterate through all the links in the document and get the absolute URL for each (using [`url::ParseOptions`] and [`Url::parse`]). We then filter these so that we can report which links are broken.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate reqwest;
+extern crate select;
+extern crate url;
+
+use std::collections::HashSet;
+
+use url::{Url, Position};
+use reqwest::StatusCode;
+use select::document::Document;
+use select::predicate::Name;
+#
+# error_chain! {
+#   foreign_links {
+#       ReqError(reqwest::Error);
+#       IoError(std::io::Error);
+#       UrlParseError(url::ParseError);
+#   }
+# }
+
+fn get_base_url(url: &Url, doc: &Document) -> Result<Url> {
+    let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);
+
+    let base_url = base_tag_href.map_or_else(
+        || Url::parse(&url[..Position::BeforePath]),
+        Url::parse,
+    )?;
+
+    Ok(base_url)
+}
+
+fn check_link(url: &Url) -> Result<bool> {
+    let res = reqwest::get(url.as_ref())?;
+
+    Ok(res.status() != StatusCode::NotFound)
+}
+
+fn run() -> Result<()> {
+    let url = Url::parse("https://www.rust-lang.org/en-US/")?;
+
+    let res = reqwest::get(url.as_ref())?;
+    let document = Document::from_read(res)?;
+
+    let base_url = get_base_url(&url, &document)?;
+
+    let base_parser = Url::options().base_url(Some(&base_url));
+
+    let links: HashSet<Url> = document
+        .find(Name("a"))
+        .filter_map(|n| n.attr("href"))
+        .filter_map(|link| base_parser.parse(link).ok())
+        .collect();
+
+    links
+        .iter()
+        .filter(|link| check_link(link).ok() == Some(false))
+        .for_each(|x| println!("{} is broken.", x));
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-extract-mediawiki-links]: #ex-extract-mediawiki-links
+<a name="ex-extract-mediawiki-links"/>
+## Extract all unique links from a MediaWiki markup
+
+[![reqwest-badge]][reqwest] [![regex-badge]][regex] [![cat-net-badge]][cat-net]
+
+Pull the source of a MediaWiki page using [`reqwest::get`] and then
+look for all entries of internal and external links with
+[`Regex::captures_iter`]. Using [`Cow`] avoids excessive [`String`] allocations.
+
+MediaWiki link syntax is described [here][MediaWiki link syntax].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate lazy_static;
+extern crate reqwest;
+extern crate regex;
+
+use std::io::Read;
+use std::collections::HashSet;
+use std::borrow::Cow;
+use regex::Regex;
+
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Reqwest(reqwest::Error);
+#         Regex(regex::Error);
+#     }
+# }
+#
+fn extract_links(content: &str) -> Result<HashSet<Cow<str>>> {
+    lazy_static! {
+        static ref WIKI_REGEX: Regex =
+            Regex::new(r"(?x)
+                \[\[(?P<internal>[^\[\]|]*)[^\[\]]*\]\]    # internal links
+                |
+                (url=|URL\||\[)(?P<external>http.*?)[ \|}] # external links
+            ").unwrap();
+    }
+
+    let links: HashSet<_> = WIKI_REGEX
+        .captures_iter(content)
+        .map(|c| match (c.name("internal"), c.name("external")) {
+            (Some(val), None) => Cow::from(val.as_str().to_lowercase()),
+            (None, Some(val)) => Cow::from(val.as_str()),
+            _ => unreachable!(),
+        })
+        .collect();
+
+    Ok(links)
+}
+
+fn run() -> Result<()> {
+    let mut content = String::new();
+    reqwest::get(
+        "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
+    )?
+        .read_to_string(&mut content)?;
+
+    println!("{:#?}", extract_links(&content)?);
+
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-progress-with-range]: #ex-progress-with-range
+<a name="ex-progress-with-range"/>
+## Make a partial download with HTTP range headers
+
+[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
+
+Uses [`reqwest::Client::head`] to get the content-length and validate if the server sets the header
+[`reqwest::header::ContentRange`], required to confirm the support of partial downloads.
+
+If supported, downloads the content using [`reqwest::get`], setting the [`reqwest::header::Range`]
+to do partial downloads printing basic progress messages.
+ in chunks of 10240 bytes
+
+Range header is defined in [RFC7233][HTTP Range RFC7233].
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+extern crate reqwest;
+
+use std::fs::File;
+use reqwest::header::{ContentRange, ContentRangeSpec, Range};
+use reqwest::StatusCode;
+#
+# error_chain! {
+#     foreign_links {
+#         Io(std::io::Error);
+#         Reqwest(reqwest::Error);
+#     }
+# }
+#
+# struct PartialRangeIter {
+#     start: u64,
+#     end: u64,
+#     buffer_size: u32,
+# }
+#
+# impl PartialRangeIter {
+#     pub fn new(content_range: &ContentRangeSpec, buffer_size: u32) -> Result<Self> {
+#         if buffer_size == 0 {
+#             Err("invalid buffer_size, give a value greater than zero.")?;
+#         }
+#
+#         match *content_range {
+#             ContentRangeSpec::Bytes { range: Some(range), .. } => Ok(PartialRangeIter {
+#                 start: range.0,
+#                 end: range.1,
+#                 buffer_size,
+#             }),
+#             _ => Err("invalid range specification")?,
+#         }
+#     }
+# }
+#
+# impl Iterator for PartialRangeIter {
+#     type Item = Range;
+#
+#     fn next(&mut self) -> Option<Self::Item> {
+#         if self.start > self.end {
+#             None
+#         } else {
+#             let prev_start = self.start;
+#             self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
+#             Some(Range::bytes(prev_start, self.start - 1))
+#         }
+#     }
+# }
+
+fn run() -> Result<()> {
+    // For the purpose of this example only a small download of 102400 bytes
+    // with chunk size of 10240 bytes is used.
+    let url = "https://httpbin.org/range/102400?duration=2";
+    const CHUNK_SIZE: u32 = 10240;
+
+    let client = reqwest::Client::new();
+    let response = client.head(url).send()?;
+    let range = response.headers().get::<ContentRange>().ok_or(
+        "response doesn't include the expected ranges",
+    )?;
+
+    let mut output_file = File::create("download.bin")?;
+
+    println!("starting download...");
+    for range in PartialRangeIter::new(range, CHUNK_SIZE)? {
+
+        println!("range {:?}", range);
+        let mut response = client.get(url).header(range).send()?;
+
+        let status = response.status();
+        if !(status == StatusCode::Ok || status == StatusCode::PartialContent) {
+            bail!("Unexpected server response: {}", status)
         }
-    };
+
+        std::io::copy(&mut response, &mut output_file)?;
+    }
+
+    println!("Finished with success!");
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-handle-rate-limited-api]: #ex-handle-rate-limited-api
+<a name="ex-handle-rate-limited-api"/>
+## Handle a rate-limited API
+
+[![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![cat-net-badge]][cat-net]
+
+This example uses the [GitHub API - Rate limiting], as an example of how to
+handle remote server errors.  This example uses the [`hyper::header!`] macro
+to parse the response header and checks for [`reqwest::StatusCode::Forbidden`].
+If the response exceeds the rate limit, the example waits and retries.
+
+```rust,no_run
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate hyper;
+extern crate reqwest;
+
+use std::time::{Duration, UNIX_EPOCH};
+use std::thread;
+use reqwest::StatusCode;
+#
+# error_chain! {
+#    foreign_links {
+#        Io(std::io::Error);
+#        Time(std::time::SystemTimeError);
+#        Reqwest(reqwest::Error);
+#    }
+# }
+
+header! { (XRateLimitLimit, "X-RateLimit-Limit") => [usize] }
+header! { (XRateLimitRemaining, "X-RateLimit-Remaining") => [usize] }
+header! { (XRateLimitReset, "X-RateLimit-Reset") => [u64] }
+
+fn run() -> Result<()> {
+    let url = "https://api.github.com/users/rust-lang-nursery ";
+    let client = reqwest::Client::new();
+    let response = client.get(url).send()?;
+
+    let rate_limit = response.headers().get::<XRateLimitLimit>().ok_or(
+        "response doesn't include the expected X-RateLimit-Limit header",
+    )?;
+
+    let rate_remaining = response.headers().get::<XRateLimitRemaining>().ok_or(
+        "response doesn't include the expected X-RateLimit-Remaining header",
+    )?;
+
+    let rate_reset_at = response.headers().get::<XRateLimitReset>().ok_or(
+        "response doesn't include the expected X-RateLimit-Reset header",
+    )?;
+
+    let rate_reset_within = Duration::from_secs(**rate_reset_at) - UNIX_EPOCH.elapsed()?;
+
+    if response.status() == StatusCode::Forbidden && **rate_remaining == 0 {
+        println!("Sleeping for {} seconds.", rate_reset_within.as_secs());
+        thread::sleep(rate_reset_within);
+        return run();
+    }
+    else {
+        println!(
+            "Rate limit is currently {}/{}, the reset of this limit will be within {} seconds.",
+            **rate_remaining,
+            **rate_limit,
+            rate_reset_within.as_secs(),
+        );
+    }
 
     Ok(())
 }
@@ -629,7 +1158,6 @@ fn run() -> Result<()> {
 ```
 
 {{#include links.md}}
-<<<<<<< HEAD
 
 <!-- API Reference -->
 
@@ -649,13 +1177,12 @@ fn run() -> Result<()> {
 [`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
 [`Ipv4Addr`]: https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html
 [`join`]: https://docs.rs/url/*/url/struct.Url.html#method.join
-[`mime::Mime`]: https://docs.rs/mime/*/mime/struct.Mime.html
 [`Name`]: https://docs.rs/select/*/select/predicate/struct.Name.html
 [`origin`]: https://docs.rs/url/*/url/struct.Url.html#method.origin
 [`parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
 [`Position::BeforePath`]: https://docs.rs/url/*/url/enum.Position.html#variant.BeforePath
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
-[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/*/regex/struct.Regex.html#method.captures_iter
+[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
 [`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
 [`RequestBuilder::body`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.body
 [`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
@@ -664,10 +1191,8 @@ fn run() -> Result<()> {
 [`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
 [`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
-[`reqwest::header::ContentType`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentType.html
-[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.html
+[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.htm
 [`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
-[`reqwest::Headers::get`]: https://docs.rs/reqwest/*/reqwest/header/struct.Headers.html#method.get
 [`reqwest::RequestBuilder`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
 [`reqwest::StatusCode::Forbidden`]: https://docs.rs/reqwest/*/reqwest/enum.StatusCode.html#variant.Forbidden
@@ -693,13 +1218,9 @@ fn run() -> Result<()> {
 
 <!-- Other Reference -->
 
-[Content-Type]: https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Type
 [GitHub API]: https://developer.github.com/v3/auth/
 [GitHub API - Rate limiting]: https://developer.github.com/v3/#rate-limiting
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
-[MIME type]: https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 [OAuth]: https://oauth.net/getting-started/
-=======
->>>>>>> 0df081c... Hardware Net OS

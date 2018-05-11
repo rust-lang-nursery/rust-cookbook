@@ -299,277 +299,23 @@ fn main() {
 
 [ex-parse-subprocess-output]: #ex-parse-subprocess-output
 <a name="ex-parse-subprocess-output"></a>
-## Run an external command and process stdout
-
-[![regex-badge]][regex] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
-
-Runs `git log --oneline` as an external [`Command`] and inspects its [`Output`]
-using [`Regex`] to get the hash and message of the last 5 commits.
-
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate regex;
-
-use std::process::Command;
-use regex::Regex;
-#
-# error_chain!{
-#     foreign_links {
-#         Io(std::io::Error);
-#         Regex(regex::Error);
-#         Utf8(std::string::FromUtf8Error);
-#     }
-# }
-
-#[derive(PartialEq, Default, Clone, Debug)]
-struct Commit {
-    hash: String,
-    message: String,
-}
-
-fn run() -> Result<()> {
-    let output = Command::new("git").arg("log").arg("--oneline").output()?;
-
-    if !output.status.success() {
-        bail!("Command executed with failing error code");
-    }
-
-    let pattern = Regex::new(r"(?x)
-                               ([0-9a-fA-F]+) # commit hash
-                               (.*)           # The commit message")?;
-
-    String::from_utf8(output.stdout)?
-        .lines()
-        .filter_map(|line| pattern.captures(line))
-        .map(|cap| {
-                 Commit {
-                     hash: cap[1].to_string(),
-                     message: cap[2].trim().to_string(),
-                 }
-             })
-        .take(5)
-        .for_each(|x| println!("{:?}", x));
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
+{{#include os/external/process-output.md}}
 
 [ex-parse-subprocess-input]: #ex-parse-subprocess-input
 <a name="ex-parse-subprocess-input"></a>
-## Run an external command passing it stdin and check for an error code
-
-[![std-badge]][std] [![cat-os-badge]][cat-os]
-
-Opens the `python` interpreter using an external [`Command`] and passes it a python statement
-for execution. [`Output`] of said statement is then parsed.
-
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#
-use std::collections::HashSet;
-use std::io::Write;
-use std::process::{Command, Stdio};
-#
-# error_chain!{
-#     errors { CmdError }
-#     foreign_links {
-#         Io(std::io::Error);
-#         Utf8(std::string::FromUtf8Error);
-#     }
-# }
-
-fn run() -> Result<()> {
-    let mut child = Command::new("python").stdin(Stdio::piped())
-        .stderr(Stdio::piped())
-        .stdout(Stdio::piped())
-        .spawn()?;
-
-    child.stdin
-        .as_mut()
-        .ok_or("Child process stdin has not been captured!")?
-        .write_all(b"import this; copyright(); credits(); exit()")?;
-
-    let output = child.wait_with_output()?;
-
-    if output.status.success() {
-        let raw_output = String::from_utf8(output.stdout)?;
-        let words = raw_output.split_whitespace()
-            .map(|s| s.to_lowercase())
-            .collect::<HashSet<_>>();
-        println!("Found {} unique words:", words.len());
-        println!("{:#?}", words);
-        Ok(())
-    } else {
-        let err = String::from_utf8(output.stderr)?;
-        bail!("External command failed:\n {}", err)
-    }
-}
-#
-# quick_main!(run);
-```
+{{#include os/external/send-input.md}}
 
 [ex-run-piped-external-commands]: #ex-run-piped-external-commands
 <a name="ex-run-piped-external-commands"></a>
-## Run piped external commands
-
-[![std-badge]][std] [![cat-os-badge]][cat-os]
-
-Shows up to the 10<sup>th</sup> biggest files and subdirectories in
-the current working directory. It is equivalent to run: `du -ah . |
-sort -hr | head -n 10`.
-
-It spawns Unix processes which are represented as [`Command`]s. In
-order to capture the output of a child process it is necessary to
-create a new [`Stdio::piped`] between parent and child.
-
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#
-use std::process::{Command, Stdio};
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         Utf8(std::string::FromUtf8Error);
-#     }
-# }
-
-fn run() -> Result<()> {
-    let directory = std::env::current_dir()?;
-    let du_output = Command::new("du")
-        .arg("-ah")
-        .arg(&directory)
-        .stdout(Stdio::piped())
-        .spawn()?
-        .stdout
-        .ok_or_else(|| "Could not capture `du` standard output.")?;
-
-    let sort_output = Command::new("sort")
-        .arg("-hr")
-        .stdin(du_output)
-        .stdout(Stdio::piped())
-        .spawn()?
-        .stdout
-        .ok_or_else(|| "Could not capture `sort` standard output.")?;
-
-    let head_output = Command::new("head")
-        .args(&["-n", "10"])
-        .stdin(sort_output)
-        .stdout(Stdio::piped())
-        .spawn()?
-        .wait_with_output()?;
-
-    println!(
-        "Top 10 biggest files and directories in '{}':\n{}",
-        directory.display(),
-        String::from_utf8(head_output.stdout)?
-    );
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
+{{#include os/external/piped.md}}
 
 [ex-redirect-stdout-stderr-same-file]: #ex-redirect-stdout-stderr-same-file
 <a name="ex-redirect-stdout-stderr-same-file"></a>
-## Redirect both stdout and stderr of child process to the same file
-
-[![std-badge]][std] [![cat-os-badge]][cat-os]
-
-Spawns a child process and redirects `stdout` and `stderr` to the same
-file. It follows the same idea as [run piped external
-commands](#ex-run-piped-external-commands), however [`process::Stdio`]
-will write to the provided files and beforehand, [`File::try_clone`]
-is used to reference the same file handle for `stdout` and
-`stderr`. It will ensure that both handles write with the same cursor
-position.
-
-The below recipe is equivalent to run the Unix shell command `ls
-. oops >out.txt 2>&1`.
-
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#
-use std::fs::File;
-use std::process::{Command, Stdio};
-
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-#
-fn run() -> Result<()> {
-    let outputs = File::create("out.txt")?;
-    let errors = outputs.try_clone()?;
-
-    Command::new("ls")
-        .args(&[".", "oops"])
-        .stdout(Stdio::from(outputs))
-        .stderr(Stdio::from(errors))
-        .spawn()?
-        .wait_with_output()?;
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
+{{#include os/external/error-file.md}}
 
 [ex-continuous-process-output]: #ex-continuous-process-output
 <a name="ex-continuous-process-output"></a>
-## Continuously process child process' outputs
-
-[![std-badge]][std] [![cat-os-badge]][cat-os]
-
-In [Run an external command and process stdout](#ex-parse-subprocess-output),
-processing doesn't start until external [`Command`] is finished.
-The recipe below creates a new pipe by calling [`Stdio::piped`] and reads
-`stdout` continuously as soon as the [`BufReader`] is updated.
-
-The below recipe is equivalent to the Unix shell command
-`journalctl | grep usb`.
-
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#
-use std::process::{Command, Stdio};
-use std::io::{BufRead, BufReader};
-
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-#
-fn run() -> Result<()> {
-    let stdout = Command::new("journalctl")
-        .stdout(Stdio::piped())
-        .spawn()?
-        .stdout
-        .ok_or_else(|| "Could not capture standard output.")?;
-
-    let reader = BufReader::new(stdout);
-
-    reader
-        .lines()
-        .filter_map(|line| line.ok())
-        .filter(|line| line.find("usb").is_some())
-        .for_each(|line| println!("{}", line));
-
-     Ok(())
-}
-#
-# quick_main!(run);
-```
+{{#include os/external/continuous.md}}
 
 [ex-regex-filter-log]: #ex-regex-filter-log
 <a name="ex-regex-filter-log"></a>
@@ -848,19 +594,7 @@ fn run() -> Result<()> {
 
 [ex-check-cpu-cores]: #ex-check-cpu-cores
 <a name="ex-check-cpu-cores"></a>
-## Check number of logical cpu cores
-
-[![num_cpus-badge]][num_cpus] [![cat-hardware-support-badge]][cat-hardware-support]
-
-Shows the number of logical cpu cores in current machine using [`num_cpus::get`].
-
-```rust
-extern crate num_cpus;
-
-fn main() {
-    println!("Number of logical cores is {}", num_cpus::get());
-}
-```
+{{#include hardware/processor/cpu-count.md}}
 
 [ex-error-chain-simple-error-handling]: #ex-error-chain-simple-error-handling
 <a name="ex-error-chain-simple-error-handling"></a>
