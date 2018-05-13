@@ -841,11 +841,11 @@ fn main() {
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
 [`FromStrError`]: https://docs.rs/mime/*/mime/struct.FromStrError.html
 [`MIME`]: https://docs.rs/mime/*/mime/struct.Mime.html
-[`percent_decode`]: https://docs.rs/url/*/url/percent_encoding/fn.percent_decode.html
+[`percent_decode`]: https://docs.rs/percent-encoding/*/percent_encoding/fn.percent_decode.html
 [`serde::Deserialize`]: https://docs.rs/serde/\*/serde/trait.Deserialize.html
 [`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize
 [`std::str::FromStr`]: https://doc.rust-lang.org/std/str/trait.FromStr.html
-[`utf8_percent_encode`]: https://docs.rs/url/*/url/percent_encoding/fn.utf8_percent_encode.html
+[`utf8_percent_encode`]: https://docs.rs/percent-encoding/*/percent_encoding/fn.utf8_percent_encode.html
 [`write_record`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record
 
 <!-- Other Reference -->
