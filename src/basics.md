@@ -1837,11 +1837,11 @@ fn run() -> Result<()> {
 [`rand::thread_rng`]: https://doc.rust-lang.org/rand/rand/fn.thread_rng.html
 [`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
-[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
-[`regex::RegexSet`]: https://doc.rust-lang.org/regex/regex/struct.RegexSet.html
-[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/regex/struct.RegexSetBuilder.html
+[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/*/regex/struct.Regex.html#method.captures_iter
+[`regex::RegexSet`]: https://doc.rust-lang.org/regex/*/regex/struct.RegexSet.html
+[`regex::RegexSetBuilder`]: https://doc.rust-lang.org/regex/*/regex/struct.RegexSetBuilder.html
 [`Regex::replace_all`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.replace_all
-[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`Regex`]: https://doc.rust-lang.org/regex/*/regex/struct.Regex.html
 [`ring::hmac`]: https://docs.rs/ring/*/ring/hmac/
 [`ring::pbkdf2`]: https://docs.rs/ring/*/ring/pbkdf2/index.html
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range

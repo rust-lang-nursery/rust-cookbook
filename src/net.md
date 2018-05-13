@@ -1278,7 +1278,7 @@ fn run() -> Result<()> {
 [`parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
 [`Position::BeforePath`]: https://docs.rs/url/*/url/enum.Position.html#variant.BeforePath
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
-[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
+[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/*/regex/struct.Regex.html#method.captures_iter
 [`RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
 [`RequestBuilder::body`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.body
 [`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
@@ -1288,7 +1288,7 @@ fn run() -> Result<()> {
 [`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
 [`reqwest::header::ContentType`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentType.html
-[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.htm
+[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.html
 [`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
 [`reqwest::Headers::get`]: https://docs.rs/reqwest/*/reqwest/header/struct.Headers.html#method.get
 [`reqwest::RequestBuilder`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html
