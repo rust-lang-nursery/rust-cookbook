@@ -25,15 +25,6 @@ logging via an environment variable.
 #[macro_use]
 extern crate log;
 extern crate env_logger;
-#
-# #[macro_use]
-# extern crate error_chain;
-#
-# error_chain! {
-#     foreign_links {
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
 
 fn execute_query(query: &str) {
     debug!("Executing query: {}", query);
@@ -41,15 +32,11 @@ fn execute_query(query: &str) {
     // then do the thing
 }
 
-fn run() -> Result<()> {
-    env_logger::init()?;
+fn main() {
+    env_logger::init();
 
     execute_query("DROP TABLE students");
-
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 If you run this code, you'll notice that no output is printed. By default, the
@@ -95,7 +82,7 @@ fn execute_query(_query: &str) -> Result<()> {
 }
 
 fn run() -> Result<()> {
-    env_logger::init()?;
+    env_logger::init();
 
     let response = execute_query("DROP TABLE students");
     if let Err(err) = response {
@@ -125,8 +112,6 @@ Creates two modules `foo` and nested `foo::bar` with logging directives
 controlled separately with [`RUST_LOG`] environmental variable.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate log;
 extern crate env_logger;
@@ -147,24 +132,14 @@ mod foo {
         bar::run();
     }
 }
-#
-# error_chain! {
-#     foreign_links {
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
 
-fn run() -> Result<()> {
-    env_logger::init()?;
+fn main() {
+    env_logger::init();
     warn!("[root] warn");
     info!("[root] info");
     debug!("[root] debug");
     foo::run();
-
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`env_logger`][env_logger] output is controlled by [`RUST_LOG`] environmental
@@ -175,7 +150,7 @@ Running the `test` application as follows:
 RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test
 ```
 
-Sets the default [`log::LogLevel`] to `warn`, module's `foo` and module's `foo::bar`
+Sets the default [`log::Level`] to `warn`, module's `foo` and module's `foo::bar`
 respectively to `info` and `debug`. The output is:
 
 ```bash
@@ -193,33 +168,22 @@ DEBUG:test::foo::bar: [bar] debug
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-Creates a custom logger configuration using the [`LogBuilder::target`] to set the target of the log output to [`Target::Stdout`].
+Creates a custom logger configuration using the [`Builder::target`] to set the target of the log output to [`Target::Stdout`].
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate log;
 extern crate env_logger;
 
-use env_logger::{LogBuilder, LogTarget};
-#
-# error_chain! {
-#     foreign_links {
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
+use env_logger::{Builder, Target};
 
-fn run() -> Result<()> {
-    LogBuilder::new()
-        .target(LogTarget::Stdout)
-        .init()?;
+fn main() {
+    Builder::new()
+        .target(Target::Stdout)
+        .init();
 
     error!("This error has been printed to Stdout");
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [ex-log-custom-logger]: #ex-log-custom-logger
@@ -238,20 +202,24 @@ the [`log::Log`] trait and has to be installed via [`log::set_logger`].
 #[macro_use]
 extern crate log;
 
-use log::{LogRecord, LogLevel, LogMetadata, LogLevelFilter};
+use log::{Record, Level, Metadata, LevelFilter};
+
+static CONSOLE_LOGGER: ConsoleLogger = ConsoleLogger;
 
 struct ConsoleLogger;
 
 impl log::Log for ConsoleLogger {
-    fn enabled(&self, metadata: &LogMetadata) -> bool {
-        metadata.level() <= LogLevel::Info
+    fn enabled(&self, metadata: &Metadata) -> bool {
+        metadata.level() <= Level::Info
     }
 
-    fn log(&self, record: &LogRecord) {
+    fn log(&self, record: &Record) {
         if self.enabled(record.metadata()) {
             println!("Rust says: {} - {}", record.level(), record.args());
         }
     }
+
+    fn flush(&self) {}
 }
 #
 # error_chain! {
@@ -261,10 +229,8 @@ impl log::Log for ConsoleLogger {
 # }
 
 fn run() -> Result<()> {
-    log::set_logger(|max_log_level| {
-                        max_log_level.set(LogLevelFilter::Info);
-                        Box::new(ConsoleLogger)
-                    })?;
+    log::set_logger(&CONSOLE_LOGGER)?;
+    log::set_max_level(LevelFilter::Info);
 
     info!("hello log");
     warn!("warning");
@@ -281,42 +247,30 @@ fn run() -> Result<()> {
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-Logging is configured with [`LogBuilder`].
+Logging is configured with [`Builder`].
 
-[`LogBuilder::parse`] parses `MY_APP_LOG`
+[`Builder::parse`] parses `MY_APP_LOG`
 environmental variable contents in the form of [`RUST_LOG`] syntax.
-Then [`LogBuilder::init`] initializes the logger.
+Then [`Builder::init`] initializes the logger.
 All these steps are normally done internally by [`env_logger::init`].
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate log;
 extern crate env_logger;
 
 use std::env;
-use env_logger::LogBuilder;
+use env_logger::Builder;
 
-# error_chain! {
-#     foreign_links {
-#         EnvLogger(log::SetLoggerError);
-#     }
-# }
-# 
-fn run() -> Result<()> {
-    LogBuilder::new()
+fn main() {
+    Builder::new()
         .parse(&env::var("MY_APP_LOG").unwrap_or_default())
-        .init()?;
+        .init();
 
     info!("informational message");
     warn!("warning message");
     error!("this is an error {}", "message");
-
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [ex-log-timestamp]: #ex-log-timestamp
@@ -325,49 +279,40 @@ fn run() -> Result<()> {
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] [![cat-debugging-badge]][cat-debugging]
 
-Creates a custom logger configuration with [`LogBuilder`].
+Creates a custom logger configuration with [`Builder`].
 Each log entry calls [`Local::now`] to get the current [`DateTime`] in local timezone and uses [`DateTime::format`] with [`strftime::specifiers`] to format a timestamp used in the final log.
 
-The example calls [`LogBuilder::format`] to set a closure which formats each
-message text with timestamp, [`LogRecord::level`] and body ([`LogRecord::args`]).
+The example calls [`Builder::format`] to set a closure which writes each
+message text with timestamp, [`Record::level`] and body ([`Record::args`]).
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate log;
-extern crate env_logger;
 extern crate chrono;
+extern crate env_logger;
 
 use std::env;
-use env_logger::LogBuilder;
+use std::io::Write;
 use chrono::Local;
+use env_logger::Builder;
 
-#
-# error_chain! {
-#     foreign_links {
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
-
-fn run() -> Result<()> {
-    LogBuilder::new()
-        .format(|record| {
-                    format!("{} [{}] - {}",
-                            Local::now().format("%Y-%m-%dT%H:%M:%S"),
-                            record.level(),
-                            record.args())
-                })
+fn main() {
+    Builder::new()
+        .format(|buf, record| {
+            write!(buf,
+                "{} [{}] - {}",
+                Local::now().format("%Y-%m-%dT%H:%M:%S"),
+                record.level(),
+                record.args()
+            )
+        })
         .parse(&env::var("MY_APP_LOG").unwrap_or_default())
-        .init()?;
+        .init();
 
     warn!("warn");
     info!("info");
     debug!("debug");
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 Calling `MY_APP_LOG="info" cargo run` will result in similar output:
 ```
@@ -382,7 +327,7 @@ Calling `MY_APP_LOG="info" cargo run` will result in similar output:
 [![log-badge]][log] [![syslog-badge]][syslog] [![cat-debugging-badge]][cat-debugging]
 
 Logs messages to [UNIX syslog]. Initializes logger backend
-with [`syslog::init`]. [`syslog::Facility`] indicates type of program submitting log, [`log::LogLevelFilter`] denotes allowed log verbosity
+with [`syslog::init`]. [`syslog::Facility`] indicates type of program submitting log, [`log::LevelFilter`] denotes allowed log verbosity
 and `Option<&str>` holds optional application name.
 
 ```rust,no_run
@@ -394,21 +339,20 @@ extern crate log;
 # #[cfg(target_os = "linux")]
 extern crate syslog;
 
-use log::LogLevelFilter;
 # #[cfg(target_os = "linux")]
 use syslog::Facility;
 #
 # #[cfg(target_os = "linux")]
 # error_chain! {
 #     foreign_links {
-#         SetLogger(syslog::SyslogError);
+#         SetLogger(syslog::Error);
 #     }
 # }
 
 # #[cfg(target_os = "linux")]
 fn run() -> Result<()> {
     syslog::init(Facility::LOG_USER,
-                 LogLevelFilter::Debug,
+                 log::LevelFilter::Debug,
                  Some("My app name"))?;
     debug!("this is a debug {}", "message");
     error!("this is an error!");
@@ -436,7 +380,7 @@ Configures log to be output into custom location with [log4rs]. [log4rs] can use
 Firstly creates the log configuration with [`log4rs::append::file::FileAppender`]
 using a custom pattern from [`log4rs::encode::pattern`].
 
-Secondly assigns it to the [`log4rs::config::Config`] which has a root appender that uses the previously created `logfile` appender. Subsequently sets the default [`log::LogLevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
+Secondly assigns it to the [`log4rs::config::Config`] which has a root appender that uses the previously created `logfile` appender. Subsequently sets the default [`log::LevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
 
 ```rust,no_run
 # #[macro_use]
@@ -445,7 +389,7 @@ Secondly assigns it to the [`log4rs::config::Config`] which has a root appender 
 extern crate log;
 extern crate log4rs;
 
-use log::LogLevelFilter;
+use log::LevelFilter;
 use log4rs::append::file::FileAppender;
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::config::{Appender, Config, Root};
@@ -467,7 +411,7 @@ fn run() -> Result<()> {
         .appender(Appender::builder().build("logfile", Box::new(logfile)))
         .build(Root::builder()
                    .appender("logfile")
-                   .build(LogLevelFilter::Info))?;
+                   .build(LevelFilter::Info))?;
 
     log4rs::init_config(config)?;
 
@@ -483,29 +427,29 @@ fn run() -> Result<()> {
 
 <!-- API Reference -->
 
+[`Builder::format`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.format
+[`Builder::init`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.init
+[`Builder::parse`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.parse
+[`Builder::target`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.target
+[`Builder`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html#method.format
 [`DateTime`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html
-[`env_logger::init`]: https://docs.rs/env_logger/*/env_logger/fn.init.html
 [`Local::now`]: https://docs.rs/chrono/*/chrono/offset/local/struct.Local.html#method.now
+[`RUST_LOG`]: https://docs.rs/env_logger/*/env_logger/#enabling-logging
+[`Record::args`]: https://docs.rs/log/*/log/struct.Record.html#method.args
+[`Record::level`]: https://docs.rs/log/*/log/struct.Record.html#method.level
+[`Target::Stdout`]: https://docs.rs/env_logger/*/env_logger/fmt/enum.Target.html
+[`env_logger::init`]: https://docs.rs/env_logger/*/env_logger/fn.init.html
 [`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
 [`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
 [`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
-[`log::Log`]: https://doc.rust-lang.org/log/log/trait.Log.html
-[`log::LogLevel`]: https://doc.rust-lang.org/log/log/enum.LogLevel.html
-[`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
-[`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
-[`LogBuilder::format`]: https://docs.rs/env_logger/*/env_logger/struct.LogBuilder.html#method.format
-[`LogBuilder::init`]: https://docs.rs/env_logger/*/env_logger/struct.LogBuilder.html#method.init
-[`LogBuilder::parse`]: https://docs.rs/env_logger/*/env_logger/struct.LogBuilder.html#method.parse
-[`LogBuilder::target`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.target
-[`LogBuilder`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html
-[`LogRecord::args`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.args
-[`LogRecord::level`]: https://doc.rust-lang.org/log/log/struct.LogRecord.html#method.level
-[`RUST_LOG`]: https://docs.rs/env_logger/*/env_logger/#enabling-logging
+[`log::LevelFilter`]: https://docs.rs/log/*/log/enum.LevelFilter.html
+[`log::Level`]: https://docs.rs/log/*/log/enum.Level.html
+[`log::Log`]: https://docs.rs/log/*/log/trait.Log.html
+[`log::set_logger`]: https://docs.rs/log/*/log/fn.set_logger.html
 [`strftime::specifiers`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html#specifiers
 [`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
 [`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
-[`Target::Stdout`]: https://docs.rs/env_logger/*/env_logger/enum.Target.html
 
 <!-- Other Reference -->
 
