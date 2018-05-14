@@ -854,6 +854,7 @@ fn main() {
 =======
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
+| [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-percent-encode]: encoding/strings.html#percent-encode-a-string
 [ex-urlencoded]: encoding/strings.html#encode-a-string-as-applicationx-www-form-urlencoded
@@ -867,6 +868,7 @@ fn main() {
 [ex-csv-serde]: encoding/csv.html#serialize-records-to-csv-using-serde
 [ex-json-value]: complex.html#serialize-and-deserialize-unstructured-json
 [ex-toml-config]: encoding/complex.html#deserialize-a-toml-configuration-file
+[ex-byteorder-le]: encoding/complex.html#read-and-write-integers-in-little-endian-byte-order
 
 {{#include links.md}}
 >>>>>>> 49038d7... Encoding

@@ -14,4 +14,4 @@
 [ex-regex-filter-log]: text/regex.html#filter-a-log-file-by-matching-multiple-regular-expressions
 [ex-regex-replace-named]: text/regex.html#replace-all-occurrences-of-one-text-pattern-with-another-pattern
 
-{{include links.md}}
+{{#include links.md}}
