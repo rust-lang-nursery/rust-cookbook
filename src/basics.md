@@ -319,56 +319,7 @@ fn main() {
 
 [ex-regex-filter-log]: #ex-regex-filter-log
 <a name="ex-regex-filter-log"></a>
-## Filter a log file by matching multiple regular expressions
-
-[![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
-
-Reads a file named `application.log` and only outputs the lines
-containing “version X.X.X”, some IP address followed by port 443
-(e.g. “192.168.0.1:443”), or a specific warning.
-
-A [`regex::RegexSet`] is built with [`regex::RegexSetBuilder`].
-Since backslashes are very common in regular expressions, using
-[raw string literals] make them more readable.
-
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate regex;
-
-use std::fs::File;
-use std::io::{BufReader, BufRead};
-use regex::RegexSetBuilder;
-
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         Regex(regex::Error);
-#     }
-# }
-#
-fn run() -> Result<()> {
-    let log_path = "application.log";
-    let buffered = BufReader::new(File::open(log_path)?);
-
-    let set = RegexSetBuilder::new(&[
-        r#"version "\d\.\d\.\d""#,
-        r#"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:443"#,
-        r#"warning.*timeout expired"#,
-    ]).case_insensitive(true)
-        .build()?;
-
-    buffered
-        .lines()
-        .filter_map(|line| line.ok())
-        .filter(|line| set.is_match(line.as_str()))
-        .for_each(|x| println!("{}", x));
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
+{{#include text/regex/filter-log.md}}
 
 [ex-lazy-constant]: #ex-lazy-constant
 {{#include data_structures/constant/lazy-constant.md}}
@@ -377,207 +328,19 @@ fn run() -> Result<()> {
 
 [ex-verify-extract-email]: #ex-verify-extract-email
 <a name="ex-verify-extract-email"></a>
-## Verify and extract login from an email address
-
-[![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
-
-Validates that an email address is formatted correctly, and extracts everything
-before the @ symbol.
-
-```rust
-#[macro_use]
-extern crate lazy_static;
-extern crate regex;
-
-use regex::Regex;
-
-fn extract_login(input: &str) -> Option<&str> {
-    lazy_static! {
-        static ref RE: Regex = Regex::new(r"(?x)
-            ^(?P<login>[^@\s]+)@
-            ([[:word:]]+\.)*
-            [[:word:]]+$
-            ").unwrap();
-    }
-    RE.captures(input).and_then(|cap| {
-        cap.name("login").map(|login| login.as_str())
-    })
-}
-
-fn main() {
-    assert_eq!(extract_login(r"I❤email@example.com"), Some(r"I❤email"));
-    assert_eq!(
-        extract_login(r"sdf+sdsfsd.as.sdsd@jhkk.d.rl"),
-        Some(r"sdf+sdsfsd.as.sdsd")
-    );
-    assert_eq!(extract_login(r"More@Than@One@at.com"), None);
-    assert_eq!(extract_login(r"Not an email@email"), None);
-}
-```
+{{#include text/regex/email.md}}
 
 [ex-extract-hashtags]: #ex-extract-hashtags
 <a name="ex-extract-hashtags"></a>
-## Extract a list of unique #Hashtags from a text
-
-[![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
-
-Extracts a sorted and deduplicated list of hashtags from a text.
-
-The hashtag regex given here only catches Latin hashtags that start with a letter. The complete [twitter hashtag regex] is much more complicated.
-
-```rust
-extern crate regex;
-#[macro_use]
-extern crate lazy_static;
-
-use regex::Regex;
-use std::collections::HashSet;
-
-/// Note: A HashSet does not contain duplicate values.
-fn extract_hashtags(text: &str) -> HashSet<&str> {
-    lazy_static! {
-        static ref HASHTAG_REGEX : Regex = Regex::new(
-                r"\#[a-zA-Z][0-9a-zA-Z_]*"
-            ).unwrap();
-    }
-    HASHTAG_REGEX.find_iter(text).map(|mat| mat.as_str()).collect()
-}
-
-fn main() {
-    let tweet = "Hey #world, I just got my new #dog, say hello to Till. #dog #forever #2 #_ ";
-    let tags = extract_hashtags(tweet);
-    assert!(tags.contains("#dog") && tags.contains("#forever") && tags.contains("#world"));
-    assert_eq!(tags.len(), 3);
-}
-```
+{{#include text/regex/hashtags.md}}
 
 [ex-regex-replace-named]: #ex-regex-replace-named
 <a name="ex-regex-replace-named"></a>
-## Replace all occurrences of one text pattern with another pattern.
-
-[![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
-
-Replaces all occurrences of the standard ISO 8601 *YYYY-MM-DD* date pattern
-with the equivalent American English date with slashes; for example `2013-01-15` becomes `01/15/2013`.
-
-The method [`Regex::replace_all`] replaces all occurrences of the whole regex. The
-`Replacer` trait helps to figure out the replacement string. This trait is implemented
-for `&str` and allows to use variables like `$abcde` to refer to corresponding named capture groups
-`(?P<abcde>REGEX)` from the search regex. See the [replacement string syntax] for examples
-and information about escaping.
-
-```rust
-extern crate regex;
-#[macro_use]
-extern crate lazy_static;
-
-use std::borrow::Cow;
-use regex::Regex;
-
-fn reformat_dates(before: &str) -> Cow<str> {
-    lazy_static! {
-        static ref ISO8601_DATE_REGEX : Regex = Regex::new(
-            r"(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})"
-            ).unwrap();
-    }
-    ISO8601_DATE_REGEX.replace_all(before, "$m/$d/$y")
-}
-
-fn main() {
-    let before = "2012-03-14, 2013-01-15 and 2014-07-05";
-    let after = reformat_dates(before);
-    assert_eq!(after, "03/14/2012, 01/15/2013 and 07/05/2014");
-}
-```
+{{#include text/regex/replace.md}}
 
 [ex-phone]: #ex-phone
 <a name="ex-phone"></a>
-## Extract phone numbers from text
-
-[![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
-
-Processes a string of text using [`Regex::captures_iter`] to capture multiple
-phone numbers.  The example here is for US convention phone numbers.
-
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate regex;
-
-use regex::Regex;
-use std::fmt;
-#
-# error_chain!{
-#     foreign_links {
-#         Regex(regex::Error);
-#         Io(std::io::Error);
-#     }
-# }
-
-struct PhoneNumber<'a> {
-    area: &'a str,
-    exchange: &'a str,
-    subscriber: &'a str,
-}
-
-// Allows printing phone numbers based on country convention.
-impl<'a> fmt::Display for PhoneNumber<'a> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "1 ({}) {}-{}", self.area, self.exchange, self.subscriber)
-    }
-}
-
-fn run() -> Result<()> {
-    let phone_text = "
-    +1 505 881 9292 (v) +1 505 778 2212 (c) +1 505 881 9297 (f)
-    (202) 991 9534
-    Alex 5553920011
-    1 (800) 233-2010
-    1.299.339.1020";
-
-    let re = Regex::new(
-        r#"(?x)
-          (?:\+?1)?                       # Country Code Optional
-          [\s\.]?
-          (([2-9]\d{2})|\(([2-9]\d{2})\)) # Area Code
-          [\s\.\-]?
-          ([2-9]\d{2})                    # Exchange Code
-          [\s\.\-]?
-          (\d{4})                         # Subscriber Number"#,
-    )?;
-
-    let phone_numbers = re.captures_iter(phone_text).filter_map(|cap| {
-        // Area code populates either capture group 2 or 3.
-        // Group 1 contains optional parenthesis.
-        let groups = (cap.get(2).or(cap.get(3)), cap.get(4), cap.get(5));
-        match groups {
-            (Some(area), Some(ext), Some(sub)) => Some(PhoneNumber {
-                area: area.as_str(),
-                exchange: ext.as_str(),
-                subscriber: sub.as_str(),
-            }),
-            _ => None,
-        }
-    });
-
-    assert_eq!(
-        phone_numbers.map(|m| m.to_string()).collect::<Vec<_>>(),
-        vec![
-            "1 (505) 881-9292",
-            "1 (505) 778-2212",
-            "1 (505) 881-9297",
-            "1 (202) 991-9534",
-            "1 (555) 392-0011",
-            "1 (800) 233-2010",
-            "1 (299) 339-1020",
-        ]
-    );
-
-    Ok(())
-}
-#
-# quick_main!(run);
-```
+{{#include text/regex/phone.md}}
 
 {{#include cryptography/hashing/sha-digest.md}}
 

@@ -37,6 +37,8 @@
   - [Server](net/server.md)
 - [Operating System](os.md)
   - [External Command](os/external.md)
+- [Text Processing](text.md)
+  - [Regular Expressions](text/regex.md)
 - [Basics](basics.md)
 - [Networking](net.md)
 - [Logging](logging.md)
