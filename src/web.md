@@ -18,6 +18,14 @@
 | [Extract the URL origin (scheme / host / port)][ex-url-origin] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Remove fragment identifiers and query pairs from a URL][ex-url-rm-frag] | [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 
+## Media Types (MIME)
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
+| [Parse the MIME type of a HTTP response][ex-http-response-mime-type] | [![mime-badge]][mime] [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
+
+
 {{#include web/clients.md}}
 
 [ex-extract-links-webpage]: web/scraping.html#extract-all-links-from-a-webpage-html
@@ -29,5 +37,8 @@
 [ex-url-new-from-base]: web/url.html#create-new-urls-from-a-base-url
 [ex-url-origin]: web/url.html#extract-the-url-origin-scheme--host--port
 [ex-url-rm-frag]: web/url.html#remove-fragment-identifiers-and-query-pairs-from-a-url
+
+[ex-mime-from-string]: web/mime.html#get-mime-type-from-string
+[ex-http-response-mime-type]: web/mime.html#parse-the-mime-type-of-a-http-response
 
 {{#include links.md}}

@@ -7,8 +7,6 @@ Creates two modules `foo` and nested `foo::bar` with logging directives
 controlled separately with [`RUST_LOG`] environmental variable.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate log;
 extern crate env_logger;
@@ -29,24 +27,14 @@ mod foo {
         bar::run();
     }
 }
-#
-# error_chain! {
-#     foreign_links {
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
 
-fn run() -> Result<()> {
-    env_logger::init()?;
+fn main() {
+    env_logger::init();
     warn!("[root] warn");
     info!("[root] info");
     debug!("[root] debug");
     foo::run();
-
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`env_logger`][env_logger] output is controlled by [`RUST_LOG`] environmental
@@ -57,7 +45,7 @@ Running the `test` application as follows:
 RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test
 ```
 
-Sets the default [`log::LogLevel`] to `warn`, module's `foo` and module's `foo::bar`
+Sets the default [`log::Level`] to `warn`, module's `foo` and module's `foo::bar`
 respectively to `info` and `debug`. The output is:
 
 ```bash
@@ -69,5 +57,5 @@ INFO:test::foo::bar: [bar] info
 DEBUG:test::foo::bar: [bar] debug
 ```
 
-[`log::LogLevel`]: https://doc.rust-lang.org/log/log/enum.LogLevel.html
+[`log::Level`]: https://docs.rs/log/*/log/enum.Level.html
 [`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging

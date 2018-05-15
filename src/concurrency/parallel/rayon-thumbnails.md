@@ -16,7 +16,7 @@ extern crate image;
 extern crate rayon;
 
 use std::path::Path;
-use std::fs::{create_dir_all, File};
+use std::fs::create_dir_all;
 
 # use error_chain::ChainedError;
 use glob::{glob_with, MatchOptions};
@@ -71,10 +71,10 @@ where
     PB: AsRef<Path>,
 {
     let img = image::open(original.as_ref())?;
-    let fout = &mut File::create(thumb_dir.as_ref().join(original))?;
+    let file_path = thumb_dir.as_ref().join(original);
 
     Ok(img.resize(longest_edge, longest_edge, FilterType::Nearest)
-        .save(fout, image::JPEG)?)
+        .save(file_path)?)
 }
 #
 # quick_main!(run);

@@ -2,7 +2,6 @@
 
 [Table of Contents](intro.md)
 [About](about.md)
-
 - [Algorithms](algorithms.md)
   - [Generate Random Values](algorithms/randomness.md)
 - [Command Line](cli.md)
@@ -46,6 +45,7 @@
 - [Web Programming](web.md)
   - [Scraping Web Pages](web/scraping.md)
   - [Uniform Resource Location](web/url.md)
+  - [Media Types](web/mime.md)
   - [Clients](web/clients.md)
     - [Making Requests](web/clients/requests.md)
     - [Using APIs](web/clients/apis.md)

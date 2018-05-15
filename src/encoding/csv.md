@@ -12,4 +12,6 @@
 
 {{#include csv/serde-serialize.md}}
 
+{{#include csv/transform.md}}
+
 {{#include ../links.md}}

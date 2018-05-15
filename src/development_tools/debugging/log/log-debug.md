@@ -10,30 +10,16 @@ logging via an environment variable.
 #[macro_use]
 extern crate log;
 extern crate env_logger;
-#
-# #[macro_use]
-# extern crate error_chain;
-#
-# error_chain! {
-#     foreign_links {
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
 
 fn execute_query(query: &str) {
     debug!("Executing query: {}", query);
-
 }
 
-fn run() -> Result<()> {
-    env_logger::init()?;
+fn main {
+    env_logger::init();
 
     execute_query("DROP TABLE students");
-
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 If you run this code, you'll notice that no output is printed. By default, the

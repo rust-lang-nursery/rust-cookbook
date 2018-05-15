@@ -1,5 +1,7 @@
 # Directory Traversal
 
+{{#include dir/modified.md}}
+
 {{#include dir/loops.md}}
 
 {{#include dir/duplicate-name.md}}

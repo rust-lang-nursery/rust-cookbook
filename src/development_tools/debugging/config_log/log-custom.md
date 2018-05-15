@@ -8,7 +8,7 @@ Configures log to be output into custom location with [log4rs]. [log4rs] can use
 Firstly creates the log configuration with [`log4rs::append::file::FileAppender`]
 using a custom pattern from [`log4rs::encode::pattern`].
 
-Secondly assigns it to the [`log4rs::config::Config`] which has a root appender that uses the previously created `logfile` appender. Subsequently sets the default [`log::LogLevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
+Secondly assigns it to the [`log4rs::config::Config`] which has a root appender that uses the previously created `logfile` appender. Subsequently sets the default [`log::LevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
 
 ```rust,no_run
 # #[macro_use]
@@ -17,7 +17,7 @@ Secondly assigns it to the [`log4rs::config::Config`] which has a root appender 
 extern crate log;
 extern crate log4rs;
 
-use log::LogLevelFilter;
+use log::LevelFilter;
 use log4rs::append::file::FileAppender;
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::config::{Appender, Config, Root};
@@ -39,7 +39,7 @@ fn run() -> Result<()> {
         .appender(Appender::builder().build("logfile", Box::new(logfile)))
         .build(Root::builder()
                    .appender("logfile")
-                   .build(LogLevelFilter::Info))?;
+                   .build(LevelFilter::Info))?;
 
     log4rs::init_config(config)?;
 
@@ -54,4 +54,4 @@ fn run() -> Result<()> {
 [`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
 [`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
 [`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
-[`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
+[`log::LevelFilter`]: https://docs.rs/log/*/log/enum.LevelFilter.html

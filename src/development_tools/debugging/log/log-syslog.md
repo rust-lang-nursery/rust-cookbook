@@ -4,7 +4,7 @@
 [![log-badge]][log] [![syslog-badge]][syslog] [![cat-debugging-badge]][cat-debugging]
 
 Logs messages to [UNIX syslog]. Initializes logger backend
-with [`syslog::init`]. [`syslog::Facility`] indicates type of program submitting log, [`log::LogLevelFilter`] denotes allowed log verbosity
+with [`syslog::init`]. [`syslog::Facility`] indicates type of program submitting log, [`log::LevelFilter`] denotes allowed log verbosity
 and `Option<&str>` holds optional application name.
 
 ```rust,no_run
@@ -16,21 +16,20 @@ extern crate log;
 # #[cfg(target_os = "linux")]
 extern crate syslog;
 
-use log::LogLevelFilter;
 # #[cfg(target_os = "linux")]
 use syslog::Facility;
 #
 # #[cfg(target_os = "linux")]
 # error_chain! {
 #     foreign_links {
-#         SetLogger(syslog::SyslogError);
+#         SetLogger(syslog::Error);
 #     }
 # }
 
 # #[cfg(target_os = "linux")]
 fn run() -> Result<()> {
     syslog::init(Facility::LOG_USER,
-                 LogLevelFilter::Debug,
+                 log::LevelFilter::Debug,
                  Some("My app name"))?;
     debug!("this is a debug {}", "message");
     error!("this is an error!");
@@ -47,7 +46,7 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[`log::LogLevelFilter`]: https://doc.rust-lang.org/log/log/enum.LogLevelFilter.html
+[`log::LevelFilter`]: https://docs.rs/log/*/log/enum.LevelFilter.html
 [`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
 [`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
 

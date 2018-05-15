@@ -13,20 +13,24 @@ the [`log::Log`] trait and has to be installed via [`log::set_logger`].
 #[macro_use]
 extern crate log;
 
-use log::{LogRecord, LogLevel, LogMetadata, LogLevelFilter};
+use log::{Record, Level, Metadata, LevelFilter};
+
+static CONSOLE_LOGGER: ConsoleLogger = ConsoleLogger;
 
 struct ConsoleLogger;
 
 impl log::Log for ConsoleLogger {
-    fn enabled(&self, metadata: &LogMetadata) -> bool {
-        metadata.level() <= LogLevel::Info
+  fn enabled(&self, metadata: &Metadata) -> bool {
+     metadata.level() <= Level::Info
     }
 
-    fn log(&self, record: &LogRecord) {
+    fn log(&self, record: &Record) {
         if self.enabled(record.metadata()) {
             println!("Rust says: {} - {}", record.level(), record.args());
         }
     }
+
+    fn flush(&self) {}
 }
 #
 # error_chain! {
@@ -36,10 +40,8 @@ impl log::Log for ConsoleLogger {
 # }
 
 fn run() -> Result<()> {
-    log::set_logger(|max_log_level| {
-                        max_log_level.set(LogLevelFilter::Info);
-                        Box::new(ConsoleLogger)
-                    })?;
+    log::set_logger(&CONSOLE_LOGGER)?;
+    log::set_max_level(LevelFilter::Info);
 
     info!("hello log");
     warn!("warning");

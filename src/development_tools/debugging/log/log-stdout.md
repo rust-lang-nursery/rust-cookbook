@@ -3,34 +3,23 @@
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-Creates a custom logger configuration using the [`LogBuilder::target`] to set the target of the log output to [`Target::Stdout`].
+Creates a custom logger configuration using the [`Builder::target`] to set the target of the log output to [`Target::Stdout`].
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate log;
 extern crate env_logger;
 
 use env_logger::{LogBuilder, LogTarget};
-#
-# error_chain! {
-#     foreign_links {
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
 
-fn run() -> Result<()> {
-    LogBuilder::new()
-        .target(LogTarget::Stdout)
-        .init()?;
+fn main() {
+    Builder::new()
+        .target(Target::Stdout)
+        .init();
 
     error!("This error has been printed to Stdout");
-    Ok(())
 }
-#
-# quick_main!(run);
 ```
 
-[`LogBuilder::target`]: https://doc.rust-lang.org/log/env_logger/struct.Builder.html#method.target
+[`Builder::target`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.target
 [`Target::Stdout`]: https://doc.rust-lang.org/log/env_logger/enum.Target.html
