@@ -101,7 +101,7 @@ Keep lines sorted.
 [reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
 [ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
-[ring]: https://docs.rs/ring/
+[ring]: https://briansmith.org/rustdoc/ring/
 [same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
 [same_file]: https://docs.rs/same-file/
 [select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
