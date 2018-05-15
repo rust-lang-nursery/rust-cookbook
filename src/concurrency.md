@@ -2,12 +2,17 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
+| [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Calculate SHA1 sum of *.iso files concurrently][ex-threadpool-walk]  | [![threadpool-badge]][threadpool] [![walkdir-badge]][walkdir] [![num_cpus-badge]][num_cpus] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+| [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Test in parallel if any or all elements of a collection match a given predicate][ex-rayon-any-all] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Search items using given predicate in parallel][ex-rayon-parallel-search] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+<<<<<<< HEAD
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
 | [Calculate SHA1 sum of *.iso files concurrently][ex-threadpool-walk]  | [![threadpool-badge]][threadpool] [![walkdir-badge]][walkdir] [![num_cpus-badge]][num_cpus] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
@@ -426,102 +431,32 @@ fn run() -> Result<()> {
                          tx.send((x, y, pixel)).expect("Could not send data!");
                      });
     }
+=======
+>>>>>>> 01a1014... concurrency
 
-    for _ in 0..(width * height) {
-        let (x, y, pixel) = rx.recv()?;
-        img.put_pixel(x, y, pixel);
-    }
-    let _ = img.save("output.png")?;
-    Ok(())
-}
-#
-# quick_main!(run);
-```
 
-[ex-threadpool-walk]: #ex-threadpool-walk
-<a name="ex-threadpool-walk"></a>
+[ex-crossbeam-spawn]: concurrency/threads.html#spawn-a-short-lived-thread
 
-## Calculate SHA1 sum of *.iso files concurrently
+[ex-global-mut-state]: concurrency/threads.html#maintain-global-mutable-state
 
-[![threadpool-badge]][threadpool] [![num_cpus-badge]][num_cpus] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
+[ex-threadpool-walk]: concurrency/threads.html#calculate-sha1-sum-of-iso-files-concurrently
 
-This example calculates the SHA1 for every file present in the current directory. A threadpool is created using the number of cpus present in the system with [`num_cpus::get`]. Then every returned by [`Walkdir::new`] is passed into this pool to perform the operations of reading and computing SHA1. At the end the program waits for all jobs to finish. To get better results, compile this program in release mode.
+[ex-threadpool-fractal]: concurrency/threads.html#draw-fractal-dispatching-work-to-a-thread-pool
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate walkdir;
-extern crate ring;
-extern crate num_cpus;
-extern crate threadpool;
+[ex-rayon-iter-mut]: concurrency/parallel.html#mutate-the-elements-of-an-array-in-parallel
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-#
-use walkdir::WalkDir;
-use std::fs::File;
-use std::io::{BufReader, Read};
-use std::path::Path;
-use threadpool::ThreadPool;
-use std::sync::mpsc::channel;
-use ring::digest::{Context, Digest, SHA1};
+[ex-rayon-any-all]: concurrency/parallel.html#test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate
 
-# // Verify the iso extension
-# fn is_iso(entry: &Path) -> bool {
-#     match entry.extension() {
-#         Some(e) if e.to_string_lossy().to_lowercase() == "iso" => true,
-#         _ => false,
-#     }
-# }
-#
-fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P)> {
-    let mut buf_reader = BufReader::new(File::open(&filepath)?);
-    let mut context = Context::new(&SHA1);
-    let mut buffer = [0; 1024];
+[ex-rayon-parallel-search]: concurrency/parallel.html#search-items-using-given-predicate-in-parallel
 
-    loop {
-        let count = buf_reader.read(&mut buffer)?;
-        if count == 0 {
-            break;
-        }
-        context.update(&buffer[..count]);
-    }
+[ex-rayon-parallel-sort]: concurrency/parallel.html#sort-a-vector-in-parallel
 
-    Ok((context.finish(), filepath))
-}
+[ex-rayon-map-reduce]: concurrency/parallel.html#map-reduce-in-parallel
 
-fn run() -> Result<()> {
-    let pool = ThreadPool::new(num_cpus::get());
+[ex-rayon-thumbnails]: concurrency/parallel.html#generate-jpg-thumbnails-in-parallel
 
-    let (tx, rx) = channel();
 
-    // Look in the current directory.
-    for entry in WalkDir::new("/home/user/Downloads")
-        .follow_links(true)
-        .into_iter()
-        .filter_map(|e| e.ok())
-        .filter(|e| !e.path().is_dir() && is_iso(e.path())) {
-            let path = entry.path().to_owned();
-            let tx = tx.clone();
-            pool.execute(move || {
-                let digest = compute_digest(path);
-                tx.send(digest).expect("Could not send data!");
-            });
-        }
 
-    drop(tx);
-    for t in rx.iter() {
-        let (sha, path) = t?;
-        println!("{:?} {:?}", sha, path);
-    }
-    Ok(())
-}
-#
-# quick_main!(run);
-```
 
 {{#include links.md}}
 
