@@ -880,8 +880,6 @@ fn run() -> Result<()> {
 
 {{#include cryptography/encryption/pbkdf2.md}}
 
-
-[ex-bitflags]: #ex-bitflags
 {{#include data_structures/custom/bitfield.md}}
 
 [ex-random-file-access]: #ex-random-file-access

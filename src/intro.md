@@ -26,6 +26,10 @@ community. It needs and welcomes help. For details see
 
 {{#include cryptography.md}}
 
+{{#include data_structures.md}}
+
+{{#include development_tools.md}}
+
 ## [Basics](basics.html)
 
 | Recipe | Crates | Categories |

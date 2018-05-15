@@ -13,6 +13,7 @@
 | [Log messages to a custom location][ex-log-custom] | [![log-badge]][log] [![log4rs-badge]][log4rs] | [![cat-debugging-badge]][cat-debugging] |
 
 [ex-log-debug]: #ex-log-debug
+<<<<<<< HEAD
 <a name="ex-log-debug"></a>
 ## Log a debug message to the console
 
@@ -422,6 +423,33 @@ fn run() -> Result<()> {
 #
 # quick_main!(run);
 ```
+=======
+{{#include development_tools/debugging/log/log-debug.md}}
+
+[ex-log-error]: #ex-log-error
+{{#include development_tools/debugging/log/log-error.md}}
+
+[ex-log-mod]: #ex-log-mod
+{{#include development_tools/debugging/config_log/log-mod.md}}
+
+[ex-log-stdout]: #ex-log-stdout
+{{#include development_tools/debugging/log/log-stdout.md}}
+
+[ex-log-custom-logger]: #ex-log-custom-logger
+{{#include development_tools/debugging/log/log-custom-logger.md}}
+
+[ex-log-env-variable]: #ex-log-env-variable
+{{#include development_tools/debugging/config_log/log-env-variable.md}}
+
+[ex-log-timestamp]: #ex-log-timestamp
+{{#include development_tools/debugging/config_log/log-timestamp.md}}
+
+[ex-log-syslog]: #ex-log-syslog
+{{#include development_tools/debugging/log/log-syslog.md}}
+
+[ex-log-custom]: #ex-log-custom
+{{#include development_tools/debugging/config_log/log-custom.md}}
+>>>>>>> 66a4653... Development Tools
 
 {{#include links.md}}
 
