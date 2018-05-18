@@ -1809,7 +1809,7 @@ fn run() -> Result<()> {
 [`gen_ascii_chars`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.gen_ascii_chars
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
 [`hmac::Signature`]: https://briansmith.org/rustdoc/ring/hmac/struct.Signature.html
-[`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
+[`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/*/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
 [`Lines`]: https://doc.rust-lang.org/std/io/struct.Lines.html
 [`Metadata::is_file`]: https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.is_file
 [`Metadata::modified`]: https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.modified
@@ -1823,7 +1823,7 @@ fn run() -> Result<()> {
 [`NaiveDateTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html
 [`NaiveTime::from_hms`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html#method.from_hms
 [`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
-[`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+[`Normal`]: https://doc.rust-lang.org/rand/*/rand/distributions/normal/struct.Normal.html
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`offset::FixedOffset`]: https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html
 [`offset::Local::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now
@@ -1831,11 +1831,11 @@ fn run() -> Result<()> {
 [`pbkdf2::derive`]: https://briansmith.org/rustdoc/ring/pbkdf2/fn.derive.html
 [`pbkdf2::verify`]: https://briansmith.org/rustdoc/ring/pbkdf2/fn.verify.html
 [`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
-[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
-[`rand::Rand`]: https://doc.rust-lang.org/rand/rand/trait.Rand.html
-[`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
-[`rand::thread_rng`]: https://doc.rust-lang.org/rand/rand/fn.thread_rng.html
-[`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
+[`rand::Rand`]: https://doc.rust-lang.org/rand/*/rand/trait.Rand.html
+[`rand::Rand`]: https://doc.rust-lang.org/rand/*/rand/trait.Rand.html
+[`rand::Rng`]: https://doc.rust-lang.org/rand/*/rand/trait.Rng.html
+[`rand::thread_rng`]: https://doc.rust-lang.org/rand/*/rand/fn.thread_rng.html
+[`Range`]: https://doc.rust-lang.org/rand/*/rand/distributions/range/struct.Range.html
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
 [`Regex::captures_iter`]: https://doc.rust-lang.org/regex/*/regex/struct.Regex.html#method.captures_iter
 [`regex::RegexSet`]: https://doc.rust-lang.org/regex/*/regex/struct.RegexSet.html
@@ -1844,7 +1844,7 @@ fn run() -> Result<()> {
 [`Regex`]: https://doc.rust-lang.org/regex/*/regex/struct.Regex.html
 [`ring::hmac`]: https://briansmith.org/rustdoc/ring/hmac/
 [`ring::pbkdf2`]: https://briansmith.org/rustdoc/ring/pbkdf2/index.html
-[`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
+[`Rng::gen_range`]: https://doc.rust-lang.org/rand/*/rand/trait.Rng.html#method.gen_range
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html
 [`SecureRandom::fill`]: https://briansmith.org/rustdoc/ring/rand/trait.SecureRandom.html#tymethod.fill
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
@@ -1858,7 +1858,7 @@ fn run() -> Result<()> {
 [`Timelike`]: https://docs.rs/chrono/*/chrono/trait.Timelike.html
 [`Utc::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now
 [Matching]:https://docs.rs/error-chain/*/error_chain/#matching-errors
-[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
+[rand-distributions]: https://doc.rust-lang.org/rand/*/rand/distributions/index.html
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax
 
 <!-- Other Reference -->
