@@ -1,10 +1,8 @@
-[ex-tar-compress]: #ex-tar-compress
-<a name="ex-tar-compress"></a>
 ## Compress a directory into tarball
 
 [![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
-Compresses `/var/log` directory into `archive.tar.gz`.
+Compress `/var/log` directory into `archive.tar.gz`.
 
 Creates a [`File`] wrapped in [`GzEncoder`]
 and [`tar::Builder`]. </br>Adds contents of `/var/log` directory recursively into the archive

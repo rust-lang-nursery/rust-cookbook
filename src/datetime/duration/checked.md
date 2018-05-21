@@ -1,4 +1,5 @@
 ## Perform checked date and time calculations
+
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
 Calculates and displays the date and time two weeks from now using

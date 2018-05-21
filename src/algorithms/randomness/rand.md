@@ -1,5 +1,3 @@
-[ex-rand]: #ex-rand
-<a name="ex-rand"></a>
 ## Generate random numbers
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]

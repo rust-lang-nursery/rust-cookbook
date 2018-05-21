@@ -1,4 +1,3 @@
-<a name="ex-sha-digest"></a>
 ## Calculate the SHA-256 digest of a file
 
 [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-cryptography-badge]][cat-cryptography]
@@ -58,5 +57,5 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[`digest::Context`]: https://docs.rs/ring/*/ring/digest/struct.Context.html
-[`digest::Digest`]: https://docs.rs/ring/*/ring/digest/struct.Digest.html
+[`digest::Context`]: https://briansmith.org/rustdoc/ring/digest/struct.Context.html
+[`digest::Digest`]: https://briansmith.org/rustdoc/ring/digest/struct.Digest.html

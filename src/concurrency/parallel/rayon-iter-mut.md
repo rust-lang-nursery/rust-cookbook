@@ -1,11 +1,10 @@
-<a name="ex-rayon-iter-mut"></a>
 ## Mutate the elements of an array in parallel
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 
 The example uses the `rayon` crate, which is a data parallelism library for Rust.
 `rayon` provides the [`par_iter_mut`] method for any parallel iterable data type.
-It lets us write iterator-like chains that execute in parallel.
+This is an iterator-like chain that potentially executes in parallel.
 
 ```rust
 extern crate rayon;

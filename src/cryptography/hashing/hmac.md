@@ -1,4 +1,3 @@
-<a name="ex-hmac"></a>
 ## Sign and verify a message with HMAC digest
 
 [![ring-badge]][ring] [![cat-cryptography-badge]][cat-cryptography]
@@ -35,5 +34,5 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[`hmac::Signature`]: https://docs.rs/ring/v0.4/ring/hmac/struct.Signature.html
-[`ring::hmac`]: https://docs.rs/ring/v0.4/ring/hmac/
+[`hmac::Signature`]: https://briansmith.org/rustdoc/ring/hmac/struct.Signature.html
+[`ring::hmac`]: https://briansmith.org/rustdoc/ring/hmac/

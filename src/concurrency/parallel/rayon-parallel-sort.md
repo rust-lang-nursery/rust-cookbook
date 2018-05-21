@@ -1,19 +1,13 @@
-[ex-rayon-parallel-sort]: #ex-rayon-parallel-sort
-<a name="ex-rayon-parallel-sort"></a>
 ## Sort a vector in parallel
 
 [![rayon-badge]][rayon] [![rand-badge]][rand] [![cat-concurrency-badge]][cat-concurrency]
 
 This example will sort in parallel a vector of Strings.
 
-[1] We start by preallocating a vector of empty Strings, so we can mutate the information in parallel later,
-to populate the vector with random Strings.
-
-[2] `par_iter_mut().for_each` takes a closure and applies it in parallel on all the elements of the vector.<br/>
-[3] Inside the passed closure we modify the element in the vector with a 5 character-long String, random generated.
-
-[4] We have [multiple options] to sort an Iterable data type, we chose here to use [`par_sort_unstable`]
-because it is usually faster than [stable sorting] algorithms which `rayon` also supports.
+Allocate a vector of empty Strings. `par_iter_mut().for_each` populates random
+values in parallel.  Although [multiple options]
+exist to sort an enumerable data type, [`par_sort_unstable`]
+is usually faster than [stable sorting] algorithms.
 
 ```rust
 extern crate rand;

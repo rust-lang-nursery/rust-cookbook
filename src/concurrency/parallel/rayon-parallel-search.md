@@ -1,5 +1,3 @@
-[ex-rayon-parallel-search]: #ex-rayon-parallel-search
-<a name="ex-rayon-parallel-search"></a>
 ## Search items using given predicate in parallel
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
@@ -8,11 +6,11 @@ This example uses [`rayon::find_any`] and [`par_iter`] to search a vector in
 parallel for an element satisfying the predicate in the given closure.
 
 If there are multiple elements satisfying the predicate defined in the closure
-argument of [`rayon::find_any`], we are only guaranteed that one of them will be
-found, but not necessarily that the first will be found.
+argument of [`rayon::find_any`], `rayon` returns the first one found, not
+necessarily the first one.
 
 Also note that the argument to the closure is a reference to a reference
-(`&&x`). Please see the discussion on [`std::find`] for additional details.
+(`&&x`). See the discussion on [`std::find`] for additional details.
 
 ```rust
 extern crate rayon;

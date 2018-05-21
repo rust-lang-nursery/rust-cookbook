@@ -1,9 +1,10 @@
-[ex-semver-latest]: #ex-semver-latest
-<a name="ex-semver-latest"></a>
 ## Find the latest version satisfying given range
+
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]
 
-Given a list of version &strs, finds the latest [`semver::Version`] that satisfying a given [`semver::VersionReq`] using [`VersionReq::matches`].
+Given a list of version &strs, finds the latest [`semver::Version`].
+[`semver::VersionReq`] filters the list with [`VersionReq::matches`].
+Also demonstrates `semver` pre-release preferences.
 
 ```rust
 # #[macro_use]
@@ -40,7 +41,6 @@ fn run() -> Result<()> {
         Some(Version::parse("1.0.0")?)
     );
 
-    // Shows Semver precedence for pre-release tags
     assert_eq!(
         find_max_matching_version(
             ">1.2.3-alpha.3",

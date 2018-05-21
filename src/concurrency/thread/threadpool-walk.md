@@ -1,11 +1,12 @@
-[ex-threadpool-walk]: #ex-threadpool-walk
-<a name="ex-threadpool-walk"></a>
-
 ## Calculate SHA1 sum of iso files concurrently
 
 [![threadpool-badge]][threadpool] [![num_cpus-badge]][num_cpus] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
 
-This example calculates the SHA1 for every file present in the current directory. A threadpool is created using the number of cpus present in the system with [`num_cpus::get`]. Then every returned by [`Walkdir::new`] is passed into this pool to perform the operations of reading and computing SHA1. At the end the program waits for all jobs to finish. To get better results, compile this program in release mode.
+This example calculates the SHA1 for every file with iso extension in the
+current directory. A threadpool generates threads equal to the number of cores
+present in the system found with [`num_cpus::get`].  [`Walkdir::new`] iterates
+the current directory and calls [`execute`] to perform the operations of reading
+and computing SHA1 hash.
 
 ```rust,no_run
 # #[macro_use]
@@ -83,5 +84,6 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[`execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute
 [`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`Walkdir::new`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new

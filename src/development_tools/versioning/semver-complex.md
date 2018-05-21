@@ -1,5 +1,3 @@
-[ex-semver-complex]: #ex-semver-complex
-<a name="ex-semver-complex"></a>
 ## Parse a complex version string.
 
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]

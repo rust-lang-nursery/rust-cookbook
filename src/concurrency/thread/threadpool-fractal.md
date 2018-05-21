@@ -1,20 +1,20 @@
-[ex-threadpool-fractal]: #ex-threadpool-fractal
-<a name="ex-threadpool-fractal"></a>
 ## Draw fractal dispatching work to a thread pool
 
 [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
 
-This example draws a fractal from [Julia set] to an image utilizing a thread pool for computation.
+This example generates an image by drawing a fractal from the [Julia set]
+with a thread pool for distributed computation.
 
 <a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a>
 
-Firstly, the example allocates memory for output image of given width and height with [`ImageBuffer::new`]
-and pre-calculates all possible RGB pixel values using [`Rgb::from_channels`].
-Secondly, creates a new [`ThreadPool`] with thread count equal to number of
-logical cores in CPU obtained with [`num_cpus::get`].
-Subsequently, dispatches calculation to thread pool [`ThreadPool::execute`].
+Allocate memory for output image of given width and height with [`ImageBuffer::new`].
+[`Rgb::from_channels`] calculates RGB pixel values.
+Create [`ThreadPool`] with thread count equal to number of cores with [`num_cpus::get`].
+[`ThreadPool::execute`] receives each pixel as a separate job.
 
-Lastly, collects calculation results via [`mpsc::channel`] with [`Receiver::recv`], draws them with [`ImageBuffer::put_pixel`] and encodes the final image into `output.png` using [`ImageBuffer::save`].
+[`mpsc::channel`] receives the jobs and [`Receiver::recv`] retrieves them.
+[`ImageBuffer::put_pixel`] uses the data to set the pixel color.
+[`ImageBuffer::save`] writes the image to `output.png`.
 
 ```rust,no_run
 # #[macro_use]

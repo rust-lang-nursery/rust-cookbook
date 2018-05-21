@@ -1,4 +1,3 @@
-<a name="ex-lazy-constant"></a>
 ## Declare lazily evaluated constant
 
 [![lazy_static-badge]][lazy_static] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]

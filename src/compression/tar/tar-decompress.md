@@ -1,12 +1,11 @@
-[ex-tar-decompress]: #ex-tar-decompress
-<a name="ex-tar-decompress"></a>
 ## Decompress a tarball
 
 [![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
 Decompress ([`GzDecoder`]) and
 extract ([`Archive::unpack`]) all files from a compressed tarball
-named `archive.tar.gz` located in the current working directory.
+named `archive.tar.gz` located in the current working directory
+to the same location.
 
 ```rust,no_run
 # #[macro_use]

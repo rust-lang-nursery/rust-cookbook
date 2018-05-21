@@ -28,7 +28,7 @@
 [ex-serialize-csv]: encoding/csv.html#serialize-records-to-csv
 [ex-csv-serde]: encoding/csv.html#serialize-records-to-csv-using-serde
 [ex-csv-transform-column]: encoding/csv.html#transform-csv-column
-[ex-json-value]: complex.html#serialize-and-deserialize-unstructured-json
+[ex-json-value]: encoding/complex.html#serialize-and-deserialize-unstructured-json
 [ex-toml-config]: encoding/complex.html#deserialize-a-toml-configuration-file
 [ex-byteorder-le]: encoding/complex.html#read-and-write-integers-in-little-endian-byte-order
 

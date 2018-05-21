@@ -1,5 +1,3 @@
-[ex-cc-static-bundled-cpp]: #ex-cc-static-bundled-cpp
-<a name="ex-cc-static-bundled-cpp"></a>
 ## Compile and link statically to a bundled C++ library
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
@@ -56,3 +54,5 @@ fn main(){
     }   
 }
 ```
+
+[cc-build-cpp]: https://docs.rs/cc/*/cc/struct.Build.html#method.cpp

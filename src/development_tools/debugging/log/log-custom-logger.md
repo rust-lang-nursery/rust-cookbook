@@ -1,11 +1,10 @@
-<a name="ex-log-custom-logger"></a>
 ## Log messages with a custom logger
 
 [![log-badge]][log] [![cat-debugging-badge]][cat-debugging]
 
 Implements a custom logger `ConsoleLogger` which prints to stdout.
 In order to use the logging macros, `ConsoleLogger` implements
-the [`log::Log`] trait and has to be installed via [`log::set_logger`].
+the [`log::Log`] trait and [`log::set_logger`] installs it.
 
 ```rust
 # #[macro_use]

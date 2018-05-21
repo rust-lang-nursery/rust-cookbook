@@ -1,11 +1,11 @@
-[ex-semver-command]: #ex-semver-command
-<a name="ex-semver-command"></a>
 ## Check external command version for compatibility
+
 [![semver-badge]][semver] [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os]
 
-Runs `git --version` using [`Command`], then parses the version number into a [`semver::Version`]
-using [`Version::parse`]. A [`semver::VersionReq`] is used to compare the parsed version to a
-minimum version requirement.
+Runs `git --version` using [`Command`], then parses the version number into a
+[`semver::Version`] using [`Version::parse`]. [`VersionReq::matches`] compares
+[`semver::VersionReq`] to the parsed version.  The command output resembles
+"git version x.y.z".
 
 ```rust,no_run
 # #[macro_use]
@@ -34,7 +34,6 @@ fn run() -> Result<()> {
     }
 
     let stdout = String::from_utf8(output.stdout)?;
-    // `git --version` output: "git version x.y.z"
     let version = stdout.split(" ").last().ok_or_else(|| {
         "Invalid command output"
     })?;
@@ -55,3 +54,4 @@ fn run() -> Result<()> {
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html
 [`semver::VersionReq`]: https://docs.rs/semver/*/semver/struct.VersionReq.html
 [`Version::parse`]: https://docs.rs/semver/*/semver/struct.Version.html#method.parse
+[`VersionReq::matches`]: https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches

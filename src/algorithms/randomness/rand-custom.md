@@ -1,5 +1,3 @@
-[ex-rand-custom]: #ex-rand-custom
-<a name="ex-rand-custom"></a>
 ## Generate random values of a custom type
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]

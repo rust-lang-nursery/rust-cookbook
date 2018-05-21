@@ -1,12 +1,12 @@
-[ex-rayon-thumbnails]: #ex-rayon-thumbnails
-<a name="ex-rayon-thumbnails"></a>
 ## Generate jpg thumbnails in parallel
 
 [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency] [![cat-filesystem-badge]][cat-filesystem]
 
-This example generates thumbnails for all .jpg in the current directory and saves them in a new folder called `thumbnails`.
+This example generates thumbnails for all .jpg files in the current directory
+then saves them in a new folder called `thumbnails`.
 
-Files are found using [`glob::glob_with`] to match case insensitively on both `.jpg` and `.JPG`. `rayon` is then used to resize images in parallel using [`par_iter`] along with the `make_thumbnail()` helper function which internally uses [`DynamicImage::resize`].
+[`glob::glob_with`] finds jpeg files in current directory. `rayon` resizes
+images in parallel using [`par_iter`] calling  [`DynamicImage::resize`].
 
 ```rust,no_run
 # #[macro_use]

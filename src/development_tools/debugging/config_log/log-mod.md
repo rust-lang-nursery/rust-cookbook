@@ -1,4 +1,3 @@
-<a name="ex-log-mod"></a>
 ## Enable log levels per module
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
@@ -37,16 +36,16 @@ fn main() {
 }
 ```
 
-[`env_logger`][env_logger] output is controlled by [`RUST_LOG`] environmental
-variable on per module basis with comma separated entries in format `path::to::module=log_level`.
-Running the `test` application as follows:
+[`RUST_LOG`] environment variable controls [`env_logger`][env_logger] output.
+Module declarations take comma separated entries formatted like
+`path::to::module=log_level`. Run the `test` application as follows:
 
 ```bash
 RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test
 ```
 
-Sets the default [`log::Level`] to `warn`, module's `foo` and module's `foo::bar`
-respectively to `info` and `debug`. The output is:
+Sets the default [`log::Level`] to `warn`, module `foo` and module `foo::bar`
+to `info` and `debug`.
 
 ```bash
 WARN:test: [root] warn

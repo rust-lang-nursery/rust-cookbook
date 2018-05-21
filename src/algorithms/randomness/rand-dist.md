@@ -1,11 +1,8 @@
-[ex-rand-dist]: #ex-rand-dist
-<a name="ex-rand-dist"></a>
-
 ## Generate random numbers with given distribution
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-By default, random numbers are generated with [uniform distribution].
+By default, random numbers have [uniform distribution].
 To generate numbers with other distributions you instantiate a
 distribution, then sample from that distribution using
 [`IndependentSample::ind_sample`] with help of a random-number

@@ -1,18 +1,15 @@
-[ex-rayon-map-reduce]: #ex-rayon-map-reduce
-<a name="ex-rayon-map-reduce"></a>
 ## Map-reduce in parallel
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 
 This example uses [`rayon::filter`], [`rayon::map`], and [`rayon::reduce`]
-to calculate the conditional average age of a vector of `Person` objects.
+to calculate the average age of `Person` objects whose age is over 30.
 
-[`rayon::filter`] allows (in parallel) conditional inclusion of elements from
-a collection that satisfy the given predicate.  Similarly, [`rayon::map`] and
-[`rayon::reduce`] allow us to transform the filtered elements via a unary
-operation and reduce them to a single value via a given binary operation,
-respectively.  Also shows use of [`rayon::sum`], which has the same result as
-the reduce operation in this example.
+[`rayon::filter`] returns elements from a collection that satisfy the given
+predicate.  [`rayon::map`] performs an operation on every element, creating a
+new iteration, and [`rayon::reduce`] performs an operation given the previous
+reduction and the current element.  Also shows use of [`rayon::sum`],
+which has the same result as the reduce operation in this example.
 
 ```rust
 extern crate rayon;

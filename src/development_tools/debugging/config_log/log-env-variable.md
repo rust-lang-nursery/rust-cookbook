@@ -1,13 +1,12 @@
-<a name="ex-log-env-variable"></a>
 ## Use a custom environment variable to set up logging
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-Logging is configured with [`Builder`].
+[`Builder`] configures logging.
 
 [`Builder::parse`] parses `MY_APP_LOG`
-environmental variable contents in the form of [`RUST_LOG`] syntax.
-Then [`Builder::init`] initializes the logger.
+environment variable contents in the form of [`RUST_LOG`] syntax.
+Then, [`Builder::init`] initializes the logger.
 All these steps are normally done internally by [`env_logger::init`].
 
 ```rust

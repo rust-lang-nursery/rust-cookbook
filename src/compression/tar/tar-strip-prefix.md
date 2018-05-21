@@ -1,13 +1,9 @@
-[ex-tar-strip-prefix]: #ex-tar-strip-prefix
-<a name="ex-tar-strip-prefix"></a>
 ## Decompress a tarball while removing a prefix from the paths
 
 [![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
-Strip a path prefix from the entries of a tarball before unpacking them.
-
-We iterate over the [`Archive::entries`], using [`Path::strip_prefix`] to remove
-the specified path prefix (`bundle/logs`) before extracting the [`tar::Entry`]
+Iterate over the [`Archive::entries`].  Use [`Path::strip_prefix`] to remove
+the specified path prefix (`bundle/logs`).  Finally, extract the [`tar::Entry`]
 via [`Entry::unpack`].
 
 ```rust,no_run

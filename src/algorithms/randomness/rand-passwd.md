@@ -1,5 +1,3 @@
-[ex-rand-passwd]: #ex-rand-passwd
-<a name="ex-rand-passwd"></a>
 ## Create random passwords from a set of alphanumeric characters
 
 [![rand-badge]][rand] [![cat-os-badge]][cat-os]

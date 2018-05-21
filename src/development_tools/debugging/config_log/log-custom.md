@@ -1,14 +1,15 @@
-<a name="ex-log-custom"></a>
 ## Log messages to a custom location
 
 [![log-badge]][log] [![log4rs-badge]][log4rs] [![cat-debugging-badge]][cat-debugging]
 
-Configures log to be output into custom location with [log4rs]. [log4rs] can use either an external YAML file or a programmatically constructed configuration.
+[log4rs] configures log output to a custom location. [log4rs] can use either an
+external YAML file or a builder configuration.
 
-Firstly creates the log configuration with [`log4rs::append::file::FileAppender`]
-using a custom pattern from [`log4rs::encode::pattern`].
-
-Secondly assigns it to the [`log4rs::config::Config`] which has a root appender that uses the previously created `logfile` appender. Subsequently sets the default [`log::LevelFilter`] so that any logs with `Info` level or higher will be sent to the logger.
+Create the log configuration with [`log4rs::append::file::FileAppender`]. An
+appender defines the logging destination.  The configuration continues with
+encoding using a custom pattern from [`log4rs::encode::pattern`].
+Assigns the configuration to [`log4rs::config::Config`] and sets the default
+[`log::LevelFilter`].
 
 ```rust,no_run
 # #[macro_use]

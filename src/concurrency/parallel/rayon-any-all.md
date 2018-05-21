@@ -1,5 +1,3 @@
-[ex-rayon-any-all]: #ex-rayon-any-all
-<a name="ex-rayon-any-all"></a>
 ## Test in parallel if any or all elements of a collection match a given predicate
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]

@@ -1,13 +1,13 @@
-<a name="ex-log-syslog"></a>
 ## Log to the Unix syslog
 
 [![log-badge]][log] [![syslog-badge]][syslog] [![cat-debugging-badge]][cat-debugging]
 
 Logs messages to [UNIX syslog]. Initializes logger backend
-with [`syslog::init`]. [`syslog::Facility`] indicates type of program submitting log, [`log::LevelFilter`] denotes allowed log verbosity
+with [`syslog::init`]. [`syslog::Facility`] records the program submitting
+the log entry's classification, [`log::LevelFilter`] denotes allowed log verbosity
 and `Option<&str>` holds optional application name.
 
-```rust,no_run
+```rust
 # #![allow(unused_imports)]
 # #[macro_use]
 # extern crate error_chain;

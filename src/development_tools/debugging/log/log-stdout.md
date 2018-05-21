@@ -1,4 +1,3 @@
-<a name="ex-log-stdout"></a>
 ## Log to stdout instead of stderr
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
@@ -10,7 +9,7 @@ Creates a custom logger configuration using the [`Builder::target`] to set the t
 extern crate log;
 extern crate env_logger;
 
-use env_logger::{LogBuilder, LogTarget};
+use env_logger::{Builder, Target};
 
 fn main() {
     Builder::new()

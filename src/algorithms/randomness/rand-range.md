@@ -18,7 +18,7 @@ fn main() {
 }
 ```
 
-Alternatively, one can use [`Range`] to obtain values with [uniform distribution].
+[`Range`] can obtain values with [uniform distribution].
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.
 
@@ -41,6 +41,6 @@ fn main() {
 }
 ```
 
-[`Range`]: https://doc.rust-lang.org/rand/rand/distributions/range/struct.Range.html
-[`Rng::gen_range`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html#method.gen_range
+[`Range`]: https://doc.rust-lang.org/rand/*/rand/distributions/range/struct.Range.html
+[`Rng::gen_range`]: https://doc.rust-lang.org/rand/*/rand/trait.Rng.html#method.gen_range
 [uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)

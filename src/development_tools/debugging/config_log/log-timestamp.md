@@ -1,4 +1,3 @@
-<a name="ex-log-timestamp"></a>
 ## Include timestamp in log messages
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] [![cat-debugging-badge]][cat-debugging]
@@ -19,18 +18,19 @@ use std::env;
 use std::io::Write;
 use chrono::Local;
 use env_logger::Builder;
+use log::LevelFilter;
 
 fn main() {
     Builder::new()
         .format(|buf, record| {
-            write!(buf,
+            writeln!(buf,
                 "{} [{}] - {}",
                 Local::now().format("%Y-%m-%dT%H:%M:%S"),
                 record.level(),
                 record.args()
             )
         })
-        .parse(&env::var("MY_APP_LOG").unwrap_or_default())
+        .filter(None, LevelFilter::Info)
         .init();
 
     warn!("warn");
@@ -38,7 +38,7 @@ fn main() {
     debug!("debug");
 }
 ```
-Calling `MY_APP_LOG="info" cargo run` will result in similar output:
+stderr output will contain
 ```
 2017-05-22T21:57:06 [WARN] - warn
 2017-05-22T21:57:06 [INFO] - info

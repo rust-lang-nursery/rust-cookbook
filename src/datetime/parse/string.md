@@ -1,4 +1,5 @@
 ## Parse string into DateTime struct
+
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
 Parses a [`DateTime`] struct from strings representing the well-known formats
@@ -52,9 +53,12 @@ fn run() -> Result<()> {
 
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
 [`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
+[`DateTime::parse_from_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc2822
+[`DateTime::parse_from_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc3339
 [`DateTime::parse_from_str`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_str
 [`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
 [`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
+[`DateTime`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html
 [`NaiveDate`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html
 [`NaiveDateTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html
 [`NaiveTime`]: https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html
