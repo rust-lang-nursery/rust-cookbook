@@ -32,12 +32,17 @@ if [[ "${CONTENT_TESTS:-}" == 1 ]]; then
     ./ci/spellcheck.sh list
 
     if [[ "${CONTENT_TESTS_LINKS:-}" == 1 ]]; then
-        if [ $(program_installed htmlproofer) == 0 ]; then
-            echo "Please install htmlproofer: gem install html-proofer"
+        if [ $(program_installed link-checker) == 0 ]; then
+            echo "Please install link-checker: 'pip install link-checker'"
             exit 1
         fi
-        echo "Checking links"
-        htmlproofer --empty-alt-ignore ./book/
+        echo "Checking local links:"
+        # failing local link test  is a hard error as there should be no false possitives
+        link-checker --no-external ./book/
+
+        echo "Checking external links:"
+        # we do not want to fail on false positives
+        link-checker --no-local ./book/ --ignore '.*api.github.com*.' || true
     fi
 else
     echo "Testing code snippets"
