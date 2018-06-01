@@ -162,17 +162,17 @@ after the code sample.
 > By default, random numbers are generated with [uniform distribution].
 > To generate numbers with other distributions you instantiate a
 > distribution, then sample from that distribution using
-> [`IndependentSample::ind_sample`] with help of a random-number
+> [`Distribution::sample`] with help of a random-number
 > generator [`rand::Rng`].
 > 
 > The [distributions available are documented here][rand-distributions]. 
 > An example using the [`Normal`] distribution is shown below.
 
 [uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)
-[`IndependentSample::ind_sample`]: https://doc.rust-lang.org/rand/rand/distributions/trait.IndependentSample.html#tymethod.ind_sample
-[`rand::Rng`]: https://doc.rust-lang.org/rand/rand/trait.Rng.html
-[rand-distributions]: https://doc.rust-lang.org/rand/rand/distributions/index.html
-[`Normal`]: https://doc.rust-lang.org/rand/rand/distributions/normal/struct.Normal.html
+[`Distribution::sample`]: https://docs.rs/rand/*/rand/distributions/trait.Distribution.html#tymethod.sample
+[`rand::Rng`]: https://docs.rs/rand/*/rand/trait.Rng.html
+[rand-distributions]: https://docs.rs/rand/*/rand/distributions/index.html
+[`Normal`]: https://docs.rs/rand/*/rand/distributions/struct.Normal.html
 
 #### Code
 
@@ -207,12 +207,12 @@ explanation in the description.
 > ```rust
 > extern crate rand;
 > 
-> use rand::distributions::{Normal, IndependentSample};
+> use rand::distributions::{Normal, Distribution};
 > 
 > fn main() {
 >    let mut rng = rand::thread_rng();
 >    let normal = Normal::new(2.0, 3.0);
->    let v = normal.ind_sample(&mut rng);
+>    let v = normal.sample(&mut rng);
 >    println!("{} is from a N(2, 9) distribution", v)
 > }
 > ```
