@@ -8,7 +8,7 @@ For example, a loop could be created on a Unix system via symlinks:
 mkdir -p /tmp/foo/bar/baz
 ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 ```
-Then, running the following would assert that there exists a loop.
+The following would assert that a loop exists.
 
 ```rust,no_run
 extern crate same_file;

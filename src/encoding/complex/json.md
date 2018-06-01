@@ -1,19 +1,14 @@
-[ex-json-value]: #ex-json-value
-<a name="ex-json-value"></a>
 ## Serialize and deserialize unstructured JSON
 
 [![serde-json-badge]][serde-json] [![cat-encoding-badge]][cat-encoding]
 
 The [`serde_json`] crate provides a [`from_str`] function to parse a `&str` of
-JSON into a type of the caller's choice.
+JSON.
 
 Unstructured JSON can be parsed into a universal [`serde_json::Value`] type that
 is able to represent any valid JSON data.
 
-
-The example below shows a `&str` of JSON being parsed and then compared to what
-we expect the parsed value to be. The expected value is declared using the
-[`json!`] macro.
+The example below shows a `&str` of JSON being parsed.  The expected value is declared using the [`json!`] macro.
 
 ```rust
 # #[macro_use]

@@ -1,5 +1,3 @@
-[ex-percent-encode]: #ex-percent-encode
-<a name="ex-percent-encode"></a>
 ## Percent-encode a string
 
 [![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
@@ -40,10 +38,12 @@ fn run() -> Result<()> {
 
 The encode set defines which bytes (in addition to non-ASCII and controls) need
 to be percent-encoded. The choice of this set depends on context. For example,
-`?` needs to be encoded in a URL path but not in a query string.
+`url` encodes `?` in a URL path but not in a query string.
 
-The return value of encoding is an iterator of `&str` slices which can be
-collected into a `String`.
+The return value of encoding is an iterator of `&str` slices which collect into
+a `String`.
 
 [`percent_decode`]: https://docs.rs/url/*/url/percent_encoding/fn.percent_decode.html
 [`utf8_percent_encode`]: https://docs.rs/url/*/url/percent_encoding/fn.utf8_percent_encode.html
+
+[percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding

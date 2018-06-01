@@ -3,9 +3,8 @@
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
 Reads standard CSV records into [`csv::StringRecord`] — a weakly typed
-data representation. It expects to read valid UTF-8 rows. On the
-other hand, if invalid UTF-8 data has to be read, then prefer using
-[`csv::ByteRecord`], since it makes no assumptions about UTF-8.
+data representation which expects valid UTF-8 rows. Alternatively,
+[`csv::ByteRecord`] makes no assumptions about UTF-8.
 
 ```rust
 extern crate csv;
@@ -41,8 +40,7 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-This is like the previous example, however Serde is used to
-deserialize data into strongly type structures. See the
+Serde deserializes data into strongly type structures. See the
 [`csv::Reader::deserialize`] method.
 
 ```rust

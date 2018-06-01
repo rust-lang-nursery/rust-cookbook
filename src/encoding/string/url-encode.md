@@ -1,5 +1,3 @@
-[ex-urlencoded]: #ex-urlencoded
-<a name="ex-urlencoded"></a>
 ## Encode a string as application/x-www-form-urlencoded
 
 [![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
@@ -7,7 +5,7 @@
 Encodes a string into [application/x-www-form-urlencoded] syntax
 using the [`form_urlencoded::byte_serialize`] and subsequently
 decodes it with [`form_urlencoded::parse`]. Both functions return iterators
-that can be collected into a `String`.
+that collect into a `String`.
 
 ```rust
 extern crate url;

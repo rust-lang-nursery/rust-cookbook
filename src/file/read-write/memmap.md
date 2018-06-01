@@ -4,11 +4,11 @@
 
 Creates a memory map of a file using [memmap] and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
-than dealing with [`seek`]ing around in a File.
+than dealing with [`seek`] to navigate a File.
 
-The [`Mmap::map`] function is only safe if we can guarantee that the file
-behind the memory map is not being modified at the same time by another process,
-as this would be a [race condition].
+The [`Mmap::map`] function assumes the file
+behind the memory map is not being modified at the same time by another process
+or else a [race condition] occurs.
 
 ```rust
 # #[macro_use]

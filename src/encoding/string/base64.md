@@ -2,8 +2,8 @@
 
 [![base64-badge]][base64] [![cat-encoding-badge]][cat-encoding]
 
-Encodes byte slice into `base64` String with help of [`encode`]
-and subsequently decodes it with [`decode`].
+Encodes byte slice into `base64` String using [`encode`]
+and decodes it with [`decode`].
 
 ```rust
 # #[macro_use]

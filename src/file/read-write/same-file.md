@@ -5,14 +5,6 @@
 Use [`same_file::Handle`] to a file that can be tested for equality with
 other handles. In this example, the handles of file to be read from and
 to be written to are tested for equality.
-```bash
-cargo run
-```
-will display the contents of the file if the two files are not same and
-```bash
-cargo run >> ./new.txt
-```
-will display the error (because the two files are same).
 
 ```rust,no_run
 # #[macro_use]
@@ -51,5 +43,15 @@ fn run() -> Result<()> {
 #
 # quick_main!(run);
 ```
+
+```bash
+cargo run
+```
+displays the contents of the file new.txt.
+
+```bash
+cargo run >> ./new.txt
+```
+errors because the two files are same.
 
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html

@@ -2,7 +2,7 @@
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
-Reads CSV records with [`delimiter`] other than ','
+Reads CSV records with a tab [`delimiter`].
 
 ```rust
 # #[macro_use]
@@ -28,11 +28,12 @@ use csv::ReaderBuilder;
 # }
 
 fn run() -> Result<()> {
-    let data = "name-place-id
-Mark-Melbourne-46
-Ashley-Zurich-92";
+    let data = \
+"name	place	id
+Mark	Melbourne	46
+Ashley	Zurich	92";
 
-    let mut reader = ReaderBuilder::new().delimiter(b'-').from_reader(data.as_bytes());
+    let mut reader = ReaderBuilder::new().delimiter(b'	').from_reader(data.as_bytes());
     for result in reader.records() {
         println!("{:?}", result?);
     }

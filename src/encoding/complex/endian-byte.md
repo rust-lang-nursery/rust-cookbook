@@ -2,6 +2,10 @@
 
 [![byteorder-badge]][byteorder] [![cat-encoding-badge]][cat-encoding]
 
+`byteorder` can reverse the significant bytes of structured data.  This may
+be necessary when receiving information over the network, such that bytes
+received are from another system.
+
 ```rust
 # #[macro_use]
 # extern crate error_chain;

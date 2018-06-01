@@ -1,14 +1,14 @@
-## File names that have been modified in the last 24 hours for the working directory
+## File names that have been modified in the last 24 hours
 
 [![std-badge]][std] [![cat-filesystem-badge]][cat-filesystem]
 
 Gets the current working directory by calling [`env::current_dir`],
 then for each entries in [`fs::read_dir`], extracts the
 [`DirEntry::path`] and gets the metada via [`fs::Metadata`]. The
-[`Metadata::modified`] returns the [`SystemTime::elapsed`] time ince
-last modification of the entry. It's converted into seconds with
-[`Duration::as_secs`] and compared with 24 hours (24 * 60 * 60
-seconds). [`Metadata::is_file`] is used to filter out directories.
+[`Metadata::modified`] returns the [`SystemTime::elapsed`] time since
+last modification. [`Duration::as_secs`] converts the time to seconds and
+compared with 24 hours (24 * 60 * 60 seconds). [`Metadata::is_file`] filters
+out directories.
 
 ```rust
 # #[macro_use]

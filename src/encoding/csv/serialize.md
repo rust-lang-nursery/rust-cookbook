@@ -3,9 +3,9 @@
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
 This example shows how to serialize a Rust tuple. [`csv::writer`] supports automatic
-serialization from Rust types into CSV records. [`write_record`] is used when writing
-a simple record that contains string-like data only, [`serialize`] is used when data
-consists of more complex values like numbers, floats or optional values. Since CSV
+serialization from Rust types into CSV records. [`write_record`] writes
+a simple record containing string data only. Data with more complex values
+such as numbers, floats, and options use [`serialize`]. Since CSV
 writer uses internal buffer, always explicitly [`flush`] when done.
 
 ```rust

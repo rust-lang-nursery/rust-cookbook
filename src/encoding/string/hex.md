@@ -1,5 +1,3 @@
-[ex-hex-encode-decode]: #ex-hex-encode-decode
-<a name="ex-hex-encode-decode"></a>
 ## Encode and decode hex
 
 [![data-encoding-badge]][data-encoding] [![cat-encoding-badge]][cat-encoding]
@@ -11,10 +9,8 @@ representation of the data.
 Similarly, a `HEXUPPER::decode` method is provided which takes a `&[u8]` and
 returns a `Vec<u8>` if the input data is successfully decoded.
 
-The example below shows a `&[u8]` of data being converted to its hexadecimal
-representation and then being compared to its expected value. The returned
-hex `String` is then converted back to its original representation and is
-compared to the original value provided.
+The example below coverts `&[u8]` data to hexadecimal equivalent.  Compares this
+value to the expected value.
 
 ```rust
 # #[macro_use]
@@ -46,4 +42,4 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[`data_encoding`]: https://github.com/ia0/data-encoding
+[`data_encoding`]: https://docs.rs/data-encoding/*/data_encoding/

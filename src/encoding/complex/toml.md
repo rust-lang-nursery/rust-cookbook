@@ -1,5 +1,3 @@
-[ex-toml-config]: #ex-toml-config
-<a name="ex-toml-config"></a>
 ## Deserialize a TOML configuration file
 
 [![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
@@ -43,9 +41,7 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-Parse TOML into your own structs using Serde:
-
-[![serde-json-badge]][serde-json] [![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
+Parse TOML into your own structs using [Serde].
 
 ```rust
 # #[macro_use]

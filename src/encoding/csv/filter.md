@@ -2,7 +2,6 @@
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
-
 Returns _only_ the rows from `data` with a field that matches `query`.
 
 ```rust
@@ -15,7 +14,7 @@ use std::io;
 # error_chain!{
 #     foreign_links {
 #         Io(std::io::Error);
-#         CsvError(csv::Error); // or just Seek(csv::Error)
+#         CsvError(csv::Error);
 #     }
 # }
 
