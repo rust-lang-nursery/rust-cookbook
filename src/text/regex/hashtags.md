@@ -2,9 +2,10 @@
 
 [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
 
-Extracts a sorted and deduplicated list of hashtags from a text.
+Extracts, sorts, and deduplicates list of hashtags from text.
 
-The hashtag regex given here only catches Latin hashtags that start with a letter. The complete [twitter hashtag regex] is much more complicated.
+The hashtag regex given here only catches Latin hashtags that start with a
+letter. The complete [twitter hashtag regex] is much more complicated.
 
 ```rust
 extern crate regex;
@@ -14,7 +15,6 @@ extern crate lazy_static;
 use regex::Regex;
 use std::collections::HashSet;
 
-/// Note: A HashSet does not contain duplicate values.
 fn extract_hashtags(text: &str) -> HashSet<&str> {
     lazy_static! {
         static ref HASHTAG_REGEX : Regex = Regex::new(

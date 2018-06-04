@@ -3,7 +3,8 @@
 [![std-badge]][std] [![cat-net-badge]][cat-net]
 
 In this example, the port is displayed on the console, and the program will
-listen until a request is made.
+listen until a request is made.  `SocketAddrV4` assigns a random port when
+setting port to 0.
 
 ```rust,no_run
 # #[macro_use]
@@ -20,7 +21,6 @@ use std::io::Read;
 
 fn run() -> Result<()> {
     let loopback = Ipv4Addr::new(127, 0, 0, 1);
-    // Assigning port 0 requests the OS to assign a free port
     let socket = SocketAddrV4::new(loopback, 0);
     let listener = TcpListener::bind(socket)?;
     let port = listener.local_addr()?;
@@ -28,7 +28,6 @@ fn run() -> Result<()> {
     let (mut tcp_stream, addr) = listener.accept()?; //block  until requested
     println!("Connection received! {:?} is sending data.", addr);
     let mut input = String::new();
-    // read from the socket until connection closed by client, discard byte count.
     let _ = tcp_stream.read_to_string(&mut input)?;
     println!("{:?} says {}", addr, input);
     Ok(())

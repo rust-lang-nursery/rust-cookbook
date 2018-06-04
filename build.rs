@@ -1,9 +1,10 @@
 extern crate skeptic;
+extern crate walkdir;
 
-use std::fs;
+use walkdir::WalkDir;
 
 fn main() {
-    let paths = fs::read_dir("./src/").unwrap()
+    let paths = WalkDir::new("./src/").into_iter()
         // convert paths to Strings
         .map(|p| p.unwrap().path().to_str().unwrap().to_string())
         // only compile markdown files

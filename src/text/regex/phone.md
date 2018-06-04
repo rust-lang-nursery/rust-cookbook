@@ -26,7 +26,6 @@ struct PhoneNumber<'a> {
     subscriber: &'a str,
 }
 
-// Allows printing phone numbers based on country convention.
 impl<'a> fmt::Display for PhoneNumber<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "1 ({}) {}-{}", self.area, self.exchange, self.subscriber)
@@ -53,8 +52,6 @@ fn run() -> Result<()> {
     )?;
 
     let phone_numbers = re.captures_iter(phone_text).filter_map(|cap| {
-        // Area code populates either capture group 2 or 3.
-        // Group 1 contains optional parenthesis.
         let groups = (cap.get(2).or(cap.get(3)), cap.get(4), cap.get(5));
         match groups {
             (Some(area), Some(ext), Some(sub)) => Some(PhoneNumber {
@@ -85,4 +82,4 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
+[`Regex::captures_iter`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter

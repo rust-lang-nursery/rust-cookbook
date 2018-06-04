@@ -3,12 +3,13 @@
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
 Randomly generates a tuple `(i32, bool, f64)` and variable of user defined type `Point`.
-Implements the [`rand::Rand`] trait for `Point` in order to allow random generation.
+Implements the [`Distribution`] trait on type Point for [`Standard`] in order to allow random generation.
 
 ```rust
 extern crate rand;
 
-use rand::{Rng, Rand};
+use rand::Rng;
+use rand::distributions::{Distribution, Standard};
 
 #[derive(Debug)]
 struct Point {
@@ -16,8 +17,8 @@ struct Point {
     y: i32,
 }
 
-impl Rand for Point {
-    fn rand<R: Rng>(rng: &mut R) -> Point {
+impl Distribution<Point> for Standard {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Point {
         let (rand_x, rand_y) = rng.gen();
         Point {
             x: rand_x,
@@ -35,4 +36,5 @@ fn main() {
 }
 ```
 
-[`rand::Rand`]: https://doc.rust-lang.org/rand/0.4/rand/trait.Rand.html
+[`Distribution`]: https://docs.rs/rand/*/rand/distributions/trait.Distribution.html
+[`Standard`]: https://docs.rs/rand/*/rand/distributions/struct.Standard.html

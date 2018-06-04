@@ -1,5 +1,3 @@
-[ex-rand-range]: #ex-rand-range
-<a name="ex-rand-range"></a>
 ## Generate random numbers within a range
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
@@ -25,14 +23,14 @@ in the same range.
 ```rust
 extern crate rand;
 
-use rand::distributions::{Range, IndependentSample};
+use rand::distributions::{Range, Distribution};
 
 fn main() {
     let mut rng = rand::thread_rng();
     let die = Range::new(1, 7);
 
     loop {
-        let throw = die.ind_sample(&mut rng);
+        let throw = die.sample(&mut rng);
         println!("Roll the die: {}", throw);
         if throw == 6 {
             break;

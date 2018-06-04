@@ -4,11 +4,10 @@
 
 Spawns a child process and redirects `stdout` and `stderr` to the same
 file. It follows the same idea as [run piped external
-commands](#ex-run-piped-external-commands), however [`process::Stdio`]
-will write to the provided files and beforehand, [`File::try_clone`]
-is used to reference the same file handle for `stdout` and
-`stderr`. It will ensure that both handles write with the same cursor
-position.
+commands](#run-piped-external-commands), however [`process::Stdio`]
+writes to a specified file.  [`File::try_clone`] references the same file handle
+for `stdout` and `stderr`. It will ensure that both handles write with the same
+cursor position.
 
 The below recipe is equivalent to run the Unix shell command `ls
 . oops >out.txt 2>&1`.

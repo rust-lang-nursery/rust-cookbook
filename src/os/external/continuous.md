@@ -2,9 +2,9 @@
 
 [![std-badge]][std] [![cat-os-badge]][cat-os]
 
-In [Run an external command and process stdout](#ex-parse-subprocess-output),
+In [Run an external command and process stdout](#run-an-external-command-and-process-stdout),
 processing doesn't start until external [`Command`] is finished.
-The recipe below creates a new pipe by calling [`Stdio::piped`] and reads
+The recipe below calls [`Stdio::piped`] to create a pipe, and reads
 `stdout` continuously as soon as the [`BufReader`] is updated.
 
 The below recipe is equivalent to the Unix shell command

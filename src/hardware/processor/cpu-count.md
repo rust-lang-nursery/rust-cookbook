@@ -2,7 +2,7 @@
 
 [![num_cpus-badge]][num_cpus] [![cat-hardware-support-badge]][cat-hardware-support]
 
-Shows the number of logical cpu cores in current machine using [`num_cpus::get`].
+Shows the number of logical CPU cores in current machine using [`num_cpus::get`].
 
 ```rust
 extern crate num_cpus;

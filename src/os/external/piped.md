@@ -3,12 +3,11 @@
 [![std-badge]][std] [![cat-os-badge]][cat-os]
 
 Shows up to the 10<sup>th</sup> biggest files and subdirectories in
-the current working directory. It is equivalent to run: `du -ah . |
+the current working directory. It is equivalent to running: `du -ah . |
 sort -hr | head -n 10`.
 
-It spawns Unix processes which are represented as [`Command`]s. In
-order to capture the output of a child process it is necessary to
-create a new [`Stdio::piped`] between parent and child.
+[`Command`]s represent a process. Output of a child process is captured with a
+[`Stdio::piped`] between parent and child.
 
 ```rust,no_run
 # #[macro_use]

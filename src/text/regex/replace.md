@@ -3,13 +3,13 @@
 [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
 
 Replaces all occurrences of the standard ISO 8601 *YYYY-MM-DD* date pattern
-with the equivalent American English date with slashes; for example `2013-01-15` becomes `01/15/2013`.
+with the equivalent American English date with slashes.
+For example `2013-01-15` becomes `01/15/2013`.
 
-The method [`Regex::replace_all`] replaces all occurrences of the whole regex. The
-`Replacer` trait helps to figure out the replacement string. This trait is implemented
-for `&str` and allows to use variables like `$abcde` to refer to corresponding named capture groups
-`(?P<abcde>REGEX)` from the search regex. See the [replacement string syntax] for examples
-and information about escaping.
+The method [`Regex::replace_all`] replaces all occurrences of the whole regex.
+`&str` implements the `Replacer` trait which allows variables like `$abcde` to
+refer to corresponding named capture groups `(?P<abcde>REGEX)` from the search
+regex. See the [replacement string syntax] for examples and escaping detail.
 
 ```rust
 extern crate regex;

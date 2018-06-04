@@ -23,4 +23,4 @@ fn main() {
 }
 ```
 
-[`choose`]: https://docs.rs/rand/0.4/rand/trait.Rng.html#method.choose
+[`choose`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.choose

@@ -3,7 +3,9 @@
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] [![cat-debugging-badge]][cat-debugging]
 
 Creates a custom logger configuration with [`Builder`].
-Each log entry calls [`Local::now`] to get the current [`DateTime`] in local timezone and uses [`DateTime::format`] with [`strftime::specifiers`] to format a timestamp used in the final log.
+Each log entry calls [`Local::now`] to get the current [`DateTime`] in local
+timezone and uses [`DateTime::format`] with [`strftime::specifiers`] to format
+a timestamp used in the final log.
 
 The example calls [`Builder::format`] to set a closure which formats each
 message text with timestamp, [`Record::level`] and body ([`Record::args`]).
@@ -14,7 +16,6 @@ extern crate log;
 extern crate chrono;
 extern crate env_logger;
 
-use std::env;
 use std::io::Write;
 use chrono::Local;
 use env_logger::Builder;

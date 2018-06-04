@@ -2,8 +2,8 @@
 
 [![std-badge]][std] [![cat-os-badge]][cat-os]
 
-Opens the `python` interpreter using an external [`Command`] and passes it a python statement
-for execution. [`Output`] of said statement is then parsed.
+Opens the `python` interpreter using an external [`Command`] and passes it a
+python statement for execution. [`Output`] of statement is then parsed.
 
 ```rust,no_run
 # #[macro_use]

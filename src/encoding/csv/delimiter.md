@@ -28,12 +28,11 @@ use csv::ReaderBuilder;
 # }
 
 fn run() -> Result<()> {
-    let data = \
-"name	place	id
-Mark	Melbourne	46
-Ashley	Zurich	92";
+    let data = "name\tplace\tid
+Mark\tMelbourne\t46
+Ashley\tZurich\t92";
 
-    let mut reader = ReaderBuilder::new().delimiter(b'	').from_reader(data.as_bytes());
+    let mut reader = ReaderBuilder::new().delimiter(b'\t').from_reader(data.as_bytes());
     for result in reader.records() {
         println!("{:?}", result?);
     }
