@@ -2,9 +2,11 @@
 
 [![reqwest-badge]][reqwest] [![select-badge]][select] [![cat-net-badge]][cat-net]
 
-Use [`reqwest::get`] to perform a HTTP GET request and then use [`Document::from_read`] to parse the response into a HTML document.
-We can then retrieve all the links from the document by using [`find`] with the criteria of the [`Name`] being "a".
-This returns a [`Selection`] that we [`filter_map`] on to retrieve the urls from links that have the "href" [`attr`].
+Use [`reqwest::get`] to perform a HTTP GET request and then use
+[`Document::from_read`] to parse the response into a HTML document.
+[`find`] with the criteria of [`Name`] is "a" retrieves all links.
+Call [`filter_map`] on the [`Selection`] retrieves URLs
+from links that have the "href" [`attr`] (attribute).
 
 ```rust,no_run
 # #[macro_use]

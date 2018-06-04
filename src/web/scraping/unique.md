@@ -68,7 +68,7 @@ fn run() -> Result<()> {
 
 [`Cow`]: https://doc.rust-lang.org/std/borrow/enum.Cow.html
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
-[`Regex::captures_iter`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html#method.captures_iter
+[`Regex::captures_iter`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links

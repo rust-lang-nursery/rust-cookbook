@@ -12,17 +12,17 @@ use rayon::prelude::*;
 fn main() {
     let mut vec = vec![2, 4, 6, 8];
 
-    assert!(!vec.par_iter().any(|n| (*n % 2) != 0)); // None are odd.
-    assert!(vec.par_iter().all(|n| (*n % 2) == 0)); // All are even.
-    assert!(!vec.par_iter().any(|n| *n > 8 )); // None are greater than 8.
-    assert!(vec.par_iter().all(|n| *n <= 8 )); // All are less than or equal to 8.
+    assert!(!vec.par_iter().any(|n| (*n % 2) != 0));
+    assert!(vec.par_iter().all(|n| (*n % 2) == 0));
+    assert!(!vec.par_iter().any(|n| *n > 8 ));
+    assert!(vec.par_iter().all(|n| *n <= 8 ));
 
     vec.push(9);
 
-    assert!(vec.par_iter().any(|n| (*n % 2) != 0)); // At least 1 is odd.
-    assert!(!vec.par_iter().all(|n| (*n % 2) == 0)); // Not all are even.
-    assert!(vec.par_iter().any(|n| *n > 8 )); // At least 1 is greater than 8.
-    assert!(!vec.par_iter().all(|n| *n <= 8 )); // Not all are less than or equal to 8.
+    assert!(vec.par_iter().any(|n| (*n % 2) != 0));
+    assert!(!vec.par_iter().all(|n| (*n % 2) == 0));
+    assert!(vec.par_iter().any(|n| *n > 8 ));
+    assert!(!vec.par_iter().all(|n| *n <= 8 )); 
 }
 ```
 

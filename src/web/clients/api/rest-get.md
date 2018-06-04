@@ -16,7 +16,6 @@ extern crate reqwest;
 struct User {
     login: String,
     id: u32,
-    // remaining fields not deserialized for brevity
 }
 #
 # error_chain! {

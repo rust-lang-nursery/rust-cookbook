@@ -51,9 +51,9 @@ cargo test
 
 This project is intended to be simple to contribute to, and to always
 have obvious next work items available. If at any time there is not
-something obvious to contribute, that is a bug. Please ask for
-assistance on the [libz blitz] thread, or email Brian Anderson
-directly (banderson@mozilla.com).
+something obvious to contribute, that is a bug. Feel free to ask for
+additional support at the
+[Rust Ecosystem Working Group](https://gitter.im/rust-lang/WG-ecosystem).
 
 The development process for the cookbook is presently oriented around
 crates: we decide which crates to represent in the cookbook, then come
@@ -146,16 +146,18 @@ something a typical Rust user typically wants to do.
 #### Description
 
 Describe traits imported and the methods used. Think about what information
-supports the use case and might not be obvious to someone new. Keep the 
-description to 1-4 sentences, avoiding explanations outside the scope of the 
+supports the use case and might not be obvious to someone new. Keep the
+description to 1-4 sentences, avoiding explanations outside the scope of the
 code sample.
 
-Use third person narative of the code execution, taking the opportunity
-to link to API documentation.  Hyperlink all references to APIs, either 
+Use third person narrative of the code execution, taking the opportunity
+to link to API documentation.  Always use
+[active voice](https://www.plainlanguage.gov/guidelines/conversational/use-active-voice/).
+Hyperlink all references to APIs, either
 on doc.rust-lang.org/std or docs.rs, and style them as `code`.  Use
 wildcard version specifiers for crate links.
 
-Any requirements to execute the code that are not apparent, such as 
+Any requirements to execute the code that are not apparent, such as
 passing environment flags, or configuring `Cargo.toml` should be added
 after the code sample.
 
@@ -164,8 +166,8 @@ after the code sample.
 > distribution, then sample from that distribution using
 > [`Distribution::sample`] with help of a random-number
 > generator [`rand::Rng`].
-> 
-> The [distributions available are documented here][rand-distributions]. 
+>
+> The [distributions available are documented here][rand-distributions].
 > An example using the [`Normal`] distribution is shown below.
 
 [uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)
@@ -190,11 +192,11 @@ error handling correctly and propagate errors with `?` (not `try!`, `urwrap`, or
 `expect`). If there is no need for error handling in the example, prefer `main()`.
 
 Avoid glob imports (`*`), even for preludes, so that users can see what
-traits are called. (Some crates might consider using glob imports for preludes 
+traits are called. (Some crates might consider using glob imports for preludes
 best practice, making this awkward.)
 
 Examples should be simple and obvious enough that an experienced dev
-do not need comments. 
+do not need comments.
 
 Examples should compile without warnings, clippy lint warnings, or panics.
 The code should be formatted by rustfmt.  Hide all error boilerplate and
@@ -206,9 +208,9 @@ explanation in the description.
 
 > ```rust
 > extern crate rand;
-> 
+>
 > use rand::distributions::{Normal, Distribution};
-> 
+>
 > fn main() {
 >    let mut rng = rand::thread_rng();
 >    let normal = Normal::new(2.0, 3.0);

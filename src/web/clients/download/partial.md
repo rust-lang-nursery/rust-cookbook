@@ -2,12 +2,12 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-Uses [`reqwest::Client::head`] to get the content-length and validate if the server sets the header
-[`reqwest::header::ContentRange`], required to confirm the support of partial downloads.
+Uses [`reqwest::Client::head`] to get the content-length and validates the
+server setting the header [`reqwest::header::ContentRange`].
 
-If supported, downloads the content using [`reqwest::get`], setting the [`reqwest::header::Range`]
-to do partial downloads printing basic progress messages.
- in chunks of 10240 bytes
+If supported, downloads the content using [`reqwest::get`] by setting the
+[`reqwest::header::Range`] to do partial downloads printing basic progress
+messages in chunks of 10240 bytes.
 
 Range header is defined in [RFC7233][HTTP Range RFC7233].
 
@@ -65,8 +65,6 @@ use reqwest::StatusCode;
 # }
 
 fn run() -> Result<()> {
-    // For the purpose of this example only a small download of 102400 bytes
-    // with chunk size of 10240 bytes is used.
     let url = "https://httpbin.org/range/102400?duration=2";
     const CHUNK_SIZE: u32 = 10240;
 
@@ -101,5 +99,7 @@ fn run() -> Result<()> {
 
 [`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
-[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.htm
+[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.html
 [`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
+
+[HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1

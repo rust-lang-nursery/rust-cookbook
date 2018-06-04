@@ -21,7 +21,6 @@ fn main() {
 }
 
 fn find_max(arr: &[i32], start: usize, end: usize) -> i32 {
-    // Perform sequential computation if there are only a few elements.
     const THRESHOLD: usize = 2;
     if end - start <= THRESHOLD {
         return *arr.iter().max().unwrap();

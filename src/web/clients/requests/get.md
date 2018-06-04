@@ -4,7 +4,8 @@
 
 Parses the supplied URL and makes a synchronous HTTP GET request
 with [`reqwest::get`]. Prints obtained [`reqwest::Response`]
-status and headers subsequently reading HTTP response body into an allocated [`String`] via [`read_to_string`].
+status and headers. Reads HTTP response body into an allocated [`String`]
+using [`read_to_string`].
 
 ```rust,no_run
 # #[macro_use]

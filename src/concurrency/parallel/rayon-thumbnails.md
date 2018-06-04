@@ -32,8 +32,6 @@ use rayon::prelude::*;
 # }
 
 fn run() -> Result<()> {
-    // find all files in current directory that have a .jpg extension
-    // use the default MatchOptions so the search is case insensitive
     let options: MatchOptions = Default::default();
     let files: Vec<_> = glob_with("*.jpg", &options)?
         .filter_map(|x| x.ok())
@@ -63,8 +61,6 @@ fn run() -> Result<()> {
     Ok(())
 }
 
-/// Resize `original` to have a maximum dimension of `longest_edge` and save the
-/// resized image to the `thumb_dir` folder
 fn make_thumbnail<PA, PB>(original: PA, thumb_dir: PB, longest_edge: u32) -> Result<()>
 where
     PA: AsRef<Path>,

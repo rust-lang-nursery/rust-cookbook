@@ -59,7 +59,6 @@ fn run() -> Result<()> {
 
     let (tx, rx) = channel();
 
-    // Look in the current directory.
     for entry in WalkDir::new("/home/user/Downloads")
         .follow_links(true)
         .into_iter()

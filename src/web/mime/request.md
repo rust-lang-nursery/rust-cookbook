@@ -2,14 +2,14 @@
 
 [![reqwest-badge]][reqwest] [![mime-badge]][mime] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
-When receiving a HTTP reponse from *reqwest* the [MIME type] or media type can be
-found in the [Content-Type] header. The header can be looked up by using
-[`reqwest::Headers::get`] with the generic type [`reqwest::header::ContentType`].
-Because `ContentType` implements Deref with [`mime::Mime`] as a target, parts of the
+When receiving a HTTP reponse from *reqwest* the [MIME type] or media type may be
+found in the [Content-Type] header. [`reqwest::Headers::get`] retrieves the
+header with the generic type [`reqwest::header::ContentType`]. Because
+`ContentType` implements Deref with [`mime::Mime`] as a target, parts of the
 MIME type can be obtained directly.
 
-The *Mime* crate also has some, commonly used, predefined MIME types. These can be
-used for comparison and matching on the types. *Reqwest* also exports the *mime*
+The *Mime* crate also has some, commonly used, predefined MIME types for
+comparing and matching. *Reqwest* also exports the *mime*
 crate, which can be found in the `reqwest::mime` module.
 
 ```rust,no_run

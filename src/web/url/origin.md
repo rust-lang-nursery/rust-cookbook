@@ -34,7 +34,7 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-The same result can be obtained using the [`origin`] method as well.
+[`origin`] produces the same result.
 
 ```rust
 # #[macro_use]

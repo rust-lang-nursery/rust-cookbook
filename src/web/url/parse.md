@@ -6,11 +6,8 @@ The [`parse`] method from the `url` crate validates and parses a `&str` into a
 [`Url`] struct. The input string may be malformed so this method returns
 `Result<Url, ParseError>`.
 
-Once the URL has been parsed, it can be used with all of the methods on the
+Once the URL has been parsed, it can be used with all of the methods in the
 `Url` type.
-
-The URL in this code parses successfully, but swapping it out for a malformed
-URL will print a message containing an explanation of what went wrong.
 
 ```rust
 # #[macro_use]

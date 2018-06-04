@@ -25,7 +25,6 @@ struct ApiResponse {
     meta: Meta,
 }
 
-// Could capture more fields here if needed
 #[derive(Deserialize)]
 struct Dependency {
     crate_id: String,
@@ -58,17 +57,14 @@ impl ReverseDependencies {
     }
 
     fn try_next(&mut self) -> Result<Option<Dependency>> {
-        // If the previous page has a dependency that hasn't been looked at.
         if let Some(dep) = self.dependencies.next() {
             return Ok(Some(dep));
         }
 
-        // If there are no more reverse dependencies.
         if self.page > 0 && self.page * self.per_page >= self.total {
             return Ok(None);
         }
 
-        // Fetch the next page.
         self.page += 1;
         let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&per_page={}",
                           self.crate_id,
@@ -86,9 +82,6 @@ impl Iterator for ReverseDependencies {
     type Item = Result<Dependency>;
 
     fn next(&mut self) -> Option<Self::Item> {
-        // Some juggling required here because `try_next` returns a result
-        // containing an option, while `next` is supposed to return an option
-        // containing a result.
         match self.try_next() {
             Ok(Some(dep)) => Some(Ok(dep)),
             Ok(None) => None,

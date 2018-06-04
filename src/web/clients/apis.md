@@ -9,3 +9,5 @@
 {{#include api/paginated.md}}
 
 {{#include api/rate-limited.md}}
+
+{{#include ../../links.md}}

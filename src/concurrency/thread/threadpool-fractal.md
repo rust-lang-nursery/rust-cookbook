@@ -93,7 +93,6 @@ fn run() -> Result<()> {
     let mut img = ImageBuffer::new(width, height);
     let iterations = 300;
 
-    // constants to tweak for appearance
     let c = Complex::new(-0.8, 0.156);
 
     let pool = ThreadPool::new(num_cpus::get());

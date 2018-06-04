@@ -2,10 +2,11 @@
 
 [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem]
 
-Creates a temporary directory with [`TempDir::new`] and  synchronously downloads
+Creates a temporary directory with [`TempDir::new`] and synchronously downloads
 a file over HTTP using [`reqwest::get`].
-Creates a target [`File`] with name obtained from [`Response::url`] within [`TempDir::path`]
-and copies downloaded data into it with [`io::copy`].
+
+Creates a target [`File`] with name obtained from [`Response::url`] within
+[`TempDir::path`] and copies downloaded data into it with [`io::copy`].
 The temporary directory is automatically removed on `run` function return.
 
 ```rust,no_run
@@ -26,14 +27,11 @@ use tempdir::TempDir;
 # }
 
 fn run() -> Result<()> {
-    // create a temp dir with prefix "example"
     let tmp_dir = TempDir::new("example")?;
-    // make HTTP request for remote content
     let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
     let mut response = reqwest::get(target)?;
 
     let mut dest = {
-        // extract target filename from URL
         let fname = response
             .url()
             .path_segments()
@@ -44,12 +42,9 @@ fn run() -> Result<()> {
         println!("file to download: '{}'", fname);
         let fname = tmp_dir.path().join(fname);
         println!("will be located under: '{:?}'", fname);
-        // create file with given name inside the temp dir
         File::create(fname)?
     };
-    // data is copied into the target file
     copy(&mut response, &mut dest)?;
-    // tmp_dir is implicitly removed
     Ok(())
 }
 #

@@ -48,7 +48,6 @@ fn run() -> Result<()> {
     let reader = BufReader::new(input);
     let digest = sha256_digest(reader)?;
 
-    // digest.as_ref() provides the digest as a byte slice: &[u8]
     println!("SHA-256 digest is {}", HEXUPPER.encode(digest.as_ref()));
 
     Ok(())

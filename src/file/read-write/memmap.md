@@ -33,7 +33,6 @@ fn run() -> Result<()> {
 
     let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
     assert_eq!(&map[3..13], b"hovercraft");
-    // I'm using an iterator here to change indexes to bytes
     let random_bytes: Vec<u8> = random_indexes.iter()
         .map(|&idx| map[idx])
         .collect();

@@ -29,7 +29,6 @@ fn run() -> Result<()> {
 }
 
 fn build_github_url(path: &str) -> Result<Url> {
-    // Hardcoded in our program. Caller's path will be joined to this.
     const GITHUB: &'static str = "https://github.com";
 
     let base = Url::parse(GITHUB).expect("hardcoded URL is known to be valid");

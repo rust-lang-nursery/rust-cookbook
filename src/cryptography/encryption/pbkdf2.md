@@ -30,11 +30,9 @@ fn run() -> Result<()> {
   const N_ITER: u32 = 100_000;
   let rng = rand::SystemRandom::new();
 
-  // Generate salt
   let mut salt = [0u8; CREDENTIAL_LEN];
   rng.fill(&mut salt)?;
 
-  // Hash password
   let password = "Guess Me If You Can!";
   let mut pbkdf2_hash = [0u8; CREDENTIAL_LEN];
   pbkdf2::derive(
@@ -47,7 +45,6 @@ fn run() -> Result<()> {
   println!("Salt: {}", HEXUPPER.encode(&salt));
   println!("PBKDF2 hash: {}", HEXUPPER.encode(&pbkdf2_hash));
 
-  // Verify hash with correct password and wrong password
   let should_succeed = pbkdf2::verify(
       &digest::SHA512,
       N_ITER,

@@ -2,10 +2,11 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-Query the [GitHub Users Endpoint](https://api.github.com/users) using a HEAD request ([`Client::head`]) and then inspect the
-response code to determine success. This is a quick way to query a rest resource without
-needing to receive a body. You can also configure the [`reqwest::Client`] with [`ClientBuilder::timeout`]
-which ensures that a request will not last longer than what is passed to the timeout function.
+Query the [GitHub Users Endpoint](https://api.github.com/users) using a HEAD
+request ([`Client::head`]) and then inspect the response code to determine
+success. This is a quick way to query a rest resource without needing to receive
+a body. [`reqwest::Client`] cofigured with [`ClientBuilder::timeout`] ensures
+a request will not last longer than a timeout.
 
 ```rust,no_run
 # #[macro_use]
@@ -26,9 +27,7 @@ fn run() -> Result<()> {
     let request_url = format!("https://api.github.com/users/{}", user);
     println!("{}", request_url);
 
-    // The timeout for the request is set to 5 seconds.
     let timeout = Duration::new(5, 0);
-
     let client = ClientBuilder::new().timeout(timeout).build()?;
     let response = client.head(&request_url).send()?;
 

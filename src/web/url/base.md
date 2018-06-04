@@ -2,6 +2,11 @@
 
 [![url-badge]][url] [![cat-net-badge]][cat-net]
 
+A base URL includes a protocol and a domain.  Base URLs have no folders,
+files or query strings.  Each of those items are stripped out of the given
+URL.  [`PathSegmentsMut::clear`] removes paths and [`Url::set_query`] removes
+query string.
+
 ```rust
 # #[macro_use]
 # extern crate error_chain;
@@ -30,21 +35,16 @@ fn run() -> Result<()> {
     Ok(())
 }
 
-/// Returns the base of the given URL - the part not including any path segments
-/// and query parameters.
 fn base_url(mut url: Url) -> Result<Url> {
-    // Clear path segments.
     match url.path_segments_mut() {
         Ok(mut path) => {
             path.clear();
         }
         Err(_) => {
-            // Certain URLs cannot be turned into a base URL.
             return Err(Error::from_kind(ErrorKind::CannotBeABase));
         }
     }
 
-    // Clear query parameters.
     url.set_query(None);
 
     Ok(url)
@@ -52,3 +52,6 @@ fn base_url(mut url: Url) -> Result<Url> {
 #
 # quick_main!(run);
 ```
+
+[`PathSegmentsMut::clear`]: https://docs.rs/url/*/url/struct.PathSegmentsMut.html#method.clear
+[`Url::set_query`]: https://docs.rs/url/*/url/struct.Url.html#method.set_query

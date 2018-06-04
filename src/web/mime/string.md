@@ -2,7 +2,9 @@
 
 [![mime-badge]][mime] [![cat-encoding-badge]][cat-encoding]
 
-The following example shows how to parse a [`MIME`] type from a string using the [mime] crate. You can handle a possible [`FromStrError`] by providing a default [`MIME`] type in an `unwrap_or` clause.
+The following example shows how to parse a [`MIME`] type from a string using the
+[mime] crate. [`FromStrError`] produces a default [`MIME`] type in an
+`unwrap_or` clause.
 
 ```rust
 extern crate mime;

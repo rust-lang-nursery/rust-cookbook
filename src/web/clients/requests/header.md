@@ -3,14 +3,15 @@
 [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![url-badge]][url] [![cat-net-badge]][cat-net]
 
 Sets both standard and custom HTTP headers as well as URL parameters
-for HTTP GET request. Firstly creates a custom header of type `XPoweredBy`
-with [`hyper::header!`] macro. Secondly calls [`Url::parse_with_params`]
-in order to build a complex URL with specified key value pairs.
-Lastly sets standard headers [`header::UserAgent`] and [`header::Authorization`]
-as well as custom one `XPoweredBy` with [`RequestBuilder::header`] prior to making
-the request with [`RequestBuilder::send`].
+for a HTTP GET request. Creates a custom header of type `XPoweredBy`
+with [`hyper::header!`] macro.
 
-The code is run against <http://httpbin.org/headers> service which responds with
+Builds complex URL with [`Url::parse_with_params`].  Sets standard headers
+[`header::UserAgent`], [`header::Authorization`], and custom `XPoweredBy`
+with [`RequestBuilder::header`] then makes the request with
+[`RequestBuilder::send`].
+
+The request targets <http://httpbin.org/headers> service which responds with
 a JSON dict containing all request headers for easy verification.
 
 ```rust,no_run
@@ -28,10 +29,8 @@ use url::Url;
 use reqwest::Client;
 use reqwest::header::{UserAgent, Authorization, Bearer};
 
-// Custom header type
 header! { (XPoweredBy, "X-Powered-By") => [String] }
 
-// Helper for verification
 #[derive(Deserialize, Debug)]
 pub struct HeadersEcho {
     pub headers: HashMap<String, String>,
@@ -45,8 +44,6 @@ pub struct HeadersEcho {
 # }
 
 fn run() -> Result<()> {
-    // Make request to webservice that will respond with JSON dict containing
-    // the headders set on HTTP GET request.
     let url = Url::parse_with_params("http://httpbin.org/headers",
                                      &[("lang", "rust"), ("browser", "servo")])?;
 
@@ -57,13 +54,11 @@ fn run() -> Result<()> {
         .header(XPoweredBy("Guybrush Threepwood".to_owned()))
         .send()?;
 
-    // JSON response should match the headers set on request
     let out: HeadersEcho = response.json()?;
     assert_eq!(out.headers["Authorization"],
                "Bearer DEadBEEfc001cAFeEDEcafBAd");
     assert_eq!(out.headers["User-Agent"], "Rust-test");
     assert_eq!(out.headers["X-Powered-By"], "Guybrush Threepwood");
-    // Response contains full URL used to make the request
     assert_eq!(response.url().as_str(),
                "http://httpbin.org/headers?lang=rust&browser=servo");
 

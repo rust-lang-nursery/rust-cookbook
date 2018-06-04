@@ -2,9 +2,13 @@
 
 [![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
 
-Uses [`filter_entry`] to descend recursively into entries passing the `is_not_hidden` predicate thus skipping hidden files and directories whereas [`Iterator::filter`] would be applied to each [`WalkDir::DirEntry`] even if the parent is a hidden directory.
+Uses [`filter_entry`] to descend recursively into entries passing the
+`is_not_hidden` predicate thus skipping hidden files and directories.
+ [`Iterator::filter`] applies to each [`WalkDir::DirEntry`] even if the parent
+ is a hidden directory.
 
-Root dir `"."` is yielded due to [`WalkDir::depth`] usage in `is_not_hidden` predicate.
+Root dir `"."` yields through [`WalkDir::depth`] usage in `is_not_hidden`
+predicate.
 
 ```rust,no_run
 extern crate walkdir;

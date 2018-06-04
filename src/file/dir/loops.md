@@ -17,7 +17,6 @@ use std::io;
 use std::path::{Path, PathBuf};
 use same_file::is_same_file;
 
-// Check this path against all of its parents
 fn contains_loop<P: AsRef<Path>>(path: P) -> io::Result<Option<(PathBuf, PathBuf)>> {
     let path = path.as_ref();
     let mut path_buf = path.to_path_buf();

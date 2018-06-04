@@ -2,9 +2,13 @@
 
 [![reqwest-badge]][reqwest] [![select-badge]][select] [![url-badge]][url] [![cat-net-badge]][cat-net]
 
-We call "get_base_url" to retrieve the base URL. If the document has a "base" tag, we get the "href" [`attr`] from the first occurrence of the "base" tag. This is then used as the base URL. Otherwise, we can use [`Position::BeforePath`] with the original URL to get the base of that URL.
+Call `get_base_url` to retrieve the base URL. If the document has a base tag,
+get the href [`attr`] from base tag. [`Position::BeforePath`] of the original
+URL acts as a default.
 
-We iterate through all the links in the document and get the absolute URL for each (using [`url::ParseOptions`] and [`Url::parse`]). We then filter these so that we can report which links are broken.
+Iterate through links in the document and parse with [`url::ParseOptions`]
+and [`Url::parse`]). Makes a request to the links with reqwest and verifies
+[`StatusCode`].
 
 ```rust,no_run
 # #[macro_use]
@@ -74,5 +78,6 @@ fn run() -> Result<()> {
 
 [`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr
 [`Position::BeforePath`]: https://docs.rs/url/*/url/enum.Position.html#variant.BeforePath
+[`StatusCode`]: https://docs.rs/reqwest/*/reqwest/enum.StatusCode.html
 [`url::Parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
 [`url::ParseOptions`]: https://docs.rs/url/*/url/struct.ParseOptions.html

@@ -34,7 +34,6 @@ fn run() -> Result<()> {
         .entries()?
         .filter_map(|e| e.ok())
         .map(|mut entry| -> Result<PathBuf> {
-            // Need to get owned data to break the borrow loop
             let path = entry.path()?.strip_prefix(prefix)?.to_owned();
             entry.unpack(&path)?;
             Ok(path)

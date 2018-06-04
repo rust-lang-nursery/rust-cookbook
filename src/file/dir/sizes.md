@@ -3,8 +3,7 @@
 [![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
 
 Recursion depth can be flexibly set by [`WalkDir::min_depth`] & [`WalkDir::max_depth`] methods.
-In this example we sum all file sizes to 3 subfolders depth, ignoring files in the root folder
-at the same time.
+Calculates sum of all file sizes to 3 subfolders depth, ignoring files in the root folder.
 
 ```rust
 extern crate walkdir;
@@ -16,10 +15,10 @@ fn main() {
         .min_depth(1)
         .max_depth(3)
         .into_iter()
-        .filter_map(|entry| entry.ok()) // Files, we have access to
-        .filter_map(|entry| entry.metadata().ok()) // Get metadata
-        .filter(|metadata| metadata.is_file()) // Filter out directories
-        .fold(0, |acc, m| acc + m.len()); // Accumulate sizes
+        .filter_map(|entry| entry.ok())
+        .filter_map(|entry| entry.metadata().ok())
+        .filter(|metadata| metadata.is_file())
+        .fold(0, |acc, m| acc + m.len());
 
     println!("Total size: {} bytes.", total_size);
 }

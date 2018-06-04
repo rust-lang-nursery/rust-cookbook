@@ -5,8 +5,8 @@
 Recursively find all PNG files in the current directory.
 In this case, the `**` pattern matches the current directory and all subdirectories.
 
-You can also use the `**` pattern for any directory, not just the current one.
-For example, `/media/**/*.png` would match all PNGs in `media` and it's subdirectories.
+Use the `**` pattern in any path portion. For example, `/media/**/*.png`
+matches all PNGs in `media` and it's subdirectories.
 
 ```rust,no_run
 # #[macro_use]

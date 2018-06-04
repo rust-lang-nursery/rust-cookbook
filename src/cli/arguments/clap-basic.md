@@ -17,7 +17,6 @@ extern crate clap;
 use clap::{Arg, App};
 
 fn main() {
-    // Define command line arguments.
     let matches = App::new("My Test Program")
         .version("0.1.0")
         .author("Hackerman Jones <hckrmnjones@hack.gov>")
@@ -34,11 +33,9 @@ fn main() {
                  .help("Five less than your favorite number"))
         .get_matches();
 
-    // Get value for file, or default to 'input.txt'.
     let myfile = matches.value_of("file").unwrap_or("input.txt");
     println!("The file passed is: {}", myfile);
 
-    // Get value for num if present, and try parsing it as i32.
     let num_str = matches.value_of("num");
     match num_str {
         None => println!("No idea what your favorite number is."),

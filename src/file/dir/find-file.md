@@ -22,17 +22,13 @@ use walkdir::WalkDir;
 # }
 
 fn run() -> Result<()> {
-    // List recusively all accessible files in the current directory
     for entry in WalkDir::new(".")
             .follow_links(true)
             .into_iter()
             .filter_map(|e| e.ok()) {
-        // Get entry's filename
         let f_name = entry.file_name().to_string_lossy();
-        // Get entry's modified time
         let sec = entry.metadata()?.modified()?;
 
-        // Print JSON files modified within the last day
         if f_name.ends_with(".json") && sec.elapsed()?.as_secs() < 86400 {
             println!("{}", f_name);
         }

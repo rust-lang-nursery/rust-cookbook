@@ -24,11 +24,9 @@ lazy_static! {
 }
 
 fn insert(fruit: &str) -> Result<()> {
-    // acquire exclusive access
     let mut db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
     db.push(fruit.to_string());
     Ok(())
-    // release exclusive access
 }
 
 fn run() -> Result<()> {
@@ -36,11 +34,9 @@ fn run() -> Result<()> {
     insert("orange")?;
     insert("peach")?;
     {
-        // acquire access
         let db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
 
         db.iter().enumerate().for_each(|(i, item)| println!("{}: {}", i, item));
-        // release access
     }
     insert("grape")?;
     Ok(())

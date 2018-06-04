@@ -2,12 +2,14 @@
 
 [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
-Creates a gist with POST request to GitHub [gists API v3](https://developer.github.com/v3/gists/) using [`Client::post`] and subsequently removes it with DELETE request using [`Client::delete`].
+Creates a gist with POST request to GitHub [gists API v3](https://developer.github.com/v3/gists/)
+using [`Client::post`] and removes it with DELETE request using [`Client::delete`].
 
 The [`reqwest::Client`] is responsible for details of both requests including
-URL, body and authentication. POST body comes from [`serde_json::json!`] macro
-which provides a way to pass an arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request body while [`RequestBuilder::basic_auth`] handles authentication.
-Finally the call to [`RequestBuilder::send`] synchronously executes the requests.
+URL, body and authentication. The POST body from [`serde_json::json!`] macro
+provides arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request
+body. [`RequestBuilder::basic_auth`] handles authentication. The call to
+[`RequestBuilder::send`] synchronously executes the requests.
 
 ```rust,no_run
 # #[macro_use]
@@ -32,14 +34,12 @@ use reqwest::Client;
 struct Gist {
     id: String,
     html_url: String,
-    // remaining fields not deserialized for brevity
 }
 
 fn run() -> Result<()> {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 
-    // The type `gist_body` is `serde_json::Value`
     let gist_body = json!({
         "description": "the description for this gist",
         "public": true,
@@ -49,7 +49,6 @@ fn run() -> Result<()> {
             }
         }});
 
-    // create the gist
     let request_url = "https://api.github.com/gists";
     let mut response = Client::new()
         .post(request_url)
@@ -60,7 +59,6 @@ fn run() -> Result<()> {
     let gist: Gist = response.json()?;
     println!("Created {:?}", gist);
 
-    // delete the gist
     let request_url = format!("{}/{}",request_url, gist.id);
     let response = Client::new()
         .delete(&request_url)
@@ -74,9 +72,9 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-For the sake of simplicity the example uses [HTTP Basic Auth] in order to
-authorize access to [GitHub API]. A more typical use case would be to
-employ one of the much more complex [OAuth] authorization flows.
+The example uses [HTTP Basic Auth] in order to authorize access to [GitHub API].
+Typical use case would employ one of the much more complex [OAuth] authorization
+flows.
 
 [`Client::delete`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post
