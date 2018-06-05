@@ -1,4 +1,4 @@
-# Scraping
+# Extracting Links
 
 {{#include scraping/extract-links.md}}
 

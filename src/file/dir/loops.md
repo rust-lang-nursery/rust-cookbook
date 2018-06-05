@@ -41,4 +41,4 @@ fn main() {
 }
 ```
 
-[`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html#method.is_same_file
+[`same_file::is_same_file`]: https://docs.rs/same-file/*/same_file/fn.is_same_file.html

@@ -58,4 +58,4 @@ fn run() -> Result<()> {
 
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
-[`Regex`]: https://doc.rust-lang.org/regex/regex/struct.Regex.html
+[`Regex`]: https://docs.rs/regex/*/regex/struct.Regex.html

@@ -39,6 +39,6 @@ fn main() {
 }
 ```
 
-[`Range`]: https://doc.rust-lang.org/rand/*/rand/distributions/range/struct.Range.html
+[`Uniform`]: https://docs.rs/rand/*/rand/distributions/uniform/struct.Uniform.html
 [`Rng::gen_range`]: https://doc.rust-lang.org/rand/*/rand/trait.Rng.html#method.gen_range
 [uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)

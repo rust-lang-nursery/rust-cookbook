@@ -51,5 +51,5 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[`log::Log`]: https://doc.rust-lang.org/log/log/trait.Log.html
-[`log::set_logger`]: https://doc.rust-lang.org/log/log/fn.set_logger.html
+[`log::Log`]: https://docs.rs/log/*/log/trait.Log.html
+[`log::set_logger`]: https://docs.rs/log/*/log/fn.set_logger.html

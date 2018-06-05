@@ -2,7 +2,7 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-Query the [GitHub Users Endpoint](https://api.github.com/users) using a HEAD
+Query the GitHub Users Endpoint using a HEAD
 request ([`Client::head`]) and then inspect the response code to determine
 success. This is a quick way to query a rest resource without needing to receive
 a body. [`reqwest::Client`] cofigured with [`ClientBuilder::timeout`] ensures

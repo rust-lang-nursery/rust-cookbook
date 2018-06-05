@@ -57,4 +57,4 @@ DEBUG:test::foo::bar: [bar] debug
 ```
 
 [`log::Level`]: https://docs.rs/log/*/log/enum.Level.html
-[`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
+[`RUST_LOG`]: https://docs.rs/env_logger/*/env_logger/#enabling-logging

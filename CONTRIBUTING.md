@@ -44,8 +44,60 @@ To run the cookbook test suite:
 cargo test
 ```
 
+## Linters
+
+The Rust Cookbook comes with link checking and spell checking linters that
+run on the continuous integration server.  These linters should be run locally
+before submitting a pull request to ensure there are no dead links or spelling
+errors made.
+
+To install the link checker, review the documentation for [python] to install
+python 3.6 and pip3.  Installing link-checker once the dependencies are met
+is done with pip3.
+
+```
+[sudo] pip3 install link-checker==0.1.0
+```
+
+Alternatively, set up the user install directory on your PATH variable and
+install link-checker for your user
+
+```
+pip3 install -user link-checker==0.1.0
+```
+
+Checking the links of the book locally first requires the book to be built
+with mdBook.  From the root directory of the cookbook, the following commands
+run the link checker.
+
+```
+mdbook build
+link-checker ./book
+```
+
+The aspell binary provides spell checking.  Apt packages provide installation
+on Debian based operating systems.
+
+```
+[sudo] apt install aspell -y
+```
+
+To check the spelling of the Rust Cookbook locally, run the following command
+from the root of the Cookbook.
+
+```
+./ci/spellchecker.sh
+```
+
+If the spell checker finds a misspelled word, you have the opportunity to
+correct the spelling mistake with the number keys.  If the spelling mistake
+is erroneous, add the word to the dictionary located in `ci/dictionary.txt`.
+Pressing `a` or `l` will not add the word to the custom dictionary.
+
 [mdbook]: http://azerupi.github.io/mdBook/index.html
+[python]: https://packaging.python.org/tutorials/installing-packages/#install-pip-setuptools-and-wheel
 [skeptic]: https://github.com/brson/rust-skeptic
+
 
 ## Finding what to contribute
 

@@ -28,6 +28,8 @@ community. It needs and welcomes help. For details see
 
 {{#include data_structures.md}}
 
+{{#include datetime.md}}
+
 {{#include development_tools.md}}
 
 {{#include encoding.md}}
@@ -35,6 +37,8 @@ community. It needs and welcomes help. For details see
 {{#include file.md}}
 
 {{#include hardware.md}}
+
+{{#include mem.md}}
 
 {{#include net.md}}
 

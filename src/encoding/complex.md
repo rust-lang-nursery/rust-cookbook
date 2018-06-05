@@ -1,4 +1,4 @@
-# Complex Data Types
+# Structured Data
 
 {{#include complex/json.md}}
 

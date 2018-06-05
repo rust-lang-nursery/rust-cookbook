@@ -69,9 +69,9 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[`header::Authorization`]: https://docs.rs/hyper/*/hyper/header/struct.Authorization.html
-[`header::UserAgent`]: https://docs.rs/hyper/*/hyper/header/struct.UserAgent.html
-[`hyper::header!`]: https://docs.rs/hyper/*/hyper/macro.header.html
+[`header::Authorization`]: https://doc.servo.org/hyper/header/struct.Authorization.html
+[`header::UserAgent`]: https://doc.servo.org/hyper/header/struct.UserAgent.html
+[`hyper::header!`]: https://doc.servo.org/hyper/macro.header.html
 [`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
 [`Url::parse_with_params`]: https://docs.rs/url/*/url/struct.Url.html#method.parse_with_params

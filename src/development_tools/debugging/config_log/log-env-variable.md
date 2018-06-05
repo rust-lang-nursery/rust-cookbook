@@ -28,8 +28,8 @@ fn main() {
 }
 ```
 
-[`env_logger::init`]: https://doc.rust-lang.org/log/env_logger/fn.init.html
+[`env_logger::init`]: https://docs.rs/env_logger/*/env_logger/fn.init.html
 [`Builder`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html
 [`Builder::init`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.init
-[`Builder::parse`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.parsese
-[`RUST_LOG`]: https://doc.rust-lang.org/log/env_logger/#enabling-logging
+[`Builder::parse`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.parse
+[`RUST_LOG`]: https://docs.rs/env_logger/*/env_logger/#enabling-logging

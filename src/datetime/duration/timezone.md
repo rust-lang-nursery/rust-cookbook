@@ -1,4 +1,4 @@
-## Convert a local time to an another UTC timezone and vice versa
+## Convert a local time to another timezone
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 

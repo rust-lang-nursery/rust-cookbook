@@ -1,4 +1,4 @@
-# Using APIs
+# Calling a Web API
 
 {{#include api/rest-get.md}}
 

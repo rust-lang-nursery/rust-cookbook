@@ -69,5 +69,5 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-[`hyper::header!`]: https://docs.rs/hyper/*/hyper/macro.header.html
+[`hyper::header!`]: https://doc.servo.org/hyper/header/index.html#defining-custom-headers
 [`reqwest::StatusCode::Forbidden`]: https://docs.rs/reqwest/*/reqwest/enum.StatusCode.html#variant.Forbidden

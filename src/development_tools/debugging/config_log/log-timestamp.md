@@ -45,9 +45,9 @@ stderr output will contain
 2017-05-22T21:57:06 [INFO] - info
 ```
 
-[`DateTime::format`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html#method.format
+[`DateTime::format`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format
 [`DateTime`]: https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html
-[`Local::now`]: https://docs.rs/chrono/*/chrono/offset/local/struct.Local.html#method.now
+[`Local::now`]: https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now
 [`Builder`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html
 [`Builder::format`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.format
 [`Record::args`]: https://docs.rs/log/*/log/struct.Record.html#method.args

@@ -1,8 +1,8 @@
 # Parsing and Displaying
 
-{{#include parse/timestamp.md}}
+{{#include parse/current.md}}
 
-{{#include parse/timezone.md}}
+{{#include parse/timestamp.md}}
 
 {{#include parse/format.md}}
 

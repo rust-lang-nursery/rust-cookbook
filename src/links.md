@@ -110,7 +110,7 @@ Keep lines sorted.
 [semver]: https://docs.rs/semver/
 [serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
-[serde-json]: https://docs.serde.rs/serde_json/
+[serde-json]: https://docs.rs/serde_json/*/serde_json/
 [serde]: https://docs.rs/serde/
 [std-badge]: https://badge-cache.kominick.com/badge/std-1.25.0-blue.svg
 [std]: https://doc.rust-lang.org/std

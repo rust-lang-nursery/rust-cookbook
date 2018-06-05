@@ -21,4 +21,4 @@ fn main() {
 ```
 
 [`Builder::target`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.target
-[`Target::Stdout`]: https://doc.rust-lang.org/log/env_logger/enum.Target.html
+[`Target::Stdout`]: https://docs.rs/env_logger/*/env_logger/fmt/enum.Target.html
