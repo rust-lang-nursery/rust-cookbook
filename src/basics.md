@@ -1839,7 +1839,7 @@ fn run() -> Result<()> {
 [`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [`rand::Rng`]: https://docs.rs/rand/*/rand/trait.Rng.html
 [`rand::thread_rng`]: https://docs.rs/rand/*/rand/fn.thread_rng.html
-[`Uniform`]: https://docs.rs/rand/0.5.0/rand/distributions/uniform/struct.Uniform.html
+[`Uniform`]: https://docs.rs/rand/*/rand/distributions/uniform/struct.Uniform.html
 [`Standard`]: https://docs.rs/rand/*/rand/distributions/struct.Standard.html
 [`Distribution`]: https://docs.rs/rand/*/rand/distributions/trait.Distribution.html
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
