@@ -57,6 +57,7 @@ community. It needs and welcomes help. For details see
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [File names that have been modified in the last 24 hours for the working directory][ex-file-24-hours-modified] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
+| [Read environment variable][ex-read-environment-variable] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 
 ## [Encoding](encoding.html)
 
@@ -193,6 +194,7 @@ community. It needs and welcomes help. For details see
 [ex-extract-links-webpage]: net.html#ex-extract-links-webpage
 [ex-extract-mediawiki-links]: net.html#ex-extract-mediawiki-links
 [ex-file-24-hours-modified]: basics.html#ex-file-24-hours-modified
+[ex-read-environment-variable]: basics.html#ex-read-environment-variable
 [ex-file-post]: net.html#ex-file-post
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-file-sizes]: app.html#ex-file-sizes

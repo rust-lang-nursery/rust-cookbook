@@ -38,7 +38,8 @@
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
-| [File names that have been modified in the last 24 hours for the working directory][ex-file-24-hours-modified] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
+| [File names that have been modified in the last 24 hours for the working directory][ex-file-24-hours-modified] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] | 
+| [Read environment variable][ex-read-environment-variable] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-std-read-lines]: #ex-std-read-lines
 <a name="ex-std-read-lines"></a>
@@ -1764,6 +1765,48 @@ fn run() -> Result<()> {
         }
     }
 
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
+[ex-read-environment-variable]: #ex-read-environment-variable
+<a name="ex-read-environment-variable"></a>
+## Read environment variable
+[![std-badge]][std] [![cat-filesystem-badge]][cat-filesystem]
+
+Set an environment variable and read it back. If the variable is not found, then fallback
+to a default value.
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+use std::env;
+use std::path::PathBuf;
+
+# error_chain! {
+#     foreign_links {
+#         Utf8(std::str::Utf8Error);
+#         AddrParse(std::net::AddrParseError);
+#     }
+# }
+
+fn set_env_variable() {
+  env::set_var("CONFIG_FILE", "config.toml");
+}
+
+fn run() -> Result<()> {
+    set_env_variable();
+
+    let default_config_file = "config.toml";
+
+    let config_file_path = match env::var("CONFIG_FILE") {
+        Ok(val) => PathBuf::from(val),
+        Err(_) => PathBuf::from(default_config_file)
+    };
+
+    println!("Env value is {}", config_file_path.display());
     Ok(())
 }
 #
