@@ -2,6 +2,8 @@
 
 set -o errexit -o nounset
 
+echo "Running $0"
+
 if [ -z "${TRAVIS_BRANCH:-}" ]; then
     echo "This script may only be run from Travis!"
     exit 1
@@ -14,16 +16,22 @@ if [[ "$TRAVIS_BRANCH" != "master" || "$TRAVIS_RUST_VERSION" != "stable" || "$TR
     exit 0
 fi
 
-# check for outdated dependencies on nightly builds
-if [ "${TRAVIS_EVENT_TYPE:-}" == "cron" ]; then
-    echo "This is cron build. Checking for outdated dependencies!"
-    rm ./Cargo.lock
-    cargo clean
-    # replace all [dependencies] versions with "*"
-    sed -i -e "/^\[dependencies\]/,/^\[.*\]/ s|^\(.*=[ \t]*\).*$|\1\"\*\"|" ./Cargo.toml
 
-    cargo test || { echo "Cron build failed! Dependencies outdated!"; exit 1; }
-    echo "Cron build success! Dependencies are up to date!"
+if [ -z "${CONTENT_TESTS:-}" ]; then
+    # check for outdated dependencies on nightly builds
+    if [ "${TRAVIS_EVENT_TYPE:-}" == "cron" ]; then
+        echo "This is cron build. Checking for outdated dependencies!"
+        rm ./Cargo.lock
+        cargo clean
+        # replace all [dependencies] versions with "*"
+        sed -i -e "/^\[dependencies\]/,/^\[.*\]/ s|^\(.*=[ \t]*\).*$|\1\"\*\"|" ./Cargo.toml
+
+        cargo test || { echo "Cron build failed! Dependencies outdated!"; exit 1; }
+        echo "Cron build success! Dependencies are up to date!"
+        exit 0
+    fi
+
+    echo "We deploy only after we also test the markup and descriptions!"
     exit 0
 fi
 

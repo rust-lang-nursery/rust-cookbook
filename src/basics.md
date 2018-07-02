@@ -187,18 +187,18 @@ fn main() {
 }
 ```
 
-Alternatively, one can use [`Range`] to obtain values with [uniform distribution].
+Alternatively, one can use [`Uniform`] to obtain values with [uniform distribution].
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.
 
 ```rust
 extern crate rand;
 
-use rand::distributions::{Range, Distribution};
+use rand::distributions::{Uniform, Distribution};
 
 fn main() {
     let mut rng = rand::thread_rng();
-    let die = Range::new(1, 7);
+    let die = Uniform::new(1, 7);
 
     loop {
         let throw = die.sample(&mut rng);
@@ -1585,7 +1585,7 @@ Parses a [`DateTime`] struct from strings representing the well-known formats
 
 Escape sequences that are available for the [`DateTime::parse_from_str`] can be
 found at [`chrono::format::strftime`]. Note that the [`DateTime::parse_from_str`]
-requires that such a DateTime struct must be creatable that it uniquely
+requires that such a DateTime struct can be created that it uniquely
 identifies a date and a time. For parsing dates and times without timezones use
 [`NaiveDate`], [`NaiveTime`], and [`NaiveDateTime`].
 
@@ -1720,7 +1720,7 @@ fn main() {
 
 Gets the current working directory by calling [`env::current_dir`],
 then for each entries in [`fs::read_dir`], extracts the
-[`DirEntry::path`] and gets the metada via [`fs::Metadata`]. The
+[`DirEntry::path`] and gets the metadata via [`fs::Metadata`]. The
 [`Metadata::modified`] returns the [`SystemTime::elapsed`] time since
 last modification of the entry. It's converted into seconds with
 [`Duration::as_secs`] and compared with 24 hours (24 * 60 * 60
@@ -1839,7 +1839,7 @@ fn run() -> Result<()> {
 [`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [`rand::Rng`]: https://docs.rs/rand/*/rand/trait.Rng.html
 [`rand::thread_rng`]: https://docs.rs/rand/*/rand/fn.thread_rng.html
-[`Range`]: https://docs.rs/rand/*/rand/distributions/#reexports
+[`Uniform`]: https://docs.rs/rand/*/rand/distributions/uniform/struct.Uniform.html
 [`Standard`]: https://docs.rs/rand/*/rand/distributions/struct.Standard.html
 [`Distribution`]: https://docs.rs/rand/*/rand/distributions/trait.Distribution.html
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html

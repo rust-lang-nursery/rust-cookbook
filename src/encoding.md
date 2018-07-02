@@ -23,22 +23,16 @@
 
 [![serde-json-badge]][serde-json] [![cat-encoding-badge]][cat-encoding]
 
-The [`serde_json`] crate provides a [`from_str`] function to parse a `&str` of
+The [serde_json] crate provides a [`serde_json::from_str`] function to parse a `&str` of
 JSON into a type of the caller's choice.
-
-[`serde_json`]: https://docs.serde.rs/serde_json/
-[`from_str`]: https://docs.serde.rs/serde_json/fn.from_str.html
 
 Unstructured JSON can be parsed into a universal [`serde_json::Value`] type that
 is able to represent any valid JSON data.
-
-[`serde_json::Value`]: https://docs.serde.rs/serde_json/enum.Value.html
 
 The example below shows a `&str` of JSON being parsed and then compared to what
 we expect the parsed value to be. The expected value is declared using the
 [`json!`] macro.
 
-[`json!`]: https://docs.serde.rs/serde_json/macro.json.html
 
 ```rust
 # #[macro_use]
@@ -831,18 +825,21 @@ fn main() {
 <!-- API Reference -->
 
 [`csv::ByteRecord`]: https://docs.rs/csv/*/csv/struct.ByteRecord.html
+[`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
 [`csv::Reader::deserialize`]: https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize
 [`csv::Reader::deserialize`]: https://docs.rs/csv/\*/csv/struct.Reader.html#method.deserialize
 [`csv::StringRecord`]: https://docs.rs/csv/*/csv/struct.StringRecord.html
 [`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html
-[`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
 [`flush`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.flush
 [`form_urlencoded::byte_serialize`]: https://docs.rs/url/*/url/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/url/*/url/form_urlencoded/fn.parse.html
 [`FromStrError`]: https://docs.rs/mime/*/mime/struct.FromStrError.html
+[`json!`]: https://docs.rs/serde_json/*/serde_json/macro.json.html
 [`MIME`]: https://docs.rs/mime/*/mime/struct.Mime.html
 [`percent_decode`]: https://docs.rs/percent-encoding/*/percent_encoding/fn.percent_decode.html
 [`serde::Deserialize`]: https://docs.rs/serde/\*/serde/trait.Deserialize.html
+[`serde_json::from_str`]: https://docs.rs/serde_json/*/serde_json/fn.from_str.html
+[`serde_json::Value`]: https://docs.rs/serde_json/*/serde_json/enum.Value.html
 [`serialize`]: https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize
 [`std::str::FromStr`]: https://doc.rust-lang.org/std/str/trait.FromStr.html
 [`utf8_percent_encode`]: https://docs.rs/percent-encoding/*/percent_encoding/fn.utf8_percent_encode.html
