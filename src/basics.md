@@ -187,18 +187,18 @@ fn main() {
 }
 ```
 
-Alternatively, one can use [`Range`] to obtain values with [uniform distribution].
+Alternatively, one can use [`Uniform`] to obtain values with [uniform distribution].
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.
 
 ```rust
 extern crate rand;
 
-use rand::distributions::{Range, Distribution};
+use rand::distributions::{Uniform, Distribution};
 
 fn main() {
     let mut rng = rand::thread_rng();
-    let die = Range::new(1, 7);
+    let die = Uniform::new(1, 7);
 
     loop {
         let throw = die.sample(&mut rng);
@@ -1839,7 +1839,7 @@ fn run() -> Result<()> {
 [`process::Stdio`]: https://doc.rust-lang.org/std/process/struct.Stdio.html
 [`rand::Rng`]: https://docs.rs/rand/*/rand/trait.Rng.html
 [`rand::thread_rng`]: https://docs.rs/rand/*/rand/fn.thread_rng.html
-[`Range`]: https://docs.rs/rand/*/rand/distributions/#reexports
+[`Uniform`]: https://docs.rs/rand/*/rand/distributions/uniform/struct.Uniform.html
 [`Standard`]: https://docs.rs/rand/*/rand/distributions/struct.Standard.html
 [`Distribution`]: https://docs.rs/rand/*/rand/distributions/trait.Distribution.html
 [`Read`]: https://doc.rust-lang.org/std/io/trait.Read.html
