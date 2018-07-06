@@ -30,6 +30,8 @@ community. It needs and welcomes help. For details see
 | [Create random passwords from a set of user-defined characters][ex-rand-choose] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Implement Debug for a custom type][ex-impl-debug]                 | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
+| [Implement Display for a custom type][ex-impl-display] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Redirect both stdout and stderr of child process to the same file][ex-redirect-stdout-stderr-same-file] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
 | [Continuously process child process' outputs][ex-continuous-process-output] | [![std-badge]][std] | [![cat-os-badge]][cat-os][![cat-text-processing-badge]][cat-text-processing] |
@@ -204,6 +206,8 @@ community. It needs and welcomes help. For details see
 [ex-global-mut-state]: basics.html#ex-global-mut-state
 [ex-hex-encode-decode]: encoding.html#ex-hex-encode-decode
 [ex-hmac]: basics.html#ex-hmac
+[ex-impl-debug]: basics.html#ex-impl-debug
+[ex-impl-display]: basics.html#ex-impl-display
 [ex-invalid-csv]: encoding.html#ex-invalid-csv
 [ex-json-value]: encoding.html#ex-json-value
 [ex-lazy-constant]: basics.html#ex-lazy-constant

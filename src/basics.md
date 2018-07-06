@@ -10,6 +10,8 @@
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Create random passwords from a set of alphanumeric characters][ex-rand-passwd] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [Create random passwords from a set of user-defined characters][ex-rand-choose] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
+| [Implement Debug for a custom type][ex-impl-debug]                       | [![std-badge]][std]         |  [![cat-os-badge]][cat]                                                       |
+| [Implement Display for a custom type][ex-impl-display]      | [![std-badge]][std]         |  [![cat-os-badge]][cat-os]                                                    |
 | [Run an external command and process stdout][ex-parse-subprocess-output] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run an external command passing it stdin and check for an error code][ex-parse-subprocess-input] | [![regex-badge]][regex] | [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing] |
 | [Run piped external commands][ex-run-piped-external-commands] | [![std-badge]][std] | [![cat-os-badge]][cat-os] |
@@ -1770,6 +1772,110 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-impl-debug]: #ex-impl-debug
+<a name="ex-impl-debug"></a>
+## Implementing Debug for a custom type
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Manually implements the [`Debug`] trait for a custom enum and it's attributes.
+
+```rust
+use std::fmt;
+
+enum FileType {
+    Image {
+        format: String,
+        width: i32,
+        height: i32,
+    },
+    Text {
+        format: String,
+    },
+    Binary {
+        arch: String,
+    },
+}
+
+impl fmt::Debug for FileType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            FileType::Image {
+                format,
+                width,
+                height,
+            } => write!(
+                f,
+                "Image {{ format: {}, width: {}, height: {} }}",
+                format, width, height
+            ),
+            FileType::Text { format } => write!(f, "Text {{ format: {} }}", format),
+            FileType::Binary { arch } => write!(f, "Binary {{ arch: {} }}", arch),
+        }
+    }
+}
+
+fn main() {
+    let i = FileType::Image {
+        format: "jpg".to_string(),
+        width: 10,
+        height: 10,
+    };
+    println!("The FileType is: {:?}", i);
+
+    let t = FileType::Text {
+        format: "csv".to_string(),
+    };
+    println!("The FileType is: {:?}", t);
+
+    let b = FileType::Binary {
+        arch: "armv6".to_string(),
+    };
+    println!("The FileType is: {:?}", b);
+}
+```
+
+
+[ex-impl-display]: #ex-impl-display
+<a name="ex-impl-display"></a>
+## Implementing Display for a custom type
+
+[![std-badge]][std] [![cat-os-badge]][cat-os]
+
+Manually implements the [`Display`] trait for a custom enum and it's attributes.
+
+```rust
+use std::fmt;
+
+enum WebEvent {
+    PageLoad,
+    KeyPress(char),
+    Click { x: i64, y: i64 },
+}
+
+impl fmt::Display for WebEvent {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            WebEvent::PageLoad => write!(f, "PageLoad"),
+            WebEvent::KeyPress(c) => write!(f, "KeyPress({})", c),
+            WebEvent::Click { x, y } => write!(f, "Click(x: {}, y: {})", x, y),
+        }
+    }
+}
+
+fn main() {
+    let l = WebEvent::PageLoad;
+    println!("The WebEvent is: {}", l);
+
+    let k = WebEvent::KeyPress('K');
+    println!("The WebEvent is: {}", k);
+
+    let c = WebEvent::Click { x: 4, y: 9 };
+    println!("The WebEvent is: {}", c);
+}
+```
+
+
 {{#include links.md}}
 
 <!-- API Reference -->
@@ -1796,6 +1902,7 @@ fn run() -> Result<()> {
 [`DateTime::to_rfc2822`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822
 [`DateTime::to_rfc3339`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339
 [`DateTime`]: https://docs.rs/chrono/*/chrono/struct.DateTime.html
+[`Debug`]: https://doc.rust-lang.org/std/fmt/trait.Debug.html
 [`digest::Context`]: https://briansmith.org/rustdoc/ring/digest/struct.Context.html
 [`digest::Digest`]: https://briansmith.org/rustdoc/ring/digest/struct.Digest.html
 [`DirEntry::path`]: https://doc.rust-lang.org/std/fs/struct.DirEntry.html#method.path
