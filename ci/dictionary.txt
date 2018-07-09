@@ -14,6 +14,7 @@ AlphaNumeric
 ApiResponse
 Appender
 appender
+armv
 args
 ascii
 ashley
@@ -80,6 +81,7 @@ dotfiles
 DynamicImage
 endian
 endif
+enum
 EnvLogger
 EnvVar
 eprintln
@@ -91,6 +93,7 @@ filename
 filenames
 filepath
 filesystem
+FileType
 FilterType
 FixedOffset
 flate
@@ -153,6 +156,7 @@ JSON
 Json
 json
 julia
+KeyPress
 lang
 LevelFilter
 libhello
@@ -191,6 +195,7 @@ NotFound
 NulError
 OAuth
 oneline
+PageLoad
 ParallelIterator
 parallelized
 params
@@ -315,6 +320,7 @@ vreq
 WalkDir
 Walkdir
 walkdir
+WebEvent
 webpage
 webservice
 whitespace
