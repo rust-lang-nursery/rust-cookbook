@@ -63,10 +63,6 @@ echo "Committing book directory to gh-pages branch"
 REV=$(git rev-parse --short HEAD)
 cd book
 
-# hotfix for https://github.com/rust-lang-nursery/rust-cookbook/issues/416
-sed -i -e "s/_FontAwesome/FontAwesome/" *.html
-mv ./_FontAwesome ./FontAwesome
-
 git init
 git remote add upstream "https://$GH_TOKEN@github.com/rust-lang-nursery/rust-cookbook.git"
 git config user.name "Rust Cookbook"
