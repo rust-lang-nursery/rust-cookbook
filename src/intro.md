@@ -10,7 +10,7 @@ how to read the book, how to use the examples, and notes on conventions.
 ## Contributing
 
 This project is intended to be easy for new Rust programmers to
-contribute to, and an easy to way get involved with the Rust
+contribute to, and an easy way to get involved with the Rust
 community. It needs and welcomes help. For details see
 [CONTRIBUTING.md].
 
