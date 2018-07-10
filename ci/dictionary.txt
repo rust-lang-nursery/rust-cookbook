@@ -12,8 +12,11 @@ akshat
 alisha
 AlphaNumeric
 ApiResponse
+apis
+APIs
 Appender
 appender
+applicationx
 args
 ascii
 ashley
@@ -280,6 +283,7 @@ SystemRandom
 SystemTime
 SystemTimeError
 TcpListener
+tcpip
 TcpStream
 TempDir
 tempdir
@@ -297,6 +301,7 @@ tuple
 Tuple
 typesafe
 unary
+unix
 unwinded
 UpperHex
 uptime
@@ -310,6 +315,7 @@ usize
 VarError
 versa
 Versioning
+versioning
 VersionReq
 vreq
 WalkDir

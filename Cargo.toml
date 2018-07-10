@@ -54,6 +54,8 @@ syslog = "4.0"
 
 [build-dependencies]
 skeptic = "0.13"
+walkdir = "2.0"
 
 [dev-dependencies]
 skeptic = "0.13"
+walkdir = "2.0"
