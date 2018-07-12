@@ -23,6 +23,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Get MIME type from string][ex-mime-from-string] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
+| [Get MIME type from filename][ex-mime-from-filename] | [![mime-badge]][mime] | [![cat-encoding-badge]][cat-encoding] |
 | [Parse the MIME type of a HTTP response][ex-http-response-mime-type] | [![mime-badge]][mime] [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 
 
@@ -39,6 +40,7 @@
 [ex-url-rm-frag]: web/url.html#remove-fragment-identifiers-and-query-pairs-from-a-url
 
 [ex-mime-from-string]: web/mime.html#get-mime-type-from-string
+[ex-mime-from-filename]: web/mime.html#get-mime-type-from-filename
 [ex-http-response-mime-type]: web/mime.html#parse-the-mime-type-of-a-http-response
 
 {{#include links.md}}
