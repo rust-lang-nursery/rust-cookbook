@@ -24,34 +24,39 @@ use std::process::{Command, Stdio};
 
 fn run() -> Result<()> {
     let directory = std::env::current_dir()?;
-    let du_output = Command::new("du")
+    let mut du_output_child = Command::new("du")
         .arg("-ah")
         .arg(&directory)
         .stdout(Stdio::piped())
-        .spawn()?
-        .stdout
-        .ok_or_else(|| "Could not capture `du` standard output.")?;
+        .spawn()?;
 
-    let sort_output = Command::new("sort")
-        .arg("-hr")
-        .stdin(du_output)
-        .stdout(Stdio::piped())
-        .spawn()?
-        .stdout
-        .ok_or_else(|| "Could not capture `sort` standard output.")?;
+    if let Some(du_output) = du_output_child.stdout.take() {
+        let mut sort_output_child = Command::new("sort")
+            .arg("-hr")
+            .stdin(du_output)
+            .stdout(Stdio::piped())
+            .spawn()?;
 
-    let head_output = Command::new("head")
-        .args(&["-n", "10"])
-        .stdin(sort_output)
-        .stdout(Stdio::piped())
-        .spawn()?
-        .wait_with_output()?;
+        du_output_child.wait()?;
 
-    println!(
-        "Top 10 biggest files and directories in '{}':\n{}",
-        directory.display(),
-        String::from_utf8(head_output.stdout)?
-    );
+        if let Some(sort_output) = sort_output_child.stdout.take() {
+            let head_output_child = Command::new("head")
+                .args(&["-n", "10"])
+                .stdin(sort_output)
+                .stdout(Stdio::piped())
+                .spawn()?;
+
+            let head_stdout = head_output_child.wait_with_output()?;
+
+            sort_output_child.wait()?;
+
+            println!(
+                "Top 10 biggest files and directories in '{}':\n{}",
+                directory.display(),
+                String::from_utf8(head_stdout.stdout).unwrap()
+            );
+        }
+    }
 
     Ok(())
 }
