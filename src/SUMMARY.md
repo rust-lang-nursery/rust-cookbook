@@ -8,6 +8,7 @@
   - [Argument Parsing](cli/arguments.md)
 - [Compression](compression.md)
   - [Working with Tarballs](compression/tar.md)
+  - [Downlad gzip content](compression/gzip.md)
 - [Concurrency](concurrency.md)
   - [Explicit Threads](concurrency/threads.md)
   - [Data Parallelism](concurrency/parallel.md)
