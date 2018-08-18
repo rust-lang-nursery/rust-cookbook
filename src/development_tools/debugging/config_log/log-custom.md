@@ -31,7 +31,7 @@ use log4rs::config::{Appender, Config, Root};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let logfile = FileAppender::builder()
         .encoder(Box::new(PatternEncoder::new("{l} - {m}\n")))
         .build("log/output.log")?;
@@ -48,8 +48,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html

@@ -35,7 +35,7 @@ where
     )
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     assert_eq!(
         find_max_matching_version("<= 1.0.0", vec!["0.9.0", "1.0.0", "1.0.1"])?,
         Some(Version::parse("1.0.0")?)
@@ -57,8 +57,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html

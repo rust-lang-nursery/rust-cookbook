@@ -23,7 +23,7 @@ use std::{env, fs};
 #     }
 # }
 #
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let current_dir = env::current_dir()?;
     println!(
         "Entries modified in the last 24 hours in {:?}:",
@@ -50,8 +50,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`DirEntry::path`]: https://doc.rust-lang.org/std/fs/struct.DirEntry.html#method.path

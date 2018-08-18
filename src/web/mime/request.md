@@ -30,7 +30,7 @@ use reqwest::header::CONTENT_TYPE;
 #    }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let response = reqwest::get("https://www.rust-lang.org/logos/rust-logo-32x32.png")?;
     let headers = response.headers();
 
@@ -54,8 +54,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`http`]: https://docs.rs/http/*/http/

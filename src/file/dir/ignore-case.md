@@ -20,7 +20,7 @@ use glob::{glob_with, MatchOptions};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let options = MatchOptions {
         case_sensitive: false,
         ..Default::default()
@@ -32,8 +32,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html

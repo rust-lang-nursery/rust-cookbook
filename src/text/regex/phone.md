@@ -32,7 +32,7 @@ impl<'a> fmt::Display for PhoneNumber<'a> {
     }
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let phone_text = "
     +1 505 881 9292 (v) +1 505 778 2212 (c) +1 505 881 9297 (f)
     (202) 991 9534
@@ -78,8 +78,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Regex::captures_iter`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter

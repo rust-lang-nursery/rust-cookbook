@@ -47,8 +47,6 @@ fn run() -> Result<()> {
     copy(&mut response, &mut dest)?;
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
