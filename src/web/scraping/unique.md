@@ -51,7 +51,7 @@ fn extract_links(content: &str) -> Result<HashSet<Cow<str>>> {
     Ok(links)
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let mut content = String::new();
     reqwest::get(
         "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
@@ -62,8 +62,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Cow`]: https://doc.rust-lang.org/std/borrow/enum.Cow.html

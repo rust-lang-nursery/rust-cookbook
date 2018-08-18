@@ -25,7 +25,7 @@ use std::process::{Command, Stdio};
 #     }
 # }
 #
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let outputs = File::create("out.txt")?;
     let errors = outputs.try_clone()?;
 
@@ -38,8 +38,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`File::try_clone`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.try_clone

@@ -24,7 +24,7 @@ use serde_json::Value;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let j = r#"{
                  "userid": 103609,
                  "verified": true,
@@ -49,8 +49,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`from_str`]: https://docs.serde.rs/serde_json/fn.from_str.html

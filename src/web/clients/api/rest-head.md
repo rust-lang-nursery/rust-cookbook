@@ -22,7 +22,7 @@ use reqwest::ClientBuilder;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let user = "ferris-the-crab";
     let request_url = format!("https://api.github.com/users/{}", user);
     println!("{}", request_url);
@@ -39,8 +39,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head

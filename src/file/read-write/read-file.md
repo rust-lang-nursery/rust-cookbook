@@ -21,7 +21,7 @@ use std::io::{Write, BufReader, BufRead};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let path = "lines.txt";
 
     let mut output = File::create(path)?;
@@ -36,8 +36,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines

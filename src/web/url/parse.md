@@ -22,7 +22,7 @@ use url::Url;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open";
 
     let parsed = Url::parse(s)?;
@@ -30,8 +30,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse

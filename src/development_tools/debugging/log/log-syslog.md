@@ -27,7 +27,7 @@ use syslog::Facility;
 # }
 
 # #[cfg(target_os = "linux")]
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     syslog::init(Facility::LOG_USER,
                  log::LevelFilter::Debug,
                  Some("My app name"))?;
@@ -39,11 +39,9 @@ fn run() -> Result<()> {
 # #[cfg(not(target_os = "linux"))]
 # error_chain! {}
 # #[cfg(not(target_os = "linux"))]
-# fn run() -> Result<()> {
+# fn main() -> Result<()> {
 #     Ok(())
 # }
-#
-# quick_main!(run);
 ```
 
 [`log::LevelFilter`]: https://docs.rs/log/*/log/enum.LevelFilter.html

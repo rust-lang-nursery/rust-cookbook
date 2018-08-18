@@ -38,7 +38,7 @@ impl log::Log for ConsoleLogger {
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     log::set_logger(&CONSOLE_LOGGER)?;
     log::set_max_level(LevelFilter::Info);
 
@@ -47,8 +47,6 @@ fn run() -> Result<()> {
     error!("oops");
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`log::Log`]: https://docs.rs/log/*/log/trait.Log.html

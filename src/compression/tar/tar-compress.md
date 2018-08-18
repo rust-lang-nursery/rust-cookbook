@@ -26,15 +26,13 @@ use std::fs::File;
 use flate2::Compression;
 use flate2::write::GzEncoder;
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let tar_gz = File::create("archive.tar.gz")?;
     let enc = GzEncoder::new(tar_gz, Compression::default());
     let mut tar = tar::Builder::new(enc);
     tar.append_dir_all("backup/logs", "/var/log")?;
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Builder::append_dir_all`]: https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all

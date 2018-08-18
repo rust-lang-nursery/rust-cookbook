@@ -23,7 +23,7 @@ use tar::Archive;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let path = "archive.tar.gz";
 
     let tar_gz = File::open(path)?;
@@ -33,8 +33,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack

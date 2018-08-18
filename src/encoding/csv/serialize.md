@@ -22,7 +22,7 @@ use std::io;
 #    }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let mut wtr = csv::Writer::from_writer(io::stdout());
 
     wtr.write_record(&["Name", "Place", "ID"])?;
@@ -34,8 +34,6 @@ fn run() -> Result<()> {
     wtr.flush()?;
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`csv::Writer`]: https://docs.rs/csv/*/csv/struct.Writer.html

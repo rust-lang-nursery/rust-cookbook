@@ -21,7 +21,7 @@ use semver::{Identifier, Version};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let version_str = "1.0.49-125+g72ee7853";
     let parsed_version = Version::parse(version_str)?;
 
@@ -45,8 +45,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html

@@ -17,14 +17,13 @@ use url::{Url, Position};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&state=open")?;
     let cleaned: &str = &parsed[..Position::AfterPath];
     println!("cleaned: {}", cleaned);
     Ok(())
 }
-#
-# quick_main!(run);
+
 ```
 
 [`url::Position`]: https://docs.rs/url/*/url/enum.Position.html

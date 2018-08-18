@@ -36,7 +36,7 @@ struct Gist {
     html_url: String,
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 
@@ -68,8 +68,6 @@ fn run() -> Result<()> {
     println!("Gist {} deleted! Status code: {}",gist.id, response.status());
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 The example uses [HTTP Basic Auth] in order to authorize access to [GitHub API].

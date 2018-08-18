@@ -21,7 +21,7 @@ use std::io::Read;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let mut res = reqwest::get("http://httpbin.org/get")?;
     let mut body = String::new();
     res.read_to_string(&mut body)?;
@@ -32,8 +32,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string

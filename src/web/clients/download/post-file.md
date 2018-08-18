@@ -26,7 +26,7 @@ use reqwest::Client;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let paste_api = "https://paste.rs";
     let file = File::open("message")?;
 
@@ -36,8 +36,6 @@ fn run() -> Result<()> {
     println!("Your paste is located at: {}", response_body);
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post

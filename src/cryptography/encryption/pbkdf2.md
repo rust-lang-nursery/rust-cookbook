@@ -25,7 +25,7 @@ use data_encoding::HEXUPPER;
 use ring::{digest, pbkdf2, rand};
 use ring::rand::SecureRandom;
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
   const CREDENTIAL_LEN: usize = digest::SHA512_OUTPUT_LEN;
   const N_ITER: u32 = 100_000;
   let rng = rand::SystemRandom::new();
@@ -66,8 +66,6 @@ fn run() -> Result<()> {
 
   Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`pbkdf2::derive`]: https://briansmith.org/rustdoc/ring/pbkdf2/fn.derive.html

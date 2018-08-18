@@ -24,7 +24,7 @@ use semver::{Version, VersionReq};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let version_constraint = "> 1.12.0";
     let version_test = VersionReq::parse(version_constraint)?;
     let output = Command::new("git").arg("--version").output()?;
@@ -46,8 +46,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html

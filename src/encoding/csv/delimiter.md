@@ -27,7 +27,7 @@ use csv::ReaderBuilder;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let data = "name\tplace\tid
 Mark\tMelbourne\t46
 Ashley\tZurich\t92";
@@ -39,8 +39,6 @@ Ashley\tZurich\t92";
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`delimiter`]: https://docs.rs/csv/1.0.0-beta.3/csv/struct.ReaderBuilder.html#method.delimiter

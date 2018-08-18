@@ -19,7 +19,7 @@ use url::percent_encoding::{utf8_percent_encode, percent_decode, DEFAULT_ENCODE_
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let input = "confident, productive systems programming";
 
     let iter = utf8_percent_encode(input, DEFAULT_ENCODE_SET);
@@ -32,8 +32,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 The encode set defines which bytes (in addition to non-ASCII and controls) need

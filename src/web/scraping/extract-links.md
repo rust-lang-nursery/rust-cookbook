@@ -24,7 +24,7 @@ use select::predicate::Name;
 #    }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let res = reqwest::get("https://www.rust-lang.org/en-US/")?;
 
     Document::from_read(res)?
@@ -34,8 +34,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr

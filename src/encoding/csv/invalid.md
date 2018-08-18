@@ -27,7 +27,7 @@ struct Record {
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let data = "name,place,id
 mark,sydney,46.5
 ashley,zurich,92
@@ -42,8 +42,6 @@ alisha,colombo,xyz";
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html

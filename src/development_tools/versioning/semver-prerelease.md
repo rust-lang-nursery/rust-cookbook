@@ -17,7 +17,7 @@ use semver::Version;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let version_1 = Version::parse("1.0.0-alpha")?;
     let version_2 = Version::parse("1.0.0")?;
 
@@ -26,8 +26,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`is_prerelease`]: https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease

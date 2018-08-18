@@ -26,7 +26,7 @@ use reqwest::header::ContentType;
 #    }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let response = reqwest::get("https://www.rust-lang.org/logos/rust-logo-32x32.png")?;
     let headers = response.headers();
 
@@ -49,8 +49,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`mime::Mime`]: https://docs.rs/mime/*/mime/struct.Mime.html

@@ -24,7 +24,7 @@ struct User {
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
                               owner = "rust-lang-nursery",
                               repo = "rust-cookbook");
@@ -35,8 +35,6 @@ fn run() -> Result<()> {
     println!("{:?}", users);
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html

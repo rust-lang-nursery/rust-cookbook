@@ -26,7 +26,7 @@ use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let rfc2822 = DateTime::parse_from_rfc2822("Tue, 1 Jul 2003 10:52:37 +0200")?;
     println!("{}", rfc2822);
 
@@ -47,8 +47,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html

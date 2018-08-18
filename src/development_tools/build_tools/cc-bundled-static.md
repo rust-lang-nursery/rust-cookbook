@@ -83,15 +83,13 @@ extern {
     fn greet(name: *const c_char);
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     unsafe { hello() }
     let name = prompt("What's your name? ")?;
     let c_name = CString::new(name)?;
     unsafe { greet(c_name.as_ptr()) }
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`cc::Build::define`]: https://docs.rs/cc/*/cc/struct.Build.html#method.define

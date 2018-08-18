@@ -49,7 +49,7 @@ fn check_link(url: &Url) -> Result<bool> {
     Ok(res.status() != StatusCode::NotFound)
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let url = Url::parse("https://www.rust-lang.org/en-US/")?;
 
     let res = reqwest::get(url.as_ref())?;
@@ -72,8 +72,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr

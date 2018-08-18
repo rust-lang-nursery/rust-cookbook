@@ -18,7 +18,7 @@ use url::{Url, Host};
 #     }
 # }
 #
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let s = "ftp://rust-lang.org/examples";
 
     let url = Url::parse(s)?;
@@ -30,8 +30,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`origin`] produces the same result.
@@ -49,7 +47,7 @@ use url::{Url, Origin, Host};
 #     }
 # }
 #
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let s = "ftp://rust-lang.org/examples";
 
     let url = Url::parse(s)?;
@@ -65,8 +63,8 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
+
+
 ```
 
 [`origin`]: https://docs.rs/url/*/url/struct.Url.html#method.origin

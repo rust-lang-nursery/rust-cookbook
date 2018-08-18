@@ -88,7 +88,7 @@ use image::{ImageBuffer, Pixel, Rgb};
 #     ((color * factor).powf(0.8) * 255.) as u8
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let (width, height) = (1920, 1080);
     let mut img = ImageBuffer::new(width, height);
     let iterations = 300;
@@ -114,8 +114,6 @@ fn run() -> Result<()> {
     let _ = img.save("output.png")?;
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`ImageBuffer::new`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new

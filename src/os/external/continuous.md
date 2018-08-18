@@ -23,7 +23,7 @@ use std::io::{BufRead, BufReader};
 #     }
 # }
 #
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let stdout = Command::new("journalctl")
         .stdout(Stdio::piped())
         .spawn()?
@@ -40,8 +40,6 @@ fn run() -> Result<()> {
 
      Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html

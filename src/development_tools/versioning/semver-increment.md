@@ -23,7 +23,7 @@ use semver::Version;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let mut parsed_version = Version::parse("0.2.6")?;
 
     assert_eq!(
@@ -51,8 +51,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html

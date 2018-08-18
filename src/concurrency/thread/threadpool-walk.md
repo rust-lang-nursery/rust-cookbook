@@ -54,7 +54,7 @@ fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P)> {
     Ok((context.finish(), filepath))
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let pool = ThreadPool::new(num_cpus::get());
 
     let (tx, rx) = channel();
@@ -79,8 +79,6 @@ fn run() -> Result<()> {
     }
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute

@@ -64,7 +64,7 @@ use reqwest::StatusCode;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let url = "https://httpbin.org/range/102400?duration=2";
     const CHUNK_SIZE: u32 = 10240;
 
@@ -93,8 +93,6 @@ fn run() -> Result<()> {
     println!("Finished with success!");
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head

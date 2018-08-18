@@ -90,12 +90,10 @@ impl Iterator for ReverseDependencies {
     }
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     for dep in ReverseDependencies::of("serde")? {
         println!("reverse dependency: {}", dep?.crate_id);
     }
     Ok(())
 }
-#
-# quick_main!(run);
 ```

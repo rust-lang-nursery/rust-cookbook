@@ -18,7 +18,7 @@ extern crate ring;
 use ring::{digest, hmac, rand};
 use ring::rand::SecureRandom;
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let mut key_value = [0u8; 48];
     let rng = rand::SystemRandom::new();
     rng.fill(&mut key_value)?;
@@ -30,8 +30,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`hmac::Signature`]: https://briansmith.org/rustdoc/ring/hmac/struct.Signature.html

@@ -17,7 +17,7 @@ use url::Url;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let path = "/rust-lang/cargo";
 
     let gh = build_github_url(path)?;
@@ -36,8 +36,6 @@ fn build_github_url(path: &str) -> Result<Url> {
 
     Ok(joined)
 }
-#
-# quick_main!(run);
 ```
 
 [`join`]: https://docs.rs/url/*/url/struct.Url.html#method.join

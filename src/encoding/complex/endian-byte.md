@@ -25,7 +25,7 @@ struct Payload {
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let original_payload = Payload::default();
     let encoded_bytes = encode(&original_payload)?;
     let decoded_payload = decode(&encoded_bytes)?;
@@ -47,6 +47,4 @@ fn decode(mut bytes: &[u8]) -> Result<Payload> {
     };
     Ok(payload)
 }
-#
-# quick_main!(run);
 ```

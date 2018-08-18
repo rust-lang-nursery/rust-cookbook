@@ -18,7 +18,7 @@ use toml::Value;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let toml_content = r#"
           [package]
           name = "your_package"
@@ -37,8 +37,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 Parse TOML into your own structs using [Serde].
@@ -71,7 +69,7 @@ struct Package {
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let toml_content = r#"
           [package]
           name = "your_package"
@@ -91,6 +89,4 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```

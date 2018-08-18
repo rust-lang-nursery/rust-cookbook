@@ -22,7 +22,7 @@ use std::io::{BufRead, BufReader};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let path_to_read = Path::new("new.txt");
 
     let stdout_handle = Handle::stdout()?;
@@ -40,8 +40,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 ```bash

@@ -19,7 +19,7 @@ use std::io::Read;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let loopback = Ipv4Addr::new(127, 0, 0, 1);
     let socket = SocketAddrV4::new(loopback, 0);
     let listener = TcpListener::bind(socket)?;
@@ -32,6 +32,4 @@ fn run() -> Result<()> {
     println!("{:?} says {}", addr, input);
     Ok(())
 }
-#
-# quick_main!(run);
 ```

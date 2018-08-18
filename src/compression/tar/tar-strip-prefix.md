@@ -24,7 +24,7 @@ use std::path::PathBuf;
 use flate2::read::GzDecoder;
 use tar::Archive;
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let file = File::open("archive.tar.gz")?;
     let mut archive = Archive::new(GzDecoder::new(file));
     let prefix = "bundle/logs";
@@ -43,8 +43,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Archive::entries`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.entries

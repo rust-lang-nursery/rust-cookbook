@@ -25,7 +25,7 @@ use data_encoding::{HEXUPPER, DecodeError};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let original = b"The quick brown fox jumps over the lazy dog.";
     let expected = "54686520717569636B2062726F776E20666F78206A756D7073206F76\
         657220746865206C617A7920646F672E";
@@ -38,8 +38,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`data_encoding`]: https://docs.rs/data-encoding/*/data_encoding/

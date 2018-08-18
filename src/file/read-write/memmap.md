@@ -25,7 +25,7 @@ use memmap::Mmap;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
 #     write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
 #
     let file = File::open("content.txt")?;
@@ -39,8 +39,6 @@ fn run() -> Result<()> {
     assert_eq!(&random_bytes[..], b"My loaf!");
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map

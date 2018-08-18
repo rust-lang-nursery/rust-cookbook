@@ -26,7 +26,7 @@ use tempdir::TempDir;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let tmp_dir = TempDir::new("example")?;
     let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
     let mut response = reqwest::get(target)?;
@@ -47,8 +47,6 @@ fn run() -> Result<()> {
     copy(&mut response, &mut dest)?;
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
