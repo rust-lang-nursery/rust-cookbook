@@ -4,6 +4,7 @@
 [About](about.md)
 - [Algorithms](algorithms.md)
   - [Generate Random Values](algorithms/randomness.md)
+  - [Sort a Vector](algorithms/sorting.md)
 - [Command Line](cli.md)
   - [Argument Parsing](cli/arguments.md)
 - [Compression](compression.md)
