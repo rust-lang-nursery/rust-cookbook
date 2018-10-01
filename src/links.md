@@ -48,6 +48,8 @@ Keep lines sorted.
 
 <!-- Crates -->
 
+[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=ansi_term
+[ansi_term]: https://docs.rs/ansi_term/
 [base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
 [bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
