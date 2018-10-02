@@ -2,7 +2,7 @@
 
 [![ansi_term-badge]][ansi_term] [![cat-command-line-badge]][cat-command-line]
 
-This program depicts the use of [ansi_term crate] and how it is used for controlling colours and formatting, such as blue bold text or yellow underlined text, on ANSI terminals.
+This program depicts the use of [`ansi_term` crate] and how it is used for controlling colours and formatting, such as blue bold text or yellow underlined text, on ANSI terminals.
 
 There are two main data structures in this crate that you need to be concerned with: ANSIString and Style. A Style holds stylistic information: colours, whether the text should be bold, or blinking, or whatever. There are also Colour variants that represent simple foreground colour styles. An ANSIString is a string paired with a Style.
 
@@ -36,4 +36,4 @@ fn main() {
 ```
 
 [documentation]: https://docs.rs/ansi_term/
-[ansi_term crate]: https://crates.io/crates/ansi_term
+[`ansi_term` crate]: https://crates.io/crates/ansi_term
