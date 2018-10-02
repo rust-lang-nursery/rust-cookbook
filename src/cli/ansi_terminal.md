@@ -1,4 +1,4 @@
-# ANSI terminal output
+# ANSI Terminal
 
 {{#include ansi_terminal/ansi_term-basic.md}}
 
