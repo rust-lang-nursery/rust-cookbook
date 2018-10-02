@@ -17,6 +17,8 @@ Keep lines sorted.
 [cat-config]: https://crates.io/categories/config
 [cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
 [cat-cryptography]: https://crates.io/categories/cryptography
+[cat-database-badge]: https://badge-cache.kominick.com/badge/database--x.svg?style=social
+[cat-database]: https://crates.io/categories/database
 [cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
 [cat-date-and-time]: https://crates.io/categories/date-and-time
 [cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
@@ -106,6 +108,8 @@ Keep lines sorted.
 [reqwest]: https://docs.rs/reqwest/
 [ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
 [ring]: https://briansmith.org/rustdoc/ring/
+[rusqlite-badge]: https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite
+[rusqlite]: https://crates.io/crates/rusqlite/
 [same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
 [same_file]: https://docs.rs/same-file/
 [select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select

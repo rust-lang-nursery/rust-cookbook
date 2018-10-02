@@ -28,6 +28,8 @@ community. It needs and welcomes help. For details see
 
 {{#include data_structures.md}}
 
+{{#include database.md}}
+
 {{#include datetime.md}}
 
 {{#include development_tools.md}}
