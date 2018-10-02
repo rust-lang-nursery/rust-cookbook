@@ -27,7 +27,7 @@ fn run() -> Result<()> {
     res.read_to_string(&mut body)?;
 
     println!("Status: {}", res.status());
-    println!("Headers:\n{}", res.headers());
+    println!("Headers:\n{:#?}", res.headers());
     println!("Body:\n{}", body);
 
     Ok(())
