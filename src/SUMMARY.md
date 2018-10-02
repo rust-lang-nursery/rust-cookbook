@@ -7,6 +7,7 @@
   - [Sort a Vector](algorithms/sorting.md)
 - [Command Line](cli.md)
   - [Argument Parsing](cli/arguments.md)
+  - [ANSI Terminal](cli/ansi_terminal.md)
 - [Compression](compression.md)
   - [Working with Tarballs](compression/tar.md)
 - [Concurrency](concurrency.md)
