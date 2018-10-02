@@ -7,7 +7,7 @@ for concurrent and parallel programming. [`Scope::spawn`] spawns a new scoped th
 to terminate before returning from the closure that passed into [`crossbeam::scope`] function, meaning that
 you can reference data from the calling function.
 
-This example splits the array in half and performs the work in separate threads.  
+This example splits the array in half and performs the work in separate threads.
 
 ```rust
 extern crate crossbeam;
@@ -27,14 +27,16 @@ fn find_max(arr: &[i32], start: usize, end: usize) -> i32 {
     }
 
     let mid = start + (end - start) / 2;
-    crossbeam::scope(|scope| {
+    crossbeam::thread::scope(|scope| {
         let left = scope.spawn(|| find_max(arr, start, mid));
         let right = scope.spawn(|| find_max(arr, mid, end));
 
-        cmp::max(left.join(), right.join())
+        // NOTE(unwrap): `join` will return an error if the thread panicked.
+        // This way, panics will be propagated up to the `scope` call
+        cmp::max(left.join().unwrap(), right.join().unwrap())
     })
 }
 ```
 
 [`crossbeam::scope`]: https://docs.rs/crossbeam/*/crossbeam/fn.scope.html
-[`Scope::spawn`]: https://docs.rs/crossbeam/*/crossbeam/struct.Scope.html#method.spawn
+[`Scope::spawn`]: https://docs.rs/crossbeam/*/crossbeam/thread/struct.Scope.html#method.spawn
