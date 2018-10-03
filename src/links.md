@@ -90,6 +90,8 @@ Keep lines sorted.
 [memmap]: https://docs.rs/memmap/
 [mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
 [mime]: https://docs.rs/mime/
+[ndarray-badge]: https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray
+[ndarray]: https://docs.rs/ndarray
 [num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus

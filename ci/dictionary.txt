@@ -191,6 +191,7 @@ MyFlags
 NaiveDate
 NaiveDateTime
 NaiveTime
+ndarray
 nFun
 NotFound
 NulError
