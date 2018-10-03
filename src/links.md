@@ -48,6 +48,8 @@ Keep lines sorted.
 
 <!-- Crates -->
 
+[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=ansi_term
+[ansi_term]: https://docs.rs/ansi_term/
 [base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
 [bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
@@ -112,7 +114,7 @@ Keep lines sorted.
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.rs/serde_json/*/serde_json/
 [serde]: https://docs.rs/serde/
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.25.0-blue.svg
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg
 [std]: https://doc.rust-lang.org/std
 [syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/
