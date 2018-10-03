@@ -41,7 +41,7 @@ fn main() {
 ```
 ### Bold and colored text in terminal
 
-`Colour` returns a `Style`.
+`Colour` implements many similar functions as `Style` and can chain methods.
 
 ```rust
 extern crate ansi_term;

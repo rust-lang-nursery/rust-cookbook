@@ -34,6 +34,4 @@ fn main() {
 }
 ```
 
-// links
-
 {{#include ../../links.md}}
