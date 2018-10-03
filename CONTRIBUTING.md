@@ -20,7 +20,7 @@ cd rust-cookbook
 Cookbook is built with [mdBook], so install that first with Cargo:
 
 ```
-cargo install mdbook
+cargo install --version 0.1.8 mdbook
 ```
 
 To build and view the cookbook locally, run:
@@ -59,11 +59,11 @@ is done with pip3.
 [sudo] pip3 install link-checker==0.1.0
 ```
 
-Alternatively, set up the user install directory on your PATH variable and
-install link-checker for your user
+Alternatively, add the user install directory (probably `~/.local/bin`) to
+your PATH variable and install link-checker for your user.
 
 ```
-pip3 install -user link-checker==0.1.0
+pip3 install --user link-checker==0.1.0
 ```
 
 Checking the links of the book locally first requires the book to be built
@@ -82,11 +82,17 @@ on Debian based operating systems.
 [sudo] apt install aspell -y
 ```
 
+On other Linux distributions you might also need to install the `aspell-en`
+package, or similar.
+
 To check the spelling of the Rust Cookbook locally, run the following command
 from the root of the Cookbook.
 
 ```
 ./ci/spellchecker.sh
+
+# or, if you're using a different locale
+LANG=en_US.UTF-8 ./ci/spellchecker.sh
 ```
 
 If the spell checker finds a misspelled word, you have the opportunity to
