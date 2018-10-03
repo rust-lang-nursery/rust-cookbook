@@ -5,8 +5,7 @@
 Uses [`reqwest::Client::head`] to get the [Content-Length] of the response.
 
 The code then uses [`reqwest::Client::get`] to download the content in
-chunks of 10240 bytes, while printing progress messages. The requested
-ranges are specified using with the [Range] header.
+chunks of 10240 bytes, while printing progress messages. The [Range] header specifies the chunk size and position.
 
 The Range header is defined in [RFC7233][HTTP Range RFC7233].
 
