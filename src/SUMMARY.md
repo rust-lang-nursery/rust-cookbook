@@ -47,6 +47,7 @@
 - [Science](science.md)
   - [Mathematics](science/mathematics.md)
     - [Complex Numbers](science/mathematics/complex-numbers.md)
+    - [Trigonometry](science/mathematics/trigonometry.md)
 - [Text Processing](text.md)
   - [Regular Expressions](text/regex.md)
 - [Web Programming](web.md)
