@@ -46,8 +46,6 @@
   - [External Command](os/external.md)
 - [Science](science.md)
   - [Mathematics](science/mathematics.md)
-    - [Complex Numbers](science/mathematics/complex-numbers.md)
-    - [Statistics](science/mathematics/statistics.md)
 - [Text Processing](text.md)
   - [Regular Expressions](text/regex.md)
 - [Web Programming](web.md)
