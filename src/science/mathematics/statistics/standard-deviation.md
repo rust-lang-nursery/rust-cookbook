@@ -4,7 +4,7 @@
 
 This example calculates the standard deviation and z-score of a set of measurements.
 
-The standard deviation is defined as the square root of the variance (here calculated with f32's [`sqrt`], where the variance is the [`sum`] of the squared difference between each measurement and the [`mean`], divided by the number of measurements. The standard deviation requires at least one measurement to exist (just like the mean), and so here an [`Option`] is used to return [`None`] for an empty data set.
+The standard deviation is defined as the square root of the variance (here calculated with f32's [`sqrt`], where the variance is the [`sum`] of the squared difference between each measurement and the [`mean`], divided by the number of measurements.
 
 The z-score is the number of standard deviations a single measurement spans away from the [`mean`] of the data set.
 
@@ -59,5 +59,3 @@ fn main() {
 [sqrt]: https://doc.rust-lang.org/std/primitive.f32.html#method.sqrt
 [sum]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum
 [mean]: science/mathematics/statistics/central-tendency.html
-[Option]: https://doc.rust-lang.org/std/option/enum.Option.html
-[None]: https://doc.rust-lang.org/std/option/enum.Option.html#variant.None
