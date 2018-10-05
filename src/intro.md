@@ -44,8 +44,10 @@ community. It needs and welcomes help. For details see
 
 {{#include os.md}}
 
+{{#include science.md}}
+
 {{#include text.md}}
 
 {{#include web.md}}
 
-{{#include science.md}}
+

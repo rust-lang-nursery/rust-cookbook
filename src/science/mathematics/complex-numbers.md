@@ -1,6 +1,6 @@
-# Complex numbers
+## Complex numbers
 
-## Creating complex numbers
+### Creating complex numbers
 
 [![num-badge]][num] [![cat-science-badge]][cat-science]
 
@@ -19,7 +19,7 @@ fn main() {
 }
 ```
 
-## Adding complex numbers
+### Adding complex numbers
 
 [![num-badge]][num] [![cat-science-badge]][cat-science]
 
@@ -40,7 +40,7 @@ fn main() {
 }
 ```
 
-## Mathematical functions
+### Mathematical functions
 
 [![num-badge]][num] [![cat-science-badge]][cat-science]
 
