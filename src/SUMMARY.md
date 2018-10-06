@@ -18,6 +18,8 @@
   - [Encryption](cryptography/encryption.md)
 - [Data Structures](data_structures.md)
   - [Bitfield](data_structures/bitfield.md)
+- [Database](database.md)
+  - [SQLite](database/sqlite.md)
 - [Date and Time](datetime.md)
   - [Duration and Calculation](datetime/duration.md)
   - [Parsing and Displaying](datetime/parse.md)

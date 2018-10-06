@@ -8,22 +8,14 @@ named `archive.tar.gz` located in the current working directory
 to the same location.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 extern crate flate2;
 extern crate tar;
 
 use std::fs::File;
 use flate2::read::GzDecoder;
 use tar::Archive;
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
 
-fn run() -> Result<()> {
+fn main() -> Result<(), std::io::Error> {
     let path = "archive.tar.gz";
 
     let tar_gz = File::open(path)?;
@@ -33,8 +25,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Archive::unpack`]: https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack
