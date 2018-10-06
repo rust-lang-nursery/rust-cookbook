@@ -11,13 +11,13 @@
 | [Vector Sum][ex-ndarray-vec-sum] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Vector norm calculation][ex-ndarray-vec-norm] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 
-[ex-creating-complex-numbers]: science/mathematics/complex-numbers.html#creating-complex-numbers
-[ex-adding-complex-numbers]: science/mathematics/complex-numbers.html#adding-complex-numbers
-[ex-creating-complex-numbers]: science/mathematics/complex-numbers.html#creating-complex-numbers
-[ex-latitude-longitude]: science/mathematics.html#distance-between-two-points-on-earth
-[ex-mathematical-functions]: science/mathematics/complex-numbers.html#mathematical-functions
-[ex-calculating-side-length-of-triangle]: science/mathematics/trigonometry.html#calculating-the-side-length-of-a-triangle
-[ex-tan-equal-to-sin-divided-by-cos]: science/mathematics/trigonometry.html#verifying-tan-is-equal-to-sin-divided-by-cos
+[ex-creating-complex-numbers]: science/mathematics.html#creating-complex-numbers
+[ex-adding-complex-numbers]: science/mathematics.html#adding-complex-numbers
+[ex-creating-complex-numbers]: science/mathematics.html#creating-complex-numbers
+[ex-latitude-longitude]: science/mathematics.html#distance-between-two-points-on-the-earth
+[ex-mathematical-functions]: science/mathematics.html#mathematical-functions
+[ex-calculating-side-length-of-triangle]: science/mathematics.html#calculating-the-side-length-of-a-triangle
+[ex-tan-equal-to-sin-divided-by-cos]: science/mathematics.html#verifying-tan-is-equal-to-sin-divided-by-cos
 [ex-ndarray-vec-sum]: science/mathematics/linear-algebra/vector_sum.html
 [ex-ndarray-vec-norm]: science/mathematics/linear-algebra/vector_norm.html
 
