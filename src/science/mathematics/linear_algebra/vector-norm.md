@@ -1,5 +1,6 @@
 ## Vector Norm
 [![ndarray-badge]][ndarray]
+
 This recipe demonstrates use of the [`Array1`] type, [`dot`], [`map`], and
 [`scalar_sum`] in computing the [l1] and [l2] norms of a given vector. The l2
 norm calculation is the simpler of the two, as it is the square root of the dot
