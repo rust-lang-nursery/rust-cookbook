@@ -20,7 +20,7 @@ cd rust-cookbook
 Cookbook is built with [mdBook], so install that first with Cargo:
 
 ```
-cargo install --version 0.1.8 mdbook
+cargo install mdbook --vers "0.2.1"
 ```
 
 To build and view the cookbook locally, run:
