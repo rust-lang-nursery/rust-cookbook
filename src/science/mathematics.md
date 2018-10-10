@@ -14,16 +14,16 @@
 | [Adding complex numbers][add-complex] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 | [Mathematical functions on complex numbers][mathematical-functions] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 
-[vector-sum]: science/mathematics/linear_algebra.html#vector-sum
-[vector-norm]: science/mathematics/linear_algebra.html#vector-norm
-[add-matrices]: science/mathematics/linear_algebra.html#adding-matrices
-[multiply-matrices]: science/mathematics/linear_algebra.html#multiplying-matrices
-[multiply-scalar-vector-matrix]: science/mathematics/linear_algebra.html#multiply-a-scalar-with-a-vector-with-a-matrix
-[side-length]: science/mathematics/trigonometry.html#calculating-the-side-length-of-a-triangle
-[tan-sin-cos]: science/mathematics/trigonometry.html#verifying-tan-is-equal-to-sin-divided-by-cos
-[latitude-longitude]: science/mathematics/trigonometry.html#distance-between-two-points-on-the-earth
-[create-complex]: science/mathematics/complex_numbers.html#creating-complex-numbers
-[add-complex]: science/mathematics/complex_numbers.html#adding-complex-numbers
-[mathematical-functions]: science/mathematics/complex_numbers.html#mathematical-functions
+[vector-sum]: /science/mathematics/linear_algebra.html#vector-sum
+[vector-norm]: /science/mathematics/linear_algebra.html#vector-norm
+[add-matrices]: /science/mathematics/linear_algebra.html#adding-matrices
+[multiply-matrices]: /science/mathematics/linear_algebra.html#multiplying-matrices
+[multiply-scalar-vector-matrix]: /science/mathematics/linear_algebra.html#multiply-a-scalar-with-a-vector-with-a-matrix
+[side-length]: /science/mathematics/trigonometry.html#calculating-the-side-length-of-a-triangle
+[tan-sin-cos]: /science/mathematics/trigonometry.html#verifying-tan-is-equal-to-sin-divided-by-cos
+[latitude-longitude]: /science/mathematics/trigonometry.html#distance-between-two-points-on-the-earth
+[create-complex]: /science/mathematics/complex_numbers.html#creating-complex-numbers
+[add-complex]: /science/mathematics/complex_numbers.html#adding-complex-numbers
+[mathematical-functions]: /science/mathematics/complex_numbers.html#mathematical-functions
 
 {{#include ../links.md}}
