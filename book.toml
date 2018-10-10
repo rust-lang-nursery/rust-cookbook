@@ -9,7 +9,7 @@ src = "src"
 [output.html]
 mathjax-support = false
 theme = "theme"
-additional-css = ["src/theme/custom.css"]
+additional-css = ["theme/custom.css"]
 
 [output.html.playpen]
 editable = false
