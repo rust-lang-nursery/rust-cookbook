@@ -18,7 +18,7 @@ if [[ "${CONTENT_TESTS:-}" == 1 ]]; then
         pyenv local 3.6.0
         pip3 install --user link-checker==0.1.0
     fi
-    cargo install mdbook --vers '0.1.8' --debug
+    cargo install mdbook --vers '0.2.1' --debug
 fi
 
 exit 0
