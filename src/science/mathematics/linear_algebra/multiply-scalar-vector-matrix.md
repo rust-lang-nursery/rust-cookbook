@@ -1,7 +1,7 @@
 ## Multiply a scalar with a vector with a matrix
 [![ndarray-badge]][ndarray] [![cat-science-badge]][cat-science]
 
-Creates a vector with [`ndarray::arr1`] and a matrix with [`ndarray::arr2`]. First, a scalar is multiplied by the vector to get another vector. Then, we convert the vector to a column vector with [`ndarray::ArrayBase::reversed_axes`] and multiply the matrix by it get a new matrix.
+Creates a vector with [`ndarray::arr1`] and a matrix with [`ndarray::arr2`]. First, a scalar is multiplied by the vector to get another vector. Then, convert the vector to a column vector with [`ndarray::ArrayBase::reversed_axes`] and multiply the matrix by the column vector to calculate a new matrix.
 
 ```rust
 extern crate ndarray;
