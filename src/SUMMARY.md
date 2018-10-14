@@ -52,6 +52,7 @@
     - [Linear Algebra](science/mathematics/linear_algebra.md)
     - [Trigonometry](science/mathematics/trigonometry.md)
     - [Complex Numbers](science/mathematics/complex_numbers.md)
+    - [Miscellaneous](science/mathematics/miscellaneous.md)
 - [Text Processing](text.md)
   - [Regular Expressions](text/regex.md)
 - [Web Programming](web.md)

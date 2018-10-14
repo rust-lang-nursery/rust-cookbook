@@ -13,6 +13,7 @@
 | [Creating complex numbers][create-complex] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 | [Adding complex numbers][add-complex] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 | [Mathematical functions on complex numbers][mathematical-functions] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
+| [Big integers][big-integers] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 
 [vector-sum]: science/mathematics/linear_algebra.html#vector-sum
 [vector-norm]: science/mathematics/linear_algebra.html#vector-norm
@@ -25,5 +26,6 @@
 [create-complex]: science/mathematics/complex_numbers.html#creating-complex-numbers
 [add-complex]: science/mathematics/complex_numbers.html#adding-complex-numbers
 [mathematical-functions]: science/mathematics/complex_numbers.html#mathematical-functions
+[big-integers]: science/mathematics/miscellaneous.html#big-integers
 
 {{#include ../links.md}}
