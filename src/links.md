@@ -98,6 +98,8 @@ Keep lines sorted.
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
 [num_cpus]: https://docs.rs/num_cpus/
+[postgres-badge]: https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres
+[postgres]: https://docs.rs/postgres/0.15.2/postgres/
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
