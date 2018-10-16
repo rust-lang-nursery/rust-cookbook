@@ -1,0 +1,55 @@
+## Using transactions
+
+[![rusqlite-badge]][rusqlite] [![cat-database-badge]][cat-database]
+
+[`Connection::open`] will open the `cats.db` database from the top recipe.
+
+Begin a transaction with [`Connection::transaction`]. Transactions will
+roll back unless committed explicitly with [`Transaction::commit`].
+
+```rust,no_run
+extern crate rusqlite;
+
+use rusqlite::{Connection, Result};
+
+fn main() -> Result<()> {
+    let mut conn = Connection::open("cats.db")?;
+
+    successful_tx(&mut conn)?;
+
+    let res = rolled_back_tx(&mut conn);
+    assert!(res.is_err());
+
+    Ok(())
+}
+
+fn successful_tx(conn: &mut Connection) -> Result<()> {
+    let tx = conn.transaction()?;
+
+    tx.execute("delete from cat_colors", &[])?;
+    tx.execute("insert into cat_colors (name) values (?1)", &[&"lavender"])?;
+    tx.execute("insert into cat_colors (name) values (?1)", &[&"blue"])?;
+
+    tx.commit()
+}
+
+fn rolled_back_tx(conn: &mut Connection) -> Result<()> {
+    let tx = conn.transaction()?;
+
+    tx.execute("delete from cat_colors", &[])?;
+    tx.execute("insert into cat_colors (name) values (?1)", &[&"lavender"])?;
+    tx.execute("insert into cat_colors (name) values (?1)", &[&"blue"])?;
+    // duplicate color
+    tx.execute("insert into cat_colors (name) values (?1)", &[&"lavender"])?;
+
+    tx.commit()
+}
+```
+
+[`rusqlite::Transaction`]: https://docs.rs/rusqlite/0.14.0/rusqlite/struct.Transaction.html
+
+[`Connection::transaction`]: https://docs.rs/rusqlite/0.14.0/rusqlite/struct.Connection.html#method.transaction
+
+[`Transaction::commit`]: https://docs.rs/rusqlite/0.14.0/rusqlite/struct.Transaction.html#method.commit
+
+[documentation]: https://github.com/jgallagher/rusqlite#user-content-notes-on-building-rusqlite-and-libsqlite3-sys
