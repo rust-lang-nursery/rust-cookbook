@@ -46,5 +46,5 @@ fn rolled_back_tx(conn: &mut Connection) -> Result<()> {
 }
 ```
 
-[`Connection::transaction`]: https://docs.rs/rusqlite/0.14.0/rusqlite/struct.Connection.html#method.transaction
-[`Transaction::commit`]: https://docs.rs/rusqlite/0.14.0/rusqlite/struct.Transaction.html#method.commit
+[`Connection::transaction`]: https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.transaction
+[`Transaction::commit`]: https://docs.rs/rusqlite/*/rusqlite/struct.Transaction.html#method.commit
