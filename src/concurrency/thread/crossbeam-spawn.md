@@ -28,13 +28,13 @@ fn find_max(arr: &[i32], start: usize, end: usize) -> i32 {
 
     let mid = start + (end - start) / 2;
     crossbeam::thread::scope(|scope| {
-        let left = scope.spawn(|| find_max(arr, start, mid));
-        let right = scope.spawn(|| find_max(arr, mid, end));
+        let left = scope.spawn(|_| find_max(arr, start, mid));
+        let right = scope.spawn(|_| find_max(arr, mid, end));
 
         // NOTE(unwrap): `join` will return an error if the thread panicked.
         // This way, panics will be propagated up to the `scope` call
         cmp::max(left.join().unwrap(), right.join().unwrap())
-    })
+    }).unwrap()
 }
 ```
 
