@@ -19,7 +19,7 @@
 [ex-paginated-api]: web/clients/apis.html#consume-a-paginated-restful-api
 [ex-handle-rate-limited-api]: web/clients/apis.html#handle-a-rate-limited-api
 [ex-url-download]: web/clients/download.html#download-a-file-to-a-temporary-directory
-[ex-progress-with-range]: web/clients/download.html#post-a-file-to-paste-rs
-[ex-file-post]: web/clients/download.html#make-a-partial-download-with-http-range-headers
+[ex-progress-with-range]: web/clients/download.html#make-a-partial-download-with-http-range-headers
+[ex-file-post]: web/clients/download.html#post-a-file-to-paste-rs
 
 {{#include ../links.md}}
