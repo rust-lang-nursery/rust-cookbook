@@ -13,6 +13,8 @@
 | [Creating complex numbers][create-complex] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 | [Adding complex numbers][add-complex] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 | [Mathematical functions on complex numbers][mathematical-functions] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
+| [Measures of central tendency][ex-central-tendency] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
+| [Computing standard deviation][ex-standard-deviation] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Big integers][big-integers] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 
 [vector-sum]: science/mathematics/linear_algebra.html#vector-sum
@@ -26,6 +28,8 @@
 [create-complex]: science/mathematics/complex_numbers.html#creating-complex-numbers
 [add-complex]: science/mathematics/complex_numbers.html#adding-complex-numbers
 [mathematical-functions]: science/mathematics/complex_numbers.html#mathematical-functions
+[ex-central-tendency]: science/mathematics/statistics/central-tendency.html
+[ex-standard-deviation]: science/mathematics/statistics/standard-deviation.htmla
 [big-integers]: science/mathematics/miscellaneous.html#big-integers
 
 {{#include ../links.md}}
