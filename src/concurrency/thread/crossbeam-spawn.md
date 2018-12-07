@@ -12,28 +12,27 @@ This example splits the array in half and performs the work in separate threads.
 ```rust
 extern crate crossbeam;
 
-use std::cmp;
-
 fn main() {
     let arr = &[-4, 1, 10, 25];
     let max = find_max(arr, 0, arr.len());
-    assert_eq!(25, max);
+    assert_eq!(max, Some(25));
 }
 
-fn find_max(arr: &[i32], start: usize, end: usize) -> i32 {
+fn find_max(arr: &[i32], start: usize, end: usize) -> Option<i32> {
     const THRESHOLD: usize = 2;
     if end - start <= THRESHOLD {
-        return *arr.iter().max().unwrap();
+        return arr.iter().cloned().max();
     }
 
     let mid = start + (end - start) / 2;
-    crossbeam::thread::scope(|scope| {
-        let left = scope.spawn(|_| find_max(arr, start, mid));
-        let right = scope.spawn(|_| find_max(arr, mid, end));
-
-        // NOTE(unwrap): `join` will return an error if the thread panicked.
-        // This way, panics will be propagated up to the `scope` call
-        cmp::max(left.join().unwrap(), right.join().unwrap())
+    crossbeam::scope(|s| {
+        let left = s.spawn(|_| find_max(arr, start, mid));
+        let right = s.spawn(|_| find_max(arr, mid, end));
+  
+        let left = left.join().unwrap()?;
+        let right = right.join().unwrap()?;
+  
+        Some(left.max(right))
     }).unwrap()
 }
 ```
