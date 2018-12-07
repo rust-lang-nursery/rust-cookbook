@@ -13,26 +13,29 @@ This example splits the array in half and performs the work in separate threads.
 extern crate crossbeam;
 
 fn main() {
-    let arr = &[-4, 1, 10, 25];
-    let max = find_max(arr, 0, arr.len());
+    let arr = &[1, 25, -4, 10];
+    let max = find_max(arr);
     assert_eq!(max, Some(25));
 }
 
-fn find_max(arr: &[i32], start: usize, end: usize) -> Option<i32> {
+fn find_max(arr: &[i32]) -> Option<i32> {
     const THRESHOLD: usize = 2;
-    if end - start <= THRESHOLD {
+  
+    if arr.len() <= THRESHOLD {
         return arr.iter().cloned().max();
     }
 
-    let mid = start + (end - start) / 2;
+    let mid = arr.len() / 2;
+    let (left, right) = arr.split_at(mid);
+  
     crossbeam::scope(|s| {
-        let left = s.spawn(|_| find_max(arr, start, mid));
-        let right = s.spawn(|_| find_max(arr, mid, end));
+        let thread_l = s.spawn(|_| find_max(left));
+        let thread_r = s.spawn(|_| find_max(right));
   
-        let left = left.join().unwrap()?;
-        let right = right.join().unwrap()?;
+        let min_l = thread_l.join().unwrap()?;
+        let min_r = thread_r.join().unwrap()?;
   
-        Some(left.max(right))
+        Some(min_l.max(min_r))
     }).unwrap()
 }
 ```
