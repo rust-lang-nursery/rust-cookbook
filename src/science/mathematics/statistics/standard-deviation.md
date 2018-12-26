@@ -1,6 +1,6 @@
 ### Standard deviation
 
-[![std-badge]][std]
+[![std-badge]][std] [![cat-science-badge]][cat-science]
 
 This example calculates the standard deviation and z-score of a set of measurements.
 

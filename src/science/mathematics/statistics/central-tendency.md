@@ -1,6 +1,6 @@
 ### Measures of central tendency
 
-[![std-badge]][std]
+[![std-badge]][std] [![cat-science-badge]][cat-science]
 
 These examples calculate measures of central tendency for a data set contained within a Rust array. There may be no mean, median or mode to calculate for an empty set of data, so each function returns an [`Option`] to be handled by the caller.
 
