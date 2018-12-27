@@ -1,4 +1,4 @@
-## Implement the FromStr trait for a custom struct
+## Implement the `FromStr` trait for a custom `struct`
 
 [![std-badge]][std] [![cat-text-processing-badge]][cat-text-processing]
 
