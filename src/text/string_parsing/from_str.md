@@ -2,7 +2,7 @@
 
 [![std-badge]][std] [![cat-text-processing-badge]][cat-text-processing]
 
-Creates a custom struct RGB and implements the FromStr trait to convert a provided color hex code into its RGB color code.
+Creates a custom struct `RGB` and implements the `FromStr` trait to convert a provided color hex code into its RGB color code.
 
 ```rust
 use std::str::FromStr;

@@ -7,7 +7,7 @@
 | [Extract phone numbers from text][ex-phone] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Filter a log file by matching multiple regular expressions][ex-regex-filter-log] | [![regex-badge]][regex] | [![cat-text-processing-badge]][cat-text-processing]
 | [Replace all occurrences of one text pattern with another pattern.][ex-regex-replace-named] | [![regex-badge]][regex] [![lazy_static-badge]][lazy_static] | [![cat-text-processing-badge]][cat-text-processing] |
-| [Implement the FromStr trait for a custom struct][string_parsing-from_str] | [![std-badge]][std] | [![cat-text-processing-badge]][cat-text-processing] |
+| [Implement the `FromStr` trait for a custom `struct`][string_parsing-from_str] | [![std-badge]][std] | [![cat-text-processing-badge]][cat-text-processing] |
 
 [ex-verify-extract-email]: text/regex.html#verify-and-extract-login-from-an-email-address
 [ex-extract-hashtags]: text/regex.html#extract-a-list-of-unique-hashtags-from-a-text
