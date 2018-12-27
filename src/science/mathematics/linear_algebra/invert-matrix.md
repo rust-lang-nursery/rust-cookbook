@@ -22,4 +22,4 @@ fn main() {
 }
 ```
 
-[`nalgebra::Matrix3`]: https://docs.rs/nalgebra/0.10.1/nalgebra/struct.Matrix3.html
+[`nalgebra::Matrix3`]: https://docs.rs/nalgebra/*/nalgebra/base/type.Matrix3.html
