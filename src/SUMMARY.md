@@ -56,6 +56,7 @@
     - [Miscellaneous](science/mathematics/miscellaneous.md)
 - [Text Processing](text.md)
   - [Regular Expressions](text/regex.md)
+  - [String Parsing](text/string_parsing.md)
 - [Web Programming](web.md)
   - [Extracting Links](web/scraping.md)
   - [URL](web/url.md)
