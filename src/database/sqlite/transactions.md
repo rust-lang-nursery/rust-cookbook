@@ -44,7 +44,6 @@ fn rolled_back_tx(conn: &mut Connection) -> Result<()> {
     tx.execute("delete from cat_colors", &[])?;
     tx.execute("insert into cat_colors (name) values (?1)", &[&"lavender"])?;
     tx.execute("insert into cat_colors (name) values (?1)", &[&"blue"])?;
-    // duplicate color
     tx.execute("insert into cat_colors (name) values (?1)", &[&"lavender"])?;
 
     tx.commit()
