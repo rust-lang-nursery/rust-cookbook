@@ -1,4 +1,4 @@
-# Working with SQLite
+# SQLite
 
 {{#include sqlite/initialization.md}}
 

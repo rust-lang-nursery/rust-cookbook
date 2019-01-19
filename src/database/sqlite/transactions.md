@@ -7,6 +7,11 @@
 Begin a transaction with [`Connection::transaction`]. Transactions will
 roll back unless committed explicitly with [`Transaction::commit`].
 
+In the following examples we are adding colors to a table having
+a unique constraint on the color name. When an attempt to insert
+a duplicate color is made, the transaction rolls back.
+
+
 ```rust,no_run
 extern crate rusqlite;
 
