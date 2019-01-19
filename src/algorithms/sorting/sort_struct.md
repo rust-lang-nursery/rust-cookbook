@@ -4,7 +4,7 @@
 
 Sorts a Vector of Person structs with properties `name` and `age` by its natural
 order (By name and age). In order to make Person sortable you need four traits [`Eq`],
-[`PartialEq`], [`Ord`] and [`PartialOrd`]. These traits can be siply derived.
+[`PartialEq`], [`Ord`] and [`PartialOrd`]. These traits can be simply derived.
 You can also provide a custom comparator function using a [`vec:sort_by`] method and sort only by age.
 
 ```rust
