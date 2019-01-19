@@ -103,6 +103,7 @@ fname
 Formatter
 foundational
 fout
+fromstr
 FromStr
 FromStrError
 FromUtf
