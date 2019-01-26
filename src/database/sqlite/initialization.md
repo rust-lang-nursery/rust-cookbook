@@ -18,7 +18,7 @@ fn main() -> Result<()> {
     conn.execute(
         "create table if not exists cat_colors (
              id integer primary key,
-             name text not null
+             name text not null unique
          )",
         NO_PARAMS,
     )?;
