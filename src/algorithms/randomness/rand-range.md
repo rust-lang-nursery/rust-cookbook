@@ -23,11 +23,12 @@ in the same range.
 ```rust
 extern crate rand;
 
-use rand::distributions::{Uniform, Distribution};
+
+use rand::distributions::{Distribution, Uniform};
 
 fn main() {
     let mut rng = rand::thread_rng();
-    let die = Uniform::new(1, 7);
+    let die = Uniform::from(1..7);
 
     loop {
         let throw = die.sample(&mut rng);
