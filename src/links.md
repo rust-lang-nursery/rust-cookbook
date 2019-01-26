@@ -17,6 +17,8 @@ Keep lines sorted.
 [cat-config]: https://crates.io/categories/config
 [cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
 [cat-cryptography]: https://crates.io/categories/cryptography
+[cat-database-badge]: https://badge-cache.kominick.com/badge/database--x.svg?style=social
+[cat-database]: https://crates.io/categories/database
 [cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
 [cat-date-and-time]: https://crates.io/categories/date-and-time
 [cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
@@ -48,6 +50,8 @@ Keep lines sorted.
 
 <!-- Crates -->
 
+[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=ansi_term
+[ansi_term]: https://docs.rs/ansi_term/
 [base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
 [bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
@@ -88,10 +92,14 @@ Keep lines sorted.
 [memmap]: https://docs.rs/memmap/
 [mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
 [mime]: https://docs.rs/mime/
+[ndarray-badge]: https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray
+[ndarray]: https://docs.rs/ndarray
 [num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
 [num_cpus]: https://docs.rs/num_cpus/
+[postgres-badge]: https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres
+[postgres]: https://docs.rs/postgres/0.15.2/postgres/
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
@@ -102,6 +110,8 @@ Keep lines sorted.
 [reqwest]: https://docs.rs/reqwest/
 [ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
 [ring]: https://briansmith.org/rustdoc/ring/
+[rusqlite-badge]: https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite
+[rusqlite]: https://crates.io/crates/rusqlite/
 [same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
 [same_file]: https://docs.rs/same-file/
 [select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
@@ -112,7 +122,7 @@ Keep lines sorted.
 [serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.rs/serde_json/*/serde_json/
 [serde]: https://docs.rs/serde/
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.25.0-blue.svg
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg
 [std]: https://doc.rust-lang.org/std
 [syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
 [syslog]: https://docs.rs/syslog/

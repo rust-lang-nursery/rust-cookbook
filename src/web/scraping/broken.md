@@ -46,7 +46,7 @@ fn get_base_url(url: &Url, doc: &Document) -> Result<Url> {
 fn check_link(url: &Url) -> Result<bool> {
     let res = reqwest::get(url.as_ref())?;
 
-    Ok(res.status() != StatusCode::NotFound)
+    Ok(res.status() != StatusCode::NOT_FOUND)
 }
 
 fn main() -> Result<()> {
@@ -76,6 +76,6 @@ fn main() -> Result<()> {
 
 [`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr
 [`Position::BeforePath`]: https://docs.rs/url/*/url/enum.Position.html#variant.BeforePath
-[`StatusCode`]: https://docs.rs/reqwest/*/reqwest/enum.StatusCode.html
+[`StatusCode`]: https://docs.rs/reqwest/*/reqwest/struct.StatusCode.html
 [`url::Parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
 [`url::ParseOptions`]: https://docs.rs/url/*/url/struct.ParseOptions.html

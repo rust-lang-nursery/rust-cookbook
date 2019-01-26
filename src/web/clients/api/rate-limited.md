@@ -7,7 +7,7 @@ handle remote server errors.  This example uses the [`hyper::header!`] macro
 to parse the response header and checks for [`reqwest::StatusCode::Forbidden`].
 If the response exceeds the rate limit, the example waits and retries.
 
-```rust,no_run
+```rust,no_run,ignore
 # #[macro_use]
 # extern crate error_chain;
 #[macro_use]
@@ -69,4 +69,4 @@ fn main() -> Result<()> {
 ```
 
 [`hyper::header!`]: https://doc.servo.org/hyper/header/index.html#defining-custom-headers
-[`reqwest::StatusCode::Forbidden`]: https://docs.rs/reqwest/*/reqwest/enum.StatusCode.html#variant.Forbidden
+[`reqwest::StatusCode::Forbidden`]: https://docs.rs/reqwest/*/reqwest/struct.StatusCode.html#associatedconstant.FORBIDDEN

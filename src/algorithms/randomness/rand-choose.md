@@ -7,7 +7,8 @@ Randomly generates a string of given length ASCII characters with custom user-de
 ```rust
 extern crate rand;
 
-use rand::{thread_rng, Rng};
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 
 fn main() {
     const CHARSET: &[u8] =  b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
@@ -16,7 +17,7 @@ fn main() {
 
     let mut rng = thread_rng();
     let password: Option<String> = (0..30)
-        .map(|_| Some(*rng.choose(CHARSET)? as char))
+        .map(|_| Some(*CHARSET.choose(&mut rng)? as char))
         .collect();
 
     println!("{:?}", password);

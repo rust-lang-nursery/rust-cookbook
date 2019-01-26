@@ -11,6 +11,8 @@ Akshat
 akshat
 alisha
 AlphaNumeric
+ansi
+ansiterm
 ApiResponse
 apis
 APIs
@@ -101,6 +103,7 @@ fname
 Formatter
 foundational
 fout
+fromstr
 FromStr
 FromStrError
 FromUtf
@@ -189,6 +192,7 @@ MyFlags
 NaiveDate
 NaiveDateTime
 NaiveTime
+ndarray
 nFun
 NotFound
 NulError
@@ -212,6 +216,7 @@ PBKDF
 pbkdf
 PhoneNumber
 PNGs
+postgres
 preallocating
 prerelease
 prev
@@ -244,9 +249,11 @@ resize
 resized
 RESTful
 ReverseDependencies
+rusqlite
 rustaceans
 rustc
 RwLock
+SQLite
 SecureRandom
 SemVer
 Semver
@@ -260,6 +267,7 @@ SetLoggerError
 SigningKey
 SocketAddrV
 StatusCode
+sqlite
 stderr
 stdin
 Stdout

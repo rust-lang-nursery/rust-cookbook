@@ -2,14 +2,12 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-Uses [`reqwest::Client::head`] to get the content-length and validates the
-server setting the header [`reqwest::header::ContentRange`].
+Uses [`reqwest::Client::head`] to get the [Content-Length] of the response.
 
-If supported, downloads the content using [`reqwest::get`] by setting the
-[`reqwest::header::Range`] to do partial downloads printing basic progress
-messages in chunks of 10240 bytes.
+The code then uses [`reqwest::Client::get`] to download the content in
+chunks of 10240 bytes, while printing progress messages. The [Range] header specifies the chunk size and position.
 
-Range header is defined in [RFC7233][HTTP Range RFC7233].
+The Range header is defined in [RFC7233][HTTP Range RFC7233].
 
 ```rust,no_run
 # #[macro_use]
@@ -17,13 +15,16 @@ Range header is defined in [RFC7233][HTTP Range RFC7233].
 extern crate reqwest;
 
 use std::fs::File;
-use reqwest::header::{ContentRange, ContentRangeSpec, Range};
+use std::str::FromStr;
+use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
 use reqwest::StatusCode;
+
 #
 # error_chain! {
 #     foreign_links {
 #         Io(std::io::Error);
 #         Reqwest(reqwest::Error);
+#         Header(reqwest::header::ToStrError);
 #     }
 # }
 #
@@ -34,24 +35,21 @@ use reqwest::StatusCode;
 # }
 #
 # impl PartialRangeIter {
-#     pub fn new(content_range: &ContentRangeSpec, buffer_size: u32) -> Result<Self> {
+#     pub fn new(start: u64, end: u64, buffer_size: u32) -> Result<Self> {
 #         if buffer_size == 0 {
 #             Err("invalid buffer_size, give a value greater than zero.")?;
 #         }
 #
-#         match *content_range {
-#             ContentRangeSpec::Bytes { range: Some(range), .. } => Ok(PartialRangeIter {
-#                 start: range.0,
-#                 end: range.1,
-#                 buffer_size,
-#             }),
-#             _ => Err("invalid range specification")?,
-#         }
+#         Ok(PartialRangeIter {
+#             start,
+#             end,
+#             buffer_size,
+#         })
 #     }
 # }
 #
 # impl Iterator for PartialRangeIter {
-#     type Item = Range;
+#     type Item = HeaderValue;
 #
 #     fn next(&mut self) -> Option<Self::Item> {
 #         if self.start > self.end {
@@ -59,7 +57,10 @@ use reqwest::StatusCode;
 #         } else {
 #             let prev_start = self.start;
 #             self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
-#             Some(Range::bytes(prev_start, self.start - 1))
+#             // NOTE(unwrap): `HeaderValue::from_str` will fail only if the value is not made
+#             // of visible ASCII characters. Since the format string is static and the two
+#             // values are integers, that can't happen.
+#             Some(HeaderValue::from_str(&format!("bytes={}-{}", prev_start, self.start - 1)).unwrap())
 #         }
 #     }
 # }
@@ -70,20 +71,21 @@ fn main() -> Result<()> {
 
     let client = reqwest::Client::new();
     let response = client.head(url).send()?;
-    let range = response.headers().get::<ContentRange>().ok_or(
-        "response doesn't include the expected ranges",
-    )?;
+    let length = response
+        .headers()
+        .get(CONTENT_LENGTH)
+        .ok_or("response doesn't include the content length")?;
+    let length = u64::from_str(length.to_str()?).map_err(|_| "invalid Content-Length header")?;
 
     let mut output_file = File::create("download.bin")?;
 
     println!("starting download...");
-    for range in PartialRangeIter::new(range, CHUNK_SIZE)? {
-
+    for range in PartialRangeIter::new(0, length - 1, CHUNK_SIZE)? {
         println!("range {:?}", range);
-        let mut response = client.get(url).header(range).send()?;
+        let mut response = client.get(url).header(RANGE, range).send()?;
 
         let status = response.status();
-        if !(status == StatusCode::Ok || status == StatusCode::PartialContent) {
+        if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
             bail!("Unexpected server response: {}", status)
         }
 
@@ -95,9 +97,9 @@ fn main() -> Result<()> {
 }
 ```
 
+[`reqwest::Client::get`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.get
 [`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
-[`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
-[`reqwest::header::ContentRange`]: https://docs.rs/reqwest/*/reqwest/header/struct.ContentRange.html
-[`reqwest::header::Range`]: https://docs.rs/reqwest/*/reqwest/header/enum.Range.html
+[Content-Length]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length
+[Range]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range
 
 [HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1

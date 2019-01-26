@@ -11,18 +11,18 @@ via [`Entry::unpack`].
 # extern crate error_chain;
 extern crate flate2;
 extern crate tar;
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         StripPrefixError(::std::path::StripPrefixError);
-#     }
-# }
 
 use std::fs::File;
 use std::path::PathBuf;
 use flate2::read::GzDecoder;
 use tar::Archive;
+# 
+# error_chain! {
+#   foreign_links {
+#     Io(std::io::Error);
+#     StripPrefixError(::std::path::StripPrefixError);
+#   }
+# }
 
 fn main() -> Result<()> {
     let file = File::open("archive.tar.gz")?;

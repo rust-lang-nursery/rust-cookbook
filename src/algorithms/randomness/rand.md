@@ -4,7 +4,7 @@
 
 Generates random numbers with help of random-number
 generator [`rand::Rng`] obtained via [`rand::thread_rng`]. Each thread has an
-intialized generator. Integers are uniformly distributed over the range of the
+initialized generator. Integers are uniformly distributed over the range of the
 type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.
 
