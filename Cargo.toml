@@ -51,6 +51,7 @@ toml = "0.4"
 url = "1.6"
 walkdir = "2.0"
 ansi_term = "0.11.0"
+unicode-segmentation = "1.2.1"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 syslog = "4.0"

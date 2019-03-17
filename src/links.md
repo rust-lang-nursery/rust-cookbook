@@ -136,5 +136,7 @@ Keep lines sorted.
 [toml]: https://docs.rs/toml/
 [url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
+[unicode-segmentation-badge]: https://badge-cache.kominick.com/crates/v/unicode-segmentation.svg?label=unicode-segmentation
+[unicode-segmentation]: https://docs.rs/unicode-segmentation/
 [walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
 [walkdir]: https://docs.rs/walkdir/
