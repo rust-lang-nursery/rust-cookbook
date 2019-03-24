@@ -12,6 +12,8 @@ securely generated random numbers.
 ```rust
 # #[macro_use]
 # extern crate error_chain;
+# extern crate ring;
+# extern crate data_encoding;
 use std::num::NonZeroU32;
 #
 # error_chain! {
