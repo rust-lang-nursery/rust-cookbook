@@ -32,5 +32,5 @@ fn main() -> Result<(), Error> {
 }
 ```
 
-[`postgres`]: https://docs.rs/postgres/*/postgres/
-[`Connection::connect`]: https://docs.rs/postgres/*/postgres/struct.Connection.html#method.connect
+[`postgres`]: https://docs.rs/postgres/0.15.2/postgres/
+[`Connection::connect`]: https://docs.rs/postgres/0.15.2/postgres/struct.Connection.html#method.connect
