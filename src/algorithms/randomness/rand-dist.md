@@ -5,7 +5,7 @@
 By default, random numbers have [uniform distribution].
 To generate numbers with other distributions you instantiate a
 distribution, then sample from that distribution using
-[`IndependentSample::ind_sample`] with help of a random-number
+[`Distribution::sample`] with help of a random-number
 generator [`rand::Rng`].
 
 The [distributions available are documented here][rand-distributions]. An example using the

@@ -8,14 +8,13 @@ Randomly generates a string of given length ASCII characters with custom user-de
 extern crate rand;
 
 use rand::seq::SliceRandom;
-use rand::thread_rng;
 
 fn main() {
     const CHARSET: &[u8] =  b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
     abcdefghijklmnopqrstuvwxyz\
     0123456789)(*&^%$#@!~";
 
-    let mut rng = thread_rng();
+    let mut rng = rand::thread_rng();
     let password: Option<String> = (0..30)
         .map(|_| Some(*CHARSET.choose(&mut rng)? as char))
         .collect();

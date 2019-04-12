@@ -195,6 +195,7 @@ NaiveDate
 NaiveDateTime
 NaiveTime
 ndarray
+nalgebra
 nFun
 NotFound
 NulError
