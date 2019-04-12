@@ -30,8 +30,8 @@
 [create-complex]: science/mathematics/complex_numbers.html#creating-complex-numbers
 [add-complex]: science/mathematics/complex_numbers.html#adding-complex-numbers
 [mathematical-functions]: science/mathematics/complex_numbers.html#mathematical-functions
-[ex-central-tendency]: science/mathematics/statistics/central-tendency.html
-[ex-standard-deviation]: science/mathematics/statistics/standard-deviation.htmla
+[ex-central-tendency]: science/mathematics/statistics.html#measures-of-central-tendency
+[ex-standard-deviation]: science/mathematics/statistics.html#standard-deviation
 [big-integers]: science/mathematics/miscellaneous.html#big-integers
 
 {{#include ../links.md}}

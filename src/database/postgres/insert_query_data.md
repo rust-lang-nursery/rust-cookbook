@@ -50,5 +50,5 @@ fn main() -> Result<(), Error> {
 }
 ```
 
-[`execute`]: https://docs.rs/postgres/*/postgres/struct.Connection.html#method.execute
-[`query`]: https://docs.rs/postgres/*/postgres/struct.Connection.html#method.query
+[`execute`]: https://docs.rs/postgres/0.15.2/postgres/struct.Connection.html#method.execute
+[`query`]: https://docs.rs/postgres/0.15.2/postgres/struct.Connection.html#method.query
