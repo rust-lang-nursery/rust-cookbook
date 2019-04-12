@@ -112,6 +112,8 @@ GitHub
 github
 GlobError
 Guybrush
+graphemes
+Graphemes
 GzDecoder
 GzEncoder
 Hackerman
@@ -311,6 +313,7 @@ Tuple
 typesafe
 unary
 unix
+unicode
 unwinded
 UpperHex
 uptime
