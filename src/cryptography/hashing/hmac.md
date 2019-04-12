@@ -9,8 +9,9 @@ extern crate ring;
 
 use ring::{digest, hmac, rand};
 use ring::rand::SecureRandom;
+use ring::error::Unspecified;
 
-fn main() -> Result<(), ring::error::Unspecified> {
+fn main() -> Result<(), Unspecified> {
     let mut key_value = [0u8; 48];
     let rng = rand::SystemRandom::new();
     rng.fill(&mut key_value)?;

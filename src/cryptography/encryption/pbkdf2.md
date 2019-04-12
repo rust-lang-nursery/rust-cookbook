@@ -10,13 +10,17 @@ function [`pbkdf2::derive`].  Verifies the hash is correct with
 securely generated random numbers.
 
 ```rust
+extern crate ring;
+extern crate data_encoding;
+
 use data_encoding::HEXUPPER;
+use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{digest, pbkdf2, rand};
 
-fn main() -> Result<(), ring::error::Unspecified> {
+fn main() -> Result<(), Unspecified> {
     const CREDENTIAL_LEN: usize = digest::SHA512_OUTPUT_LEN;
-    let n_iter: std::num::NonZeroU32 = std::num::NonZeroU32::new(100000).unwrap();
+    const N_ITER: u32 = 100_000;
     let rng = rand::SystemRandom::new();
 
     let mut salt = [0u8; CREDENTIAL_LEN];
@@ -26,7 +30,7 @@ fn main() -> Result<(), ring::error::Unspecified> {
     let mut pbkdf2_hash = [0u8; CREDENTIAL_LEN];
     pbkdf2::derive(
         &digest::SHA512,
-        n_iter,
+        N_ITER,
         &salt,
         password.as_bytes(),
         &mut pbkdf2_hash,
@@ -36,7 +40,7 @@ fn main() -> Result<(), ring::error::Unspecified> {
 
     let should_succeed = pbkdf2::verify(
         &digest::SHA512,
-        n_iter,
+		N_ITER,
         &salt,
         password.as_bytes(),
         &pbkdf2_hash,
@@ -44,7 +48,7 @@ fn main() -> Result<(), ring::error::Unspecified> {
     let wrong_password = "Definitely not the correct password";
     let should_fail = pbkdf2::verify(
         &digest::SHA512,
-        n_iter,
+        N_ITER,
         &salt,
         wrong_password.as_bytes(),
         &pbkdf2_hash,
