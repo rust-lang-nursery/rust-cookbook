@@ -33,8 +33,3 @@ fn main() -> Result<(), Box<error::Error>> {
     Ok (())
 }
 ```
-
-[`Builder::append_dir_all`]: https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all
-[`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
-[`GzEncoder`]: https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html
-[`tar::Builder`]: https://docs.rs/tar/*/tar/struct.Builder.html
