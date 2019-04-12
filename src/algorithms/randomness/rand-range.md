@@ -16,12 +16,13 @@ fn main() {
 }
 ```
 
-[`Range`] can obtain values with [uniform distribution].
+[`Uniform`] can obtain values with [uniform distribution].
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.
 
 ```rust
 extern crate rand;
+
 
 use rand::distributions::{Distribution, Uniform};
 
