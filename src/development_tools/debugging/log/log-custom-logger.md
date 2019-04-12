@@ -7,12 +7,10 @@ In order to use the logging macros, `ConsoleLogger` implements
 the [`log::Log`] trait and [`log::set_logger`] installs it.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate log;
 
-use log::{Record, Level, Metadata, LevelFilter};
+use log::{Record, Level, Metadata, LevelFilter, SetLoggerError};
 
 static CONSOLE_LOGGER: ConsoleLogger = ConsoleLogger;
 
@@ -31,14 +29,8 @@ impl log::Log for ConsoleLogger {
 
     fn flush(&self) {}
 }
-#
-# error_chain! {
-#     foreign_links {
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
 
-fn run() -> Result<()> {
+fn main() -> Result<(), SetLoggerError> {
     log::set_logger(&CONSOLE_LOGGER)?;
     log::set_max_level(LevelFilter::Info);
 
@@ -47,8 +39,6 @@ fn run() -> Result<()> {
     error!("oops");
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`log::Log`]: https://docs.rs/log/*/log/trait.Log.html
