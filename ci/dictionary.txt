@@ -116,6 +116,7 @@ graphemes
 Graphemes
 GzDecoder
 GzEncoder
+gzip
 Hackerman
 Hardcoded
 hardcoded

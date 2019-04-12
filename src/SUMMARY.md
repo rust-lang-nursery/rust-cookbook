@@ -10,6 +10,7 @@
   - [ANSI Terminal](cli/ansi_terminal.md)
 - [Compression](compression.md)
   - [Working with Tarballs](compression/tar.md)
+  - [Working with gzip files](compression/gzip.md)
 - [Concurrency](concurrency.md)
   - [Explicit Threads](concurrency/threads.md)
   - [Data Parallelism](concurrency/parallel.md)
