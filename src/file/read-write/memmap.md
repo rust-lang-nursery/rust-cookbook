@@ -11,21 +11,13 @@ behind the memory map is not being modified at the same time by another process
 or else a [race condition] occurs.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate memmap;
 
 use memmap::Mmap;
-# use std::fs::File;
-# use std::io::Write;
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
+use std::fs::File;
+use std::io::{Write, Error};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
 #     write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
 #
     let file = File::open("content.txt")?;
@@ -39,8 +31,6 @@ fn run() -> Result<()> {
     assert_eq!(&random_bytes[..], b"My loaf!");
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map
