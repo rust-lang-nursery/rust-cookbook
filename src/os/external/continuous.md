@@ -11,24 +11,15 @@ The below recipe is equivalent to the Unix shell command
 `journalctl | grep usb`.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#
 use std::process::{Command, Stdio};
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, Error, ErrorKind};
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-#
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let stdout = Command::new("journalctl")
         .stdout(Stdio::piped())
         .spawn()?
         .stdout
-        .ok_or_else(|| "Could not capture standard output.")?;
+        .ok_or_else(|| Error::new(ErrorKind::Other,"Could not capture standard output."))?;
 
     let reader = BufReader::new(stdout);
 
@@ -40,8 +31,6 @@ fn run() -> Result<()> {
 
      Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`BufReader`]: https://doc.rust-lang.org/std/io/struct.BufReader.html
