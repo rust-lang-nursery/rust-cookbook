@@ -8,19 +8,12 @@ data representation which expects valid UTF-8 rows. Alternatively,
 
 ```rust
 extern crate csv;
-# #[macro_use]
-# extern crate error_chain;
-#
-# error_chain! {
-#     foreign_links {
-#         Reader(csv::Error);
-#     }
-# }
+use csv::Error;
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let csv = "year,make,model,description
-1948,Porsche,356,Luxury sports car
-1967,Ford,Mustang fastback 1967,American car";
+		1948,Porsche,356,Luxury sports car
+		1967,Ford,Mustang fastback 1967,American car";
 
     let mut reader = csv::Reader::from_reader(csv.as_bytes());
     for record in reader.records() {
@@ -36,8 +29,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 Serde deserializes data into strongly type structures. See the
