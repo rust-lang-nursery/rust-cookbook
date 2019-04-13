@@ -9,7 +9,6 @@ the current directory and calls [`execute`] to perform the operations of reading
 and computing SHA1 hash.
 
 ```rust,no_run
-#![feature(rustc_private)]
 extern crate walkdir;
 extern crate ring;
 extern crate num_cpus;
