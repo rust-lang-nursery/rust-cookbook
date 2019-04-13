@@ -9,20 +9,14 @@ a body. [`reqwest::Client`] cofigured with [`ClientBuilder::timeout`] ensures
 a request will not last longer than a timeout.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 extern crate reqwest;
 
+use reqwest::Error;
 use std::time::Duration;
 use reqwest::ClientBuilder;
-#
-# error_chain! {
-#     foreign_links {
-#         Reqwest(reqwest::Error);
-#     }
-# }
 
-fn run() -> Result<()> {
+
+fn main() -> Result<(), Error> {
     let user = "ferris-the-crab";
     let request_url = format!("https://api.github.com/users/{}", user);
     println!("{}", request_url);
@@ -39,8 +33,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
