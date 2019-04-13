@@ -5,26 +5,17 @@
 Parses [`Url`] and slices it with [`url::Position`] to strip unneeded URL parts.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
+
 extern crate url;
 
-use url::{Url, Position};
-#
-# error_chain! {
-#     foreign_links {
-#         UrlParse(url::ParseError);
-#     }
-# }
+use url::{Url, Position, ParseError};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), ParseError> {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&state=open")?;
     let cleaned: &str = &parsed[..Position::AfterPath];
     println!("cleaned: {}", cleaned);
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`url::Position`]: https://docs.rs/url/*/url/enum.Position.html
