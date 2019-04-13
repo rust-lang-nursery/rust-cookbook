@@ -7,29 +7,24 @@ other handles. In this example, the handles of file to be read from and
 to be written to are tested for equality.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 extern crate same_file;
 
 use same_file::Handle;
-use std::path::Path;
 use std::fs::File;
-use std::io::{BufRead, BufReader};
-#
-# error_chain! {
-#     foreign_links {
-#          IOError(::std::io::Error);
-#     }
-# }
+use std::io::{BufRead, BufReader, Error, ErrorKind};
+use std::path::Path;
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let path_to_read = Path::new("new.txt");
 
     let stdout_handle = Handle::stdout()?;
     let handle = Handle::from_path(path_to_read)?;
 
     if stdout_handle == handle {
-        bail!("You are reading and writing to the same file");
+        return Err(Error::new(
+            ErrorKind::Other,
+            "You are reading and writing to the same file",
+        ));
     } else {
         let file = File::open(&path_to_read)?;
         let file = BufReader::new(file);
@@ -40,8 +35,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 ```bash
