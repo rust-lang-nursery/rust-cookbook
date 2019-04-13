@@ -28,8 +28,8 @@ fn main() -> Result<(), Error> {
 }
 
 # #[cfg(not(target_os = "linux"))]
-# fn main() -> Result<(), Error> {
-#     Ok(())
+# fn main() {
+#     unimplemented!()
 # }
 ```
 
