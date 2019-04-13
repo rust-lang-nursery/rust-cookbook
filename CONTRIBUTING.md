@@ -100,7 +100,7 @@ correct the spelling mistake with the number keys.  If the spelling mistake
 is erroneous, add the word to the dictionary located in `ci/dictionary.txt`.
 Pressing `a` or `l` will not add the word to the custom dictionary.
 
-[mdbook]: http://azerupi.github.io/mdBook/index.html
+[mdbook]: https://github.com/rust-lang-nursery/mdBook
 [python]: https://packaging.python.org/tutorials/installing-packages/#install-pip-setuptools-and-wheel
 [skeptic]: https://github.com/brson/rust-skeptic
 
