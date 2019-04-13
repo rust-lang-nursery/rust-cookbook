@@ -7,9 +7,8 @@ provides a custom deserializer, [`csv::invalid_option`], which automatically
 converts invalid data to None values.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate csv;
+use csv::Error;
 #[macro_use]
 extern crate serde_derive;
 
@@ -20,14 +19,8 @@ struct Record {
     #[serde(deserialize_with = "csv::invalid_option")]
     id: Option<u64>,
 }
-#
-# error_chain! {
-#     foreign_links {
-#         CsvError(csv::Error);
-#     }
-# }
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let data = "name,place,id
 mark,sydney,46.5
 ashley,zurich,92
@@ -42,8 +35,6 @@ alisha,colombo,xyz";
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
