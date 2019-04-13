@@ -8,6 +8,7 @@ the log entry's classification, [`log::LevelFilter`] denotes allowed log verbosi
 and `Option<&str>` holds optional application name.
 
 ```rust
+#[macro_use]
 extern crate log;
 # #[cfg(target_os = "linux")]
 extern crate syslog;
