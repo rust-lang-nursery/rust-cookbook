@@ -10,19 +10,11 @@ Once the URL has been parsed, it can be used with all of the methods in the
 `Url` type.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate url;
 
-use url::Url;
-#
-# error_chain! {
-#     foreign_links {
-#         UrlParse(url::ParseError);
-#     }
-# }
+use url::{Url, ParseError};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), ParseError> {
     let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open";
 
     let parsed = Url::parse(s)?;
@@ -30,8 +22,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
