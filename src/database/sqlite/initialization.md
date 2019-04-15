@@ -10,7 +10,8 @@ Use the `rusqlite` crate to open SQLite databases. See
 ```rust,no_run
 extern crate rusqlite;
 
-use rusqlite::{Connection, Result, NO_PARAMS};
+use rusqlite::{Connection, Result};
+use rusqlite::NO_PARAMS;
 
 fn main() -> Result<()> {
     let conn = Connection::open("cats.db")?;
@@ -26,7 +27,6 @@ fn main() -> Result<()> {
         "create table if not exists cats (
              id integer primary key,
              name text not null,
-             date_of_birth datetime,
              color_id integer not null references cat_colors(id)
          )",
         NO_PARAMS,
