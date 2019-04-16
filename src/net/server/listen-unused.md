@@ -7,19 +7,10 @@ listen until a request is made.  `SocketAddrV4` assigns a random port when
 setting port to 0.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#
 use std::net::{SocketAddrV4, Ipv4Addr, TcpListener};
-use std::io::Read;
-#
-# error_chain! {
-#     foreign_links {
-#         Io(::std::io::Error);
-#     }
-# }
+use std::io::{Read, Error};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let loopback = Ipv4Addr::new(127, 0, 0, 1);
     let socket = SocketAddrV4::new(loopback, 0);
     let listener = TcpListener::bind(socket)?;
@@ -32,6 +23,4 @@ fn run() -> Result<()> {
     println!("{:?} says {}", addr, input);
     Ok(())
 }
-#
-# quick_main!(run);
 ```

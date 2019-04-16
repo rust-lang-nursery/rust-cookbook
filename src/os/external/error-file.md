@@ -13,19 +13,11 @@ The below recipe is equivalent to run the Unix shell command `ls
 . oops >out.txt 2>&1`.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#
 use std::fs::File;
+use std::io::Error;
 use std::process::{Command, Stdio};
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-#
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let outputs = File::create("out.txt")?;
     let errors = outputs.try_clone()?;
 
@@ -38,8 +30,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`File::try_clone`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.try_clone

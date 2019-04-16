@@ -7,17 +7,10 @@ fetches the next page of results from the remote server as it arrives at the end
 of each page.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
 extern crate reqwest;
-#
-# error_chain! {
-#     foreign_links {
-#         Reqwest(reqwest::Error);
-#     }
-# }
+use reqwest::Error;
 
 #[derive(Deserialize)]
 struct ApiResponse {
@@ -45,7 +38,7 @@ struct ReverseDependencies {
 }
 
 impl ReverseDependencies {
-    fn of(crate_id: &str) -> Result<Self> {
+    fn of(crate_id: &str) -> Result<Self, Error> {
         Ok(ReverseDependencies {
                crate_id: crate_id.to_owned(),
                dependencies: vec![].into_iter(),
@@ -56,7 +49,7 @@ impl ReverseDependencies {
            })
     }
 
-    fn try_next(&mut self) -> Result<Option<Dependency>> {
+    fn try_next(&mut self) -> Result<Option<Dependency>, Error> {
         if let Some(dep) = self.dependencies.next() {
             return Ok(Some(dep));
         }
@@ -79,7 +72,7 @@ impl ReverseDependencies {
 }
 
 impl Iterator for ReverseDependencies {
-    type Item = Result<Dependency>;
+    type Item = Result<Dependency, Error>;
 
     fn next(&mut self) -> Option<Self::Item> {
         match self.try_next() {
@@ -90,12 +83,10 @@ impl Iterator for ReverseDependencies {
     }
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     for dep in ReverseDependencies::of("serde")? {
         println!("reverse dependency: {}", dep?.crate_id);
     }
     Ok(())
 }
-#
-# quick_main!(run);
 ```

@@ -7,19 +7,12 @@ function from the `url` crate. Then decode using the [`percent_decode`]
 function.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate url;
 
 use url::percent_encoding::{utf8_percent_encode, percent_decode, DEFAULT_ENCODE_SET};
-#
-# error_chain! {
-#     foreign_links {
-#         Utf8(std::str::Utf8Error);
-#     }
-# }
+use std::str::Utf8Error;
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Utf8Error> {
     let input = "confident, productive systems programming";
 
     let iter = utf8_percent_encode(input, DEFAULT_ENCODE_SET);
@@ -32,8 +25,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 The encode set defines which bytes (in addition to non-ASCII and controls) need

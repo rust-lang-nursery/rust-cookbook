@@ -9,22 +9,14 @@ the current directory and calls [`execute`] to perform the operations of reading
 and computing SHA1 hash.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 extern crate walkdir;
 extern crate ring;
 extern crate num_cpus;
 extern crate threadpool;
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
-#
 use walkdir::WalkDir;
 use std::fs::File;
-use std::io::{BufReader, Read};
+use std::io::{BufReader, Read, Error};
 use std::path::Path;
 use threadpool::ThreadPool;
 use std::sync::mpsc::channel;
@@ -37,8 +29,8 @@ use ring::digest::{Context, Digest, SHA1};
 #         _ => false,
 #     }
 # }
-#
-fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P)> {
+
+fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P), Error> {
     let mut buf_reader = BufReader::new(File::open(&filepath)?);
     let mut context = Context::new(&SHA1);
     let mut buffer = [0; 1024];
@@ -54,7 +46,7 @@ fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P)> {
     Ok((context.finish(), filepath))
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let pool = ThreadPool::new(num_cpus::get());
 
     let (tx, rx) = channel();
@@ -79,8 +71,6 @@ fn run() -> Result<()> {
     }
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute

@@ -9,19 +9,10 @@ trait.  [`File::create`] opens a [`File`] for writing, [`File::open`] for
 reading.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
-#
 use std::fs::File;
-use std::io::{Write, BufReader, BufRead};
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#     }
-# }
+use std::io::{Write, BufReader, BufRead, Error};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let path = "lines.txt";
 
     let mut output = File::create(path)?;
@@ -36,8 +27,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`BufRead::lines`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
