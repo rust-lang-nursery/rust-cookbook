@@ -40,8 +40,9 @@ fn main() -> Result<()> {
         }
     }
     let mut stmt = conn.prepare(
-        "SELECT c.name, cc.name from cats c 
-                                 INNER JOIN cat_colors cc ON cc.id = c.color_id;",
+        "SELECT c.name, cc.name from cats c
+         INNER JOIN cat_colors cc
+         ON cc.id = c.color_id;",
     )?;
 
     let cats = stmt.query_map(NO_PARAMS, |row| {
