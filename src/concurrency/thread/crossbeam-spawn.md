@@ -32,10 +32,10 @@ fn find_max(arr: &[i32]) -> Option<i32> {
         let thread_l = s.spawn(|_| find_max(left));
         let thread_r = s.spawn(|_| find_max(right));
   
-        let min_l = thread_l.join().unwrap()?;
-        let min_r = thread_r.join().unwrap()?;
+        let max_l = thread_l.join().unwrap()?;
+        let max_r = thread_r.join().unwrap()?;
   
-        Some(min_l.max(min_r))
+        Some(max_l.max(max_r))
     }).unwrap()
 }
 ```
