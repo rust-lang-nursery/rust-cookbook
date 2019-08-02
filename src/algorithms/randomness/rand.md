@@ -1,13 +1,8 @@
-## Generate random numbers
+## 乱数を作る
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-Generates random numbers with help of random-number
-generator [`rand::Rng`] obtained via [`rand::thread_rng`]. Each thread has an
-initialized generator. Integers are uniformly distributed over the range of the
-type, and floating point numbers are uniformly distributed from 0 up to but not
-including 1.
-
+[`rand::thread_rng`]からrandom-number generator [`rand::Rng`]を使って乱数を作ります。各スレッドは初期化されたジェネレータを持っています。整数は型の範囲内で生成され、浮動小数点数は0から1の間（ただし1は含まない）の値が生成されます。
 ```rust
 extern crate rand;
 
