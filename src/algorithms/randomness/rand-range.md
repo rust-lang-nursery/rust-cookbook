@@ -1,8 +1,8 @@
-## Generate random numbers within a range
+## 範囲を指定して乱数を作る
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::gen_range`].
+[`Rng::gen_range`]で0以上10未満の乱数を作る。
 
 ```rust
 extern crate rand;
@@ -16,9 +16,7 @@ fn main() {
 }
 ```
 
-[`Uniform`] can obtain values with [uniform distribution].
-This has the same effect, but may be faster when repeatedly generating numbers
-in the same range.
+[`Uniform`]は一様分布な値を得ることができます。同じ範囲の乱数を繰り返し生成するときはこちらの方が速いかもしれません。
 
 ```rust
 extern crate rand;
