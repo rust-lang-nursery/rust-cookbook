@@ -1,4 +1,4 @@
-# Clap basic
+# Clapの基本
 
 {{#include arguments/clap-basic.md}}
 
