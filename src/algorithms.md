@@ -9,8 +9,8 @@
 | [英数字からランダムなパスワードを作成する][ex-rand-passwd] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [ユーザが指定した文字の中からパスワードを生成する][ex-rand-choose] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [Sort a Vector of Integers][ex-sort-integers] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
-| [Sort a Vector of Floats][ex-sort-floats] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
-| [Sort a Vector of Structs][ex-sort-structs] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
+| [floatのベクタをソートする][ex-sort-floats] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
+| [構造体のベクタをソートする][ex-sort-structs] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 
 [ex-rand]: algorithms/randomness.html#乱数の生成
 [ex-rand-range]: algorithms/randomness.html#範囲を指定して乱数を作る
