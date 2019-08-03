@@ -1,4 +1,4 @@
-# Sorting Vectors
+# ベクタのソート
 
 {{#include sorting/sort.md}}
 {{#include sorting/sort_float.md}}

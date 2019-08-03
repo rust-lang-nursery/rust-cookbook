@@ -2,14 +2,6 @@
 
 [![std-badge]][std] [![cat-science-badge]][cat-science]
 
-Sorts a Vector of Person structs with properties `name` and `age` by its natural
-order (By name and age). In order to make Person sortable you need four traits [`Eq`],
-[`PartialEq`], [`Ord`] and [`PartialOrd`]. These traits can be simply derived.
-You can also provide a custom comparator function using a [`vec:sort_by`] method and sort only by age.
-## 構造体のベクタをソートする
-
-[![std-badge]][std] [![cat-science-badge]][cat-science]
-
 プロパティ `name`と` age`を持つPersonのVector構造体を自然順にソートする。Personをソート可能にするために[`Eq`],
 [`PartialEq`], [`Ord`], [`PartialOrd`]の4つのトレイトが必要です。これらのトレイトは簡単にderiveできます。[`vec:sort_by`]を使って比較関数を作り、年齢だけでソートすることもできます。
 
