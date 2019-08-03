@@ -1,5 +1,4 @@
-# Generate Random Values
-
+# 乱数の生成
 {{#include randomness/rand.md}}
 
 {{#include randomness/rand-range.md}}

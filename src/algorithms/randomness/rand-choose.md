@@ -5,6 +5,12 @@
 Randomly generates a string of given length ASCII characters with custom
 user-defined bytestring, with [`gen_range`].
 
+## ユーザが指定した文字の中からパスワードを生成する
+
+[![rand-badge]][rand] [![cat-os-badge]][cat-os]
+
+[`gen_range`]を使って、ASCII文字の長さを与えてユーザー定義バイト文字列からランダムな文字列を生成する。
+
 ```rust
 extern crate rand;
 

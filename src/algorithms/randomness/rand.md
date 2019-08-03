@@ -1,4 +1,4 @@
-## 乱数を作る
+## 乱数の生成
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 

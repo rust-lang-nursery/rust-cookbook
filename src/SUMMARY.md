@@ -3,7 +3,7 @@
 [コンテンツテーブル](intro.md)
 [概要](about.md)
 - [アルゴリズム](algorithms.md)
-  - [乱数を生成する](algorithms/randomness.md)
+  - [乱数の生成](algorithms/randomness.md)
   - [ベクタのソート](algorithms/sorting.md)
 - [コマンドライン](cli.md)
   - [引数のパース](cli/arguments.md)

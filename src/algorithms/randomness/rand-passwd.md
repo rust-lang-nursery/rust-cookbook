@@ -1,9 +1,8 @@
-## Create random passwords from a set of alphanumeric characters
+## 英数字からランダムなパスワードを作成する
 
 [![rand-badge]][rand] [![cat-os-badge]][cat-os]
 
-Randomly generates a string of given length ASCII characters in the range `A-Z,
-a-z, 0-9`, with [`Alphanumeric`] sample.
+[`Alphanumeric`]を用いた、長さを与えて`A-Z,a-z, 0-9`のランダムなASCII文字を生成するサンプル
 
 ```rust
 extern crate rand;
