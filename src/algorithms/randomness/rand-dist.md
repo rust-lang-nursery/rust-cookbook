@@ -1,15 +1,11 @@
-## Generate random numbers with given distribution
+## 分布を指定して乱数を生成する
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-By default, random numbers have [uniform distribution].
-To generate numbers with other distributions you instantiate a
-distribution, then sample from that distribution using
-[`Distribution::sample`] with help of a random-number
-generator [`rand::Rng`].
+乱数はデフォルトで一様分布になっています。他の分布で乱数を生成するには、分布をインスタンス化して[`rand::Rng`]と[`Distribution::sample`]を使用してその分布から値を生成します。
 
-The [distributions available are documented here][rand-distributions]. An example using the
-[`Normal`] distribution is shown below.
+[使用可能な分布はこちらでドキュメント化されています。][rand-distributions]
+正規分布を使用した例を下記に記します。
 
 ```rust
 extern crate rand;
