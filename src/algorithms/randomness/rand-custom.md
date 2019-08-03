@@ -1,9 +1,8 @@
-## Generate random values of a custom type
+## カスタム型のランダムな値を生成する
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-Randomly generates a tuple `(i32, bool, f64)` and variable of user defined type `Point`.
-Implements the [`Distribution`] trait on type Point for [`Standard`] in order to allow random generation.
+`(i32, bool, f64)`のタプルとユーザー定義型のPointをランダムに生成する。ランダムに生成するためにPoint型の[`Distribution`]トレイとを[`Standard`] に実装します。
 
 ```rust
 extern crate rand;
