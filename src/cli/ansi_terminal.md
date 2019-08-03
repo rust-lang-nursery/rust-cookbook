@@ -1,4 +1,4 @@
-# ANSI Terminal
+# ANSIターミナル
 
 {{#include ansi_terminal/ansi_term-basic.md}}
 

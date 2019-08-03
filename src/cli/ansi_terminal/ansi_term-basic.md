@@ -1,14 +1,12 @@
-## ANSI Terminal
+## ANSIターミナル
 
 [![ansi_term-badge]][ansi_term] [![cat-command-line-badge]][cat-command-line]
 
-This program depicts the use of [`ansi_term` crate] and how it is used for controlling colours and formatting, such as blue bold text or yellow underlined text, on ANSI terminals.
+このプログラムは、ANSIターミナルで[`ansi_term` crate]を使用し、青の太字テキストや黄色の下線付きテキストなど、色や書式を制御する方法を示しています。
 
-There are two main data structures in [`ansi_term`]: [`ANSIString`] and [`Style`]. A [`Style`] holds stylistic information: colours, whether the text should be bold, or blinking, or whatever. There are also Colour variants that represent simple foreground colour styles. An [`ANSIString`] is a string paired with a [`Style`].
+**Note:** イギリス英語ではColorの代わりにColourを使います。困惑しないように。
 
-**Note:** British English uses *Colour* instead of *Color*, don't get confused
-
-### Printing colored text to the Terminal
+### 色付き文字を出力する
 
 ```rust
 extern crate ansi_term;
@@ -23,11 +21,9 @@ fn main() {
 }
 ```
 
-### Bold text in Terminal
+### ターミナルで太文字
 
-For anything more complex than plain foreground colour changes, the code
-needs to construct `Style` struct. [`Style::new()`] creates the struct,
-and properties chained.
+単純な前景色の変更よりも複雑なものについては、`Style`構造体をつくる必要があります。[`Style::new()`]は構造体を生成します。プロパティはメソッドチェーンで記述できます。
 
 ```rust
 extern crate ansi_term;
@@ -39,9 +35,9 @@ fn main() {
              Style::new().bold().paint("This is Bold"));
 }
 ```
-### Bold and colored text in terminal
+### ターミナルで色付き太文字
 
-`Colour` implements many similar functions as `Style` and can chain methods.
+`Colour`は`Style`に似た関数をたくさん持っています。メソッドチェーンもできます。
 
 ```rust
 extern crate ansi_term;

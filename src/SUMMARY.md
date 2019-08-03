@@ -7,7 +7,7 @@
   - [ベクタのソート](algorithms/sorting.md)
 - [コマンドライン](cli.md)
   - [引数のパース](cli/arguments.md)
-  - [ANSI ターミナル](cli/ansi_terminal.md)
+  - [ANSIターミナル](cli/ansi_terminal.md)
 - [圧縮](compression.md)
   - [Tarballsを使う](compression/tar.md)
 - [並列性](concurrency.md)
