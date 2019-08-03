@@ -1,8 +1,8 @@
-## Sort a Vector of Floats 
+## floatのベクタをソートする
 
 [![std-badge]][std] [![cat-science-badge]][cat-science]
 
-A Vector of f32 or f64 can be sorted with [`vec::sort_by`] and [`PartialOrd::partial_cmp`].
+[`vec::sort_by`]と[`PartialOrd::partial_cmp`]でf32, f64のベクタをソートできます。
 
 ```rust
 fn main() {
