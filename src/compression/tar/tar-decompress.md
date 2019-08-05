@@ -1,4 +1,4 @@
-## Decompress a tarball
+## tarの解凍
 
 [![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
