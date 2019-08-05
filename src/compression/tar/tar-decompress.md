@@ -2,10 +2,7 @@
 
 [![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
-Decompress ([`GzDecoder`]) and
-extract ([`Archive::unpack`]) all files from a compressed tarball
-named `archive.tar.gz` located in the current working directory
-to the same location.
+圧縮された`archive.tar.gz`から全てのファイルをカレントディレクトリに解凍([`GzDecoder`])、抽出([`Archive::unpack`)する。
 
 ```rust,no_run
 extern crate flate2;

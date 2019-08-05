@@ -2,9 +2,7 @@
 
 [![flate2-badge]][flate2] [![tar-badge]][tar] [![cat-compression-badge]][cat-compression]
 
-Iterate over the [`Archive::entries`].  Use [`Path::strip_prefix`] to remove
-the specified path prefix (`bundle/logs`).  Finally, extract the [`tar::Entry`]
-via [`Entry::unpack`].
+[`Archive::entries`]を使いイテレートする。指定したパスプレフィックス(`bundle/logs`)を削除するには[`Path::strip_prefix`]を使ってください。最後に[`Entry::unpack`]で[`tar::Entry`]を抽出します。
 
 ```rust,no_run
 # #[macro_use]
