@@ -2,13 +2,6 @@
 
 [![std-badge]][std] [![cat-science-badge]][cat-science]
 
-This example sorts a Vector of integers via [`vec::sort`]. Alternative would
-be to use [`vec::sort_unstable`] which can be faster, but does not preserve
-the order of equal elements.
-## 整数のベクタをソートする
-
-[![std-badge]][std] [![cat-science-badge]][cat-science]
-
 このサンプルでは[`vec::sort`]を使って整数の整数のベクタをソートしています。代わりに[`vec::sort_unstable`] を使用することもできます。高速になりますが等しい要素の順序は保持されません。
 
 ```rust
