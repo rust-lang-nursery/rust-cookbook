@@ -9,7 +9,7 @@
   - [引数のパース](cli/arguments.md)
   - [ANSIターミナル](cli/ansi_terminal.md)
 - [圧縮](compression.md)
-  - [Tarballsを使う](compression/tar.md)
+  - [tarを扱う](compression/tar.md)
 - [並列性](concurrency.md)
   - [明示的スレッド](concurrency/threads.md)
   - [データ並列処理](concurrency/parallel.md)

@@ -1,4 +1,4 @@
-# Tarballsを使う
+# tarを扱う
 
 {{#include tar/tar-decompress.md}}
 
