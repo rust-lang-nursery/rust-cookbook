@@ -1,48 +1,28 @@
 # About "Cookin' with Rust"
 
-## Table of contents
+## テーブルコンテンツ
 
-- [Who this book is for](#who-this-book-is-for)
-- [How to read this book](#how-to-read-this-book)
-- [How to use the recipes](#how-to-use-the-recipes)
-- [A note about error handling](#a-note-about-error-handling)
-- [A note about crate representation](#a-note-about-crate-representation)
+- [対象読者](#a対象読者)
+- [どのようにこの本を読むか](#aどのようにこの本を読むか)
+- [どのようにレシピを使うか](#aどのようにレシピを使うか)
+- [エラーハンドリングについて](#aエラーハンドリングについて)
+- [crateの表現について](#crateの表現について)
 
-## Who this book is for
+## 対象読者
 
-This cookbook is intended for new Rust programmers, so that they may
-quickly get an overview of the capabilities of the Rust crate
-ecosystem. It is also intended for experienced Rust programmers, who
-should find in the recipes an easy reminder of how to accomplish
-common tasks.
+この本ではRustの初心者を対象としており、Rustのクレートエコシステムの機能の概要をすぐに把握できます。また、一般的なタスクを簡単に成し遂げる方法を探すべき熟練Rustプログラマーも対象です。
 
-## How to read this book
+## この本の読み方
 
-The cookbook [index] contains the full list of recipes, organized into
-a number of sections: "basics", "encoding", "concurrency", etc.  The
-sections themselves are more or less ordered in progression, with
-later sections being more advanced, and occasionally building on
-concepts from earlier sections.
+クックブックの[索引]には"basics", "encoding", "concurrency"など、いくつかのセクションにまとめられたレシピのリストが載っています。セクションは大まかに順番に並べられています。後半のセクションは高度で時には前のセクションに基づいています。
 
-Within the index, each section contains a list of recipes. The recipes
-are simple statements of a task to accomplish, like "generate random
-numbers in a range"; and each recipe is tagged with badges indicating
-which _crates_ they use, like [![rand-badge]][rand], and which
-categories on [crates.io] those crates belong to, like
-[![cat-science-badge]][cat-science].
+索引にはそれぞれのセクションのレシピリストがあります。レシピは"範囲を指定して乱数を生成する”等、簡単なタスクを達成するものです。また、それぞれのレシピでは使われている _クレート_ が[![rand-badge]][rand]のようにタグづけされています。また、[![cat-science-badge]][cat-science]のように[crates.io]でどのカテゴリに属しているのかが載っています。
 
-New Rust programmers should be comfortable reading from the first
-section to the last, and doing so should give one a strong overview of
-the crate ecosystem. Click on the section header in the index, or in
-the sidebar to navigate to the page for that section of the book.
+Rustプログラマー達は気楽に最初から最後のセクションまで読むべきです。そうすることでクレートエコシステムの概念をよく理解できるはずです。索引かサイドバーのセクションのヘッダーをクリックすることでそのセクションに移動することができます。
 
-If you are simply looking for the solution to a simple task, the
-cookbook is today more difficult to navigate. The easiest way to find
-a specific recipe is to scan the index looking for the crates and
-categories one is interested in. From there, click on the name of the
-recipe to view it. This will improve in the future.
+目的のレシピをクックブックから探すことは難しいです。レシピを探す一番簡単な方法は索引に目を通し、興味のあるクレートやカテゴリを見つけ、レシピの名前をクリックして見ることです。これは将来改善されるでしょう。
 
-## How to use the recipes
+## レシピの使い方
 
 Recipes are designed to give you instant access to working code, along
 with a full explanation of what it is doing, and to guide you to
@@ -96,7 +76,7 @@ The crate badges that accompany the examples link to the crates' full
 documentation on [docs.rs], and is often the next documentation you
 should read after deciding which crate suites your purpose.
 
-## A note about error handling
+## エラーハンドリングについて
 
 Error handling in Rust is robust when done correctly, but in today's
 Rust it requires a fair bit of boilerplate. Because of this one often
@@ -180,7 +160,7 @@ fn run() -> Result<()> {
 For more background on error handling in Rust, read [this page of the
 Rust book][error-docs] and [this blog post][error-blog].
 
-## A note about crate representation
+## crateの表現について
 
 This cookbook is intended eventually to provide expansive coverage of
 the Rust crate ecosystem, but today is limited in scope while we get

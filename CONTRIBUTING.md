@@ -179,7 +179,7 @@ but since the cookbook is so new, quite possibly not. Ask on thread.
 For most steps you can simply follow the lead of existing examples.
 The art comes in writing effective examples.
 
-["how to read this book"]: https://rust-lang-nursery.github.io/rust-cookbook/about.html#how-to-read-this-book
+["どのようにこの本を読むか"]: https://rust-lang-nursery.github.io/rust-cookbook/about.html#how-to-read-this-book
 
 ## Example guidelines
 
@@ -245,7 +245,7 @@ description of the example. Keep extra functions and types to a
 minimum.
 
 When an example must handle the possibility of errors, follow the error handling
-templates in ["A note about error handling"][errors]. Examples always set up
+templates in ["エラーハンドリングについて"][errors]. Examples always set up
 error handling correctly and propagate errors with `?` (not `try!`, `urwrap`, or
 `expect`). If there is no need for error handling in the example, prefer `main()`.
 
