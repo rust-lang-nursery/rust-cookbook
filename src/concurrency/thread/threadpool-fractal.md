@@ -1,4 +1,4 @@
-## Draw fractal dispatching work to a thread pool
+## フラクタル図形をスレッドプールに描画する
 
 [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
 

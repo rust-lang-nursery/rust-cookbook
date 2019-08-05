@@ -1,4 +1,4 @@
-## Map-reduce in parallel
+## 並列なMap-reduce
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 

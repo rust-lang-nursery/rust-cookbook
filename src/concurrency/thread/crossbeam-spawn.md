@@ -1,4 +1,4 @@
-## Spawn a short-lived thread
+## 短命のスレッドの生成
 
 [![crossbeam-badge]][crossbeam] [![cat-concurrency-badge]][cat-concurrency]
 

@@ -1,4 +1,4 @@
-## Generate jpg thumbnails in parallel
+## jpgのサムネイルを並列に生成する
 
 [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency] [![cat-filesystem-badge]][cat-filesystem]
 

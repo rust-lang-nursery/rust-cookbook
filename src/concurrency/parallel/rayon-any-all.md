@@ -1,4 +1,4 @@
-## Test in parallel if any or all elements of a collection match a given predicate
+## コレクションの要素の一部または全部が特定の述語に一致するかどうかを並列にテストする。
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 

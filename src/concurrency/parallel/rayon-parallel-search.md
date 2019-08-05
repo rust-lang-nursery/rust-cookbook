@@ -1,4 +1,4 @@
-## Search items using given predicate in parallel
+## 与えられた述語を使って並列にアイテムを探す
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 

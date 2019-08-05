@@ -1,4 +1,4 @@
-## Mutate the elements of an array in parallel
+## 配列の要素を並列に変換する
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 

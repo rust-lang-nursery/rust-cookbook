@@ -1,4 +1,4 @@
-## Sort a vector in parallel
+## 並列にベクタをソートする
 
 [![rayon-badge]][rayon] [![rand-badge]][rand] [![cat-concurrency-badge]][cat-concurrency]
 
