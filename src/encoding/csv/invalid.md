@@ -2,9 +2,7 @@
 
 [![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 
-CSV files often contain invalid data. For these cases, the `csv` crate
-provides a custom deserializer, [`csv::invalid_option`], which automatically
-converts invalid data to None values.
+CSVファイルはしばしば無効なデータを含みます。これらの場合`csv`はカスタムデシリアライザーである[`csv::invalid_option`]を提供します。これは無効なデータを自動でNone値に変換してくれます。
 
 ```rust
 extern crate csv;
