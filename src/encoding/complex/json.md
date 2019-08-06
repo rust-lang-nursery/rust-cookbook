@@ -2,14 +2,11 @@
 
 [![serde-json-badge]][serde-json] [![cat-encoding-badge]][cat-encoding]
 
-The [`serde_json`] crate provides a [`from_str`] function to parse a `&str` of
-JSON.
+[`serde_json`]クレートはJSONの`&str`をパースするための[`from_str`]関数を提供します。
 
-Unstructured JSON can be parsed into a universal [`serde_json::Value`] type that
-is able to represent any valid JSON data.
+非構造化JSONはどんなvalidのJSONデータでも使える共通な[`serde_json::Value`]型にパースすることができます。
 
-The example below shows a `&str` of JSON being parsed.  The expected value is declared using the [`json!`] macro.
-
+この例ではJSONの`&str`をパースしています。導かれた値は[`json!`]マクロで宣言されています
 ```rust
 #[macro_use]
 extern crate serde_json;
