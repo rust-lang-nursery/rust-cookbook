@@ -1,10 +1,11 @@
-## Create tables in a Postgres database
+## Posgresデータベースにテーブルを作る
 
 [![postgres-badge]][postgres] [![cat-database-badge]][cat-database]
 
-Use the [`postgres`] crate to create tables in a Postgres database.
+[`postgres`]クレートを使ってPostgresデータベースにテーブルを作る。
 
-[`Connection::connect`] helps in connecting to an existing database. The recipe uses a URL string format with `Connection::connect`. It assumes an existing database named `library`, the username is `postgres` and the password is `postgres`.
+[`Connection::connect`]で既存のデータベースに接続する。このレシピは`Connection::connect`のURL文字列フォーマットを使っています。既存のデータベース名は`library`と仮定し、ユーザーネームは`postgres`、パスワードは`postgres`とする。
+
 
 ```rust,no_run
 extern crate postgres;

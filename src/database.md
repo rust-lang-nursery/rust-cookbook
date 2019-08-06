@@ -4,7 +4,7 @@
 |--------|--------|------------|
 | [Create a SQLite database][ex-sqlite-initialization] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
 | [Insert and Query data][ex-sqlite-insert-select] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
-| [Create tables in a Postgres database][ex-postgres-create-tables] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
+| [Posgresデータベースにテーブルを作る][ex-postgres-create-tables] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
 | [Insert and Query data][ex-postgres-insert-query-data] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
 | [データ集計][ex-postgres-aggregate-data] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
 
