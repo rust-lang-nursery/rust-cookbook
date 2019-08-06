@@ -2,7 +2,7 @@
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
-Gets the local time and displays it using [`offset::Local::now`] and then converts it to the UTC standard using the [`DateTime::from_utc`] struct method. A time is then converted using the [`offset::FixedOffset`] struct and the UTC time is then converted to UTC+8 and UTC-2.
+[`offset::Local::now`]を使いローカルタイムを取得し表示して、[`DateTime::from_utc`]構造体メソッドを使ってUTCスタンダードに変換する。時間は[`offset::FixedOffset`]構造体に変換され、UTCタイムはUTC+8とUTC-2に変換される。
 
 ```rust
 extern crate chrono;
