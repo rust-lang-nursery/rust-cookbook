@@ -1,11 +1,10 @@
-## Create a SQLite database
+## SQLiteデータベースの作成
 
 [![rusqlite-badge]][rusqlite] [![cat-database-badge]][cat-database]
 
-Use the `rusqlite` crate to open SQLite databases. See
-[crate][documentation] for compiling on Windows.
+`rusqlite`クレートを使いSQLiteデータベースを開きます。Windowsでコンパイルするときは[クレート][documentation] のドキュメントを見てください。
 
-[`Connection::open`] will create the database if it doesn't already exist.
+[`Connection::open`]はデータベースが存在していない場合にデータベースを作成します。
 
 ```rust,no_run
 extern crate rusqlite;

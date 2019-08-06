@@ -2,10 +2,10 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Create a SQLite database][ex-sqlite-initialization] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
-| [Insert and Query data][ex-sqlite-insert-select] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
+| [SQLiteデータベースの作成][ex-sqlite-initialization] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
+| [クエリデータの挿入][ex-sqlite-insert-select] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
 | [Posgresデータベースにテーブルを作る][ex-postgres-create-tables] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
-| [Insert and Query data][ex-postgres-insert-query-data] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
+| [クエリデータの挿入][ex-postgres-insert-query-data] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
 | [データ集計][ex-postgres-aggregate-data] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
 
 [ex-sqlite-initialization]: database/sqlite.html#create-a-sqlite-database
