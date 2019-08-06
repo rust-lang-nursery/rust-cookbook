@@ -2,8 +2,7 @@
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
-Reads CSV records with a tab [`delimiter`].
-
+タブ[`delimiter`]でCSVレコードを読み込む。
 ```rust
 extern crate csv;
 use csv::Error;
