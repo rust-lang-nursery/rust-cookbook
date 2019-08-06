@@ -2,8 +2,7 @@
 
 [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-cryptography-badge]][cat-cryptography]
 
-Writes some data to a file, then calculates the SHA-256 [`digest::Digest`] of
-the file's contents using [`digest::Context`].
+ファイルにデータを書き込み[`digest::Context`]で得たファイルのコンテンツのSHA-256を計算する。
 
 ```rust
 # #[macro_use]
