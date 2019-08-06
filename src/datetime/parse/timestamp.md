@@ -6,6 +6,8 @@ to [UNIX timestamp] using [`NaiveDateTime::timestamp`].
 Then it calculates what was the date after one billion seconds
 since January 1, 1970 0:00:00 UTC, using [`NaiveDateTime::from_timestamp`].
 
+[`NaiveDateTime::timestamp`]を使い、[`NaiveDate::from_ymd`]と[`NaiveTime::from_hms`]によって取得した日付を[UNIX timestamp]に変換する。
+そしてJanuary 1, 1970 0:00:00 UTCから10億秒後の日付を[`NaiveDateTime::from_timestamp`]を使って計算する。
 ```rust
 extern crate chrono;
 
