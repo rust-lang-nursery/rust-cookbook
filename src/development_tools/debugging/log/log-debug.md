@@ -2,10 +2,6 @@
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-The `log` crate provides logging utilities. The `env_logger` crate configures
-logging via an environment variable.  The [`debug!`] macro works like other
-[`std::fmt`] formatted strings.
-
 `log`クレートはloggingユーティリティを提供します。`env_logger`は環境変数からloggingの設定をします。[`debug!`]マクロは文字列をフォーマットする[`std::fmt`]と同様な機能を持ちます。
 
 ```rust

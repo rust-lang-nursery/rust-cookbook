@@ -2,8 +2,7 @@
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-Creates two modules `foo` and nested `foo::bar` with logging directives
-controlled separately with [`RUST_LOG`] environmental variable.
+[`RUST_LOG`]環境変数で個別に制御されるロギングディレクティブを使用して、`foo`とネストされた`foo::bar`の2つのモジュールを作成します。
 
 ```rust
 #[macro_use]
@@ -36,17 +35,13 @@ fn main() {
 }
 ```
 
-[`RUST_LOG`] environment variable controls [`env_logger`][env_logger] output.
-Module declarations take comma separated entries formatted like
-`path::to::module=log_level`. Run the `test` application as follows:
-
+[`RUST_LOG`]環境変数は[`env_logger`][env_logger]出力をコントロールします。
+モジュールをカンマ区切りで`path::to::module=log_level`のような形式で宣言します。次のテストアプリを実行しましょう。
 ```bash
 RUST_LOG="warn,test::foo=info,test::foo::bar=debug" ./test
 ```
 
-Sets the default [`log::Level`] to `warn`, module `foo` and module `foo::bar`
-to `info` and `debug`.
-
+デフォルトの`path::to::module=log_level`を`warn`に設定し、`foo`モジュールと`foo::bar`モジュールを`info`, `debug`にする。
 ```bash
 WARN:test: [root] warn
 WARN:test::foo: [foo] warn
