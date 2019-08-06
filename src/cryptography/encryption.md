@@ -1,4 +1,4 @@
-# Encryption
+# 暗号
 
 {{#include encryption/pbkdf2.md}}
 

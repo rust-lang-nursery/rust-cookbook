@@ -1,4 +1,4 @@
-# Hashing
+# ハッシュ化
 
 {{#include hashing/sha-digest.md}}
 
