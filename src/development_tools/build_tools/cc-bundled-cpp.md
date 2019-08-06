@@ -2,8 +2,7 @@
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 
-Linking a bundled C++ library is very similar to linking a bundled C library. The two core differences when compiling and statically linking a bundled C++ library are specifying a C++ compiler via the builder method [`cpp(true)`][cc-build-cpp] and preventing name mangling by the C++ compiler by adding the `extern "C"` section at the top of our C++ source file.
-
+バンドルされたC++ライブラリをリンクすることはバンドルされたCライブラリをリンクすることに似ています。二つの主な違いは、バンドルしたC++ライブラリをコンパイルと静的リンクする時にビルダーメソッド[`cpp(true)`][cc-build-cpp]からC++コンパイラを指定し、C++ソースファイルの先頭に`extern "C"`を追加することです。
 
 ### `Cargo.toml`
 

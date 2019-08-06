@@ -2,17 +2,13 @@
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 
-To accommodate scenarios where additional C, C++, or assembly is required in a project, the [**cc**][cc] crate
-offers a simple api for compiling bundled C/C++/asm code into static libraries (**.a**) that can be statically linked to by **rustc**.
+追加のC, C++, アセンブリがプロジェクトに必要な場合に対応するため、[**cc**][cc]クレートは**rustc**によってバンドルされた静的リンク可能なC/C++/アセンブリコードを静的ライブラリにコンパイルするためのシンプルなapiを提供しています。
 
-The following example has some bundled C code (**src/hello.c**) that will be used from rust.
-Before compiling rust source code, the "build" file (**build.rs**) specified in **Cargo.toml** runs.
-Using the [**cc**][cc] crate, a static library file will be produced (in this case, **libhello.a**, see
-[`compile` docs][cc-build-compile]) which can then be used from rust by declaring the external function signatures in an `extern` block.
+下の例はrustから使ういくつかのバンドル済みCコード(**src/hello.c**)があります。
+rustコードにコンパイルする前に**Cargo.toml**で指定された"ビルド"ファイル(**build.rs**) が実行されます。
+[**cc**][cc]クレートを使い、静的ライブラリファイルが作られ(この例では**libhello.a**です。[`compile` docs][cc-build-compile]を参照)、`extern`ブロックで外部関数シグネチャを宣言することによってrustから使用することができます。
 
-Since the bundled C is very simple, only a single source file needs to be passed to [`cc::Build`][cc-build].
-For more complex build requirements, [`cc::Build`][cc-build] offers a full suite of builder methods for specifying
-[`include`][cc-build-include] paths and extra compiler [`flag`][cc-build-flag]s.
+バンドル済みCはとても簡単で、単一ソースファイルは[`cc::Build`][cc-build]に渡す必要があります。より複雑なビルドは[`include`][cc-build-include]パスと追加のコンパイラ[`フラグ`]を指定するためのビルダーメソッドが[`cc::Build`][cc-build]に用意されています。
 
 ### `Cargo.toml`
 

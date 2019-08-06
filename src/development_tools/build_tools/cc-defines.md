@@ -2,12 +2,8 @@
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 
-It is simple to build bundled C code with custom defines using [`cc::Build::define`].
-The method takes an [`Option`] value, so it is possible to create defines such as `#define APP_NAME "foo"`
-as well as `#define WELCOME` (pass `None` as the value for a value-less define). This example builds
-a bundled C file with dynamic defines set in `build.rs` and prints "**Welcome to foo - version 1.0.2**"
-when run. Cargo sets some [environment variables][cargo-env] which may be useful for some custom defines.
-
+[`cc::Build::define`]によるカスタム定義でバンドルされたCコードをビルドすることは簡単です。
+このメソッドは[`Option`]値を受け取るため`#define APP_NAME "foo"`や`#define WELCOME`のような定義をすることができます(値のない定義には`None`を与える)。この例では実行時に`build.rs`にセットされた動的な定義を含むバンドルされたCファイルで"**Welcome to foo - version 1.0.2**"と出力します。Cargoはいくつかの[environment variables][cargo-env]を設定します。これはカスタム定義に役立つかもしれません。
 
 ### `Cargo.toml`
 
