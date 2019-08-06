@@ -2,9 +2,7 @@
 
 [![byteorder-badge]][byteorder] [![cat-encoding-badge]][cat-encoding]
 
-`byteorder` can reverse the significant bytes of structured data.  This may
-be necessary when receiving information over the network, such that bytes
-received are from another system.
+`byteorder`構造化データの重要なバイトを反転できます。これはネットワークを介して他のシステムから情報を受信する時に必要です。
 
 ```rust
 extern crate byteorder;
