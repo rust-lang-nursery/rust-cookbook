@@ -2,19 +2,15 @@
 
 [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
 
-This example generates an image by drawing a fractal from the [Julia set]
-with a thread pool for distributed computation.
+この例では[Julia set]の分散処理のスレッドプールなフラクタルによって描かれた画像を生成します。
 
 <a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a>
 
-Allocate memory for output image of given width and height with [`ImageBuffer::new`].
-[`Rgb::from_channels`] calculates RGB pixel values.
-Create [`ThreadPool`] with thread count equal to number of cores with [`num_cpus::get`].
-[`ThreadPool::execute`] receives each pixel as a separate job.
+[`ImageBuffer::new`]を使って与えられた幅と高さの出力画像用のメモリを割り当てます。[`Rgb::from_channels`]はRGBピクセルの値を計算します。[`num_cpus::get`]で得たコアの数と同じ数のスレッドを[`ThreadPool`]で生成します。[`ThreadPool::execute`]はそれぞれのピクセルをジョブ毎に受け取ります。
 
-[`mpsc::channel`] receives the jobs and [`Receiver::recv`] retrieves them.
-[`ImageBuffer::put_pixel`] uses the data to set the pixel color.
-[`ImageBuffer::save`] writes the image to `output.png`.
+[`mpsc::channel`]はjobと[`Receiver::recv`]を取り出して受け取ります。
+[`ImageBuffer::put_pixel`]はピクセルカラーデータをセットするのに使います。
+[`ImageBuffer::save`]は画像を`output.png`に書き出します。
 
 ```rust,no_run
 # #[macro_use]
