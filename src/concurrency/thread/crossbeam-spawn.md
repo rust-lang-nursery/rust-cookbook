@@ -2,13 +2,6 @@
 
 [![crossbeam-badge]][crossbeam] [![cat-concurrency-badge]][cat-concurrency]
 
-The example uses the [crossbeam] crate, which provides data structures and functions
-for concurrent and parallel programming. [`Scope::spawn`] spawns a new scoped thread that is guaranteed
-to terminate before returning from the closure that passed into [`crossbeam::scope`] function, meaning that
-you can reference data from the calling function.
-
-This example splits the array in half and performs the work in separate threads.
-
 この例では並列プログラミングのためのデータ型と関数を提供する[crossbeam]クレートを使います。[`Scope::spawn`]は[`crossbeam::scope`]関数を通ったクロージャが終了する前にリターンすることが保証されたスレッドを生成します。つまり、呼ばれた関数からデータを参照できることを意味します。
 
 
