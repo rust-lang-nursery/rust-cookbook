@@ -1,8 +1,8 @@
-## Insert and Query data
+## クエリデータの挿入
 
 [![postgres-badge]][postgres] [![cat-database-badge]][cat-database]
 
-The recipe inserts data into the `author` table using [`execute`] method of `Connection`. Then, displays the data from the `author` table  using [`query`] method of `Connection`.
+このレシピでは`Connection`の[`execute`]メソッドを使って`author`テーブルにデータを挿入します。そして、`Connection`の[`query`]を使って`author`テーブルのデータを表示します。
 
 ```rust,no_run
 extern crate postgres;
