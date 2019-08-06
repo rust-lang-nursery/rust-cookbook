@@ -1,4 +1,4 @@
-## Parse a complex version string.
+## 複雑なバージョン文字列のパース.
 
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]
 

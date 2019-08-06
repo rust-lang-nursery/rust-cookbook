@@ -1,4 +1,4 @@
-## Compile a C library while setting custom defines
+## カスタム定義が設定されている時、Cライブラリをコンパイルする
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 

@@ -1,4 +1,4 @@
-## Compile and link statically to a bundled C library
+## バンドルされたCライブラリをコンパイルし静的にリンクする
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 

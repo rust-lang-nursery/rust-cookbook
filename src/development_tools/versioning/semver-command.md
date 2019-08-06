@@ -1,4 +1,4 @@
-## Check external command version for compatibility
+## 外部コマンドのバージョン互換性を確認する
 
 [![semver-badge]][semver] [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os]
 

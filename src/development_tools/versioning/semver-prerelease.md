@@ -1,4 +1,4 @@
-## Check if given version is pre-release.
+## プレリリースバージョンかチェックする.
 
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]
 

@@ -1,4 +1,4 @@
-## Parse and increment a version string.
+## パースとバージョン文字列のインクリメント.
 
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]
 

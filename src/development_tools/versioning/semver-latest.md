@@ -1,4 +1,4 @@
-## Find the latest version satisfying given range
+## 与えられた範囲で最新バージョンを検索する
 
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]
 
