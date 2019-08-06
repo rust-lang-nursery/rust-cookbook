@@ -2,10 +2,7 @@
 
 [![semver-badge]][semver] [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os]
 
-Runs `git --version` using [`Command`], then parses the version number into a
-[`semver::Version`] using [`Version::parse`]. [`VersionReq::matches`] compares
-[`semver::VersionReq`] to the parsed version.  The command output resembles
-"git version x.y.z".
+[`Command`]で`git --version`を実行し、[`semver::Version`]と[`Version::parse`]を使いバージョンをパースする。[`VersionReq::matches`]は[`semver::VersionReq`]とパースされたバージョンを比較する。このコマンドの出力は"git version x.y.z".と似ている。
 
 ```rust,no_run
 # #[macro_use]
