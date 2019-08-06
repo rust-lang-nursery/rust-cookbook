@@ -1,4 +1,4 @@
-## Read CSV records
+## CSVレコードを読み込む
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 

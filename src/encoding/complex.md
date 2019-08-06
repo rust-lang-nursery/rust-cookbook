@@ -1,4 +1,4 @@
-# Structured Data
+# 構造化データ
 
 {{#include complex/json.md}}
 

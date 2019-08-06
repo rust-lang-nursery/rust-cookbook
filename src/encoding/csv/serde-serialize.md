@@ -1,4 +1,4 @@
-## Serialize records to CSV using Serde
+## Serdeを使ってレコードをCSVにシリアライズする
 
 [![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 

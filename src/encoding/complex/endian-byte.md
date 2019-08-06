@@ -1,4 +1,4 @@
-## Read and write integers in little-endian byte order
+## リトルエンディアンのバイト順で整数を読み書きする
 
 [![byteorder-badge]][byteorder] [![cat-encoding-badge]][cat-encoding]
 

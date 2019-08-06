@@ -1,4 +1,4 @@
-## Deserialize a TOML configuration file
+## TOML設定ファイルのデシリアライズ
 
 [![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
 

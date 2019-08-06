@@ -1,4 +1,4 @@
-## Filter CSV records matching a predicate
+## 述語にマッチするCSVレコードをフィルタリング
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 

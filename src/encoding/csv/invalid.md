@@ -1,4 +1,4 @@
-## Handle invalid CSV data with Serde
+## Serdeで無効なCSVデータをハンドル
 
 [![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 

@@ -1,4 +1,4 @@
-## Serialize and deserialize unstructured JSON
+## 構造化されていないJSONのシリアライズ、デシリアライズ
 
 [![serde-json-badge]][serde-json] [![cat-encoding-badge]][cat-encoding]
 

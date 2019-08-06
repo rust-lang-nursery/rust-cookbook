@@ -1,4 +1,4 @@
-## Serialize records to CSV
+## レコードをCSVにシリアライズする
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 

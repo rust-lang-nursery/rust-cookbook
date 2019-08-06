@@ -1,4 +1,4 @@
-## Percent-encode a string
+## 文字列をパーセントエンコードする
 
 [![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
 

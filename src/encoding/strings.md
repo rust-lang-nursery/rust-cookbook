@@ -1,4 +1,4 @@
-# Character Sets
+# 文字セット
 
 {{#include string/percent-encode.md}}
 

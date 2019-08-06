@@ -1,4 +1,4 @@
-## Read CSV records with different delimiter
+## 違う区切りでCSVレコードを読み込む
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 

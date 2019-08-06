@@ -1,4 +1,4 @@
-## Encode and decode hex
+## hexのエンコード、デコード
 
 [![data-encoding-badge]][data-encoding] [![cat-encoding-badge]][cat-encoding]
 

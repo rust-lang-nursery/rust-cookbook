@@ -1,4 +1,4 @@
-## Encode a string as application/x-www-form-urlencoded
+## 文字列をapplication/x-www-form-urlencodedとしてエンコードする
 
 [![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
 
