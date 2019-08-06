@@ -2,8 +2,7 @@
 
 [![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
 
-Parse some TOML into a universal `toml::Value` that is able to represent any
-valid TOML data.
+TOMLをどんなvalidのTOMLデータでも使える `toml::Value`にパースします。
 
 ```rust
 extern crate toml;
