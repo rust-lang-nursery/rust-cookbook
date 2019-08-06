@@ -2,13 +2,9 @@
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
-Calculates and displays the date and time two weeks from now using
-[`DateTime::checked_add_signed`] and the date of the day before that using
-[`DateTime::checked_sub_signed`]. The methods return None if the date and time
-cannot be calculated.
+[`DateTime::checked_add_signed`] を使って今日から2週間後の日付と時間を計算してその前日の日付を表示する。もし日付と時間を計算できなければNoneを返す。
 
-Escape sequences that are available for the
-[`DateTime::format`] can be found at [`chrono::format::strftime`].
+[`DateTime::format`]で使えるエスケープシーケンスは[`chrono::format::strftime`]で探すことができる。
 
 ```rust
 extern crate chrono;
