@@ -5,11 +5,9 @@
 [log4rs] configures log output to a custom location. [log4rs] can use either an
 external YAML file or a builder configuration.
 
-Create the log configuration with [`log4rs::append::file::FileAppender`]. An
-appender defines the logging destination.  The configuration continues with
-encoding using a custom pattern from [`log4rs::encode::pattern`].
-Assigns the configuration to [`log4rs::config::Config`] and sets the default
-[`log::LevelFilter`].
+[log4rs]はログをカスタムした場所に出力する設定を行う。[log4rs]は外部YAMLファイルとビルダー設定どちらも使うことができる。Appenderはログの出力先を定義する。設定は[`log4rs::encode::pattern`]のカスタムパターンを使ってエンコードを続行します。
+
+[`log4rs::append::file::FileAppender`]でlog設定を作る。設定を[`log4rs::config::Config`] に割り当て、デフォルトの[`log::LevelFilter`]を設定します。
 
 ```rust,no_run
 # #[macro_use]
