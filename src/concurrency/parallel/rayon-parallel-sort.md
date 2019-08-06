@@ -2,6 +2,7 @@
 
 [![rayon-badge]][rayon] [![rand-badge]][rand] [![cat-concurrency-badge]][cat-concurrency]
 
+
 この例では文字列のベクタを並列にソートします。
 
 空の文字列のベクタを割り当てます。`par_iter_mut().for_each`は並列にランダムな値を入れます。また、enumerableなデータ型をソートするためのいつかのオプションが存在していて[`par_sort_unstable`]は通常、[stable sorting]アルゴリズムより早いです。

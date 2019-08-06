@@ -1,5 +1,5 @@
 <a name="ex-pbkdf2"></a>
-## Salt and hash a password with PBKDF2
+## PBKDF2でパスワードをソルトとハッシュ化
 
 [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-cryptography-badge]][cat-cryptography]
 

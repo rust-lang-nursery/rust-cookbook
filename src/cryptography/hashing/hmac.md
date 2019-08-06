@@ -1,4 +1,4 @@
-## Sign and verify a message with HMAC digest
+## メッセージをHMACダイジェストで署名、認証する
 
 [![ring-badge]][ring] [![cat-cryptography-badge]][cat-cryptography]
 

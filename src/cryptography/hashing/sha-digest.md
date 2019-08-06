@@ -1,4 +1,4 @@
-## Calculate the SHA-256 digest of a file
+## ファイルのSHA-256ダイジェストを計算する
 
 [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-cryptography-badge]][cat-cryptography]
 
