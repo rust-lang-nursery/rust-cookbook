@@ -2,8 +2,7 @@
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
-Gets the current UTC [`DateTime`] and its hour/minute/second via [`Timelike`]
-and its year/month/day/weekday via [`Datelike`].
+現在のUTC [`DateTime`]と、[`Datelike`]から年/月/日/曜日を取得する。
 
 ```rust
 extern crate chrono;
