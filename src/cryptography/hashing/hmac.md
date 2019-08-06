@@ -2,7 +2,7 @@
 
 [![ring-badge]][ring] [![cat-cryptography-badge]][cat-cryptography]
 
-Uses [`ring::hmac`] to creates a [`hmac::Signature`] of a string then verifies the signature is correct.
+[`ring::hmac`]で文字列の[`hmac::Signature`]を生成して、シグネイチャーが正しいか確かめる。
 
 ```rust
 extern crate ring;
