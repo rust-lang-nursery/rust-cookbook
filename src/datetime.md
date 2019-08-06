@@ -2,7 +2,7 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [メジャーな経過時間の計測方法][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [二つのコード間の経過時間計測][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 | [日付と時間計測のパフォーマンスチェック][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [ローカルタイムを他のタイムゾーンに変換する][ex-convert-datetime-timezone] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [日付と時間を調べる][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |

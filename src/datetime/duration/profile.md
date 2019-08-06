@@ -1,11 +1,11 @@
-## Measure the elapsed time between two code sections
+## 二つのコード間の速度計測
 
 [![std-badge]][std] [![cat-time-badge]][cat-time]
 
-Measures [`time::Instant::elapsed`] since [`time::Instant::now`].
+[`time::Instant::now`]からの経過人を計測する。
 
-Calling [`time::Instant::elapsed`] returns a [`time::Duration`] that we print at the end of the example.
-This method will not mutate or reset the [`time::Instant`] object.
+[`time::Instant::elapsed`]を呼び、このサンプルが実行し終わる時間である[`time::Duration`]取得し表示する。
+このメソッドは[`time::Instant`]に変換したりリセットできない。
 
 ```rust
 use std::time::{Duration, Instant};
