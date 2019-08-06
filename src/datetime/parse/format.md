@@ -2,11 +2,7 @@
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
-Gets and displays the current time in UTC using [`Utc::now`]. Formats the
-current time in the well-known formats [RFC 2822] using [`DateTime::to_rfc2822`]
-and [RFC 3339] using [`DateTime::to_rfc3339`], and in a custom format using
-[`DateTime::format`].
-
+[`Utc::now`]で現在のUTCタイムを取得し表示する。[`DateTime::to_rfc2822`], [RFC 3339], [`DateTime::to_rfc3339`]と[`DateTime::format`]でカスタムしたを使い、現在時刻をwell-knownな[RFC 2822]形式にフォーマットする。
 ```rust
 extern crate chrono;
 use chrono::{DateTime, Utc};
