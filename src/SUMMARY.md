@@ -29,7 +29,7 @@
     - [ログメッセージ](development_tools/debugging/log.md)
     - [loggingの設定](development_tools/debugging/config_log.md)
   - [バージョニング](development_tools/versioning.md)
-  - [ビルドタイムツーリング](development_tools/build_tools.md)
+  - [ビルド時のツール](development_tools/build_tools.md)
 - [エンコード](encoding.md)
   - [文字セット](encoding/strings.md)
   - [CSVのパース](encoding/csv.md)
