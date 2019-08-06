@@ -2,12 +2,9 @@
 
 [![rayon-badge]][rayon] [![rand-badge]][rand] [![cat-concurrency-badge]][cat-concurrency]
 
-This example will sort in parallel a vector of Strings.
+この例では文字列のベクタを並列にソートします。
 
-Allocate a vector of empty Strings. `par_iter_mut().for_each` populates random
-values in parallel.  Although [multiple options]
-exist to sort an enumerable data type, [`par_sort_unstable`]
-is usually faster than [stable sorting] algorithms.
+空の文字列のベクタを割り当てます。`par_iter_mut().for_each`は並列にランダムな値を入れます。また、enumerableなデータ型をソートするためのいつかのオプションが存在していて[`par_sort_unstable`]は通常、[stable sorting]アルゴリズムより早いです。
 
 ```rust
 extern crate rand;
