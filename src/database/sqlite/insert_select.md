@@ -1,9 +1,9 @@
-## Insert and Select data
+## データの挿入と選択
 
 [![rusqlite-badge]][rusqlite] [![cat-database-badge]][cat-database]
 
-[`Connection::open`] will open the database `cats` created in the earlier recipe.
-This recipe inserts data into `cat_colors` and `cats` tables using the [`execute`] method of `Connection`. First, the data is inserted into the `cat_colors` table. After a record for a color is inserted, [`last_insert_rowid`] method of `Connection` is used to get `id` of the last color inserted. This `id` is used while inserting data into the `cats` table. Then, the select query is prepared using the [`prepare`] method which gives a [`statement`] struct. Then, query is executed using [`query_map`] method of [`statement`].
+前のレシピで作った`cats`テーブルを[`Connection::open`]で開きます。
+このレシピでは`Connection`の[`excute`]メソッドを使い`cat_colors`テーブルと`cats`テーブルにデータを挿入します。カラーレコードが挿入された後、`Connection`の[`last_insert_rowid`]で最後に挿入されたカラーの`id`を取得します。この`id`は`cats`テーブルに挿入されている間使われます。そして、[`statement`] 構造体の[`prepare`]メソッドで選択クエリは準備され、[`statement`]の[`query_map`]メソッドでクエリが実行されます。
 
 ```
 eextern crate rusqlite;
