@@ -2,13 +2,8 @@
 
 [![lazy_static-badge]][lazy_static] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
-Declare global state using [lazy_static]. [lazy_static]
-creates a globally available `static ref` which requires a [`Mutex`]
-to allow mutation (also see [`RwLock`]). The [`Mutex`] wrap ensures
-the state cannot be simultaneously accessed by multiple threads, preventing
-race conditions. A [`MutexGuard`] must be acquired to read or mutate the
-value stored in a [`Mutex`].
 
+[lazy_static]を使ってグローバルな状態を宣言します。[lazy_static]はグローバルに使える `static ref`を作ります。これはミューテーションを許可するために[`Mutex`]必要とします([`RwLock`]も見ましょう)。[`Mutex`]は複数のスレッドが同時にデータにアクセスできないようにすることを保証し、競合することを防ぎます。[`Mutex`]な値を読み込んだり、変更する場合は[`MutexGuard`]が必要になります。
 ```rust
 # #[macro_use]
 # extern crate error_chain;
