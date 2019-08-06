@@ -2,12 +2,9 @@
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-[`Builder`] configures logging.
+[`Builder`]はloggingの設定を行います。
 
-[`Builder::parse`] parses `MY_APP_LOG`
-environment variable contents in the form of [`RUST_LOG`] syntax.
-Then, [`Builder::init`] initializes the logger.
-All these steps are normally done internally by [`env_logger::init`].
+[`Builder::parse`]は[`RUST_LOG`]シンタックスの環境変数`MY_APP_LOG`をパースして、[`Builder::init`]でloggerを初期化します。これらの全てのステップは通常、[`Builder::init`]により内部で終了しています。
 
 ```rust
 #[macro_use]

@@ -1,4 +1,4 @@
-# Log Messages
+# ログメッセージ
 
 {{#include log/log-debug.md}}
 
