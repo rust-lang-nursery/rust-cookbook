@@ -1,4 +1,4 @@
-# Working with Postgres
+# Postgresを扱う
 
 {{#include postgres/create_tables.md}}
 

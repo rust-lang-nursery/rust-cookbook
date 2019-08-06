@@ -1,8 +1,8 @@
-## Aggregate data
+## データ集計
 
 [![postgres-badge]][postgres] [![cat-database-badge]][cat-database]
 
-This recipe lists the nationalities of the first 7999 artists in the database of the [`Museum of Modern Art`] in descending order.
+このレシピは[`Museum of Modern Art`]のデータベースの先頭の7999人のアーティストの国籍のリストを降順に取り出します。
 
 ```rust,no_run
 extern crate postgres;
