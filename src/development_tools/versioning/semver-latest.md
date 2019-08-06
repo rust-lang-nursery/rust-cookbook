@@ -2,12 +2,9 @@
 
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]
 
-Given a list of version &strs, finds the latest [`semver::Version`].
-[`semver::VersionReq`] filters the list with [`VersionReq::matches`].
-Also demonstrates `semver` pre-release preferences.
-
 与えられた&strsのバージョンリストから最新の[`semver::Version`]を探します。
-[`semver::VersionReq`]は[`VersionReq::matches`]でリストをフィルタリングし、
+[`semver::VersionReq`]は[`VersionReq::matches`]でリストをフィルタリングし、`semver`プレリリースの設定をします。
+
 ```rust
 # #[macro_use]
 # extern crate error_chain;
