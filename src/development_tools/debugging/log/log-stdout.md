@@ -1,8 +1,8 @@
-## stderrを使ったログの表示
+## stdoutを使ったログの表示
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-Creates a custom logger configuration using the [`Builder::target`] to set the target of the log output to [`Target::Stdout`].
+[`Builder::target`]でカスタムロガーの設定を作り、ログ出力のターゲットを[`Target::Stdout`]に設定します。
 
 ```rust
 #[macro_use]
