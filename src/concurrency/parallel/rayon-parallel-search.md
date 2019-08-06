@@ -12,6 +12,10 @@ necessarily the first one.
 Also note that the argument to the closure is a reference to a reference
 (`&&x`). See the discussion on [`std::find`] for additional details.
 
+この例では与えられたクロージャーの条件を満たす要素を並列的にベクタから探すために[`rayon::find_any`]と[`par_iter`]を使います。
+
+[`rayon::find_any`]の引数で定義されたクロージャを満たす複数の要素があれば、`rayon`は最初に見つかった値を返します。必ずしも先頭の値ではありません。(並列的に探すため)
+
 ```rust
 extern crate rayon;
 
