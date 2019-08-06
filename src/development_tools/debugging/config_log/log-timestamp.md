@@ -2,13 +2,11 @@
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] [![cat-debugging-badge]][cat-debugging]
 
-Creates a custom logger configuration with [`Builder`].
-Each log entry calls [`Local::now`] to get the current [`DateTime`] in local
-timezone and uses [`DateTime::format`] with [`strftime::specifiers`] to format
-a timestamp used in the final log.
+[`Builder`]でカスタムloggerの設定を作成します。
+ログエントリーはそれぞれローカルタイムゾーンの現在時刻を取得するために[`Local::now`]を呼び、最終ログで使われるタイムスタンプをフォーマットするために[`DateTime::format`]と[`strftime::specifiers`]を使います。
 
-The example calls [`Builder::format`] to set a closure which formats each
-message text with timestamp, [`Record::level`] and body ([`Record::args`]).
+この例では[`Builder::format`]を呼び、それぞれのメッセージをタイムスタンプと[`Record::level`], body ([`Record::args`])と共にフォーマットするクロージャーをセットします。
+
 
 ```rust
 #[macro_use]
@@ -39,7 +37,7 @@ fn main() {
     debug!("debug");
 }
 ```
-stderr output will contain
+stderr出力は以下のようになる。
 ```
 2017-05-22T21:57:06 [WARN] - warn
 2017-05-22T21:57:06 [INFO] - info
