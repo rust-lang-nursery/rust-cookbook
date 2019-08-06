@@ -3,11 +3,7 @@
 
 [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] [![cat-cryptography-badge]][cat-cryptography]
 
-Uses [`ring::pbkdf2`] to hash a salted password using the PBKDF2 key derivation
-function [`pbkdf2::derive`].  Verifies the hash is correct with
-[`pbkdf2::verify`]. The salt is generated using
-[`SecureRandom::fill`], which fills the salt byte array with
-securely generated random numbers.
+[`ring::pbkdf2`]のPBKDF2鍵導出関数の[`pbkdf2::derive`]を使いソルトされたパスワードをハッシュ化する。ハッシュを認証するために[`pbkdf2::verify`]を使う。ソルトは[`SecureRandom::fill`]によって生成され、乱数によってセキュアに生成されたソルトバイト配列で埋められる。
 
 ```rust
 extern crate ring;
