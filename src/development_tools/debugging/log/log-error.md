@@ -2,8 +2,7 @@
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
-Proper error handling considers exceptions exceptional.  Here, an error logs
-to stderr with `log`'s convenience macro [`error!`].
+適切なエラー処理は例外を例外と見なします。[`error!`]マクロはエラーログを`log`'s と共にstderrに渡す便利なマクロです。
 
 ```rust
 #[macro_use]
