@@ -1,4 +1,4 @@
-# Parsing and Displaying
+#パースと表示
 
 {{#include parse/current.md}}
 

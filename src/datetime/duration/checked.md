@@ -1,4 +1,4 @@
-## Perform checked date and time calculations
+## 日付と時間計測のパフォーマンスチェック
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 

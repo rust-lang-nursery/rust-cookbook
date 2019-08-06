@@ -1,4 +1,4 @@
-# Duration and Calculation
+# デュレーションと計算
 
 {{#include duration/profile.md}}
 

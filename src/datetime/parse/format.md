@@ -1,4 +1,4 @@
-## Display formatted date and time
+## フォーマットした日付と時間の表示
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 

@@ -1,4 +1,4 @@
-## Convert date to UNIX timestamp and vice versa
+## 日付とUNIXタイムスタンプの相互変換
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
 Converts a date given by [`NaiveDate::from_ymd`] and [`NaiveTime::from_hms`]

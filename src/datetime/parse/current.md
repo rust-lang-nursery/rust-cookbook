@@ -1,4 +1,4 @@
-## Examine the date and time
+## 日付と時間を調べる
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 

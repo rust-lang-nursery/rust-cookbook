@@ -1,4 +1,4 @@
-## Parse string into DateTime struct
+## 文字列をパースしてDateTime型にする
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
