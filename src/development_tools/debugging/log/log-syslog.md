@@ -7,6 +7,8 @@ with [`syslog::init`]. [`syslog::Facility`] records the program submitting
 the log entry's classification, [`log::LevelFilter`] denotes allowed log verbosity
 and `Option<&str>` holds optional application name.
 
+[UNIX syslog]にメッセージを記録する。[`syslog::init`]でloggerバックエンドを初期化する。[`syslog::Facility`]はログエントリの分類、[`log::LevelFilter`]は許可されたlogのレベル、`Option<&str>`はオプショナルなアプリ名を保持します。
+
 ```rust
 #[macro_use]
 extern crate log;
