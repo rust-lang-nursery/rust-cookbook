@@ -6,6 +6,8 @@ The `log` crate provides logging utilities. The `env_logger` crate configures
 logging via an environment variable.  The [`debug!`] macro works like other
 [`std::fmt`] formatted strings.
 
+`log`クレートはloggingユーティリティを提供します。`env_logger`は環境変数からloggingの設定をします。[`debug!`]マクロは文字列をフォーマットする[`std::fmt`]と同様な機能を持ちます。
+
 ```rust
 #[macro_use]
 extern crate log;
@@ -22,18 +24,14 @@ fn main() {
 }
 ```
 
-No output prints when running this code. By default, the
-log level is `error`, and any lower levels are dropped.
+デフォルトのログレベルは`error`で低レベルなものは出力されない。なのでこのコードを実行した時はなにも出力がされない。
 
-Set the `RUST_LOG` environment variable to print the message:
-
+メッセージを出力するために環境変数`RUST_LOG`を設定する:
 ```
 $ RUST_LOG=debug cargo run
 ```
 
-Cargo prints debugging information then the
-following line at the very end of the output:
-
+Cargoは出力の最後に次のようなデバッグ情報を表示する。
 ```
 DEBUG:main: Executing query: DROP TABLE students
 ```
