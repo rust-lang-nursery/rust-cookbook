@@ -1,12 +1,8 @@
-## Calculate SHA1 sum of iso files concurrently
+## * .isoファイルのSHA1合計を同時に計算する
 
 [![threadpool-badge]][threadpool] [![num_cpus-badge]][num_cpus] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
 
-This example calculates the SHA1 for every file with iso extension in the
-current directory. A threadpool generates threads equal to the number of cores
-present in the system found with [`num_cpus::get`].  [`Walkdir::new`] iterates
-the current directory and calls [`execute`] to perform the operations of reading
-and computing SHA1 hash.
+この例ではカレントディレクトリの全てのisoファイルのSHA1計算をします。スレッドプールは[`num_cpus::get`]で得たシステムのコアと同じ数のスレッドを生成します。[`Walkdir::new`]はカレントディレクトリをイテレートし、読み込みとSHA1ハッシュ計算をするために[`execute`]を呼びます。
 
 ```rust,no_run
 extern crate walkdir;
