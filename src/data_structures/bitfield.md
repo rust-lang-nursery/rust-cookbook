@@ -1,4 +1,4 @@
-# Custom
+# カスタム
 
 {{#include bitfield/bitfield.md}}
 
