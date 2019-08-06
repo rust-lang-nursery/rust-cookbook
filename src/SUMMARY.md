@@ -27,7 +27,7 @@
 - [開発ツール](development_tools.md)
   - [デバッグ](development_tools/debugging.md)
     - [ログメッセージ](development_tools/debugging/log.md)
-    - [ロギングの設定](development_tools/debugging/config_log.md)
+    - [loggingの設定](development_tools/debugging/config_log.md)
   - [バージョニング](development_tools/versioning.md)
   - [ビルドタイムツーリング](development_tools/build_tools.md)
 - [エンコード](encoding.md)

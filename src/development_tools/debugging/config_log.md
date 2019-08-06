@@ -1,4 +1,4 @@
-# Configure Logging
+# loggingの設定
 
 {{#include config_log/log-mod.md}}
 
