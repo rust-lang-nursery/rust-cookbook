@@ -2,16 +2,10 @@
 
 [![chrono-badge]][chrono] [![cat-date-and-time-badge]][cat-date-and-time]
 
-Parses a [`DateTime`] struct from strings representing the well-known formats
-[RFC 2822], [RFC 3339], and a custom format, using
-[`DateTime::parse_from_rfc2822`], [`DateTime::parse_from_rfc3339`], and
-[`DateTime::parse_from_str`] respectively.
+well-knownな[RFC 2822], [RFC 3339]とカスタムフォーマットの文字列を[`DateTime::parse_from_rfc2822`], [`DateTime::parse_from_rfc3339`],
+[`DateTime::parse_from_str`]のそれぞれを使って[`DateTime`]型にパースする。
 
-Escape sequences that are available for the [`DateTime::parse_from_str`] can be
-found at [`chrono::format::strftime`]. Note that the [`DateTime::parse_from_str`]
-requires that such a DateTime struct must be creatable that it uniquely
-identifies a date and a time. For parsing dates and times without timezones use
-[`NaiveDate`], [`NaiveTime`], and [`NaiveDateTime`].
+[`DateTime::parse_from_str`]で扱っているエスケープシーケンスは[`chrono::format::strftime`]で探せます。[`DateTime::parse_from_str`]はDateTimeのような日付と時間を一意に識別できるものを作成可能でなければなりません。タイムゾーンなしで日付と時間をパースするなら[`NaiveDate`], [`NaiveTime`], [`NaiveDateTime`]を使いましょう。
 
 ```rust
 extern crate chrono;
