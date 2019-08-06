@@ -11,6 +11,11 @@ new iteration, and [`rayon::reduce`] performs an operation given the previous
 reduction and the current element.  Also shows use of [`rayon::sum`],
 which has the same result as the reduce operation in this example.
 
+この例では30才以上のPersonオブジェクトの年齢の平均を計算するために[`rayon::filter`], [`rayon::map`], [`rayon::reduce`]を使います。
+
+[`rayon::filter`]はコレクションの中から与えられた条件を満たす要素を返します。
+[`rayon::map`]は全ての要素を処理して新しいイテレーションを作ります。また、[`rayon::reduce`]は与えられた直前の値と現在の要素に機能します。この例では[`rayon::sum`]で見せた結果と同じになっています。
+
 ```rust
 extern crate rayon;
 

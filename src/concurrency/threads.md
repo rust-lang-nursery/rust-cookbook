@@ -1,4 +1,4 @@
-# Threads
+# スレッド
 
 {{#include thread/crossbeam-spawn.md}}
 
