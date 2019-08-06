@@ -1,17 +1,10 @@
-## Using transactions
+## トランザクションを使う
 
 [![rusqlite-badge]][rusqlite] [![cat-database-badge]][cat-database]
 
-[`Connection::open`] will open the `cats.db` database from the top recipe.
+[`Connection::transaction`]でトランザクションを始める。トランザクションは[`Connection::transaction`]でコミットしない場合、ロールバックする。
 
-Begin a transaction with [`Connection::transaction`]. Transactions will
-roll back unless committed explicitly with [`Transaction::commit`].
-
-In the following example, colors add to a table having
-a unique constraint on the color name. When an attempt to insert
-a duplicate color is made, the transaction rolls back.
-
-
+次の例では、一意なカラーネームを持つテーブルにカラーを挿入する。カラーが重複したとき、トランザクションはロールバックする。
 ```rust,no_run
 extern crate rusqlite;
 
