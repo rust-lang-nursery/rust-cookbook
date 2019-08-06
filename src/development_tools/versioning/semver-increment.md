@@ -10,6 +10,10 @@ incrementing the minor version number resets the patch version number to 0 and
 incrementing the major version number resets both the minor and patch version
 numbers to 0.
 
+[`Version::parse`]を使い文字列リテラルから[`semver::Version`]を作り、パッチ、マイナー、メジャーのバージョンを1ずつ増やす。
+
+[Semantic Versioning Specification]に従って、マイナーバージョン番号をインクリメントすると、パッチバージョン番号が0にリセットされ、メジャーバージョン番号をインクリメントすると、マイナーバージョンとパッチバージョンの両方が0にリセットされます。
+
 ```rust
 extern crate semver;
 
