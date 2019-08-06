@@ -2,11 +2,9 @@
 
 [![semver-badge]][semver] [![cat-config-badge]][cat-config]
 
-Constructs a [`semver::Version`] from a complex version string using [`Version::parse`]. The string
-contains pre-release and build metadata as defined in the [Semantic Versioning Specification].
+[`Version::parse`]でバージョン文字列をパースして[`semver::Version`]を作る。この文字列はpre-releaseやメタデータなどの[Semantic Versioning Specification]を含む。
 
-Note that, in accordance with the Specification, build metadata is parsed but not considered when
-comparing versions. In other words, two versions may be equal even if their build strings differ.
+仕様に従って、ビルドメタデータは解析されますが、バージョンの比較時には考慮されないことに注意してください。言い換えると、2つのバージョンは、ビルド文字列が異なっていても同じである場合があります。
 
 ```rust
 extern crate semver;
