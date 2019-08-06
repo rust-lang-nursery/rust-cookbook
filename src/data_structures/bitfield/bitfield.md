@@ -1,4 +1,4 @@
-## Define and operate on a type represented as a bitfield
+## ビットフィールドな型を定義し操作する
 
 [![bitflags-badge]][bitflags] [![cat-no-std-badge]][cat-no-std]
 
@@ -6,6 +6,7 @@ Creates type safe bitfield type `MyFlags` with help of [`bitflags!`] macro
 and implements elementary `clear` operation as well as [`Display`] trait for it.
 Subsequently, shows basic bitwise operations and formatting.
 
+[`bitflags!`]で安全なビットフィールド型の`MyFlags`を作り、最初に`clear`を実装し、同様に[`Display`]トレイトを実装します。次に、基本のビット長をフォーマットして表示します。
 ```rust
 #[macro_use]
 extern crate bitflags;
