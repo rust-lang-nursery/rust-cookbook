@@ -2,11 +2,9 @@
 
 [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency] [![cat-filesystem-badge]][cat-filesystem]
 
-This example generates thumbnails for all .jpg files in the current directory
-then saves them in a new folder called `thumbnails`.
+この例では全てのカレントディレクトリにある全てのjpgのサムネイルを生成し、新しい`thumbnails`フォルダ保存します。
 
-[`glob::glob_with`] finds jpeg files in current directory. `rayon` resizes
-images in parallel using [`par_iter`] calling  [`DynamicImage::resize`].
+[`glob::glob_with`]はカレントディレクトリのjpegファイルを探します。`rayon` は [`DynamicImage::resize`]と呼ばれる[`par_iter`]を使い並列にリサイズします。
 
 ```rust,no_run
 # #[macro_use]
