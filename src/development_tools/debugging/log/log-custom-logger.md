@@ -1,10 +1,9 @@
-## カスタムロガーを使ってログメッセージ
+## カスタムロガーを使ってメッセージを記録する
 
 [![log-badge]][log] [![cat-debugging-badge]][cat-debugging]
 
-Implements a custom logger `ConsoleLogger` which prints to stdout.
-In order to use the logging macros, `ConsoleLogger` implements
-the [`log::Log`] trait and [`log::set_logger`] installs it.
+stdoutに出力するカスタムロガー`ConsoleLogger`を実装します。
+loggingマクロを使うために`ConsoleLogger`に[`log::Log`]を実装し、[`log::set_logger`]に読み込ませます。
 
 ```rust
 #[macro_use]
