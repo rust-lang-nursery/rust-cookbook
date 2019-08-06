@@ -2,7 +2,7 @@
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
-Returns _only_ the rows from `data` with a field that matches `query`.
+`query`にマッチした列のデータを返します。
 
 ```rust
 # #[macro_use]
