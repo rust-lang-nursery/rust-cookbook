@@ -1,4 +1,4 @@
-## Enable log levels per module
+## モジュールごとのログレベルを許可する
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 

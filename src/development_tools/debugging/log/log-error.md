@@ -1,4 +1,4 @@
-## Log an error message to the console
+## コンソールにエラーログメッセージを表示する
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 

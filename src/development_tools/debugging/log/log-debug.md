@@ -1,4 +1,4 @@
-## Log a debug message to the console
+## コンソールにデバッグログメッセージを表示する
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 

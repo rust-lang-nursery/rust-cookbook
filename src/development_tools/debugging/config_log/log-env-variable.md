@@ -1,4 +1,4 @@
-## Use a custom environment variable to set up logging
+## ロギングのセットアップにカスタム環境戦数を使う
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 

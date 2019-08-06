@@ -1,4 +1,4 @@
-## Include timestamp in log messages
+## タイムスタンを含めたログメッセージ
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] [![cat-debugging-badge]][cat-debugging]
 

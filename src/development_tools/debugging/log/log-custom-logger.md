@@ -1,4 +1,4 @@
-## Log messages with a custom logger
+## カスタムロガーを使ってログメッセージ
 
 [![log-badge]][log] [![cat-debugging-badge]][cat-debugging]
 

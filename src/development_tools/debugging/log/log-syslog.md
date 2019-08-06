@@ -1,4 +1,4 @@
-## Log to the Unix syslog
+## Unix syslogに記録する
 
 [![log-badge]][log] [![syslog-badge]][syslog] [![cat-debugging-badge]][cat-debugging]
 

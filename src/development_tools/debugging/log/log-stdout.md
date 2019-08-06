@@ -1,4 +1,4 @@
-## Log to stdout instead of stderr
+## stderrを使ったログの表示
 
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 

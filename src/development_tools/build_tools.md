@@ -1,4 +1,4 @@
-# Build Time Tooling
+# ビルドタイムツーリング
 
 This section covers "build-time" tooling, or code that is run prior to compiling a crate's source code.
 Conventionally, build-time code lives in a **build.rs** file and is commonly referred to as a "build script".

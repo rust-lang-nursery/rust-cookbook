@@ -1,4 +1,4 @@
-## Log messages to a custom location
+## カスタムした場所にログメッセージを記録する。
 
 [![log-badge]][log] [![log4rs-badge]][log4rs] [![cat-debugging-badge]][cat-debugging]
 
