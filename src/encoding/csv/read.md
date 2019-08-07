@@ -6,6 +6,7 @@ Reads standard CSV records into [`csv::StringRecord`] — a weakly typed
 data representation which expects valid UTF-8 rows. Alternatively,
 [`csv::ByteRecord`] makes no assumptions about UTF-8.
 
+標準なCSVレコードを[`csv::StringRecord`]に読み込みます。- 弱く型付けされたデータ。
 ```rust
 extern crate csv;
 use csv::Error;
