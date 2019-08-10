@@ -2,11 +2,7 @@
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
-This example shows how to serialize a Rust tuple. [`csv::writer`] supports automatic
-serialization from Rust types into CSV records. [`write_record`] writes
-a simple record containing string data only. Data with more complex values
-such as numbers, floats, and options use [`serialize`]. Since CSV
-writer uses internal buffer, always explicitly [`flush`] when done.
+この例ではRustのタプルをシリアライズする方法をお見せします。[`csv::writer`]はRustの型からCSVレコードへの自動シリアライズをサポートしています。[`write_record`]は文字列のみのシンプルなレコードを書き込みます。数値、浮動小数、optionのような複雑な値を持ったデータは[`serialize`]を使います。CSV writerは内部のバッファを使い、終了時に明示的に[`flush`]します。
 
 ```rust
 # #[macro_use]
