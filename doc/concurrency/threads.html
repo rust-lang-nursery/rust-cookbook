@@ -1,0 +1,462 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>明示的スレッド - Rust Cookbook</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Collection of useful Rust code examples">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="theme/custom.css">
+        
+
+        
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="intro.html">コンテンツテーブル</a></li><li class="affix"><a href="about.html">概要</a></li><li><a href="algorithms.html"><strong aria-hidden="true">1.</strong> アルゴリズム</a></li><li><ol class="section"><li><a href="algorithms/randomness.html"><strong aria-hidden="true">1.1.</strong> 乱数の生成</a></li><li><a href="algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> ベクタのソート</a></li></ol></li><li><a href="cli.html"><strong aria-hidden="true">2.</strong> コマンドライン</a></li><li><ol class="section"><li><a href="cli/arguments.html"><strong aria-hidden="true">2.1.</strong> 引数のパース</a></li><li><a href="cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSIターミナル</a></li></ol></li><li><a href="compression.html"><strong aria-hidden="true">3.</strong> 圧縮</a></li><li><ol class="section"><li><a href="compression/tar.html"><strong aria-hidden="true">3.1.</strong> tarを扱う</a></li></ol></li><li><a href="concurrency.html"><strong aria-hidden="true">4.</strong> 並列性</a></li><li><ol class="section"><li><a href="concurrency/threads.html" class="active"><strong aria-hidden="true">4.1.</strong> 明示的スレッド</a></li><li><a href="concurrency/parallel.html"><strong aria-hidden="true">4.2.</strong> データ並列処理</a></li></ol></li><li><a href="cryptography.html"><strong aria-hidden="true">5.</strong> 暗号</a></li><li><ol class="section"><li><a href="cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> ハッシュ</a></li><li><a href="cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> 暗号化</a></li></ol></li><li><a href="data_structures.html"><strong aria-hidden="true">6.</strong> データ構造</a></li><li><ol class="section"><li><a href="data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> ビットフィールド</a></li></ol></li><li><a href="database.html"><strong aria-hidden="true">7.</strong> データベース</a></li><li><ol class="section"><li><a href="database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li><a href="database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li><a href="datetime.html"><strong aria-hidden="true">8.</strong> データと時間</a></li><li><ol class="section"><li><a href="datetime/duration.html"><strong aria-hidden="true">8.1.</strong> 期間と計算</a></li><li><a href="datetime/parse.html"><strong aria-hidden="true">8.2.</strong> パースと表示</a></li></ol></li><li><a href="development_tools.html"><strong aria-hidden="true">9.</strong> 開発ツール</a></li><li><ol class="section"><li><a href="development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> デバッグ</a></li><li><ol class="section"><li><a href="development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> ログメッセージ</a></li><li><a href="development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> loggingの設定</a></li></ol></li><li><a href="development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> バージョニング</a></li><li><a href="development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> ビルド時のツール</a></li></ol></li><li><a href="encoding.html"><strong aria-hidden="true">10.</strong> エンコード</a></li><li><ol class="section"><li><a href="encoding/strings.html"><strong aria-hidden="true">10.1.</strong> 文字セット</a></li><li><a href="encoding/csv.html"><strong aria-hidden="true">10.2.</strong> CSVのパース</a></li><li><a href="encoding/complex.html"><strong aria-hidden="true">10.3.</strong> 構造化データ</a></li></ol></li><li><a href="errors.html"><strong aria-hidden="true">11.</strong> エラーハンドリング</a></li><li><ol class="section"><li><a href="errors/handle.html"><strong aria-hidden="true">11.1.</strong> 様々なエラーハンドリング</a></li></ol></li><li><a href="file.html"><strong aria-hidden="true">12.</strong> ファイルシステム</a></li><li><ol class="section"><li><a href="file/read-write.html"><strong aria-hidden="true">12.1.</strong> 読み込みと書き込み</a></li><li><a href="file/dir.html"><strong aria-hidden="true">12.2.</strong> ディレクトリトラバーサル</a></li></ol></li><li><a href="hardware.html"><strong aria-hidden="true">13.</strong> ハードウェアサポート</a></li><li><ol class="section"><li><a href="hardware/processor.html"><strong aria-hidden="true">13.1.</strong> プロセッサー</a></li></ol></li><li><a href="mem.html"><strong aria-hidden="true">14.</strong> メモリ管理</a></li><li><ol class="section"><li><a href="mem/global_static.html"><strong aria-hidden="true">14.1.</strong> グローバルスタティック</a></li></ol></li><li><a href="net.html"><strong aria-hidden="true">15.</strong> ネットワーク</a></li><li><ol class="section"><li><a href="net/server.html"><strong aria-hidden="true">15.1.</strong> サーバー</a></li></ol></li><li><a href="os.html"><strong aria-hidden="true">16.</strong> OS</a></li><li><ol class="section"><li><a href="os/external.html"><strong aria-hidden="true">16.1.</strong> 外部コマンド</a></li></ol></li><li><a href="science.html"><strong aria-hidden="true">17.</strong> サイエンス</a></li><li><ol class="section"><li><a href="science/mathematics.html"><strong aria-hidden="true">17.1.</strong> 数学</a></li><li><ol class="section"><li><a href="science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> 線形代数</a></li><li><a href="science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> 三角法</a></li><li><a href="science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> 複素数</a></li><li><a href="science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> 統計</a></li><li><a href="science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> その他</a></li></ol></li></ol></li><li><a href="text.html"><strong aria-hidden="true">18.</strong> テキスト処理</a></li><li><ol class="section"><li><a href="text/regex.html"><strong aria-hidden="true">18.1.</strong> 正規表現</a></li><li><a href="text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> 文字列のパース</a></li></ol></li><li><a href="web.html"><strong aria-hidden="true">19.</strong> Webプログラミング</a></li><li><ol class="section"><li><a href="web/scraping.html"><strong aria-hidden="true">19.1.</strong> リンクの抽出</a></li><li><a href="web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li><a href="web/mime.html"><strong aria-hidden="true">19.3.</strong> メディアタイプ</a></li><li><a href="web/clients.html"><strong aria-hidden="true">19.4.</strong> クライアント</a></li><li><ol class="section"><li><a href="web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> リクエストを作る</a></li><li><a href="web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Web APIを叩く</a></li><li><a href="web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> ダウンロード</a></li></ol></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <!-- START - Rust Cookbook customization -->
+                            <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+                                <i class="fa fa-edit">Edit</i>
+                            </button>
+                            <!-- END - Rust Cookbook customization -->
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Cookbook</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+
+                   // START - Rust Cookbook customization
+                   document.getElementById("edit-button").addEventListener("click", function(){
+                       var editWindow = window.open("https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/concurrency/threads.md");
+                   });
+                   // END - Rust Cookbook customization
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="concurrency/threads.html#aスレッド" id="aスレッド"><h1>スレッド</h1></a>
+<a class="header" href="concurrency/threads.html#a短命のスレッドの生成" id="a短命のスレッドの生成"><h2>短命のスレッドの生成</h2></a>
+<p><a href="https://docs.rs/crossbeam/"><img src="https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>この例では並列プログラミングのためのデータ型と関数を提供する<a href="https://docs.rs/crossbeam/">crossbeam</a>クレートを使います。<a href="https://docs.rs/crossbeam/*/crossbeam/thread/struct.Scope.html#method.spawn"><code>Scope::spawn</code></a>は<a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a>関数を通ったクロージャが終了する前にリターンすることが保証されたスレッドを生成します。つまり、呼ばれた関数からデータを参照できることを意味します。</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate crossbeam;
+
+fn main() {
+    let arr = &amp;[1, 25, -4, 10];
+    let max = find_max(arr);
+    assert_eq!(max, Some(25));
+}
+
+fn find_max(arr: &amp;[i32]) -&gt; Option&lt;i32&gt; {
+    const THRESHOLD: usize = 2;
+  
+    if arr.len() &lt;= THRESHOLD {
+        return arr.iter().cloned().max();
+    }
+
+    let mid = arr.len() / 2;
+    let (left, right) = arr.split_at(mid);
+  
+    crossbeam::scope(|s| {
+        let thread_l = s.spawn(|_| find_max(left));
+        let thread_r = s.spawn(|_| find_max(right));
+  
+        let min_l = thread_l.join().unwrap()?;
+        let min_r = thread_r.join().unwrap()?;
+  
+        Some(min_l.max(min_r))
+    }).unwrap()
+}
+</code></pre></pre>
+<a class="header" href="concurrency/threads.html#aグローバルな可変状態を維持する" id="aグローバルな可変状態を維持する"><h2>グローバルな可変状態を維持する</h2></a>
+<p><a href="https://docs.rs/lazy_static/"><img src="https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p><a href="https://docs.rs/lazy_static/">lazy_static</a>を使ってグローバルな状態を宣言します。<a href="https://docs.rs/lazy_static/">lazy_static</a>はグローバルに使える <code>static ref</code>を作ります。これはミューテーションを許可するために<a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>必要とします(<a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><code>RwLock</code></a>も見ましょう)。<a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>は複数のスレッドが同時にデータにアクセスできないようにすることを保証し、競合することを防ぎます。<a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>な値を読み込んだり、変更する場合は<a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a>が必要になります。</p>
+<pre><pre class="playpen"><code class="language-rust"># #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate lazy_static;
+
+use std::sync::Mutex;
+#
+# error_chain!{ }
+
+lazy_static! {
+    static ref FRUIT: Mutex&lt;Vec&lt;String&gt;&gt; = Mutex::new(Vec::new());
+}
+
+fn insert(fruit: &amp;str) -&gt; Result&lt;()&gt; {
+    let mut db = FRUIT.lock().map_err(|_| &quot;Failed to acquire MutexGuard&quot;)?;
+    db.push(fruit.to_string());
+    Ok(())
+}
+
+fn run() -&gt; Result&lt;()&gt; {
+    insert(&quot;apple&quot;)?;
+    insert(&quot;orange&quot;)?;
+    insert(&quot;peach&quot;)?;
+    {
+        let db = FRUIT.lock().map_err(|_| &quot;Failed to acquire MutexGuard&quot;)?;
+
+        db.iter().enumerate().for_each(|(i, item)| println!(&quot;{}: {}&quot;, i, item));
+    }
+    insert(&quot;grape&quot;)?;
+    Ok(())
+}
+#
+# quick_main!(run);
+</code></pre></pre>
+<a class="header" href="concurrency/threads.html#a-isoファイルのsha1合計を同時に計算する" id="a-isoファイルのsha1合計を同時に計算する"><h2>* .isoファイルのSHA1合計を同時に計算する</h2></a>
+<p><a href="https://docs.rs/threadpool/"><img src="https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge" /></a> <a href="https://docs.rs/num_cpus/"><img src="https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://briansmith.org/rustdoc/ring/"><img src="https://badge-cache.kominick.com/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a><a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>この例ではカレントディレクトリの全てのisoファイルのSHA1計算をします。スレッドプールは<a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>で得たシステムのコアと同じ数のスレッドを生成します。<a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>Walkdir::new</code></a>はカレントディレクトリをイテレートし、読み込みとSHA1ハッシュ計算をするために<a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>execute</code></a>を呼びます。</p>
+<pre><pre class="playpen"><code class="language-rust no_run">extern crate walkdir;
+extern crate ring;
+extern crate num_cpus;
+extern crate threadpool;
+
+use walkdir::WalkDir;
+use std::fs::File;
+use std::io::{BufReader, Read, Error};
+use std::path::Path;
+use threadpool::ThreadPool;
+use std::sync::mpsc::channel;
+use ring::digest::{Context, Digest, SHA1};
+
+# // Verify the iso extension
+# fn is_iso(entry: &amp;Path) -&gt; bool {
+#     match entry.extension() {
+#         Some(e) if e.to_string_lossy().to_lowercase() == &quot;iso&quot; =&gt; true,
+#         _ =&gt; false,
+#     }
+# }
+
+fn compute_digest&lt;P: AsRef&lt;Path&gt;&gt;(filepath: P) -&gt; Result&lt;(Digest, P), Error&gt; {
+    let mut buf_reader = BufReader::new(File::open(&amp;filepath)?);
+    let mut context = Context::new(&amp;SHA1);
+    let mut buffer = [0; 1024];
+
+    loop {
+        let count = buf_reader.read(&amp;mut buffer)?;
+        if count == 0 {
+            break;
+        }
+        context.update(&amp;buffer[..count]);
+    }
+
+    Ok((context.finish(), filepath))
+}
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+    let pool = ThreadPool::new(num_cpus::get());
+
+    let (tx, rx) = channel();
+
+    for entry in WalkDir::new(&quot;/home/user/Downloads&quot;)
+        .follow_links(true)
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .filter(|e| !e.path().is_dir() &amp;&amp; is_iso(e.path())) {
+            let path = entry.path().to_owned();
+            let tx = tx.clone();
+            pool.execute(move || {
+                let digest = compute_digest(path);
+                tx.send(digest).expect(&quot;Could not send data!&quot;);
+            });
+        }
+
+    drop(tx);
+    for t in rx.iter() {
+        let (sha, path) = t?;
+        println!(&quot;{:?} {:?}&quot;, sha, path);
+    }
+    Ok(())
+}
+</code></pre></pre>
+<a class="header" href="concurrency/threads.html#aフラクタル図形をスレッドプールに描画する" id="aフラクタル図形をスレッドプールに描画する"><h2>フラクタル図形をスレッドプールに描画する</h2></a>
+<p><a href="https://docs.rs/threadpool/"><img src="https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge" /></a> <a href="https://docs.rs/num/"><img src="https://badge-cache.kominick.com/crates/v/num.svg?label=num" alt="num-badge" /></a> <a href="https://docs.rs/num_cpus/"><img src="https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://docs.rs/image/"><img src="https://badge-cache.kominick.com/crates/v/image.svg?label=image" alt="image-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a><a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a><a href="https://crates.io/categories/rendering"><img src="https://badge-cache.kominick.com/badge/rendering--x.svg?style=social" alt="cat-rendering-badge" /></a></p>
+<p>この例では<a href="https://en.wikipedia.org/wiki/Julia_set">Julia set</a>の分散処理のスレッドプールなフラクタルによって描かれた画像を生成します。</p>
+<p><a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a></p>
+<p><a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new"><code>ImageBuffer::new</code></a>を使って与えられた幅と高さの出力画像用のメモリを割り当てます。<a href="https://docs.rs/image/*/image/struct.Rgb.html#method.from_channels"><code>Rgb::from_channels</code></a>はRGBピクセルの値を計算します。<a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>で得たコアの数と同じ数のスレッドを<a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html"><code>ThreadPool</code></a>で生成します。<a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>ThreadPool::execute</code></a>はそれぞれのピクセルをジョブ毎に受け取ります。</p>
+<p><a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html"><code>mpsc::channel</code></a>はjobと<a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv"><code>Receiver::recv</code></a>を取り出して受け取ります。
+<a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel"><code>ImageBuffer::put_pixel</code></a>はピクセルカラーデータをセットするのに使います。
+<a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save"><code>ImageBuffer::save</code></a>は画像を<code>output.png</code>に書き出します。</p>
+<pre><pre class="playpen"><code class="language-rust no_run"># #[macro_use]
+# extern crate error_chain;
+extern crate threadpool;
+extern crate num;
+extern crate num_cpus;
+extern crate image;
+
+use std::sync::mpsc::{channel, RecvError};
+use threadpool::ThreadPool;
+use num::complex::Complex;
+use image::{ImageBuffer, Pixel, Rgb};
+#
+# error_chain! {
+#     foreign_links {
+#         MpscRecv(RecvError);
+#         Io(std::io::Error);
+#     }
+# }
+#
+# // Function converting intensity values to RGB
+# // Based on http://www.efg2.com/Lab/ScienceAndEngineering/Spectra.htm
+# fn wavelength_to_rgb(wavelength: u32) -&gt; Rgb&lt;u8&gt; {
+#     let wave = wavelength as f32;
+#
+#     let (r, g, b) = match wavelength {
+#         380...439 =&gt; ((440. - wave) / (440. - 380.), 0.0, 1.0),
+#         440...489 =&gt; (0.0, (wave - 440.) / (490. - 440.), 1.0),
+#         490...509 =&gt; (0.0, 1.0, (510. - wave) / (510. - 490.)),
+#         510...579 =&gt; ((wave - 510.) / (580. - 510.), 1.0, 0.0),
+#         580...644 =&gt; (1.0, (645. - wave) / (645. - 580.), 0.0),
+#         645...780 =&gt; (1.0, 0.0, 0.0),
+#         _ =&gt; (0.0, 0.0, 0.0),
+#     };
+#
+#     let factor = match wavelength {
+#         380...419 =&gt; 0.3 + 0.7 * (wave - 380.) / (420. - 380.),
+#         701...780 =&gt; 0.3 + 0.7 * (780. - wave) / (780. - 700.),
+#         _ =&gt; 1.0,
+#     };
+#
+#     let (r, g, b) = (normalize(r, factor), normalize(g, factor), normalize(b, factor));
+#     Rgb::from_channels(r, g, b, 0)
+# }
+#
+# // Maps Julia set distance estimation to intensity values
+# fn julia(c: Complex&lt;f32&gt;, x: u32, y: u32, width: u32, height: u32, max_iter: u32) -&gt; u32 {
+#     let width = width as f32;
+#     let height = height as f32;
+#
+#     let mut z = Complex {
+#         // scale and translate the point to image coordinates
+#         re: 3.0 * (x as f32 - 0.5 * width) / width,
+#         im: 2.0 * (y as f32 - 0.5 * height) / height,
+#     };
+#
+#     let mut i = 0;
+#     for t in 0..max_iter {
+#         if z.norm() &gt;= 2.0 {
+#             break;
+#         }
+#         z = z * z + c;
+#         i = t;
+#     }
+#     i
+# }
+#
+# // Normalizes color intensity values within RGB range
+# fn normalize(color: f32, factor: f32) -&gt; u8 {
+#     ((color * factor).powf(0.8) * 255.) as u8
+# }
+
+fn run() -&gt; Result&lt;()&gt; {
+    let (width, height) = (1920, 1080);
+    let mut img = ImageBuffer::new(width, height);
+    let iterations = 300;
+
+    let c = Complex::new(-0.8, 0.156);
+
+    let pool = ThreadPool::new(num_cpus::get());
+    let (tx, rx) = channel();
+
+    for y in 0..height {
+        let tx = tx.clone();
+        pool.execute(move || for x in 0..width {
+                         let i = julia(c, x, y, width, height, iterations);
+                         let pixel = wavelength_to_rgb(380 + i * 400 / iterations);
+                         tx.send((x, y, pixel)).expect(&quot;Could not send data!&quot;);
+                     });
+    }
+
+    for _ in 0..(width * height) {
+        let (x, y, pixel) = rx.recv()?;
+        img.put_pixel(x, y, pixel);
+    }
+    let _ = img.save(&quot;output.png&quot;)?;
+    Ok(())
+}
+#
+# quick_main!(run);
+</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="concurrency.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="concurrency/parallel.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="concurrency.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="concurrency/parallel.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+    </body>
+</html>

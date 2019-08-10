@@ -1,0 +1,562 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>CSVのパース - Rust Cookbook</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Collection of useful Rust code examples">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="theme/custom.css">
+        
+
+        
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="intro.html">コンテンツテーブル</a></li><li class="affix"><a href="about.html">概要</a></li><li><a href="algorithms.html"><strong aria-hidden="true">1.</strong> アルゴリズム</a></li><li><ol class="section"><li><a href="algorithms/randomness.html"><strong aria-hidden="true">1.1.</strong> 乱数の生成</a></li><li><a href="algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> ベクタのソート</a></li></ol></li><li><a href="cli.html"><strong aria-hidden="true">2.</strong> コマンドライン</a></li><li><ol class="section"><li><a href="cli/arguments.html"><strong aria-hidden="true">2.1.</strong> 引数のパース</a></li><li><a href="cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSIターミナル</a></li></ol></li><li><a href="compression.html"><strong aria-hidden="true">3.</strong> 圧縮</a></li><li><ol class="section"><li><a href="compression/tar.html"><strong aria-hidden="true">3.1.</strong> tarを扱う</a></li></ol></li><li><a href="concurrency.html"><strong aria-hidden="true">4.</strong> 並列性</a></li><li><ol class="section"><li><a href="concurrency/threads.html"><strong aria-hidden="true">4.1.</strong> 明示的スレッド</a></li><li><a href="concurrency/parallel.html"><strong aria-hidden="true">4.2.</strong> データ並列処理</a></li></ol></li><li><a href="cryptography.html"><strong aria-hidden="true">5.</strong> 暗号</a></li><li><ol class="section"><li><a href="cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> ハッシュ</a></li><li><a href="cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> 暗号化</a></li></ol></li><li><a href="data_structures.html"><strong aria-hidden="true">6.</strong> データ構造</a></li><li><ol class="section"><li><a href="data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> ビットフィールド</a></li></ol></li><li><a href="database.html"><strong aria-hidden="true">7.</strong> データベース</a></li><li><ol class="section"><li><a href="database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li><a href="database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li><a href="datetime.html"><strong aria-hidden="true">8.</strong> データと時間</a></li><li><ol class="section"><li><a href="datetime/duration.html"><strong aria-hidden="true">8.1.</strong> 期間と計算</a></li><li><a href="datetime/parse.html"><strong aria-hidden="true">8.2.</strong> パースと表示</a></li></ol></li><li><a href="development_tools.html"><strong aria-hidden="true">9.</strong> 開発ツール</a></li><li><ol class="section"><li><a href="development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> デバッグ</a></li><li><ol class="section"><li><a href="development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> ログメッセージ</a></li><li><a href="development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> loggingの設定</a></li></ol></li><li><a href="development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> バージョニング</a></li><li><a href="development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> ビルド時のツール</a></li></ol></li><li><a href="encoding.html"><strong aria-hidden="true">10.</strong> エンコード</a></li><li><ol class="section"><li><a href="encoding/strings.html"><strong aria-hidden="true">10.1.</strong> 文字セット</a></li><li><a href="encoding/csv.html" class="active"><strong aria-hidden="true">10.2.</strong> CSVのパース</a></li><li><a href="encoding/complex.html"><strong aria-hidden="true">10.3.</strong> 構造化データ</a></li></ol></li><li><a href="errors.html"><strong aria-hidden="true">11.</strong> エラーハンドリング</a></li><li><ol class="section"><li><a href="errors/handle.html"><strong aria-hidden="true">11.1.</strong> 様々なエラーハンドリング</a></li></ol></li><li><a href="file.html"><strong aria-hidden="true">12.</strong> ファイルシステム</a></li><li><ol class="section"><li><a href="file/read-write.html"><strong aria-hidden="true">12.1.</strong> 読み込みと書き込み</a></li><li><a href="file/dir.html"><strong aria-hidden="true">12.2.</strong> ディレクトリトラバーサル</a></li></ol></li><li><a href="hardware.html"><strong aria-hidden="true">13.</strong> ハードウェアサポート</a></li><li><ol class="section"><li><a href="hardware/processor.html"><strong aria-hidden="true">13.1.</strong> プロセッサー</a></li></ol></li><li><a href="mem.html"><strong aria-hidden="true">14.</strong> メモリ管理</a></li><li><ol class="section"><li><a href="mem/global_static.html"><strong aria-hidden="true">14.1.</strong> グローバルスタティック</a></li></ol></li><li><a href="net.html"><strong aria-hidden="true">15.</strong> ネットワーク</a></li><li><ol class="section"><li><a href="net/server.html"><strong aria-hidden="true">15.1.</strong> サーバー</a></li></ol></li><li><a href="os.html"><strong aria-hidden="true">16.</strong> OS</a></li><li><ol class="section"><li><a href="os/external.html"><strong aria-hidden="true">16.1.</strong> 外部コマンド</a></li></ol></li><li><a href="science.html"><strong aria-hidden="true">17.</strong> サイエンス</a></li><li><ol class="section"><li><a href="science/mathematics.html"><strong aria-hidden="true">17.1.</strong> 数学</a></li><li><ol class="section"><li><a href="science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> 線形代数</a></li><li><a href="science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> 三角法</a></li><li><a href="science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> 複素数</a></li><li><a href="science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> 統計</a></li><li><a href="science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> その他</a></li></ol></li></ol></li><li><a href="text.html"><strong aria-hidden="true">18.</strong> テキスト処理</a></li><li><ol class="section"><li><a href="text/regex.html"><strong aria-hidden="true">18.1.</strong> 正規表現</a></li><li><a href="text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> 文字列のパース</a></li></ol></li><li><a href="web.html"><strong aria-hidden="true">19.</strong> Webプログラミング</a></li><li><ol class="section"><li><a href="web/scraping.html"><strong aria-hidden="true">19.1.</strong> リンクの抽出</a></li><li><a href="web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li><a href="web/mime.html"><strong aria-hidden="true">19.3.</strong> メディアタイプ</a></li><li><a href="web/clients.html"><strong aria-hidden="true">19.4.</strong> クライアント</a></li><li><ol class="section"><li><a href="web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> リクエストを作る</a></li><li><a href="web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Web APIを叩く</a></li><li><a href="web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> ダウンロード</a></li></ol></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <!-- START - Rust Cookbook customization -->
+                            <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+                                <i class="fa fa-edit">Edit</i>
+                            </button>
+                            <!-- END - Rust Cookbook customization -->
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Cookbook</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+
+                   // START - Rust Cookbook customization
+                   document.getElementById("edit-button").addEventListener("click", function(){
+                       var editWindow = window.open("https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/encoding/csv.md");
+                   });
+                   // END - Rust Cookbook customization
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="encoding/csv.html#csv処理" id="csv処理"><h1>CSV処理</h1></a>
+<a class="header" href="encoding/csv.html#csvレコードを読み込む" id="csvレコードを読み込む"><h2>CSVレコードを読み込む</h2></a>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>標準なCSVレコードを<a href="https://docs.rs/csv/*/csv/struct.StringRecord.html"><code>csv::StringRecord</code></a>に読み込みます。- 弱く型付けされた有効なUTF-8行のデータ。または、<a href="https://docs.rs/csv/*/csv/struct.ByteRecord.html"><code>csv::ByteRecord</code></a>を使えばUTF-8について考える必要がなくなります。</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate csv;
+use csv::Error;
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+    let csv = &quot;year,make,model,description
+        1948,Porsche,356,Luxury sports car
+        1967,Ford,Mustang fastback 1967,American car&quot;;
+
+    let mut reader = csv::Reader::from_reader(csv.as_bytes());
+    for record in reader.records() {
+        let record = record?;
+        println!(
+            &quot;In {}, {} built the {} model. It is a {}.&quot;,
+            &amp;record[0],
+            &amp;record[1],
+            &amp;record[2],
+            &amp;record[3]
+        );
+    }
+
+    Ok(())
+}
+</code></pre></pre>
+<p>Serdeデシリアライズで強く型付けされた構造体にする。<a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize"><code>csv::Reader::deserialize</code></a>メソッドをみてください。</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate csv;
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate serde_derive;
+
+# error_chain! {
+#     foreign_links {
+#         Reader(csv::Error);
+#     }
+# }
+#
+#[derive(Deserialize)]
+struct Record {
+    year: u16,
+    make: String,
+    model: String,
+    description: String,
+}
+
+fn run() -&gt; Result&lt;()&gt; {
+    let csv = &quot;year,make,model,description
+1948,Porsche,356,Luxury sports car
+1967,Ford,Mustang fastback 1967,American car&quot;;
+
+    let mut reader = csv::Reader::from_reader(csv.as_bytes());
+
+    for record in reader.deserialize() {
+        let record: Record = record?;
+        println!(
+            &quot;In {}, {} built the {} model. It is a {}.&quot;,
+            record.year,
+            record.make,
+            record.model,
+            record.description
+        );
+    }
+
+    Ok(())
+}
+#
+# quick_main!(run);
+</code></pre></pre>
+<a class="header" href="encoding/csv.html#a違う区切りでcsvレコードを読み込む" id="a違う区切りでcsvレコードを読み込む"><h2>違う区切りでCSVレコードを読み込む</h2></a>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>タブ<a href="https://docs.rs/csv/1.0.0-beta.3/csv/struct.ReaderBuilder.html#method.delimiter"><code>delimiter</code></a>でCSVレコードを読み込む。</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate csv;
+use csv::Error;
+#[macro_use]
+extern crate serde_derive;
+
+#[derive(Debug, Deserialize)]
+struct Record {
+    name: String,
+    place: String,
+    #[serde(deserialize_with = &quot;csv::invalid_option&quot;)]
+    id: Option&lt;u64&gt;,
+}
+
+use csv::ReaderBuilder;
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+    let data = &quot;name\tplace\tid
+        Mark\tMelbourne\t46
+        Ashley\tZurich\t92&quot;;
+
+    let mut reader = ReaderBuilder::new().delimiter(b'\t').from_reader(data.as_bytes());
+    for result in reader.deserialize::&lt;Record&gt;() {
+        println!(&quot;{:?}&quot;, result?);
+    }
+
+    Ok(())
+}
+</code></pre></pre>
+<a class="header" href="encoding/csv.html#a述語にマッチするcsvレコードをフィルタリング" id="a述語にマッチするcsvレコードをフィルタリング"><h2>述語にマッチするCSVレコードをフィルタリング</h2></a>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p><code>query</code>にマッチした列のデータを返します。</p>
+<pre><pre class="playpen"><code class="language-rust"># #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+
+use std::io;
+#
+# error_chain!{
+#     foreign_links {
+#         Io(std::io::Error);
+#         CsvError(csv::Error);
+#     }
+# }
+
+fn run() -&gt; Result&lt;()&gt; {
+    let query = &quot;CA&quot;;
+    let data = &quot;\
+City,State,Population,Latitude,Longitude
+Kenai,AK,7610,60.5544444,-151.2583333
+Oakman,AL,,33.7133333,-87.3886111
+Sandfort,AL,,32.3380556,-85.2233333
+West Hollywood,CA,37031,34.0900000,-118.3608333&quot;;
+
+    let mut rdr = csv::ReaderBuilder::new().from_reader(data.as_bytes());
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    wtr.write_record(rdr.headers()?)?;
+
+    for result in rdr.records() {
+        let record = result?;
+        if record.iter().any(|field| field == query) {
+            wtr.write_record(&amp;record)?;
+        }
+    }
+
+    wtr.flush()?;
+    Ok(())
+}
+#
+# quick_main!(run);
+</code></pre></pre>
+<p><em>Disclaimer: this example has been adapted from <a href="https://docs.rs/csv/*/csv/tutorial/index.html#filter-by-search">the csv crate tutorial</a></em>.</p>
+<a class="header" href="encoding/csv.html#serdeで無効なcsvデータをハンドル" id="serdeで無効なcsvデータをハンドル"><h2>Serdeで無効なCSVデータをハンドル</h2></a>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>CSVファイルはしばしば無効なデータを含みます。これらの場合<code>csv</code>はカスタムデシリアライザーである<a href="https://docs.rs/csv/*/csv/fn.invalid_option.html"><code>csv::invalid_option</code></a>を提供します。これは無効なデータを自動でNone値に変換してくれます。</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate csv;
+use csv::Error;
+#[macro_use]
+extern crate serde_derive;
+
+#[derive(Debug, Deserialize)]
+struct Record {
+    name: String,
+    place: String,
+    #[serde(deserialize_with = &quot;csv::invalid_option&quot;)]
+    id: Option&lt;u64&gt;,
+}
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+    let data = &quot;name,place,id
+mark,sydney,46.5
+ashley,zurich,92
+akshat,delhi,37
+alisha,colombo,xyz&quot;;
+
+    let mut rdr = csv::Reader::from_reader(data.as_bytes());
+    for result in rdr.deserialize() {
+        let record: Record = result?;
+        println!(&quot;{:?}&quot;, record);
+    }
+
+    Ok(())
+}
+</code></pre></pre>
+<a class="header" href="encoding/csv.html#aレコードをcsvにシリアライズする" id="aレコードをcsvにシリアライズする"><h2>レコードをCSVにシリアライズする</h2></a>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>この例ではRustのタプルをシリアライズする方法をお見せします。<a href="https://docs.rs/csv/*/csv/struct.Writer.html"><code>csv::writer</code></a>はRustの型からCSVレコードへの自動シリアライズをサポートしています。<a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record"><code>write_record</code></a>は文字列のみのシンプルなレコードを書き込みます。数値、浮動小数、optionのような複雑な値を持ったデータは<a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize"><code>serialize</code></a>を使います。CSV writerは内部のバッファを使い、終了時に明示的に<a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.flush"><code>flush</code></a>します。</p>
+<pre><pre class="playpen"><code class="language-rust"># #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+
+use std::io;
+#
+# error_chain! {
+#     foreign_links {
+#         CSVError(csv::Error);
+#         IOError(std::io::Error);
+#    }
+# }
+
+fn run() -&gt; Result&lt;()&gt; {
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    wtr.write_record(&amp;[&quot;Name&quot;, &quot;Place&quot;, &quot;ID&quot;])?;
+
+    wtr.serialize((&quot;Mark&quot;, &quot;Sydney&quot;, 87))?;
+    wtr.serialize((&quot;Ashley&quot;, &quot;Dublin&quot;, 32))?;
+    wtr.serialize((&quot;Akshat&quot;, &quot;Delhi&quot;, 11))?;
+
+    wtr.flush()?;
+    Ok(())
+}
+#
+# quick_main!(run);
+</code></pre></pre>
+<a class="header" href="encoding/csv.html#serdeを使ってレコードをcsvにシリアライズする" id="serdeを使ってレコードをcsvにシリアライズする"><h2>Serdeを使ってレコードをCSVにシリアライズする</h2></a>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>次の例では<a href="https://docs.rs/serde/">serde</a>クレートを使ってカスタム構造体をCSVレコードとしてシリアライズします。</p>
+<pre><pre class="playpen"><code class="language-rust"># #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+#[macro_use]
+extern crate serde_derive;
+
+use std::io;
+#
+# error_chain! {
+#    foreign_links {
+#        IOError(std::io::Error);
+#        CSVError(csv::Error);
+#    }
+# }
+
+#[derive(Serialize)]
+struct Record&lt;'a&gt; {
+    name: &amp;'a str,
+    place: &amp;'a str,
+    id: u64,
+}
+
+fn run() -&gt; Result&lt;()&gt; {
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    let rec1 = Record { name: &quot;Mark&quot;, place: &quot;Melbourne&quot;, id: 56};
+    let rec2 = Record { name: &quot;Ashley&quot;, place: &quot;Sydney&quot;, id: 64};
+    let rec3 = Record { name: &quot;Akshat&quot;, place: &quot;Delhi&quot;, id: 98};
+
+    wtr.serialize(rec1)?;
+    wtr.serialize(rec2)?;
+    wtr.serialize(rec3)?;
+
+    wtr.flush()?;
+
+    Ok(())
+}
+#
+# quick_main!(run);
+</code></pre></pre>
+<a class="header" href="encoding/csv.html#transform-csv-column" id="transform-csv-column"><h2>Transform CSV column</h2></a>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>カラーネームとhexカラーを持ったCSVファイルのhexカラーをrgbカラーに変換します。csvファイルを読み書きするのに<a href="https://docs.rs/csv/">csv</a>クレートを使い、行のシリアライズ・デシリアライズを行います。</p>
+<p><a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize"><code>csv::Reader::deserialize</code></a>, <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html"><code>serde::Deserialize</code></a>, <a href="https://doc.rust-lang.org/std/str/trait.FromStr.html"><code>std::str::FromStr</code></a>を見てください。</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate csv;
+# #[macro_use]
+# extern crate error_chain;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+
+use csv::{Reader, Writer};
+use serde::{de, Deserialize, Deserializer};
+use std::str::FromStr;
+#
+# error_chain! {
+#    foreign_links {
+#        CsvError(csv::Error);
+#        ParseInt(std::num::ParseIntError);
+#        CsvInnerError(csv::IntoInnerError&lt;Writer&lt;Vec&lt;u8&gt;&gt;&gt;);
+#        IO(std::fmt::Error);
+#        UTF8(std::string::FromUtf8Error);
+#    }
+# }
+
+#[derive(Debug)]
+struct HexColor {
+    red: u8,
+    green: u8,
+    blue: u8,
+}
+
+#[derive(Debug, Deserialize)]
+struct Row {
+    color_name: String,
+    color: HexColor,
+}
+
+impl FromStr for HexColor {
+    type Err = Error;
+
+    fn from_str(hex_color: &amp;str) -&gt; std::result::Result&lt;Self, Self::Err&gt; {
+        let trimmed = hex_color.trim_matches('#');
+        if trimmed.len() != 6 {
+            Err(&quot;Invalid length of hex string&quot;.into())
+        } else {
+            Ok(HexColor {
+                red: u8::from_str_radix(&amp;trimmed[..2], 16)?,
+                green: u8::from_str_radix(&amp;trimmed[2..4], 16)?,
+                blue: u8::from_str_radix(&amp;trimmed[4..6], 16)?,
+            })
+        }
+    }
+}
+
+impl&lt;'de&gt; Deserialize&lt;'de&gt; for HexColor {
+    fn deserialize&lt;D&gt;(deserializer: D) -&gt; std::result::Result&lt;Self, D::Error&gt;
+    where
+        D: Deserializer&lt;'de&gt;,
+    {
+        let s = String::deserialize(deserializer)?;
+        FromStr::from_str(&amp;s).map_err(de::Error::custom)
+    }
+}
+
+fn run() -&gt; Result&lt;()&gt; {
+    let data = &quot;color_name,color
+red,#ff0000
+green,#00ff00
+blue,#0000FF
+periwinkle,#ccccff
+magenta,#ff00ff&quot;
+        .to_owned();
+    let mut out = Writer::from_writer(vec![]);
+    let mut reader = Reader::from_reader(data.as_bytes());
+    for result in reader.deserialize::&lt;Row&gt;() {
+        let res = result?;
+        out.serialize((
+            res.color_name,
+            res.color.red,
+            res.color.green,
+            res.color.blue,
+        ))?;
+    }
+    let written = String::from_utf8(out.into_inner()?)?;
+    assert_eq!(Some(&quot;magenta,255,0,255&quot;), written.lines().last());
+    println!(&quot;{}&quot;, written);
+    Ok(())
+}
+#
+# quick_main!(run);
+</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="encoding/strings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="encoding/complex.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="encoding/strings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="encoding/complex.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+    </body>
+</html>

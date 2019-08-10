@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>読み込みと書き込み - Rust Cookbook</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Collection of useful Rust code examples">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="theme/custom.css">
+        
+
+        
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="intro.html">コンテンツテーブル</a></li><li class="affix"><a href="about.html">概要</a></li><li><a href="algorithms.html"><strong aria-hidden="true">1.</strong> アルゴリズム</a></li><li><ol class="section"><li><a href="algorithms/randomness.html"><strong aria-hidden="true">1.1.</strong> 乱数の生成</a></li><li><a href="algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> ベクタのソート</a></li></ol></li><li><a href="cli.html"><strong aria-hidden="true">2.</strong> コマンドライン</a></li><li><ol class="section"><li><a href="cli/arguments.html"><strong aria-hidden="true">2.1.</strong> 引数のパース</a></li><li><a href="cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSIターミナル</a></li></ol></li><li><a href="compression.html"><strong aria-hidden="true">3.</strong> 圧縮</a></li><li><ol class="section"><li><a href="compression/tar.html"><strong aria-hidden="true">3.1.</strong> tarを扱う</a></li></ol></li><li><a href="concurrency.html"><strong aria-hidden="true">4.</strong> 並列性</a></li><li><ol class="section"><li><a href="concurrency/threads.html"><strong aria-hidden="true">4.1.</strong> 明示的スレッド</a></li><li><a href="concurrency/parallel.html"><strong aria-hidden="true">4.2.</strong> データ並列処理</a></li></ol></li><li><a href="cryptography.html"><strong aria-hidden="true">5.</strong> 暗号</a></li><li><ol class="section"><li><a href="cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> ハッシュ</a></li><li><a href="cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> 暗号化</a></li></ol></li><li><a href="data_structures.html"><strong aria-hidden="true">6.</strong> データ構造</a></li><li><ol class="section"><li><a href="data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> ビットフィールド</a></li></ol></li><li><a href="database.html"><strong aria-hidden="true">7.</strong> データベース</a></li><li><ol class="section"><li><a href="database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li><a href="database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li><a href="datetime.html"><strong aria-hidden="true">8.</strong> データと時間</a></li><li><ol class="section"><li><a href="datetime/duration.html"><strong aria-hidden="true">8.1.</strong> 期間と計算</a></li><li><a href="datetime/parse.html"><strong aria-hidden="true">8.2.</strong> パースと表示</a></li></ol></li><li><a href="development_tools.html"><strong aria-hidden="true">9.</strong> 開発ツール</a></li><li><ol class="section"><li><a href="development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> デバッグ</a></li><li><ol class="section"><li><a href="development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> ログメッセージ</a></li><li><a href="development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> loggingの設定</a></li></ol></li><li><a href="development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> バージョニング</a></li><li><a href="development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> ビルド時のツール</a></li></ol></li><li><a href="encoding.html"><strong aria-hidden="true">10.</strong> エンコード</a></li><li><ol class="section"><li><a href="encoding/strings.html"><strong aria-hidden="true">10.1.</strong> 文字セット</a></li><li><a href="encoding/csv.html"><strong aria-hidden="true">10.2.</strong> CSVのパース</a></li><li><a href="encoding/complex.html"><strong aria-hidden="true">10.3.</strong> 構造化データ</a></li></ol></li><li><a href="errors.html"><strong aria-hidden="true">11.</strong> エラーハンドリング</a></li><li><ol class="section"><li><a href="errors/handle.html"><strong aria-hidden="true">11.1.</strong> 様々なエラーハンドリング</a></li></ol></li><li><a href="file.html"><strong aria-hidden="true">12.</strong> ファイルシステム</a></li><li><ol class="section"><li><a href="file/read-write.html" class="active"><strong aria-hidden="true">12.1.</strong> 読み込みと書き込み</a></li><li><a href="file/dir.html"><strong aria-hidden="true">12.2.</strong> ディレクトリトラバーサル</a></li></ol></li><li><a href="hardware.html"><strong aria-hidden="true">13.</strong> ハードウェアサポート</a></li><li><ol class="section"><li><a href="hardware/processor.html"><strong aria-hidden="true">13.1.</strong> プロセッサー</a></li></ol></li><li><a href="mem.html"><strong aria-hidden="true">14.</strong> メモリ管理</a></li><li><ol class="section"><li><a href="mem/global_static.html"><strong aria-hidden="true">14.1.</strong> グローバルスタティック</a></li></ol></li><li><a href="net.html"><strong aria-hidden="true">15.</strong> ネットワーク</a></li><li><ol class="section"><li><a href="net/server.html"><strong aria-hidden="true">15.1.</strong> サーバー</a></li></ol></li><li><a href="os.html"><strong aria-hidden="true">16.</strong> OS</a></li><li><ol class="section"><li><a href="os/external.html"><strong aria-hidden="true">16.1.</strong> 外部コマンド</a></li></ol></li><li><a href="science.html"><strong aria-hidden="true">17.</strong> サイエンス</a></li><li><ol class="section"><li><a href="science/mathematics.html"><strong aria-hidden="true">17.1.</strong> 数学</a></li><li><ol class="section"><li><a href="science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> 線形代数</a></li><li><a href="science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> 三角法</a></li><li><a href="science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> 複素数</a></li><li><a href="science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> 統計</a></li><li><a href="science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> その他</a></li></ol></li></ol></li><li><a href="text.html"><strong aria-hidden="true">18.</strong> テキスト処理</a></li><li><ol class="section"><li><a href="text/regex.html"><strong aria-hidden="true">18.1.</strong> 正規表現</a></li><li><a href="text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> 文字列のパース</a></li></ol></li><li><a href="web.html"><strong aria-hidden="true">19.</strong> Webプログラミング</a></li><li><ol class="section"><li><a href="web/scraping.html"><strong aria-hidden="true">19.1.</strong> リンクの抽出</a></li><li><a href="web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li><a href="web/mime.html"><strong aria-hidden="true">19.3.</strong> メディアタイプ</a></li><li><a href="web/clients.html"><strong aria-hidden="true">19.4.</strong> クライアント</a></li><li><ol class="section"><li><a href="web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> リクエストを作る</a></li><li><a href="web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Web APIを叩く</a></li><li><a href="web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> ダウンロード</a></li></ol></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <!-- START - Rust Cookbook customization -->
+                            <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+                                <i class="fa fa-edit">Edit</i>
+                            </button>
+                            <!-- END - Rust Cookbook customization -->
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Cookbook</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+
+                   // START - Rust Cookbook customization
+                   document.getElementById("edit-button").addEventListener("click", function(){
+                       var editWindow = window.open("https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/file/read-write.md");
+                   });
+                   // END - Rust Cookbook customization
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="file/read-write.html#read--write" id="read--write"><h1>Read &amp; Write</h1></a>
+<a class="header" href="file/read-write.html#read-lines-of-strings-from-a-file" id="read-lines-of-strings-from-a-file"><h2>Read lines of strings from a file</h2></a>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>Writes a three-line message to a file, then reads it back a line at a
+time with the <a href="https://doc.rust-lang.org/std/io/struct.Lines.html"><code>Lines</code></a> iterator created by
+<a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines"><code>BufRead::lines</code></a>. <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a> which provides <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a>
+trait.  <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.create"><code>File::create</code></a> opens a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> for writing, <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.open"><code>File::open</code></a> for
+reading.</p>
+<pre><pre class="playpen"><code class="language-rust">use std::fs::File;
+use std::io::{Write, BufReader, BufRead, Error};
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+    let path = &quot;lines.txt&quot;;
+
+    let mut output = File::create(path)?;
+    write!(output, &quot;Rust\n💖\nFun&quot;)?;
+
+    let input = File::open(path)?;
+    let buffered = BufReader::new(input);
+
+    for line in buffered.lines() {
+        println!(&quot;{}&quot;, line?);
+    }
+
+    Ok(())
+}
+</code></pre></pre>
+<a class="header" href="file/read-write.html#avoid-writing-and-reading-from-a-same-file" id="avoid-writing-and-reading-from-a-same-file"><h2>Avoid writing and reading from a same file</h2></a>
+<p><a href="https://docs.rs/same-file/"><img src="https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file" alt="same_file-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>Use <a href="https://docs.rs/same-file/*/same_file/struct.Handle.html"><code>same_file::Handle</code></a> to a file that can be tested for equality with
+other handles. In this example, the handles of file to be read from and
+to be written to are tested for equality.</p>
+<pre><pre class="playpen"><code class="language-rust no_run">extern crate same_file;
+
+use same_file::Handle;
+use std::fs::File;
+use std::io::{BufRead, BufReader, Error, ErrorKind};
+use std::path::Path;
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+    let path_to_read = Path::new(&quot;new.txt&quot;);
+
+    let stdout_handle = Handle::stdout()?;
+    let handle = Handle::from_path(path_to_read)?;
+
+    if stdout_handle == handle {
+        return Err(Error::new(
+            ErrorKind::Other,
+            &quot;You are reading and writing to the same file&quot;,
+        ));
+    } else {
+        let file = File::open(&amp;path_to_read)?;
+        let file = BufReader::new(file);
+        for (num, line) in file.lines().enumerate() {
+            println!(&quot;{} : {}&quot;, num, line?.to_uppercase());
+        }
+    }
+
+    Ok(())
+}
+</code></pre></pre>
+<pre><code class="language-bash">cargo run
+</code></pre>
+<p>displays the contents of the file new.txt.</p>
+<pre><code class="language-bash">cargo run &gt;&gt; ./new.txt
+</code></pre>
+<p>errors because the two files are same.</p>
+<a class="header" href="file/read-write.html#access-a-file-randomly-using-a-memory-map" id="access-a-file-randomly-using-a-memory-map"><h2>Access a file randomly using a memory map</h2></a>
+<p><a href="https://docs.rs/memmap/"><img src="https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap" alt="memmap-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>Creates a memory map of a file using <a href="https://docs.rs/memmap/">memmap</a> and simulates some non-sequential
+reads from the file. Using a memory map means you just index into a slice rather
+than dealing with <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.seek"><code>seek</code></a> to navigate a File.</p>
+<p>The <a href="https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map"><code>Mmap::map</code></a> function assumes the file
+behind the memory map is not being modified at the same time by another process
+or else a <a href="https://en.wikipedia.org/wiki/Race_condition#File_systems">race condition</a> occurs.</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate memmap;
+
+use memmap::Mmap;
+use std::fs::File;
+use std::io::{Write, Error};
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+#     write!(File::create(&quot;content.txt&quot;)?, &quot;My hovercraft is full of eels!&quot;)?;
+#
+    let file = File::open(&quot;content.txt&quot;)?;
+    let map = unsafe { Mmap::map(&amp;file)? };
+
+    let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
+    assert_eq!(&amp;map[3..13], b&quot;hovercraft&quot;);
+    let random_bytes: Vec&lt;u8&gt; = random_indexes.iter()
+        .map(|&amp;idx| map[idx])
+        .collect();
+    assert_eq!(&amp;random_bytes[..], b&quot;My loaf!&quot;);
+    Ok(())
+}
+</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="file.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="file/dir.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="file.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="file/dir.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+    </body>
+</html>

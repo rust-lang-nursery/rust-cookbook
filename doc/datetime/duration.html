@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>期間と計算 - Rust Cookbook</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Collection of useful Rust code examples">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="theme/custom.css">
+        
+
+        
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="intro.html">コンテンツテーブル</a></li><li class="affix"><a href="about.html">概要</a></li><li><a href="algorithms.html"><strong aria-hidden="true">1.</strong> アルゴリズム</a></li><li><ol class="section"><li><a href="algorithms/randomness.html"><strong aria-hidden="true">1.1.</strong> 乱数の生成</a></li><li><a href="algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> ベクタのソート</a></li></ol></li><li><a href="cli.html"><strong aria-hidden="true">2.</strong> コマンドライン</a></li><li><ol class="section"><li><a href="cli/arguments.html"><strong aria-hidden="true">2.1.</strong> 引数のパース</a></li><li><a href="cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSIターミナル</a></li></ol></li><li><a href="compression.html"><strong aria-hidden="true">3.</strong> 圧縮</a></li><li><ol class="section"><li><a href="compression/tar.html"><strong aria-hidden="true">3.1.</strong> tarを扱う</a></li></ol></li><li><a href="concurrency.html"><strong aria-hidden="true">4.</strong> 並列性</a></li><li><ol class="section"><li><a href="concurrency/threads.html"><strong aria-hidden="true">4.1.</strong> 明示的スレッド</a></li><li><a href="concurrency/parallel.html"><strong aria-hidden="true">4.2.</strong> データ並列処理</a></li></ol></li><li><a href="cryptography.html"><strong aria-hidden="true">5.</strong> 暗号</a></li><li><ol class="section"><li><a href="cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> ハッシュ</a></li><li><a href="cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> 暗号化</a></li></ol></li><li><a href="data_structures.html"><strong aria-hidden="true">6.</strong> データ構造</a></li><li><ol class="section"><li><a href="data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> ビットフィールド</a></li></ol></li><li><a href="database.html"><strong aria-hidden="true">7.</strong> データベース</a></li><li><ol class="section"><li><a href="database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li><a href="database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li><a href="datetime.html"><strong aria-hidden="true">8.</strong> データと時間</a></li><li><ol class="section"><li><a href="datetime/duration.html" class="active"><strong aria-hidden="true">8.1.</strong> 期間と計算</a></li><li><a href="datetime/parse.html"><strong aria-hidden="true">8.2.</strong> パースと表示</a></li></ol></li><li><a href="development_tools.html"><strong aria-hidden="true">9.</strong> 開発ツール</a></li><li><ol class="section"><li><a href="development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> デバッグ</a></li><li><ol class="section"><li><a href="development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> ログメッセージ</a></li><li><a href="development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> loggingの設定</a></li></ol></li><li><a href="development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> バージョニング</a></li><li><a href="development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> ビルド時のツール</a></li></ol></li><li><a href="encoding.html"><strong aria-hidden="true">10.</strong> エンコード</a></li><li><ol class="section"><li><a href="encoding/strings.html"><strong aria-hidden="true">10.1.</strong> 文字セット</a></li><li><a href="encoding/csv.html"><strong aria-hidden="true">10.2.</strong> CSVのパース</a></li><li><a href="encoding/complex.html"><strong aria-hidden="true">10.3.</strong> 構造化データ</a></li></ol></li><li><a href="errors.html"><strong aria-hidden="true">11.</strong> エラーハンドリング</a></li><li><ol class="section"><li><a href="errors/handle.html"><strong aria-hidden="true">11.1.</strong> 様々なエラーハンドリング</a></li></ol></li><li><a href="file.html"><strong aria-hidden="true">12.</strong> ファイルシステム</a></li><li><ol class="section"><li><a href="file/read-write.html"><strong aria-hidden="true">12.1.</strong> 読み込みと書き込み</a></li><li><a href="file/dir.html"><strong aria-hidden="true">12.2.</strong> ディレクトリトラバーサル</a></li></ol></li><li><a href="hardware.html"><strong aria-hidden="true">13.</strong> ハードウェアサポート</a></li><li><ol class="section"><li><a href="hardware/processor.html"><strong aria-hidden="true">13.1.</strong> プロセッサー</a></li></ol></li><li><a href="mem.html"><strong aria-hidden="true">14.</strong> メモリ管理</a></li><li><ol class="section"><li><a href="mem/global_static.html"><strong aria-hidden="true">14.1.</strong> グローバルスタティック</a></li></ol></li><li><a href="net.html"><strong aria-hidden="true">15.</strong> ネットワーク</a></li><li><ol class="section"><li><a href="net/server.html"><strong aria-hidden="true">15.1.</strong> サーバー</a></li></ol></li><li><a href="os.html"><strong aria-hidden="true">16.</strong> OS</a></li><li><ol class="section"><li><a href="os/external.html"><strong aria-hidden="true">16.1.</strong> 外部コマンド</a></li></ol></li><li><a href="science.html"><strong aria-hidden="true">17.</strong> サイエンス</a></li><li><ol class="section"><li><a href="science/mathematics.html"><strong aria-hidden="true">17.1.</strong> 数学</a></li><li><ol class="section"><li><a href="science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> 線形代数</a></li><li><a href="science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> 三角法</a></li><li><a href="science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> 複素数</a></li><li><a href="science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> 統計</a></li><li><a href="science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> その他</a></li></ol></li></ol></li><li><a href="text.html"><strong aria-hidden="true">18.</strong> テキスト処理</a></li><li><ol class="section"><li><a href="text/regex.html"><strong aria-hidden="true">18.1.</strong> 正規表現</a></li><li><a href="text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> 文字列のパース</a></li></ol></li><li><a href="web.html"><strong aria-hidden="true">19.</strong> Webプログラミング</a></li><li><ol class="section"><li><a href="web/scraping.html"><strong aria-hidden="true">19.1.</strong> リンクの抽出</a></li><li><a href="web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li><a href="web/mime.html"><strong aria-hidden="true">19.3.</strong> メディアタイプ</a></li><li><a href="web/clients.html"><strong aria-hidden="true">19.4.</strong> クライアント</a></li><li><ol class="section"><li><a href="web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> リクエストを作る</a></li><li><a href="web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Web APIを叩く</a></li><li><a href="web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> ダウンロード</a></li></ol></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <!-- START - Rust Cookbook customization -->
+                            <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit" aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+                                <i class="fa fa-edit">Edit</i>
+                            </button>
+                            <!-- END - Rust Cookbook customization -->
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Cookbook</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+
+                   // START - Rust Cookbook customization
+                   document.getElementById("edit-button").addEventListener("click", function(){
+                       var editWindow = window.open("https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/datetime/duration.md");
+                   });
+                   // END - Rust Cookbook customization
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="datetime/duration.html#aデュレーションと計算" id="aデュレーションと計算"><h1>デュレーションと計算</h1></a>
+<a class="header" href="datetime/duration.html#a二つのコード間の速度計測" id="a二つのコード間の速度計測"><h2>二つのコード間の速度計測</h2></a>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/time--x.svg?style=social" alt="cat-time-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>time::Instant::now</code></a>からの経過人を計測する。</p>
+<p><a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>time::Instant::elapsed</code></a>を呼び、このサンプルが実行し終わる時間である<a href="https://doc.rust-lang.org/std/time/struct.Duration.html"><code>time::Duration</code></a>取得し表示する。
+このメソッドは<a href="https://doc.rust-lang.org/std/time/struct.Instant.html"><code>time::Instant</code></a>に変換したりリセットできない。</p>
+<pre><pre class="playpen"><code class="language-rust">use std::time::{Duration, Instant};
+# use std::thread;
+#
+# fn expensive_function() {
+#     thread::sleep(Duration::from_secs(1));
+# }
+
+fn main() {
+    let start = Instant::now();
+    expensive_function();
+    let duration = start.elapsed();
+
+    println!(&quot;Time elapsed in expensive_function() is: {:?}&quot;, duration);
+}
+</code></pre></pre>
+<a class="header" href="datetime/duration.html#a日付と時間計測のパフォーマンスチェック" id="a日付と時間計測のパフォーマンスチェック"><h2>日付と時間計測のパフォーマンスチェック</h2></a>
+<p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
+<p><a href="https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed"><code>DateTime::checked_add_signed</code></a> を使って今日から2週間後の日付と時間を計算してその前日の日付を表示する。もし日付と時間を計算できなければNoneを返す。</p>
+<p><a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format"><code>DateTime::format</code></a>で使えるエスケープシーケンスは<a href="https://docs.rs/chrono/*/chrono/format/strftime/index.html"><code>chrono::format::strftime</code></a>で探すことができる。</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate chrono;
+use chrono::{DateTime, Duration, Utc};
+
+fn day_earlier(date_time: DateTime&lt;Utc&gt;) -&gt; Option&lt;DateTime&lt;Utc&gt;&gt; {
+    date_time.checked_sub_signed(Duration::days(1))
+}
+
+fn main() {
+    let now = Utc::now();
+    println!(&quot;{}&quot;, now);
+
+    let almost_three_weeks_from_now = now.checked_add_signed(Duration::weeks(2))
+            .and_then(|in_2weeks| in_2weeks.checked_add_signed(Duration::weeks(1)))
+            .and_then(day_earlier);
+
+    match almost_three_weeks_from_now {
+        Some(x) =&gt; println!(&quot;{}&quot;, x),
+        None =&gt; eprintln!(&quot;Almost three weeks from now overflows!&quot;),
+    }
+
+    match now.checked_add_signed(Duration::max_value()) {
+        Some(x) =&gt; println!(&quot;{}&quot;, x),
+        None =&gt; eprintln!(&quot;We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center.&quot;),
+    }
+}
+</code></pre></pre>
+<a class="header" href="datetime/duration.html#aローカルタイムを他のタイムゾーンに変換する" id="aローカルタイムを他のタイムゾーンに変換する"><h2>ローカルタイムを他のタイムゾーンに変換する</h2></a>
+<p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
+<p><a href="https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now"><code>offset::Local::now</code></a>を使いローカルタイムを取得し表示して、<a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc"><code>DateTime::from_utc</code></a>構造体メソッドを使ってUTCスタンダードに変換する。時間は<a href="https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html"><code>offset::FixedOffset</code></a>構造体に変換され、UTCタイムはUTC+8とUTC-2に変換される。</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate chrono;
+
+use chrono::{DateTime, FixedOffset, Local, Utc};
+
+fn main() {
+    let local_time = Local::now();
+    let utc_time = DateTime::&lt;Utc&gt;::from_utc(local_time.naive_utc(), Utc);
+    let china_timezone = FixedOffset::east(8 * 3600);
+    let rio_timezone = FixedOffset::west(2 * 3600);
+    println!(&quot;Local time now is {}&quot;, local_time);
+    println!(&quot;UTC time now is {}&quot;, utc_time);
+    println!(
+        &quot;Time in Hong Kong now is {}&quot;,
+        utc_time.with_timezone(&amp;china_timezone)
+    );
+    println!(&quot;Time in Rio de Janeiro now is {}&quot;, utc_time.with_timezone(&amp;rio_timezone));
+}
+</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="datetime.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="datetime/parse.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="datetime.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="datetime/parse.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+    </body>
+</html>
