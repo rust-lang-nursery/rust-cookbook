@@ -2,16 +2,10 @@
 
 [![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
-The  [error-chain] crate makes [matching] on different error types returned by
-a function possible and relatively compact. [`ErrorKind`] determines the error
-type.
+[error-chain]クレートは関数が返した異なるエラー型を可能な限りコンパクトにします。[`ErrorKind`]はエラー型を明確にします。
 
-Uses [reqwest] to query a random integer generator web service.  Converts
-the string response into an integer. The Rust standard library,
-[reqwest], and the web service can all generate errors. Well defined Rust errors
-use [`foreign_links`]. An additional [`ErrorKind`] variant for the web service
-error uses `errors` block of the `error_chain!` macro.
-
+乱数生成器Webサービスに[reqwest]を使ってクエリを送ります。レスポンス文字列を数字に変換します。Rust標準ライブラリ、
+[reqwest]、およびWebサービスはすべてエラーを生成できます。定義済みのRustエラーは[`foreign_links`]を使い、追加のwebサービスエラーの[`ErrorKind`] バリアントは`error_chain!` マクロの`errors`を使います。
 ```rust
 #[macro_use]
 extern crate error_chain;
