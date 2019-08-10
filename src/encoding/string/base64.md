@@ -2,8 +2,7 @@
 
 [![base64-badge]][base64] [![cat-encoding-badge]][cat-encoding]
 
-Encodes byte slice into `base64` String using [`encode`]
-and decodes it with [`decode`].
+[`encode`]を使いバイトスライスを`base64`文字列にエンコードして、これを[`decode`]でデコードします。
 
 ```rust
 # #[macro_use]
