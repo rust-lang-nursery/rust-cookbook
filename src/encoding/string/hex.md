@@ -2,15 +2,11 @@
 
 [![data-encoding-badge]][data-encoding] [![cat-encoding-badge]][cat-encoding]
 
-The [`data_encoding`] crate provides a `HEXUPPER::encode` method which
-takes a `&[u8]` and returns a `String` containing the hexadecimal
-representation of the data.
+[`data_encoding`]クレートは`HEXUPPER::encode`メソッドを提供します。これは、`&[u8]`を受け取り、データの16進数を持った文字列を返します。
 
-Similarly, a `HEXUPPER::decode` method is provided which takes a `&[u8]` and
-returns a `Vec<u8>` if the input data is successfully decoded.
+同じように、`HEXUPPER::decode`メソッドは`&[u8]`を受け取り、入力データのデコードに成功したら`Vec<u8>` を返します。
 
-The example below coverts `&[u8]` data to hexadecimal equivalent.  Compares this
-value to the expected value.
+下の例では`&[u8]`データを16進数と同等のデータに変換しています。この値を出力された値と比較します。
 
 ```rust
 extern crate data_encoding;
