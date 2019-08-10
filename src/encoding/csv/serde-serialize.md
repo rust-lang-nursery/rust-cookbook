@@ -2,9 +2,7 @@
 
 [![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 
-The following example shows how to serialize custom structs as CSV records using
-the [serde] crate.
-
+次の例では[serde]クレートを使ってカスタム構造体をCSVレコードとしてシリアライズします。
 ```rust
 # #[macro_use]
 # extern crate error_chain;
