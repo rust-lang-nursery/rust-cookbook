@@ -2,11 +2,8 @@
 
 [![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
 
-Reads standard CSV records into [`csv::StringRecord`] — a weakly typed
-data representation which expects valid UTF-8 rows. Alternatively,
-[`csv::ByteRecord`] makes no assumptions about UTF-8.
+標準なCSVレコードを[`csv::StringRecord`]に読み込みます。- 弱く型付けされた有効なUTF-8行のデータ。または、[`csv::ByteRecord`]を使えばUTF-8について考える必要がなくなります。
 
-標準なCSVレコードを[`csv::StringRecord`]に読み込みます。- 弱く型付けされたデータ。
 ```rust
 extern crate csv;
 use csv::Error;
@@ -31,9 +28,7 @@ fn main() -> Result<(), Error> {
     Ok(())
 }
 ```
-
-Serde deserializes data into strongly type structures. See the
-[`csv::Reader::deserialize`] method.
+Serdeデシリアライズで強く型付けされた構造体にする。[`csv::Reader::deserialize`]メソッドをみてください。
 
 ```rust
 extern crate csv;
