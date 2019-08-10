@@ -2,9 +2,7 @@
 
 [![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
 
-Encode an input string with [percent-encoding] using the [`utf8_percent_encode`]
-function from the `url` crate. Then decode using the [`percent_decode`]
-function.
+`url`クレートの[`utf8_percent_encode`]関数を使って入力された文字列を[percent-encoding]します。そして[`percent_decode`]関数でデコードします。
 
 ```rust
 extern crate url;
