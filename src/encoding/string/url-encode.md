@@ -2,10 +2,7 @@
 
 [![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
 
-Encodes a string into [application/x-www-form-urlencoded] syntax
-using the [`form_urlencoded::byte_serialize`] and subsequently
-decodes it with [`form_urlencoded::parse`]. Both functions return iterators
-that collect into a `String`.
+[`form_urlencoded::byte_serialize`]で文字列を[application/x-www-form-urlencoded]構文に変換して、[`form_urlencoded::parse`]でデコードします。どちらの関数も`String`になるイテレータを返します。
 
 ```rust
 extern crate url;
