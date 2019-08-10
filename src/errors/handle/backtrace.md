@@ -1,15 +1,10 @@
-## Obtain backtrace of complex error scenarios
+## 複雑なエラーシナリオのバックトレースを取得する
 
 [![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
-This recipe shows how to handle a complex error scenario and then
-print a backtrace. It relies on [`chain_err`] to extend errors by
-appending new errors. The error stack can be unwound, thus providing
-a better context to understand why an error was raised.
+このレシピでは複雑なエラーハンドリングとバックトレースの出力について紹介します。[`chain_err`]を使ってエラーを拡張し、新しいエラーを追加します。エラースタックは巻き戻すことができるため、エラーが発生した理由を理解のに良いでしょう。
 
-The below recipes attempts to deserialize the value `256` into a
-`u8`. An error will bubble up from Serde then csv and finally up to the
-user code.
+下記のレシピでは`256`の`u8`へのデシリアライズを試します。SerdeからCSVにエラーが発生し、最終的にユーザーコードを表示します。
 
 ```rust
 # extern crate csv;
@@ -80,7 +75,7 @@ fn main() {
 }
 ```
 
-Backtrace error rendered:
+表示されたエラーバックトレース:
 
 ```text
 Error level - description
@@ -90,7 +85,7 @@ Error level - description
 └> 3 - field 1: number too large to fit in target type
 ```
 
-Run the recipe with `RUST_BACKTRACE=1` to display a detailed [`backtrace`] associated with this error.
+このエラーに関連した[`backtrace`]を表示するために`RUST_BACKTRACE=1`にしてレシピを実行してみましょう。
 
 [`backtrace`]: https://docs.rs/error-chain/*/error_chain/trait.ChainedError.html#tymethod.backtrace
 [`chain_err`]: https://docs.rs/error-chain/*/error_chain/index.html#chaining-errors

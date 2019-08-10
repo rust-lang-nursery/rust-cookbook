@@ -1,4 +1,4 @@
-## Handle errors correctly in main
+## メインでエラーを正しく処理する
 
 [![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
