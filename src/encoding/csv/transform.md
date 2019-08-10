@@ -2,11 +2,9 @@
 
 [![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 
-Transform a CSV file containing a color name and a hex color into one with a
-color name and an rgb color.  Utilizes the [csv] crate to read and write the
-csv file, and [serde] to deserialize and serialize the rows to and from bytes.
+カラーネームとhexカラーを持ったCSVファイルのhexカラーをrgbカラーに変換します。csvファイルを読み書きするのに[csv]クレートを使い、行のシリアライズ・デシリアライズを行います。
 
-See [`csv::Reader::deserialize`], [`serde::Deserialize`], and [`std::str::FromStr`]
+[`csv::Reader::deserialize`], [`serde::Deserialize`], [`std::str::FromStr`]を見てください。
 
 ```rust
 extern crate csv;
