@@ -6,7 +6,7 @@
 This recipe inserts data into `cat_colors` and `cats` tables using the [`execute`] method of `Connection`. First, the data is inserted into the `cat_colors` table. After a record for a color is inserted, [`last_insert_rowid`] method of `Connection` is used to get `id` of the last color inserted. This `id` is used while inserting data into the `cats` table. Then, the select query is prepared using the [`prepare`] method which gives a [`statement`] struct. Then, query is executed using [`query_map`] method of [`statement`].
 
 ```
-eextern crate rusqlite;
+extern crate rusqlite;
 
 use rusqlite::{Connection, Result};
 use rusqlite::NO_PARAMS;
