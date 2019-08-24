@@ -1,11 +1,8 @@
 # Cookin' with Rust
 
-This _Rust Cookbook_ is a collection of
-simple examples that demonstrate good practices to accomplish common
-programming tasks, using the crates of the Rust ecosystem.
+_Rust Cookbook_ はRustエコシステムのクレートを使った、よくあるプログラミングタスクを解決するグッドプラクティスのコレクションです。
 
-[Read more about _Rust Cookbook_](about.html), including tips for
-how to read the book, how to use the examples, and notes on conventions.
+[_Rust CookBook_ の詳細はこちらをご覧ください。](about.html)この本の読み方、例文の使用法、慣例に対する注記が書いてあります。
 
 ## Contributing
 

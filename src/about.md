@@ -24,16 +24,13 @@ Rustプログラマー達は気楽に最初から最後のセクションまで�
 
 ## レシピの使い方
 
-Recipes are designed to give you instant access to working code, along
-with a full explanation of what it is doing, and to guide you to
-further information.
+レシピは、稼働中のコードにすぐに適用できるように設計されており、実行中のコードの詳細な説明とともに、さらに詳しい情報を提供します。
 
-All recipes in the cookbook are full, self contained programs, so
-that they may be copied directly into your own projects for
-experimentation. To do so follow the instructions below.
+クックブックのすべてのレシピは完全な自己完結型プログラムなので、
+あなたは実験的に自身のプロジェクトに直接コピーすることかもしれません。
+その場合、以下の手順に従ってください。
 
-Consider this example for "generate random numbers within a range":
-
+"範囲を指定して乱数を作る"を例にします。:
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
 ```rust
@@ -46,52 +43,37 @@ fn main() {
 }
 ```
 
-To work with it locally we can run the following commands to create
-a new cargo project, and change to that directory:
-
+これをローカルで動かすには次のコマンドで新しいCargoプロジェクトを作り、そのディレクトリに移動しましょう。:
 
 ```sh
 cargo new my-example --bin
 cd my-example
 ```
 
-Now, we also need to add the necessary crates to [Cargo.toml], as
-indicated by the crate badges, in this case just "rand". To do so,
-we'll use the `cargo add` command, which is provided by the
-[`cargo-edit`] crate, which we need to install first:
+次にクレートバッジに示されたクレートを[Cargo.toml]に追加する必要があります。この例では"rand"のみです。これをするのに、[`cargo-edit`]クレートが提供している`cargo add`コマンドを使います。これを最初にインストールする必要があります。:
 
 ```sh
 cargo install cargo-edit
 cargo add rand
 ```
 
-Now you can replace `src/main.rs` with the full contents of the
-example and run it:
+これで、`src/main.rs`を例のコードに置き換えて動かすことができます。:
 
 ```sh
 cargo run
 ```
 
-The crate badges that accompany the examples link to the crates' full
-documentation on [docs.rs], and is often the next documentation you
-should read after deciding which crate suites your purpose.
+クレートバッジは[docs.rs]にあるドキュメントへのリンクになっています。また、どのクレートを目的に使用するかを決定した後に、読んでください。
 
 ## エラーハンドリングについて
 
-Error handling in Rust is robust when done correctly, but in today's
-Rust it requires a fair bit of boilerplate. Because of this one often
-sees Rust examples filled with `unwrap` calls instead of proper error
-handling.
+Rustでのエラーハンドリングは適切に扱えば堅牢ですが、今日のRustは少し定型文が必要です。なぜならRust examplesは本来のエラーハンドリングの代わりに`unwrap`が多用されています。
 
-Since these recipes are intended to be reused as-is and encourage best
-practices, they set up error handling correctly when there are
-`Result` types involved.
+これらのレシピはそのまま再利用することを目的としたベストプラクティスなため、`Result`型がある時は適切なエラーハンドリングが設定されています。
 
-The basic pattern we use is to have a `fn run() -> Result` that acts
-like the "real" main function. We use the [error-chain] crate to make
-`?` work within `run`.
+基本的なパターンは"本当"のmain関数のように`fn run() -> Result`を使用することです。[error-chain]を使用して`?`は`run`内で動作します。
 
-The structure generally looks like:
+大抵の構造は以下の通り:
 
 ```rust
 #[macro_use]
@@ -129,10 +111,9 @@ library error types. The automatic conversions make the `?` operator
 work. The `quick_main!` macro generates the actual `main` function and
 prints out the error if one occurred.
 
-For the sake of readability error handling boilerplate is hidden by
-default like below.  In order to read full contents click on the
-"expand" (<i class="fa fa-expand"></i>) button located in the top
-right corner of the snippet.
+これはカスタム`Error`, `Result`型を定義するために`error_chain!`マクロを使って、2つの標準ライブラリーエラー型から自動変換します。自動変換は`?`演算子を作成します。`quick_main!`マクロは`main`関数を作り、エラーが起きたら出力します。
+
+可読性のためにエラーハンドリングの定型文は下記のように隠されています。右上にある"expand" (<i class="fa fa-expand"></i>)ボタンをクリックすると全コードを読むことができます。
 
 ```rust
 # #[macro_use]
@@ -157,8 +138,7 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
-For more background on error handling in Rust, read [this page of the
-Rust book][error-docs] and [this blog post][error-blog].
+より詳細なRustでのエラーハンドリングについては[Rust bookのこのページ][error-docs] と[このブログ記事][error-blog]を読んでください。
 
 ## crateの表現について
 
