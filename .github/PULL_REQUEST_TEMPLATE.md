@@ -12,7 +12,7 @@ No worries if anything in these lists is unclear. Just submit the PR and ask awa
 - [ ] commits are squashed into one and rebased to latest master
 - [ ] PR contains correct "fixes #ISSUE_ID" clause to autoclose the issue on PR merge
     -  if issue does not exist consider creating it or remove the clause
-- [ ] spell check runs without errors `./ci/spellchecker.sh`
+- [ ] spell check runs without errors `./ci/spellcheck.sh`
 - [ ] link check runs without errors `link-checker ./book`
 - [ ] non rendered items are in sorted order (links, reference, identifiers, Cargo.toml)
 - [ ] links to docs.rs have wildcard version `https://docs.rs/tar/*/tar/struct.Entry.html`
