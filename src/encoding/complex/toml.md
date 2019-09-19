@@ -61,7 +61,7 @@ struct Package {
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let toml_content = r#"
           [package]
           name = "your_package"
@@ -81,6 +81,4 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
