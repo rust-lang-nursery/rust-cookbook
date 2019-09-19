@@ -55,7 +55,6 @@ struct Package {
 }
 
 fn main() -> Result<(), Error> {
-
     let toml_content = r#"
           [package]
           name = "your_package"
