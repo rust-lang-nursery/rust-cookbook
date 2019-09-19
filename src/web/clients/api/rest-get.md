@@ -7,6 +7,7 @@ with [`reqwest::get`] to get list of all users who have marked a GitHub project 
 
 ```rust,no_run
 #[macro_use]
+extern crate serde;
 extern crate serde_derive;
 extern crate reqwest;
 use reqwest::Error;
