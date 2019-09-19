@@ -2,22 +2,22 @@
 
 [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem]
 
-Creates a temporary directory with [`TempDir::new`] and synchronously downloads
+Creates a temporary directory with [`tempfile::Builder`] and synchronously downloads
 a file over HTTP using [`reqwest::get`].
 
 Creates a target [`File`] with name obtained from [`Response::url`] within
-[`TempDir::path`] and copies downloaded data into it with [`io::copy`].
+[`tempdir()`] and copies downloaded data into it with [`io::copy`].
 The temporary directory is automatically removed on `run` function return.
 
 ```rust,no_run
 # #[macro_use]
 # extern crate error_chain;
 extern crate reqwest;
-extern crate tempdir;
+extern crate tempfile;
 
 use std::io::copy;
 use std::fs::File;
-use tempdir::TempDir;
+use tempfile::Builder;
 #
 # error_chain! {
 #     foreign_links {
@@ -27,7 +27,7 @@ use tempdir::TempDir;
 # }
 
 fn run() -> Result<()> {
-    let tmp_dir = TempDir::new("example")?;
+    let tmp_dir = Builder::new().prefix("example").tempdir()?;
     let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
     let mut response = reqwest::get(target)?;
 
@@ -55,5 +55,5 @@ fn run() -> Result<()> {
 [`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
 [`Response::url`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url
-[`TempDir::new`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.new
-[`TempDir::path`]: https://docs.rs/tempdir/*/tempdir/struct.TempDir.html#method.path
+[`tempfile::Builder`]: https://docs.rs/tempfile/*/tempfile/struct.Builder.html
+[`tempdir()`]: https://docs.rs/tempfile/3.1.0/tempfile/struct.Builder.html#method.tempdir
