@@ -26,7 +26,7 @@ use tempfile::Builder;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let tmp_dir = Builder::new().prefix("example").tempdir()?;
     let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
     let mut response = reqwest::get(target)?;
