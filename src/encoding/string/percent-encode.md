@@ -1,21 +1,24 @@
 ## Percent-encode a string
 
-[![url-badge]][url] [![cat-encoding-badge]][cat-encoding]
+[![url-badge]][percent-encoding] [![cat-encoding-badge]][cat-encoding]
 
 Encode an input string with [percent-encoding] using the [`utf8_percent_encode`]
-function from the `url` crate. Then decode using the [`percent_decode`]
+function from the `percent-encoding` crate. Then decode using the [`percent_decode`]
 function.
 
 ```rust
-extern crate url;
+extern crate percent_encoding;
 
-use url::percent_encoding::{utf8_percent_encode, percent_decode, DEFAULT_ENCODE_SET};
+use percent_encoding::{utf8_percent_encode, percent_decode, AsciiSet, CONTROLS};
 use std::str::Utf8Error;
+
+/// https://url.spec.whatwg.org/#fragment-percent-encode-set
+const FRAGMENT: &AsciiSet = &CONTROLS.add(b' ').add(b'"').add(b'<').add(b'>').add(b'`');
 
 fn main() -> Result<(), Utf8Error> {
     let input = "confident, productive systems programming";
 
-    let iter = utf8_percent_encode(input, DEFAULT_ENCODE_SET);
+    let iter = utf8_percent_encode(input, FRAGMENT);
     let encoded: String = iter.collect();
     assert_eq!(encoded, "confident,%20productive%20systems%20programming");
 
