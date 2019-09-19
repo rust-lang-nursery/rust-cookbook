@@ -89,16 +89,18 @@ To check the spelling of the Rust Cookbook locally, run the following command
 from the root of the Cookbook.
 
 ```
-./ci/spellchecker.sh
+./ci/spellcheck.sh
 
 # or, if you're using a different locale
-LANG=en_US.UTF-8 ./ci/spellchecker.sh
+LANG=en_US.UTF-8 ./ci/spellcheck.sh
 ```
 
 If the spell checker finds a misspelled word, you have the opportunity to
 correct the spelling mistake with the number keys.  If the spelling mistake
 is erroneous, add the word to the dictionary located in `ci/dictionary.txt`.
 Pressing `a` or `l` will not add the word to the custom dictionary.
+
+If there are no errors, it will just print the local Aspell version and exit.
 
 [mdbook]: https://github.com/rust-lang-nursery/mdBook
 [python]: https://packaging.python.org/tutorials/installing-packages/#install-pip-setuptools-and-wheel

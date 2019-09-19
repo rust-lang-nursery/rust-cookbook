@@ -19,8 +19,7 @@ fn main() {
     let password: String = (0..PASSWORD_LEN)
         .map(|_| {
             let idx = rng.gen_range(0, CHARSET.len());
-            // This is safe because `idx` is in range of `CHARSET`
-            char::from(unsafe { *CHARSET.get_unchecked(idx) })
+            CHARSET[idx] as char
         })
         .collect();
 

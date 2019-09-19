@@ -42,18 +42,18 @@ use image::{ImageBuffer, Pixel, Rgb};
 #     let wave = wavelength as f32;
 #
 #     let (r, g, b) = match wavelength {
-#         380...439 => ((440. - wave) / (440. - 380.), 0.0, 1.0),
-#         440...489 => (0.0, (wave - 440.) / (490. - 440.), 1.0),
-#         490...509 => (0.0, 1.0, (510. - wave) / (510. - 490.)),
-#         510...579 => ((wave - 510.) / (580. - 510.), 1.0, 0.0),
-#         580...644 => (1.0, (645. - wave) / (645. - 580.), 0.0),
-#         645...780 => (1.0, 0.0, 0.0),
+#         380..=439 => ((440. - wave) / (440. - 380.), 0.0, 1.0),
+#         440..=489 => (0.0, (wave - 440.) / (490. - 440.), 1.0),
+#         490..=509 => (0.0, 1.0, (510. - wave) / (510. - 490.)),
+#         510..=579 => ((wave - 510.) / (580. - 510.), 1.0, 0.0),
+#         580..=644 => (1.0, (645. - wave) / (645. - 580.), 0.0),
+#         645..=780 => (1.0, 0.0, 0.0),
 #         _ => (0.0, 0.0, 0.0),
 #     };
 #
 #     let factor = match wavelength {
-#         380...419 => 0.3 + 0.7 * (wave - 380.) / (420. - 380.),
-#         701...780 => 0.3 + 0.7 * (780. - wave) / (780. - 700.),
+#         380..=419 => 0.3 + 0.7 * (wave - 380.) / (420. - 380.),
+#         701..=780 => 0.3 + 0.7 * (780. - wave) / (780. - 700.),
 #         _ => 1.0,
 #     };
 #
@@ -88,7 +88,7 @@ use image::{ImageBuffer, Pixel, Rgb};
 #     ((color * factor).powf(0.8) * 255.) as u8
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let (width, height) = (1920, 1080);
     let mut img = ImageBuffer::new(width, height);
     let iterations = 300;
@@ -114,8 +114,6 @@ fn run() -> Result<()> {
     let _ = img.save("output.png")?;
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`ImageBuffer::new`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new

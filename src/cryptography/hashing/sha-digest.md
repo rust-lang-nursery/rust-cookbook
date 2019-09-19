@@ -38,7 +38,7 @@ fn sha256_digest<R: Read>(mut reader: R) -> Result<Digest> {
     Ok(context.finish())
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let path = "file.txt";
 
     let mut output = File::create(path)?;
@@ -52,8 +52,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`digest::Context`]: https://briansmith.org/rustdoc/ring/digest/struct.Context.html
