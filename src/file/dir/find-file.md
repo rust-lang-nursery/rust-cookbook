@@ -21,7 +21,7 @@ use walkdir::WalkDir;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     for entry in WalkDir::new(".")
             .follow_links(true)
             .into_iter()
@@ -36,8 +36,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`follow_links`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links

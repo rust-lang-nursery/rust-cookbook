@@ -43,7 +43,7 @@ pub struct HeadersEcho {
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let url = Url::parse_with_params("http://httpbin.org/headers",
                                      &[("lang", "rust"), ("browser", "servo")])?;
 
@@ -65,8 +65,6 @@ fn run() -> Result<()> {
     println!("{:?}", out);
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`header::Authorization`]: https://doc.servo.org/hyper/header/struct.Authorization.html

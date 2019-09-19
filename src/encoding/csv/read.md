@@ -36,17 +36,9 @@ Serde deserializes data into strongly type structures. See the
 
 ```rust
 extern crate csv;
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
 
-# error_chain! {
-#     foreign_links {
-#         Reader(csv::Error);
-#     }
-# }
-#
 #[derive(Deserialize)]
 struct Record {
     year: u16,
@@ -55,7 +47,7 @@ struct Record {
     description: String,
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<(), csv::Error> {
     let csv = "year,make,model,description
 1948,Porsche,356,Luxury sports car
 1967,Ford,Mustang fastback 1967,American car";
@@ -75,8 +67,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`csv::ByteRecord`]: https://docs.rs/csv/*/csv/struct.ByteRecord.html
