@@ -21,7 +21,7 @@ use std::process::{Command, Stdio};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let mut child = Command::new("python").stdin(Stdio::piped())
         .stderr(Stdio::piped())
         .stdout(Stdio::piped())
@@ -47,8 +47,6 @@ fn run() -> Result<()> {
         bail!("External command failed:\n {}", err)
     }
 }
-#
-# quick_main!(run);
 ```
 
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html

@@ -29,7 +29,7 @@ fn insert(fruit: &str) -> Result<()> {
     Ok(())
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     insert("apple")?;
     insert("orange")?;
     insert("peach")?;
@@ -41,8 +41,6 @@ fn run() -> Result<()> {
     insert("grape")?;
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html

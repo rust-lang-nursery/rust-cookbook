@@ -20,7 +20,7 @@ use base64::{encode, decode};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let hello = b"hello rustaceans";
     let encoded = encode(hello);
     let decoded = decode(&encoded)?;
@@ -31,8 +31,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`decode`]: https://docs.rs/base64/*/base64/fn.decode.html

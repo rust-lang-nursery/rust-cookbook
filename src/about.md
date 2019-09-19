@@ -107,9 +107,7 @@ Since these recipes are intended to be reused as-is and encourage best
 practices, they set up error handling correctly when there are
 `Result` types involved.
 
-The basic pattern we use is to have a `fn run() -> Result` that acts
-like the "real" main function. We use the [error-chain] crate to make
-`?` work within `run`.
+The basic pattern we use is to have a `fn main() -> Result`.
 
 The structure generally looks like:
 
@@ -127,7 +125,7 @@ error_chain! {
     }
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let bytes = b"2001:db8::1";
 
     // Bytes to string.
@@ -140,14 +138,12 @@ fn run() -> Result<()> {
     Ok(())
 }
 
-quick_main!(run);
 ```
 
 This is using the `error_chain!` macro to define a custom `Error` and
 `Result` type, along with automatic conversions from two standard
 library error types. The automatic conversions make the `?` operator
-work. The `quick_main!` macro generates the actual `main` function and
-prints out the error if one occurred.
+work.
 
 For the sake of readability error handling boilerplate is hidden by
 default like below.  In order to read full contents click on the
@@ -167,14 +163,12 @@ use url::{Url, Position};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let parsed = Url::parse("https://httpbin.org/cookies/set?k2=v2&k1=v1")?;
     let cleaned: &str = &parsed[..Position::AfterPath];
     println!("cleaned: {}", cleaned);
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 For more background on error handling in Rust, read [this page of the

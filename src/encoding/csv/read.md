@@ -55,7 +55,7 @@ struct Record {
     description: String,
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let csv = "year,make,model,description
 1948,Porsche,356,Luxury sports car
 1967,Ford,Mustang fastback 1967,American car";
@@ -75,8 +75,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`csv::ByteRecord`]: https://docs.rs/csv/*/csv/struct.ByteRecord.html

@@ -31,7 +31,7 @@ use rayon::prelude::*;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let options: MatchOptions = Default::default();
     let files: Vec<_> = glob_with("*.jpg", &options)?
         .filter_map(|x| x.ok())
@@ -72,8 +72,6 @@ where
     Ok(img.resize(longest_edge, longest_edge, FilterType::Nearest)
         .save(file_path)?)
 }
-#
-# quick_main!(run);
 ```
 
 [`glob::glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
