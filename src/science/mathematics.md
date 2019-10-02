@@ -8,6 +8,7 @@
 | [Multiplying matrices][multiply-matrices] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Multiply a scalar with a vector with a matrix][multiply-scalar-vector-matrix] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Invert marix][invert-matrix] | [![nalgebra-badge]][nalgebra] | [![cat-science-badge]][cat-science] |
+| [Find matrix eigenvalues][matrix-eigenvalues] | [![nalgebra-badge]][nalgebra] [![nalgebra-lapack-badge]][nalgebra-lapack] | [![cat-science-badge]][cat-science] |
 | [Calculating the side length of a triangle][side-length] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Verifying tan is equal to sin divided by cos][tan-sin-cos] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Distance between two points on the Earth][latitude-longitude] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
@@ -24,6 +25,7 @@
 [multiply-matrices]: science/mathematics/linear_algebra.html#multiplying-matrices
 [multiply-scalar-vector-matrix]: science/mathematics/linear_algebra.html#multiply-a-scalar-with-a-vector-with-a-matrix
 [invert-matrix]: science/mathematics/linear_algebra.html#invert-matrix
+[matrix-eigenvalues]: science/mathematics/linear_algebra.html#matrix-eigenvalues
 [side-length]: science/mathematics/trigonometry.html#calculating-the-side-length-of-a-triangle
 [tan-sin-cos]: science/mathematics/trigonometry.html#verifying-tan-is-equal-to-sin-divided-by-cos
 [latitude-longitude]: science/mathematics/trigonometry.html#distance-between-two-points-on-the-earth

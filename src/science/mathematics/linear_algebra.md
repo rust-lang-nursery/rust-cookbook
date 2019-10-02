@@ -6,5 +6,6 @@
 {{#include linear_algebra/multiply-matrices.md}}
 {{#include linear_algebra/multiply-scalar-vector-matrix.md}}
 {{#include linear_algebra/invert-matrix.md}}
+{{#include linear_algebra/matrix-eigenvalues.md}}
 
 {{#include ../../links.md}}

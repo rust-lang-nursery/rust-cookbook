@@ -94,6 +94,8 @@ Keep lines sorted.
 [mime]: https://docs.rs/mime/
 [nalgebra-badge]: https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra
 [nalgebra]: https://docs.rs/nalgebra
+[nalgebra-lapack-badge]: https://badge-cache.kominick.com/crate/nalgebra-lapack.svg?label=nalgebra-lapack
+[nalgebra-lapack]: https://docs.rs/nalgebra-lapack
 [ndarray-badge]: https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray
 [ndarray]: https://docs.rs/ndarray
 [num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
