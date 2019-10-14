@@ -46,6 +46,7 @@ if [[ "${CONTENT_TESTS:-}" == 1 ]]; then
     fi
 else
     echo "Testing code snippets"
+    cargo clean
     cargo build --verbose
     cargo test --verbose
 fi
