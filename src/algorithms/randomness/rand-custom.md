@@ -5,7 +5,7 @@
 Randomly generates a tuple `(i32, bool, f64)` and variable of user defined type `Point`.
 Implements the [`Distribution`] trait on type Point for [`Standard`] in order to allow random generation.
 
-```rust
+```
 extern crate rand;
 
 use rand::Rng;
