@@ -1,7 +1,9 @@
 ## Adding matrices
 [![ndarray-badge]][ndarray] [![cat-science-badge]][cat-science]
 
-Creates two matrices with [`ndarray::arr2`] and adds them together.
+Creates two 2-D matrices with [`ndarray::arr2`] and sums them element-wise.
+
+Note the sum is computed as `let sum = &a + &b`. The `&` operator is used to avoid consuming `a` and `b`, making them available later for display. A new array is created containing their sum.
 
 ```rust
 extern crate ndarray;
@@ -15,7 +17,13 @@ fn main() {
     let b = arr2(&[[6, 5, 4],
                    [3, 2, 1]]);
 
-    println!("Sum: {}", a + b);
+    let sum = &a + &b;
+
+    println!("{}", a);
+    println!("+");
+    println!("{}", b);
+    println!("=");
+    println!("{}", sum);
 }
 ```
 
