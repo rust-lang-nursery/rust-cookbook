@@ -9,7 +9,7 @@ function [`pbkdf2::derive`].  Verifies the hash is correct with
 [`SecureRandom::fill`], which fills the salt byte array with
 securely generated random numbers.
 
-```rust
+```rust,ignore
 extern crate ring;
 extern crate data_encoding;
 
