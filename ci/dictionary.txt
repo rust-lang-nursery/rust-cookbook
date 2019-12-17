@@ -269,6 +269,7 @@ SetLogger
 SetLoggerError
 SigningKey
 SocketAddrV
+spsc
 StatusCode
 sqlite
 stderr
