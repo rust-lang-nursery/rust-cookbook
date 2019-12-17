@@ -3,7 +3,8 @@
 [![rusqlite-badge]][rusqlite] [![cat-database-badge]][cat-database]
 
 Use the `rusqlite` crate to open SQLite databases. See
-[crate][documentation] for compiling on Windows.
+[crate][documentation] for compiling on Windows.  SQLite databases are single-file and do not require a database
+management service to run.
 
 [`Connection::open`] will create the database if it doesn't already exist.
 

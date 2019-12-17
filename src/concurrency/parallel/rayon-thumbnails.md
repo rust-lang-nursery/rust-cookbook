@@ -9,8 +9,8 @@ then saves them in a new folder called `thumbnails`.
 images in parallel using [`par_iter`] calling  [`DynamicImage::resize`].
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
+#[macro_use]
+extern crate error_chain;
 extern crate glob;
 extern crate image;
 extern crate rayon;
@@ -18,18 +18,18 @@ extern crate rayon;
 use std::path::Path;
 use std::fs::create_dir_all;
 
-# use error_chain::ChainedError;
+use error_chain::ChainedError;
 use glob::{glob_with, MatchOptions};
 use image::{FilterType, ImageError};
 use rayon::prelude::*;
 
-# error_chain! {
-#     foreign_links {
-#         Image(ImageError);
-#         Io(std::io::Error);
-#         Glob(glob::PatternError);
-#     }
-# }
+error_chain! {
+    foreign_links {
+        Image(ImageError);
+        Io(std::io::Error);
+        Glob(glob::PatternError);
+    }
+}
 
 fn main() -> Result<()> {
     let options: MatchOptions = Default::default();

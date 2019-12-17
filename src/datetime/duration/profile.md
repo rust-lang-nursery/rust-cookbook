@@ -9,11 +9,11 @@ This method will not mutate or reset the [`time::Instant`] object.
 
 ```rust
 use std::time::{Duration, Instant};
-# use std::thread;
-#
-# fn expensive_function() {
-#     thread::sleep(Duration::from_secs(1));
-# }
+use std::thread;
+
+fn expensive_function() {
+    thread::sleep(Duration::from_secs(1));
+}
 
 fn main() {
     let start = Instant::now();

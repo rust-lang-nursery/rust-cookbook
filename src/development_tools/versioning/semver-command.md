@@ -8,21 +8,21 @@ Runs `git --version` using [`Command`], then parses the version number into a
 "git version x.y.z".
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
+#[macro_use]
+extern crate error_chain;
 extern crate semver;
 
 use std::process::Command;
 use semver::{Version, VersionReq};
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         Utf8(std::string::FromUtf8Error);
-#         SemVer(semver::SemVerError);
-#         SemVerReq(semver::ReqParseError);
-#     }
-# }
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        Utf8(std::string::FromUtf8Error);
+        SemVer(semver::SemVerError);
+        SemVerReq(semver::ReqParseError);
+    }
+}
 
 fn main() -> Result<()> {
     let version_constraint = "> 1.12.0";

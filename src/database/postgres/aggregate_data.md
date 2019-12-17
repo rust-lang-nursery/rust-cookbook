@@ -2,7 +2,11 @@
 
 [![postgres-badge]][postgres] [![cat-database-badge]][cat-database]
 
-This recipe lists the nationalities of the first 7999 artists in the database of the [`Museum of Modern Art`] in descending order.
+This recipe lists the nationalities of the first 7999 artists in the database of the [`Museum of Modern Art`] in
+descending order.
+
+In this example, a local postgres instance rows in a Nation struct.  A GROUP BY clause collects the artists into their
+nationality.
 
 ```rust,no_run
 extern crate postgres;

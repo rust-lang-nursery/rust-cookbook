@@ -7,16 +7,18 @@ with [`syslog::init`]. [`syslog::Facility`] records the program submitting
 the log entry's classification, [`log::LevelFilter`] denotes allowed log verbosity
 and `Option<&str>` holds optional application name.
 
+This recipe demonstrates filtering crates, functions, and use statements by the operating system with `#[cfg(target_os)]`
+
 ```rust
 #[macro_use]
 extern crate log;
-# #[cfg(target_os = "linux")]
+#[cfg(target_os = "linux")]
 extern crate syslog;
 
-# #[cfg(target_os = "linux")]
+#[cfg(target_os = "linux")]
 use syslog::{Facility, Error};
 
-# #[cfg(target_os = "linux")]
+#[cfg(target_os = "linux")]
 fn main() -> Result<(), Error> {
     syslog::init(Facility::LOG_USER,
                  log::LevelFilter::Debug,
@@ -26,10 +28,10 @@ fn main() -> Result<(), Error> {
     Ok(())
 }
 
-# #[cfg(not(target_os = "linux"))]
-# fn main() {
-#     println!("So far, only Linux systems are supported.");
-# }
+#[cfg(not(target_os = "linux"))]
+fn main() {
+    println!("So far, only Linux systems are supported.");
+}
 ```
 
 [`log::LevelFilter`]: https://docs.rs/log/*/log/enum.LevelFilter.html
