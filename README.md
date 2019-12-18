@@ -1,9 +1,7 @@
-# A Rust Cookbook &emsp; [![Build Status travis]][travis]  [![Build Status appveyor]][appveyor]
+# A Rust Cookbook &emsp; [![Build Status travis]][travis]
 
 [Build Status travis]: https://api.travis-ci.com/rust-lang-nursery/rust-cookbook.svg?branch=master
 [travis]: https://travis-ci.com/rust-lang-nursery/rust-cookbook
-[Build Status appveyor]: https://ci.appveyor.com/api/projects/status/k56hklb7puv7c4he?svg=true
-[appveyor]: https://ci.appveyor.com/project/rust-lang-libs/rust-cookbook
 
 **[Read it here]**.
 

@@ -4,6 +4,8 @@
 
 {{#include thread/crossbeam-complex.md}}
 
+{{#include thread/crossbeam-spsc.md}}
+
 {{#include thread/global-mut-state.md}}
 
 {{#include thread/threadpool-walk.md}}
