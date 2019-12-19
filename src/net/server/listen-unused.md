@@ -6,7 +6,7 @@ In this example, the port is displayed on the console, and the program will
 listen until a request is made.  `SocketAddrV4` assigns a random port when
 setting port to 0.
 
-```rust,no_run
+```rust,edition2018,no_run
 use std::net::{SocketAddrV4, Ipv4Addr, TcpListener};
 use std::io::{Read, Error};
 

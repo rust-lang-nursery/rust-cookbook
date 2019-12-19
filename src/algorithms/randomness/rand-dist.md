@@ -12,8 +12,6 @@ The [distributions available are documented here][rand-distributions]. An exampl
 [`Normal`] distribution is shown below.
 
 ```
-extern crate rand;
-
 use rand::distributions::{Normal, Distribution};
 
 fn main() {

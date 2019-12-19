@@ -5,10 +5,8 @@
 Processes a string of text using [`Regex::captures_iter`] to capture multiple
 phone numbers.  The example here is for US convention phone numbers.
 
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate regex;
+```rust,edition2018
+# use error_chain::error_chain;
 
 use regex::Regex;
 use std::fmt;

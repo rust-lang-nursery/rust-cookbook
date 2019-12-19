@@ -8,10 +8,8 @@ In this case, the `**` pattern matches the current directory and all subdirector
 Use the `**` pattern in any path portion. For example, `/media/**/*.png`
 matches all PNGs in `media` and it's subdirectories.
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate glob;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use glob::glob;
 #

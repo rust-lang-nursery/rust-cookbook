@@ -4,7 +4,7 @@
 
 A Vector of f32 or f64 can be sorted with [`vec::sort_by`] and [`PartialOrd::partial_cmp`].
 
-```rust
+```rust,edition2018
 fn main() {
     let mut vec = vec![1.1, 1.15, 5.5, 1.123, 2.0];
 

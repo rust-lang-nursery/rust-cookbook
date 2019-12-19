@@ -10,10 +10,8 @@ A [`regex::RegexSetBuilder`] composes a [`regex::RegexSet`].
 Since backslashes are very common in regular expressions, using
 [raw string literals] makes them more readable.
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate regex;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use std::fs::File;
 use std::io::{BufReader, BufRead};

@@ -9,9 +9,7 @@ you can reference data from the calling function.
 
 This example splits the array in half and performs the work in separate threads.
 
-```rust
-extern crate crossbeam;
-
+```rust,edition2018
 fn main() {
     let arr = &[1, 25, -4, 10];
     let max = find_max(arr);

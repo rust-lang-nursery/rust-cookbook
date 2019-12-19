@@ -5,9 +5,8 @@
 Opens the `python` interpreter using an external [`Command`] and passes it a
 python statement for execution. [`Output`] of statement is then parsed.
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 #
 use std::collections::HashSet;
 use std::io::Write;
@@ -44,7 +43,7 @@ fn main() -> Result<()> {
         Ok(())
     } else {
         let err = String::from_utf8(output.stderr)?;
-        bail!("External command failed:\n {}", err)
+        error_chain::bail!("External command failed:\n {}", err)
     }
 }
 ```

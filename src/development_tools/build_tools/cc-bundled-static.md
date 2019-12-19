@@ -30,9 +30,7 @@ error-chain = "0.11"
 
 ### `build.rs`
 
-```rust,no_run
-extern crate cc;
-
+```rust,edition2018,no_run
 fn main() {
     cc::Build::new()
         .file("src/hello.c")
@@ -57,8 +55,7 @@ void greet(const char* name) {
 
 ### `src/main.rs`
 
-```rust,ignore
-# #[macro_use] extern crate error_chain;
+```rust,edition2018,ignore
 use std::ffi::CString;
 use std::os::raw::c_char;
 #

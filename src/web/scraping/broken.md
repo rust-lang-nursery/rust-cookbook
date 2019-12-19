@@ -10,12 +10,8 @@ Iterate through links in the document and parse with [`url::ParseOptions`]
 and [`Url::parse`]). Makes a request to the links with reqwest and verifies
 [`StatusCode`].
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate reqwest;
-extern crate select;
-extern crate url;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use std::collections::HashSet;
 

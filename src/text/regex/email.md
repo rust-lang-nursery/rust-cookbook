@@ -5,10 +5,8 @@
 Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol.
 
-```rust
-#[macro_use]
-extern crate lazy_static;
-extern crate regex;
+```rust,edition2018
+use lazy_static::lazy_static;
 
 use regex::Regex;
 

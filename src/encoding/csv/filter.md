@@ -4,10 +4,8 @@
 
 Returns _only_ the rows from `data` with a field that matches `query`.
 
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate csv;
+```rust,edition2018
+# use error_chain::error_chain;
 
 use std::io;
 #

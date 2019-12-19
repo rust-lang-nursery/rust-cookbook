@@ -16,14 +16,8 @@ Create [`ThreadPool`] with thread count equal to number of cores with [`num_cpus
 [`ImageBuffer::put_pixel`] uses the data to set the pixel color.
 [`ImageBuffer::save`] writes the image to `output.png`.
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate threadpool;
-extern crate num;
-extern crate num_cpus;
-extern crate image;
-
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 use std::sync::mpsc::{channel, RecvError};
 use threadpool::ThreadPool;
 use num::complex::Complex;

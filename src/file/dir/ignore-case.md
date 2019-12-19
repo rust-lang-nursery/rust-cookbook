@@ -6,10 +6,8 @@ Find all image files in the `/media/` directory matching the `img_[0-9]*.png` pa
 
 A custom [`MatchOptions`] struct is passed to the [`glob_with`] function making the glob pattern case insensitive while keeping the other options [`Default`].
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate glob;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use glob::{glob_with, MatchOptions};
 #

@@ -6,9 +6,7 @@ Use the [`postgres`] crate to create tables in a Postgres database.
 
 [`Connection::connect`] helps in connecting to an existing database. The recipe uses a URL string format with `Connection::connect`. It assumes an existing database named `library`, the username is `postgres` and the password is `postgres`.
 
-```rust,no_run
-extern crate postgres;
-
+```rust,edition2018,no_run
 use postgres::{Connection, TlsMode, Error};
 
 fn main() -> Result<(), Error> {

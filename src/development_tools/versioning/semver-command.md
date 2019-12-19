@@ -7,10 +7,8 @@ Runs `git --version` using [`Command`], then parses the version number into a
 [`semver::VersionReq`] to the parsed version.  The command output resembles
 "git version x.y.z".
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate semver;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use std::process::Command;
 use semver::{Version, VersionReq};
@@ -30,7 +28,7 @@ fn main() -> Result<()> {
     let output = Command::new("git").arg("--version").output()?;
 
     if !output.status.success() {
-        bail!("Command executed with failing error code");
+        error_chain::bail!("Command executed with failing error code");
     }
 
     let stdout = String::from_utf8(output.stdout)?;
@@ -40,7 +38,7 @@ fn main() -> Result<()> {
     let parsed_version = Version::parse(version)?;
 
     if !version_test.matches(&parsed_version) {
-        bail!("Command version lower than minimum supported version (found {}, need {})",
+        error_chain::bail!("Command version lower than minimum supported version (found {}, need {})",
             parsed_version, version_constraint);
     }
 

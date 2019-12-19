@@ -4,9 +4,7 @@
 
 Uses [`ring::hmac`] to creates a [`hmac::Signature`] of a string then verifies the signature is correct.
 
-```rust
-extern crate ring;
-
+```rust,edition2018
 use ring::{digest, hmac, rand};
 use ring::rand::SecureRandom;
 use ring::error::Unspecified;

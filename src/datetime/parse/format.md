@@ -7,8 +7,7 @@ current time in the well-known formats [RFC 2822] using [`DateTime::to_rfc2822`]
 and [RFC 3339] using [`DateTime::to_rfc3339`], and in a custom format using
 [`DateTime::format`].
 
-```rust
-extern crate chrono;
+```rust,edition2018
 use chrono::{DateTime, Utc};
 
 fn main() {

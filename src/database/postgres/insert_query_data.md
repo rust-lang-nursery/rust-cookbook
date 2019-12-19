@@ -4,9 +4,7 @@
 
 The recipe inserts data into the `author` table using [`execute`] method of `Connection`. Then, displays the data from the `author` table  using [`query`] method of `Connection`.
 
-```rust,no_run
-extern crate postgres;
-
+```rust,edition2018,no_run
 use postgres::{Connection, TlsMode, Error};
 use std::collections::HashMap;
 

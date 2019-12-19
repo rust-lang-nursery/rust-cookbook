@@ -8,9 +8,7 @@ contains pre-release and build metadata as defined in the [Semantic Versioning S
 Note that, in accordance with the Specification, build metadata is parsed but not considered when
 comparing versions. In other words, two versions may be equal even if their build strings differ.
 
-```rust
-extern crate semver;
-
+```rust,edition2018
 use semver::{Identifier, Version, SemVerError};
 
 fn main() -> Result<(), SemVerError> {

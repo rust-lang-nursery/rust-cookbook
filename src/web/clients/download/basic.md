@@ -9,11 +9,8 @@ Creates a target [`File`] with name obtained from [`Response::url`] within
 [`tempdir()`] and copies downloaded data into it with [`io::copy`].
 The temporary directory is automatically removed on `run` function return.
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate reqwest;
-extern crate tempfile;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use std::io::copy;
 use std::fs::File;

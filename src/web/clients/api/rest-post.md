@@ -11,14 +11,10 @@ provides arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request
 body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 [`RequestBuilder::send`] synchronously executes the requests.
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate reqwest;
-#[macro_use]
-extern crate serde_derive;
-#[macro_use]
-extern crate serde_json;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
+use serde::Deserialize;
+ use serde_json::json;
 
 use std::env;
 use reqwest::Client;

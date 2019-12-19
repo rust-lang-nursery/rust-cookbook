@@ -3,16 +3,13 @@
 [![log-badge]][log] [![env_logger-badge]][env_logger] [![cat-debugging-badge]][cat-debugging]
 
 The `log` crate provides logging utilities. The `env_logger` crate configures
-logging via an environment variable.  The [`debug!`] macro works like other
+logging via an environment variable.  The [`log::debug!`] macro works like other
 [`std::fmt`] formatted strings.
 
-```rust
-#[macro_use]
-extern crate log;
-extern crate env_logger;
+```rust,edition2018
 
 fn execute_query(query: &str) {
-    debug!("Executing query: {}", query);
+    log::debug!("Executing query: {}", query);
 }
 
 fn main() {
@@ -38,5 +35,5 @@ following line at the very end of the output:
 DEBUG:main: Executing query: DROP TABLE students
 ```
 
-[`debug!`]: https://docs.rs/log/*/log/macro.debug.html
+[`log::debug!`]: https://docs.rs/log/*/log/macro.debug.html
 [`std::fmt`]: https://doc.rust-lang.org/std/fmt/

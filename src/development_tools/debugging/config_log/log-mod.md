@@ -5,33 +5,30 @@
 Creates two modules `foo` and nested `foo::bar` with logging directives
 controlled separately with [`RUST_LOG`] environmental variable.
 
-```rust
-#[macro_use]
-extern crate log;
-extern crate env_logger;
+```rust,edition2018
 
 mod foo {
     mod bar {
         pub fn run() {
-            warn!("[bar] warn");
-            info!("[bar] info");
-            debug!("[bar] debug");
+            log::warn!("[bar] warn");
+            log::info!("[bar] info");
+            log::debug!("[bar] debug");
         }
     }
 
     pub fn run() {
-        warn!("[foo] warn");
-        info!("[foo] info");
-        debug!("[foo] debug");
+        log::warn!("[foo] warn");
+        log::info!("[foo] info");
+        log::debug!("[foo] debug");
         bar::run();
     }
 }
 
 fn main() {
     env_logger::init();
-    warn!("[root] warn");
-    info!("[root] info");
-    debug!("[root] debug");
+    log::warn!("[root] warn");
+    log::info!("[root] info");
+    log::debug!("[root] debug");
     foo::run();
 }
 ```

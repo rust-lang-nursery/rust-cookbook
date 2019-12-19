@@ -7,12 +7,8 @@ handle remote server errors.  This example uses the [`hyper::header!`] macro
 to parse the response header and checks for [`reqwest::StatusCode::Forbidden`].
 If the response exceeds the rate limit, the example waits and retries.
 
-```rust,no_run,ignore
-# #[macro_use]
-# extern crate error_chain;
-#[macro_use]
-extern crate hyper;
-extern crate reqwest;
+```rust,edition2018,no_run,ignore
+# use error_chain::error_chain;
 
 use std::time::{Duration, UNIX_EPOCH};
 use std::thread;

@@ -9,10 +9,8 @@ chunks of 10240 bytes, while printing progress messages. The [Range] header spec
 
 The Range header is defined in [RFC7233][HTTP Range RFC7233].
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate reqwest;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use std::fs::File;
 use std::str::FromStr;
@@ -86,7 +84,7 @@ fn main() -> Result<()> {
 
         let status = response.status();
         if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
-            bail!("Unexpected server response: {}", status)
+            error_chain::bail!("Unexpected server response: {}", status)
         }
 
         std::io::copy(&mut response, &mut output_file)?;

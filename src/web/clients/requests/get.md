@@ -7,10 +7,8 @@ with [`reqwest::get`]. Prints obtained [`reqwest::Response`]
 status and headers. Reads HTTP response body into an allocated [`String`]
 using [`read_to_string`].
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate reqwest;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use std::io::Read;
 #

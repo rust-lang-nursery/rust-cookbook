@@ -26,11 +26,8 @@ If the function is part of a public API, that may be a better choice for the
 benefit of users. For internal functions, the more concise `ArrayView1<f64>` 
 may be preferable.
 
-```rust
-#[macro_use(array)]
-extern crate ndarray;
-
-use ndarray::{Array1, ArrayView1};
+```rust,edition2018
+use ndarray::{array, Array1, ArrayView1};
 
 fn l1_norm(x: ArrayView1<f64>) -> f64 {
     x.fold(0., |acc, elem| acc + elem.abs())

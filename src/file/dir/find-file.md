@@ -6,10 +6,8 @@ Find JSON files modified within the last day in the current directory.
 Using [`follow_links`] ensures symbolic links are followed like they were
 normal directories and files.
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate walkdir;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use walkdir::WalkDir;
 #

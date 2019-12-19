@@ -11,11 +11,8 @@ The `mime` crate also defines some commonly used MIME types.
 
 Note that the [`reqwest::header`] module is exported from the [`http`] crate.
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate mime;
-extern crate reqwest;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use mime::Mime;
 use std::str::FromStr;

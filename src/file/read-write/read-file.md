@@ -8,7 +8,7 @@ time with the [`Lines`] iterator created by
 trait.  [`File::create`] opens a [`File`] for writing, [`File::open`] for
 reading.
 
-```rust
+```rust,edition2018
 use std::fs::File;
 use std::io::{Write, BufReader, BufRead, Error};
 

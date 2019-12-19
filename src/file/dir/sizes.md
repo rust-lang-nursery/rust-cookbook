@@ -5,9 +5,7 @@
 Recursion depth can be flexibly set by [`WalkDir::min_depth`] & [`WalkDir::max_depth`] methods.
 Calculates sum of all file sizes to 3 subfolders depth, ignoring files in the root folder.
 
-```rust
-extern crate walkdir;
-
+```rust,edition2018
 use walkdir::WalkDir;
 
 fn main() {
