@@ -69,7 +69,7 @@ fn main() -> Result<()> {
     let url = "https://httpbin.org/range/102400?duration=2";
     const CHUNK_SIZE: u32 = 10240;
 
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
     let response = client.head(url).send()?;
     let length = response
         .headers()
