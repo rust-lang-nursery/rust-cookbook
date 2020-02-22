@@ -11,7 +11,7 @@ generator [`rand::Rng`].
 The [distributions available are documented here][rand-distributions]. An example using the
 [`Normal`] distribution is shown below.
 
-```
+```rust,edition2018,ignore
 use rand::distributions::{Normal, Distribution};
 
 fn main() {
