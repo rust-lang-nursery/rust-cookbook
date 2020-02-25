@@ -40,7 +40,7 @@ rand = "0.6"
 rayon = "1.0"
 regex = "1.0"
 reqwest = "0.9"
-ring = "0.13.0-alpha"
+ring = "0.16.11"
 rusqlite = { version = "0.16", features = ["chrono"] }
 same-file = "1.0"
 select = "0.4"
