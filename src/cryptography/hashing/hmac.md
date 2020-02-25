@@ -5,8 +5,11 @@
 Uses [`ring::hmac`] to creates a [`hmac::Signature`] of a string then verifies the signature is correct.
 
 ```rust
+<<<<<<< HEAD
 extern crate ring;
 
+=======
+>>>>>>> c0369829c40380530088844be065c5e2ba4e2308
 use ring::{hmac, rand};
 use ring::rand::SecureRandom;
 use ring::error::Unspecified;
