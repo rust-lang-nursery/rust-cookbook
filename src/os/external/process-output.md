@@ -27,7 +27,7 @@ struct Commit {
     message: String,
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let output = Command::new("git").arg("log").arg("--oneline").output()?;
 
     if !output.status.success() {
@@ -52,8 +52,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html

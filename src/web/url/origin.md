@@ -6,19 +6,11 @@ The [`Url`] struct exposes various methods to extract information about the URL
 it represents.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate url;
 
-use url::{Url, Host};
+use url::{Url, Host, ParseError};
 
-# error_chain! {
-#     foreign_links {
-#         UrlParse(url::ParseError);
-#     }
-# }
-#
-fn run() -> Result<()> {
+fn main() -> Result<(), ParseError> {
     let s = "ftp://rust-lang.org/examples";
 
     let url = Url::parse(s)?;
@@ -30,8 +22,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`origin`] produces the same result.
@@ -49,7 +39,7 @@ use url::{Url, Origin, Host};
 #     }
 # }
 #
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let s = "ftp://rust-lang.org/examples";
 
     let url = Url::parse(s)?;
@@ -65,8 +55,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`origin`]: https://docs.rs/url/*/url/struct.Url.html#method.origin

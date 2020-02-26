@@ -5,19 +5,11 @@
 The [`join`] method creates a new URL from a base and relative path.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate url;
 
-use url::Url;
-#
-# error_chain! {
-#     foreign_links {
-#         UrlParse(url::ParseError);
-#     }
-# }
+use url::{Url, ParseError};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), ParseError> {
     let path = "/rust-lang/cargo";
 
     let gh = build_github_url(path)?;
@@ -28,7 +20,7 @@ fn run() -> Result<()> {
     Ok(())
 }
 
-fn build_github_url(path: &str) -> Result<Url> {
+fn build_github_url(path: &str) -> Result<Url, ParseError> {
     const GITHUB: &'static str = "https://github.com";
 
     let base = Url::parse(GITHUB).expect("hardcoded URL is known to be valid");
@@ -36,8 +28,6 @@ fn build_github_url(path: &str) -> Result<Url> {
 
     Ok(joined)
 }
-#
-# quick_main!(run);
 ```
 
 [`join`]: https://docs.rs/url/*/url/struct.Url.html#method.join

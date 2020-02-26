@@ -5,19 +5,11 @@
 Given two versions, [`is_prerelease`] asserts that one is pre-release and the other is not.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate semver;
 
-use semver::Version;
-#
-# error_chain! {
-#     foreign_links {
-#         SemVer(semver::SemVerError);
-#     }
-# }
+use semver::{Version, SemVerError};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), SemVerError> {
     let version_1 = Version::parse("1.0.0-alpha")?;
     let version_2 = Version::parse("1.0.0")?;
 
@@ -26,8 +18,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`is_prerelease`]: https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease

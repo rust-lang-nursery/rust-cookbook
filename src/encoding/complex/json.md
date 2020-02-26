@@ -11,20 +11,12 @@ is able to represent any valid JSON data.
 The example below shows a `&str` of JSON being parsed.  The expected value is declared using the [`json!`] macro.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate serde_json;
 
-use serde_json::Value;
-#
-# error_chain! {
-#     foreign_links {
-#         Json(serde_json::Error);
-#     }
-# }
+use serde_json::{Value, Error};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let j = r#"{
                  "userid": 103609,
                  "verified": true,
@@ -49,8 +41,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`from_str`]: https://docs.serde.rs/serde_json/fn.from_str.html

@@ -23,7 +23,7 @@ use url::Url;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let full = "https://github.com/rust-lang/cargo?asdf";
 
     let url = Url::parse(full)?;
@@ -49,8 +49,6 @@ fn base_url(mut url: Url) -> Result<Url> {
 
     Ok(url)
 }
-#
-# quick_main!(run);
 ```
 
 [`PathSegmentsMut::clear`]: https://docs.rs/url/*/url/struct.PathSegmentsMut.html#method.clear

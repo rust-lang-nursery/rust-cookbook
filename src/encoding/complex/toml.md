@@ -6,19 +6,11 @@ Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate toml;
 
-use toml::Value;
-#
-# error_chain! {
-#     foreign_links {
-#         Toml(toml::de::Error);
-#     }
-# }
+use toml::{Value, de::Error};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let toml_content = r#"
           [package]
           name = "your_package"
@@ -37,19 +29,16 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 Parse TOML into your own structs using [Serde].
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate serde_derive;
 extern crate toml;
 
+use toml::de::Error;
 use std::collections::HashMap;
 
 #[derive(Deserialize)]
@@ -64,14 +53,8 @@ struct Package {
     version: String,
     authors: Vec<String>,
 }
-#
-# error_chain! {
-#     foreign_links {
-#         Toml(toml::de::Error);
-#     }
-# }
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let toml_content = r#"
           [package]
           name = "your_package"
@@ -91,6 +74,4 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```

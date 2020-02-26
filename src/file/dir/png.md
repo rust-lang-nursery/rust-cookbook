@@ -22,13 +22,11 @@ use glob::glob;
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     for entry in glob("**/*.png")? {
         println!("{}", entry?.display());
     }
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```

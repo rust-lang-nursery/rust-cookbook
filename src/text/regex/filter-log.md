@@ -26,7 +26,7 @@ use regex::RegexSetBuilder;
 #     }
 # }
 #
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let log_path = "application.log";
     let buffered = BufReader::new(File::open(log_path)?);
 
@@ -45,8 +45,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`regex::RegexSet`]: https://docs.rs/regex/*/regex/struct.RegexSet.html

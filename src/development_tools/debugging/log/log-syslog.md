@@ -8,26 +8,16 @@ the log entry's classification, [`log::LevelFilter`] denotes allowed log verbosi
 and `Option<&str>` holds optional application name.
 
 ```rust
-# #![allow(unused_imports)]
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate log;
 # #[cfg(target_os = "linux")]
 extern crate syslog;
 
 # #[cfg(target_os = "linux")]
-use syslog::Facility;
-#
-# #[cfg(target_os = "linux")]
-# error_chain! {
-#     foreign_links {
-#         SetLogger(syslog::Error);
-#     }
-# }
+use syslog::{Facility, Error};
 
 # #[cfg(target_os = "linux")]
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     syslog::init(Facility::LOG_USER,
                  log::LevelFilter::Debug,
                  Some("My app name"))?;
@@ -35,15 +25,11 @@ fn run() -> Result<()> {
     error!("this is an error!");
     Ok(())
 }
-#
+
 # #[cfg(not(target_os = "linux"))]
-# error_chain! {}
-# #[cfg(not(target_os = "linux"))]
-# fn run() -> Result<()> {
-#     Ok(())
+# fn main() {
+#     println!("So far, only Linux systems are supported.");
 # }
-#
-# quick_main!(run);
 ```
 
 [`log::LevelFilter`]: https://docs.rs/log/*/log/enum.LevelFilter.html

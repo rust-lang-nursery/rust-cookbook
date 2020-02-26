@@ -11,19 +11,11 @@ incrementing the major version number resets both the minor and patch version
 numbers to 0.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate semver;
 
-use semver::Version;
-#
-# error_chain! {
-#     foreign_links {
-#         SemVer(semver::SemVerError);
-#     }
-# }
+use semver::{Version, SemVerError};
 
-fn run() -> Result<()> {
+fn main() -> Result<(), SemVerError> {
     let mut parsed_version = Version::parse("0.2.6")?;
 
     assert_eq!(
@@ -51,8 +43,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`semver::Version`]: https://docs.rs/semver/*/semver/struct.Version.html

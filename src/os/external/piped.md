@@ -22,7 +22,7 @@ use std::process::{Command, Stdio};
 #     }
 # }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let directory = std::env::current_dir()?;
     let mut du_output_child = Command::new("du")
         .arg("-ah")
@@ -60,8 +60,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html

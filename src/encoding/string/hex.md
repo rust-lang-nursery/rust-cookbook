@@ -13,19 +13,11 @@ The example below coverts `&[u8]` data to hexadecimal equivalent.  Compares this
 value to the expected value.
 
 ```rust
-# #[macro_use]
-# extern crate error_chain;
 extern crate data_encoding;
 
 use data_encoding::{HEXUPPER, DecodeError};
-#
-# error_chain! {
-#     foreign_links {
-#         Decode(DecodeError);
-#     }
-# }
 
-fn run() -> Result<()> {
+fn main() -> Result<(), DecodeError> {
     let original = b"The quick brown fox jumps over the lazy dog.";
     let expected = "54686520717569636B2062726F776E20666F78206A756D7073206F76\
         657220746865206C617A7920646F672E";
@@ -38,8 +30,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`data_encoding`]: https://docs.rs/data-encoding/*/data_encoding/

@@ -103,6 +103,7 @@ fname
 Formatter
 foundational
 fout
+fromstr
 FromStr
 FromStrError
 FromUtf
@@ -111,6 +112,8 @@ GitHub
 github
 GlobError
 Guybrush
+graphemes
+Graphemes
 GzDecoder
 GzEncoder
 Hackerman
@@ -192,6 +195,7 @@ NaiveDate
 NaiveDateTime
 NaiveTime
 ndarray
+nalgebra
 nFun
 NotFound
 NulError
@@ -215,6 +219,7 @@ PBKDF
 pbkdf
 PhoneNumber
 PNGs
+postgres
 preallocating
 prerelease
 prev
@@ -264,6 +269,7 @@ SetLogger
 SetLoggerError
 SigningKey
 SocketAddrV
+spsc
 StatusCode
 sqlite
 stderr
@@ -308,6 +314,7 @@ Tuple
 typesafe
 unary
 unix
+unicode
 unwinded
 UpperHex
 uptime

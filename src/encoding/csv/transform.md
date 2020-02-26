@@ -70,7 +70,7 @@ impl<'de> Deserialize<'de> for HexColor {
     }
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let data = "color_name,color
 red,#ff0000
 green,#00ff00
@@ -94,8 +94,6 @@ magenta,#ff00ff"
     println!("{}", written);
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`csv::Reader::deserialize`]: https://docs.rs/csv/\*/csv/struct.Reader.html#method.deserialize

@@ -28,7 +28,7 @@ struct Record<'a> {
     id: u64,
 }
 
-fn run() -> Result<()> {
+fn main() -> Result<()> {
     let mut wtr = csv::Writer::from_writer(io::stdout());
 
     let rec1 = Record { name: "Mark", place: "Melbourne", id: 56};
@@ -43,6 +43,4 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```

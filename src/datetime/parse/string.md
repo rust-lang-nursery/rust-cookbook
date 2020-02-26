@@ -15,18 +15,11 @@ identifies a date and a time. For parsing dates and times without timezones use
 
 ```rust
 extern crate chrono;
-# #[macro_use]
-# extern crate error_chain;
-#
 use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
-#
-# error_chain! {
-#     foreign_links {
-#         DateParse(chrono::format::ParseError);
-#     }
-# }
+use chrono::format::ParseError;
 
-fn run() -> Result<()> {
+
+fn main() -> Result<(), ParseError> {
     let rfc2822 = DateTime::parse_from_rfc2822("Tue, 1 Jul 2003 10:52:37 +0200")?;
     println!("{}", rfc2822);
 
@@ -47,8 +40,6 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-#
-# quick_main!(run);
 ```
 
 [`chrono::format::strftime`]: https://docs.rs/chrono/*/chrono/format/strftime/index.html
