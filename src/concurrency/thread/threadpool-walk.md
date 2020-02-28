@@ -20,7 +20,7 @@ use std::io::{BufReader, Read, Error};
 use std::path::Path;
 use threadpool::ThreadPool;
 use std::sync::mpsc::channel;
-use ring::digest::{Context, Digest, SHA1};
+use ring::digest::{Context, Digest, SHA256};
 
 # // Verify the iso extension
 # fn is_iso(entry: &Path) -> bool {
@@ -32,7 +32,7 @@ use ring::digest::{Context, Digest, SHA1};
 
 fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P), Error> {
     let mut buf_reader = BufReader::new(File::open(&filepath)?);
-    let mut context = Context::new(&SHA1);
+    let mut context = Context::new(&SHA256);
     let mut buffer = [0; 1024];
 
     loop {
