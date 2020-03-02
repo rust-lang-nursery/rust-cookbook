@@ -51,5 +51,3 @@ community. It needs and welcomes help. For details see
 {{#include text.md}}
 
 {{#include web.md}}
-
-
