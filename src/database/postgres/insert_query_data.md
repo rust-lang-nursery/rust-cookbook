@@ -11,7 +11,7 @@ use postgres::{Connection, TlsMode, Error};
 use std::collections::HashMap;
 
 struct Author {
-    id: i32,
+    _id: i32,
     name: String,
     country: String
 }
@@ -27,7 +27,7 @@ fn main() -> Result<(), Error> {
 
     for (key, value) in &authors {
         let author = Author {
-            id: 0,
+            _id: 0,
             name: key.to_string(),
             country: value.to_string()
         };
@@ -38,7 +38,7 @@ fn main() -> Result<(), Error> {
 
     for row in &conn.query("SELECT id, name, country FROM author", &[])? {
         let author = Author {
-            id: row.get(0),
+            _id: row.get(0),
             name: row.get(1),
             country: row.get(2),
         };
