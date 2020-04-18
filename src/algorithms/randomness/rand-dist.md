@@ -12,7 +12,7 @@ generator [`rand::Rng`].
 The [distributions available are documented here][rand-distributions].
 An example using the [`Normal`] distribution is shown below.
 
-```rust
+```rust,no_run
 extern crate rand_distr;
 extern crate rand;
 
