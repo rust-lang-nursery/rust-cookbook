@@ -7,7 +7,7 @@ with [`reqwest::get`]. Prints obtained [`reqwest::Response`]
 status and headers. Reads HTTP response body into an allocated [`String`]
 using [`read_to_string`].
 
-```rust,no_run,edition2018
+```rust,no_run
 use std::io::Read;
 
 error_chain! {
@@ -39,7 +39,7 @@ to make the main function asynchronous, retrieving the same information.
 In this example, [`tokio::main`] handles all the heavy executor setup
 and allows sequential code implemented without blocking.
 
-```rust,no_run,edition2018
+```rust,no_run
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error >> {
         let res = reqwest::get("http://httpbin.org/get").await?;
