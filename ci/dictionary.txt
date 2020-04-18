@@ -81,6 +81,7 @@ Deserializer
 deserializer
 dest
 DirEntry
+distr
 dotfiles
 DynamicImage
 endian
