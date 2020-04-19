@@ -7,25 +7,28 @@ with [`reqwest::get`] to get list of all users who have marked a GitHub project 
 
 ```rust,no_run
 #[macro_use]
-extern crate serde;
 extern crate serde_derive;
+extern crate serde_json;
 extern crate reqwest;
 use reqwest::Error;
 
 #[derive(Deserialize, Debug)]
+
 struct User {
     login: String,
     id: u32,
 }
 
-fn main() -> Result<(), Error> {
+#[tokio::main]
+
+async fn main() -> Result<(), Error> {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
                               owner = "rust-lang-nursery",
                               repo = "rust-cookbook");
     println!("{}", request_url);
-    let mut response = reqwest::get(&request_url)?;
+    let response = reqwest::get(&request_url).await?;
 
-    let users: Vec<User> = response.json()?;
+    let users: Vec<User> = response.json().await?;
     println!("{:?}", users);
     Ok(())
 }
