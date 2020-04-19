@@ -12,32 +12,28 @@ body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 [`RequestBuilder::send`] synchronously executes the requests.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 extern crate reqwest;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 
+use std::error::Error;
 use std::env;
 use reqwest::Client;
-#
-# error_chain! {
-#     foreign_links {
-#         EnvVar(env::VarError);
-#         HttpRequest(reqwest::Error);
-#     }
-# }
+
 
 #[derive(Deserialize, Debug)]
+
 struct Gist {
     id: String,
     html_url: String,
 }
 
-fn main() -> Result<()> {
-    let gh_user = env::var("GH_USER")?;
+#[tokio::main]
+
+async fn main() ->  Result<(),Box<dyn Error>> {
+    let gh_user = env::var("we")?;
     let gh_pass = env::var("GH_PASS")?;
 
     let gist_body = json!({
@@ -50,20 +46,20 @@ fn main() -> Result<()> {
         }});
 
     let request_url = "https://api.github.com/gists";
-    let mut response = Client::new()
+    let response = Client::new()
         .post(request_url)
         .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
         .json(&gist_body)
-        .send()?;
+        .send().await?;
 
-    let gist: Gist = response.json()?;
+    let gist: Gist = response.json().await?;
     println!("Created {:?}", gist);
 
     let request_url = format!("{}/{}",request_url, gist.id);
     let response = Client::new()
         .delete(&request_url)
         .basic_auth(gh_user, Some(gh_pass))
-        .send()?;
+        .send().await?;
 
     println!("Gist {} deleted! Status code: {}",gist.id, response.status());
     Ok(())
