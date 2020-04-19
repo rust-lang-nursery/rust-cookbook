@@ -15,15 +15,16 @@ use reqwest::Error;
 use std::time::Duration;
 use reqwest::ClientBuilder;
 
+#[tokio::main]
 
-fn main() -> Result<(), Error> {
+async fn main() -> Result<(), Error> {
     let user = "ferris-the-crab";
     let request_url = format!("https://api.github.com/users/{}", user);
     println!("{}", request_url);
 
     let timeout = Duration::new(5, 0);
     let client = ClientBuilder::new().timeout(timeout).build()?;
-    let response = client.head(&request_url).send()?;
+    let response = client.head(&request_url).send().await?;
 
     if response.status().is_success() {
         println!("{} is a user!", user);
