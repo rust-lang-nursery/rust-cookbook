@@ -33,7 +33,7 @@ struct Gist {
 #[tokio::main]
 
 async fn main() ->  Result<(),Box<dyn Error>> {
-    let gh_user = env::var("we")?;
+    let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 
     let gist_body = json!({

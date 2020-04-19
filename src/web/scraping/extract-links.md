@@ -27,7 +27,6 @@ async fn main() -> Result<(), reqwest::Error>{
 
     Ok(())
 }
-}
 ```
 
 [`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr
