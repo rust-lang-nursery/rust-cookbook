@@ -9,27 +9,20 @@ look for all entries of internal and external links with
 MediaWiki link syntax is described [here][MediaWiki link syntax].
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 #[macro_use]
 extern crate lazy_static;
 extern crate reqwest;
 extern crate regex;
 
-use std::io::Read;
 use std::collections::HashSet;
 use std::borrow::Cow;
+use std::error::Error;
 use regex::Regex;
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         Reqwest(reqwest::Error);
-#         Regex(regex::Error);
-#     }
-# }
-#
-fn extract_links(content: &str) -> Result<HashSet<Cow<str>>> {
+
+#[tokio::main]
+
+async fn extract_links(content: &str) -> HashSet<Cow<str>> {
     lazy_static! {
         static ref WIKI_REGEX: Regex =
             Regex::new(r"(?x)
@@ -48,17 +41,19 @@ fn extract_links(content: &str) -> Result<HashSet<Cow<str>>> {
         })
         .collect();
 
-    Ok(links)
+    links
 }
 
-fn main() -> Result<()> {
-    let mut content = String::new();
-    reqwest::get(
-        "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
-    )?
-        .read_to_string(&mut content)?;
+#[tokio::main]
 
-    println!("{:#?}", extract_links(&content)?);
+async fn main() -> Result<(),Box<dyn Error>> {
+
+    let content = reqwest::get(
+        "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
+    ).await?
+        .text().await?;
+
+    println!("{:#?}", extract_links(content.as_str()));
 
     Ok(())
 }
