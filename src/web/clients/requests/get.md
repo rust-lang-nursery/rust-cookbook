@@ -8,30 +8,23 @@ status and headers. Reads HTTP response body into an allocated [`String`]
 using [`read_to_string`].
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 extern crate reqwest;
-
-use std::io::Read;
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         HttpRequest(reqwest::Error);
-#     }
-# }
-
-fn main() -> Result<()> {
-    let mut res = reqwest::get("http://httpbin.org/get")?;
-    let mut body = String::new();
-    res.read_to_string(&mut body)?;
-
+#[tokio::main]
+async fn main() -> Result<(), reqwest::Error> {
+    let res = reqwest::get("http://httpbin.org/get").await?;
     println!("Status: {}", res.status());
     println!("Headers:\n{:#?}", res.headers());
+    let body = res.text().await?;
     println!("Body:\n{}", body);
-
     Ok(())
 }
+```
+
+`Cargo.toml`
+```toml
+[dependencies]
+reqwest = { version = "0.10"}
+tokio = { version = "0.2", features = ["full"] }
 ```
 
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
