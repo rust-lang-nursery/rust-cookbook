@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Brian Anderson <banderson@mozilla.com>"]
 license = "MIT/Apache-2.0"
 publish = false
-
+edition = "2018"
 build = "build.rs"
 
 [dependencies]
