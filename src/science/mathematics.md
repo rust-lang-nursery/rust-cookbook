@@ -7,7 +7,7 @@
 | [Adding matrices][add-matrices] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Multiplying matrices][multiply-matrices] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Multiply a scalar with a vector with a matrix][multiply-scalar-vector-matrix] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
-| [Invert marix][invert-matrix] | [![nalgebra-badge]][nalgebra] | [![cat-science-badge]][cat-science] |
+| [Invert matrix][invert-matrix] | [![nalgebra-badge]][nalgebra] | [![cat-science-badge]][cat-science] |
 | [Calculating the side length of a triangle][side-length] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Verifying tan is equal to sin divided by cos][tan-sin-cos] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Distance between two points on the Earth][latitude-longitude] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |

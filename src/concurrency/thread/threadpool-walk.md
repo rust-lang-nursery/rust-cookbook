@@ -1,12 +1,12 @@
-## Calculate SHA1 sum of iso files concurrently
+## Calculate SHA256 sum of iso files concurrently
 
 [![threadpool-badge]][threadpool] [![num_cpus-badge]][num_cpus] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
 
-This example calculates the SHA1 for every file with iso extension in the
+This example calculates the SHA256 for every file with iso extension in the
 current directory. A threadpool generates threads equal to the number of cores
 present in the system found with [`num_cpus::get`].  [`Walkdir::new`] iterates
 the current directory and calls [`execute`] to perform the operations of reading
-and computing SHA1 hash.
+and computing SHA256 hash.
 
 ```rust,no_run
 extern crate walkdir;
@@ -20,7 +20,7 @@ use std::io::{BufReader, Read, Error};
 use std::path::Path;
 use threadpool::ThreadPool;
 use std::sync::mpsc::channel;
-use ring::digest::{Context, Digest, SHA1};
+use ring::digest::{Context, Digest, SHA256};
 
 # // Verify the iso extension
 # fn is_iso(entry: &Path) -> bool {
@@ -32,7 +32,7 @@ use ring::digest::{Context, Digest, SHA1};
 
 fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P), Error> {
     let mut buf_reader = BufReader::new(File::open(&filepath)?);
-    let mut context = Context::new(&SHA1);
+    let mut context = Context::new(&SHA256);
     let mut buffer = [0; 1024];
 
     loop {
