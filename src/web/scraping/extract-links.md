@@ -9,30 +9,24 @@ Call [`filter_map`] on the [`Selection`] retrieves URLs
 from links that have the "href" [`attr`] (attribute).
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
 extern crate reqwest;
 extern crate select;
 
 use select::document::Document;
 use select::predicate::Name;
-#
-# error_chain! {
-#    foreign_links {
-#        ReqError(reqwest::Error);
-#        IoError(std::io::Error);
-#    }
-# }
 
-fn main() -> Result<()> {
-    let res = reqwest::get("https://www.rust-lang.org/en-US/")?;
+#[tokio::main]
 
-    Document::from_read(res)?
+async fn main() -> Result<(), reqwest::Error>{
+    let res = reqwest::get("https://www.rust-lang.org/en-US/").await?.text().await?;
+
+    Document::from(res.as_str())
         .find(Name("a"))
         .filter_map(|n| n.attr("href"))
         .for_each(|x| println!("{}", x));
 
     Ok(())
+}
 }
 ```
 
