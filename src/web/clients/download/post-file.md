@@ -12,28 +12,34 @@ response and displays in the console.
 ```rust,no_run
 extern crate reqwest;
 
-# #[macro_use]
-# extern crate error_chain;
-#
+#[macro_use]
+ extern crate error_chain;
+
 use std::fs::File;
 use std::io::Read;
-use reqwest::Client;
-#
-# error_chain! {
-#     foreign_links {
-#         HttpRequest(reqwest::Error);
-#         IoError(::std::io::Error);
-#     }
-# }
 
-fn main() -> Result<()> {
+ error_chain! {
+     foreign_links {
+         HttpRequest(reqwest::Error);
+         IoError(::std::io::Error);
+     }
+ }
+ #[tokio::main]
+
+async fn main() -> Result<()> {
     let paste_api = "https://paste.rs";
-    let file = File::open("message")?;
+    let mut file = File::open("message")?;
 
-    let mut response = Client::new().post(paste_api).body(file).send()?;
-    let mut response_body = String::new();
-    response.read_to_string(&mut response_body)?;
-    println!("Your paste is located at: {}", response_body);
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+
+    let client = reqwest::Client::new();
+    let res = client.post(paste_api)
+        .body(contents)
+        .send()
+        .await?;
+    let response_text = res.text().await?;
+    println!("Your paste is located at: {}",response_text );
     Ok(())
 }
 ```
