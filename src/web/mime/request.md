@@ -12,8 +12,8 @@ The `mime` crate also defines some commonly used MIME types.
 Note that the [`reqwest::header`] module is exported from the [`http`] crate.
 
 ```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
+#[macro_use]
+extern crate error_chain;
 extern crate mime;
 extern crate reqwest;
 
@@ -21,17 +21,19 @@ use mime::Mime;
 use std::str::FromStr;
 use reqwest::header::CONTENT_TYPE;
 
-#
-# error_chain! {
-#    foreign_links {
-#        Reqwest(reqwest::Error);
-#        Header(reqwest::header::ToStrError);
-#        Mime(mime::FromStrError);
-#    }
-# }
 
-fn main() -> Result<()> {
-    let response = reqwest::get("https://www.rust-lang.org/logos/rust-logo-32x32.png")?;
+ error_chain! {
+    foreign_links {
+        Reqwest(reqwest::Error);
+        Header(reqwest::header::ToStrError);
+        Mime(mime::FromStrError);
+    }
+ }
+
+ #[tokio::main]
+
+async fn main() -> Result<()> {
+    let response = reqwest::get("https://www.rust-lang.org/logos/rust-logo-32x32.png").await?;
     let headers = response.headers();
 
     match headers.get(CONTENT_TYPE) {
