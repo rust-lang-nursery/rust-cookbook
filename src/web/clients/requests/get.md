@@ -20,13 +20,6 @@ async fn main() -> Result<(), reqwest::Error> {
 }
 ```
 
-`Cargo.toml`
-```toml
-[dependencies]
-reqwest = { version = "0.10"}
-tokio = { version = "0.2", features = ["full"] }
-```
-
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
