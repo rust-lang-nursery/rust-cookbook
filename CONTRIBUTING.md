@@ -82,6 +82,11 @@ on Debian based operating systems.
 [sudo] apt install aspell -y
 ```
 
+on Mac:
+```
+brew install aspell 
+```
+
 On other Linux distributions you might also need to install the `aspell-en`
 package, or similar.
 
