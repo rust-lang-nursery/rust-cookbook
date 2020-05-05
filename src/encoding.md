@@ -2,7 +2,7 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Percent-encode a string][ex-percent-encode] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
+| [Percent-encode a string][ex-percent-encode] | [![percent-encoding-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
