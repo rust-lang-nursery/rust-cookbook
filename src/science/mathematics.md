@@ -2,7 +2,6 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Vector Sum][vector-sum] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Vector Norm][vector-norm] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Adding matrices][add-matrices] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Multiplying matrices][multiply-matrices] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
@@ -18,7 +17,6 @@
 | [Computing standard deviation][ex-standard-deviation] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Big integers][big-integers] | [![num-badge]][num] | [![cat-science-badge]][cat-science] |
 
-[vector-sum]: science/mathematics/linear_algebra.html#vector-sum
 [vector-norm]: science/mathematics/linear_algebra.html#vector-norm
 [add-matrices]: science/mathematics/linear_algebra.html#adding-matrices
 [multiply-matrices]: science/mathematics/linear_algebra.html#multiplying-matrices
