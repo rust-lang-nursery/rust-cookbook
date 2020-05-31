@@ -5,7 +5,7 @@
 This recipe lists the nationalities of the first 7999 artists in the database of the [`Museum of Modern Art`] in descending order.
 
 ```rust,edition2018,no_run
-use postgres::{Connection, Error, TlsMode};
+use postgres::{Client, Error, NoTls};
 
 struct Nation {
     nationality: String,
@@ -13,12 +13,12 @@ struct Nation {
 }
 
 fn main() -> Result<(), Error> {
-    let conn = Connection::connect(
+    let mut client = Client::connect(
         "postgresql://postgres:postgres@127.0.0.1/moma",
-        TlsMode::None,
+        NoTls,
     )?;
 
-    for row in &conn.query 
+    for row in client.query 
 	("SELECT nationality, COUNT(nationality) AS count 
 	FROM artists GROUP BY nationality ORDER BY count DESC", &[])? {
         

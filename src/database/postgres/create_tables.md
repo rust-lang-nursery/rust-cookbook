@@ -4,31 +4,34 @@
 
 Use the [`postgres`] crate to create tables in a Postgres database.
 
-[`Connection::connect`] helps in connecting to an existing database. The recipe uses a URL string format with `Connection::connect`. It assumes an existing database named `library`, the username is `postgres` and the password is `postgres`.
+[`Client::connect`] helps in connecting to an existing database. The recipe uses a URL string format with `Client::connect`. It assumes an existing database named `library`, the username is `postgres` and the password is `postgres`.
 
 ```rust,edition2018,no_run
-use postgres::{Connection, TlsMode, Error};
+use postgres::{Client, NoTls, Error};
 
 fn main() -> Result<(), Error> {
-    let conn = Connection::connect("postgresql://postgres:postgres@localhost/library", 
-                                    TlsMode::None)?;
+    let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", NoTls)?;
     
-     conn.execute("CREATE TABLE IF NOT EXISTS author (
-                    id              SERIAL PRIMARY KEY,
-                    name            VARCHAR NOT NULL,
-                    country         VARCHAR NOT NULL
-                  )", &[])?;
+    client.batch_execute("
+        CREATE TABLE IF NOT EXISTS author (
+            id              SERIAL PRIMARY KEY,
+            name            VARCHAR NOT NULL,
+            country         VARCHAR NOT NULL
+            )
+    ")?;
 
-    conn.execute("CREATE TABLE IF NOT EXISTS book  (
-                    id              SERIAL PRIMARY KEY,
-                    title           VARCHAR NOT NULL,
-                    author_id       INTEGER NOT NULL REFERENCES author
-                )", &[])?;
+    client.batch_execute("
+        CREATE TABLE IF NOT EXISTS book  (
+            id              SERIAL PRIMARY KEY,
+            title           VARCHAR NOT NULL,
+            author_id       INTEGER NOT NULL REFERENCES author
+            )
+    ")?;
 
     Ok(())
 
 }
 ```
 
-[`postgres`]: https://docs.rs/postgres/0.15.2/postgres/
-[`Connection::connect`]: https://docs.rs/postgres/0.15.2/postgres/struct.Connection.html#method.connect
+[`postgres`]: https://docs.rs/postgres/0.17.2/postgres/
+[`Client::connect`]: https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.connect

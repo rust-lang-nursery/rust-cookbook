@@ -100,10 +100,13 @@ Keep lines sorted.
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
 [num_cpus]: https://docs.rs/num_cpus/
+[percent-encoding-badge]: https://badge-cache.kominick.com/crates/v/percent-encoding.svg?label=percent-encoding
 [postgres-badge]: https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres
 [postgres]: https://docs.rs/postgres/0.15.2/postgres/
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
+[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand_distr
+[rand_distr]: https://docs.rs/rand_distr/
 [rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
 [rayon]: https://docs.rs/rayon/
 [regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex

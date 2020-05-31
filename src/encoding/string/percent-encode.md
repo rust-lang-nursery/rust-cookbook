@@ -1,6 +1,6 @@
 ## Percent-encode a string
 
-[![url-badge]][percent-encoding] [![cat-encoding-badge]][cat-encoding]
+[![percent-encoding-badge]][percent-encoding] [![cat-encoding-badge]][cat-encoding]
 
 Encode an input string with [percent-encoding] using the [`utf8_percent_encode`]
 function from the `percent-encoding` crate. Then decode using the [`percent_decode`]
