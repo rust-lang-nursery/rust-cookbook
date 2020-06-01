@@ -6,10 +6,7 @@ Implements a custom logger `ConsoleLogger` which prints to stdout.
 In order to use the logging macros, `ConsoleLogger` implements
 the [`log::Log`] trait and [`log::set_logger`] installs it.
 
-```rust
-#[macro_use]
-extern crate log;
-
+```rust,edition2018
 use log::{Record, Level, Metadata, LevelFilter, SetLoggerError};
 
 static CONSOLE_LOGGER: ConsoleLogger = ConsoleLogger;
@@ -34,9 +31,9 @@ fn main() -> Result<(), SetLoggerError> {
     log::set_logger(&CONSOLE_LOGGER)?;
     log::set_max_level(LevelFilter::Info);
 
-    info!("hello log");
-    warn!("warning");
-    error!("oops");
+    log::info!("hello log");
+    log::warn!("warning");
+    log::error!("oops");
     Ok(())
 }
 ```

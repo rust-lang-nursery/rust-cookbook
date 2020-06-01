@@ -56,8 +56,7 @@ Consider this example for "generate random numbers within a range":
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-```rust
-extern crate rand;
+```rust,edition2018
 use rand::Rng;
 
 fn main() {
@@ -111,10 +110,8 @@ The basic pattern we use is to have a `fn main() -> Result`.
 
 The structure generally looks like:
 
-```rust
-#[macro_use]
-extern crate error_chain;
-
+```rust,edition2018
+use error_chain::error_chain;
 use std::net::IpAddr;
 use std::str;
 
@@ -150,10 +147,8 @@ default like below.  In order to read full contents click on the
 "expand" (<i class="fa fa-expand"></i>) button located in the top
 right corner of the snippet.
 
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate url;
+```rust,edition2018
+# use error_chain::error_chain;
 
 use url::{Url, Position};
 #

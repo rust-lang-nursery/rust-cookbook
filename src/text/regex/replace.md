@@ -11,10 +11,8 @@ The method [`Regex::replace_all`] replaces all occurrences of the whole regex.
 refer to corresponding named capture groups `(?P<abcde>REGEX)` from the search
 regex. See the [replacement string syntax] for examples and escaping detail.
 
-```rust
-extern crate regex;
-#[macro_use]
-extern crate lazy_static;
+```rust,edition2018
+use lazy_static::lazy_static;
 
 use std::borrow::Cow;
 use regex::Regex;

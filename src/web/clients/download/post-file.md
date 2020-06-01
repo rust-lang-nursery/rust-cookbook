@@ -9,11 +9,9 @@ content to send by reading the file, and [`RequestBuilder::send`] blocks until
 the file uploads and the response returns.  [`read_to_string`] returns the
 response and displays in the console.
 
-```rust,no_run
-extern crate reqwest;
+```rust,edition2018,no_run
 
-# #[macro_use]
-# extern crate error_chain;
+# use error_chain::error_chain;
 #
 use std::fs::File;
 use std::io::Read;

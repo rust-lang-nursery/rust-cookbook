@@ -23,9 +23,7 @@ cc = "1"
 
 ### `build.rs`
 
-```rust,no_run
-extern crate cc;
-
+```rust,edition2018,no_run
 fn main() {
     cc::Build::new()
         .define("APP_NAME", "\"foo\"")
@@ -51,7 +49,7 @@ void print_app_info() {
 
 ### `src/main.rs`
 
-```rust,ignore
+```rust,edition2018,ignore
 extern {
     fn print_app_info();
 }

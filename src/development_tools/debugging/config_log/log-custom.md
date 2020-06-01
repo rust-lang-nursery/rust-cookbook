@@ -11,12 +11,8 @@ encoding using a custom pattern from [`log4rs::encode::pattern`].
 Assigns the configuration to [`log4rs::config::Config`] and sets the default
 [`log::LevelFilter`].
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#[macro_use]
-extern crate log;
-extern crate log4rs;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use log::LevelFilter;
 use log4rs::append::file::FileAppender;
@@ -44,7 +40,7 @@ fn main() -> Result<()> {
 
     log4rs::init_config(config)?;
 
-    info!("Hello, world!");
+    log::info!("Hello, world!");
 
     Ok(())
 }

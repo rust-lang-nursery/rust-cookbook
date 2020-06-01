@@ -16,11 +16,8 @@ This recipe also contains additional ownership examples. Here, `let z = a + b` c
 `let w = &c + &d` creates a new vector without consuming `c` or `d`, allowing 
 their modification later. See [Binary Operators With Two Arrays] for additional detail.
 
-```rust
-#[macro_use(assert_abs_diff_eq)]
-extern crate approx;
-extern crate ndarray;
-
+```rust,edition2018
+use approx::assert_abs_diff_eq;
 use ndarray::Array;
 
 fn main() {

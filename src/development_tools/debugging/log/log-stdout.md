@@ -4,10 +4,7 @@
 
 Creates a custom logger configuration using the [`Builder::target`] to set the target of the log output to [`Target::Stdout`].
 
-```rust
-#[macro_use]
-extern crate log;
-extern crate env_logger;
+```rust,edition2018
 
 use env_logger::{Builder, Target};
 
@@ -16,7 +13,7 @@ fn main() {
         .target(Target::Stdout)
         .init();
 
-    error!("This error has been printed to Stdout");
+    log::error!("This error has been printed to Stdout");
 }
 ```
 

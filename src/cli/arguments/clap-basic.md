@@ -11,9 +11,7 @@ use to retrieve the value passed. The `short` and `long` options control the
 flag the user will be expected to type; short flags look like `-f` and long
 flags look like `--file`.
 
-```rust
-extern crate clap;
-
+```rust,edition2018
 use clap::{Arg, App};
 
 fn main() {

@@ -10,12 +10,7 @@ a timestamp used in the final log.
 The example calls [`Builder::format`] to set a closure which formats each
 message text with timestamp, [`Record::level`] and body ([`Record::args`]).
 
-```rust
-#[macro_use]
-extern crate log;
-extern crate chrono;
-extern crate env_logger;
-
+```rust,edition2018
 use std::io::Write;
 use chrono::Local;
 use env_logger::Builder;
@@ -34,9 +29,9 @@ fn main() {
         .filter(None, LevelFilter::Info)
         .init();
 
-    warn!("warn");
-    info!("info");
-    debug!("debug");
+    log::warn!("warn");
+    log::info!("info");
+    log::debug!("debug");
 }
 ```
 stderr output will contain

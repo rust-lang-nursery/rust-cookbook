@@ -5,12 +5,8 @@
 Writes some data to a file, then calculates the SHA-256 [`digest::Digest`] of
 the file's contents using [`digest::Context`].
 
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate data_encoding;
-extern crate ring;
-
+```rust,edition2018
+# use error_chain::error_chain;
 use data_encoding::HEXUPPER;
 use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;

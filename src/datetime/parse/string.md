@@ -13,8 +13,7 @@ requires that such a DateTime struct must be creatable that it uniquely
 identifies a date and a time. For parsing dates and times without timezones use
 [`NaiveDate`], [`NaiveTime`], and [`NaiveDateTime`].
 
-```rust
-extern crate chrono;
+```rust,edition2018
 use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
 use chrono::format::ParseError;
 

@@ -5,9 +5,7 @@
 Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.
 
-```rust
-extern crate toml;
-
+```rust,edition2018
 use toml::{Value, de::Error};
 
 fn main() -> Result<(), Error> {
@@ -33,10 +31,8 @@ fn main() -> Result<(), Error> {
 
 Parse TOML into your own structs using [Serde].
 
-```rust
-#[macro_use]
-extern crate serde_derive;
-extern crate toml;
+```rust,edition2018
+use serde::Deserialize;
 
 use toml::de::Error;
 use std::collections::HashMap;

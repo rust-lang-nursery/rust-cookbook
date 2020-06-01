@@ -10,9 +10,7 @@ There are two main data structures in [`ansi_term`]: [`ANSIString`] and [`Style`
 
 ### Printing colored text to the Terminal
 
-```rust
-extern crate ansi_term;
-
+```rust,edition2018
 use ansi_term::Colour;
 
 fn main() {
@@ -29,9 +27,7 @@ For anything more complex than plain foreground colour changes, the code
 needs to construct `Style` struct. [`Style::new()`] creates the struct,
 and properties chained.
 
-```rust
-extern crate ansi_term;
-
+```rust,edition2018
 use ansi_term::Style;
 
 fn main() {
@@ -43,9 +39,7 @@ fn main() {
 
 `Colour` implements many similar functions as `Style` and can chain methods.
 
-```rust
-extern crate ansi_term;
-
+```rust,edition2018
 use ansi_term::Colour;
 use ansi_term::Style;
 

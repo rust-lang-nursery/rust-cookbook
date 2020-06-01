@@ -18,9 +18,7 @@ cc = "1"
 
 ### `build.rs`
 
-```rust,no_run
-extern crate cc;
-
+```rust,edition2018,no_run
 fn main() {
     cc::Build::new()
         .cpp(true)
@@ -43,7 +41,7 @@ int multiply(int x, int y) {
 
 ### `src/main.rs`
 
-```rust,ignore
+```rust,edition2018,ignore
 extern {
     fn multiply(x : i32, y : i32) -> i32;
 }

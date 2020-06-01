@@ -7,10 +7,8 @@ files or query strings.  Each of those items are stripped out of the given
 URL.  [`PathSegmentsMut::clear`] removes paths and [`Url::set_query`] removes
 query string.
 
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate url;
+```rust,edition2018
+# use error_chain::error_chain;
 
 use url::Url;
 #

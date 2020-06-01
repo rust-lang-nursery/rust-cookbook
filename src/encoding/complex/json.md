@@ -10,10 +10,8 @@ is able to represent any valid JSON data.
 
 The example below shows a `&str` of JSON being parsed.  The expected value is declared using the [`json!`] macro.
 
-```rust
-#[macro_use]
-extern crate serde_json;
-
+```rust,edition2018
+ use serde_json::json;
 use serde_json::{Value, Error};
 
 fn main() -> Result<(), Error> {

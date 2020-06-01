@@ -5,10 +5,8 @@
 Declares a lazily evaluated constant [`HashMap`]. The [`HashMap`] will
 be evaluated once and stored behind a global static reference.
 
-```rust
-#[macro_use]
-extern crate lazy_static;
-
+```rust,edition2018
+use lazy_static::lazy_static;
 use std::collections::HashMap;
 
 lazy_static! {

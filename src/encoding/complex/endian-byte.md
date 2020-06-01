@@ -6,8 +6,7 @@
 be necessary when receiving information over the network, such that bytes
 received are from another system.
 
-```rust
-extern crate byteorder;
+```rust,edition2018
 
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use std::io::Error;

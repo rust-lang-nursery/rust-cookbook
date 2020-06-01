@@ -9,9 +9,7 @@ exchanged between the two threads using a [`crossbeam_channel::unbounded`]
 channel, meaning there is no limit to the number of storeable messages. The
 producer thread sleeps for half a second in between messages.
 
-```rust
-extern crate crossbeam;
-extern crate crossbeam_channel;
+```rust,edition2018
 
 use std::{thread, time};
 use crossbeam_channel::unbounded;

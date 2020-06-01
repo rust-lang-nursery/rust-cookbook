@@ -8,13 +8,9 @@ look for all entries of internal and external links with
 
 MediaWiki link syntax is described [here][MediaWiki link syntax].
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-#[macro_use]
-extern crate lazy_static;
-extern crate reqwest;
-extern crate regex;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
+use lazy_static::lazy_static;
 
 use std::io::Read;
 use std::collections::HashSet;

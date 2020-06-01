@@ -4,7 +4,7 @@
 
 Creates a custom struct `RGB` and implements the `FromStr` trait to convert a provided color hex code into its RGB color code.
 
-```rust
+```rust,edition2018
 use std::str::FromStr;
 
 #[derive(Debug, PartialEq)]

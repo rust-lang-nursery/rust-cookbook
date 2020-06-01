@@ -6,8 +6,7 @@ The following example shows how to parse a [`MIME`] type from a string using the
 [mime] crate. [`FromStrError`] produces a default [`MIME`] type in an
 `unwrap_or` clause.
 
-```rust
-extern crate mime;
+```rust,edition2018
 use mime::{Mime, APPLICATION_OCTET_STREAM};
 
 fn main() {

@@ -10,8 +10,7 @@ cannot be calculated.
 Escape sequences that are available for the
 [`DateTime::format`] can be found at [`chrono::format::strftime`].
 
-```rust
-extern crate chrono;
+```rust,edition2018
 use chrono::{DateTime, Duration, Utc};
 
 fn day_earlier(date_time: DateTime<Utc>) -> Option<DateTime<Utc>> {

@@ -12,10 +12,7 @@ generator [`rand::Rng`].
 The [distributions available are documented here][rand-distributions].
 An example using the [`Normal`] distribution is shown below.
 
-```rust,ignore
-extern crate rand_distr;
-extern crate rand;
-
+```rust,edition2018,ignore
 use rand_distr::{Distribution, Normal, NormalError};
 
 fn main() -> Result<(), NormalError> {

@@ -12,9 +12,7 @@ necessarily the first one.
 Also note that the argument to the closure is a reference to a reference
 (`&&x`). See the discussion on [`std::find`] for additional details.
 
-```rust
-extern crate rayon;
-
+```rust,edition2018
 use rayon::prelude::*;
 
 fn main() {

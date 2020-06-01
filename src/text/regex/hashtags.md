@@ -7,10 +7,8 @@ Extracts, sorts, and deduplicates list of hashtags from text.
 The hashtag regex given here only catches Latin hashtags that start with a
 letter. The complete [twitter hashtag regex] is much more complicated.
 
-```rust
-extern crate regex;
-#[macro_use]
-extern crate lazy_static;
+```rust,edition2018
+use lazy_static::lazy_static;
 
 use regex::Regex;
 use std::collections::HashSet;
