@@ -4,7 +4,7 @@
 
 By default, random numbers in the `rand` crate have
 [uniform distribution]. The [`rand_distr`] crate provides
-other kinds of distrubutions. To use them, you instantiate
+other kinds of distributions. To use them, you instantiate
 a distribution, then sample from that distribution using
 [`Distribution::sample`] with help of a random-number
 generator [`rand::Rng`].
