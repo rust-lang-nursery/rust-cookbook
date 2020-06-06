@@ -14,6 +14,11 @@ error uses `errors` block of the `error_chain!` macro.
 
 ```rust,edition2018
 use error_chain::error_chain;
+<<<<<<< HEAD
+=======
+
+use std::io::Read;
+>>>>>>> master
 
 error_chain! {
     foreign_links {

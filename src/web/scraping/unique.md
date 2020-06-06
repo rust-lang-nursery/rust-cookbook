@@ -11,7 +11,6 @@ MediaWiki link syntax is described [here][MediaWiki link syntax].
 ```rust,edition2018,no_run
 use error_chain::error_chain;
 use lazy_static::lazy_static;
-
 use regex::Regex;
 use std::borrow::Cow;
 use std::collections::HashSet;

@@ -19,7 +19,6 @@ use std::error::Error;
 use std::env;
 use reqwest::Client;
 
-
 #[derive(Deserialize, Debug)]
 struct Gist {
     id: String,
