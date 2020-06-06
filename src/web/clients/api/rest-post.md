@@ -11,27 +11,22 @@ provides arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request
 body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 [`RequestBuilder::send`] synchronously executes the requests.
 
-```rust,no_run
-extern crate reqwest;
-#[macro_use]
-extern crate serde_derive;
-#[macro_use]
-extern crate serde_json;
-
+```rust,edition2018,no_run
+use error_chain::error_chain;
+use serde::Deserialize;
+use serde_json::json;
 use std::error::Error;
 use std::env;
 use reqwest::Client;
 
 
 #[derive(Deserialize, Debug)]
-
 struct Gist {
     id: String,
     html_url: String,
 }
 
 #[tokio::main]
-
 async fn main() ->  Result<(),Box<dyn Error>> {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;

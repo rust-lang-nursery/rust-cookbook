@@ -3,9 +3,7 @@
 
 Creates a 3x3 matrix with [`nalgebra::Matrix3`] and inverts it, if possible.
 
-```rust
-extern crate nalgebra;
-
+```rust,edition2018
 use nalgebra::Matrix3;
 
 fn main() {

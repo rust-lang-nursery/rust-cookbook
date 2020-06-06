@@ -8,11 +8,7 @@ present in the system found with [`num_cpus::get`].  [`Walkdir::new`] iterates
 the current directory and calls [`execute`] to perform the operations of reading
 and computing SHA256 hash.
 
-```rust,no_run
-extern crate walkdir;
-extern crate ring;
-extern crate num_cpus;
-extern crate threadpool;
+```rust,edition2018,no_run
 
 use walkdir::WalkDir;
 use std::fs::File;

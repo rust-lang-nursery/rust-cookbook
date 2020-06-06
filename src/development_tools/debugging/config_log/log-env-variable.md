@@ -9,10 +9,7 @@ environment variable contents in the form of [`RUST_LOG`] syntax.
 Then, [`Builder::init`] initializes the logger.
 All these steps are normally done internally by [`env_logger::init`].
 
-```rust
-#[macro_use]
-extern crate log;
-extern crate env_logger;
+```rust,edition2018
 
 use std::env;
 use env_logger::Builder;
@@ -22,9 +19,9 @@ fn main() {
         .parse(&env::var("MY_APP_LOG").unwrap_or_default())
         .init();
 
-    info!("informational message");
-    warn!("warning message");
-    error!("this is an error {}", "message");
+    log::info!("informational message");
+    log::warn!("warning message");
+    log::error!("this is an error {}", "message");
 }
 ```
 

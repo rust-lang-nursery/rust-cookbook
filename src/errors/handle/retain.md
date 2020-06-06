@@ -12,10 +12,8 @@ the string response into an integer. The Rust standard library,
 use [`foreign_links`]. An additional [`ErrorKind`] variant for the web service
 error uses `errors` block of the `error_chain!` macro.
 
-```rust
-#[macro_use]
-extern crate error_chain;
-extern crate reqwest;
+```rust,edition2018
+use error_chain::error_chain;
 
 error_chain! {
     foreign_links {

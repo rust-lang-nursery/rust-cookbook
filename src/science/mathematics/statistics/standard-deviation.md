@@ -9,7 +9,7 @@ The standard deviation is defined as the square root of the variance (here calcu
 The z-score is the number of standard deviations a single measurement spans away from the [`mean`] of the data set.
 
 
-```rust
+```rust,edition2018
 fn mean(data: &[i32]) -> Option<f32> {
     let sum = data.iter().sum::<i32>() as f32;
     let count = data.len();

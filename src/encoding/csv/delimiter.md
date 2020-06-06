@@ -4,12 +4,9 @@
 
 Reads CSV records with a tab [`delimiter`].
 
-```rust
-extern crate csv;
+```rust,edition2018
 use csv::Error;
-#[macro_use]
-extern crate serde_derive;
-
+use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 struct Record {
     name: String,

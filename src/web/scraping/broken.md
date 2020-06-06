@@ -10,17 +10,16 @@ Iterate through links in the document and parse with [`url::ParseOptions`]
 and [`Url::parse`]). Makes a request to the links with reqwest and verifies
 [`StatusCode`].
 
-```rust,no_run
-#[macro_use]
-extern crate error_chain;
-extern crate reqwest;
-extern crate select;
-extern crate url;
+```rust,edition2018,no_run
+use error_chain::error_chain;
+use std::collections::HashSet;
+use url::{Url, Position};
 use reqwest::StatusCode;
 use select::document::Document;
 use select::predicate::Name;
 use std::collections::HashSet;
 use url::{Position, Url};
+
 error_chain! {
   foreign_links {
       ReqError(reqwest::Error);
@@ -28,6 +27,7 @@ error_chain! {
       UrlParseError(url::ParseError);
   }
 }
+
 async fn get_base_url(url: &Url, doc: &Document) -> Result<Url> {
   let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);
   let base_url =
@@ -39,6 +39,7 @@ async fn check_link(url: &Url) -> Result<bool> {
   let res = reqwest::get(url.as_ref()).await?;
   Ok(res.status() != StatusCode::NOT_FOUND)
 }
+
 #[tokio::main]
 async fn main() -> Result<()> {
   let url = Url::parse("https://www.rust-lang.org/en-US/")?;
@@ -53,14 +54,13 @@ async fn main() -> Result<()> {
     .collect();
 
   for link in links {
-    let good = check_link(&link).await?;
-    if good {
+    if check_link(&link).await? {
       println!("{} is OK", link);
-    }
     else {
       println!("{} is KO", link);
     }
   }
+
   Ok(())
 }
 ```

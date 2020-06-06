@@ -5,22 +5,17 @@
 Queries GitHub [stargazers API v3](https://developer.github.com/v3/activity/starring/#list-stargazers)
 with [`reqwest::get`] to get list of all users who have marked a GitHub project with a star. [`reqwest::Response`] is deserialized with [`Response::json`] into `User` objects implementing [`serde::Deserialize`].
 
-```rust,no_run
-#[macro_use]
-extern crate serde_derive;
-extern crate serde_json;
-extern crate reqwest;
+```rust,edition2018,no_run
+use serde::Deserialize;
 use reqwest::Error;
 
 #[derive(Deserialize, Debug)]
-
 struct User {
     login: String,
     id: u32,
 }
 
 #[tokio::main]
-
 async fn main() -> Result<(), Error> {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
                               owner = "rust-lang-nursery",

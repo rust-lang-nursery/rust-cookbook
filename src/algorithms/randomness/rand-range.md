@@ -4,9 +4,7 @@
 
 Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::gen_range`].
 
-```rust,ignore
-extern crate rand;
-
+```rust,edition2018,ignore
 use rand::Rng;
 
 fn main() {
@@ -20,9 +18,7 @@ fn main() {
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.
 
-```rust,ignore
-extern crate rand;
-
+```rust,edition2018,ignore
 
 use rand::distributions::{Distribution, Uniform};
 

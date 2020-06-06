@@ -6,10 +6,8 @@ Creates type safe bitfield type `MyFlags` with help of [`bitflags!`] macro
 and implements elementary `clear` operation as well as [`Display`] trait for it.
 Subsequently, shows basic bitwise operations and formatting.
 
-```rust
-#[macro_use]
-extern crate bitflags;
-
+```rust,edition2018
+use bitflags::bitflags;
 use std::fmt;
 
 bitflags! {

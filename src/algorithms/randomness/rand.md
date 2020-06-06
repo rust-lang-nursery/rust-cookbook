@@ -8,9 +8,7 @@ initialized generator. Integers are uniformly distributed over the range of the
 type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.
 
-```rust
-extern crate rand;
-
+```rust,edition2018
 use rand::Rng;
 
 fn main() {

@@ -8,11 +8,9 @@ look for all entries of internal and external links with
 
 MediaWiki link syntax is described [here][MediaWiki link syntax].
 
-```rust,no_run
-#[macro_use]
-extern crate lazy_static;
-extern crate regex;
-extern crate reqwest;
+```rust,edition2018,no_run
+use error_chain::error_chain;
+use lazy_static::lazy_static;
 
 use regex::Regex;
 use std::borrow::Cow;
@@ -44,7 +42,6 @@ fn extract_links(content: &str) -> HashSet<Cow<str>> {
 }
 
 #[tokio::main]
-
 async fn main() -> Result<(), Box<dyn Error>> {
   let content = reqwest::get(
     "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",

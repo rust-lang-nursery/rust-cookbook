@@ -8,8 +8,7 @@ success. This is a quick way to query a rest resource without needing to receive
 a body. [`reqwest::Client`] cofigured with [`ClientBuilder::timeout`] ensures
 a request will not last longer than a timeout.
 
-```rust,no_run
-extern crate reqwest;
+```rust,edition2018,no_run
 
 use reqwest::Error;
 use std::time::Duration;

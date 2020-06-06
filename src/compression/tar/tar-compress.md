@@ -10,9 +10,7 @@ under `backup/logs`path with [`Builder::append_dir_all`].
 [`GzEncoder`] is responsible for transparently compressing the
 data prior to writing it into `archive.tar.gz`.
 
-```rust,no_run
-extern crate tar;
-extern crate flate2;
+```rust,edition2018,no_run
 
 use std::fs::File;
 use flate2::Compression;

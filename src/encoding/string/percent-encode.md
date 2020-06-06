@@ -1,14 +1,12 @@
 ## Percent-encode a string
 
-[![url-badge]][percent-encoding] [![cat-encoding-badge]][cat-encoding]
+[![percent-encoding-badge]][percent-encoding] [![cat-encoding-badge]][cat-encoding]
 
 Encode an input string with [percent-encoding] using the [`utf8_percent_encode`]
 function from the `percent-encoding` crate. Then decode using the [`percent_decode`]
 function.
 
-```rust,ignore
-extern crate percent_encoding;
-
+```rust,edition2018,ignore
 use percent_encoding::{utf8_percent_encode, percent_decode, AsciiSet, CONTROLS};
 use std::str::Utf8Error;
 

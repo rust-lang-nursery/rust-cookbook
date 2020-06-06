@@ -6,10 +6,8 @@ Given a list of version &strs, finds the latest [`semver::Version`].
 [`semver::VersionReq`] filters the list with [`VersionReq::matches`].
 Also demonstrates `semver` pre-release preferences.
 
-```rust
-# #[macro_use]
-# extern crate error_chain;
-extern crate semver;
+```rust,edition2018
+# use error_chain::error_chain;
 
 use semver::{Version, VersionReq};
 #

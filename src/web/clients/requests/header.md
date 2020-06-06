@@ -14,15 +14,9 @@ with [`RequestBuilder::header`] then makes the request with
 The request targets <http://httpbin.org/headers> service which responds with
 a JSON dict containing all request headers for easy verification.
 
-```rust,no_run,ignore
-# #[macro_use]
-# extern crate error_chain;
-extern crate url;
-extern crate reqwest;
-#[macro_use]
-extern crate hyper;
-#[macro_use]
-extern crate serde_derive;
+```rust,edition2018,no_run,ignore
+# use error_chain::error_chain;
+use serde::Deserialize;
 
 use std::collections::HashMap;
 use url::Url;

@@ -20,7 +20,7 @@ cd rust-cookbook
 Cookbook is built with [mdBook], so install that first with Cargo:
 
 ```
-cargo install --version 0.1.8 mdbook
+cargo install --version 0.3.5 mdbook
 ```
 
 To build and view the cookbook locally, run:
@@ -80,6 +80,11 @@ on Debian based operating systems.
 
 ```
 [sudo] apt install aspell -y
+```
+
+on Mac:
+```
+brew install aspell 
 ```
 
 On other Linux distributions you might also need to install the `aspell-en`

@@ -7,7 +7,7 @@ Measures [`time::Instant::elapsed`] since [`time::Instant::now`].
 Calling [`time::Instant::elapsed`] returns a [`time::Duration`] that we print at the end of the example.
 This method will not mutate or reset the [`time::Instant`] object.
 
-```rust
+```rust,edition2018
 use std::time::{Duration, Instant};
 # use std::thread;
 #

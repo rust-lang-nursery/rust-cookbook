@@ -5,9 +5,7 @@
 Creates complex numbers of type [`num::complex::Complex`]. Both the real and
 imaginary part of the complex number must be of the same type.
 
-```rust
-extern crate num;
-
+```rust,edition2018
 fn main() {
     let complex_integer = num::complex::Complex::new(10, 20);
     let complex_float = num::complex::Complex::new(10.1, 20.1);

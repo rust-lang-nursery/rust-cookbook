@@ -8,12 +8,8 @@ then saves them in a new folder called `thumbnails`.
 [`glob::glob_with`] finds jpeg files in current directory. `rayon` resizes
 images in parallel using [`par_iter`] calling  [`DynamicImage::resize`].
 
-```rust,no_run
-# #[macro_use]
-# extern crate error_chain;
-extern crate glob;
-extern crate image;
-extern crate rayon;
+```rust,edition2018,no_run
+# use error_chain::error_chain;
 
 use std::path::Path;
 use std::fs::create_dir_all;
@@ -38,7 +34,7 @@ fn main() -> Result<()> {
         .collect();
 
     if files.len() == 0 {
-        bail!("No .jpg files found in current directory");
+        error_chain::bail!("No .jpg files found in current directory");
     }
 
     let thumb_dir = "thumbnails";
