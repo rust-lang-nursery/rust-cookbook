@@ -7,7 +7,7 @@ a file over HTTP using [`reqwest::get`] asynchronously.
 
 Creates a target [`File`] with name obtained from [`Response::url`] within
 [`tempdir()`] and copies downloaded data into it with [`io::copy`].
-The temporary directory is automatically removed on `run` function return.
+The temporary directory is automatically removed on program exit.
 
 ```rust,edition2018,no_run
 use error_chain::error_chain;

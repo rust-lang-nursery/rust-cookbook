@@ -42,18 +42,27 @@ In this example, [`tokio::main`] handles all the heavy executor setup
 and allows sequential code implemented without blocking until `.await`.
 
 Uses the asynchronous versions of [reqwest], both [`reqwest::get`] and
-[`reqwest::Response].
+[`reqwest::Response`].
 
 ```rust,no_run
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error >> {
-        let res = reqwest::get("http://httpbin.org/get").await?;
-        println!("Status: {}", res.status());
-        println!("Headers:\n{:#?}", res.headers());
+use error_chain::error_chain;
 
-        let body = res.text().await?;
-        println!("Body:\n{}", body);
-        Ok(())
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        HttpRequest(reqwest::Error);
+    }
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    let res = reqwest::get("http://httpbin.org/get").await?;
+    println!("Status: {}", res.status());
+    println!("Headers:\n{:#?}", res.headers());
+
+    let body = res.text().await?;
+    println!("Body:\n{}", body);
+    Ok(())
 }
 ```
 

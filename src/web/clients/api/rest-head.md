@@ -8,8 +8,8 @@ success. This is a quick way to query a rest resource without needing to receive
 a body. [`reqwest::Client`] cofigured with [`ClientBuilder::timeout`] ensures
 a request will not last longer than a timeout.
 
-Due to both [`ClientBuilder::build`] and [`Client::send`] returning [`reqwest::Error`]
-types, the shortcut [`reqwest::Result`] is used for the main return type. 
+Due to both [`ClientBuilder::build`] and [`ReqwestBuilder::send`] returning [`reqwest::Error`]
+types, the shortcut [`reqwest::Result`] is used for the main function return type. 
 
 ```rust,edition2018,no_run
 use reqwest::Result;
