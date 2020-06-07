@@ -7,7 +7,7 @@ found in the [Content-Type] header. [`reqwest::header::HeaderMap::get`] retrieve
 the header as a [`reqwest::header::HeaderValue`], which can be converted to a
 string. The `mime` crate can then parse that, yielding a [`mime::Mime`] value.
 
-The `mime` crate also defines some commonly used MIME types.
+The [`mime`] crate also defines some commonly used MIME types.
 
 Note that the [`reqwest::header`] module is exported from the [`http`] crate.
 

@@ -3,7 +3,7 @@
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
 Parses the supplied URL and makes a synchronous HTTP GET request
-with [`reqwest::get`]. Prints obtained [`reqwest::Response`]
+with [`reqwest::blocking::get`]. Prints obtained [`reqwest::blocking::Response`]
 status and headers. Reads HTTP response body into an allocated [`String`]
 using [`read_to_string`].
 
@@ -41,6 +41,9 @@ to make the main function asynchronous, retrieving the same information.
 In this example, [`tokio::main`] handles all the heavy executor setup
 and allows sequential code implemented without blocking until `.await`.
 
+Uses the asynchronous versions of [reqwest], both [`reqwest::get`] and
+[`reqwest::Response].
+
 ```rust,no_run
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error >> {
@@ -55,6 +58,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error >> {
 ```
 
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
+[`reqwest::blocking::get`]: https://docs.rs/reqwest/*/reqwest/blocking/fn.get.html
+[`reqwest::blocking::Response`]: https://docs.rs/reqwest/*/reqwest/blocking/struct.Response.html
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html

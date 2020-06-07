@@ -2,8 +2,8 @@
 
 [![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem]
 
-Creates a temporary directory with [`tempfile::Builder`] and synchronously downloads
-a file over HTTP using [`reqwest::get`].
+Creates a temporary directory with [`tempfile::Builder`] and downloads
+a file over HTTP using [`reqwest::get`] asynchronously.
 
 Creates a target [`File`] with name obtained from [`Response::url`] within
 [`tempdir()`] and copies downloaded data into it with [`io::copy`].

@@ -15,9 +15,15 @@ body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 use error_chain::error_chain;
 use serde::Deserialize;
 use serde_json::json;
-use std::error::Error;
 use std::env;
 use reqwest::Client;
+
+error_chain! {
+    foreign_links {
+        EnvVar(env::VarError);
+        HttpRequest(reqwest::Error);
+    }
+}
 
 #[derive(Deserialize, Debug)]
 struct Gist {
@@ -26,7 +32,7 @@ struct Gist {
 }
 
 #[tokio::main]
-async fn main() ->  Result<(),Box<dyn Error>> {
+async fn main() ->  Result<()> {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 

@@ -2,10 +2,11 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-Uses [`reqwest::Client::head`] to get the [Content-Length] of the response.
+Uses [`reqwest::blocking::Client::head`] to get the [Content-Length] of the response.
 
-The code then uses [`reqwest::Client::get`] to download the content in
-chunks of 10240 bytes, while printing progress messages. The [Range] header specifies the chunk size and position.
+The code then uses [`reqwest::blocking::Client::get`] to download the content in
+chunks of 10240 bytes, while printing progress messages. This exmple uses the synchronous
+reqwest module.  The [Range] header specifies the chunk size and position.
 
 The Range header is defined in [RFC7233][HTTP Range RFC7233].
 
@@ -51,73 +52,47 @@ impl Iterator for PartialRangeIter {
     } else {
       let prev_start = self.start;
       self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
-      Some(HeaderValue::from_str(&format!("bytes={}-{}", prev_start, self.start - 1)).expect('string provided by format!'))
+      Some(HeaderValue::from_str(&format!("bytes={}-{}", prev_start, self.start - 1)).expect("string provided by format!"))
     }
   }
 }
 
-#[tokio::main]
-async fn main() -> Result<()> {
+fn main() -> Result<()> {
   let url = "https://httpbin.org/range/102400?duration=2";
   const CHUNK_SIZE: u32 = 10240;
-
-  let client = reqwest::Client::new();
-  let response = client.head(url).send().await?;
+    
+  let client = reqwest::blocking::Client::new();
+  let response = client.head(url).send()?;
   let length = response
     .headers()
     .get(CONTENT_LENGTH)
     .ok_or("response doesn't include the content length")?;
   let length = u64::from_str(length.to_str()?).map_err(|_| "invalid Content-Length header")?;
-
+    
   let mut output_file = File::create("download.bin")?;
-
+    
   println!("starting download...");
   for range in PartialRangeIter::new(0, length - 1, CHUNK_SIZE)? {
     println!("range {:?}", range);
-    let response = client.get(url).header(RANGE, range).send().await?;
-
+    let mut response = client.get(url).header(RANGE, range).send()?;
+    
     let status = response.status();
     if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
-      bail!("Unexpected server response: {}", status)
-
-fn main() -> Result<()> {
-    let url = "https://httpbin.org/range/102400?duration=2";
-    const CHUNK_SIZE: u32 = 10240;
-
-    let client = reqwest::Client::new();
-    let response = client.head(url).send()?;
-    let length = response
-        .headers()
-        .get(CONTENT_LENGTH)
-        .ok_or("response doesn't include the content length")?;
-    let length = u64::from_str(length.to_str()?).map_err(|_| "invalid Content-Length header")?;
-
-    let mut output_file = File::create("download.bin")?;
-
-    println!("starting download...");
-    for range in PartialRangeIter::new(0, length - 1, CHUNK_SIZE)? {
-        println!("range {:?}", range);
-        let mut response = client.get(url).header(RANGE, range).send()?;
-
-        let status = response.status();
-        if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
-            error_chain::bail!("Unexpected server response: {}", status)
-        }
-
-        std::io::copy(&mut response, &mut output_file)?;
+      error_chain::bail!("Unexpected server response: {}", status)
     }
-
-    let content = response.text().await?;
-    std::io::copy(&mut content.as_bytes(), &mut output_file)?;
+    std::io::copy(&mut response, &mut output_file)?;
   }
+    
+  let content = response.text()?;
+  std::io::copy(&mut content.as_bytes(), &mut output_file)?;
 
   println!("Finished with success!");
   Ok(())
 }
 ```
 
-[`reqwest::Client::get`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.get
-[`reqwest::Client::head`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head
+[`reqwest::blocking::Client::get`]: https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.get
+[`reqwest::blocking::Client::get`]: https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.head
 [Content-Length]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length
 [Range]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range
 
