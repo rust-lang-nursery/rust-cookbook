@@ -6,7 +6,7 @@ Encode an input string with [percent-encoding] using the [`utf8_percent_encode`]
 function from the `percent-encoding` crate. Then decode using the [`percent_decode`]
 function.
 
-```rust,edition2018,ignore
+```rust,edition2018
 use percent_encoding::{utf8_percent_encode, percent_decode, AsciiSet, CONTROLS};
 use std::str::Utf8Error;
 
