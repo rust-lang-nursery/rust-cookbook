@@ -24,6 +24,8 @@ matrix:
     - rust: stable
       os: linux
       env: CONTENT_TESTS=1 CONTENT_TESTS_LINKS=1
+    - rust: stable 
+      os: osx
 
 addons:
   apt:
