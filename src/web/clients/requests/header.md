@@ -14,7 +14,7 @@ with [`RequestBuilder::header`] then makes the request with
 The request targets <http://httpbin.org/headers> service which responds with
 a JSON dict containing all request headers for easy verification.
 
-```rust,edition2018,no_run,ignore
+```rust,edition2018,no_run
 # use error_chain::error_chain;
 use serde::Deserialize;
 

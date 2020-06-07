@@ -29,7 +29,7 @@ use rayon::prelude::*;
 
 fn main() -> Result<()> {
     let options: MatchOptions = Default::default();
-    let files: Vec<_> = glob_with("*.jpg", &options)?
+    let files: Vec<_> = glob_with("*.jpg", options)?
         .filter_map(|x| x.ok())
         .collect();
 

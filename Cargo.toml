@@ -23,7 +23,7 @@ data-encoding = "2.1.0"
 env_logger = "0.5"
 error-chain = "0.12"
 flate2 = "1.0"
-glob = "0.2"
+glob = "0.3"
 image = "0.20"
 lazy_static = "1.0"
 log = "0.4"
@@ -63,9 +63,9 @@ walkdir = "2.0"
 syslog = "5.0"
 
 [build-dependencies]
-skeptic = "0.13"
+skeptic = { git = 'https://github.com/andygauge/rust-skeptic'}
 walkdir = "2.0"
 
 [dev-dependencies]
-skeptic = "0.13"
+skeptic = { git = 'https://github.com/andygauge/rust-skeptic'}
 walkdir = "2.0"
