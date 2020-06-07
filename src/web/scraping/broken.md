@@ -17,7 +17,6 @@ use reqwest::StatusCode;
 use select::document::Document;
 use select::predicate::Name;
 use std::collections::HashSet;
-use tokio::stream::{self, StreamExt};
 use url::{Position, Url};
 
 error_chain! {

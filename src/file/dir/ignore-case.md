@@ -7,16 +7,15 @@ Find all image files in the `/media/` directory matching the `img_[0-9]*.png` pa
 A custom [`MatchOptions`] struct is passed to the [`glob_with`] function making the glob pattern case insensitive while keeping the other options [`Default`].
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-
+use error_chain::error_chain;
 use glob::{glob_with, MatchOptions};
-#
-# error_chain! {
-#     foreign_links {
-#         Glob(glob::GlobError);
-#         Pattern(glob::PatternError);
-#     }
-# }
+
+error_chain! {
+    foreign_links {
+        Glob(glob::GlobError);
+        Pattern(glob::PatternError);
+    }
+}
 
 fn main() -> Result<()> {
     let options = MatchOptions {
@@ -24,7 +23,7 @@ fn main() -> Result<()> {
         ..Default::default()
     };
 
-    for entry in glob_with("/media/img_[0-9]*.png", &options)? {
+    for entry in glob_with("/media/img_[0-9]*.png", options)? {
         println!("{}", entry?.display());
     }
 
