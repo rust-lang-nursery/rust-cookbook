@@ -12,12 +12,22 @@ The task makes a request to the links with [reqwest] and verifies
 [`StatusCode`].  Then the tasks `await` completion before ending the program.
 
 ```rust,edition2018,no_run
+use error_chain::error_chain;
 use reqwest::StatusCode;
 use select::document::Document;
 use select::predicate::Name;
 use std::collections::HashSet;
-use anyhow::Result;
+use tokio::stream::{self, StreamExt};
 use url::{Position, Url};
+
+error_chain! {
+  foreign_links {
+      ReqError(reqwest::Error);
+      IoError(std::io::Error);
+      UrlParseError(url::ParseError);
+      JoinError(tokio::task::JoinError);
+  }
+}
 
 async fn get_base_url(url: &Url, doc: &Document) -> Result<Url> {
   let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);

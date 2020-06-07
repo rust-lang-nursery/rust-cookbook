@@ -9,7 +9,6 @@ build = "build.rs"
 
 [dependencies]
 ansi_term = "0.11.0"
-anyhow = "1.0"
 approx = "0.3"
 base64 = "0.9"
 bitflags = "1.0"
