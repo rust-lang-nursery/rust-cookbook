@@ -7,28 +7,27 @@ found in the [Content-Type] header. [`reqwest::header::HeaderMap::get`] retrieve
 the header as a [`reqwest::header::HeaderValue`], which can be converted to a
 string. The `mime` crate can then parse that, yielding a [`mime::Mime`] value.
 
-The `mime` crate also defines some commonly used MIME types.
+The [`mime`] crate also defines some commonly used MIME types.
 
 Note that the [`reqwest::header`] module is exported from the [`http`] crate.
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-
+use error_chain::error_chain;
 use mime::Mime;
 use std::str::FromStr;
 use reqwest::header::CONTENT_TYPE;
 
-#
-# error_chain! {
-#    foreign_links {
-#        Reqwest(reqwest::Error);
-#        Header(reqwest::header::ToStrError);
-#        Mime(mime::FromStrError);
-#    }
-# }
+ error_chain! {
+    foreign_links {
+        Reqwest(reqwest::Error);
+        Header(reqwest::header::ToStrError);
+        Mime(mime::FromStrError);
+    }
+ }
 
-fn main() -> Result<()> {
-    let response = reqwest::get("https://www.rust-lang.org/logos/rust-logo-32x32.png")?;
+#[tokio::main]
+async fn main() -> Result<()> {
+    let response = reqwest::get("https://www.rust-lang.org/logos/rust-logo-32x32.png").await?;
     let headers = response.headers();
 
     match headers.get(CONTENT_TYPE) {

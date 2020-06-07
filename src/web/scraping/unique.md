@@ -9,55 +9,50 @@ look for all entries of internal and external links with
 MediaWiki link syntax is described [here][MediaWiki link syntax].
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
 use lazy_static::lazy_static;
-
-use std::io::Read;
-use std::collections::HashSet;
-use std::borrow::Cow;
 use regex::Regex;
+use std::borrow::Cow;
+use std::collections::HashSet;
+use std::error::Error;
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         Reqwest(reqwest::Error);
-#         Regex(regex::Error);
-#     }
-# }
-#
-fn extract_links(content: &str) -> Result<HashSet<Cow<str>>> {
-    lazy_static! {
-        static ref WIKI_REGEX: Regex =
-            Regex::new(r"(?x)
+fn extract_links(content: &str) -> HashSet<Cow<str>> {
+  lazy_static! {
+    static ref WIKI_REGEX: Regex = Regex::new(
+      r"(?x)
                 \[\[(?P<internal>[^\[\]|]*)[^\[\]]*\]\]    # internal links
                 |
                 (url=|URL\||\[)(?P<external>http.*?)[ \|}] # external links
-            ").unwrap();
-    }
+            "
+    )
+    .unwrap();
+  }
 
-    let links: HashSet<_> = WIKI_REGEX
-        .captures_iter(content)
-        .map(|c| match (c.name("internal"), c.name("external")) {
-            (Some(val), None) => Cow::from(val.as_str().to_lowercase()),
-            (None, Some(val)) => Cow::from(val.as_str()),
-            _ => unreachable!(),
-        })
-        .collect();
+  let links: HashSet<_> = WIKI_REGEX
+    .captures_iter(content)
+    .map(|c| match (c.name("internal"), c.name("external")) {
+      (Some(val), None) => Cow::from(val.as_str().to_lowercase()),
+      (None, Some(val)) => Cow::from(val.as_str()),
+      _ => unreachable!(),
+    })
+    .collect();
 
-    Ok(links)
+  links
 }
 
-fn main() -> Result<()> {
-    let mut content = String::new();
-    reqwest::get(
-        "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
-    )?
-        .read_to_string(&mut content)?;
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+  let content = reqwest::get(
+    "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
+  )
+  .await?
+  .text()
+  .await?;
 
-    println!("{:#?}", extract_links(&content)?);
+  println!("{:#?}", extract_links(content.as_str()));
 
-    Ok(())
+  Ok(())
 }
+
 ```
 
 [`Cow`]: https://doc.rust-lang.org/std/borrow/enum.Cow.html
