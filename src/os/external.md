@@ -10,4 +10,6 @@
 
 {{#include external/continuous.md}}
 
+{{#include external/read-env-variable.md}}
+
 {{#include ../links.md}}
