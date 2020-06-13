@@ -30,7 +30,7 @@ log = "0.4"
 log4rs = "0.8"
 memmap = "0.7"
 mime = "0.3"
-nalgebra = "0.16.12"
+nalgebra = { version = "0.16.12", features = ["serde-serialize"] }
 ndarray = { version = "0.13", features = ["approx"] }
 num = "0.2"
 num_cpus = "1.8"
