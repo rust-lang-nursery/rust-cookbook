@@ -5,7 +5,7 @@
 Query the GitHub Users Endpoint using a HEAD
 request ([`Client::head`]) and then inspect the response code to determine
 success. This is a quick way to query a rest resource without needing to receive
-a body. [`reqwest::Client`] cofigured with [`ClientBuilder::timeout`] ensures
+a body. [`reqwest::Client`] configured with [`ClientBuilder::timeout`] ensures
 a request will not last longer than a timeout.
 
 Due to both [`ClientBuilder::build`] and [`ReqwestBuilder::send`] returning [`reqwest::Error`]
