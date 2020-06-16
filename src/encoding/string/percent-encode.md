@@ -11,7 +11,14 @@ use percent_encoding::{utf8_percent_encode, percent_decode, AsciiSet, CONTROLS};
 use std::str::Utf8Error;
 
 /// https://url.spec.whatwg.org/#fragment-percent-encode-set
-const FRAGMENT: &AsciiSet = &CONTROLS.add(b' ').add(b'"').add(b'<').add(b'>').add(b'`');
+const FRAGMENT: &AsciiSet = &CONTROLS
+    .add(b' ')
+    .add(b'"')
+    .add(b'<')
+    .add(b'>')
+    .add(b'`')
+    .add(b'+')
+    .add(b'%');
 
 fn main() -> Result<(), Utf8Error> {
     let input = "confident, productive systems programming";
