@@ -73,4 +73,4 @@ async fn main() -> Result<()> {
 [`reqwest::Response`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`tokio`]: https://docs.rs/crate/tokio/0.2.11
-[`tokio::main`]: https://tokio.rs/docs/getting-started/hello-world/#let-s-write-some-code
+[`tokio::main`]: https://tokio.rs/tokio/tutorial/hello-tokio#the-code
