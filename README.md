@@ -3,7 +3,10 @@
 [Build Status travis]: https://api.travis-ci.com/rust-lang-nursery/rust-cookbook.svg?branch=master
 [travis]: https://travis-ci.com/rust-lang-nursery/rust-cookbook
 
-**[Read it here]**.
+## Languages
+
+- [English][Read it here]
+- [中文简体](https://github.com/zzy/rust-cookbook-zh-cn), [在线阅读](https://rust-cookbook.budshome.com)
 
 This _Rust Cookbook_ is a collection of simple [Rust] examples that
 demonstrate good practices to accomplish common programming tasks,
