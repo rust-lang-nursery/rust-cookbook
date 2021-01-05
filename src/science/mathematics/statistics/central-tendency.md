@@ -121,14 +121,14 @@ fn main() {
 }
 ```
 
-[Option]: https://doc.rust-lang.org/std/option/enum.Option.html
-[sum]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum
-[len]: https://doc.rust-lang.org/std/primitive.slice.html#method.len
-[sort]: https://doc.rust-lang.org/std/primitive.slice.html#method.sort
-[cmp]: https://doc.rust-lang.org/beta/std/cmp/trait.Ord.html#tymethod.cmp
-[Ordering]: https://doc.rust-lang.org/beta/std/cmp/enum.Ordering.html
-[split_at]: https://doc.rust-lang.org/std/primitive.slice.html#method.split_at
-[HashMap]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
-[fold]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.fold
-[entry]: https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html
-[max_by_key]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.max_by_key
+[`Option`]: https://doc.rust-lang.org/std/option/enum.Option.html
+[`sum`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum
+[`len`]: https://doc.rust-lang.org/std/primitive.slice.html#method.len
+[`sort`]: https://doc.rust-lang.org/std/primitive.slice.html#method.sort
+[`cmp`]: https://doc.rust-lang.org/std/cmp/trait.Ord.html#tymethod.cmp
+[`Ordering`]: https://doc.rust-lang.org/std/cmp/enum.Ordering.html
+[`split_at`]: https://doc.rust-lang.org/std/primitive.slice.html#method.split_at
+[`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
+[`fold`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.fold
+[`entry`]: https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html
+[`max_by_key`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.max_by_key
