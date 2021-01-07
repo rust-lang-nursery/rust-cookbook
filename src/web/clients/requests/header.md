@@ -2,68 +2,61 @@
 
 [![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![url-badge]][url] [![cat-net-badge]][cat-net]
 
-Sets both standard and custom HTTP headers as well as URL parameters
-for a HTTP GET request. Creates a custom header of type `XPoweredBy`
-with [`hyper::header!`] macro.
-
 Builds complex URL with [`Url::parse_with_params`].  Sets standard headers
-[`header::UserAgent`], [`header::Authorization`], and custom `XPoweredBy`
-with [`RequestBuilder::header`] then makes the request with
+[`header::USER_AGENT`], and custom `X-Powered-By` header with 
+[`RequestBuilder::HeaderName::TryFrom<&'a str>`] then makes the request with
 [`RequestBuilder::send`].
 
-The request targets <http://httpbin.org/headers> service which responds with
+The request target <http://httpbin.org/headers> responds with
 a JSON dict containing all request headers for easy verification.
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
+use error_chain::error_chain;
+
+use reqwest::Url;
+use reqwest::blocking::Client;
+use reqwest::header::USER_AGENT;
 use serde::Deserialize;
-
 use std::collections::HashMap;
-use url::Url;
-use reqwest::Client;
-use reqwest::header::{UserAgent, Authorization, Bearer};
 
-header! { (XPoweredBy, "X-Powered-By") => [String] }
+error_chain! {
+    foreign_links {
+        Reqwest(reqwest::Error);
+        UrlParse(url::ParseError);
+    }
+}
 
 #[derive(Deserialize, Debug)]
 pub struct HeadersEcho {
     pub headers: HashMap<String, String>,
 }
-#
-# error_chain! {
-#     foreign_links {
-#         Reqwest(reqwest::Error);
-#         UrlParse(url::ParseError);
-#     }
-# }
 
 fn main() -> Result<()> {
-    let url = Url::parse_with_params("http://httpbin.org/headers",
-                                     &[("lang", "rust"), ("browser", "servo")])?;
+    let url = Url::parse_with_params(
+        "http://httpbin.org/headers",
+        &[("lang", "rust"), ("browser", "servo")],
+    )?;
 
-    let mut response = Client::new()
+    let response = Client::new()
         .get(url)
-        .header(UserAgent::new("Rust-test"))
-        .header(Authorization(Bearer { token: "DEadBEEfc001cAFeEDEcafBAd".to_owned() }))
-        .header(XPoweredBy("Guybrush Threepwood".to_owned()))
+        .header(USER_AGENT, "Rust-test-agent")
+        .header("X-Powered-By", "Rust")
         .send()?;
 
-    let out: HeadersEcho = response.json()?;
-    assert_eq!(out.headers["Authorization"],
-               "Bearer DEadBEEfc001cAFeEDEcafBAd");
-    assert_eq!(out.headers["User-Agent"], "Rust-test");
-    assert_eq!(out.headers["X-Powered-By"], "Guybrush Threepwood");
-    assert_eq!(response.url().as_str(),
-               "http://httpbin.org/headers?lang=rust&browser=servo");
+    assert_eq!(
+        response.url().as_str(),
+        "http://httpbin.org/headers?lang=rust&browser=servo"
+    );
 
-    println!("{:?}", out);
+    let out: HeadersEcho = response.json()?;
+    assert_eq!(out.headers["User-Agent"], "Rust-test-agent");
+    assert_eq!(out.headers["X-Powered-By"], "Rust");
+
     Ok(())
 }
 ```
 
-[`header::Authorization`]: https://doc.servo.org/hyper/header/struct.Authorization.html
-[`header::UserAgent`]: https://doc.servo.org/hyper/header/struct.UserAgent.html
-[`hyper::header!`]: https://doc.servo.org/hyper/macro.header.html
-[`RequestBuilder::header`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.header
+[`header::USER_AGENT`]: https://docs.rs/reqwest/*/reqwest/header/constant.USER_AGENT.html
+[`RequestBuilder::HeaderName::TryFrom<&'a str>`]: https://docs.rs/reqwest/*/reqwest/header/struct.HeaderName.html#impl-TryFrom%3C%26%27a%20str%3E
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
 [`Url::parse_with_params`]: https://docs.rs/url/*/url/struct.Url.html#method.parse_with_params

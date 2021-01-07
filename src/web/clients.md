@@ -3,6 +3,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+| [Set custom headers and URL parameters for a REST request][ex-url-header] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API resource exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
@@ -12,6 +13,7 @@
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
 [ex-url-basic]: clients/requests.html#make-a-http-get-request
+[ex-url-header]: web/clients/requests.html#set-custom-headers-and-url-parameters-for-a-rest-request
 [ex-rest-custom-params]: clients/requests.html#set-custom-headers-and-url-parameters-for-a-rest-request
 [ex-rest-get]: clients/apis.html#query-the-github-api
 [ex-rest-head]: clients/apis.html#check-if-an-api-resource-exists
