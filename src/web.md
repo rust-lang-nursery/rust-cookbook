@@ -39,6 +39,12 @@
 | [Make a partial download with HTTP range headers][ex-progress-with-range] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
+## Web Authentication
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Basic Authentication][ex-basic-authentication] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
+
 [ex-extract-links-webpage]: web/scraping.html#extract-all-links-from-a-webpage-html
 [ex-check-broken-links]: web/scraping.html#check-a-webpage-for-broken-links
 [ex-extract-mediawiki-links]: web/scraping.html#extract-all-unique-links-from-a-mediawiki-markup
@@ -63,5 +69,7 @@
 [ex-url-download]: web/clients/download.html#download-a-file-to-a-temporary-directory
 [ex-progress-with-range]: web/clients/download.html#make-a-partial-download-with-http-range-headers
 [ex-file-post]: web/clients/download.html#post-a-file-to-paste-rs
+
+[ex-basic-authentication]: web/clients/authentication.html#basic-authentication
 
 {{#include links.md}}
