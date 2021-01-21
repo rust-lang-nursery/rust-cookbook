@@ -19,16 +19,16 @@ fn main() {
         .version("0.1.0")
         .author("Hackerman Jones <hckrmnjones@hack.gov>")
         .about("Teaches argument parsing")
-        .arg(Arg::with_name("file")
-                 .short("f")
+        .arg(Arg::new("file")
+                 .short('f')
                  .long("file")
                  .takes_value(true)
-                 .help("A cool file"))
-        .arg(Arg::with_name("num")
-                 .short("n")
+                 .about("A cool file"))
+        .arg(Arg::new("num")
+                 .short('n')
                  .long("number")
                  .takes_value(true)
-                 .help("Five less than your favorite number"))
+                 .about("Five less than your favorite number"))
         .get_matches();
 
     let myfile = matches.value_of("file").unwrap_or("input.txt");
