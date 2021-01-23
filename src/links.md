@@ -105,7 +105,7 @@ Keep lines sorted.
 [postgres]: https://docs.rs/postgres/0.15.2/postgres/
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
-[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand_distr
+[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand_distr.svg?label=rand_distr
 [rand_distr]: https://docs.rs/rand_distr/
 [rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
 [rayon]: https://docs.rs/rayon/
