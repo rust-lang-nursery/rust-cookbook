@@ -1,6 +1,3 @@
-extern crate skeptic;
-extern crate walkdir;
-
 use walkdir::WalkDir;
 
 const REMOVED_TESTS: &[&str] = &[

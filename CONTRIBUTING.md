@@ -271,9 +271,7 @@ Mark examples that depend on external systems with `no_run` or remove them
 if they are not required for the example.  Avoid inline comments, preferring
 explanation in the description.
 
-> ```rust
-> extern crate rand;
->
+> ```rust,edition2018
 > use rand::distributions::{Normal, Distribution};
 >
 > fn main() {
