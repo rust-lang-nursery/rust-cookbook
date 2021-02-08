@@ -2,9 +2,9 @@
 
 [![percent-encoding-badge]][percent-encoding] [![cat-encoding-badge]][cat-encoding]
 
-Encode an input string with [percent-encoding] using the [`utf8_percent_encode`]
-function from the `percent-encoding` crate. Then decode using the [`percent_decode`]
-function.
+Encode an input string with [percent-encoding][percent-encoding-wiki] using the
+[`utf8_percent_encode`] function from the `percent-encoding` crate. Then decode
+using the [`percent_decode`] function.
 
 ```rust,edition2018
 use percent_encoding::{utf8_percent_encode, percent_decode, AsciiSet, CONTROLS};
@@ -38,4 +38,5 @@ a `String`.
 [`percent_decode`]: https://docs.rs/percent-encoding/*/percent_encoding/fn.percent_decode.html
 [`utf8_percent_encode`]: https://docs.rs/percent-encoding/*/percent_encoding/fn.utf8_percent_encode.html
 
-[percent-encoding]: https://en.wikipedia.org/wiki/Percent-encoding
+[percent-encoding]: https://docs.rs/percent-encoding/
+[percent-encoding-wiki]: https://en.wikipedia.org/wiki/Percent-encoding
