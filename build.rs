@@ -9,7 +9,8 @@ const REMOVED_TESTS: &[&str] = &[
 ];
 
 fn main() {
-    let paths = WalkDir::new("./src/").into_iter()
+    let paths = WalkDir::new("./src/")
+        .into_iter()
         // convert paths to Strings
         .map(|p| p.unwrap().path().to_str().unwrap().to_string())
         // only compile markdown files
