@@ -15,9 +15,9 @@ struct Person {
 }
 
 impl Person {
-    pub fn new(name: String, age: u32) -> Self {
+    pub fn new(name: &str, age: u32) -> Self {
         Person {
-            name,
+            name: name.to_string(),
             age
         }
     }
@@ -25,9 +25,9 @@ impl Person {
 
 fn main() {
     let mut people = vec![
-        Person::new("Zoe".to_string(), 25),
-        Person::new("Al".to_string(), 60),
-        Person::new("John".to_string(), 1),
+        Person::new("Zoe", 25),
+        Person::new("Al", 60),
+        Person::new("John", 1),
     ];
 
     // Sort people by derived natural order (Name and age)
@@ -36,9 +36,9 @@ fn main() {
     assert_eq!(
         people,
         vec![
-            Person::new("Al".to_string(), 60),
-            Person::new("John".to_string(), 1),
-            Person::new("Zoe".to_string(), 25),
+            Person::new("Al", 60),
+            Person::new("John", 1),
+            Person::new("Zoe", 25),
         ]);
 
     // Sort people by age
@@ -47,9 +47,9 @@ fn main() {
     assert_eq!(
         people,
         vec![
-            Person::new("Al".to_string(), 60),
-            Person::new("Zoe".to_string(), 25),
-            Person::new("John".to_string(), 1),
+            Person::new("Al", 60),
+            Person::new("Zoe", 25),
+            Person::new("John", 1),
         ]);
 
 }
