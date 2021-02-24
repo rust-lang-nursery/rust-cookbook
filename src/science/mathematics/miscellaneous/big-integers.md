@@ -9,7 +9,7 @@ use num::bigint::{BigInt, ToBigInt};
 
 fn factorial(x: i32) -> BigInt {
     if let Some(mut factorial) = 1.to_bigint() {
-        for i in 1..(x+1) {
+        for i in 1..=x {
             factorial = factorial * i;
         }
         factorial

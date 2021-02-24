@@ -65,3 +65,4 @@
     - [Making Requests](web/clients/requests.md)
     - [Calling a Web API](web/clients/apis.md)
     - [Downloads](web/clients/download.md)
+    - [Web Authentication](web/clients/authentication.md)
