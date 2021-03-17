@@ -18,9 +18,9 @@ struct Record {
 use csv::ReaderBuilder;
 
 fn main() -> Result<(), Error> {
-    let data = "name\tplace\tid
-		Mark\tMelbourne\t46
-		Ashley\tZurich\t92";
+    let data = "name\tplace\tid\n\
+        Mark\tMelbourne\t46\n\
+        Ashley\tZurich\t92";
 
     let mut reader = ReaderBuilder::new().delimiter(b'\t').from_reader(data.as_bytes());
     for result in reader.deserialize::<Record>() {
