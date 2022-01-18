@@ -27,6 +27,7 @@ use image::{ImageBuffer, Pixel, Rgb};
 #     foreign_links {
 #         MpscRecv(RecvError);
 #         Io(std::io::Error);
+#         Image(image::ImageError);
 #     }
 # }
 #
