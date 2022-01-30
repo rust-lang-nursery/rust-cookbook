@@ -144,7 +144,7 @@ work.
 
 For the sake of readability error handling boilerplate is hidden by
 default like below.  In order to read full contents click on the
-"expand" (<i class="fa fa-expand"></i>) button located in the top
+"Show hidden lines" (<i class="fa fa-eye"></i>) button located in the top
 right corner of the snippet.
 
 ```rust,edition2018
