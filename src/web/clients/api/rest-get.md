@@ -12,6 +12,7 @@ processing the response into User instances.
 ```rust,edition2018,no_run
 use serde::Deserialize;
 use reqwest::Error;
+use reqwest::header::USER_AGENT;
 
 #[derive(Deserialize, Debug)]
 struct User {
@@ -25,7 +26,13 @@ async fn main() -> Result<(), Error> {
                               owner = "rust-lang-nursery",
                               repo = "rust-cookbook");
     println!("{}", request_url);
-    let response = reqwest::get(&request_url).await?;
+    
+    let client = reqwest::Client::new();
+    let response = client
+        .get(request_url)
+        .header(USER_AGENT, "rust-web-api-client") // gh api requires a user-agent header
+        .send()
+        .await?;
 
     let users: Vec<User> = response.json().await?;
     println!("{:?}", users);
