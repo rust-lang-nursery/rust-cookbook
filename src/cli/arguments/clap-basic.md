@@ -12,20 +12,20 @@ flag the user will be expected to type; short flags look like `-f` and long
 flags look like `--file`.
 
 ```rust,edition2018
-use clap::{Arg, App};
+use clap::{Arg, Command};
 
 fn main() {
-    let matches = App::new("My Test Program")
+    let matches = Command::new("My Test Program")
         .version("0.1.0")
         .author("Hackerman Jones <hckrmnjones@hack.gov>")
         .about("Teaches argument parsing")
-        .arg(Arg::with_name("file")
-                 .short("f")
+        .arg(Arg::new("file")
+                 .short('f')
                  .long("file")
                  .takes_value(true)
                  .help("A cool file"))
-        .arg(Arg::with_name("num")
-                 .short("n")
+        .arg(Arg::new("num")
+                 .short('n')
                  .long("number")
                  .takes_value(true)
                  .help("Five less than your favorite number"))
