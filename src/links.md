@@ -50,7 +50,7 @@ Keep lines sorted.
 
 <!-- Crates -->
 
-[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=ansi_term
+[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/ansi_term.svg?label=ansi_term
 [ansi_term]: https://docs.rs/ansi_term/
 [base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
@@ -90,7 +90,7 @@ Keep lines sorted.
 [log]: https://docs.rs/log/
 [memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
 [memmap]: https://docs.rs/memmap/
-[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
+[mime-badge]: https://badge-cache.kominick.com/crates/v/mime.svg?label=mime
 [mime]: https://docs.rs/mime/
 [nalgebra-badge]: https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra
 [nalgebra]: https://docs.rs/nalgebra
@@ -105,7 +105,7 @@ Keep lines sorted.
 [postgres]: https://docs.rs/postgres/0.15.2/postgres/
 [rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
-[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand_distr
+[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand_distr.svg?label=rand_distr
 [rand_distr]: https://docs.rs/rand_distr/
 [rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
 [rayon]: https://docs.rs/rayon/
