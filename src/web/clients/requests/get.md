@@ -37,6 +37,8 @@ fn main() -> Result<()> {
 
 A similar approach can be used by including the [`tokio`] executor
 to make the main function asynchronous, retrieving the same information.
+Make sure to add tokio = {version = "1.21.2", features = ["full"]} to
+your cargo.toml file.
 
 In this example, [`tokio::main`] handles all the heavy executor setup
 and allows sequential code implemented without blocking until `.await`.
@@ -55,7 +57,7 @@ error_chain! {
 }
 
 #[tokio::main]
-async fn main() -> Result<()> {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let res = reqwest::get("http://httpbin.org/get").await?;
     println!("Status: {}", res.status());
     println!("Headers:\n{:#?}", res.headers());
