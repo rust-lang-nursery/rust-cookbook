@@ -17,7 +17,7 @@ use reqwest::StatusCode;
 use select::document::Document;
 use select::predicate::Name;
 use std::collections::HashSet;
-use url::{Position, Url};
+use url::Url;
 
 error_chain! {
   foreign_links {
@@ -28,30 +28,31 @@ error_chain! {
   }
 }
 
-async fn get_base_url(url: &Url, doc: &Document) -> Result<Url> {
-  let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);
-  let base_url =
-    base_tag_href.map_or_else(|| Url::parse(&url[..Position::BeforePath]), Url::parse)?;
-  Ok(base_url)
+fn get_base_url(doc: &Document) -> Result<Option<Url>> {
+    let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);
+    match base_tag_href {
+        Some(href) => Ok(Some(Url::parse(href)?)),
+        None => Ok(None),
+    }
 }
 
 async fn check_link(url: &Url) -> Result<bool> {
-  let res = reqwest::get(url.as_ref()).await?;
-  Ok(res.status() != StatusCode::NOT_FOUND)
+    let res = reqwest::get(url.as_ref()).await?;
+    Ok(res.status() != StatusCode::NOT_FOUND)
 }
 
 #[tokio::main]
 async fn main() -> Result<()> {
-  let url = Url::parse("https://www.rust-lang.org/en-US/")?;
-  let res = reqwest::get(url.as_ref()).await?.text().await?;
-  let document = Document::from(res.as_str());
-  let base_url = get_base_url(&url, &document).await?;
-  let base_parser = Url::options().base_url(Some(&base_url));
-  let links: HashSet<Url> = document
-    .find(Name("a"))
-    .filter_map(|n| n.attr("href"))
-    .filter_map(|link| base_parser.parse(link).ok())
-    .collect();
+    let url = Url::parse("https://www.rust-lang.org/en-US/")?;
+    let res = reqwest::get(url.as_ref()).await?.text().await?;
+    let document = Document::from(res.as_str());
+    let base_url = get_base_url(&document)?.unwrap_or(url);
+    let base_parser = Url::options().base_url(Some(&base_url));
+    let links: HashSet<Url> = document
+        .find(Name("a"))
+        .filter_map(|n| n.attr("href"))
+        .filter_map(|link| base_parser.parse(link).ok())
+        .collect();
     let mut tasks = vec![];
 
     for link in links {
@@ -68,7 +69,7 @@ async fn main() -> Result<()> {
         task.await?
     }
 
-  Ok(())
+    Ok(())
 }
 ```
 
