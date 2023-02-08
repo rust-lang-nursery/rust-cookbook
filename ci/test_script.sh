@@ -37,7 +37,7 @@ if [[ "${CONTENT_TESTS:-}" == 1 ]]; then
             exit 1
         fi
         echo "Checking local links:"
-        # failing local link test  is a hard error as there should be no false possitives
+        # failing local link test  is a hard error as there should be no false positives
         link-checker --no-external ./book/
 
         echo "Checking external links:"

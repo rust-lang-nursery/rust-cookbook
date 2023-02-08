@@ -2,7 +2,7 @@
 
 [![reqwest-badge]][reqwest] [![mime-badge]][mime] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
-When receiving a HTTP reponse from `reqwest` the [MIME type] or media type may be
+When receiving a HTTP response from `reqwest` the [MIME type] or media type may be
 found in the [Content-Type] header. [`reqwest::header::HeaderMap::get`] retrieves
 the header as a [`reqwest::header::HeaderValue`], which can be converted to a
 string. The `mime` crate can then parse that, yielding a [`mime::Mime`] value.
@@ -44,7 +44,7 @@ async fn main() -> Result<()> {
                 _ => "neither text nor image",
             };
 
-            println!("The reponse contains {}.", media_type);
+            println!("The response contains {}.", media_type);
         }
     };
 

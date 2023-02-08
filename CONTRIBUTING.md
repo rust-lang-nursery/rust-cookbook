@@ -253,7 +253,7 @@ minimum.
 
 When an example must handle the possibility of errors, follow the error handling
 templates in ["A note about error handling"][errors]. Examples always set up
-error handling correctly and propagate errors with `?` (not `try!`, `urwrap`, or
+error handling correctly and propagate errors with `?` (not `try!`, `unwrap`, or
 `expect`). If there is no need for error handling in the example, prefer `main()`.
 
 Avoid glob imports (`*`), even for preludes, so that users can see what
