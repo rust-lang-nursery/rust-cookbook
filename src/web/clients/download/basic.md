@@ -1,6 +1,6 @@
 ## Download a file to a temporary directory
 
-[![reqwest-badge]][reqwest] [![tempdir-badge]][tempdir] [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem]
+[![reqwest-badge]][reqwest] [![tempfile-badge]][tempfile] [![cat-net-badge]][cat-net] [![cat-filesystem-badge]][cat-filesystem]
 
 Creates a temporary directory with [`tempfile::Builder`] and downloads
 a file over HTTP using [`reqwest::get`] asynchronously.
