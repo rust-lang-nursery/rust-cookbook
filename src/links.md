@@ -133,8 +133,8 @@ Keep lines sorted.
 [syslog]: https://docs.rs/syslog/
 [tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
 [tar]: https://docs.rs/tar/
-[tempdir-badge]: https://badge-cache.kominick.com/crates/v/tempdir.svg?label=tempdir
-[tempdir]: https://docs.rs/tempdir/
+[tempfile-badge]: https://badge-cache.kominick.com/crates/v/tempfile.svg?label=tempfile
+[tempfile]: https://docs.rs/tempfile/
 [threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
 [threadpool]: https://docs.rs/threadpool/
 [toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
