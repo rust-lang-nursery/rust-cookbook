@@ -3,17 +3,15 @@
 [![std-badge]][std] [![cat-net-badge]][cat-net]
 
 In this example, the port is displayed on the console, and the program will
-listen until a request is made.  `SocketAddrV4` assigns a random port when
-setting port to 0.
+listen until a request is made.  `TcpListener::bind` uses a random port
+allocated by the OS when requested to bind to port 0.
 
 ```rust,edition2018,no_run
-use std::net::{SocketAddrV4, Ipv4Addr, TcpListener};
+use std::net::TcpListener;
 use std::io::{Read, Error};
 
 fn main() -> Result<(), Error> {
-    let loopback = Ipv4Addr::new(127, 0, 0, 1);
-    let socket = SocketAddrV4::new(loopback, 0);
-    let listener = TcpListener::bind(socket)?;
+    let listener = TcpListener::bind("localhost:0")?;
     let port = listener.local_addr()?;
     println!("Listening on {}, access this port to end the program", port);
     let (mut tcp_stream, addr) = listener.accept()?; //block  until requested
