@@ -11,9 +11,8 @@ In the following example, colors add to a table having
 a unique constraint on the color name. When an attempt to insert
 a duplicate color is made, the transaction rolls back.
 
-
 ```rust,edition2018,no_run
-use rusqlite::{Connection, Result, NO_PARAMS};
+use rusqlite::{Connection, Result};
 
 fn main() -> Result<()> {
     let mut conn = Connection::open("cats.db")?;
@@ -29,7 +28,7 @@ fn main() -> Result<()> {
 fn successful_tx(conn: &mut Connection) -> Result<()> {
     let tx = conn.transaction()?;
 
-    tx.execute("delete from cat_colors", NO_PARAMS)?;
+    tx.execute("delete from cat_colors", ())?;
     tx.execute("insert into cat_colors (name) values (?1)", &[&"lavender"])?;
     tx.execute("insert into cat_colors (name) values (?1)", &[&"blue"])?;
 
@@ -39,7 +38,7 @@ fn successful_tx(conn: &mut Connection) -> Result<()> {
 fn rolled_back_tx(conn: &mut Connection) -> Result<()> {
     let tx = conn.transaction()?;
 
-    tx.execute("delete from cat_colors", NO_PARAMS)?;
+    tx.execute("delete from cat_colors", ())?;
     tx.execute("insert into cat_colors (name) values (?1)", &[&"lavender"])?;
     tx.execute("insert into cat_colors (name) values (?1)", &[&"blue"])?;
     tx.execute("insert into cat_colors (name) values (?1)", &[&"lavender"])?;
