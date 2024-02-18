@@ -12,29 +12,21 @@ flag the user will be expected to type; short flags look like `-f` and long
 flags look like `--file`.
 
 ```rust,edition2018
-use clap::{Arg, App};
+use clap::{ arg, Command};
 
 fn main() {
-    let matches = App::new("My Test Program")
+    let matches = Command::new("MyApp")
         .version("0.1.0")
         .author("Hackerman Jones <hckrmnjones@hack.gov>")
         .about("Teaches argument parsing")
-        .arg(Arg::with_name("file")
-                 .short("f")
-                 .long("file")
-                 .takes_value(true)
-                 .help("A cool file"))
-        .arg(Arg::with_name("num")
-                 .short("n")
-                 .long("number")
-                 .takes_value(true)
-                 .help("Five less than your favorite number"))
+        .arg(arg!(--file <VALUE>).required(true).value_name("A cool file"))
+        .arg(arg!(--num <VALUE>).required(false).value_name("Five less than your favorite number"))
         .get_matches();
 
-    let myfile = matches.value_of("file").unwrap_or("input.txt");
+    let myfile = matches.get_one::<String>("file").expect("required");
     println!("The file passed is: {}", myfile);
 
-    let num_str = matches.value_of("num");
+    let num_str = matches.get_one::<String>("num");
     match num_str {
         None => println!("No idea what your favorite number is."),
         Some(s) => {
