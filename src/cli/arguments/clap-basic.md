@@ -19,8 +19,8 @@ fn main() {
         .version("0.1.0")
         .author("Hackerman Jones <hckrmnjones@hack.gov>")
         .about("Teaches argument parsing")
-        .arg(arg!(--file <VALUE>).required(true).value_name("A cool file"))
-        .arg(arg!(--num <VALUE>).required(false).value_name("Five less than your favorite number"))
+        .arg(arg!(--file <VALUE>).short('f').required(true).value_name("A cool file"))
+        .arg(arg!(--num <VALUE>).short('n').required(false).value_name("Five less than your favorite number"))
         .get_matches();
 
     let myfile = matches.get_one::<String>("file").expect("required");
