@@ -4,20 +4,15 @@
 
 [`Builder`] configures logging.
 
-[`Builder::parse`] parses `MY_APP_LOG`
+[`Builder::from_env`] parses `MY_APP_LOG`
 environment variable contents in the form of [`RUST_LOG`] syntax.
 Then, [`Builder::init`] initializes the logger.
-All these steps are normally done internally by [`env_logger::init`].
 
 ```rust,edition2018
-
-use std::env;
 use env_logger::Builder;
 
 fn main() {
-    Builder::new()
-        .parse(&env::var("MY_APP_LOG").unwrap_or_default())
-        .init();
+    Builder::from_env("MY_APP_LOG").init();
 
     log::info!("informational message");
     log::warn!("warning message");
@@ -25,8 +20,7 @@ fn main() {
 }
 ```
 
-[`env_logger::init`]: https://docs.rs/env_logger/*/env_logger/fn.init.html
 [`Builder`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html
+[`Builder::from_env`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.from_env
 [`Builder::init`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.init
-[`Builder::parse`]: https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.parse
 [`RUST_LOG`]: https://docs.rs/env_logger/*/env_logger/#enabling-logging
