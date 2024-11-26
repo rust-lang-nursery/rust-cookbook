@@ -6,9 +6,6 @@ This application describes the structure of its command-line interface using
 `clap`'s builder style. The [documentation] gives two other possible ways to
 instantiate an application.
 
-The code here requires `clap` version 4. Use `clap = "4"` in
-your `Cargo.toml` to get the correct version.
-
 In the builder style, each possible argument is described by an `Arg`
 struct. The string given to `Arg::new()` is the internal
 name of the argument. The `short` and `long` options control the
