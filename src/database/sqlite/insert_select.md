@@ -7,8 +7,7 @@ This recipe inserts data into `cat_colors` and `cats` tables using the [`execute
 
 ```rust,no_run
 
-use rusqlite::NO_PARAMS;
-use rusqlite::{Connection, Result};
+use rusqlite::{params, Connection, Result};
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -26,25 +25,25 @@ fn main() -> Result<()> {
 
     for (color, catnames) in &cat_colors {
         conn.execute(
-            "INSERT INTO cat_colors (name) values (?1)",
-            &[&color.to_string()],
+            "INSERT INTO cat_colors (name) VALUES (?1)",
+            [color],
         )?;
-        let last_id: String = conn.last_insert_rowid().to_string();
+        let last_id = conn.last_insert_rowid();
 
         for cat in catnames {
             conn.execute(
                 "INSERT INTO cats (name, color_id) values (?1, ?2)",
-                &[&cat.to_string(), &last_id],
+                params![cat, last_id],
             )?;
         }
     }
     let mut stmt = conn.prepare(
-        "SELECT c.name, cc.name from cats c
+        "SELECT c.name, cc.name FROM cats c
          INNER JOIN cat_colors cc
          ON cc.id = c.color_id;",
     )?;
 
-    let cats = stmt.query_map(NO_PARAMS, |row| {
+    let cats = stmt.query_map([], |row| {
         Ok(Cat {
             name: row.get(0)?,
             color: row.get(1)?,
