@@ -19,7 +19,7 @@ If you'd like to read it locally:
 ```bash
 $ git clone https://github.com/rust-lang-nursery/rust-cookbook
 $ cd rust-cookbook
-$ cargo install mdbook --vers "0.4.5"
+$ cargo install mdbook --vers "0.4.43"
 $ mdbook serve --open
 ```
 
