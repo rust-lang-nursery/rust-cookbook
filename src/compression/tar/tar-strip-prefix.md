@@ -20,7 +20,7 @@ use tar::Archive;
 #   }
 # }
 
-fn main() -> Result<()> {
+fn main() -> Result<(), std::io::Error> {
     let file = File::open("archive.tar.gz")?;
     let mut archive = Archive::new(GzDecoder::new(file));
     let prefix = "bundle/logs";
@@ -29,7 +29,7 @@ fn main() -> Result<()> {
     archive
         .entries()?
         .filter_map(|e| e.ok())
-        .map(|mut entry| -> Result<PathBuf> {
+        .map(|mut entry| -> Result<PathBuf, Box<dyn std::error::Error>> {
             let path = entry.path()?.strip_prefix(prefix)?.to_owned();
             entry.unpack(&path)?;
             Ok(path)
