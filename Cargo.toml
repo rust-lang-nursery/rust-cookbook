@@ -63,9 +63,9 @@ walkdir = "2.0"
 syslog = "5.0"
 
 [build-dependencies]
-skeptic = { git = 'https://github.com/andygauge/rust-skeptic'}
+skeptic = "0.13"
 walkdir = "2.0"
 
 [dev-dependencies]
-skeptic = { git = 'https://github.com/andygauge/rust-skeptic'}
+skeptic = "0.13"
 walkdir = "2.0"
