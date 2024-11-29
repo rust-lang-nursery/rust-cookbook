@@ -5,7 +5,7 @@
 Randomly generates a string of given length ASCII characters with custom
 user-defined bytestring, with [`gen_range`].
 
-```rust,edition2018
+```rust,edition2024
 fn main() {
     use rand::Rng;
     const CHARSET: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\

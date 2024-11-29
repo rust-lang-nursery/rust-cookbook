@@ -56,7 +56,7 @@ Consider this example for "generate random numbers within a range":
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-```rust,edition2018
+```rust,edition2024
 use rand::Rng;
 
 fn main() {
@@ -110,7 +110,7 @@ The basic pattern we use is to have a `fn main() -> Result`.
 
 The structure generally looks like:
 
-```rust,edition2018
+```rust,edition2024
 use error_chain::error_chain;
 use std::net::IpAddr;
 use std::str;
@@ -147,7 +147,7 @@ default like below.  In order to read full contents click on the
 "Show hidden lines" (<i class="fa fa-eye"></i>) button located in the top
 right corner of the snippet.
 
-```rust,edition2018
+```rust,edition2024
 # use error_chain::error_chain;
 
 use url::{Url, Position};

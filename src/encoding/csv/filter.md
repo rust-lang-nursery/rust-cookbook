@@ -4,17 +4,9 @@
 
 Returns _only_ the rows from `data` with a field that matches `query`.
 
-```rust,edition2018
-# use error_chain::error_chain;
+```rust,edition2024
 
 use std::io;
-#
-# error_chain!{
-#     foreign_links {
-#         Io(std::io::Error);
-#         CsvError(csv::Error);
-#     }
-# }
 
 fn main() -> Result<()> {
     let query = "CA";

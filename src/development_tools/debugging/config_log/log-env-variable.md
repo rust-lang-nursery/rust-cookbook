@@ -8,7 +8,7 @@
 environment variable contents in the form of [`RUST_LOG`] syntax.
 Then, [`Builder::init`] initializes the logger.
 
-```rust,edition2018
+```rust,edition2024
 use env_logger::Builder;
 
 fn main() {

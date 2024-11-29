@@ -11,7 +11,7 @@ encoding using a custom pattern from [`log4rs::encode::pattern`].
 Assigns the configuration to [`log4rs::config::Config`] and sets the default
 [`log::LevelFilter`].
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 # use error_chain::error_chain;
 
 use log::LevelFilter;

@@ -10,7 +10,7 @@ incrementing the minor version number resets the patch version number to 0 and
 incrementing the major version number resets both the minor and patch version
 numbers to 0.
 
-```rust,edition2018
+```rust,edition2024
 use semver::{Version, SemVerError};
 
 fn main() -> Result<(), SemVerError> {

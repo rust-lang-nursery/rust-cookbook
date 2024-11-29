@@ -4,7 +4,7 @@
 
 Parses [`Url`] and slices it with [`url::Position`] to strip unneeded URL parts.
 
-```rust,edition2018
+```rust,edition2024
 
 
 use url::{Url, Position, ParseError};

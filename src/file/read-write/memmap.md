@@ -10,7 +10,7 @@ The [`Mmap::map`] function assumes the file
 behind the memory map is not being modified at the same time by another process
 or else a [race condition] occurs.
 
-```rust,edition2018
+```rust,edition2024
 use memmap::Mmap;
 use std::fs::File;
 use std::io::{Write, Error};

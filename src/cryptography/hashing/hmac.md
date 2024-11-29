@@ -5,7 +5,7 @@
 Uses [`ring::hmac`] to creates a [`hmac::Signature`] of a string then verifies the signature is correct.
 
 
-```rust,edition2018
+```rust,edition2024
 use ring::{hmac, rand};
 use ring::rand::SecureRandom;
 use ring::error::Unspecified;

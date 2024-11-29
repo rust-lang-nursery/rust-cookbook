@@ -6,7 +6,7 @@ by [`serde_json::to_string`] and [`serde_json::from_str`] performs deserializati
 
 Note that serialization followed by deserialization gives back the original matrix.
 
-```rust,edition2018
+```rust,edition2024
 use nalgebra::DMatrix;
 
 fn main() -> Result<(), std::io::Error> {

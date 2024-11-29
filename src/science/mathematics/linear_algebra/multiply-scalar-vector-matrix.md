@@ -15,7 +15,7 @@ a 2-D array with one row or one column must be used instead. In this example,
 the vector is a 1-D array on the right-hand side, so `dot` handles it as a column 
 vector.
 
-```rust,edition2018
+```rust,edition2024
 use ndarray::{arr1, arr2, Array1};
 
 fn main() {

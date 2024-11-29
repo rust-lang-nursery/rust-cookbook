@@ -12,7 +12,7 @@ generator [`rand::Rng`].
 The [distributions available are documented here][rand-distributions].
 An example using the [`Normal`] distribution is shown below.
 
-```rust,edition2018,ignore
+```rust,edition2024,ignore
 use rand_distr::{Distribution, Normal, NormalError};
 use rand::thread_rng;
 

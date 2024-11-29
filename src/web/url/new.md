@@ -4,7 +4,7 @@
 
 The [`join`] method creates a new URL from a base and relative path.
 
-```rust,edition2018
+```rust,edition2024
 
 use url::{Url, ParseError};
 

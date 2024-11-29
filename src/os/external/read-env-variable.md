@@ -4,7 +4,7 @@
 
 Reads an environment variable via [std::env::var].
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use std::env;
 use std::fs;
 use std::io::Error;

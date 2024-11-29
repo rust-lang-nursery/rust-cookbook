@@ -1,8 +1,8 @@
 [package]
 name = "rust-cookbook"
-version = "1.0.0"
+version = "1.1.0"
 authors = ["Brian Anderson <banderson@mozilla.com>", "Andrew Gauger <andygauge@gmail.com>"]
-edition = "2018"
+edition = "2021"
 license = "MIT/Apache-2.0"
 publish = false
 build = "build.rs"
@@ -30,42 +30,42 @@ log = "0.4"
 log4rs = "0.8"
 memmap = "0.7"
 mime = "0.3"
-nalgebra = { version = "0.16.12", features = ["serde-serialize"] }
-ndarray = { version = "0.13", features = ["approx"] }
-num = "0.2"
-num_cpus = "1.8"
-percent-encoding = "2.1"
-petgraph = "0.4"
-postgres = "0.17.2"
-rand = "0.8.0"
-rand_distr = "0.4.0"
-rayon = "1.0"
-regex = "1.0"
-reqwest = { version = "0.10", features = ["blocking", "json", "stream"] }
-ring = "0.16.11"
-rusqlite = { version = "0.25", features = ["chrono"] }
+nalgebra = { version = "0.33", features = ["serde-serialize"] }
+ndarray = { version = "0.16", features = ["approx"] }
+num = "0.4"
+num_cpus = "1.16"
+percent-encoding = "2.3"
+petgraph = "0.6"
+postgres = "0.19"
+rand = "0.8"
+rand_distr = "0.4"
+rayon = "1.10"
+regex = "1.11"
+reqwest = { version = "0.12", features = ["blocking", "json", "stream"] }
+ring = "0.17"
+rusqlite = { version = "0.32", features = ["chrono"] }
 same-file = "1.0"
-select = "0.4"
-semver = "0.9"
+select = "0.6"
+semver = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_derive = "1.0"
 serde_json = "1.0"
-tar = "0.4.12"
-tempfile = "3.1"
-threadpool = "1.6"
-toml = "0.4"
-tokio = { version = "0.2", features = ["full"] }
+tar = "0.4.43"
+tempfile = "3.14"
+threadpool = "1.8"
+toml = "0.8"
+tokio = { version = "1", features = ["full"] }
 unicode-segmentation = "1.2.1"
-url = "2.1"
-walkdir = "2.0"
+url = "2.5"
+walkdir = "2.5"
 
 [target.'cfg(target_os = "linux")'.dependencies]
-syslog = "5.0"
+syslog = "7.0"
 
 [build-dependencies]
 skeptic = "0.13"
-walkdir = "2.0"
+walkdir = "2.5"
 
 [dev-dependencies]
 skeptic = "0.13"
-walkdir = "2.0"
+walkdir = "2.5"

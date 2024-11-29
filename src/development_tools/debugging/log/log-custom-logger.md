@@ -6,7 +6,7 @@ Implements a custom logger `ConsoleLogger` which prints to stdout.
 In order to use the logging macros, `ConsoleLogger` implements
 the [`log::Log`] trait and [`log::set_logger`] installs it.
 
-```rust,edition2018
+```rust,edition2024
 use log::{Record, Level, Metadata, LevelFilter, SetLoggerError};
 
 static CONSOLE_LOGGER: ConsoleLogger = ConsoleLogger;

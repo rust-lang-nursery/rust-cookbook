@@ -5,7 +5,7 @@
 Writes some data to a file, then calculates the SHA-256 [`digest::Digest`] of
 the file's contents using [`digest::Context`].
 
-```rust,edition2018
+```rust,edition2024
 # use error_chain::error_chain;
 use data_encoding::HEXUPPER;
 use ring::digest::{Context, Digest, SHA256};

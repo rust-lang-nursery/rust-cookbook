@@ -11,7 +11,7 @@ The below recipes attempts to deserialize the value `256` into a
 `u8`. An error will bubble up from Serde then csv and finally up to the
 user code.
 
-```rust,edition2018
+```rust,edition2024
 use error_chain::error_chain;
 # use serde::Deserialize;
 #

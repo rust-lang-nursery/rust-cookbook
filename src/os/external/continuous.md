@@ -10,7 +10,7 @@ The recipe below calls [`Stdio::piped`] to create a pipe, and reads
 The below recipe is equivalent to the Unix shell command
 `journalctl | grep usb`.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use std::process::{Command, Stdio};
 use std::io::{BufRead, BufReader, Error, ErrorKind};
 

@@ -9,7 +9,7 @@ the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A [`MutexGuard`] must be acquired to read or mutate the
 value stored in a [`Mutex`].
 
-```rust,edition2018
+```rust,edition2024
 # use error_chain::error_chain;
 use lazy_static::lazy_static;
 use std::sync::Mutex;

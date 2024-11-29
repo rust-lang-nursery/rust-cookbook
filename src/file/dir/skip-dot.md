@@ -10,7 +10,7 @@ Uses [`filter_entry`] to descend recursively into entries passing the
 Root dir `"."` yields through [`WalkDir::depth`] usage in `is_not_hidden`
 predicate.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use walkdir::{DirEntry, WalkDir};
 
 fn is_not_hidden(entry: &DirEntry) -> bool {

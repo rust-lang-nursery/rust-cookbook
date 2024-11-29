@@ -11,7 +11,7 @@ a request will not last longer than a timeout.
 Due to both [`ClientBuilder::build`] and [`ReqwestBuilder::send`] returning [`reqwest::Error`]
 types, the shortcut [`reqwest::Result`] is used for the main function return type. 
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use reqwest::Result;
 use std::time::Duration;
 use reqwest::ClientBuilder;

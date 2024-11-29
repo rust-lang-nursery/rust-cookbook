@@ -2,6 +2,30 @@
 
 [![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
+# Error Strategies (2024)
+
+As recommended in Rust by Example, runtime errors can be [`Box`ing errors] seems to
+be an easy strategy for getting started.  To understand what kind of error handling
+may be required study [Designing error types in Rust] and consider [`thiserror`] for
+libraries or [`anyhow`] as a maintained error aggregation option.
+
+```rust,edition2024
+Box<dyn Error>
+
+````
+
+```rust,edition2024
+use thiserror::Error;
+
+#[derive(Error,Debug)]
+pub enum MultiError {
+  #[error("very good description")]
+  ErrorClass(u32),
+}
+```
+
+# Error Chain (2015-2018)
+
 Handles error that occur when trying to open a file that does not
 exist. It is achieved by using [error-chain], a library that takes
 care of a lot of boilerplate code needed in order to [handle errors in Rust].
@@ -48,10 +72,12 @@ fn main() {
     };
 }
 ```
-
+[`anyhow`]: https://lib.rs/crates/anyhow
 [`error_chain!`]: https://docs.rs/error-chain/*/error_chain/macro.error_chain.html
 [`Error`]: https://doc.rust-lang.org/std/error/trait.Error.html
 [`foreign_links`]: https://docs.rs/error-chain/*/error_chain/#foreign-links
 [`std::io::Error`]: https://doc.rust-lang.org/std/io/struct.Error.html
 
+[`Box`ing errors]: https://doc.rust-lang.org/rust-by-example/error/multiple_error_types/boxing_errors.html
+[Designing error types in Rust]: https://mmapped.blog/posts/12-rust-error-handling
 [handle errors in Rust]: https://doc.rust-lang.org/book/second-edition/ch09-00-error-handling.html

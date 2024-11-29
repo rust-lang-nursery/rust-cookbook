@@ -7,7 +7,7 @@ Runs `git --version` using [`Command`], then parses the version number into a
 [`semver::VersionReq`] to the parsed version.  The command output resembles
 "git version x.y.z".
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 # use error_chain::error_chain;
 
 use std::process::Command;

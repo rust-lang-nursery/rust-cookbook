@@ -6,7 +6,7 @@ Iterate over the [`Archive::entries`].  Use [`Path::strip_prefix`] to remove
 the specified path prefix (`bundle/logs`).  Finally, extract the [`tar::Entry`]
 via [`Entry::unpack`].
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 # use error_chain::error_chain;
 use std::fs::File;
 use std::path::PathBuf;

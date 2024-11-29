@@ -12,7 +12,7 @@ cursor position.
 The below recipe is equivalent to run the Unix shell command `ls
 . oops >out.txt 2>&1`.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use std::fs::File;
 use std::io::Error;
 use std::process::{Command, Stdio};

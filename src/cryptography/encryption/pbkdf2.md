@@ -9,7 +9,7 @@ function [`pbkdf2::derive`].  Verifies the hash is correct with
 [`SecureRandom::fill`], which fills the salt byte array with
 securely generated random numbers.
 
-```rust,edition2018
+```rust,edition2024
 
 use data_encoding::HEXUPPER;
 use ring::error::Unspecified;

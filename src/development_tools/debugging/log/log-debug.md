@@ -6,7 +6,7 @@ The `log` crate provides logging utilities. The `env_logger` crate configures
 logging via an environment variable.  The [`log::debug!`] macro works like other
 [`std::fmt`] formatted strings.
 
-```rust,edition2018
+```rust,edition2024
 
 fn execute_query(query: &str) {
     log::debug!("Executing query: {}", query);

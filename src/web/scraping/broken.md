@@ -11,7 +11,7 @@ parse an individual link with [`url::ParseOptions`] and [`Url::parse`]).
 The task makes a request to the links with [reqwest] and verifies
 [`StatusCode`].  Then the tasks `await` completion before ending the program.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use error_chain::error_chain;
 use reqwest::StatusCode;
 use select::document::Document;

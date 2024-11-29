@@ -24,7 +24,7 @@ to prevent the entire program from blocking on the worker for-loops. You can
 think of the calls to `drop` as signaling that no more messages will be sent.
 
 
-```rust,edition2018
+```rust,edition2024
 use std::thread;
 use std::time::Duration;
 use crossbeam_channel::bounded;

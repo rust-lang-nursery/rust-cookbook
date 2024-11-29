@@ -9,7 +9,7 @@ with [`reqwest::get`] to get list of all users who have marked a GitHub project 
 [tokio::main] is used to set up the async executor and the process waits for [`reqwest::get`] to complete before
 processing the response into User instances.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use serde::Deserialize;
 use reqwest::Error;
 use reqwest::header::USER_AGENT;

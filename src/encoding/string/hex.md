@@ -12,7 +12,7 @@ returns a `Vec<u8>` if the input data is successfully decoded.
 The example below converts `&[u8]` data to hexadecimal equivalent.  Compares this
 value to the expected value.
 
-```rust,edition2018
+```rust,edition2024
 use data_encoding::{HEXUPPER, DecodeError};
 
 fn main() -> Result<(), DecodeError> {

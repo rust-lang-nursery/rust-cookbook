@@ -5,7 +5,7 @@
 The [`Url`] struct exposes various methods to extract information about the URL
 it represents.
 
-```rust,edition2018
+```rust,edition2024
 
 use url::{Url, Host, ParseError};
 
@@ -25,17 +25,10 @@ fn main() -> Result<(), ParseError> {
 
 [`origin`] produces the same result.
 
-```rust,edition2018
-# use error_chain::error_chain;
+```rust,edition2024
 
 use url::{Url, Origin, Host};
 
-# error_chain! {
-#     foreign_links {
-#         UrlParse(url::ParseError);
-#     }
-# }
-#
 fn main() -> Result<()> {
     let s = "ftp://rust-lang.org/examples";
 

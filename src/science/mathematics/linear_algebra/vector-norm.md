@@ -26,7 +26,7 @@ If the function is part of a public API, that may be a better choice for the
 benefit of users. For internal functions, the more concise `ArrayView1<f64>` 
 may be preferable.
 
-```rust,edition2018
+```rust,edition2024
 use ndarray::{array, Array1, ArrayView1};
 
 fn l1_norm(x: ArrayView1<f64>) -> f64 {

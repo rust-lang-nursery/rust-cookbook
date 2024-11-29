@@ -9,7 +9,7 @@ values in parallel.  Although [multiple options]
 exist to sort an enumerable data type, [`par_sort_unstable`]
 is usually faster than [stable sorting] algorithms.
 
-```rust,edition2018
+```rust,edition2024
 
 use rand::{Rng, thread_rng};
 use rand::distributions::Alphanumeric;

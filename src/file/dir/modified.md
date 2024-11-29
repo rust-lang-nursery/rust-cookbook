@@ -10,18 +10,9 @@ last modification. [`Duration::as_secs`] converts the time to seconds and
 compared with 24 hours (24 * 60 * 60 seconds). [`Metadata::is_file`] filters
 out directories.
 
-```rust,edition2018
-# use error_chain::error_chain;
-#
+```rust,edition2024
 use std::{env, fs};
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         SystemTimeError(std::time::SystemTimeError);
-#     }
-# }
-#
 fn main() -> Result<()> {
     let current_dir = env::current_dir()?;
     println!(

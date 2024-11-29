@@ -8,7 +8,7 @@ a simple record containing string data only. Data with more complex values
 such as numbers, floats, and options use [`serialize`]. Since CSV
 writer uses internal buffer, always explicitly [`flush`] when done.
 
-```rust,edition2018
+```rust,edition2024
 # use error_chain::error_chain;
 
 use std::io;

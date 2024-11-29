@@ -23,7 +23,7 @@ cc = "1"
 
 ### `build.rs`
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 fn main() {
     cc::Build::new()
         .define("APP_NAME", "\"foo\"")
@@ -49,7 +49,7 @@ void print_app_info() {
 
 ### `src/main.rs`
 
-```rust,edition2018,ignore
+```rust,edition2024,ignore
 extern {
     fn print_app_info();
 }

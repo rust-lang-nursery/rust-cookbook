@@ -5,7 +5,7 @@
 Randomly generates a string of given length ASCII characters in the range `A-Z,
 a-z, 0-9`, with [`Alphanumeric`] sample.
 
-```rust,edition2018
+```rust,edition2024
 use rand::{thread_rng, Rng};
 use rand::distributions::Alphanumeric;
 
