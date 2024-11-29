@@ -6,7 +6,7 @@ to [UNIX timestamp] using [`NaiveDateTime::timestamp`].
 Then it calculates what was the date after one billion seconds
 since January 1, 1970 0:00:00 UTC, using [`NaiveDateTime::from_timestamp`].
 
-```rust,edition2024
+```rust,edition2021
 
 use chrono::{NaiveDate, NaiveDateTime};
 

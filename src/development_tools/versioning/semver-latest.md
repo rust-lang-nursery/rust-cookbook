@@ -6,7 +6,7 @@ Given a list of version &strs, finds the latest [`semver::Version`].
 [`semver::VersionReq`] filters the list with [`VersionReq::matches`].
 Also demonstrates `semver` pre-release preferences.
 
-```rust,edition2024
+```rust,edition2021
 # use error_chain::error_chain;
 
 use semver::{Version, VersionReq};

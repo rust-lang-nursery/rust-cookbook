@@ -11,7 +11,7 @@ The method [`Regex::replace_all`] replaces all occurrences of the whole regex.
 refer to corresponding named capture groups `(?P<abcde>REGEX)` from the search
 regex. See the [replacement string syntax] for examples and escaping detail.
 
-```rust,edition2024
+```rust,edition2021
 use lazy_static::lazy_static;
 
 use std::borrow::Cow;

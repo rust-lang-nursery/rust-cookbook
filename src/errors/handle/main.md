@@ -2,19 +2,19 @@
 
 [![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
-# Error Strategies (2024)
+# Error Strategies (2021)
 
 As recommended in Rust by Example, runtime errors can be [`Box`ing errors] seems to
 be an easy strategy for getting started.  To understand what kind of error handling
 may be required study [Designing error types in Rust] and consider [`thiserror`] for
 libraries or [`anyhow`] as a maintained error aggregation option.
 
-```rust,edition2024
+```rust,edition2021
 Box<dyn Error>
 
 ````
 
-```rust,edition2024
+```rust,edition2021
 use thiserror::Error;
 
 #[derive(Error,Debug)]

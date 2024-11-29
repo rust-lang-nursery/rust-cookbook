@@ -5,7 +5,7 @@
 Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol.
 
-```rust,edition2024
+```rust,edition2021
 use lazy_static::lazy_static;
 
 use regex::Regex;

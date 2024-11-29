@@ -10,7 +10,7 @@ a timestamp used in the final log.
 The example calls [`Builder::format`] to set a closure which formats each
 message text with timestamp, [`Record::level`] and body ([`Record::args`]).
 
-```rust,edition2024
+```rust,edition2021
 use std::io::Write;
 use chrono::Local;
 use env_logger::Builder;

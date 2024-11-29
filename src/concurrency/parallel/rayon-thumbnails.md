@@ -8,7 +8,7 @@ then saves them in a new folder called `thumbnails`.
 [`glob::glob_with`] finds jpeg files in current directory. `rayon` resizes
 images in parallel using [`par_iter`] calling  [`DynamicImage::resize`].
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 # use error_chain::error_chain;
 
 use std::path::Path;

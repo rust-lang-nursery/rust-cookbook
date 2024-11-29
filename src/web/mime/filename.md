@@ -6,7 +6,7 @@ The following example shows how to return the correct MIME type from a given
 filename using the [mime] crate.  The program will check for file extensions
 and match against a known list.  The return value is [`mime:Mime`].
 
-```rust,edition2024
+```rust,edition2021
 use mime::Mime;
 
 fn find_mimetype (filename : &String) -> Mime{

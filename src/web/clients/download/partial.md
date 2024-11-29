@@ -10,7 +10,7 @@ reqwest module.  The [Range] header specifies the chunk size and position.
 
 The Range header is defined in [RFC7233][HTTP Range RFC7233].
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use error_chain::error_chain;
 use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
 use reqwest::StatusCode;

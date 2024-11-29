@@ -10,7 +10,7 @@ Builds complex URL with [`Url::parse_with_params`].  Sets standard headers
 The request target <http://httpbin.org/headers> responds with
 a JSON dict containing all request headers for easy verification.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use error_chain::error_chain;
 
 use reqwest::Url;

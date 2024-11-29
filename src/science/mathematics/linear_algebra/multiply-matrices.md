@@ -3,7 +3,7 @@
 
 Creates two matrices with [`ndarray::arr2`] and performs matrix multiplication on them with [`ndarray::ArrayBase::dot`].
 
-```rust,edition2024
+```rust,edition2021
 use ndarray::arr2;
 
 fn main() {

@@ -5,7 +5,7 @@ Creates two 2-D matrices with [`ndarray::arr2`] and sums them element-wise.
 
 Note the sum is computed as `let sum = &a + &b`. The `&` operator is used to avoid consuming `a` and `b`, making them available later for display. A new array is created containing their sum.
 
-```rust,edition2024
+```rust,edition2021
 use ndarray::arr2;
 
 fn main() {

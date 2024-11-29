@@ -4,7 +4,7 @@
 
 Uses [`reqwest::RequestBuilder::basic_auth`] to perform a basic HTTP authentication.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use reqwest::blocking::Client;
 use reqwest::Error;
 

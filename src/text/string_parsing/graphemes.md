@@ -5,7 +5,7 @@
 Collect individual Unicode graphemes from UTF-8 string using the 
 [`UnicodeSegmentation::graphemes`] function from the [`unicode-segmentation`] crate.
 
-```rust,edition2024
+```rust,edition2021
 use unicode_segmentation::UnicodeSegmentation;
 
 fn main() {

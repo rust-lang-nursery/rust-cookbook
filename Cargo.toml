@@ -2,7 +2,7 @@
 name = "rust-cookbook"
 version = "1.1.0"
 authors = ["Brian Anderson <banderson@mozilla.com>", "Andrew Gauger <andygauge@gmail.com>"]
-edition = "2021"
+edition = "2024"
 license = "MIT/Apache-2.0"
 publish = false
 build = "build.rs"

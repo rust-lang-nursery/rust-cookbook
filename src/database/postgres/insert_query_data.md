@@ -5,7 +5,7 @@
 The recipe inserts data into the `author` table using [`execute`] method of `Client`. Then, displays the data from the `author` table  using [`query`] method of `Client`.
 
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use postgres::{Client, NoTls, Error};
 use std::collections::HashMap;
 

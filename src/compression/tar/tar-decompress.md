@@ -7,7 +7,7 @@ extract ([`Archive::unpack`]) all files from a compressed tarball
 named `archive.tar.gz` located in the current working directory
 to the same location.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 
 use std::fs::File;
 use flate2::read::GzDecoder;

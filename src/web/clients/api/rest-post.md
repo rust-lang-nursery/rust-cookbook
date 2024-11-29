@@ -11,7 +11,7 @@ provides arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request
 body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 [`RequestBuilder::send`] synchronously executes the requests.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use error_chain::error_chain;
 use serde::Deserialize;
 use serde_json::json;

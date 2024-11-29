@@ -22,7 +22,7 @@ best practice: one encounters such paths quite rarely in
 practice, but when it happens it is really frustrating
 without this.
 
-```rust,edition2024
+```rust,edition2021
 use std::path::PathBuf;
 
 use clap::{Arg, Command, builder::PathBufValueParser};

@@ -5,7 +5,7 @@
 Encodes byte slice into `base64` String using [`encode`]
 and decodes it with [`decode`].
 
-```rust,edition2024
+```rust,edition2021
 # use error_chain::error_chain;
 
 use std::str;

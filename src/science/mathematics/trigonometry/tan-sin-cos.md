@@ -4,7 +4,7 @@
 
 Verifies tan(x) is equal to sin(x)/cos(x) for x = 6.
 
-```rust,edition2024
+```rust,edition2021
 fn main() {
     let x: f64 = 6.0;
 

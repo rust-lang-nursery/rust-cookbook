@@ -10,7 +10,7 @@ under `backup/logs` path with [`Builder::append_dir_all`].
 [`GzEncoder`] is responsible for transparently compressing the
 data prior to writing it into `archive.tar.gz`.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 
 use std::fs::File;
 use flate2::Compression;
@@ -28,7 +28,7 @@ fn main() -> Result<(), std::io::Error> {
 
 To add the contents without renaming them, an empty string can be used as the first argument of [`Builder::append_dir_all`]:
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 
 use std::fs::File;
 use flate2::Compression;

@@ -8,7 +8,7 @@ In this case, the `**` pattern matches the current directory and all subdirector
 Use the `**` pattern in any path portion. For example, `/media/**/*.png`
 matches all PNGs in `media` and it's subdirectories.
 
-```rust,edition2024
+```rust,edition2021
 
 use glob::glob;
 

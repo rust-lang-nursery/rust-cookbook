@@ -8,11 +8,11 @@ initialized generator. Integers are uniformly distributed over the range of the
 type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.
 
-```rust,edition2024
-use rand::Rng;
+```rust,edition2018
+use rand::{Rng, thread_rng};
 
 fn main() {
-    let mut rng = rand::thread_rng();
+    let mut rng = thread_rng();
 
     let n1: u8 = rng.gen();
     let n2: u16 = rng.gen();

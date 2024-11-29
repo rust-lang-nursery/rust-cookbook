@@ -30,7 +30,7 @@ error-chain = "0.11"
 
 ### `build.rs`
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 fn main() {
     cc::Build::new()
         .file("src/hello.c")
@@ -55,7 +55,7 @@ void greet(const char* name) {
 
 ### `src/main.rs`
 
-```rust,edition2024,ignore
+```rust,edition2021,ignore
 use error_chain::error_chain;
 use std::ffi::CString;
 use std::os::raw::c_char;

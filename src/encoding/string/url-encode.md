@@ -7,7 +7,7 @@ using the [`form_urlencoded::byte_serialize`] and subsequently
 decodes it with [`form_urlencoded::parse`]. Both functions return iterators
 that collect into a `String`.
 
-```rust,edition2024
+```rust,edition2021
 use url::form_urlencoded::{byte_serialize, parse};
 
 fn main() {

@@ -10,7 +10,7 @@ ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 ```
 The following would assert that a loop exists.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use std::io;
 use std::path::{Path, PathBuf};
 use same_file::is_same_file;

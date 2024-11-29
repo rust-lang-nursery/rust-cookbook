@@ -10,7 +10,7 @@ is able to represent any valid JSON data.
 
 The example below shows a `&str` of JSON being parsed.  The expected value is declared using the [`json!`] macro.
 
-```rust,edition2024
+```rust,edition2021
  use serde_json::json;
 use serde_json::{Value, Error};
 

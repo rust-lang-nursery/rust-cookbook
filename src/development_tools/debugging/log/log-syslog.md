@@ -7,7 +7,7 @@ with [`syslog::init`]. [`syslog::Facility`] records the program submitting
 the log entry's classification, [`log::LevelFilter`] denotes allowed log verbosity
 and `Option<&str>` holds optional application name.
 
-```rust,edition2024
+```rust,edition2021
 # #[cfg(target_os = "linux")]
 # #[cfg(target_os = "linux")]
 use syslog::{Facility, Error};

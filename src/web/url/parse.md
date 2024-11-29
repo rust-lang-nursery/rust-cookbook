@@ -9,7 +9,7 @@ The [`parse`] method from the `url` crate validates and parses a `&str` into a
 Once the URL has been parsed, it can be used with all of the methods in the
 `Url` type.
 
-```rust,edition2024
+```rust,edition2021
 
 use url::{Url, ParseError};
 

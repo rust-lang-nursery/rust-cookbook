@@ -8,7 +8,7 @@ Use [`reqwest::get`] to perform a HTTP GET request and then use
 Call [`filter_map`] on the [`Selection`] retrieves URLs
 from links that have the "href" [`attr`] (attribute).
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use error_chain::error_chain;
 use select::document::Document;
 use select::predicate::Name;

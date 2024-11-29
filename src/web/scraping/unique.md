@@ -8,7 +8,7 @@ look for all entries of internal and external links with
 
 MediaWiki link syntax is described [here][MediaWiki link syntax].
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use lazy_static::lazy_static;
 use regex::Regex;
 use std::borrow::Cow;

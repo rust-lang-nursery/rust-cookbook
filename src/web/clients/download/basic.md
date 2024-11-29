@@ -9,7 +9,7 @@ Creates a target [`File`] with name obtained from [`Response::url`] within
 [`tempdir()`] and writes downloaded data into it with [`Writer::write_all`].
 The temporary directory is automatically removed on program exit.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use error_chain::error_chain;
 use std::io::Write;
 use std::fs::File;

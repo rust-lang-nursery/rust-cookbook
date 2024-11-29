@@ -4,7 +4,7 @@
 
 Returns _only_ the rows from `data` with a field that matches `query`.
 
-```rust,edition2024
+```rust,edition2021
 
 use std::io;
 

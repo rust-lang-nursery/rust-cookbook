@@ -5,7 +5,7 @@
 Find recursively in the current directory duplicate filenames,
 printing them only once.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use std::collections::HashMap;
 use walkdir::WalkDir;
 

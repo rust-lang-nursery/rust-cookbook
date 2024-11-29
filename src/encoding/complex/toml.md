@@ -5,7 +5,7 @@
 Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.
 
-```rust,edition2024
+```rust,edition2021
 use toml::{Value, de::Error};
 
 fn main() -> Result<(), Error> {
@@ -31,7 +31,7 @@ fn main() -> Result<(), Error> {
 
 Parse TOML into your own structs using [Serde].
 
-```rust,edition2024
+```rust,edition2021
 use serde::Deserialize;
 
 use toml::de::Error;

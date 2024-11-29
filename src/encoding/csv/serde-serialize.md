@@ -5,7 +5,7 @@
 The following example shows how to serialize custom structs as CSV records using
 the [serde] crate.
 
-```rust,edition2024
+```rust,edition2021
 # use error_chain::error_chain;
 use serde::Serialize;
 use std::io;

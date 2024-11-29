@@ -8,7 +8,7 @@ status and headers. Reads HTTP response body into an allocated [`String`]
 using [`read_to_string`].
 
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use error_chain::error_chain;
 use std::io::Read;
 
