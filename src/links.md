@@ -52,6 +52,8 @@ Keep lines sorted.
 
 [ansi_term-badge]: https://badge-cache.kominick.com/crates/v/ansi_term.svg?label=ansi_term
 [ansi_term]: https://docs.rs/ansi_term/
+[anyhow-badge]: https://badge-cache.kominick.com/crates/v/anyhow.svg?label=anyhow
+[anyhow]: https://docs.rs/anyhow/
 [base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
 [base64]: https://docs.rs/base64/
 [bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
@@ -135,6 +137,8 @@ Keep lines sorted.
 [tar]: https://docs.rs/tar/
 [tempfile-badge]: https://badge-cache.kominick.com/crates/v/tempfile.svg?label=tempfile
 [tempfile]: https://docs.rs/tempfile/
+[thiserror-badge]: https://badge-cache.kominick.com/crates/v/thiserror.svg?label=thiserror
+[thiserror]: https://docs.rs/thiserror/
 [threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
 [threadpool]: https://docs.rs/threadpool/
 [toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
