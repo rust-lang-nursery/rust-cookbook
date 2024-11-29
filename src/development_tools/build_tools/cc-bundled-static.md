@@ -25,7 +25,7 @@ build = "build.rs"
 cc = "1"
 
 [dependencies]
-error-chain = "0.11"
+anyhow = "1"
 ```
 
 ### `build.rs`
@@ -56,16 +56,10 @@ void greet(const char* name) {
 ### `src/main.rs`
 
 ```rust,edition2018,ignore
-use error_chain::error_chain;
+use anyhow::Result;
 use std::ffi::CString;
 use std::os::raw::c_char;
 
-error_chain! {
-    foreign_links {
-        NulError(::std::ffi::NulError);
-        Io(::std::io::Error);
-    }
-}
 fn prompt(s: &str) -> Result<String> {
     use std::io::Write;
     print!("{}", s);

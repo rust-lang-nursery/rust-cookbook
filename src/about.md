@@ -96,78 +96,15 @@ documentation on [docs.rs], and is often the next documentation you
 should read after deciding which crate suites your purpose.
 
 ## A note about error handling
+Rust has [`std::error::Trait`] which is implemented to handle exceptions.
+Handling multiple types of these traits can be simplified using [`anyhow`]
+or specified with an `enum` which macros exist to make this easier within
+[`thiserror`] for library authors.
 
-Error handling in Rust is robust when done correctly, but in today's
-Rust it requires a fair bit of boilerplate. Because of this one often
-sees Rust examples filled with `unwrap` calls instead of proper error
-handling.
-
-Since these recipes are intended to be reused as-is and encourage best
-practices, they set up error handling correctly when there are
-`Result` types involved.
-
-The basic pattern we use is to have a `fn main() -> Result`.
-
-The structure generally looks like:
-
-```rust,edition2018
-use error_chain::error_chain;
-use std::net::IpAddr;
-use std::str;
-
-error_chain! {
-    foreign_links {
-        Utf8(std::str::Utf8Error);
-        AddrParse(std::net::AddrParseError);
-    }
-}
-
-fn main() -> Result<()> {
-    let bytes = b"2001:db8::1";
-
-    // Bytes to string.
-    let s = str::from_utf8(bytes)?;
-
-    // String to IP address.
-    let addr: IpAddr = s.parse()?;
-
-    println!("{:?}", addr);
-    Ok(())
-}
-
-```
-
-This is using the `error_chain!` macro to define a custom `Error` and
-`Result` type, along with automatic conversions from two standard
-library error types. The automatic conversions make the `?` operator
-work.
-
-For the sake of readability error handling boilerplate is hidden by
-default like below.  In order to read full contents click on the
-"Show hidden lines" (<i class="fa fa-eye"></i>) button located in the top
-right corner of the snippet.
-
-```rust,edition2018
-# use error_chain::error_chain;
-
-use url::{Url, Position};
-#
-# error_chain! {
-#     foreign_links {
-#         UrlParse(url::ParseError);
-#     }
-# }
-
-fn main() -> Result<()> {
-    let parsed = Url::parse("https://httpbin.org/cookies/set?k2=v2&k1=v1")?;
-    let cleaned: &str = &parsed[..Position::AfterPath];
-    println!("cleaned: {}", cleaned);
-    Ok(())
-}
-```
-
-For more background on error handling in Rust, read [this page of the
-Rust book][error-docs] and [this blog post][error-blog].
+Error chain has been shown in this book for historical reasons before Rust
+`std` and crates represented macro use as a preference.  For more background
+on error handling in Rust, read [this page of the Rust book][error-docs]
+and [this blog post][error-blog].
 
 ## A note about crate representation
 
@@ -199,4 +136,7 @@ as are crates that are pending evaluation.
 [crates.io]: https://crates.io
 [docs.rs]: https://docs.rs
 [Cargo.toml]: http://doc.crates.io/manifest.html
+[`anyhow`]: https://docs.rs/anyhow/latest/anyhow/
 [`cargo-edit`]: https://github.com/killercup/cargo-edit
+[`std::error::Trait`]: https://doc.rust-lang.org/std/error/trait.Error.html
+[`thiserror`]: https://docs.rs/thiserror/latest/thiserror/
