@@ -100,7 +100,7 @@ impl Iterator for ReverseDependencies {
 fn main() -> Result<()> {
     for dep in ReverseDependencies::of("serde")? {
         let dependency = dep?;
-        println!("{} has dependency: {}", dependency.crate_id, dependency.id);
+        println!("{} depends on {}", dependency.id, dependency.crate_id);
     }
     Ok(())
 }
