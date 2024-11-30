@@ -9,21 +9,15 @@ content to send by reading the file, and [`RequestBuilder::send`] blocks until
 the file uploads and the response returns.  [`read_to_string`] returns the
 response and displays in the console.
 
-```rust,edition2018,no_run
-use error_chain::error_chain;
-use std::fs::File;
+```rust,edition2024,no_run
+use anyhow::Result;
+use std::fs::{File, write};
 use std::io::Read;
 
- error_chain! {
-     foreign_links {
-         HttpRequest(reqwest::Error);
-         IoError(::std::io::Error);
-     }
- }
  #[tokio::main]
-
 async fn main() -> Result<()> {
     let paste_api = "https://paste.rs";
+    write("message", "CONTENTS")?;
     let mut file = File::open("message")?;
 
     let mut contents = String::new();
