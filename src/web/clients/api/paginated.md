@@ -3,11 +3,22 @@
 [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
 Wraps a paginated web API in a convenient Rust iterator. The iterator lazily
-fetches the next page of results from the remote server as it arrives at the end
-of each page.
+fetches the next page of results from the remote server as it arrives at the end of each page.
 
-```rust,edition2018,no_run
+Use cargo to add crates to your repository
+```
+cargo add reqwest serde 
+```
+
+edit your Cargo.toml file to add features
+```
+reqwest = { version = "..", features = ["blocking", "json"] }
+serde = { version = "..", features = ["derive"] }
+```
+
+```rust,edition2024,no_run
 use reqwest::Result;
+use reqwest::header::USER_AGENT;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -19,6 +30,7 @@ struct ApiResponse {
 #[derive(Deserialize)]
 struct Dependency {
     crate_id: String,
+    id: u32,
 }
 
 #[derive(Deserialize)]
@@ -61,8 +73,12 @@ impl ReverseDependencies {
                           self.crate_id,
                           self.page,
                           self.per_page);
+        println!("{}", url);
 
-        let response = self.client.get(&url).send()?.json::<ApiResponse>()?;
+        let response = self.client.get(&url).header(
+                   USER_AGENT,
+                   "cookbook agent",
+               ).send()?.json::<ApiResponse>()?;
         self.dependencies = response.dependencies.into_iter();
         self.total = response.meta.total;
         Ok(self.dependencies.next())
@@ -83,7 +99,8 @@ impl Iterator for ReverseDependencies {
 
 fn main() -> Result<()> {
     for dep in ReverseDependencies::of("serde")? {
-        println!("reverse dependency: {}", dep?.crate_id);
+        let dependency = dep?;
+        println!("{} has dependency: {}", dependency.crate_id, dependency.id);
     }
     Ok(())
 }
