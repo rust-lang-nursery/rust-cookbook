@@ -12,6 +12,8 @@ src = "src"
 mathjax-support = false
 # theme = "theme"
 additional-css = ["theme/custom.css"]
+git-repository-url = "https://github.com/rust-lang-nursery/rust-cookbook"
+edit-url-template = "https://github.com/rust-lang-nursery/rust-cookbook/edit/master/{path}"
 
 [output.html.playpen]
 editable = false
