@@ -8,33 +8,19 @@ Use [`reqwest::get`] to perform a HTTP GET request and then use
 Call [`filter_map`] on the [`Selection`] retrieves URLs
 from links that have the "href" [`attr`] (attribute).
 
-```rust,edition2018,no_run
-use error_chain::error_chain;
-use select::document::Document;
-use select::predicate::Name;
-
-error_chain! {
-      foreign_links {
-          ReqError(reqwest::Error);
-          IoError(std::io::Error);
-      }
+```rust,edition2024,no_run
+mod links {
+  {{#include ../../../crates/web/src/links.rs}}
 }
 
 #[tokio::main]
-async fn main() -> Result<()> {
-  let res = reqwest::get("https://www.rust-lang.org/en-US/")
-    .await?
-    .text()
-    .await?;
-
-  Document::from(res.as_str())
-    .find(Name("a"))
-    .filter_map(|n| n.attr("href"))
-    .for_each(|x| println!("{}", x));
-
-  Ok(())
+async fn main() -> Result<(), links::LinkError> {
+    let page_links = links::get_links("https://www.rust-lang.org/en-US/").await?;
+    for link in page_links {
+        println!("{}", link);
+    }
+    Ok(())
 }
-
 ```
 
 [`attr`]: https://docs.rs/select/*/select/node/struct.Node.html#method.attr
