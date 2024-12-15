@@ -17,7 +17,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_links() -> Result<(), links::LinkError> {
-        let page_links = links::get_links("https://www.rust-lang.org/en-US/").await?;
+        let page_links = links::get_links("https://rust-lang-nursery.github.io/rust-cookbook/").await?;
         for link in page_links {
             println!("{}", link);
         }
@@ -26,7 +26,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_broken() -> Result<(), broken::BrokenError> {
-        let categorized = broken::check("https://www.rust-lang.org/en-US/").await?;
+        let categorized = broken::check("https://rust-lang-nursery.github.io/rust-cookbook/web/scraping.html").await?;
         println!("OK: {:?}", categorized.ok);
         println!("Broken: {:?}", categorized.broken);
         Ok(())
