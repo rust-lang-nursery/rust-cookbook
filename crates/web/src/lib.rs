@@ -1,3 +1,4 @@
+mod broken;
 mod paginated;
 mod links;
 
@@ -20,6 +21,14 @@ mod tests {
         for link in page_links {
             println!("{}", link);
         }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_broken() -> Result<(), broken::BrokenError> {
+        let categorized = broken::check("https://www.rust-lang.org/en-US/").await?;
+        println!("OK: {:?}", categorized.ok);
+        println!("Broken: {:?}", categorized.broken);
         Ok(())
     }
 }
