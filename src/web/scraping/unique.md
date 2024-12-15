@@ -6,41 +6,17 @@ Pull the source of a MediaWiki page using [`reqwest::get`] and then
 look for all entries of internal and external links with
 [`Regex::captures_iter`]. Using [`Cow`] avoids excessive [`String`] allocations.
 
-MediaWiki link syntax is described [here][MediaWiki link syntax].
+MediaWiki link syntax is described [here][MediaWiki link syntax].  The calling
+function will retain the whole document, and links will be returned as slice
+references to the original document.
 
-```rust,edition2018,no_run
-use lazy_static::lazy_static;
-use regex::Regex;
-use std::borrow::Cow;
-use std::collections::HashSet;
-use std::error::Error;
-
-fn extract_links(content: &str) -> HashSet<Cow<str>> {
-  lazy_static! {
-    static ref WIKI_REGEX: Regex = Regex::new(
-      r"(?x)
-                \[\[(?P<internal>[^\[\]|]*)[^\[\]]*\]\]    # internal links
-                |
-                (url=|URL\||\[)(?P<external>http.*?)[ \|}] # external links
-            "
-    )
-    .unwrap();
-  }
-
-  let links: HashSet<_> = WIKI_REGEX
-    .captures_iter(content)
-    .map(|c| match (c.name("internal"), c.name("external")) {
-      (Some(val), None) => Cow::from(val.as_str().to_lowercase()),
-      (None, Some(val)) => Cow::from(val.as_str()),
-      _ => unreachable!(),
-    })
-    .collect();
-
-  links
+```rust,edition2024,no_run
+mod wiki {
+  {{#include ../../../crates/web/src/wiki.rs}}
 }
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+async fn main() -> anyhow::Result<()> {
   let content = reqwest::get(
     "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
   )
@@ -48,7 +24,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
   .text()
   .await?;
 
-  println!("{:#?}", extract_links(content.as_str()));
+  println!("{:#?}", wiki::extract_links(content.as_str()));
 
   Ok(())
 }
@@ -59,5 +35,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
 [`reqwest::get`]: https://docs.rs/reqwest/*/reqwest/fn.get.html
 [`Regex::captures_iter`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
+[`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
 
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
