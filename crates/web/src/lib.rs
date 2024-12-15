@@ -1,6 +1,7 @@
 mod broken;
 mod paginated;
 mod links;
+mod wiki;
 
 #[cfg(test)]
 mod tests {
@@ -30,5 +31,19 @@ mod tests {
         println!("OK: {:?}", categorized.ok);
         println!("Broken: {:?}", categorized.broken);
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_wiki() -> anyhow::Result<()> {
+      let content = reqwest::get(
+        "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&action=raw",
+      )
+      .await?
+      .text()
+      .await?;
+    
+      println!("{:#?}", wiki::extract_links(content.as_str()));
+    
+      Ok(())
     }
 }
