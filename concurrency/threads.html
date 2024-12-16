@@ -1,0 +1,571 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Explicit Threads - Rust Cookbook</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Collection of useful Rust code examples">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../theme/custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="../intro.html">Table of Contents</a></li><li class="expanded affix "><a href="../about.html">About</a></li><li class="expanded "><a href="../algorithms.html"><strong aria-hidden="true">1.</strong> Algorithms</a></li><li><ol class="section"><li class="expanded "><a href="../algorithms/randomness.html"><strong aria-hidden="true">1.1.</strong> Generate Random Values</a></li><li class="expanded "><a href="../algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> Sort a Vector</a></li></ol></li><li class="expanded "><a href="../cli.html"><strong aria-hidden="true">2.</strong> Command Line</a></li><li><ol class="section"><li class="expanded "><a href="../cli/arguments.html"><strong aria-hidden="true">2.1.</strong> Argument Parsing</a></li><li class="expanded "><a href="../cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSI Terminal</a></li></ol></li><li class="expanded "><a href="../compression.html"><strong aria-hidden="true">3.</strong> Compression</a></li><li><ol class="section"><li class="expanded "><a href="../compression/tar.html"><strong aria-hidden="true">3.1.</strong> Working with Tarballs</a></li></ol></li><li class="expanded "><a href="../concurrency.html"><strong aria-hidden="true">4.</strong> Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="../concurrency/threads.html" class="active"><strong aria-hidden="true">4.1.</strong> Explicit Threads</a></li><li class="expanded "><a href="../concurrency/parallel.html"><strong aria-hidden="true">4.2.</strong> Data Parallelism</a></li></ol></li><li class="expanded "><a href="../cryptography.html"><strong aria-hidden="true">5.</strong> Cryptography</a></li><li><ol class="section"><li class="expanded "><a href="../cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> Hashing</a></li><li class="expanded "><a href="../cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> Encryption</a></li></ol></li><li class="expanded "><a href="../data_structures.html"><strong aria-hidden="true">6.</strong> Data Structures</a></li><li><ol class="section"><li class="expanded "><a href="../data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> Bitfield</a></li></ol></li><li class="expanded "><a href="../database.html"><strong aria-hidden="true">7.</strong> Database</a></li><li><ol class="section"><li class="expanded "><a href="../database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li class="expanded "><a href="../database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li class="expanded "><a href="../datetime.html"><strong aria-hidden="true">8.</strong> Date and Time</a></li><li><ol class="section"><li class="expanded "><a href="../datetime/duration.html"><strong aria-hidden="true">8.1.</strong> Duration and Calculation</a></li><li class="expanded "><a href="../datetime/parse.html"><strong aria-hidden="true">8.2.</strong> Parsing and Displaying</a></li></ol></li><li class="expanded "><a href="../development_tools.html"><strong aria-hidden="true">9.</strong> Development Tools</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> Debugging</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> Log Messages</a></li><li class="expanded "><a href="../development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> Configure Logging</a></li></ol></li><li class="expanded "><a href="../development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> Versioning</a></li><li class="expanded "><a href="../development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> Build Time Tooling</a></li></ol></li><li class="expanded "><a href="../encoding.html"><strong aria-hidden="true">10.</strong> Encoding</a></li><li><ol class="section"><li class="expanded "><a href="../encoding/strings.html"><strong aria-hidden="true">10.1.</strong> Character Sets</a></li><li class="expanded "><a href="../encoding/csv.html"><strong aria-hidden="true">10.2.</strong> CSV processing</a></li><li class="expanded "><a href="../encoding/complex.html"><strong aria-hidden="true">10.3.</strong> Structured Data</a></li></ol></li><li class="expanded "><a href="../errors.html"><strong aria-hidden="true">11.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="../errors/handle.html"><strong aria-hidden="true">11.1.</strong> Handle Error Variants</a></li></ol></li><li class="expanded "><a href="../file.html"><strong aria-hidden="true">12.</strong> File System</a></li><li><ol class="section"><li class="expanded "><a href="../file/read-write.html"><strong aria-hidden="true">12.1.</strong> Read &amp; Write</a></li><li class="expanded "><a href="../file/dir.html"><strong aria-hidden="true">12.2.</strong> Directory Traversal</a></li></ol></li><li class="expanded "><a href="../hardware.html"><strong aria-hidden="true">13.</strong> Hardware Support</a></li><li><ol class="section"><li class="expanded "><a href="../hardware/processor.html"><strong aria-hidden="true">13.1.</strong> Processor</a></li></ol></li><li class="expanded "><a href="../mem.html"><strong aria-hidden="true">14.</strong> Memory Management</a></li><li><ol class="section"><li class="expanded "><a href="../mem/global_static.html"><strong aria-hidden="true">14.1.</strong> Global Static</a></li></ol></li><li class="expanded "><a href="../net.html"><strong aria-hidden="true">15.</strong> Network</a></li><li><ol class="section"><li class="expanded "><a href="../net/server.html"><strong aria-hidden="true">15.1.</strong> Server</a></li></ol></li><li class="expanded "><a href="../os.html"><strong aria-hidden="true">16.</strong> Operating System</a></li><li><ol class="section"><li class="expanded "><a href="../os/external.html"><strong aria-hidden="true">16.1.</strong> External Command</a></li></ol></li><li class="expanded "><a href="../science.html"><strong aria-hidden="true">17.</strong> Science</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics.html"><strong aria-hidden="true">17.1.</strong> Mathematics</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> Linear Algebra</a></li><li class="expanded "><a href="../science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> Trigonometry</a></li><li class="expanded "><a href="../science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> Complex Numbers</a></li><li class="expanded "><a href="../science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> Statistics</a></li><li class="expanded "><a href="../science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> Miscellaneous</a></li></ol></li></ol></li><li class="expanded "><a href="../text.html"><strong aria-hidden="true">18.</strong> Text Processing</a></li><li><ol class="section"><li class="expanded "><a href="../text/regex.html"><strong aria-hidden="true">18.1.</strong> Regular Expressions</a></li><li class="expanded "><a href="../text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> String Parsing</a></li></ol></li><li class="expanded "><a href="../web.html"><strong aria-hidden="true">19.</strong> Web Programming</a></li><li><ol class="section"><li class="expanded "><a href="../web/scraping.html"><strong aria-hidden="true">19.1.</strong> Extracting Links</a></li><li class="expanded "><a href="../web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li class="expanded "><a href="../web/mime.html"><strong aria-hidden="true">19.3.</strong> Media Types</a></li><li class="expanded "><a href="../web/clients.html"><strong aria-hidden="true">19.4.</strong> Clients</a></li><li><ol class="section"><li class="expanded "><a href="../web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> Making Requests</a></li><li class="expanded "><a href="../web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Calling a Web API</a></li><li class="expanded "><a href="../web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> Downloads</a></li><li class="expanded "><a href="../web/clients/authentication.html"><strong aria-hidden="true">19.4.4.</strong> Web Authentication</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Cookbook</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                            <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
+                                <i id="git-repository-button" class="fa fa-github"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#threads" id="threads">Threads</a></h1>
+<h2><a class="header" href="#spawn-a-short-lived-thread" id="spawn-a-short-lived-thread">Spawn a short-lived thread</a></h2>
+<p><a href="https://docs.rs/crossbeam/"><img src="https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>The example uses the <a href="https://docs.rs/crossbeam/">crossbeam</a> crate, which provides data structures and functions
+for concurrent and parallel programming. <a href="https://docs.rs/crossbeam/*/crossbeam/thread/struct.Scope.html#method.spawn"><code>Scope::spawn</code></a> spawns a new scoped thread that is guaranteed
+to terminate before returning from the closure that passed into <a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a> function, meaning that
+you can reference data from the calling function.</p>
+<p>This example splits the array in half and performs the work in separate threads.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018">fn main() {
+    let arr = &amp;[1, 25, -4, 10];
+    let max = find_max(arr);
+    assert_eq!(max, Some(25));
+}
+
+fn find_max(arr: &amp;[i32]) -&gt; Option&lt;i32&gt; {
+    const THRESHOLD: usize = 2;
+  
+    if arr.len() &lt;= THRESHOLD {
+        return arr.iter().cloned().max();
+    }
+
+    let mid = arr.len() / 2;
+    let (left, right) = arr.split_at(mid);
+  
+    crossbeam::scope(|s| {
+        let thread_l = s.spawn(|_| find_max(left));
+        let thread_r = s.spawn(|_| find_max(right));
+  
+        let max_l = thread_l.join().unwrap()?;
+        let max_r = thread_r.join().unwrap()?;
+  
+        Some(max_l.max(max_r))
+    }).unwrap()
+}
+</code></pre></pre>
+<h2><a class="header" href="#create-a-parallel-pipeline" id="create-a-parallel-pipeline">Create a parallel pipeline</a></h2>
+<p><a href="https://docs.rs/crossbeam/"><img src="https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>This example uses the <a href="https://docs.rs/crossbeam/">crossbeam</a> and <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/index.html">crossbeam-channel</a> crates to create
+a parallel pipeline, similar to that described in the ZeroMQ <a href="http://zguide.zeromq.org/page:all#Divide-and-Conquer">guide</a>
+There is a data source and a data sink, with data being processed by two worker
+threads in parallel on its way from the source to the sink.</p>
+<p>We use bounded channels with a capacity of one using
+<a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/fn.bounded.html"><code>crossbeam_channel::bounded</code></a>. The producer must be on its own thread because
+it produces messages faster than the workers can process them (since they sleep
+for half a second) - this means the producer blocks on the call to
+<code>[crossbeam_channel::Sender::send</code>] for half a second until one of the workers
+processes the data in the channel. Also note that the data in the channel is
+consumed by whichever worker calls receive first, so each message is delivered
+to a single worker rather than both workers.</p>
+<p>Reading from the channels via the iterator
+<a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/struct.Receiver.html#method.iter"><code>crossbeam_channel::Receiver::iter</code></a> method will block, either waiting
+for new messages or until the channel is closed. Because the channels were
+created within the <a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a>, we must manually close them via <code>drop</code>
+to prevent the entire program from blocking on the worker for-loops. You can
+think of the calls to <code>drop</code> as signaling that no more messages will be sent.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018">use std::thread;
+use std::time::Duration;
+use crossbeam_channel::bounded;
+
+fn main() {
+    let (snd1, rcv1) = bounded(1);
+    let (snd2, rcv2) = bounded(1);
+    let n_msgs = 4;
+    let n_workers = 2;
+
+    crossbeam::scope(|s| {
+        // Producer thread
+        s.spawn(|_| {
+            for i in 0..n_msgs {
+                snd1.send(i).unwrap();
+                println!(&quot;Source sent {}&quot;, i);
+            }
+            // Close the channel - this is necessary to exit
+            // the for-loop in the worker
+            drop(snd1);
+        });
+
+        // Parallel processing by 2 threads
+        for _ in 0..n_workers {
+            // Send to sink, receive from source
+            let (sendr, recvr) = (snd2.clone(), rcv1.clone());
+            // Spawn workers in separate threads
+            s.spawn(move |_| {
+            thread::sleep(Duration::from_millis(500));
+                // Receive until channel closes
+                for msg in recvr.iter() {
+                    println!(&quot;Worker {:?} received {}.&quot;,
+                             thread::current().id(), msg);
+                    sendr.send(msg * 2).unwrap();
+                }
+            });
+        }
+        // Close the channel, otherwise sink will never
+        // exit the for-loop
+        drop(snd2);
+
+        // Sink
+        for msg in rcv2.iter() {
+            println!(&quot;Sink received {}&quot;, msg);
+        }
+    }).unwrap();
+}
+</code></pre></pre>
+<h1><a class="header" href="#pass-data-between-two-threads" id="pass-data-between-two-threads">Pass data between two threads</a></h1>
+<p><a href="https://docs.rs/crossbeam/"><img src="https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>This example demonstrates the use of <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/index.html">crossbeam-channel</a> in a single producer, single
+consumer (SPSC) setting. We build off the <a href="#spawn-a-short-lived-thread">ex-crossbeam-spawn</a> example by using
+<a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a> and <a href="https://docs.rs/crossbeam/*/crossbeam/thread/struct.Scope.html#method.spawn"><code>Scope::spawn</code></a> to manage the producer thread. Data is
+exchanged between the two threads using a <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/fn.unbounded.html"><code>crossbeam_channel::unbounded</code></a>
+channel, meaning there is no limit to the number of storeable messages. The
+producer thread sleeps for half a second in between messages.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018">
+use std::{thread, time};
+use crossbeam_channel::unbounded;
+
+fn main() {
+    let (snd, rcv) = unbounded();
+    let n_msgs = 5;
+    crossbeam::scope(|s| {
+        s.spawn(|_| {
+            for i in 0..n_msgs {
+                snd.send(i).unwrap();
+                thread::sleep(time::Duration::from_millis(100));
+            }
+        });
+    }).unwrap();
+    for _ in 0..n_msgs {
+        let msg = rcv.recv().unwrap();
+        println!(&quot;Received {}&quot;, msg);
+    }
+}
+</code></pre></pre>
+<h2><a class="header" href="#maintain-global-mutable-state" id="maintain-global-mutable-state">Maintain global mutable state</a></h2>
+<p><a href="https://docs.rs/lazy_static/"><img src="https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p>Declare global state using <a href="https://docs.rs/lazy_static/">lazy_static</a>. <a href="https://docs.rs/lazy_static/">lazy_static</a>
+creates a globally available <code>static ref</code> which requires a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>
+to allow mutation (also see <a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><code>RwLock</code></a>). The <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> wrap ensures
+the state cannot be simultaneously accessed by multiple threads, preventing
+race conditions. A <a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a> must be acquired to read or mutate the
+value stored in a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
+</span>use lazy_static::lazy_static;
+use std::sync::Mutex;
+<span class="boring">
+</span><span class="boring">error_chain!{ }
+</span>
+lazy_static! {
+    static ref FRUIT: Mutex&lt;Vec&lt;String&gt;&gt; = Mutex::new(Vec::new());
+}
+
+fn insert(fruit: &amp;str) -&gt; Result&lt;()&gt; {
+    let mut db = FRUIT.lock().map_err(|_| &quot;Failed to acquire MutexGuard&quot;)?;
+    db.push(fruit.to_string());
+    Ok(())
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    insert(&quot;apple&quot;)?;
+    insert(&quot;orange&quot;)?;
+    insert(&quot;peach&quot;)?;
+    {
+        let db = FRUIT.lock().map_err(|_| &quot;Failed to acquire MutexGuard&quot;)?;
+
+        db.iter().enumerate().for_each(|(i, item)| println!(&quot;{}: {}&quot;, i, item));
+    }
+    insert(&quot;grape&quot;)?;
+    Ok(())
+}
+</code></pre></pre>
+<h2><a class="header" href="#calculate-sha256-sum-of-iso-files-concurrently" id="calculate-sha256-sum-of-iso-files-concurrently">Calculate SHA256 sum of iso files concurrently</a></h2>
+<p><a href="https://docs.rs/threadpool/"><img src="https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge" /></a> <a href="https://docs.rs/num_cpus/"><img src="https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://briansmith.org/rustdoc/ring/"><img src="https://badge-cache.kominick.com/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a><a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>This example calculates the SHA256 for every file with iso extension in the
+current directory. A threadpool generates threads equal to the number of cores
+present in the system found with <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.  <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>Walkdir::new</code></a> iterates
+the current directory and calls <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>execute</code></a> to perform the operations of reading
+and computing SHA256 hash.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018 no_run">
+use walkdir::WalkDir;
+use std::fs::File;
+use std::io::{BufReader, Read, Error};
+use std::path::Path;
+use threadpool::ThreadPool;
+use std::sync::mpsc::channel;
+use ring::digest::{Context, Digest, SHA256};
+
+<span class="boring">// Verify the iso extension
+</span><span class="boring">fn is_iso(entry: &amp;Path) -&gt; bool {
+</span><span class="boring">    match entry.extension() {
+</span><span class="boring">        Some(e) if e.to_string_lossy().to_lowercase() == &quot;iso&quot; =&gt; true,
+</span><span class="boring">        _ =&gt; false,
+</span><span class="boring">    }
+</span><span class="boring">}
+</span>
+fn compute_digest&lt;P: AsRef&lt;Path&gt;&gt;(filepath: P) -&gt; Result&lt;(Digest, P), Error&gt; {
+    let mut buf_reader = BufReader::new(File::open(&amp;filepath)?);
+    let mut context = Context::new(&amp;SHA256);
+    let mut buffer = [0; 1024];
+
+    loop {
+        let count = buf_reader.read(&amp;mut buffer)?;
+        if count == 0 {
+            break;
+        }
+        context.update(&amp;buffer[..count]);
+    }
+
+    Ok((context.finish(), filepath))
+}
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+    let pool = ThreadPool::new(num_cpus::get());
+
+    let (tx, rx) = channel();
+
+    for entry in WalkDir::new(&quot;/home/user/Downloads&quot;)
+        .follow_links(true)
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .filter(|e| !e.path().is_dir() &amp;&amp; is_iso(e.path())) {
+            let path = entry.path().to_owned();
+            let tx = tx.clone();
+            pool.execute(move || {
+                let digest = compute_digest(path);
+                tx.send(digest).expect(&quot;Could not send data!&quot;);
+            });
+        }
+
+    drop(tx);
+    for t in rx.iter() {
+        let (sha, path) = t?;
+        println!(&quot;{:?} {:?}&quot;, sha, path);
+    }
+    Ok(())
+}
+</code></pre></pre>
+<h2><a class="header" href="#draw-fractal-dispatching-work-to-a-thread-pool" id="draw-fractal-dispatching-work-to-a-thread-pool">Draw fractal dispatching work to a thread pool</a></h2>
+<p><a href="https://docs.rs/threadpool/"><img src="https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge" /></a> <a href="https://docs.rs/num/"><img src="https://badge-cache.kominick.com/crates/v/num.svg?label=num" alt="num-badge" /></a> <a href="https://docs.rs/num_cpus/"><img src="https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://docs.rs/image/"><img src="https://badge-cache.kominick.com/crates/v/image.svg?label=image" alt="image-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a><a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a><a href="https://crates.io/categories/rendering"><img src="https://badge-cache.kominick.com/badge/rendering--x.svg?style=social" alt="cat-rendering-badge" /></a></p>
+<p>This example generates an image by drawing a fractal from the <a href="https://en.wikipedia.org/wiki/Julia_set">Julia set</a>
+with a thread pool for distributed computation.</p>
+<p><a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a></p>
+<p>Allocate memory for output image of given width and height with <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new"><code>ImageBuffer::new</code></a>.
+<a href="https://docs.rs/image/*/image/struct.Rgb.html#method.from_channels"><code>Rgb::from_channels</code></a> calculates RGB pixel values.
+Create <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html"><code>ThreadPool</code></a> with thread count equal to number of cores with <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.
+<a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>ThreadPool::execute</code></a> receives each pixel as a separate job.</p>
+<p><a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html"><code>mpsc::channel</code></a> receives the jobs and <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv"><code>Receiver::recv</code></a> retrieves them.
+<a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel"><code>ImageBuffer::put_pixel</code></a> uses the data to set the pixel color.
+<a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save"><code>ImageBuffer::save</code></a> writes the image to <code>output.png</code>.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
+</span>use std::sync::mpsc::{channel, RecvError};
+use threadpool::ThreadPool;
+use num::complex::Complex;
+use image::{ImageBuffer, Pixel, Rgb};
+<span class="boring">
+</span><span class="boring">error_chain! {
+</span><span class="boring">    foreign_links {
+</span><span class="boring">        MpscRecv(RecvError);
+</span><span class="boring">        Io(std::io::Error);
+</span><span class="boring">        Image(image::ImageError);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">// Function converting intensity values to RGB
+</span><span class="boring">// Based on http://www.efg2.com/Lab/ScienceAndEngineering/Spectra.htm
+</span><span class="boring">fn wavelength_to_rgb(wavelength: u32) -&gt; Rgb&lt;u8&gt; {
+</span><span class="boring">    let wave = wavelength as f32;
+</span><span class="boring">
+</span><span class="boring">    let (r, g, b) = match wavelength {
+</span><span class="boring">        380..=439 =&gt; ((440. - wave) / (440. - 380.), 0.0, 1.0),
+</span><span class="boring">        440..=489 =&gt; (0.0, (wave - 440.) / (490. - 440.), 1.0),
+</span><span class="boring">        490..=509 =&gt; (0.0, 1.0, (510. - wave) / (510. - 490.)),
+</span><span class="boring">        510..=579 =&gt; ((wave - 510.) / (580. - 510.), 1.0, 0.0),
+</span><span class="boring">        580..=644 =&gt; (1.0, (645. - wave) / (645. - 580.), 0.0),
+</span><span class="boring">        645..=780 =&gt; (1.0, 0.0, 0.0),
+</span><span class="boring">        _ =&gt; (0.0, 0.0, 0.0),
+</span><span class="boring">    };
+</span><span class="boring">
+</span><span class="boring">    let factor = match wavelength {
+</span><span class="boring">        380..=419 =&gt; 0.3 + 0.7 * (wave - 380.) / (420. - 380.),
+</span><span class="boring">        701..=780 =&gt; 0.3 + 0.7 * (780. - wave) / (780. - 700.),
+</span><span class="boring">        _ =&gt; 1.0,
+</span><span class="boring">    };
+</span><span class="boring">
+</span><span class="boring">    let (r, g, b) = (normalize(r, factor), normalize(g, factor), normalize(b, factor));
+</span><span class="boring">    Rgb::from_channels(r, g, b, 0)
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">// Maps Julia set distance estimation to intensity values
+</span><span class="boring">fn julia(c: Complex&lt;f32&gt;, x: u32, y: u32, width: u32, height: u32, max_iter: u32) -&gt; u32 {
+</span><span class="boring">    let width = width as f32;
+</span><span class="boring">    let height = height as f32;
+</span><span class="boring">
+</span><span class="boring">    let mut z = Complex {
+</span><span class="boring">        // scale and translate the point to image coordinates
+</span><span class="boring">        re: 3.0 * (x as f32 - 0.5 * width) / width,
+</span><span class="boring">        im: 2.0 * (y as f32 - 0.5 * height) / height,
+</span><span class="boring">    };
+</span><span class="boring">
+</span><span class="boring">    let mut i = 0;
+</span><span class="boring">    for t in 0..max_iter {
+</span><span class="boring">        if z.norm() &gt;= 2.0 {
+</span><span class="boring">            break;
+</span><span class="boring">        }
+</span><span class="boring">        z = z * z + c;
+</span><span class="boring">        i = t;
+</span><span class="boring">    }
+</span><span class="boring">    i
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">// Normalizes color intensity values within RGB range
+</span><span class="boring">fn normalize(color: f32, factor: f32) -&gt; u8 {
+</span><span class="boring">    ((color * factor).powf(0.8) * 255.) as u8
+</span><span class="boring">}
+</span>
+fn main() -&gt; Result&lt;()&gt; {
+    let (width, height) = (1920, 1080);
+    let mut img = ImageBuffer::new(width, height);
+    let iterations = 300;
+
+    let c = Complex::new(-0.8, 0.156);
+
+    let pool = ThreadPool::new(num_cpus::get());
+    let (tx, rx) = channel();
+
+    for y in 0..height {
+        let tx = tx.clone();
+        pool.execute(move || for x in 0..width {
+                         let i = julia(c, x, y, width, height, iterations);
+                         let pixel = wavelength_to_rgb(380 + i * 400 / iterations);
+                         tx.send((x, y, pixel)).expect(&quot;Could not send data!&quot;);
+                     });
+    }
+
+    for _ in 0..(width * height) {
+        let (x, y, pixel) = rx.recv()?;
+        img.put_pixel(x, y, pixel);
+    }
+    let _ = img.save(&quot;output.png&quot;)?;
+    Ok(())
+}
+</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../concurrency.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../concurrency/parallel.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../concurrency.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../concurrency/parallel.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

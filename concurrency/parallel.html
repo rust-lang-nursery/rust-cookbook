@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Data Parallelism - Rust Cookbook</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Collection of useful Rust code examples">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../theme/custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="../intro.html">Table of Contents</a></li><li class="expanded affix "><a href="../about.html">About</a></li><li class="expanded "><a href="../algorithms.html"><strong aria-hidden="true">1.</strong> Algorithms</a></li><li><ol class="section"><li class="expanded "><a href="../algorithms/randomness.html"><strong aria-hidden="true">1.1.</strong> Generate Random Values</a></li><li class="expanded "><a href="../algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> Sort a Vector</a></li></ol></li><li class="expanded "><a href="../cli.html"><strong aria-hidden="true">2.</strong> Command Line</a></li><li><ol class="section"><li class="expanded "><a href="../cli/arguments.html"><strong aria-hidden="true">2.1.</strong> Argument Parsing</a></li><li class="expanded "><a href="../cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSI Terminal</a></li></ol></li><li class="expanded "><a href="../compression.html"><strong aria-hidden="true">3.</strong> Compression</a></li><li><ol class="section"><li class="expanded "><a href="../compression/tar.html"><strong aria-hidden="true">3.1.</strong> Working with Tarballs</a></li></ol></li><li class="expanded "><a href="../concurrency.html"><strong aria-hidden="true">4.</strong> Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="../concurrency/threads.html"><strong aria-hidden="true">4.1.</strong> Explicit Threads</a></li><li class="expanded "><a href="../concurrency/parallel.html" class="active"><strong aria-hidden="true">4.2.</strong> Data Parallelism</a></li></ol></li><li class="expanded "><a href="../cryptography.html"><strong aria-hidden="true">5.</strong> Cryptography</a></li><li><ol class="section"><li class="expanded "><a href="../cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> Hashing</a></li><li class="expanded "><a href="../cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> Encryption</a></li></ol></li><li class="expanded "><a href="../data_structures.html"><strong aria-hidden="true">6.</strong> Data Structures</a></li><li><ol class="section"><li class="expanded "><a href="../data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> Bitfield</a></li></ol></li><li class="expanded "><a href="../database.html"><strong aria-hidden="true">7.</strong> Database</a></li><li><ol class="section"><li class="expanded "><a href="../database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li class="expanded "><a href="../database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li class="expanded "><a href="../datetime.html"><strong aria-hidden="true">8.</strong> Date and Time</a></li><li><ol class="section"><li class="expanded "><a href="../datetime/duration.html"><strong aria-hidden="true">8.1.</strong> Duration and Calculation</a></li><li class="expanded "><a href="../datetime/parse.html"><strong aria-hidden="true">8.2.</strong> Parsing and Displaying</a></li></ol></li><li class="expanded "><a href="../development_tools.html"><strong aria-hidden="true">9.</strong> Development Tools</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> Debugging</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> Log Messages</a></li><li class="expanded "><a href="../development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> Configure Logging</a></li></ol></li><li class="expanded "><a href="../development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> Versioning</a></li><li class="expanded "><a href="../development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> Build Time Tooling</a></li></ol></li><li class="expanded "><a href="../encoding.html"><strong aria-hidden="true">10.</strong> Encoding</a></li><li><ol class="section"><li class="expanded "><a href="../encoding/strings.html"><strong aria-hidden="true">10.1.</strong> Character Sets</a></li><li class="expanded "><a href="../encoding/csv.html"><strong aria-hidden="true">10.2.</strong> CSV processing</a></li><li class="expanded "><a href="../encoding/complex.html"><strong aria-hidden="true">10.3.</strong> Structured Data</a></li></ol></li><li class="expanded "><a href="../errors.html"><strong aria-hidden="true">11.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="../errors/handle.html"><strong aria-hidden="true">11.1.</strong> Handle Error Variants</a></li></ol></li><li class="expanded "><a href="../file.html"><strong aria-hidden="true">12.</strong> File System</a></li><li><ol class="section"><li class="expanded "><a href="../file/read-write.html"><strong aria-hidden="true">12.1.</strong> Read &amp; Write</a></li><li class="expanded "><a href="../file/dir.html"><strong aria-hidden="true">12.2.</strong> Directory Traversal</a></li></ol></li><li class="expanded "><a href="../hardware.html"><strong aria-hidden="true">13.</strong> Hardware Support</a></li><li><ol class="section"><li class="expanded "><a href="../hardware/processor.html"><strong aria-hidden="true">13.1.</strong> Processor</a></li></ol></li><li class="expanded "><a href="../mem.html"><strong aria-hidden="true">14.</strong> Memory Management</a></li><li><ol class="section"><li class="expanded "><a href="../mem/global_static.html"><strong aria-hidden="true">14.1.</strong> Global Static</a></li></ol></li><li class="expanded "><a href="../net.html"><strong aria-hidden="true">15.</strong> Network</a></li><li><ol class="section"><li class="expanded "><a href="../net/server.html"><strong aria-hidden="true">15.1.</strong> Server</a></li></ol></li><li class="expanded "><a href="../os.html"><strong aria-hidden="true">16.</strong> Operating System</a></li><li><ol class="section"><li class="expanded "><a href="../os/external.html"><strong aria-hidden="true">16.1.</strong> External Command</a></li></ol></li><li class="expanded "><a href="../science.html"><strong aria-hidden="true">17.</strong> Science</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics.html"><strong aria-hidden="true">17.1.</strong> Mathematics</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> Linear Algebra</a></li><li class="expanded "><a href="../science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> Trigonometry</a></li><li class="expanded "><a href="../science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> Complex Numbers</a></li><li class="expanded "><a href="../science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> Statistics</a></li><li class="expanded "><a href="../science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> Miscellaneous</a></li></ol></li></ol></li><li class="expanded "><a href="../text.html"><strong aria-hidden="true">18.</strong> Text Processing</a></li><li><ol class="section"><li class="expanded "><a href="../text/regex.html"><strong aria-hidden="true">18.1.</strong> Regular Expressions</a></li><li class="expanded "><a href="../text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> String Parsing</a></li></ol></li><li class="expanded "><a href="../web.html"><strong aria-hidden="true">19.</strong> Web Programming</a></li><li><ol class="section"><li class="expanded "><a href="../web/scraping.html"><strong aria-hidden="true">19.1.</strong> Extracting Links</a></li><li class="expanded "><a href="../web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li class="expanded "><a href="../web/mime.html"><strong aria-hidden="true">19.3.</strong> Media Types</a></li><li class="expanded "><a href="../web/clients.html"><strong aria-hidden="true">19.4.</strong> Clients</a></li><li><ol class="section"><li class="expanded "><a href="../web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> Making Requests</a></li><li class="expanded "><a href="../web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Calling a Web API</a></li><li class="expanded "><a href="../web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> Downloads</a></li><li class="expanded "><a href="../web/clients/authentication.html"><strong aria-hidden="true">19.4.4.</strong> Web Authentication</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Cookbook</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                            <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
+                                <i id="git-repository-button" class="fa fa-github"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#parallel-tasks" id="parallel-tasks">Parallel Tasks</a></h1>
+<h2><a class="header" href="#mutate-the-elements-of-an-array-in-parallel" id="mutate-the-elements-of-an-array-in-parallel">Mutate the elements of an array in parallel</a></h2>
+<p><a href="https://docs.rs/rayon/"><img src="https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon" alt="rayon-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>The example uses the <code>rayon</code> crate, which is a data parallelism library for Rust.
+<code>rayon</code> provides the <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut"><code>par_iter_mut</code></a> method for any parallel iterable data type.
+This is an iterator-like chain that potentially executes in parallel.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018">use rayon::prelude::*;
+
+fn main() {
+    let mut arr = [0, 7, 9, 11];
+    arr.par_iter_mut().for_each(|p| *p -= 1);
+    println!(&quot;{:?}&quot;, arr);
+}
+</code></pre></pre>
+<h2><a class="header" href="#test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate" id="test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate">Test in parallel if any or all elements of a collection match a given predicate</a></h2>
+<p><a href="https://docs.rs/rayon/"><img src="https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon" alt="rayon-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>This example demonstrates using the <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any"><code>rayon::any</code></a> and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all"><code>rayon::all</code></a> methods, which are parallelized counterparts to <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.any"><code>std::any</code></a> and <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.all"><code>std::all</code></a>. <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any"><code>rayon::any</code></a> checks in parallel whether any element of the iterator matches the predicate, and returns as soon as one is found. <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all"><code>rayon::all</code></a> checks in parallel whether all elements of the iterator match the predicate, and returns as soon as a non-matching element is found.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018">use rayon::prelude::*;
+
+fn main() {
+    let mut vec = vec![2, 4, 6, 8];
+
+    assert!(!vec.par_iter().any(|n| (*n % 2) != 0));
+    assert!(vec.par_iter().all(|n| (*n % 2) == 0));
+    assert!(!vec.par_iter().any(|n| *n &gt; 8 ));
+    assert!(vec.par_iter().all(|n| *n &lt;= 8 ));
+
+    vec.push(9);
+
+    assert!(vec.par_iter().any(|n| (*n % 2) != 0));
+    assert!(!vec.par_iter().all(|n| (*n % 2) == 0));
+    assert!(vec.par_iter().any(|n| *n &gt; 8 ));
+    assert!(!vec.par_iter().all(|n| *n &lt;= 8 )); 
+}
+</code></pre></pre>
+<h2><a class="header" href="#search-items-using-given-predicate-in-parallel" id="search-items-using-given-predicate-in-parallel">Search items using given predicate in parallel</a></h2>
+<p><a href="https://docs.rs/rayon/"><img src="https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon" alt="rayon-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>This example uses <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.find_any"><code>rayon::find_any</code></a> and <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter"><code>par_iter</code></a> to search a vector in
+parallel for an element satisfying the predicate in the given closure.</p>
+<p>If there are multiple elements satisfying the predicate defined in the closure
+argument of <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.find_any"><code>rayon::find_any</code></a>, <code>rayon</code> returns the first one found, not
+necessarily the first one.</p>
+<p>Also note that the argument to the closure is a reference to a reference
+(<code>&amp;&amp;x</code>). See the discussion on <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.find"><code>std::find</code></a> for additional details.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018">use rayon::prelude::*;
+
+fn main() {
+    let v = vec![6, 2, 1, 9, 3, 8, 11];
+
+    let f1 = v.par_iter().find_any(|&amp;&amp;x| x == 9);
+    let f2 = v.par_iter().find_any(|&amp;&amp;x| x % 2 == 0 &amp;&amp; x &gt; 6);
+    let f3 = v.par_iter().find_any(|&amp;&amp;x| x &gt; 8);
+
+    assert_eq!(f1, Some(&amp;9));
+    assert_eq!(f2, Some(&amp;8));
+    assert!(f3 &gt; Some(&amp;8));
+}
+</code></pre></pre>
+<h2><a class="header" href="#sort-a-vector-in-parallel" id="sort-a-vector-in-parallel">Sort a vector in parallel</a></h2>
+<p><a href="https://docs.rs/rayon/"><img src="https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon" alt="rayon-badge" /></a> <a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>This example will sort in parallel a vector of Strings.</p>
+<p>Allocate a vector of empty Strings. <code>par_iter_mut().for_each</code> populates random
+values in parallel.  Although <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html">multiple options</a>
+exist to sort an enumerable data type, <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable"><code>par_sort_unstable</code></a>
+is usually faster than <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort">stable sorting</a> algorithms.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018">
+use rand::{Rng, thread_rng};
+use rand::distributions::Alphanumeric;
+use rayon::prelude::*;
+
+fn main() {
+  let mut vec = vec![String::new(); 100_000];
+  vec.par_iter_mut().for_each(|p| {
+    let mut rng = thread_rng();
+    *p = (0..5).map(|_| rng.sample(&amp;Alphanumeric) as char).collect()
+  });
+  vec.par_sort_unstable();
+}
+</code></pre></pre>
+<h2><a class="header" href="#map-reduce-in-parallel" id="map-reduce-in-parallel">Map-reduce in parallel</a></h2>
+<p><a href="https://docs.rs/rayon/"><img src="https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon" alt="rayon-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p>This example uses <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.filter"><code>rayon::filter</code></a>, <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.map"><code>rayon::map</code></a>, and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.reduce"><code>rayon::reduce</code></a>
+to calculate the average age of <code>Person</code> objects whose age is over 30.</p>
+<p><a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.filter"><code>rayon::filter</code></a> returns elements from a collection that satisfy the given
+predicate.  <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.map"><code>rayon::map</code></a> performs an operation on every element, creating a
+new iteration, and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.reduce"><code>rayon::reduce</code></a> performs an operation given the previous
+reduction and the current element.  Also shows use of <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.sum"><code>rayon::sum</code></a>,
+which has the same result as the reduce operation in this example.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018">use rayon::prelude::*;
+
+struct Person {
+    age: u32,
+}
+
+fn main() {
+    let v: Vec&lt;Person&gt; = vec![
+        Person { age: 23 },
+        Person { age: 19 },
+        Person { age: 42 },
+        Person { age: 17 },
+        Person { age: 17 },
+        Person { age: 31 },
+        Person { age: 30 },
+    ];
+
+    let num_over_30 = v.par_iter().filter(|&amp;x| x.age &gt; 30).count() as f32;
+    let sum_over_30 = v.par_iter()
+        .map(|x| x.age)
+        .filter(|&amp;x| x &gt; 30)
+        .reduce(|| 0, |x, y| x + y);
+
+    let alt_sum_30: u32 = v.par_iter()
+        .map(|x| x.age)
+        .filter(|&amp;x| x &gt; 30)
+        .sum();
+
+    let avg_over_30 = sum_over_30 as f32 / num_over_30;
+    let alt_avg_over_30 = alt_sum_30 as f32/ num_over_30;
+
+    assert!((avg_over_30 - alt_avg_over_30).abs() &lt; std::f32::EPSILON);
+    println!(&quot;The average age of people older than 30 is {}&quot;, avg_over_30);
+}
+</code></pre></pre>
+<h2><a class="header" href="#generate-jpg-thumbnails-in-parallel" id="generate-jpg-thumbnails-in-parallel">Generate jpg thumbnails in parallel</a></h2>
+<p><a href="https://docs.rs/rayon/"><img src="https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon" alt="rayon-badge" /></a> <a href="https://docs.rs/glob/"><img src="https://badge-cache.kominick.com/crates/v/glob.svg?label=glob" alt="glob-badge" /></a> <a href="https://docs.rs/image/"><img src="https://badge-cache.kominick.com/crates/v/image.svg?label=image" alt="image-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>This example generates thumbnails for all .jpg files in the current directory
+then saves them in a new folder called <code>thumbnails</code>.</p>
+<p><a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob::glob_with</code></a> finds jpeg files in current directory. <code>rayon</code> resizes
+images in parallel using <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter"><code>par_iter</code></a> calling  <a href="https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize"><code>DynamicImage::resize</code></a>.</p>
+<pre><pre class="playpen"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
+</span>
+use std::path::Path;
+use std::fs::create_dir_all;
+
+<span class="boring">use error_chain::ChainedError;
+</span>use glob::{glob_with, MatchOptions};
+use image::{FilterType, ImageError};
+use rayon::prelude::*;
+
+<span class="boring">error_chain! {
+</span><span class="boring">    foreign_links {
+</span><span class="boring">        Image(ImageError);
+</span><span class="boring">        Io(std::io::Error);
+</span><span class="boring">        Glob(glob::PatternError);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span>
+fn main() -&gt; Result&lt;()&gt; {
+    let options: MatchOptions = Default::default();
+    let files: Vec&lt;_&gt; = glob_with(&quot;*.jpg&quot;, options)?
+        .filter_map(|x| x.ok())
+        .collect();
+
+    if files.len() == 0 {
+        error_chain::bail!(&quot;No .jpg files found in current directory&quot;);
+    }
+
+    let thumb_dir = &quot;thumbnails&quot;;
+    create_dir_all(thumb_dir)?;
+
+    println!(&quot;Saving {} thumbnails into '{}'...&quot;, files.len(), thumb_dir);
+
+    let image_failures: Vec&lt;_&gt; = files
+        .par_iter()
+        .map(|path| {
+            make_thumbnail(path, thumb_dir, 300)
+                .map_err(|e| e.chain_err(|| path.display().to_string()))
+        })
+        .filter_map(|x| x.err())
+        .collect();
+
+    image_failures.iter().for_each(|x| println!(&quot;{}&quot;, x.display_chain()));
+
+    println!(&quot;{} thumbnails saved successfully&quot;, files.len() - image_failures.len());
+    Ok(())
+}
+
+fn make_thumbnail&lt;PA, PB&gt;(original: PA, thumb_dir: PB, longest_edge: u32) -&gt; Result&lt;()&gt;
+where
+    PA: AsRef&lt;Path&gt;,
+    PB: AsRef&lt;Path&gt;,
+{
+    let img = image::open(original.as_ref())?;
+    let file_path = thumb_dir.as_ref().join(original);
+
+    Ok(img.resize(longest_edge, longest_edge, FilterType::Nearest)
+        .save(file_path)?)
+}
+</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../concurrency/threads.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../cryptography.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../concurrency/threads.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../cryptography.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
