@@ -20,7 +20,7 @@ cd rust-cookbook
 Cookbook is built with [mdBook], so install that first with Cargo:
 
 ```
-cargo install --version 0.3.5 mdbook
+cargo install --version 0.4.43 mdbook
 ```
 
 To build and view the cookbook locally, run:
@@ -43,6 +43,30 @@ To run the cookbook test suite:
 ```
 cargo test
 ```
+
+### xtask
+
+To simplify common tasks like testing, building the book, and running linters.
+
+First, ensure you have the required tools installed:
+
+```bash
+cargo install mdbook@0.4.43 lychee@0.17.0
+```
+
+- To run all tests:
+
+  ```bash
+  cargo xtask test all
+  ```
+
+- To build the book locally:
+
+  ```bash
+  cargo xtask book
+  ```
+
+For more details on available tasks, please check the full [xtask README](./xtask/README.md).
 
 ## Linters
 

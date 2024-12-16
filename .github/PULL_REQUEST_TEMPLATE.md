@@ -7,13 +7,10 @@ No worries if anything in these lists is unclear. Just submit the PR and ask awa
 --------------------------
 ### Things to check before submitting a PR
 
-- [ ] the tests are passing locally with `cargo test`
-- [ ] cookbook renders correctly in `mdbook serve -o`
+- [ ] the tests are passing locally with `cargo xtask test all`
 - [ ] commits are squashed into one and rebased to latest master
 - [ ] PR contains correct "fixes #ISSUE_ID" clause to autoclose the issue on PR merge
     -  if issue does not exist consider creating it or remove the clause
-- [ ] spell check runs without errors `./ci/spellcheck.sh`
-- [ ] link check runs without errors `link-checker ./book`
 - [ ] non rendered items are in sorted order (links, reference, identifiers, Cargo.toml)
 - [ ] links to docs.rs have wildcard version `https://docs.rs/tar/*/tar/struct.Entry.html`
 - [ ] example has standard [error handling](https://rust-lang-nursery.github.io/rust-cookbook/about.html#a-note-about-error-handling)
