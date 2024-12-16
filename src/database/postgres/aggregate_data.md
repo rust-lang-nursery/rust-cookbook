@@ -40,4 +40,4 @@ fn main() -> Result<(), Error> {
 }
 ```
 
-[`Museum of Modern Art`]: https://github.com/MuseumofModernArt/collection/blob/master/Artists.csv
+[`Museum of Modern Art`]: https://github.com/MuseumofModernArt/collection/blob/main/Artists.csv
