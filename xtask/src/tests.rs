@@ -69,7 +69,7 @@ fn spellcheck() -> Result<(), Box<dyn Error>> {
 fn link_checker() -> Result<(), Box<dyn Error>> {
     if Command::new("lychee").arg("--version").status().is_err() {
         return Err(
-            "The `lychee` tool is not installed. Please install it using:\n    cargo install lychee".into(),
+            "The `lychee` tool is not installed. Please install it using:\n    cargo install lychee@0.17.0".into(),
         );
     }
 
