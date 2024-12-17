@@ -7,7 +7,7 @@ Use the `rusqlite` crate to open SQLite databases. See
 
 [`Connection::open`] will create the database if it doesn't already exist.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use rusqlite::{Connection, Result};
 
 fn main() -> Result<()> {
@@ -18,7 +18,7 @@ fn main() -> Result<()> {
              id integer primary key,
              name text not null unique
          )",
-        [],
+        (),
     )?;
     conn.execute(
         "create table if not exists cats (
@@ -26,7 +26,7 @@ fn main() -> Result<()> {
              name text not null,
              color_id integer not null references cat_colors(id)
          )",
-        [],
+        (),
     )?;
 
     Ok(())
