@@ -13,7 +13,7 @@
 | [POST a file to paste-rs][ex-file-post] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
 [ex-url-basic]: clients/requests.html#make-a-http-get-request
-[ex-url-header]: web/clients/requests.html#set-custom-headers-and-url-parameters-for-a-rest-request
+[ex-url-header]: clients/requests.html#set-custom-headers-and-url-parameters-for-a-rest-request
 [ex-rest-custom-params]: clients/requests.html#set-custom-headers-and-url-parameters-for-a-rest-request
 [ex-rest-get]: clients/apis.html#query-the-github-api
 [ex-rest-head]: clients/apis.html#check-if-an-api-resource-exists
