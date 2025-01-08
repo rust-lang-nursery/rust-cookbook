@@ -1,0 +1,41 @@
+# Don't show interactive progress bar while checking links.
+no_progress = true
+
+# Path to summary output file.
+output = "lychee-report.md"
+
+# Enable link caching. This can be helpful to avoid checking the same links on
+# multiple runs.
+cache = true
+
+# Discard all cached requests older than this duration.
+max_cache_age = "2d"
+
+user_agent = "curl/7.83. 1"
+
+# Website timeout from connect to response finished.
+timeout = 20
+
+# Minimum wait time in seconds between retries of failed requests.
+retry_wait_time = 20
+
+# Comma-separated list of accepted status codes for valid links.
+# Supported values are:
+#
+# accept = ["200..=204", "429"]
+# accept = "200..=204, 429"
+# accept = ["200", "429"]
+# accept = "200, 429"
+accept = ["200", "429"]
+
+# Request method
+method = "get"
+
+# Custom request headers
+headers = []
+
+# Exclude loopback IP address range and localhost from checking.
+exclude_loopback = false
+
+# Check mail addresses
+include_mail = true

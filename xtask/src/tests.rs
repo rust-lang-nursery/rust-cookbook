@@ -31,14 +31,17 @@ fn run_all_tests() -> Result<(), Box<dyn Error>> {
     if !failures.is_empty() {
         println!("\n--- Test Summary ---");
         for name in failures {
-            println!("❌ {name} failed! Re-run with the command:");
-            println!("   cargo xtask test {name}");
+            eprintln!("❌ {name} failed! Re-run with the command:");
+            eprintln!("   cargo xtask test {name}");
         }
+        Err(Box::new(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "test failed",
+        )))
     } else {
         println!("\n🎉 All tests passed!");
+        Ok(())
     }
-
-    Ok(())
 }
 
 fn cargo_test() -> Result<(), Box<dyn Error>> {
