@@ -20,13 +20,7 @@ timeout = 20
 retry_wait_time = 20
 
 # Comma-separated list of accepted status codes for valid links.
-# Supported values are:
-#
-# accept = ["200..=204", "429"]
-# accept = "200..=204, 429"
-# accept = ["200", "429"]
-# accept = "200, 429"
-accept = ["200", "429"]
+accept = ["200", "429"] # 429 for ratelimits 
 
 # Request method
 method = "get"
