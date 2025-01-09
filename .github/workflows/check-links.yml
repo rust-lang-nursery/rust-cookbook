@@ -9,7 +9,7 @@ jobs:
   linkChecker:
     runs-on: ubuntu-latest
     permissions:
-      issues: write # required for peter-evans/create-issue-from-file
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -18,13 +18,16 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           fail: false
-          # Use a custom GitHub token, (fix ratelimit issues)
+          # Use a custom GitHub token to avoid rate limit issues
           # token: ${{ secrets.CUSTOM_TOKEN }}
 
-      - name: Create Issue From File
-        if: steps.lychee.outputs.exit_code != 0
-        uses: peter-evans/create-issue-from-file@v5
+      - name: Post Comment on Pull Request
+        if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
-          title: Link Checker Report
-          content-filepath: ./lychee/out.md
-          labels: report, automated issue
+          header: Link Checker Report
+          message: |
+            The link checker found some issues. Please review the report below:
+            ```
+            ${{ steps.lychee.outputs.report }}
+            ```
