@@ -17,9 +17,13 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@v2
         with:
-          fail: false
-          # Use a custom GitHub token to avoid rate limit issues
-          # token: ${{ secrets.CUSTOM_TOKEN }}
+          fail: true
+          output: ./lychee/out.md
+
+      - name: Read Report File
+        id: read_report
+        run: |
+          echo "::set-output name=content::$(cat ./lychee/out.md | jq -R -s '.')"
 
       - name: Post Comment on Pull Request
         if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
@@ -29,5 +33,4 @@ jobs:
           message: |
             The link checker found some issues. Please review the report below:
             ```
-            ${{ steps.lychee.outputs.report }}
-            ```
+            ${{ steps.read_report.outputs.content }}
