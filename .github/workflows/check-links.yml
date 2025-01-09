@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Restore lychee cache
+        id: restore-cache
         uses: actions/cache@v4
         with:
           path: .lycheecache
@@ -35,7 +36,7 @@ jobs:
         if: always()
         with:
           path: .lycheecache
-          key: ${{ steps.restore-cache.outputs.cache-primary-key }}
+          key: cache-lychee-${{ github.sha }}
 
       - name: Post Comment on Pull Request
         if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0

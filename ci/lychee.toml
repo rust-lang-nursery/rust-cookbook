@@ -1,9 +1,6 @@
 # Don't show interactive progress bar while checking links.
 no_progress = true
 
-# Path to summary output file.
-output = "lychee-report.md"
-
 # Enable link caching. This can be helpful to avoid checking the same links on
 # multiple runs.
 cache = true
