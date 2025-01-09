@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CACHE_KEY: cache-lychee-${{ github.sha }}
     permissions:
       pull-requests: write
     steps:
@@ -20,7 +21,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .lycheecache
-          key: cache-lychee-${{ github.sha }}
+          key: ${{  }}
           restore-keys: cache-lychee-
 
       - name: Link Checker
@@ -36,7 +37,7 @@ jobs:
         if: always()
         with:
           path: .lycheecache
-          key: cache-lychee-${{ github.sha }}
+          key: ${{ steps.restore-cache.outputs.cache-primary-key || env.CACHE_KEY }} # fallback in case the cache wasn't created yet
 
       - name: Post Comment on Pull Request
         if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
