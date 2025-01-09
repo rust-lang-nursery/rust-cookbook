@@ -257,13 +257,11 @@ after the code sample.
 > generator [`rand::Rng`].
 >
 > The [distributions available are documented here][rand-distributions].
-> An example using the [`Normal`] distribution is shown below.
 
 [uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)
 [`Distribution::sample`]: https://docs.rs/rand/*/rand/distributions/trait.Distribution.html#tymethod.sample
 [`rand::Rng`]: https://docs.rs/rand/*/rand/trait.Rng.html
 [rand-distributions]: https://docs.rs/rand/*/rand/distributions/index.html
-[`Normal`]: https://docs.rs/rand/*/rand/distributions/struct.Normal.html
 
 #### Code
 
