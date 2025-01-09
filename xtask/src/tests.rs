@@ -90,12 +90,8 @@ fn link_checker() -> Result<(), Box<dyn Error>> {
         .current_dir(project_root())
         .args([
             "./book",
-            "--retry-wait-time",
-            "20",
-            "--max-retries",
-            "3",
-            "--accept",
-            "429", // accept 429 (ratelimit) errors as valid
+            "--config",
+            "./ci/lychee.toml"
         ])
         .status()?;
 
