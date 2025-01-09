@@ -21,7 +21,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .lycheecache
-          key: ${{  }}
+          key: ${{ env.CACHE_KEY }}
           restore-keys: cache-lychee-
 
       - name: Link Checker
