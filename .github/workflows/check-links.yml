@@ -8,6 +8,8 @@ on:
 jobs:
   linkChecker:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       pull-requests: write
     steps:
