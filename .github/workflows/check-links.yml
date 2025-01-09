@@ -20,20 +20,13 @@ jobs:
           fail: false
           output: ./lychee/out.md
 
-      - name: Read Report File
-        id: read_report
-        run: |
-          echo "::set-output name=content::$(cat ./lychee/out.md | jq -R -s '.')"
-
       - name: Post Comment on Pull Request
         if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: Link Checker Report
-          message: |
-            The link checker found some issues. Please review the report below:
-            ```
-            ${{ steps.read_report.outputs.content }}
+        run: |
+          echo "The link checker found some issues. Please review the report below:" > comment.md
+          echo "" >> comment.md
+          cat ./lychee/out.md >> comment.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
 
       - name: Fail Workflow
         if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
