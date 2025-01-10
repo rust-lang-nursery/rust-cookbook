@@ -23,7 +23,7 @@ fn main() {
 }
 ```
 
-[`form_urlencoded::byte_serialize`]: https://docs.rs//fn.byte_serialize.html
+[`form_urlencoded::byte_serialize`]: https://docs.rs/form_urlencoded/*/form_urlencoded/fn.byte_serialize.html
 [`form_urlencoded::parse`]: https://docs.rs/form_urlencoded/*/form_urlencoded/fn.parse.html
 
 [application/x-www-form-urlencoded]: https://url.spec.whatwg.org/#application/x-www-form-urlencoded
