@@ -1,0 +1,39 @@
+name: Build and Deploy mdBook
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up cache for mdbook
+        id: cache-mdbook
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/mdbook
+          key: mdbook-v0.4.43
+
+      - name: Install mdBook (if not cached)
+        if: steps.cache-mdbook.outputs.cache-hit != 'true'
+        run: |
+          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.43/mdbook-v0.4.43-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C ~/.cargo/bin
+          chmod +x ~/.cargo/bin/mdbook
+
+      - name: Build mdBook
+        run: |
+          mdbook build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./book
