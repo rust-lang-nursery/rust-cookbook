@@ -21,19 +21,13 @@ jobs:
 
       - name: Run tests
         run: |
-          cargo +nightly test  -- -Z unstable-options --format json --report-time | tee results.json
-
-      - name: Prepare junit report
-        id: cargo_reporter
-        uses: innoq/action-cargo-test-report@v1
-        with:
-          cargo-test-report-json: 'results.json'
+          cargo +nightly test  -- -Z unstable-options --format junit --report-time | tee results.xml 
 
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@main
+        uses: mikepenz/action-junit-report@v5.2.0
         if: always()
         with:
           check_name: Test Report
           fail_on_failure: true
           require_tests: true
-          summary: ${{ steps.cargo_reporter.outputs.summary }}
+          report_paths: '**/results.xml'
