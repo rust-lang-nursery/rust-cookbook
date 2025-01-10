@@ -20,6 +20,7 @@ jobs:
           toolchain: nightly
 
       - name: Run tests
+        id: cargo_test
         run: |
           cargo +nightly test  -- -Z unstable-options --format junit --report-time
 
@@ -28,5 +29,4 @@ jobs:
         if: always()
         with:
           fail_on_failure: true
-          require_tests: true
-          summary: ${{ steps.cargo_reporter.outputs.summary }}
+          summary: ${{ steps.cargo_test.outputs.summary }}
