@@ -21,13 +21,12 @@ jobs:
 
       - name: Run tests
         run: |
-          cargo +nightly test  -- -Z unstable-options --format junit --report-time | tee results.xml 
+          cargo +nightly test  -- -Z unstable-options --format junit --report-time
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v5.2.0
         if: always()
         with:
-          check_name: Test Report
           fail_on_failure: true
           require_tests: true
-          report_paths: '**/results.xml'
+          summary: ${{ steps.cargo_reporter.outputs.summary }}
