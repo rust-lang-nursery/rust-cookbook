@@ -7,20 +7,27 @@ a file over HTTP using [`reqwest::get`] asynchronously.
 
 Creates a target [`File`] with name obtained from [`Response::url`] within
 [`tempdir()`] and writes downloaded data into it with [`Writer::write_all`].
-The temporary directory is automatically removed on program exit.
+The temporary directory is automatically removed on program exit as seen
+in [`tempfile#examples`].
 
-```rust,edition2018,no_run
-use error_chain::error_chain;
+Add dependencies with cargo
+
+```
+cargo add anyhow reqwest tempfile tempfile tokio
+```
+
+Enable features in Cargo.toml
+
+```
+tokio = { version = "..", features = ["full"] }
+```
+
+```rust,edition2024,no_run
+
+use anyhow::Result;
 use std::io::Write;
 use std::fs::File;
 use tempfile::Builder;
-
-error_chain! {
-     foreign_links {
-         Io(std::io::Error);
-         HttpRequest(reqwest::Error);
-     }
-}
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -38,11 +45,12 @@ async fn main() -> Result<()> {
 
         println!("file to download: '{}'", fname);
         let fname = tmp_dir.path().join(fname);
-        println!("will be located under: '{:?}'", fname);
+        println!("will be located under: {}", fname.display());
         File::create(fname)?
     };
     let content =  response.bytes().await?;
     dest.write_all(&content)?;
+
     Ok(())
 }
 ```
@@ -52,4 +60,5 @@ async fn main() -> Result<()> {
 [`Response::url`]: https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url
 [`tempfile::Builder`]: https://docs.rs/tempfile/*/tempfile/struct.Builder.html
 [`tempdir()`]: https://docs.rs/tempfile/*/tempfile/struct.Builder.html#method.tempdir
+[`tempfile#examples`]: https://docs.rs/tempfile/latest/tempfile/#examples
 [`Writer::write_all`]: https://doc.rust-lang.org/std/io/trait.Write.html#method.write_all
