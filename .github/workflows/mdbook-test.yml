@@ -1,0 +1,38 @@
+name: Test Rust Project
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache: 'true'
+          toolchain: nightly
+
+      - name: Run tests
+        id: cargo_test
+        run: |
+          cargo +nightly test --test skeptic -- -Z unstable-options --format junit --report-time --test-threads=1 | tee ./TEST-cookbook.xml
+
+      - name: List files for debugging
+        if: always()
+        run: ls -R
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v5.2.0
+        if: always()
+        with:
+          fail_on_failure: true
+          require_tests: true
+          summary: ${{ steps.cargo_test.outputs.summary }}
+          report_paths: '**/TEST-*.xml'

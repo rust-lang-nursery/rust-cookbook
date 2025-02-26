@@ -47,6 +47,6 @@ fn main() -> Result<()> {
 ```
 
 [`log4rs::append::file::FileAppender`]: https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html
-[`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/struct.Config.html
+[`log4rs::config::Config`]: https://docs.rs/log4rs/*/log4rs/config/runtime/struct.Config.html
 [`log4rs::encode::pattern`]: https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html
 [`log::LevelFilter`]: https://docs.rs/log/*/log/enum.LevelFilter.html
