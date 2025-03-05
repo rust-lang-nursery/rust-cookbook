@@ -9,7 +9,22 @@ with [`reqwest::get`] to get list of all users who have marked a GitHub project 
 [tokio::main] is used to set up the async executor and the process waits for [`reqwest::get`] to complete before
 processing the response into User instances.
 
-```rust,edition2018,no_run
+to set up the crates required to run this example run
+
+```
+cargo new
+cargo add reqwest serde tokio
+```
+
+edit the Cargo.toml to add features
+
+```
+reqwest = { version = "..", features = ["json"] }
+serde = { version = "", features = ["derive"] }
+tokio = { version = "..", features = ["full"] }
+```
+
+```rust,edition2024
 use serde::Deserialize;
 use reqwest::Error;
 use reqwest::header::USER_AGENT;
@@ -35,7 +50,8 @@ async fn main() -> Result<(), Error> {
         .await?;
 
     let users: Vec<User> = response.json().await?;
-    println!("{:?}", users);
+    users.iter().for_each(|user| println!("{:?} {}({})", user, user.login, user.id));
+
     Ok(())
 }
 ```
