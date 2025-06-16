@@ -1,6 +1,7 @@
 name: Links
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - master
@@ -28,6 +29,7 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@v2
         with:
+          checkbox: true
           fail: false
           output: ./lychee/out.md
           args: "--base . --config ./ci/lychee.toml ."
