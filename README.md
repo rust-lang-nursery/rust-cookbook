@@ -2,6 +2,8 @@
 
 [Build Status travis]: https://api.travis-ci.com/rust-lang-nursery/rust-cookbook.svg?branch=master
 
+https://invalid.cc
+
 **[Read it here]**.
 
 This _Rust Cookbook_ is a collection of simple [Rust] examples that
