@@ -17,14 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Restore lychee cache
-        id: restore-cache
-        uses: actions/cache@v4
-        with:
-          path: .lycheecache
-          key: ${{ env.CACHE_KEY }}
-          restore-keys: cache-lychee-
-
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@v2.4.1
