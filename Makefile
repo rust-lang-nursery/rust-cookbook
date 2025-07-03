@@ -1,4 +1,4 @@
-.PHONY: help build test deploy dev clean install-mdbook
+.PHONY: help build test deploy deploy-skip-tests dev clean install-mdbook
 
 help: ## Show this help message
 	@echo "Rust Cookbook - Available commands:"
@@ -22,6 +22,9 @@ dev: build test ## Build and test (development workflow)
 
 deploy: dev ## Deploy to GitHub Pages (requires maintainer permissions)
 	./scripts/deploy.sh
+
+deploy-skip-tests: build ## Deploy to GitHub Pages without running tests
+	./scripts/deploy.sh --skip-tests
 
 clean: ## Clean build artifacts
 	cargo clean

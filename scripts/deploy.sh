@@ -2,6 +2,22 @@
 
 set -e
 
+# Parse command line arguments
+SKIP_TESTS=false
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --skip-tests)
+            SKIP_TESTS=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Usage: $0 [--skip-tests]"
+            exit 1
+            ;;
+    esac
+done
+
 echo "Rust Cookbook Local Deployment Script"
 echo "====================================="
 
@@ -19,13 +35,16 @@ mdbook build
 echo "Copying assets..."
 cp -r assets/ book/
 
-# Run tests
-echo "Running tests..."
-cargo test
-
-# Run spellcheck
-echo "Running spellcheck..."
-./ci/spellcheck.sh list
+# Run tests (unless --skip-tests is specified)
+if [[ "$SKIP_TESTS" == "false" ]]; then
+    echo "Running tests..."
+    cargo test
+    
+    echo "Running spellcheck..."
+    ./ci/spellcheck.sh list
+else
+    echo "Skipping tests (--skip-tests flag provided)"
+fi
 
 # Check if we're on master branch
 if [[ $(git branch --show-current) != "master" ]]; then
