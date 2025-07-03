@@ -1,0 +1,46 @@
+name: Links
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CACHE_KEY: cache-lychee-${{ github.sha }}
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v2.4.1
+        with:
+          fail: false
+          checkbox: false
+          output: ./lychee/out.md
+          args: "--mode task --base . --config ./ci/lychee.toml ."
+
+      - name: Save lychee cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .lycheecache
+          key: ${{ steps.restore-cache.outputs.cache-primary-key || env.CACHE_KEY }} # fallback in case the cache wasn't created yet
+
+      - name: Post Comment on Pull Request
+        if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
+        run: |
+          echo "The link checker found some issues. Please review the report below:" > comment.md
+          echo "" >> comment.md
+          cat ./lychee/out.md >> comment.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
+
+      - name: Fail Workflow
+        if: github.event_name == 'pull_request' && steps.lychee.outputs.exit_code != 0
+        run: exit 1

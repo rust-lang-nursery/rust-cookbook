@@ -129,7 +129,7 @@ as are crates that are pending evaluation.
 {{#include links.md}}
 
 [index]: intro.html
-[error-docs]: https://doc.rust-lang.org/book/error-handling.html
+[error-docs]: https://do.rust-lang.org/book/error-handling.html
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
 [error-chain]: https://docs.rs/error-chain/
 [Rust Libz Blitz]: https://internals.rust-lang.org/t/rust-libz-blitz/5184
