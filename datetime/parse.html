@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Parsing and Displaying - Rust Cookbook</title>
-        
 
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+        <!-- Custom HTML head -->
+
         <meta name="description" content="Collection of useful Rust code examples">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
+        <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
@@ -19,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -28,21 +29,21 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="../theme/custom.css">
-        
 
-        
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
     </head>
     <body>
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
-        </script>
-
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -58,82 +59,87 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('no-js')
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            html.classList.add("js");
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
+            sidebar_toggle.checked = sidebar === 'visible';
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="../intro.html">Table of Contents</a></li><li class="expanded affix "><a href="../about.html">About</a></li><li class="expanded "><a href="../algorithms.html"><strong aria-hidden="true">1.</strong> Algorithms</a></li><li><ol class="section"><li class="expanded "><a href="../algorithms/randomness.html"><strong aria-hidden="true">1.1.</strong> Generate Random Values</a></li><li class="expanded "><a href="../algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> Sort a Vector</a></li></ol></li><li class="expanded "><a href="../cli.html"><strong aria-hidden="true">2.</strong> Command Line</a></li><li><ol class="section"><li class="expanded "><a href="../cli/arguments.html"><strong aria-hidden="true">2.1.</strong> Argument Parsing</a></li><li class="expanded "><a href="../cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSI Terminal</a></li></ol></li><li class="expanded "><a href="../compression.html"><strong aria-hidden="true">3.</strong> Compression</a></li><li><ol class="section"><li class="expanded "><a href="../compression/tar.html"><strong aria-hidden="true">3.1.</strong> Working with Tarballs</a></li></ol></li><li class="expanded "><a href="../concurrency.html"><strong aria-hidden="true">4.</strong> Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="../concurrency/threads.html"><strong aria-hidden="true">4.1.</strong> Explicit Threads</a></li><li class="expanded "><a href="../concurrency/parallel.html"><strong aria-hidden="true">4.2.</strong> Data Parallelism</a></li></ol></li><li class="expanded "><a href="../cryptography.html"><strong aria-hidden="true">5.</strong> Cryptography</a></li><li><ol class="section"><li class="expanded "><a href="../cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> Hashing</a></li><li class="expanded "><a href="../cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> Encryption</a></li></ol></li><li class="expanded "><a href="../data_structures.html"><strong aria-hidden="true">6.</strong> Data Structures</a></li><li><ol class="section"><li class="expanded "><a href="../data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> Bitfield</a></li></ol></li><li class="expanded "><a href="../database.html"><strong aria-hidden="true">7.</strong> Database</a></li><li><ol class="section"><li class="expanded "><a href="../database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li class="expanded "><a href="../database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li class="expanded "><a href="../datetime.html"><strong aria-hidden="true">8.</strong> Date and Time</a></li><li><ol class="section"><li class="expanded "><a href="../datetime/duration.html"><strong aria-hidden="true">8.1.</strong> Duration and Calculation</a></li><li class="expanded "><a href="../datetime/parse.html" class="active"><strong aria-hidden="true">8.2.</strong> Parsing and Displaying</a></li></ol></li><li class="expanded "><a href="../development_tools.html"><strong aria-hidden="true">9.</strong> Development Tools</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> Debugging</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> Log Messages</a></li><li class="expanded "><a href="../development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> Configure Logging</a></li></ol></li><li class="expanded "><a href="../development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> Versioning</a></li><li class="expanded "><a href="../development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> Build Time Tooling</a></li></ol></li><li class="expanded "><a href="../encoding.html"><strong aria-hidden="true">10.</strong> Encoding</a></li><li><ol class="section"><li class="expanded "><a href="../encoding/strings.html"><strong aria-hidden="true">10.1.</strong> Character Sets</a></li><li class="expanded "><a href="../encoding/csv.html"><strong aria-hidden="true">10.2.</strong> CSV processing</a></li><li class="expanded "><a href="../encoding/complex.html"><strong aria-hidden="true">10.3.</strong> Structured Data</a></li></ol></li><li class="expanded "><a href="../errors.html"><strong aria-hidden="true">11.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="../errors/handle.html"><strong aria-hidden="true">11.1.</strong> Handle Error Variants</a></li></ol></li><li class="expanded "><a href="../file.html"><strong aria-hidden="true">12.</strong> File System</a></li><li><ol class="section"><li class="expanded "><a href="../file/read-write.html"><strong aria-hidden="true">12.1.</strong> Read &amp; Write</a></li><li class="expanded "><a href="../file/dir.html"><strong aria-hidden="true">12.2.</strong> Directory Traversal</a></li></ol></li><li class="expanded "><a href="../hardware.html"><strong aria-hidden="true">13.</strong> Hardware Support</a></li><li><ol class="section"><li class="expanded "><a href="../hardware/processor.html"><strong aria-hidden="true">13.1.</strong> Processor</a></li></ol></li><li class="expanded "><a href="../mem.html"><strong aria-hidden="true">14.</strong> Memory Management</a></li><li><ol class="section"><li class="expanded "><a href="../mem/global_static.html"><strong aria-hidden="true">14.1.</strong> Global Static</a></li></ol></li><li class="expanded "><a href="../net.html"><strong aria-hidden="true">15.</strong> Network</a></li><li><ol class="section"><li class="expanded "><a href="../net/server.html"><strong aria-hidden="true">15.1.</strong> Server</a></li></ol></li><li class="expanded "><a href="../os.html"><strong aria-hidden="true">16.</strong> Operating System</a></li><li><ol class="section"><li class="expanded "><a href="../os/external.html"><strong aria-hidden="true">16.1.</strong> External Command</a></li></ol></li><li class="expanded "><a href="../science.html"><strong aria-hidden="true">17.</strong> Science</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics.html"><strong aria-hidden="true">17.1.</strong> Mathematics</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> Linear Algebra</a></li><li class="expanded "><a href="../science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> Trigonometry</a></li><li class="expanded "><a href="../science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> Complex Numbers</a></li><li class="expanded "><a href="../science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> Statistics</a></li><li class="expanded "><a href="../science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> Miscellaneous</a></li></ol></li></ol></li><li class="expanded "><a href="../text.html"><strong aria-hidden="true">18.</strong> Text Processing</a></li><li><ol class="section"><li class="expanded "><a href="../text/regex.html"><strong aria-hidden="true">18.1.</strong> Regular Expressions</a></li><li class="expanded "><a href="../text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> String Parsing</a></li></ol></li><li class="expanded "><a href="../web.html"><strong aria-hidden="true">19.</strong> Web Programming</a></li><li><ol class="section"><li class="expanded "><a href="../web/scraping.html"><strong aria-hidden="true">19.1.</strong> Extracting Links</a></li><li class="expanded "><a href="../web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li class="expanded "><a href="../web/mime.html"><strong aria-hidden="true">19.3.</strong> Media Types</a></li><li class="expanded "><a href="../web/clients.html"><strong aria-hidden="true">19.4.</strong> Clients</a></li><li><ol class="section"><li class="expanded "><a href="../web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> Making Requests</a></li><li class="expanded "><a href="../web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Calling a Web API</a></li><li class="expanded "><a href="../web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> Downloads</a></li><li class="expanded "><a href="../web/clients/authentication.html"><strong aria-hidden="true">19.4.4.</strong> Web Authentication</a></li></ol></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Rust Cookbook</h1>
+                    <h1 class="menu-title">Rust Cookbook</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                            <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
-                                <i id="git-repository-button" class="fa fa-github"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/datetime/parse.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -141,10 +147,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -154,83 +159,80 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#parsing-and-displaying" id="parsing-and-displaying">Parsing and Displaying</a></h1>
-<h2><a class="header" href="#examine-the-date-and-time" id="examine-the-date-and-time">Examine the date and time</a></h2>
+                        <h1 id="parsing-and-displaying"><a class="header" href="#parsing-and-displaying">Parsing and Displaying</a></h1>
+<h2 id="examine-the-date-and-time"><a class="header" href="#examine-the-date-and-time">Examine the date and time</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Gets the current UTC <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html"><code>DateTime</code></a> and its hour/minute/second via <a href="https://docs.rs/chrono/*/chrono/trait.Timelike.html"><code>Timelike</code></a>
 and its year/month/day/weekday via <a href="https://docs.rs/chrono/*/chrono/trait.Datelike.html"><code>Datelike</code></a>.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use chrono::{Datelike, Timelike, Utc};
+<pre><pre class="playground"><code class="language-rust edition2018">use chrono::{Datelike, Timelike, Utc};
 
 fn main() {
     let now = Utc::now();
 
     let (is_pm, hour) = now.hour12();
     println!(
-        &quot;The current UTC time is {:02}:{:02}:{:02} {}&quot;,
+        "The current UTC time is {:02}:{:02}:{:02} {}",
         hour,
         now.minute(),
         now.second(),
-        if is_pm { &quot;PM&quot; } else { &quot;AM&quot; }
+        if is_pm { "PM" } else { "AM" }
     );
     println!(
-        &quot;And there have been {} seconds since midnight&quot;,
+        "And there have been {} seconds since midnight",
         now.num_seconds_from_midnight()
     );
 
     let (is_common_era, year) = now.year_ce();
     println!(
-        &quot;The current UTC date is {}-{:02}-{:02} {:?} ({})&quot;,
+        "The current UTC date is {}-{:02}-{:02} {:?} ({})",
         year,
         now.month(),
         now.day(),
         now.weekday(),
-        if is_common_era { &quot;CE&quot; } else { &quot;BCE&quot; }
+        if is_common_era { "CE" } else { "BCE" }
     );
     println!(
-        &quot;And the Common Era began {} days ago&quot;,
+        "And the Common Era began {} days ago",
         now.num_days_from_ce()
     );
-}
-</code></pre></pre>
-<h2><a class="header" href="#convert-date-to-unix-timestamp-and-vice-versa" id="convert-date-to-unix-timestamp-and-vice-versa">Convert date to UNIX timestamp and vice versa</a></h2>
+}</code></pre></pre>
+<h2 id="convert-date-to-unix-timestamp-and-vice-versa"><a class="header" href="#convert-date-to-unix-timestamp-and-vice-versa">Convert date to UNIX timestamp and vice versa</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Converts a date given by <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html#method.from_ymd"><code>NaiveDate::from_ymd</code></a> and <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html#method.from_hms"><code>NaiveTime::from_hms</code></a>
 to <a href="https://en.wikipedia.org/wiki/Unix_time">UNIX timestamp</a> using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp"><code>NaiveDateTime::timestamp</code></a>.
 Then it calculates what was the date after one billion seconds
 since January 1, 1970 0:00:00 UTC, using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.from_timestamp"><code>NaiveDateTime::from_timestamp</code></a>.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust edition2018">
 use chrono::{NaiveDate, NaiveDateTime};
 
 fn main() {
     let date_time: NaiveDateTime = NaiveDate::from_ymd(2017, 11, 12).and_hms(17, 33, 44);
     println!(
-        &quot;Number of seconds between 1970-01-01 00:00:00 and {} is {}.&quot;,
+        "Number of seconds between 1970-01-01 00:00:00 and {} is {}.",
         date_time, date_time.timestamp());
 
     let date_time_after_a_billion_seconds = NaiveDateTime::from_timestamp(1_000_000_000, 0);
     println!(
-        &quot;Date after a billion seconds since 1970-01-01 00:00:00 was {}.&quot;,
+        "Date after a billion seconds since 1970-01-01 00:00:00 was {}.",
         date_time_after_a_billion_seconds);
-}
-</code></pre></pre>
-<h2><a class="header" href="#display-formatted-date-and-time" id="display-formatted-date-and-time">Display formatted date and time</a></h2>
+}</code></pre></pre>
+<h2 id="display-formatted-date-and-time"><a class="header" href="#display-formatted-date-and-time">Display formatted date and time</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Gets and displays the current time in UTC using <a href="https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now"><code>Utc::now</code></a>. Formats the
 current time in the well-known formats <a href="https://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> using <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822"><code>DateTime::to_rfc2822</code></a>
 and <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a> using <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339"><code>DateTime::to_rfc3339</code></a>, and in a custom format using
 <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format"><code>DateTime::format</code></a>.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use chrono::{DateTime, Utc};
+<pre><pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, Utc};
 
 fn main() {
     let now: DateTime&lt;Utc&gt; = Utc::now();
 
-    println!(&quot;UTC now is: {}&quot;, now);
-    println!(&quot;UTC now in RFC 2822 is: {}&quot;, now.to_rfc2822());
-    println!(&quot;UTC now in RFC 3339 is: {}&quot;, now.to_rfc3339());
-    println!(&quot;UTC now in a custom format is: {}&quot;, now.format(&quot;%a %b %e %T %Y&quot;));
-}
-</code></pre></pre>
-<h2><a class="header" href="#parse-string-into-datetime-struct" id="parse-string-into-datetime-struct">Parse string into DateTime struct</a></h2>
+    println!("UTC now is: {}", now);
+    println!("UTC now in RFC 2822 is: {}", now.to_rfc2822());
+    println!("UTC now in RFC 3339 is: {}", now.to_rfc3339());
+    println!("UTC now in a custom format is: {}", now.format("%a %b %e %T %Y"));
+}</code></pre></pre>
+<h2 id="parse-string-into-datetime-struct"><a class="header" href="#parse-string-into-datetime-struct">Parse string into DateTime struct</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Parses a <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html"><code>DateTime</code></a> struct from strings representing the well-known formats
 <a href="https://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a>, <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a>, and a custom format, using
@@ -241,32 +243,31 @@ found at <a href="https://docs.rs/chrono/*/chrono/format/strftime/index.html"><c
 requires that such a DateTime struct must be creatable that it uniquely
 identifies a date and a time. For parsing dates and times without timezones use
 <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html"><code>NaiveDate</code></a>, <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html"><code>NaiveTime</code></a>, and <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html"><code>NaiveDateTime</code></a>.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
+<pre><pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
 use chrono::format::ParseError;
 
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
-    let rfc2822 = DateTime::parse_from_rfc2822(&quot;Tue, 1 Jul 2003 10:52:37 +0200&quot;)?;
-    println!(&quot;{}&quot;, rfc2822);
+    let rfc2822 = DateTime::parse_from_rfc2822("Tue, 1 Jul 2003 10:52:37 +0200")?;
+    println!("{}", rfc2822);
 
-    let rfc3339 = DateTime::parse_from_rfc3339(&quot;1996-12-19T16:39:57-08:00&quot;)?;
-    println!(&quot;{}&quot;, rfc3339);
+    let rfc3339 = DateTime::parse_from_rfc3339("1996-12-19T16:39:57-08:00")?;
+    println!("{}", rfc3339);
 
-    let custom = DateTime::parse_from_str(&quot;5.8.1994 8:00 am +0000&quot;, &quot;%d.%m.%Y %H:%M %P %z&quot;)?;
-    println!(&quot;{}&quot;, custom);
+    let custom = DateTime::parse_from_str("5.8.1994 8:00 am +0000", "%d.%m.%Y %H:%M %P %z")?;
+    println!("{}", custom);
 
-    let time_only = NaiveTime::parse_from_str(&quot;23:56:04&quot;, &quot;%H:%M:%S&quot;)?;
-    println!(&quot;{}&quot;, time_only);
+    let time_only = NaiveTime::parse_from_str("23:56:04", "%H:%M:%S")?;
+    println!("{}", time_only);
 
-    let date_only = NaiveDate::parse_from_str(&quot;2015-09-05&quot;, &quot;%Y-%m-%d&quot;)?;
-    println!(&quot;{}&quot;, date_only);
+    let date_only = NaiveDate::parse_from_str("2015-09-05", "%Y-%m-%d")?;
+    println!("{}", date_only);
 
-    let no_timezone = NaiveDateTime::parse_from_str(&quot;2015-09-05 23:56:04&quot;, &quot;%Y-%m-%d %H:%M:%S&quot;)?;
-    println!(&quot;{}&quot;, no_timezone);
+    let no_timezone = NaiveDateTime::parse_from_str("2015-09-05 23:56:04", "%Y-%m-%d %H:%M:%S")?;
+    println!("{}", no_timezone);
 
     Ok(())
-}
-</code></pre></pre>
+}</code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -278,17 +279,13 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="../datetime/duration.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
-                            <a rel="next" href="../development_tools.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../development_tools.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -296,49 +293,36 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="../datetime/duration.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../datetime/duration.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="../development_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../development_tools.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
-        
-        
-        <script type="text/javascript">
-            window.playpen_copyable = true;
+
+        <script>
+            window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
 
+    </div>
     </body>
 </html>

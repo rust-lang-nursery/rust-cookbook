@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Regular Expressions - Rust Cookbook</title>
-        
 
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+        <!-- Custom HTML head -->
+
         <meta name="description" content="Collection of useful Rust code examples">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
+        <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
@@ -19,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -28,21 +29,21 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="../theme/custom.css">
-        
 
-        
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
     </head>
     <body>
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
-        </script>
-
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -58,82 +59,87 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('no-js')
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            html.classList.add("js");
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
+            sidebar_toggle.checked = sidebar === 'visible';
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="../intro.html">Table of Contents</a></li><li class="expanded affix "><a href="../about.html">About</a></li><li class="expanded "><a href="../algorithms.html"><strong aria-hidden="true">1.</strong> Algorithms</a></li><li><ol class="section"><li class="expanded "><a href="../algorithms/randomness.html"><strong aria-hidden="true">1.1.</strong> Generate Random Values</a></li><li class="expanded "><a href="../algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> Sort a Vector</a></li></ol></li><li class="expanded "><a href="../cli.html"><strong aria-hidden="true">2.</strong> Command Line</a></li><li><ol class="section"><li class="expanded "><a href="../cli/arguments.html"><strong aria-hidden="true">2.1.</strong> Argument Parsing</a></li><li class="expanded "><a href="../cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSI Terminal</a></li></ol></li><li class="expanded "><a href="../compression.html"><strong aria-hidden="true">3.</strong> Compression</a></li><li><ol class="section"><li class="expanded "><a href="../compression/tar.html"><strong aria-hidden="true">3.1.</strong> Working with Tarballs</a></li></ol></li><li class="expanded "><a href="../concurrency.html"><strong aria-hidden="true">4.</strong> Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="../concurrency/threads.html"><strong aria-hidden="true">4.1.</strong> Explicit Threads</a></li><li class="expanded "><a href="../concurrency/parallel.html"><strong aria-hidden="true">4.2.</strong> Data Parallelism</a></li></ol></li><li class="expanded "><a href="../cryptography.html"><strong aria-hidden="true">5.</strong> Cryptography</a></li><li><ol class="section"><li class="expanded "><a href="../cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> Hashing</a></li><li class="expanded "><a href="../cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> Encryption</a></li></ol></li><li class="expanded "><a href="../data_structures.html"><strong aria-hidden="true">6.</strong> Data Structures</a></li><li><ol class="section"><li class="expanded "><a href="../data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> Bitfield</a></li></ol></li><li class="expanded "><a href="../database.html"><strong aria-hidden="true">7.</strong> Database</a></li><li><ol class="section"><li class="expanded "><a href="../database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li class="expanded "><a href="../database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li class="expanded "><a href="../datetime.html"><strong aria-hidden="true">8.</strong> Date and Time</a></li><li><ol class="section"><li class="expanded "><a href="../datetime/duration.html"><strong aria-hidden="true">8.1.</strong> Duration and Calculation</a></li><li class="expanded "><a href="../datetime/parse.html"><strong aria-hidden="true">8.2.</strong> Parsing and Displaying</a></li></ol></li><li class="expanded "><a href="../development_tools.html"><strong aria-hidden="true">9.</strong> Development Tools</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> Debugging</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> Log Messages</a></li><li class="expanded "><a href="../development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> Configure Logging</a></li></ol></li><li class="expanded "><a href="../development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> Versioning</a></li><li class="expanded "><a href="../development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> Build Time Tooling</a></li></ol></li><li class="expanded "><a href="../encoding.html"><strong aria-hidden="true">10.</strong> Encoding</a></li><li><ol class="section"><li class="expanded "><a href="../encoding/strings.html"><strong aria-hidden="true">10.1.</strong> Character Sets</a></li><li class="expanded "><a href="../encoding/csv.html"><strong aria-hidden="true">10.2.</strong> CSV processing</a></li><li class="expanded "><a href="../encoding/complex.html"><strong aria-hidden="true">10.3.</strong> Structured Data</a></li></ol></li><li class="expanded "><a href="../errors.html"><strong aria-hidden="true">11.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="../errors/handle.html"><strong aria-hidden="true">11.1.</strong> Handle Error Variants</a></li></ol></li><li class="expanded "><a href="../file.html"><strong aria-hidden="true">12.</strong> File System</a></li><li><ol class="section"><li class="expanded "><a href="../file/read-write.html"><strong aria-hidden="true">12.1.</strong> Read &amp; Write</a></li><li class="expanded "><a href="../file/dir.html"><strong aria-hidden="true">12.2.</strong> Directory Traversal</a></li></ol></li><li class="expanded "><a href="../hardware.html"><strong aria-hidden="true">13.</strong> Hardware Support</a></li><li><ol class="section"><li class="expanded "><a href="../hardware/processor.html"><strong aria-hidden="true">13.1.</strong> Processor</a></li></ol></li><li class="expanded "><a href="../mem.html"><strong aria-hidden="true">14.</strong> Memory Management</a></li><li><ol class="section"><li class="expanded "><a href="../mem/global_static.html"><strong aria-hidden="true">14.1.</strong> Global Static</a></li></ol></li><li class="expanded "><a href="../net.html"><strong aria-hidden="true">15.</strong> Network</a></li><li><ol class="section"><li class="expanded "><a href="../net/server.html"><strong aria-hidden="true">15.1.</strong> Server</a></li></ol></li><li class="expanded "><a href="../os.html"><strong aria-hidden="true">16.</strong> Operating System</a></li><li><ol class="section"><li class="expanded "><a href="../os/external.html"><strong aria-hidden="true">16.1.</strong> External Command</a></li></ol></li><li class="expanded "><a href="../science.html"><strong aria-hidden="true">17.</strong> Science</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics.html"><strong aria-hidden="true">17.1.</strong> Mathematics</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> Linear Algebra</a></li><li class="expanded "><a href="../science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> Trigonometry</a></li><li class="expanded "><a href="../science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> Complex Numbers</a></li><li class="expanded "><a href="../science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> Statistics</a></li><li class="expanded "><a href="../science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> Miscellaneous</a></li></ol></li></ol></li><li class="expanded "><a href="../text.html"><strong aria-hidden="true">18.</strong> Text Processing</a></li><li><ol class="section"><li class="expanded "><a href="../text/regex.html" class="active"><strong aria-hidden="true">18.1.</strong> Regular Expressions</a></li><li class="expanded "><a href="../text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> String Parsing</a></li></ol></li><li class="expanded "><a href="../web.html"><strong aria-hidden="true">19.</strong> Web Programming</a></li><li><ol class="section"><li class="expanded "><a href="../web/scraping.html"><strong aria-hidden="true">19.1.</strong> Extracting Links</a></li><li class="expanded "><a href="../web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li class="expanded "><a href="../web/mime.html"><strong aria-hidden="true">19.3.</strong> Media Types</a></li><li class="expanded "><a href="../web/clients.html"><strong aria-hidden="true">19.4.</strong> Clients</a></li><li><ol class="section"><li class="expanded "><a href="../web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> Making Requests</a></li><li class="expanded "><a href="../web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Calling a Web API</a></li><li class="expanded "><a href="../web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> Downloads</a></li><li class="expanded "><a href="../web/clients/authentication.html"><strong aria-hidden="true">19.4.4.</strong> Web Authentication</a></li></ol></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Rust Cookbook</h1>
+                    <h1 class="menu-title">Rust Cookbook</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                            <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
-                                <i id="git-repository-button" class="fa fa-github"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/text/regex.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -141,10 +147,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -154,44 +159,43 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#regular-expressions" id="regular-expressions">Regular Expressions</a></h1>
-<h2><a class="header" href="#verify-and-extract-login-from-an-email-address" id="verify-and-extract-login-from-an-email-address">Verify and extract login from an email address</a></h2>
+                        <h1 id="regular-expressions"><a class="header" href="#regular-expressions">Regular Expressions</a></h1>
+<h2 id="verify-and-extract-login-from-an-email-address"><a class="header" href="#verify-and-extract-login-from-an-email-address">Verify and extract login from an email address</a></h2>
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://docs.rs/lazy_static/"><img src="https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use lazy_static::lazy_static;
+<pre><pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
 
 use regex::Regex;
 
 fn extract_login(input: &amp;str) -&gt; Option&lt;&amp;str&gt; {
     lazy_static! {
-        static ref RE: Regex = Regex::new(r&quot;(?x)
+        static ref RE: Regex = Regex::new(r"(?x)
             ^(?P&lt;login&gt;[^@\s]+)@
             ([[:word:]]+\.)*
             [[:word:]]+$
-            &quot;).unwrap();
+            ").unwrap();
     }
     RE.captures(input).and_then(|cap| {
-        cap.name(&quot;login&quot;).map(|login| login.as_str())
+        cap.name("login").map(|login| login.as_str())
     })
 }
 
 fn main() {
-    assert_eq!(extract_login(r&quot;I❤email@example.com&quot;), Some(r&quot;I❤email&quot;));
+    assert_eq!(extract_login(r"I❤email@example.com"), Some(r"I❤email"));
     assert_eq!(
-        extract_login(r&quot;sdf+sdsfsd.as.sdsd@jhkk.d.rl&quot;),
-        Some(r&quot;sdf+sdsfsd.as.sdsd&quot;)
+        extract_login(r"sdf+sdsfsd.as.sdsd@jhkk.d.rl"),
+        Some(r"sdf+sdsfsd.as.sdsd")
     );
-    assert_eq!(extract_login(r&quot;More@Than@One@at.com&quot;), None);
-    assert_eq!(extract_login(r&quot;Not an email@email&quot;), None);
-}
-</code></pre></pre>
-<h2><a class="header" href="#extract-a-list-of-unique-hashtags-from-a-text" id="extract-a-list-of-unique-hashtags-from-a-text">Extract a list of unique #Hashtags from a text</a></h2>
+    assert_eq!(extract_login(r"More@Than@One@at.com"), None);
+    assert_eq!(extract_login(r"Not an email@email"), None);
+}</code></pre></pre>
+<h2 id="extract-a-list-of-unique-hashtags-from-a-text"><a class="header" href="#extract-a-list-of-unique-hashtags-from-a-text">Extract a list of unique #Hashtags from a text</a></h2>
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://docs.rs/lazy_static/"><img src="https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Extracts, sorts, and deduplicates list of hashtags from text.</p>
 <p>The hashtag regex given here only catches Latin hashtags that start with a
 letter. The complete <a href="https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255">twitter hashtag regex</a> is much more complicated.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use lazy_static::lazy_static;
+<pre><pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
 
 use regex::Regex;
 use std::collections::HashSet;
@@ -199,24 +203,23 @@ use std::collections::HashSet;
 fn extract_hashtags(text: &amp;str) -&gt; HashSet&lt;&amp;str&gt; {
     lazy_static! {
         static ref HASHTAG_REGEX : Regex = Regex::new(
-                r&quot;\#[a-zA-Z][0-9a-zA-Z_]*&quot;
+                r"\#[a-zA-Z][0-9a-zA-Z_]*"
             ).unwrap();
     }
     HASHTAG_REGEX.find_iter(text).map(|mat| mat.as_str()).collect()
 }
 
 fn main() {
-    let tweet = &quot;Hey #world, I just got my new #dog, say hello to Till. #dog #forever #2 #_ &quot;;
+    let tweet = "Hey #world, I just got my new #dog, say hello to Till. #dog #forever #2 #_ ";
     let tags = extract_hashtags(tweet);
-    assert!(tags.contains(&quot;#dog&quot;) &amp;&amp; tags.contains(&quot;#forever&quot;) &amp;&amp; tags.contains(&quot;#world&quot;));
+    assert!(tags.contains("#dog") &amp;&amp; tags.contains("#forever") &amp;&amp; tags.contains("#world"));
     assert_eq!(tags.len(), 3);
-}
-</code></pre></pre>
-<h2><a class="header" href="#extract-phone-numbers-from-text" id="extract-phone-numbers-from-text">Extract phone numbers from text</a></h2>
+}</code></pre></pre>
+<h2 id="extract-phone-numbers-from-text"><a class="header" href="#extract-phone-numbers-from-text">Extract phone numbers from text</a></h2>
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Processes a string of text using <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter"><code>Regex::captures_iter</code></a> to capture multiple
 phone numbers.  The example here is for US convention phone numbers.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
 </span>
 use regex::Regex;
 use std::fmt;
@@ -236,27 +239,27 @@ struct PhoneNumber&lt;'a&gt; {
 
 impl&lt;'a&gt; fmt::Display for PhoneNumber&lt;'a&gt; {
     fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
-        write!(f, &quot;1 ({}) {}-{}&quot;, self.area, self.exchange, self.subscriber)
+        write!(f, "1 ({}) {}-{}", self.area, self.exchange, self.subscriber)
     }
 }
 
 fn main() -&gt; Result&lt;()&gt; {
-    let phone_text = &quot;
+    let phone_text = "
     +1 505 881 9292 (v) +1 505 778 2212 (c) +1 505 881 9297 (f)
     (202) 991 9534
     Alex 5553920011
     1 (800) 233-2010
-    1.299.339.1020&quot;;
+    1.299.339.1020";
 
     let re = Regex::new(
-        r#&quot;(?x)
+        r#"(?x)
           (?:\+?1)?                       # Country Code Optional
           [\s\.]?
           (([2-9]\d{2})|\(([2-9]\d{2})\)) # Area Code
           [\s\.\-]?
           ([2-9]\d{2})                    # Exchange Code
           [\s\.\-]?
-          (\d{4})                         # Subscriber Number&quot;#,
+          (\d{4})                         # Subscriber Number"#,
     )?;
 
     let phone_numbers = re.captures_iter(phone_text).filter_map(|cap| {
@@ -274,20 +277,19 @@ fn main() -&gt; Result&lt;()&gt; {
     assert_eq!(
         phone_numbers.map(|m| m.to_string()).collect::&lt;Vec&lt;_&gt;&gt;(),
         vec![
-            &quot;1 (505) 881-9292&quot;,
-            &quot;1 (505) 778-2212&quot;,
-            &quot;1 (505) 881-9297&quot;,
-            &quot;1 (202) 991-9534&quot;,
-            &quot;1 (555) 392-0011&quot;,
-            &quot;1 (800) 233-2010&quot;,
-            &quot;1 (299) 339-1020&quot;,
+            "1 (505) 881-9292",
+            "1 (505) 778-2212",
+            "1 (505) 881-9297",
+            "1 (202) 991-9534",
+            "1 (555) 392-0011",
+            "1 (800) 233-2010",
+            "1 (299) 339-1020",
         ]
     );
 
     Ok(())
-}
-</code></pre></pre>
-<h2><a class="header" href="#filter-a-log-file-by-matching-multiple-regular-expressions" id="filter-a-log-file-by-matching-multiple-regular-expressions">Filter a log file by matching multiple regular expressions</a></h2>
+}</code></pre></pre>
+<h2 id="filter-a-log-file-by-matching-multiple-regular-expressions"><a class="header" href="#filter-a-log-file-by-matching-multiple-regular-expressions">Filter a log file by matching multiple regular expressions</a></h2>
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Reads a file named <code>application.log</code> and only outputs the lines
 containing “version X.X.X”, some IP address followed by port 443
@@ -295,7 +297,7 @@ containing “version X.X.X”, some IP address followed by port 443
 <p>A <a href="https://docs.rs/regex/*/regex/struct.RegexSetBuilder.html"><code>regex::RegexSetBuilder</code></a> composes a <a href="https://docs.rs/regex/*/regex/struct.RegexSet.html"><code>regex::RegexSet</code></a>.
 Since backslashes are very common in regular expressions, using
 <a href="https://doc.rust-lang.org/reference/tokens.html#raw-string-literals">raw string literals</a> makes them more readable.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
 </span>
 use std::fs::File;
 use std::io::{BufReader, BufRead};
@@ -309,13 +311,13 @@ use regex::RegexSetBuilder;
 </span><span class="boring">}
 </span><span class="boring">
 </span>fn main() -&gt; Result&lt;()&gt; {
-    let log_path = &quot;application.log&quot;;
+    let log_path = "application.log";
     let buffered = BufReader::new(File::open(log_path)?);
 
     let set = RegexSetBuilder::new(&amp;[
-        r#&quot;version &quot;\d\.\d\.\d&quot;&quot;#,
-        r#&quot;\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:443&quot;#,
-        r#&quot;warning.*timeout expired&quot;#,
+        r#"version "\d\.\d\.\d""#,
+        r#"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:443"#,
+        r#"warning.*timeout expired"#,
     ]).case_insensitive(true)
         .build()?;
 
@@ -323,12 +325,11 @@ use regex::RegexSetBuilder;
         .lines()
         .filter_map(|line| line.ok())
         .filter(|line| set.is_match(line.as_str()))
-        .for_each(|x| println!(&quot;{}&quot;, x));
+        .for_each(|x| println!("{}", x));
 
     Ok(())
-}
-</code></pre></pre>
-<h2><a class="header" href="#replace-all-occurrences-of-one-text-pattern-with-another-pattern" id="replace-all-occurrences-of-one-text-pattern-with-another-pattern">Replace all occurrences of one text pattern with another pattern.</a></h2>
+}</code></pre></pre>
+<h2 id="replace-all-occurrences-of-one-text-pattern-with-another-pattern"><a class="header" href="#replace-all-occurrences-of-one-text-pattern-with-another-pattern">Replace all occurrences of one text pattern with another pattern.</a></h2>
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://docs.rs/lazy_static/"><img src="https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Replaces all occurrences of the standard ISO 8601 <em>YYYY-MM-DD</em> date pattern
 with the equivalent American English date with slashes.
@@ -337,7 +338,7 @@ For example <code>2013-01-15</code> becomes <code>01/15/2013</code>.</p>
 <code>&amp;str</code> implements the <code>Replacer</code> trait which allows variables like <code>$abcde</code> to
 refer to corresponding named capture groups <code>(?P&lt;abcde&gt;REGEX)</code> from the search
 regex. See the <a href="https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax">replacement string syntax</a> for examples and escaping detail.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use lazy_static::lazy_static;
+<pre><pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
 
 use std::borrow::Cow;
 use regex::Regex;
@@ -345,18 +346,17 @@ use regex::Regex;
 fn reformat_dates(before: &amp;str) -&gt; Cow&lt;str&gt; {
     lazy_static! {
         static ref ISO8601_DATE_REGEX : Regex = Regex::new(
-            r&quot;(?P&lt;y&gt;\d{4})-(?P&lt;m&gt;\d{2})-(?P&lt;d&gt;\d{2})&quot;
+            r"(?P&lt;y&gt;\d{4})-(?P&lt;m&gt;\d{2})-(?P&lt;d&gt;\d{2})"
             ).unwrap();
     }
-    ISO8601_DATE_REGEX.replace_all(before, &quot;$m/$d/$y&quot;)
+    ISO8601_DATE_REGEX.replace_all(before, "$m/$d/$y")
 }
 
 fn main() {
-    let before = &quot;2012-03-14, 2013-01-15 and 2014-07-05&quot;;
+    let before = "2012-03-14, 2013-01-15 and 2014-07-05";
     let after = reformat_dates(before);
-    assert_eq!(after, &quot;03/14/2012, 01/15/2013 and 07/05/2014&quot;);
-}
-</code></pre></pre>
+    assert_eq!(after, "03/14/2012, 01/15/2013 and 07/05/2014");
+}</code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -368,17 +368,13 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="../text.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
-                            <a rel="next" href="../text/string_parsing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../text/string_parsing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -386,49 +382,36 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="../text.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../text.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="../text/string_parsing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../text/string_parsing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
-        
-        
-        <script type="text/javascript">
-            window.playpen_copyable = true;
+
+        <script>
+            window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
 
+    </div>
     </body>
 </html>

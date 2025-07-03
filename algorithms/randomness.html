@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Generate Random Values - Rust Cookbook</title>
-        
 
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+        <!-- Custom HTML head -->
+
         <meta name="description" content="Collection of useful Rust code examples">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
+        <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
@@ -19,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -28,21 +29,21 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="../theme/custom.css">
-        
 
-        
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
     </head>
     <body>
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">
-            var path_to_root = "../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
-        </script>
-
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -58,82 +59,87 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('no-js')
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            html.classList.add("js");
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
+            sidebar_toggle.checked = sidebar === 'visible';
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="../intro.html">Table of Contents</a></li><li class="expanded affix "><a href="../about.html">About</a></li><li class="expanded "><a href="../algorithms.html"><strong aria-hidden="true">1.</strong> Algorithms</a></li><li><ol class="section"><li class="expanded "><a href="../algorithms/randomness.html" class="active"><strong aria-hidden="true">1.1.</strong> Generate Random Values</a></li><li class="expanded "><a href="../algorithms/sorting.html"><strong aria-hidden="true">1.2.</strong> Sort a Vector</a></li></ol></li><li class="expanded "><a href="../cli.html"><strong aria-hidden="true">2.</strong> Command Line</a></li><li><ol class="section"><li class="expanded "><a href="../cli/arguments.html"><strong aria-hidden="true">2.1.</strong> Argument Parsing</a></li><li class="expanded "><a href="../cli/ansi_terminal.html"><strong aria-hidden="true">2.2.</strong> ANSI Terminal</a></li></ol></li><li class="expanded "><a href="../compression.html"><strong aria-hidden="true">3.</strong> Compression</a></li><li><ol class="section"><li class="expanded "><a href="../compression/tar.html"><strong aria-hidden="true">3.1.</strong> Working with Tarballs</a></li></ol></li><li class="expanded "><a href="../concurrency.html"><strong aria-hidden="true">4.</strong> Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="../concurrency/threads.html"><strong aria-hidden="true">4.1.</strong> Explicit Threads</a></li><li class="expanded "><a href="../concurrency/parallel.html"><strong aria-hidden="true">4.2.</strong> Data Parallelism</a></li></ol></li><li class="expanded "><a href="../cryptography.html"><strong aria-hidden="true">5.</strong> Cryptography</a></li><li><ol class="section"><li class="expanded "><a href="../cryptography/hashing.html"><strong aria-hidden="true">5.1.</strong> Hashing</a></li><li class="expanded "><a href="../cryptography/encryption.html"><strong aria-hidden="true">5.2.</strong> Encryption</a></li></ol></li><li class="expanded "><a href="../data_structures.html"><strong aria-hidden="true">6.</strong> Data Structures</a></li><li><ol class="section"><li class="expanded "><a href="../data_structures/bitfield.html"><strong aria-hidden="true">6.1.</strong> Bitfield</a></li></ol></li><li class="expanded "><a href="../database.html"><strong aria-hidden="true">7.</strong> Database</a></li><li><ol class="section"><li class="expanded "><a href="../database/sqlite.html"><strong aria-hidden="true">7.1.</strong> SQLite</a></li><li class="expanded "><a href="../database/postgres.html"><strong aria-hidden="true">7.2.</strong> Postgres</a></li></ol></li><li class="expanded "><a href="../datetime.html"><strong aria-hidden="true">8.</strong> Date and Time</a></li><li><ol class="section"><li class="expanded "><a href="../datetime/duration.html"><strong aria-hidden="true">8.1.</strong> Duration and Calculation</a></li><li class="expanded "><a href="../datetime/parse.html"><strong aria-hidden="true">8.2.</strong> Parsing and Displaying</a></li></ol></li><li class="expanded "><a href="../development_tools.html"><strong aria-hidden="true">9.</strong> Development Tools</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging.html"><strong aria-hidden="true">9.1.</strong> Debugging</a></li><li><ol class="section"><li class="expanded "><a href="../development_tools/debugging/log.html"><strong aria-hidden="true">9.1.1.</strong> Log Messages</a></li><li class="expanded "><a href="../development_tools/debugging/config_log.html"><strong aria-hidden="true">9.1.2.</strong> Configure Logging</a></li></ol></li><li class="expanded "><a href="../development_tools/versioning.html"><strong aria-hidden="true">9.2.</strong> Versioning</a></li><li class="expanded "><a href="../development_tools/build_tools.html"><strong aria-hidden="true">9.3.</strong> Build Time Tooling</a></li></ol></li><li class="expanded "><a href="../encoding.html"><strong aria-hidden="true">10.</strong> Encoding</a></li><li><ol class="section"><li class="expanded "><a href="../encoding/strings.html"><strong aria-hidden="true">10.1.</strong> Character Sets</a></li><li class="expanded "><a href="../encoding/csv.html"><strong aria-hidden="true">10.2.</strong> CSV processing</a></li><li class="expanded "><a href="../encoding/complex.html"><strong aria-hidden="true">10.3.</strong> Structured Data</a></li></ol></li><li class="expanded "><a href="../errors.html"><strong aria-hidden="true">11.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="../errors/handle.html"><strong aria-hidden="true">11.1.</strong> Handle Error Variants</a></li></ol></li><li class="expanded "><a href="../file.html"><strong aria-hidden="true">12.</strong> File System</a></li><li><ol class="section"><li class="expanded "><a href="../file/read-write.html"><strong aria-hidden="true">12.1.</strong> Read &amp; Write</a></li><li class="expanded "><a href="../file/dir.html"><strong aria-hidden="true">12.2.</strong> Directory Traversal</a></li></ol></li><li class="expanded "><a href="../hardware.html"><strong aria-hidden="true">13.</strong> Hardware Support</a></li><li><ol class="section"><li class="expanded "><a href="../hardware/processor.html"><strong aria-hidden="true">13.1.</strong> Processor</a></li></ol></li><li class="expanded "><a href="../mem.html"><strong aria-hidden="true">14.</strong> Memory Management</a></li><li><ol class="section"><li class="expanded "><a href="../mem/global_static.html"><strong aria-hidden="true">14.1.</strong> Global Static</a></li></ol></li><li class="expanded "><a href="../net.html"><strong aria-hidden="true">15.</strong> Network</a></li><li><ol class="section"><li class="expanded "><a href="../net/server.html"><strong aria-hidden="true">15.1.</strong> Server</a></li></ol></li><li class="expanded "><a href="../os.html"><strong aria-hidden="true">16.</strong> Operating System</a></li><li><ol class="section"><li class="expanded "><a href="../os/external.html"><strong aria-hidden="true">16.1.</strong> External Command</a></li></ol></li><li class="expanded "><a href="../science.html"><strong aria-hidden="true">17.</strong> Science</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics.html"><strong aria-hidden="true">17.1.</strong> Mathematics</a></li><li><ol class="section"><li class="expanded "><a href="../science/mathematics/linear_algebra.html"><strong aria-hidden="true">17.1.1.</strong> Linear Algebra</a></li><li class="expanded "><a href="../science/mathematics/trigonometry.html"><strong aria-hidden="true">17.1.2.</strong> Trigonometry</a></li><li class="expanded "><a href="../science/mathematics/complex_numbers.html"><strong aria-hidden="true">17.1.3.</strong> Complex Numbers</a></li><li class="expanded "><a href="../science/mathematics/statistics.html"><strong aria-hidden="true">17.1.4.</strong> Statistics</a></li><li class="expanded "><a href="../science/mathematics/miscellaneous.html"><strong aria-hidden="true">17.1.5.</strong> Miscellaneous</a></li></ol></li></ol></li><li class="expanded "><a href="../text.html"><strong aria-hidden="true">18.</strong> Text Processing</a></li><li><ol class="section"><li class="expanded "><a href="../text/regex.html"><strong aria-hidden="true">18.1.</strong> Regular Expressions</a></li><li class="expanded "><a href="../text/string_parsing.html"><strong aria-hidden="true">18.2.</strong> String Parsing</a></li></ol></li><li class="expanded "><a href="../web.html"><strong aria-hidden="true">19.</strong> Web Programming</a></li><li><ol class="section"><li class="expanded "><a href="../web/scraping.html"><strong aria-hidden="true">19.1.</strong> Extracting Links</a></li><li class="expanded "><a href="../web/url.html"><strong aria-hidden="true">19.2.</strong> URL</a></li><li class="expanded "><a href="../web/mime.html"><strong aria-hidden="true">19.3.</strong> Media Types</a></li><li class="expanded "><a href="../web/clients.html"><strong aria-hidden="true">19.4.</strong> Clients</a></li><li><ol class="section"><li class="expanded "><a href="../web/clients/requests.html"><strong aria-hidden="true">19.4.1.</strong> Making Requests</a></li><li class="expanded "><a href="../web/clients/apis.html"><strong aria-hidden="true">19.4.2.</strong> Calling a Web API</a></li><li class="expanded "><a href="../web/clients/download.html"><strong aria-hidden="true">19.4.3.</strong> Downloads</a></li><li class="expanded "><a href="../web/clients/authentication.html"><strong aria-hidden="true">19.4.4.</strong> Web Authentication</a></li></ol></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Rust Cookbook</h1>
+                    <h1 class="menu-title">Rust Cookbook</h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                            <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
-                                <i id="git-repository-button" class="fa fa-github"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/algorithms/randomness.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -141,10 +147,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -154,59 +159,56 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#generate-random-values" id="generate-random-values">Generate Random Values</a></h1>
-<h2><a class="header" href="#generate-random-numbers" id="generate-random-numbers">Generate random numbers</a></h2>
+                        <h1 id="generate-random-values"><a class="header" href="#generate-random-values">Generate Random Values</a></h1>
+<h2 id="generate-random-numbers"><a class="header" href="#generate-random-numbers">Generate random numbers</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Generates random numbers with help of random-number
-generator <a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::Rng</code></a> obtained via <a href="https://docs.rs/rand/*/rand/fn.thread_rng.html"><code>rand::thread_rng</code></a>. Each thread has an
+generator <a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::Rng</code></a> obtained via <a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::rng</code></a>. Each thread has an
 initialized generator. Integers are uniformly distributed over the range of the
 type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use rand::Rng;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 fn main() {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
-    let n1: u8 = rng.gen();
-    let n2: u16 = rng.gen();
-    println!(&quot;Random u8: {}&quot;, n1);
-    println!(&quot;Random u16: {}&quot;, n2);
-    println!(&quot;Random u32: {}&quot;, rng.gen::&lt;u32&gt;());
-    println!(&quot;Random i32: {}&quot;, rng.gen::&lt;i32&gt;());
-    println!(&quot;Random float: {}&quot;, rng.gen::&lt;f64&gt;());
-}
-</code></pre></pre>
-<h2><a class="header" href="#generate-random-numbers-within-a-range" id="generate-random-numbers-within-a-range">Generate random numbers within a range</a></h2>
+    let n1: u8 = rng.random();
+    let n2: u16 = rng.random();
+    println!("Random u8: {}", n1);
+    println!("Random u16: {}", n2);
+    println!("Random u32: {}", rng.random::&lt;u32&gt;());
+    println!("Random i32: {}", rng.random::&lt;i32&gt;());
+    println!("Random float: {}", rng.random::&lt;f64&gt;());
+}</code></pre></pre>
+<h2 id="generate-random-numbers-within-a-range"><a class="header" href="#generate-random-numbers-within-a-range">Generate random numbers within a range</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
-<p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with <a href="https://doc.rust-lang.org/rand/*/rand/trait.Rng.html#method.gen_range"><code>Rng::gen_range</code></a>.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use rand::Rng;
+<p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with <a href="https://doc.rust-lang.org/rand/*/rand/trait.Rng.html#method.random_range"><code>Rng::random_range</code></a>.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 fn main() {
-    let mut rng = rand::thread_rng();
-    println!(&quot;Integer: {}&quot;, rng.gen_range(0..10));
-    println!(&quot;Float: {}&quot;, rng.gen_range(0.0..10.0));
-}
-</code></pre></pre>
+    let mut rng = rand::rng();
+    println!("Integer: {}", rng.random_range(0..10));
+    println!("Float: {}", rng.random_range(0.0..10.0));
+}</code></pre></pre>
 <p><a href="https://docs.rs/rand/*/rand/distributions/uniform/struct.Uniform.html"><code>Uniform</code></a> can obtain values with <a href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform distribution</a>.
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">
+<pre><pre class="playground"><code class="language-rust edition2018">
 use rand::distributions::{Distribution, Uniform};
 
 fn main() {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
     let die = Uniform::from(1..7);
 
     loop {
         let throw = die.sample(&amp;mut rng);
-        println!(&quot;Roll the die: {}&quot;, throw);
+        println!("Roll the die: {}", throw);
         if throw == 6 {
             break;
         }
     }
-}
-</code></pre></pre>
-<h2><a class="header" href="#generate-random-numbers-with-given-distribution" id="generate-random-numbers-with-given-distribution">Generate random numbers with given distribution</a></h2>
+}</code></pre></pre>
+<h2 id="generate-random-numbers-with-given-distribution"><a class="header" href="#generate-random-numbers-with-given-distribution">Generate random numbers with given distribution</a></h2>
 <p><a href="https://docs.rs/rand_distr/"><img src="https://badge-cache.kominick.com/crates/v/rand_distr.svg?label=rand_distr" alt="rand_distr-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>By default, random numbers in the <code>rand</code> crate have
 <a href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform distribution</a>. The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html"><code>rand_distr</code></a> crate provides
@@ -217,21 +219,20 @@ generator <a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::Rng</
 <p>The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html">distributions available are documented here</a>.
 An example using the <a href="https://docs.rs/rand_distr/*/rand_distr/struct.Normal.html"><code>Normal</code></a> distribution is shown below.</p>
 <pre><code class="language-rust edition2018 ignore">use rand_distr::{Distribution, Normal, NormalError};
-use rand::thread_rng;
+use rand::rng;
 
 fn main() -&gt; Result&lt;(), NormalError&gt; {
-    let mut rng = thread_rng();
+    let mut rng = rng();
     let normal = Normal::new(2.0, 3.0)?;
     let v = normal.sample(&amp;mut rng);
-    println!(&quot;{} is from a N(2, 9) distribution&quot;, v);
+    println!("{} is from a N(2, 9) distribution", v);
     Ok(())
-}
-</code></pre>
-<h2><a class="header" href="#generate-random-values-of-a-custom-type" id="generate-random-values-of-a-custom-type">Generate random values of a custom type</a></h2>
+}</code></pre>
+<h2 id="generate-random-values-of-a-custom-type"><a class="header" href="#generate-random-values-of-a-custom-type">Generate random values of a custom type</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Randomly generates a tuple <code>(i32, bool, f64)</code> and variable of user defined type <code>Point</code>.
 Implements the <a href="https://docs.rs/rand/*/rand/distributions/trait.Distribution.html"><code>Distribution</code></a> trait on type Point for <a href="https://docs.rs/rand/*/rand/distributions/struct.Standard.html"><code>Standard</code></a> in order to allow random generation.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use rand::Rng;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 use rand::distributions::{Distribution, Standard};
 
 #[derive(Debug)]
@@ -242,7 +243,7 @@ struct Point {
 
 impl Distribution&lt;Point&gt; for Standard {
     fn sample&lt;R: Rng + ?Sized&gt;(&amp;self, rng: &amp;mut R) -&gt; Point {
-        let (rand_x, rand_y) = rng.gen();
+        let (rand_x, rand_y) = rng.random();
         Point {
             x: rand_x,
             y: rand_y,
@@ -251,51 +252,48 @@ impl Distribution&lt;Point&gt; for Standard {
 }
 
 fn main() {
-    let mut rng = rand::thread_rng();
-    let rand_tuple = rng.gen::&lt;(i32, bool, f64)&gt;();
-    let rand_point: Point = rng.gen();
-    println!(&quot;Random tuple: {:?}&quot;, rand_tuple);
-    println!(&quot;Random Point: {:?}&quot;, rand_point);
-}
-</code></pre></pre>
-<h2><a class="header" href="#create-random-passwords-from-a-set-of-alphanumeric-characters" id="create-random-passwords-from-a-set-of-alphanumeric-characters">Create random passwords from a set of alphanumeric characters</a></h2>
+    let mut rng = rand::rng();
+    let rand_tuple = rng.random::&lt;(i32, bool, f64)&gt;();
+    let rand_point: Point = rng.random();
+    println!("Random tuple: {:?}", rand_tuple);
+    println!("Random Point: {:?}", rand_point);
+}</code></pre></pre>
+<h2 id="create-random-passwords-from-a-set-of-alphanumeric-characters"><a class="header" href="#create-random-passwords-from-a-set-of-alphanumeric-characters">Create random passwords from a set of alphanumeric characters</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Randomly generates a string of given length ASCII characters in the range <code>A-Z, a-z, 0-9</code>, with <a href="https://docs.rs/rand/*/rand/distributions/struct.Alphanumeric.html"><code>Alphanumeric</code></a> sample.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">use rand::{thread_rng, Rng};
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::{rng, Rng};
 use rand::distributions::Alphanumeric;
 
 fn main() {
-    let rand_string: String = thread_rng()
+    let rand_string: String = rng()
         .sample_iter(&amp;Alphanumeric)
         .take(30)
         .map(char::from)
         .collect();
 
-    println!(&quot;{}&quot;, rand_string);
-}
-</code></pre></pre>
-<h2><a class="header" href="#create-random-passwords-from-a-set-of-user-defined-characters" id="create-random-passwords-from-a-set-of-user-defined-characters">Create random passwords from a set of user-defined characters</a></h2>
+    println!("{}", rand_string);
+}</code></pre></pre>
+<h2 id="create-random-passwords-from-a-set-of-user-defined-characters"><a class="header" href="#create-random-passwords-from-a-set-of-user-defined-characters">Create random passwords from a set of user-defined characters</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Randomly generates a string of given length ASCII characters with custom
-user-defined bytestring, with <a href="https://docs.rs/rand/*/rand/trait.Rng.html#method.gen_range"><code>gen_range</code></a>.</p>
-<pre><pre class="playpen"><code class="language-rust edition2018">fn main() {
+user-defined bytestring, with <a href="https://docs.rs/rand/*/rand/trait.Rng.html#method.random_range"><code>random_range</code></a>.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">fn main() {
     use rand::Rng;
-    const CHARSET: &amp;[u8] = b&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+    const CHARSET: &amp;[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
                             abcdefghijklmnopqrstuvwxyz\
-                            0123456789)(*&amp;^%$#@!~&quot;;
+                            0123456789)(*&amp;^%$#@!~";
     const PASSWORD_LEN: usize = 30;
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
     let password: String = (0..PASSWORD_LEN)
         .map(|_| {
-            let idx = rng.gen_range(0..CHARSET.len());
+            let idx = rng.random_range(0..CHARSET.len());
             CHARSET[idx] as char
         })
         .collect();
 
-    println!(&quot;{:?}&quot;, password);
-}
-</code></pre></pre>
+    println!("{:?}", password);
+}</code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -307,17 +305,13 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="../algorithms.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
-                            <a rel="next" href="../algorithms/sorting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../algorithms/sorting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -325,49 +319,36 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="../algorithms.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../algorithms.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="../algorithms/sorting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../algorithms/sorting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
-        
-        
-        <script type="text/javascript">
-            window.playpen_copyable = true;
+
+        <script>
+            window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
 
+    </div>
     </body>
 </html>

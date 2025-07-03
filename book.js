@@ -4,14 +4,16 @@
 window.onunload = function () { };
 
 // Global variable, shared between modules
-function playpen_text(playpen) {
-    let code_block = playpen.querySelector("code");
+function playground_text(playground, hidden = true) {
+    let code_block = playground.querySelector("code");
 
     if (window.ace && code_block.classList.contains("editable")) {
         let editor = window.ace.edit(code_block);
         return editor.getValue();
-    } else {
+    } else if (hidden) {
         return code_block.textContent;
+    } else {
+        return code_block.innerText;
     }
 }
 
@@ -23,8 +25,8 @@ function playpen_text(playpen) {
         ]);
     }
 
-    var playpens = Array.from(document.querySelectorAll(".playpen"));
-    if (playpens.length > 0) {
+    var playgrounds = Array.from(document.querySelectorAll(".playground"));
+    if (playgrounds.length > 0) {
         fetch_with_timeout("https://play.rust-lang.org/meta/crates", {
             headers: {
                 'Content-Type': "application/json",
@@ -36,21 +38,21 @@ function playpen_text(playpen) {
         .then(response => {
             // get list of crates available in the rust playground
             let playground_crates = response.crates.map(item => item["id"]);
-            playpens.forEach(block => handle_crate_list_update(block, playground_crates));
+            playgrounds.forEach(block => handle_crate_list_update(block, playground_crates));
         });
     }
 
-    function handle_crate_list_update(playpen_block, playground_crates) {
+    function handle_crate_list_update(playground_block, playground_crates) {
         // update the play buttons after receiving the response
-        update_play_button(playpen_block, playground_crates);
+        update_play_button(playground_block, playground_crates);
 
         // and install on change listener to dynamically update ACE editors
         if (window.ace) {
-            let code_block = playpen_block.querySelector("code");
+            let code_block = playground_block.querySelector("code");
             if (code_block.classList.contains("editable")) {
                 let editor = window.ace.edit(code_block);
                 editor.addEventListener("change", function (e) {
-                    update_play_button(playpen_block, playground_crates);
+                    update_play_button(playground_block, playground_crates);
                 });
                 // add Ctrl-Enter command to execute rust code
                 editor.commands.addCommand({
@@ -59,14 +61,14 @@ function playpen_text(playpen) {
                         win: "Ctrl-Enter",
                         mac: "Ctrl-Enter"
                     },
-                    exec: _editor => run_rust_code(playpen_block)
+                    exec: _editor => run_rust_code(playground_block)
                 });
             }
         }
     }
 
     // updates the visibility of play button based on `no_run` class and
-    // used crates vs ones available on http://play.rust-lang.org
+    // used crates vs ones available on https://play.rust-lang.org
     function update_play_button(pre_block, playground_crates) {
         var play_button = pre_block.querySelector(".play-button");
 
@@ -77,7 +79,7 @@ function playpen_text(playpen) {
         }
 
         // get list of `extern crate`'s from snippet
-        var txt = playpen_text(pre_block);
+        var txt = playground_text(pre_block);
         var re = /extern\s+crate\s+([a-zA-Z_0-9]+)\s*;/g;
         var snippet_crates = [];
         var item;
@@ -106,11 +108,14 @@ function playpen_text(playpen) {
             code_block.append(result_block);
         }
 
-        let text = playpen_text(code_block);
+        let text = playground_text(code_block);
         let classes = code_block.querySelector('code').classList;
-        let has_2018 = classes.contains("edition2018");
-        let edition = has_2018 ? "2018" : "2015";
-
+        let edition = "2015";
+        if(classes.contains("edition2018")) {
+            edition = "2018";
+        } else if(classes.contains("edition2021")) {
+            edition = "2021";
+        }
         var params = {
             version: "stable",
             optimize: "0",
@@ -133,7 +138,15 @@ function playpen_text(playpen) {
             body: JSON.stringify(params)
         })
         .then(response => response.json())
-        .then(response => result_block.innerText = response.result)
+        .then(response => {
+            if (response.result.trim() === '') {
+                result_block.innerText = "No output";
+                result_block.classList.add("result-no-output");
+            } else {
+                result_block.innerText = response.result;
+                result_block.classList.remove("result-no-output");
+            }
+        })
         .catch(error => result_block.innerText = "Playground Communication: " + error.message);
     }
 
@@ -143,29 +156,30 @@ function playpen_text(playpen) {
         languages: [],      // Languages used for auto-detection
     });
 
+    let code_nodes = Array
+        .from(document.querySelectorAll('code'))
+        // Don't highlight `inline code` blocks in headers.
+        .filter(function (node) {return !node.parentElement.classList.contains("header"); });
+
     if (window.ace) {
         // language-rust class needs to be removed for editable
         // blocks or highlightjs will capture events
-        Array
-            .from(document.querySelectorAll('code.editable'))
+        code_nodes
+            .filter(function (node) {return node.classList.contains("editable"); })
             .forEach(function (block) { block.classList.remove('language-rust'); });
 
-        Array
-            .from(document.querySelectorAll('code:not(.editable)'))
+        code_nodes
+            .filter(function (node) {return !node.classList.contains("editable"); })
             .forEach(function (block) { hljs.highlightBlock(block); });
     } else {
-        Array
-            .from(document.querySelectorAll('code'))
-            .forEach(function (block) { hljs.highlightBlock(block); });
+        code_nodes.forEach(function (block) { hljs.highlightBlock(block); });
     }
 
     // Adding the hljs class gives code blocks the color css
     // even if highlighting doesn't apply
-    Array
-        .from(document.querySelectorAll('code'))
-        .forEach(function (block) { block.classList.add('hljs'); });
+    code_nodes.forEach(function (block) { block.classList.add('hljs'); });
 
-    Array.from(document.querySelectorAll("code.language-rust")).forEach(function (block) {
+    Array.from(document.querySelectorAll("code.hljs")).forEach(function (block) {
 
         var lines = Array.from(block.querySelectorAll('.boring'));
         // If no lines were hidden, return
@@ -174,23 +188,23 @@ function playpen_text(playpen) {
 
         var buttons = document.createElement('div');
         buttons.className = 'buttons';
-        buttons.innerHTML = "<button class=\"fa fa-expand\" title=\"Show hidden lines\" aria-label=\"Show hidden lines\"></button>";
+        buttons.innerHTML = "<button class=\"fa fa-eye\" title=\"Show hidden lines\" aria-label=\"Show hidden lines\"></button>";
 
         // add expand button
         var pre_block = block.parentNode;
         pre_block.insertBefore(buttons, pre_block.firstChild);
 
         pre_block.querySelector('.buttons').addEventListener('click', function (e) {
-            if (e.target.classList.contains('fa-expand')) {
-                e.target.classList.remove('fa-expand');
-                e.target.classList.add('fa-compress');
+            if (e.target.classList.contains('fa-eye')) {
+                e.target.classList.remove('fa-eye');
+                e.target.classList.add('fa-eye-slash');
                 e.target.title = 'Hide lines';
                 e.target.setAttribute('aria-label', e.target.title);
 
                 block.classList.remove('hide-boring');
-            } else if (e.target.classList.contains('fa-compress')) {
-                e.target.classList.remove('fa-compress');
-                e.target.classList.add('fa-expand');
+            } else if (e.target.classList.contains('fa-eye-slash')) {
+                e.target.classList.remove('fa-eye-slash');
+                e.target.classList.add('fa-eye');
                 e.target.title = 'Show hidden lines';
                 e.target.setAttribute('aria-label', e.target.title);
 
@@ -199,10 +213,10 @@ function playpen_text(playpen) {
         });
     });
 
-    if (window.playpen_copyable) {
+    if (window.playground_copyable) {
         Array.from(document.querySelectorAll('pre code')).forEach(function (block) {
             var pre_block = block.parentNode;
-            if (!pre_block.classList.contains('playpen')) {
+            if (!pre_block.classList.contains('playground')) {
                 var buttons = pre_block.querySelector(".buttons");
                 if (!buttons) {
                     buttons = document.createElement('div');
@@ -211,7 +225,7 @@ function playpen_text(playpen) {
                 }
 
                 var clipButton = document.createElement('button');
-                clipButton.className = 'fa fa-copy clip-button';
+                clipButton.className = 'clip-button';
                 clipButton.title = 'Copy to clipboard';
                 clipButton.setAttribute('aria-label', clipButton.title);
                 clipButton.innerHTML = '<i class=\"tooltiptext\"></i>';
@@ -221,8 +235,8 @@ function playpen_text(playpen) {
         });
     }
 
-    // Process playpen code blocks
-    Array.from(document.querySelectorAll(".playpen")).forEach(function (pre_block) {
+    // Process playground code blocks
+    Array.from(document.querySelectorAll(".playground")).forEach(function (pre_block) {
         // Add play button
         var buttons = pre_block.querySelector(".buttons");
         if (!buttons) {
@@ -242,9 +256,9 @@ function playpen_text(playpen) {
             run_rust_code(pre_block);
         });
 
-        if (window.playpen_copyable) {
+        if (window.playground_copyable) {
             var copyCodeClipboardButton = document.createElement('button');
-            copyCodeClipboardButton.className = 'fa fa-copy clip-button';
+            copyCodeClipboardButton.className = 'clip-button';
             copyCodeClipboardButton.innerHTML = '<i class="tooltiptext"></i>';
             copyCodeClipboardButton.title = 'Copy to clipboard';
             copyCodeClipboardButton.setAttribute('aria-label', copyCodeClipboardButton.title);
@@ -275,6 +289,10 @@ function playpen_text(playpen) {
     var themeToggleButton = document.getElementById('theme-toggle');
     var themePopup = document.getElementById('theme-list');
     var themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
+    var themeIds = [];
+    themePopup.querySelectorAll('button.theme').forEach(function (el) {
+        themeIds.push(el.id);
+    });
     var stylesheets = {
         ayuHighlight: document.querySelector("[href$='ayu-highlight.css']"),
         tomorrowNight: document.querySelector("[href$='tomorrow-night.css']"),
@@ -284,13 +302,30 @@ function playpen_text(playpen) {
     function showThemes() {
         themePopup.style.display = 'block';
         themeToggleButton.setAttribute('aria-expanded', true);
-        themePopup.querySelector("button#" + document.body.className).focus();
+        themePopup.querySelector("button#" + get_theme()).focus();
+    }
+
+    function updateThemeSelected() {
+        themePopup.querySelectorAll('.theme-selected').forEach(function (el) {
+            el.classList.remove('theme-selected');
+        });
+        themePopup.querySelector("button#" + get_theme()).classList.add('theme-selected');
     }
 
     function hideThemes() {
         themePopup.style.display = 'none';
         themeToggleButton.setAttribute('aria-expanded', false);
         themeToggleButton.focus();
+    }
+
+    function get_theme() {
+        var theme;
+        try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+        if (theme === null || theme === undefined || !themeIds.includes(theme)) {
+            return default_theme;
+        } else {
+            return theme;
+        }
     }
 
     function set_theme(theme, store = true) {
@@ -315,7 +350,7 @@ function playpen_text(playpen) {
         }
 
         setTimeout(function () {
-            themeColorMetaTag.content = getComputedStyle(document.body).backgroundColor;
+            themeColorMetaTag.content = getComputedStyle(document.documentElement).backgroundColor;
         }, 1);
 
         if (window.ace && window.editors) {
@@ -324,9 +359,7 @@ function playpen_text(playpen) {
             });
         }
 
-        var previousTheme;
-        try { previousTheme = localStorage.getItem('mdbook-theme'); } catch (e) { }
-        if (previousTheme === null || previousTheme === undefined) { previousTheme = default_theme; }
+        var previousTheme = get_theme();
 
         if (store) {
             try { localStorage.setItem('mdbook-theme', theme); } catch (e) { }
@@ -334,12 +367,11 @@ function playpen_text(playpen) {
 
         html.classList.remove(previousTheme);
         html.classList.add(theme);
+        updateThemeSelected();
     }
 
     // Set theme
-    var theme;
-    try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
-    if (theme === null || theme === undefined) { theme = default_theme; }
+    var theme = get_theme();
 
     set_theme(theme, false);
 
@@ -352,7 +384,14 @@ function playpen_text(playpen) {
     });
 
     themePopup.addEventListener('click', function (e) {
-        var theme = e.target.id || e.target.parentElement.id;
+        var theme;
+        if (e.target.className === "theme") {
+            theme = e.target.id;
+        } else if (e.target.parentElement.className === "theme") {
+            theme = e.target.parentElement.id;
+        } else {
+            return;
+        }
         set_theme(theme);
     });
 
@@ -406,17 +445,16 @@ function playpen_text(playpen) {
 })();
 
 (function sidebar() {
-    var html = document.querySelector("html");
+    var body = document.querySelector("body");
     var sidebar = document.getElementById("sidebar");
-    var sidebarScrollBox = document.getElementById("sidebar-scrollbox");
     var sidebarLinks = document.querySelectorAll('#sidebar a');
     var sidebarToggleButton = document.getElementById("sidebar-toggle");
     var sidebarResizeHandle = document.getElementById("sidebar-resize-handle");
     var firstContact = null;
 
     function showSidebar() {
-        html.classList.remove('sidebar-hidden')
-        html.classList.add('sidebar-visible');
+        body.classList.remove('sidebar-hidden')
+        body.classList.add('sidebar-visible');
         Array.from(sidebarLinks).forEach(function (link) {
             link.setAttribute('tabIndex', 0);
         });
@@ -425,20 +463,9 @@ function playpen_text(playpen) {
         try { localStorage.setItem('mdbook-sidebar', 'visible'); } catch (e) { }
     }
 
-
-    var sidebarAnchorToggles = document.querySelectorAll('#sidebar a.toggle');
-
-    function toggleSection(ev) {
-        ev.currentTarget.parentElement.classList.toggle('expanded');
-    }
-
-    Array.from(sidebarAnchorToggles).forEach(function (el) {
-        el.addEventListener('click', toggleSection);
-    });
-
     function hideSidebar() {
-        html.classList.remove('sidebar-visible')
-        html.classList.add('sidebar-hidden');
+        body.classList.remove('sidebar-visible')
+        body.classList.add('sidebar-hidden');
         Array.from(sidebarLinks).forEach(function (link) {
             link.setAttribute('tabIndex', -1);
         });
@@ -449,9 +476,14 @@ function playpen_text(playpen) {
 
     // Toggle sidebar
     sidebarToggleButton.addEventListener('click', function sidebarToggle() {
-        if (html.classList.contains("sidebar-hidden")) {
+        if (body.classList.contains("sidebar-hidden")) {
+            var current_width = parseInt(
+                document.documentElement.style.getPropertyValue('--sidebar-width'), 10);
+            if (current_width < 150) {
+                document.documentElement.style.setProperty('--sidebar-width', '150px');
+            }
             showSidebar();
-        } else if (html.classList.contains("sidebar-visible")) {
+        } else if (body.classList.contains("sidebar-visible")) {
             hideSidebar();
         } else {
             if (getComputedStyle(sidebar)['transform'] === 'none') {
@@ -467,14 +499,23 @@ function playpen_text(playpen) {
     function initResize(e) {
         window.addEventListener('mousemove', resize, false);
         window.addEventListener('mouseup', stopResize, false);
-        html.classList.add('sidebar-resizing');
+        body.classList.add('sidebar-resizing');
     }
     function resize(e) {
-        document.documentElement.style.setProperty('--sidebar-width', (e.clientX - sidebar.offsetLeft) + 'px');
+        var pos = (e.clientX - sidebar.offsetLeft);
+        if (pos < 20) {
+            hideSidebar();
+        } else {
+            if (body.classList.contains("sidebar-hidden")) {
+                showSidebar();
+            }
+            pos = Math.min(pos, window.innerWidth - 100);
+            document.documentElement.style.setProperty('--sidebar-width', pos + 'px');
+        }
     }
     //on mouseup remove windows functions mousemove & mouseup
     function stopResize(e) {
-        html.classList.remove('sidebar-resizing');
+        body.classList.remove('sidebar-resizing');
         window.removeEventListener('mousemove', resize, false);
         window.removeEventListener('mouseup', stopResize, false);
     }
@@ -503,32 +544,41 @@ function playpen_text(playpen) {
             firstContact = null;
         }
     }, { passive: true });
-
-    // Scroll sidebar to current active section
-    var activeSection = sidebar.querySelector(".active");
-    if (activeSection) {
-        sidebarScrollBox.scrollTop = activeSection.offsetTop;
-    }
 })();
 
 (function chapterNavigation() {
     document.addEventListener('keydown', function (e) {
         if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) { return; }
         if (window.search && window.search.hasFocus()) { return; }
+        var html = document.querySelector('html');
 
+        function next() {
+            var nextButton = document.querySelector('.nav-chapters.next');
+            if (nextButton) {
+                window.location.href = nextButton.href;
+            }
+        }
+        function prev() {
+            var previousButton = document.querySelector('.nav-chapters.previous');
+            if (previousButton) {
+                window.location.href = previousButton.href;
+            }
+        }
         switch (e.key) {
             case 'ArrowRight':
                 e.preventDefault();
-                var nextButton = document.querySelector('.nav-chapters.next');
-                if (nextButton) {
-                    window.location.href = nextButton.href;
+                if (html.dir == 'rtl') {
+                    prev();
+                } else {
+                    next();
                 }
                 break;
             case 'ArrowLeft':
                 e.preventDefault();
-                var previousButton = document.querySelector('.nav-chapters.previous');
-                if (previousButton) {
-                    window.location.href = previousButton.href;
+                if (html.dir == 'rtl') {
+                    next();
+                } else {
+                    prev();
                 }
                 break;
         }
@@ -540,19 +590,19 @@ function playpen_text(playpen) {
 
     function hideTooltip(elem) {
         elem.firstChild.innerText = "";
-        elem.className = 'fa fa-copy clip-button';
+        elem.className = 'clip-button';
     }
 
     function showTooltip(elem, msg) {
         elem.firstChild.innerText = msg;
-        elem.className = 'fa fa-copy tooltipped';
+        elem.className = 'clip-button tooltipped';
     }
 
     var clipboardSnippets = new ClipboardJS('.clip-button', {
         text: function (trigger) {
             hideTooltip(trigger);
-            let playpen = trigger.closest("pre");
-            return playpen_text(playpen);
+            let playground = trigger.closest("pre");
+            return playground_text(playground, false);
         }
     });
 
@@ -580,26 +630,61 @@ function playpen_text(playpen) {
     });
 })();
 
-(function autoHideMenu() {
+(function controllMenu() {
     var menu = document.getElementById('menu-bar');
 
-    var previousScrollTop = document.scrollingElement.scrollTop;
-
-    document.addEventListener('scroll', function () {
-        if (menu.classList.contains('folded') && document.scrollingElement.scrollTop < previousScrollTop) {
-            menu.classList.remove('folded');
-        } else if (!menu.classList.contains('folded') && document.scrollingElement.scrollTop > previousScrollTop) {
-            menu.classList.add('folded');
+    (function controllPosition() {
+        var scrollTop = document.scrollingElement.scrollTop;
+        var prevScrollTop = scrollTop;
+        var minMenuY = -menu.clientHeight - 50;
+        // When the script loads, the page can be at any scroll (e.g. if you reforesh it).
+        menu.style.top = scrollTop + 'px';
+        // Same as parseInt(menu.style.top.slice(0, -2), but faster
+        var topCache = menu.style.top.slice(0, -2);
+        menu.classList.remove('sticky');
+        var stickyCache = false; // Same as menu.classList.contains('sticky'), but faster
+        document.addEventListener('scroll', function () {
+            scrollTop = Math.max(document.scrollingElement.scrollTop, 0);
+            // `null` means that it doesn't need to be updated
+            var nextSticky = null;
+            var nextTop = null;
+            var scrollDown = scrollTop > prevScrollTop;
+            var menuPosAbsoluteY = topCache - scrollTop;
+            if (scrollDown) {
+                nextSticky = false;
+                if (menuPosAbsoluteY > 0) {
+                    nextTop = prevScrollTop;
+                }
+            } else {
+                if (menuPosAbsoluteY > 0) {
+                    nextSticky = true;
+                } else if (menuPosAbsoluteY < minMenuY) {
+                    nextTop = prevScrollTop + minMenuY;
+                }
+            }
+            if (nextSticky === true && stickyCache === false) {
+                menu.classList.add('sticky');
+                stickyCache = true;
+            } else if (nextSticky === false && stickyCache === true) {
+                menu.classList.remove('sticky');
+                stickyCache = false;
+            }
+            if (nextTop !== null) {
+                menu.style.top = nextTop + 'px';
+                topCache = nextTop;
+            }
+            prevScrollTop = scrollTop;
+        }, { passive: true });
+    })();
+    (function controllBorder() {
+        function updateBorder() {
+            if (menu.offsetTop === 0) {
+                menu.classList.remove('bordered');
+            } else {
+                menu.classList.add('bordered');
+            }
         }
-
-        if (!menu.classList.contains('bordered') && document.scrollingElement.scrollTop > 0) {
-            menu.classList.add('bordered');
-        }
-
-        if (menu.classList.contains('bordered') && document.scrollingElement.scrollTop === 0) {
-            menu.classList.remove('bordered');
-        }
-
-        previousScrollTop = Math.max(document.scrollingElement.scrollTop, 0);
-    }, { passive: true });
+        updateBorder();
+        document.addEventListener('scroll', updateBorder, { passive: true });
+    })();
 })();
