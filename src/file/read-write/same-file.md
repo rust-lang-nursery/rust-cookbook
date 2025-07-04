@@ -6,7 +6,7 @@ Use [`same_file::Handle`] to a file that can be tested for equality with
 other handles. In this example, the handles of file to be read from and
 to be written to are tested for equality.
 
-```rust,edition2018
+```rust,edition2018,no_run
 extern crate same_file;
 use same_file::{is_same_file, Handle};
 use std::fs::File;

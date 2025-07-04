@@ -10,8 +10,14 @@ As recommended in Rust by Example, [`Box`ing errors] is seen as an easy
 strategy for getting started.
 
 ```rust,edition2018
-Box<dyn Error>
-````
+use std::error::Error;
+
+fn main() -> Result<(), Box<dyn Error>> {
+    // Example of boxing errors
+    let result: Result<(), Box<dyn Error>> = Ok(());
+    result
+}
+```
 
 To understand what kind of error handling may be required study [Designing 
 error types in Rust] and consider [`thiserror`] for libraries or [`anyhow`] as 
@@ -25,6 +31,11 @@ use thiserror::Error;
 pub enum MultiError {
   #[error("🦀 got {0}")]
   ErrorClass(String),
+}
+
+fn main() -> Result<(), MultiError> {
+    // Example of using thiserror
+    Err(MultiError::ErrorClass("example error".to_string()))
 }
 ```
 

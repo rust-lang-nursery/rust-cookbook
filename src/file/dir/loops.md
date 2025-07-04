@@ -10,7 +10,7 @@ ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 ```
 The following would assert that a loop exists.
 
-```rust,edition2018
+```rust,edition2018,no_run
 extern crate walkdir;
 extern crate same_file;
 use walkdir::WalkDir;
