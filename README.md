@@ -1,8 +1,7 @@
-# A Rust Cookbook &emsp; [![Build Status travis]][travis]
+# A Rust Cookbook &emsp; [![Build Status][build-badge]][build-url]
 
-[Build Status travis]: https://api.travis-ci.com/rust-lang-nursery/rust-cookbook.svg?branch=master
-
-https://invalid.cc
+[build-badge]: https://github.com/rust-lang-nursery/rust-cookbook/workflows/Deploy%20to%20GitHub%20Pages/badge.svg
+[build-url]: https://github.com/rust-lang-nursery/rust-cookbook/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22
 
 **[Read it here]**.
 
@@ -31,6 +30,51 @@ $ xdg-open ./book/index.html # linux
 $ start .\book\index.html    # windows
 $ open ./book/index.html     # mac
 ```
+
+## Development
+
+### Local Development
+
+For local development and testing, you can use the provided Makefile:
+
+```bash
+# Show all available commands
+make help
+
+# Build the book locally
+make build
+
+# Run tests
+make test
+
+# Build and test (development workflow)
+make dev
+
+# Serve the book locally with live reload
+make serve
+
+# Clean build artifacts
+make clean
+```
+
+### Deployment
+
+As a maintainer, you can deploy the site locally using:
+
+```bash
+# Deploy to GitHub Pages (requires maintainer permissions)
+make deploy
+
+# Or use the script directly
+./scripts/deploy.sh
+```
+
+The deployment script will:
+1. Build and test the book
+2. Push the built site to the `gh-pages` branch
+3. GitHub Pages will automatically serve the updated site
+
+**Note**: This requires maintainer permissions to push to the `gh-pages` branch.
 
 [Read it here]: https://rust-lang-nursery.github.io/rust-cookbook
 [Rust]: https://www.rust-lang.org/
