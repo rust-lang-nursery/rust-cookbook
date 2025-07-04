@@ -18,6 +18,7 @@ error types in Rust] and consider [`thiserror`] for libraries or [`anyhow`] as
 a maintained error aggregation option.
 
 ```rust,edition2018
+extern crate thiserror;
 use thiserror::Error;
 
 #[derive(Error,Debug)]

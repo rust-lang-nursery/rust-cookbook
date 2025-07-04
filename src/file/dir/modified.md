@@ -12,18 +12,11 @@ out directories.
 
 ```rust,edition2018
 extern crate walkdir;
+extern crate anyhow;
+use anyhow::{Result, anyhow};
 use walkdir::WalkDir;
-# use error_chain::error_chain;
-#
 use std::{env, fs};
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         SystemTimeError(std::time::SystemTimeError);
-#     }
-# }
-#
 fn main() -> Result<()> {
     let current_dir = env::current_dir()?;
     println!(
@@ -44,7 +37,7 @@ fn main() -> Result<()> {
                 last_modified,
                 metadata.permissions().readonly(),
                 metadata.len(),
-                path.file_name().ok_or("No filename")?
+                path.file_name().ok_or_else(|| anyhow!("No filename"))?
             );
         }
     }

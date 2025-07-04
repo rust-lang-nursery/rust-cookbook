@@ -9,6 +9,7 @@ Note that, in accordance with the Specification, build metadata is parsed but no
 comparing versions. In other words, two versions may be equal even if their build strings differ.
 
 ```rust,edition2018
+extern crate semver;
 use semver::{Identifier, Version, SemVerError};
 
 fn main() -> Result<(), SemVerError> {

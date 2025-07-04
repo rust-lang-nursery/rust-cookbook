@@ -12,18 +12,15 @@ body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 [`RequestBuilder::send`] synchronously executes the requests.
 
 ```rust,edition2018,no_run
-use error_chain::error_chain;
+extern crate anyhow;
+extern crate reqwest;
+extern crate serde;
+extern crate serde_json;
+use anyhow::Result;
 use serde::Deserialize;
 use serde_json::json;
 use std::env;
 use reqwest::Client;
-
-error_chain! {
-    foreign_links {
-        EnvVar(env::VarError);
-        HttpRequest(reqwest::Error);
-    }
-}
 
 #[derive(Deserialize, Debug)]
 struct Gist {
@@ -31,7 +28,7 @@ struct Gist {
     html_url: String,
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<()> {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 

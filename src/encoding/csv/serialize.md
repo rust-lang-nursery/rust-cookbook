@@ -10,15 +10,9 @@ writer uses internal buffer, always explicitly [`flush`] when done.
 
 ```rust,edition2018
 extern crate csv;
-
+extern crate anyhow;
+use anyhow::Result;
 use std::io;
-#
-# error_chain! {
-#     foreign_links {
-#         CSVError(csv::Error);
-#         IOError(std::io::Error);
-#    }
-# }
 
 fn main() -> Result<()> {
     let mut wtr = csv::Writer::from_writer(io::stdout());

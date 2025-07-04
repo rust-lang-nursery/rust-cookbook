@@ -10,16 +10,11 @@ matches all PNGs in `media` and it's subdirectories.
 
 ```rust,edition2018
 extern crate walkdir;
+extern crate anyhow;
+extern crate glob;
+use anyhow::Result;
 use walkdir::WalkDir;
-
 use glob::glob;
-#
-# error_chain! {
-#     foreign_links {
-#         Glob(glob::GlobError);
-#         Pattern(glob::PatternError);
-#     }
-# }
 
 fn main() -> Result<()> {
     for entry in glob("**/*.png")? {

@@ -8,15 +8,10 @@ the [serde] crate.
 ```rust,edition2018
 extern crate csv;
 extern crate serde;
+extern crate anyhow;
+use anyhow::Result;
 use serde::Serialize;
 use std::io;
-#
-# error_chain! {
-#    foreign_links {
-#        IOError(std::io::Error);
-#        CSVError(csv::Error);
-#    }
-# }
 
 #[derive(Serialize)]
 struct Record<'a> {
@@ -40,4 +35,3 @@ fn main() -> Result<()> {
 
     Ok(())
 }
-```

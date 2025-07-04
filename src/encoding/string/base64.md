@@ -7,17 +7,10 @@ and decodes it with [`decode`].
 
 ```rust,edition2018
 extern crate base64;
-use error_chain::error_chain;
-
+extern crate anyhow;
+use anyhow::Result;
 use std::str;
 use base64::{encode, decode};
-#
-# error_chain! {
-#     foreign_links {
-#         Base64(base64::DecodeError);
-#         Utf8Error(str::Utf8Error);
-#     }
-# }
 
 fn main() -> Result<()> {
     let hello = b"hello rustaceans";

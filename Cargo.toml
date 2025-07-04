@@ -53,6 +53,7 @@ sha2 = "0.10"
 tar = "0.4"
 tempfile = "3.14"
 thiserror = "2"
+anyhow = "1.0"
 threadpool = "1.8"
 toml = "0.8"
 tokio = { version = "1", features = ["full"] }

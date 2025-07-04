@@ -26,16 +26,11 @@ fn main() -> Result<(), ParseError> {
 [`origin`] produces the same result.
 
 ```rust,edition2018
-# use error_chain::error_chain;
-
+extern crate anyhow;
+extern crate url;
+use anyhow::Result;
 use url::{Url, Origin, Host};
 
-# error_chain! {
-#     foreign_links {
-#         UrlParse(url::ParseError);
-#     }
-# }
-#
 fn main() -> Result<()> {
     let s = "ftp://rust-lang.org/examples";
 

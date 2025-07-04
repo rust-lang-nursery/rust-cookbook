@@ -12,6 +12,7 @@ Due to both [`ClientBuilder::build`] and [`ReqwestBuilder::send`] returning [`re
 types, the shortcut [`reqwest::Result`] is used for the main function return type. 
 
 ```rust,edition2018,no_run
+extern crate reqwest;
 use reqwest::Result;
 use std::time::Duration;
 use reqwest::ClientBuilder;

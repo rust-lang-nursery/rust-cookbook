@@ -1,8 +1,8 @@
 ## Avoid discarding errors during error conversions
 
-[![error-chain-badge]][error-chain] [![cat-rust-patterns-badge]][cat-rust-patterns]
+[![thiserror-badge]][thiserror] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
-The  [error-chain] crate makes [matching] on different error types returned by
+The  [thiserror] crate makes [matching] on different error types returned by
 a function possible and relatively compact. [`ErrorKind`] determines the error
 type.
 
@@ -10,27 +10,33 @@ Uses [reqwest]::[blocking] to query a random integer generator web service.  Con
 the string response into an integer. The Rust standard library,
 [reqwest], and the web service can all generate errors. Well defined Rust errors
 use [`foreign_links`]. An additional [`ErrorKind`] variant for the web service
-error uses `errors` block of the `error_chain!` macro.
+error uses `errors` block of the `thiserror` derive macro.
 
 ```rust,edition2018
-extern crate error_chain;
-use error_chain::error_chain;
+extern crate thiserror;
+extern crate reqwest;
+use thiserror::Error;
 
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        Reqwest(reqwest::Error);
-        ParseIntError(std::num::ParseIntError);
-    }
-    errors { RandomResponseError(t: String) }
+#[derive(Error, Debug)]
+pub enum ErrorKind {
+    #[error("IO error: {0}")]
+    Io(#[from] std::io::Error),
+    #[error("Reqwest error: {0}")]
+    Reqwest(#[from] reqwest::Error),
+    #[error("Parse int error: {0}")]
+    ParseIntError(#[from] std::num::ParseIntError),
+    #[error("Random response error: {0}")]
+    RandomResponseError(String),
 }
+
+type Result<T> = std::result::Result<T, ErrorKind>;
 
 fn parse_response(response: reqwest::blocking::Response) -> Result<u32> {
   let mut body = response.text()?;
   body.pop();
   body
     .parse::<u32>()
-    .chain_err(|| ErrorKind::RandomResponseError(body))
+    .map_err(|e| ErrorKind::RandomResponseError(body))
 }
 
 fn run() -> Result<()> {
@@ -44,18 +50,17 @@ fn run() -> Result<()> {
 
 fn main() {
   if let Err(error) = run() {
-    match *error.kind() {
+    match error {
       ErrorKind::Io(_) => println!("Standard IO error: {:?}", error),
       ErrorKind::Reqwest(_) => println!("Reqwest error: {:?}", error),
       ErrorKind::ParseIntError(_) => println!("Standard parse int error: {:?}", error),
       ErrorKind::RandomResponseError(_) => println!("User defined error: {:?}", error),
-      _ => println!("Other error: {:?}", error),
     }
   }
 }
 ```
 
-[`ErrorKind`]: https://docs.rs/error-chain/*/error_chain/example_generated/enum.ErrorKind.html
-[`foreign_links`]: https://docs.rs/error-chain/*/error_chain/#foreign-links
+[`ErrorKind`]: https://docs.rs/thiserror/*/thiserror/
+[`foreign_links`]: https://docs.rs/thiserror/*/thiserror/#foreign-links
 [blocking]: https://docs.rs/reqwest/*/reqwest/blocking/index.html
-[Matching]:https://docs.rs/error-chain/*/error_chain/#matching-errors
+[Matching]:https://docs.rs/thiserror/*/thiserror/#matching-errors

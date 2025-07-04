@@ -10,17 +10,13 @@ the file uploads and the response returns.  [`read_to_string`] returns the
 response and displays in the console.
 
 ```rust,edition2018,no_run
-use error_chain::error_chain;
+extern crate anyhow;
+extern crate reqwest;
+use anyhow::Result;
 use std::fs::File;
 use std::io::Read;
 
- error_chain! {
-     foreign_links {
-         HttpRequest(reqwest::Error);
-         IoError(::std::io::Error);
-     }
- }
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<()> {
     let paste_api = "https://paste.rs";
     let mut file = File::open("message")?;
 

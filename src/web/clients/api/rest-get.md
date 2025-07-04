@@ -10,6 +10,8 @@ with [`reqwest::get`] to get list of all users who have marked a GitHub project 
 processing the response into User instances.
 
 ```rust,edition2018,no_run
+extern crate reqwest;
+extern crate serde;
 use serde::Deserialize;
 use reqwest::Error;
 use reqwest::header::USER_AGENT;

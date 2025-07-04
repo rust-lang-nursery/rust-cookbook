@@ -7,15 +7,10 @@ phone numbers.  The example here is for US convention phone numbers.
 
 ```rust,edition2018
 extern crate regex;
+extern crate anyhow;
+use anyhow::Result;
 use regex::Regex;
 use std::fmt;
-#
-# error_chain!{
-#     foreign_links {
-#         Regex(regex::Error);
-#         Io(std::io::Error);
-#     }
-# }
 
 struct PhoneNumber<'a> {
     area: &'a str,

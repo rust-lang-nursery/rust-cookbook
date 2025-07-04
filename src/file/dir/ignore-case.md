@@ -8,16 +8,11 @@ A custom [`MatchOptions`] struct is passed to the [`glob_with`] function making 
 
 ```rust,edition2018
 extern crate walkdir;
+extern crate anyhow;
+extern crate glob;
+use anyhow::Result;
 use walkdir::WalkDir;
-use error_chain::error_chain;
 use glob::{glob_with, MatchOptions};
-
-error_chain! {
-    foreign_links {
-        Glob(glob::GlobError);
-        Pattern(glob::PatternError);
-    }
-}
 
 fn main() -> Result<()> {
     let options = MatchOptions {

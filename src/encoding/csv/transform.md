@@ -11,19 +11,11 @@ See [`csv::Reader::deserialize`], [`serde::Deserialize`], and [`std::str::FromSt
 ```rust,edition2018
 extern crate csv;
 extern crate serde;
+extern crate anyhow;
+use anyhow::{Result, anyhow};
 use csv::{Reader, Writer};
 use serde::{de, Deserialize, Deserializer};
 use std::str::FromStr;
-#
-# error_chain! {
-#    foreign_links {
-#        CsvError(csv::Error);
-#        ParseInt(std::num::ParseIntError);
-#        CsvInnerError(csv::IntoInnerError<Writer<Vec<u8>>>);
-#        IO(std::fmt::Error);
-#        UTF8(std::string::FromUtf8Error);
-#    }
-# }
 
 #[derive(Debug)]
 struct HexColor {
@@ -39,12 +31,12 @@ struct Row {
 }
 
 impl FromStr for HexColor {
-    type Err = Error;
+    type Err = anyhow::Error;
 
     fn from_str(hex_color: &str) -> std::result::Result<Self, Self::Err> {
         let trimmed = hex_color.trim_matches('#');
         if trimmed.len() != 6 {
-            Err("Invalid length of hex string".into())
+            Err(anyhow!("Invalid length of hex string"))
         } else {
             Ok(HexColor {
                 red: u8::from_str_radix(&trimmed[..2], 16)?,
@@ -89,7 +81,6 @@ magenta,#ff00ff"
     println!("{}", written);
     Ok(())
 }
-```
 
 [`csv::Reader::deserialize`]: https://docs.rs/csv/\*/csv/struct.Reader.html#method.deserialize
 [`csv::invalid_option`]: https://docs.rs/csv/*/csv/fn.invalid_option.html
