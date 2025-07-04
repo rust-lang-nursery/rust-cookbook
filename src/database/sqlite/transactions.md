@@ -13,6 +13,7 @@ a duplicate color is made, the transaction rolls back.
 
 
 ```rust,edition2024,no_run
+extern crate rusqlite;
 use rusqlite::{Connection, Result};
 
 fn main() -> Result<()> {

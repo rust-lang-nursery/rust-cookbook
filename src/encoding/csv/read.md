@@ -35,6 +35,7 @@ Serde deserializes data into strongly type structures. See the
 [`csv::Reader::deserialize`] method.
 
 ```rust,edition2018
+extern crate csv;
 extern crate serde;
 use serde::Deserialize;
 #[derive(Deserialize)]

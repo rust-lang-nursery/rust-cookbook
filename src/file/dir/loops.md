@@ -12,6 +12,7 @@ The following would assert that a loop exists.
 
 ```rust,edition2018
 extern crate walkdir;
+extern crate same_file;
 use walkdir::WalkDir;
 use std::io;
 use std::path::{Path, PathBuf};

@@ -34,6 +34,7 @@ Parse TOML into your own structs using [Serde].
 
 ```rust,edition2018
 extern crate toml;
+extern crate serde;
 use serde::Deserialize;
 
 use toml::de::Error;

@@ -25,6 +25,12 @@ struct Rgb {
     green: u8,
 }
 
+impl std::fmt::UpperHex for Rgb {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:02X}{:02X}{:02X}", self.red, self.green, self.blue)
+    }
+}
+
 impl Rgb {
     fn from_reader(csv_data: &[u8]) -> Result<Rgb> {
         let color: Rgb = csv::Reader::from_reader(csv_data)

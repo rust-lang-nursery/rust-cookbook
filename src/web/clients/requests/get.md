@@ -10,6 +10,7 @@ using [`read_to_string`].
 
 ```rust,edition2018,no_run
 extern crate anyhow;
+extern crate reqwest;
 use anyhow::Result;
 use std::io::Read;
 

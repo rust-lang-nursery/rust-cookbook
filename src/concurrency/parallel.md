@@ -10,6 +10,4 @@
 
 {{#include parallel/rayon-map-reduce.md}}
 
-{{#include parallel/rayon-thumbnails.md}}
-
 {{#include ../links.md}}

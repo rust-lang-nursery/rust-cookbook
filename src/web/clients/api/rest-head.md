@@ -17,7 +17,7 @@ use reqwest::Result;
 use std::time::Duration;
 use reqwest::ClientBuilder;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<()> {
     let user = "ferris-the-crab";
     let request_url = format!("https://api.github.com/users/{}", user);
     println!("{}", request_url);
