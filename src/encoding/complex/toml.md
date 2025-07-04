@@ -33,6 +33,7 @@ fn main() -> Result<(), Error> {
 Parse TOML into your own structs using [Serde].
 
 ```rust,edition2018
+extern crate toml;
 use serde::Deserialize;
 
 use toml::de::Error;

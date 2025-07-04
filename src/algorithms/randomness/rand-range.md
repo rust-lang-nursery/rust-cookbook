@@ -20,7 +20,7 @@ This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.
 
 ```rust,edition2018
-
+extern crate rand;
 use rand::distributions::{Distribution, Uniform};
 
 fn main() {

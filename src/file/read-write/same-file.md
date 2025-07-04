@@ -8,7 +8,7 @@ to be written to are tested for equality.
 
 ```rust,edition2018
 extern crate same_file;
-use same_file::is_same_file;
+use same_file::{is_same_file, Handle};
 use std::fs::File;
 use std::io::{BufRead, BufReader, Error, ErrorKind};
 use std::path::Path;
@@ -36,14 +36,4 @@ fn main() -> Result<(), Error> {
 }
 ```
 
-```bash
-cargo run
 ```
-displays the contents of the file new.txt.
-
-```bash
-cargo run >> ./new.txt
-```
-errors because the two files are same.
-
-[`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html
