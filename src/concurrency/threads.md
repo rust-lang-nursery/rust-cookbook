@@ -10,4 +10,6 @@
 
 {{#include thread/threadpool-walk.md}}
 
+{{#include thread/threadpool-fractal.md}}
+
 {{#include ../links.md}}
