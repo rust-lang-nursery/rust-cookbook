@@ -5,3 +5,4 @@ book/
 *.swp
 lines.txt
 .idea/
+.skeptic-cache

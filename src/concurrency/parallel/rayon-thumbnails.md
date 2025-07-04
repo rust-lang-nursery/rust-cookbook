@@ -9,23 +9,13 @@ then saves them in a new folder called `thumbnails`.
 images in parallel using [`par_iter`] calling  [`DynamicImage::resize`].
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-
+use anyhow::Result;
 use std::path::Path;
 use std::fs::create_dir_all;
 
-# use error_chain::ChainedError;
 use glob::{glob_with, MatchOptions};
-use image::{FilterType, ImageError};
+use image::imageops::FilterType;
 use rayon::prelude::*;
-
-# error_chain! {
-#     foreign_links {
-#         Image(ImageError);
-#         Io(std::io::Error);
-#         Glob(glob::PatternError);
-#     }
-# }
 
 fn main() -> Result<()> {
     let options: MatchOptions = Default::default();
@@ -34,7 +24,7 @@ fn main() -> Result<()> {
         .collect();
 
     if files.len() == 0 {
-        error_chain::bail!("No .jpg files found in current directory");
+        anyhow::bail!("No .jpg files found in current directory");
     }
 
     let thumb_dir = "thumbnails";
@@ -46,12 +36,12 @@ fn main() -> Result<()> {
         .par_iter()
         .map(|path| {
             make_thumbnail(path, thumb_dir, 300)
-                .map_err(|e| e.chain_err(|| path.display().to_string()))
+                .map_err(|e| anyhow::anyhow!("Failed to process {}: {}", path.display(), e))
         })
         .filter_map(|x| x.err())
         .collect();
 
-    image_failures.iter().for_each(|x| println!("{}", x.display_chain()));
+    image_failures.iter().for_each(|x| println!("{}", x));
 
     println!("{} thumbnails saved successfully", files.len() - image_failures.len());
     Ok(())
