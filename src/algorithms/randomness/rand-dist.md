@@ -15,12 +15,12 @@ An example using the [`Normal`] distribution is shown below.
 ```rust,edition2018
 extern crate rand;
 extern crate rand_distr;
-use rand::thread_rng;
+use rand::Rng;
 use rand_distr::{Distribution, LogNormal, Normal};
 use rand::distributions::Distribution as RandDistribution;
 
 fn main() {
-    let mut rng = thread_rng();
+    let mut rng = rand::thread_rng();
     let normal = Normal::new(2.0, 3.0).unwrap();
     let log_normal = LogNormal::new(1.0, 0.5).unwrap();
 

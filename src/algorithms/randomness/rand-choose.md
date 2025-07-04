@@ -20,7 +20,7 @@ fn main() {
     let password: String = (0..PASSWORD_LEN)
         .map(|_| {
             let idx = rng.gen_range(0..CHARSET.len());
-            char::from(CHARSET[idx])
+            CHARSET[idx] as char
         })
         .collect();
 
