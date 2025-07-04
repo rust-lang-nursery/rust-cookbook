@@ -7,7 +7,6 @@ printing them only once.
 
 ```rust,edition2018
 extern crate walkdir;
-extern crate error_chain;
 use std::collections::HashMap;
 use walkdir::WalkDir;
 

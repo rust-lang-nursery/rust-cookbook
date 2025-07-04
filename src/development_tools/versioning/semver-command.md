@@ -9,6 +9,7 @@ Runs `git --version` using [`Command`], then parses the version number into a
 
 ```rust,edition2018,no_run
 extern crate anyhow;
+extern crate semver;
 use anyhow::{Result, anyhow};
 use std::process::Command;
 use semver::{Version, VersionReq};

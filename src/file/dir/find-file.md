@@ -8,18 +8,9 @@ normal directories and files.
 
 ```rust,edition2018,no_run
 extern crate walkdir;
-extern crate error_chain;
-# use error_chain::error_chain;
-
+extern crate anyhow;
+use anyhow::Result;
 use walkdir::WalkDir;
-#
-# error_chain! {
-#     foreign_links {
-#         WalkDir(walkdir::Error);
-#         Io(std::io::Error);
-#         SystemTime(std::time::SystemTimeError);
-#     }
-# }
 
 fn main() -> Result<()> {
     for entry in WalkDir::new(".")

@@ -11,6 +11,7 @@ incrementing the major version number resets both the minor and patch version
 numbers to 0.
 
 ```rust,edition2018
+extern crate semver;
 use semver::{Version, SemVerError};
 
 fn main() -> Result<(), SemVerError> {

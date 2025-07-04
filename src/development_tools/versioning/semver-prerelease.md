@@ -5,6 +5,7 @@
 Given two versions, [`is_prerelease`] asserts that one is pre-release and the other is not.
 
 ```rust,edition2018
+extern crate semver;
 use semver::{Version, SemVerError};
 
 fn main() -> Result<(), SemVerError> {
