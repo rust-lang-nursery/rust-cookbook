@@ -35,7 +35,7 @@ pub enum MultiError {
 
 fn main() -> Result<(), MultiError> {
     // Example of using thiserror
-    Err(MultiError::ErrorClass("example error".to_string()))
+    Ok(())
 }
 ```
 

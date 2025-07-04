@@ -2,16 +2,16 @@
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::random_range`].
+Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::gen_range`].
 
 ```rust,edition2018
 extern crate rand;
 use rand::Rng;
 
 fn main() {
-    let mut rng = rand::rng();
-    println!("Integer: {}", rng.random_range(0..10));
-    println!("Float: {}", rng.random_range(0.0..10.0));
+    let mut rng = rand::thread_rng();
+    println!("Integer: {}", rng.gen_range(0..10));
+    println!("Float: {}", rng.gen_range(0.0..10.0));
 }
 ```
 
@@ -21,10 +21,12 @@ in the same range.
 
 ```rust,edition2018
 extern crate rand;
-use rand::distributions::{Distribution, Uniform};
+extern crate rand_distr;
+use rand::Rng;
+use rand_distr::{Distribution, Uniform};
 
 fn main() {
-    let mut rng = rand::rng();
+    let mut rng = rand::thread_rng();
     let die = Uniform::from(1..7);
 
     loop {
@@ -36,7 +38,3 @@ fn main() {
     }
 }
 ```
-
-[`Uniform`]: https://docs.rs/rand/*/rand/distributions/uniform/struct.Uniform.html
-[`Rng::random_range`]: https://doc.rust-lang.org/rand/*/rand/trait.Rng.html#method.random_range
-[uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)

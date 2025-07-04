@@ -7,6 +7,10 @@ license = "MIT/Apache-2.0"
 publish = false
 build = "build.rs"
 
+[features]
+default = []
+test-rand = []
+
 [dependencies]
 ansi_term = "0.11.0"
 approx = "0.3"
@@ -16,7 +20,7 @@ byteorder = "1.0"
 cc = "1.0"
 chrono = "0.4"
 clap = "4.5"
-crossbeam = "0.5"
+crossbeam = "0.8"
 crossbeam-channel = "0.3.9"
 csv = "1.0"
 data-encoding = "2.1.0"
@@ -36,8 +40,8 @@ num_cpus = "1.16"
 percent-encoding = "2.3"
 petgraph = "0.6"
 postgres = "0.19"
-rand = "0.9"
-rand_distr = "0.5.1"
+rand = "0.8"
+rand_distr = "0.4"
 rayon = "1.10"
 regex = "1.11"
 reqwest = { version = "0.12", features = ["blocking", "json", "stream"] }
@@ -65,9 +69,9 @@ walkdir = "2.5"
 syslog = "5.0"
 
 [build-dependencies]
-skeptic = "0.13"
+skeptic = { git = "https://github.com/andygauge/rust-skeptic", branch = "rlib-patch" }
 walkdir = "2.5"
 
 [dev-dependencies]
-skeptic = "0.13"
+skeptic = { git = "https://github.com/andygauge/rust-skeptic", branch = "rlib-patch" }
 walkdir = "2.5"

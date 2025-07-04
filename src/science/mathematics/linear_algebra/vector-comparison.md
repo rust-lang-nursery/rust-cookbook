@@ -5,11 +5,10 @@ The [ndarray] crate supports a number of ways to create arrays -- this recipe cr
 [`ndarray::Array`]s from `std::Vec` using `from`. Then, it sums the arrays element-wise.
 
 This recipe contains an example of comparing two floating-point vectors element-wise. 
-Floating-point numbers are often stored inexactly, making exact comparisons difficult. 
-However, the [`assert_abs_diff_eq!`] macro from the [`approx`] crate allows for convenient 
-element-wise comparisons. To use the `approx` crate with `ndarray`, the `approx` 
-feature must be added to the `ndarray` dependency in `Cargo.toml`. For example, 
-`ndarray = { version = "0.13", features = ["approx"] }`.
+For simple cases, we can use `assert_eq!` for exact equality comparison. For more 
+complex floating-point comparisons that need to handle precision issues, you can use 
+the [`approx`] crate with the `approx` feature enabled in the `ndarray` dependency 
+in `Cargo.toml`. For example, `ndarray = { version = "0.13", features = ["approx"] }`.
 
 This recipe also contains additional ownership examples. Here, `let z = a + b` consumes 
 `a` and `b`, updates `a` with the result, then moves ownership to `z`. Alternatively, 
@@ -17,9 +16,7 @@ This recipe also contains additional ownership examples. Here, `let z = a + b` c
 their modification later. See [Binary Operators With Two Arrays] for additional detail.
 
 ```rust,edition2018
-extern crate approx;
 extern crate ndarray;
-use approx::assert_abs_diff_eq;
 use ndarray::Array;
 
 fn main() {
@@ -31,19 +28,19 @@ fn main() {
   let z = a + b;
   let w =  &c + &d;
 
-  assert_abs_diff_eq!(z, Array::from(vec![6., 6., 6., 6., 6.]));
+  assert_eq!(z, Array::from(vec![6., 6., 6., 6., 6.]));
 
   println!("c = {}", c);
   c[0] = 10.;
   d[1] = 10.;
 
-  assert_abs_diff_eq!(w, Array::from(vec![6., 6., 6., 6., 6.]));
+  assert_eq!(w, Array::from(vec![6., 6., 6., 6., 6.]));
 
 }
 ```
 
 [`approx`]: https://docs.rs/approx/*/approx/index.html
-[`assert_abs_diff_eq!`]: https://docs.rs/approx/*/approx/macro.assert_abs_diff_eq.html
+[`approx`]: https://docs.rs/approx/*/approx/index.html
 [Binary Operators With Two Arrays]: https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#binary-operators-with-two-arrays
 [ndarray]: https://docs.rs/crate/ndarray/*
 [`ndarray::Array`]: https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html

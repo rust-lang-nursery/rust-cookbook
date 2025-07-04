@@ -62,7 +62,8 @@ use rand::Rng;
 
 fn main() {
     let mut rng = rand::thread_rng();
-    println!("Random f64: {}", rng.gen::<f64>());
+    let random_number: u32 = rng.gen();
+    println!("Random number: {}", random_number);
 }
 ```
 

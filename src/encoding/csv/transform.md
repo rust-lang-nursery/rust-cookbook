@@ -81,6 +81,7 @@ magenta,#ff00ff"
     println!("{}", written);
     Ok(())
 }
+```
 
 [csv::Reader::deserialize]: https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize
 [csv::invalid_option]: https://docs.rs/csv/*/csv/fn.invalid_option.html

@@ -7,11 +7,11 @@ a-z, 0-9`, with [`Alphanumeric`] sample.
 
 ```rust,edition2018
 extern crate rand;
-use rand::{rng, Rng};
+use rand::{thread_rng, Rng};
 use rand::distributions::Alphanumeric;
 
 fn main() {
-    let rand_string: String = rng()
+    let rand_string: String = thread_rng()
         .sample_iter(&Alphanumeric)
         .take(30)
         .map(char::from)
