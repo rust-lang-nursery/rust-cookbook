@@ -7,7 +7,8 @@ logging via an environment variable.  The [`log::debug!`] macro works like other
 [`std::fmt`] formatted strings.
 
 ```rust,edition2018
-
+extern crate log;
+extern crate env_logger;
 fn execute_query(query: &str) {
     log::debug!("Executing query: {}", query);
 }

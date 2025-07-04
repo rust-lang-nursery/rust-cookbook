@@ -7,6 +7,8 @@ Using [`follow_links`] ensures symbolic links are followed like they were
 normal directories and files.
 
 ```rust,edition2018,no_run
+extern crate walkdir;
+extern crate error_chain;
 # use error_chain::error_chain;
 
 use walkdir::WalkDir;

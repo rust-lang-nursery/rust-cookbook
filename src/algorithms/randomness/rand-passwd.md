@@ -6,6 +6,7 @@ Randomly generates a string of given length ASCII characters in the range `A-Z,
 a-z, 0-9`, with [`Alphanumeric`] sample.
 
 ```rust,edition2018
+extern crate rand;
 use rand::{rng, Rng};
 use rand::distributions::Alphanumeric;
 

@@ -12,6 +12,7 @@ The below recipes attempts to deserialize the value `256` into a
 user code.
 
 ```rust,edition2018
+extern crate error_chain;
 use error_chain::error_chain;
 # use serde::Deserialize;
 #

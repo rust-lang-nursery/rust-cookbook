@@ -11,6 +11,8 @@ compared with 24 hours (24 * 60 * 60 seconds). [`Metadata::is_file`] filters
 out directories.
 
 ```rust,edition2018
+extern crate walkdir;
+use walkdir::WalkDir;
 # use error_chain::error_chain;
 #
 use std::{env, fs};

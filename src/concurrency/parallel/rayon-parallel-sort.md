@@ -10,7 +10,8 @@ exist to sort an enumerable data type, [`par_sort_unstable`]
 is usually faster than [stable sorting] algorithms.
 
 ```rust,edition2018
-
+extern crate rayon;
+extern crate rand;
 use rand::{Rng, thread_rng};
 use rand::distributions::Alphanumeric;
 use rayon::prelude::*;

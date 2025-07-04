@@ -8,6 +8,7 @@ decodes it with [`form_urlencoded::parse`]. Both functions return iterators
 that collect into a `String`.
 
 ```rust,edition2018
+extern crate url;
 use url::form_urlencoded::{byte_serialize, parse};
 
 fn main() {

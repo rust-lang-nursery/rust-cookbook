@@ -13,6 +13,7 @@ use [`foreign_links`]. An additional [`ErrorKind`] variant for the web service
 error uses `errors` block of the `error_chain!` macro.
 
 ```rust,edition2018
+extern crate error_chain;
 use error_chain::error_chain;
 
 error_chain! {

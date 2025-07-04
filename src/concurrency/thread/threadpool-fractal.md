@@ -17,6 +17,8 @@ Create [`ThreadPool`] with thread count equal to number of cores with [`num_cpus
 [`ImageBuffer::save`] writes the image to `output.png`.
 
 ```rust,edition2018,no_run
+extern crate num;
+extern crate num_cpus;
 # use error_chain::error_chain;
 use std::sync::mpsc::{channel, RecvError};
 use threadpool::ThreadPool;

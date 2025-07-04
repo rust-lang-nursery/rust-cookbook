@@ -17,6 +17,8 @@ This recipe also contains additional ownership examples. Here, `let z = a + b` c
 their modification later. See [Binary Operators With Two Arrays] for additional detail.
 
 ```rust,edition2018
+extern crate approx;
+extern crate ndarray;
 use approx::assert_abs_diff_eq;
 use ndarray::Array;
 

@@ -20,21 +20,19 @@ struct User {
     id: u32,
 }
 
-#[tokio::main]
-async fn main() -> Result<(), Error> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
                               owner = "rust-lang-nursery",
                               repo = "rust-cookbook");
     println!("{}", request_url);
     
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
     let response = client
         .get(request_url)
         .header(USER_AGENT, "rust-web-api-client") // gh api requires a user-agent header
-        .send()
-        .await?;
+        .send()?;
 
-    let users: Vec<User> = response.json().await?;
+    let users: Vec<User> = response.json()?;
     println!("{:?}", users);
     Ok(())
 }

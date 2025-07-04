@@ -7,6 +7,7 @@ and implements elementary `clear` operation as well as [`Display`] trait for it.
 Subsequently, shows basic bitwise operations and formatting.
 
 ```rust,edition2018
+extern crate bitflags;
 use bitflags::bitflags;
 use std::fmt;
 

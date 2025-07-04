@@ -5,6 +5,7 @@
 Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::random_range`].
 
 ```rust,edition2018
+extern crate rand;
 use rand::Rng;
 
 fn main() {

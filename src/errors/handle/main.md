@@ -33,7 +33,7 @@ type from the crate to provide auto-`Box`ing behavior
 ```rust,edition2018,should_panic
 use anyhow::Result;
 
-fn main() -> Result<()> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
    let my_string = "yellow".to_string();  
    let _my_int = my_string.parse::<i32>()?;
    Ok(())

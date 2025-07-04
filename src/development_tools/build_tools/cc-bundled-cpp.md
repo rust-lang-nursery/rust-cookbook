@@ -19,6 +19,7 @@ cc = "1"
 ### `build.rs`
 
 ```rust,edition2018,no_run
+extern crate cc;
 fn main() {
     cc::Build::new()
         .cpp(true)

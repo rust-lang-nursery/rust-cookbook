@@ -31,8 +31,7 @@ struct Gist {
     html_url: String,
 }
 
-#[tokio::main]
-async fn main() ->  Result<()> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 
@@ -46,20 +45,20 @@ async fn main() ->  Result<()> {
         }});
 
     let request_url = "https://api.github.com/gists";
-    let response = Client::new()
+    let response = reqwest::blocking::Client::new()
         .post(request_url)
         .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
         .json(&gist_body)
-        .send().await?;
+        .send()?;
 
-    let gist: Gist = response.json().await?;
+    let gist: Gist = response.json()?;
     println!("Created {:?}", gist);
 
     let request_url = format!("{}/{}",request_url, gist.id);
-    let response = Client::new()
+    let response = reqwest::blocking::Client::new()
         .delete(&request_url)
         .basic_auth(gh_user, Some(gh_pass))
-        .send().await?;
+        .send()?;
 
     println!("Gist {} deleted! Status code: {}",gist.id, response.status());
     Ok(())

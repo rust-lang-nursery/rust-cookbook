@@ -7,6 +7,7 @@ data representation which expects valid UTF-8 rows. Alternatively,
 [`csv::ByteRecord`] makes no assumptions about UTF-8.
 
 ```rust,edition2018
+extern crate csv;
 use csv::Error;
 
 fn main() -> Result<(), Error> {
@@ -34,6 +35,7 @@ Serde deserializes data into strongly type structures. See the
 [`csv::Reader::deserialize`] method.
 
 ```rust,edition2018
+extern crate serde;
 use serde::Deserialize;
 #[derive(Deserialize)]
 struct Record {

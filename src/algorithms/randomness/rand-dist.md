@@ -13,6 +13,8 @@ The [distributions available are documented here][rand-distributions].
 An example using the [`Normal`] distribution is shown below.
 
 ```rust,edition2018,ignore
+extern crate rand;
+extern crate rand_distr;
 use rand_distr::{Distribution, Normal, NormalError};
 use rand::rng;
 

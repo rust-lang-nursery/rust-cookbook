@@ -22,11 +22,10 @@ error_chain! {
      }
 }
 
-#[tokio::main]
-async fn main() -> Result<()> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let tmp_dir = Builder::new().prefix("example").tempdir()?;
     let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
-    let response = reqwest::get(target).await?;
+    let response = reqwest::blocking::get(target)?;
 
     let mut dest = {
         let fname = response
@@ -41,7 +40,7 @@ async fn main() -> Result<()> {
         println!("will be located under: '{:?}'", fname);
         File::create(fname)?
     };
-    let content =  response.bytes().await?;
+    let content =  response.bytes()?;
     dest.write_all(&content)?;
     Ok(())
 }

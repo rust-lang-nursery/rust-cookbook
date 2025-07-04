@@ -6,7 +6,7 @@ The [`Url`] struct exposes various methods to extract information about the URL
 it represents.
 
 ```rust,edition2018
-
+extern crate url;
 use url::{Url, Host, ParseError};
 
 fn main() -> Result<(), ParseError> {

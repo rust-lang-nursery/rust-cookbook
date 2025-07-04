@@ -5,7 +5,7 @@
 The [`join`] method creates a new URL from a base and relative path.
 
 ```rust,edition2018
-
+extern crate url;
 use url::{Url, ParseError};
 
 fn main() -> Result<(), ParseError> {

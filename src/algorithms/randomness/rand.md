@@ -9,6 +9,7 @@ type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.
 
 ```rust,edition2018
+extern crate rand;
 use rand::Rng;
 
 fn main() {

@@ -8,6 +8,7 @@ URL.  [`PathSegmentsMut::clear`] removes paths and [`Url::set_query`] removes
 query string.
 
 ```rust,edition2018
+extern crate url;
 # use error_chain::error_chain;
 
 use url::Url;

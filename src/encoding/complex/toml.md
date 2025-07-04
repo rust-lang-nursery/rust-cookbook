@@ -6,6 +6,7 @@ Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.
 
 ```rust,edition2018
+extern crate toml;
 use toml::{Value, de::Error};
 
 fn main() -> Result<(), Error> {
