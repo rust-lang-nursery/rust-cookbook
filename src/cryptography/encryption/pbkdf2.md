@@ -10,7 +10,8 @@ function [`pbkdf2::derive`].  Verifies the hash is correct with
 securely generated random numbers.
 
 ```rust,edition2018
-
+extern crate ring;
+extern crate data_encoding;
 use data_encoding::HEXUPPER;
 use ring::error::Unspecified;
 use ring::rand::SecureRandom;

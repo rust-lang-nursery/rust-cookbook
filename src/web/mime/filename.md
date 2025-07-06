@@ -7,6 +7,7 @@ filename using the [mime] crate.  The program will check for file extensions
 and match against a known list.  The return value is [`mime:Mime`].
 
 ```rust,edition2018
+extern crate mime;
 use mime::Mime;
 
 fn find_mimetype (filename : &String) -> Mime{

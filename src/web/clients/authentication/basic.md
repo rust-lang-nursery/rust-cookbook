@@ -5,6 +5,7 @@
 Uses [`reqwest::RequestBuilder::basic_auth`] to perform a basic HTTP authentication.
 
 ```rust,edition2018,no_run
+extern crate reqwest;
 use reqwest::blocking::Client;
 use reqwest::Error;
 

@@ -11,6 +11,7 @@ behind the memory map is not being modified at the same time by another process
 or else a [race condition] occurs.
 
 ```rust,edition2018
+extern crate memmap;
 use memmap::Mmap;
 use std::fs::File;
 use std::io::{Write, Error};

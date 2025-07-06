@@ -13,6 +13,7 @@ The example below converts `&[u8]` data to hexadecimal equivalent.  Compares thi
 value to the expected value.
 
 ```rust,edition2018
+extern crate data_encoding;
 use data_encoding::{HEXUPPER, DecodeError};
 
 fn main() -> Result<(), DecodeError> {

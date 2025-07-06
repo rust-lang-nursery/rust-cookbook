@@ -11,6 +11,9 @@ ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 The following would assert that a loop exists.
 
 ```rust,edition2018,no_run
+extern crate walkdir;
+extern crate same_file;
+use walkdir::WalkDir;
 use std::io;
 use std::path::{Path, PathBuf};
 use same_file::is_same_file;

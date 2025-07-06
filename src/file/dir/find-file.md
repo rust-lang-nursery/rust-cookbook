@@ -7,17 +7,10 @@ Using [`follow_links`] ensures symbolic links are followed like they were
 normal directories and files.
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-
+extern crate walkdir;
+extern crate anyhow;
+use anyhow::Result;
 use walkdir::WalkDir;
-#
-# error_chain! {
-#     foreign_links {
-#         WalkDir(walkdir::Error);
-#         Io(std::io::Error);
-#         SystemTime(std::time::SystemTimeError);
-#     }
-# }
 
 fn main() -> Result<()> {
     for entry in WalkDir::new(".")

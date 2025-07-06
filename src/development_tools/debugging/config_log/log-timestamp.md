@@ -11,6 +11,9 @@ The example calls [`Builder::format`] to set a closure which formats each
 message text with timestamp, [`Record::level`] and body ([`Record::args`]).
 
 ```rust,edition2018
+extern crate log;
+extern crate env_logger;
+extern crate chrono;
 use std::io::Write;
 use chrono::Local;
 use env_logger::Builder;

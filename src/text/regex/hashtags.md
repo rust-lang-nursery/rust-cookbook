@@ -8,8 +8,9 @@ The hashtag regex given here only catches Latin hashtags that start with a
 letter. The complete [twitter hashtag regex] is much more complicated.
 
 ```rust,edition2018
+extern crate regex;
+extern crate lazy_static;
 use lazy_static::lazy_static;
-
 use regex::Regex;
 use std::collections::HashSet;
 

@@ -13,15 +13,21 @@ The [distributions available are documented here][rand-distributions].
 An example using the [`Normal`] distribution is shown below.
 
 ```rust,edition2018,ignore
-use rand_distr::{Distribution, Normal, NormalError};
-use rand::rng;
+extern crate rand;
+extern crate rand_distr;
+use rand::Rng;
+use rand_distr::{Distribution, LogNormal, Normal};
+use rand::distributions::Distribution as RandDistribution;
 
-fn main() -> Result<(), NormalError> {
-    let mut rng = rng();
-    let normal = Normal::new(2.0, 3.0)?;
+fn main() {
+    let mut rng = rand::thread_rng();
+    let normal = Normal::new(2.0, 3.0).unwrap();
+    let log_normal = LogNormal::new(1.0, 0.5).unwrap();
+
     let v = normal.sample(&mut rng);
     println!("{} is from a N(2, 9) distribution", v);
-    Ok(())
+    let v = log_normal.sample(&mut rng);
+    println!("{} is from an ln N(1, 0.25) distribution", v);
 }
 ```
 

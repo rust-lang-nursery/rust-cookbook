@@ -7,6 +7,7 @@ In order to use the logging macros, `ConsoleLogger` implements
 the [`log::Log`] trait and [`log::set_logger`] installs it.
 
 ```rust,edition2018
+extern crate log;
 use log::{Record, Level, Metadata, LevelFilter, SetLoggerError};
 
 static CONSOLE_LOGGER: ConsoleLogger = ConsoleLogger;

@@ -27,6 +27,7 @@ benefit of users. For internal functions, the more concise `ArrayView1<f64>`
 may be preferable.
 
 ```rust,edition2018
+extern crate ndarray;
 use ndarray::{array, Array1, ArrayView1};
 
 fn l1_norm(x: ArrayView1<f64>) -> f64 {

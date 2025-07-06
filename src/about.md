@@ -57,11 +57,13 @@ Consider this example for "generate random numbers within a range":
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
 ```rust,edition2018
+extern crate rand;
 use rand::Rng;
 
 fn main() {
     let mut rng = rand::thread_rng();
-    println!("Random f64: {}", rng.gen::<f64>());
+    let random_number: u32 = rng.gen();
+    println!("Random number: {}", random_number);
 }
 ```
 

@@ -6,7 +6,8 @@ Creates two modules `foo` and nested `foo::bar` with logging directives
 controlled separately with [`RUST_LOG`] environmental variable.
 
 ```rust,edition2018
-
+extern crate log;
+extern crate env_logger;
 mod foo {
     mod bar {
         pub fn run() {

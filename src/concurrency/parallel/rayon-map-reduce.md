@@ -12,6 +12,7 @@ reduction and the current element.  Also shows use of [`rayon::sum`],
 which has the same result as the reduce operation in this example.
 
 ```rust,edition2018
+extern crate rayon;
 use rayon::prelude::*;
 
 struct Person {

@@ -11,6 +11,7 @@ Escape sequences that are available for the
 [`DateTime::format`] can be found at [`chrono::format::strftime`].
 
 ```rust,edition2018
+extern crate chrono;
 use chrono::{DateTime, Duration, Utc};
 
 fn day_earlier(date_time: DateTime<Utc>) -> Option<DateTime<Utc>> {

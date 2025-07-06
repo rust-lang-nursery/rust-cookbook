@@ -5,6 +5,8 @@
 Reads CSV records with a tab [`delimiter`].
 
 ```rust,edition2018
+extern crate csv;
+extern crate serde;
 use csv::Error;
 use serde::Deserialize;
 #[derive(Debug, Deserialize)]
@@ -30,5 +32,3 @@ fn main() -> Result<(), Error> {
     Ok(())
 }
 ```
-
-[`delimiter`]: https://docs.rs/csv/1.0.0-beta.3/csv/struct.ReaderBuilder.html#method.delimiter

@@ -14,6 +14,7 @@ identifies a date and a time. For parsing dates and times without timezones use
 [`NaiveDate`], [`NaiveTime`], and [`NaiveDateTime`].
 
 ```rust,edition2018
+extern crate chrono;
 use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
 use chrono::format::ParseError;
 

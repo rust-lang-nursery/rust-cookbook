@@ -8,18 +8,10 @@ URL.  [`PathSegmentsMut::clear`] removes paths and [`Url::set_query`] removes
 query string.
 
 ```rust,edition2018
-# use error_chain::error_chain;
-
+extern crate url;
+extern crate anyhow;
+use anyhow::{Result, anyhow};
 use url::Url;
-#
-# error_chain! {
-#     foreign_links {
-#         UrlParse(url::ParseError);
-#     }
-#     errors {
-#         CannotBeABase
-#     }
-# }
 
 fn main() -> Result<()> {
     let full = "https://github.com/rust-lang/cargo?asdf";
@@ -39,7 +31,7 @@ fn base_url(mut url: Url) -> Result<Url> {
             path.clear();
         }
         Err(_) => {
-            return Err(Error::from_kind(ErrorKind::CannotBeABase));
+            return Err(anyhow!("Cannot be a base URL"));
         }
     }
 

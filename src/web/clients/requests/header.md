@@ -11,20 +11,16 @@ The request target <http://httpbin.org/headers> responds with
 a JSON dict containing all request headers for easy verification.
 
 ```rust,edition2018,no_run
-use error_chain::error_chain;
-
+extern crate anyhow;
+extern crate reqwest;
+extern crate serde;
+extern crate url;
+use anyhow::Result;
 use reqwest::Url;
 use reqwest::blocking::Client;
 use reqwest::header::USER_AGENT;
 use serde::Deserialize;
 use std::collections::HashMap;
-
-error_chain! {
-    foreign_links {
-        Reqwest(reqwest::Error);
-        UrlParse(url::ParseError);
-    }
-}
 
 #[derive(Deserialize, Debug)]
 pub struct HeadersEcho {
@@ -54,7 +50,6 @@ fn main() -> Result<()> {
 
     Ok(())
 }
-```
 
 [`header::USER_AGENT`]: https://docs.rs/reqwest/*/reqwest/header/constant.USER_AGENT.html
 [`RequestBuilder::HeaderName::TryFrom<&'a str>`]: https://docs.rs/reqwest/*/reqwest/header/struct.HeaderName.html#impl-TryFrom%3C%26%27a%20str%3E

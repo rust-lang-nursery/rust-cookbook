@@ -9,6 +9,8 @@ environment variable contents in the form of [`RUST_LOG`] syntax.
 Then, [`Builder::init`] initializes the logger.
 
 ```rust,edition2018
+extern crate log;
+extern crate env_logger;
 use env_logger::Builder;
 
 fn main() {

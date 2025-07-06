@@ -5,12 +5,13 @@
 Randomly generates a string of given length ASCII characters in the range `A-Z,
 a-z, 0-9`, with [`Alphanumeric`] sample.
 
-```rust,edition2018
-use rand::{rng, Rng};
+```rust,edition2018,ignore,no_run
+extern crate rand;
+use rand::{thread_rng, Rng};
 use rand::distributions::Alphanumeric;
 
 fn main() {
-    let rand_string: String = rng()
+    let rand_string: String = thread_rng()
         .sample_iter(&Alphanumeric)
         .take(30)
         .map(char::from)
@@ -21,3 +22,7 @@ fn main() {
 ```
 
 [`Alphanumeric`]: https://docs.rs/rand/*/rand/distributions/struct.Alphanumeric.html
+
+
+
+

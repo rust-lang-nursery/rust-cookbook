@@ -7,7 +7,7 @@ Then it calculates what was the date after one billion seconds
 since January 1, 1970 0:00:00 UTC, using [`NaiveDateTime::from_timestamp`].
 
 ```rust,edition2018
-
+extern crate chrono;
 use chrono::{NaiveDate, NaiveDateTime};
 
 fn main() {

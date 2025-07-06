@@ -7,6 +7,7 @@ The resulting [`hmac::Tag`] structure contains the raw bytes of the HMAC,
 which can later be verified with[`hmac::verify`] to ensure the message has not been tampered with and comes from a trusted source.
 
 ```rust,edition2018
+extern crate ring;
 use ring::{hmac, rand};
 use ring::rand::SecureRandom;
 use ring::error::Unspecified;
