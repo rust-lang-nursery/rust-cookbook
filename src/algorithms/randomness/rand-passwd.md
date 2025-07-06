@@ -7,7 +7,7 @@ a-z, 0-9`, with [`Alphanumeric`] sample.
 
 ```rust,edition2018
 use rand::{rng, Rng};
-use rand::distributions::Alphanumeric;
+use rand::distr::Alphanumeric;
 
 fn main() {
     let rand_string: String = rng()
