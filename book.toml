@@ -3,10 +3,12 @@
 title = "Rust Cookbook"
 description = "Collection of useful Rust code examples"
 authors = ["Rust Language Community"]
-edition = "2018"
 multilingual = false
 language = "en"
 src = "src"
+
+[rust]
+edition = "2018"
 
 [output.html]
 mathjax-support = false
