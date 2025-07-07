@@ -30,3 +30,10 @@ exclude_loopback = false
 
 # Check mail addresses
 include_mail = true
+
+# Exclude problematic links that consistently fail
+exclude = [
+    # Creative Commons links return 403 for automated requests
+    "https://creativecommons.org/publicdomain/zero/1.0/",
+    "https://creativecommons.org/"
+]
