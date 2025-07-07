@@ -1,7 +1,4 @@
-# A Rust Cookbook &emsp; [![Build Status][build-badge]][build-url]
-
-[build-badge]: https://github.com/rust-lang-nursery/rust-cookbook/workflows/Deploy%20to%20GitHub%20Pages/badge.svg
-[build-url]: https://github.com/rust-lang-nursery/rust-cookbook/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22
+# A Rust Cookbook
 
 **[Read it here]**.
 
@@ -92,12 +89,12 @@ For details see [CONTRIBUTING.md] on GitHub.
 ## License [![CC0-badge]][CC0-deed]
 
 Rust Cookbook is licensed under Creative Commons Zero v1.0 Universal License
-([LICENSE-CC0](LICENSE-CC0) or https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+([LICENSE-CC0](LICENSE-CC0) or https://creativecommons.org/licenses/publicdomain/)
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in Rust Cookbook by you, as defined in the CC0-1.0 license, shall be
 [dedicated to the public domain][CC0-deed] and licensed as above, without any additional
 terms or conditions.
 
-[CC0-deed]: https://creativecommons.org/publicdomain/zero/1.0/deed.en
+[CC0-deed]: https://creativecommons.org/licenses/publicdomain/
 [CC0-badge]: https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/cc-zero.svg

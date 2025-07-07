@@ -99,14 +99,15 @@ should read after deciding which crate suites your purpose.
 
 ## A note about error handling
 Rust has [`std::error::Trait`] which is implemented to handle exceptions.
-Handling multiple types of these traits can be simplified using [`anyhow`]
-or specified with an `enum` which macros exist to make this easier within
-[`thiserror`] for library authors.
+This cookbook uses [`anyhow`] for simplified error handling in examples,
+which provides easy error propagation and context. For library authors,
+[`thiserror`] provides a more structured approach using derive macros
+to create custom error types.
 
-Error chain has been shown in this book for historical reasons before Rust
-`std` and crates represented macro use as a preference.  For more background
-on error handling in Rust, read [this page of the Rust book][error-docs]
-and [this blog post][error-blog].
+This cookbook previously used the `error-chain` crate, but has been updated
+to use `anyhow` as it's now the preferred approach for application-level
+error handling. For more background on error handling in Rust, read 
+[this page of the Rust book][error-docs] and [this blog post][error-blog].
 
 ## A note about crate representation
 
@@ -131,7 +132,7 @@ as are crates that are pending evaluation.
 {{#include links.md}}
 
 [index]: intro.html
-[error-docs]: https://do.rust-lang.org/book/error-handling.html
+[error-docs]: https://doc.rust-lang.org/book/ch09-00-error-handling.html
 [error-blog]: https://brson.github.io/2016/11/30/starting-with-error-chain
 [error-chain]: https://docs.rs/error-chain/
 [Rust Libz Blitz]: https://internals.rust-lang.org/t/rust-libz-blitz/5184
