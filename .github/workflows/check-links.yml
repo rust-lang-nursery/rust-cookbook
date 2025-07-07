@@ -22,8 +22,9 @@ jobs:
         uses: lycheeverse/lychee-action@v2.4.1
         with:
           fail: false
+          checkbox: false
           output: ./lychee/out.md
-          args: "--mode task --base . --config ./ci/lychee.toml ."
+          args: "--base . --config ./ci/lychee.toml ."
 
       - name: Save lychee cache
         uses: actions/cache/save@v4
