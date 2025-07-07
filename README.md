@@ -96,5 +96,5 @@ for inclusion in Rust Cookbook by you, as defined in the CC0-1.0 license, shall 
 [dedicated to the public domain][CC0-deed] and licensed as above, without any additional
 terms or conditions.
 
-[CC0-deed]: https://creativecommons.org/
+[CC0-deed]: https://creativecommons.org/publicdomain/zero/1.0/
 [CC0-badge]: https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/cc-zero.svg
