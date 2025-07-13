@@ -6,9 +6,6 @@ The following example shows how to serialize custom structs as CSV records using
 the [serde] crate.
 
 ```rust,edition2018
-extern crate csv;
-extern crate serde;
-extern crate anyhow;
 use anyhow::Result;
 use serde::Serialize;
 use std::io;

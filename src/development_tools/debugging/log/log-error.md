@@ -6,8 +6,6 @@ Proper error handling considers exceptions exceptional.  Here, an error logs
 to stderr with `log`'s convenience macro [`log::error!`].
 
 ```rust,edition2018
-extern crate log;
-extern crate env_logger;
 fn execute_query(_query: &str) -> Result<(), &'static str> {
     Err("I'm afraid I can't do that")
 }

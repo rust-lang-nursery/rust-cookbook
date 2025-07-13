@@ -12,8 +12,6 @@ refer to corresponding named capture groups `(?P<abcde>REGEX)` from the search
 regex. See the [replacement string syntax] for examples and escaping detail.
 
 ```rust,edition2018
-extern crate regex;
-extern crate lazy_static;
 use lazy_static::lazy_static;
 
 use std::borrow::Cow;

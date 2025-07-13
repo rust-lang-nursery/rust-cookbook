@@ -23,7 +23,6 @@ practice, but when it happens it is really frustrating
 without this.
 
 ```rust,edition2018
-extern crate clap;
 use std::path::PathBuf;
 
 use clap::{Arg, Command, builder::PathBufValueParser};

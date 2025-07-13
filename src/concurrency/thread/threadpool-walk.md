@@ -9,10 +9,6 @@ the current directory and calls [`execute`] to perform the operations of reading
 and computing SHA256 hash.
 
 ```rust,edition2018,no_run
-extern crate num_cpus;
-extern crate ring;
-extern crate threadpool;
-extern crate walkdir;
 use walkdir::WalkDir;
 use std::fs::File;
 use std::io::{BufReader, Read, Error};

@@ -6,8 +6,6 @@ Encodes byte slice into `base64` String using [`encode`]
 and decodes it with [`decode`].
 
 ```rust,edition2018,ignore
-extern crate base64;
-extern crate anyhow;
 use anyhow::Result;
 use std::str;
 use base64::{encode, decode};

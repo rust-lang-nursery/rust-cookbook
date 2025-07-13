@@ -7,8 +7,6 @@ Given a list of version &strs, finds the latest [`semver::Version`].
 Also demonstrates `semver` pre-release preferences.
 
 ```rust,edition2018
-extern crate anyhow;
-extern crate semver;
 use anyhow::Result;
 use semver::{Version, VersionReq};
 

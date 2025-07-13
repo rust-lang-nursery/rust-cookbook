@@ -7,7 +7,6 @@ status to determine if the command was successful. The command output is capture
 as a [`String`] using [`String::from_utf8`].
 
 ```rust,edition2018,no_run
-extern crate anyhow;
 use anyhow::{Result, anyhow};
 use std::process::Command;
 

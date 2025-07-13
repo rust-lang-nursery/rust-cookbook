@@ -9,8 +9,6 @@ using [`read_to_string`].
 
 
 ```rust,edition2018,no_run
-extern crate anyhow;
-extern crate reqwest;
 use anyhow::Result;
 use std::io::Read;
 
@@ -42,9 +40,6 @@ Uses the asynchronous versions of [reqwest], both [`reqwest::get`] and
 [`reqwest::Response`].
 
 ```rust,no_run
-extern crate tokio;
-extern crate reqwest;
-extern crate anyhow;
 use anyhow::Result;
 
 #[tokio::main]

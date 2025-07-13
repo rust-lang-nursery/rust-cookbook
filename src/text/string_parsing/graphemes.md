@@ -6,7 +6,6 @@ Collect individual Unicode graphemes from UTF-8 string using the
 [`UnicodeSegmentation::graphemes`] function from the [`unicode-segmentation`] crate.
 
 ```rust,edition2018
-extern crate unicode_segmentation;
 use unicode_segmentation::UnicodeSegmentation;
 
 fn main() {

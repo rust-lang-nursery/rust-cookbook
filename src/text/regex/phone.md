@@ -6,8 +6,6 @@ Processes a string of text using [`Regex::captures_iter`] to capture multiple
 phone numbers.  The example here is for US convention phone numbers.
 
 ```rust,edition2018
-extern crate regex;
-extern crate anyhow;
 use anyhow::Result;
 use regex::Regex;
 use std::fmt;

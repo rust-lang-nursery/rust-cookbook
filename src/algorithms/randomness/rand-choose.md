@@ -5,8 +5,7 @@
 Randomly generates a string of given length ASCII characters with custom
 user-defined bytestring, with [`gen_range`].
 
-```rust,edition2018
-extern crate rand;
+```rust,edition2018,ignore
 use rand::Rng;
 
 const CHARSET: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
@@ -20,7 +19,7 @@ fn main() {
     let password: String = (0..PASSWORD_LEN)
         .map(|_| {
             let idx = rng.gen_range(0..CHARSET.len());
-            CHARSET[idx] as char
+            char::from(CHARSET[idx])
         })
         .collect();
 

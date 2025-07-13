@@ -9,9 +9,6 @@ csv file, and [serde] to deserialize and serialize the rows to and from bytes.
 See [csv::Reader::deserialize], [serde::Deserialize], and [std::str::FromStr]
 
 ```rust,edition2018
-extern crate csv;
-extern crate serde;
-extern crate anyhow;
 use anyhow::{Result, anyhow};
 use csv::{Reader, Writer};
 use serde::{de, Deserialize, Deserializer};

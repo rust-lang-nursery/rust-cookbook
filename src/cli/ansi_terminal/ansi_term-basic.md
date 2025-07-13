@@ -11,7 +11,6 @@ There are two main data structures in [`ansi_term`]: [`ANSIString`] and [`Style`
 ### Printing colored text to the Terminal
 
 ```rust,edition2018
-extern crate ansi_term;
 use ansi_term::Colour;
 
 fn main() {
@@ -29,7 +28,6 @@ needs to construct `Style` struct. [`Style::new()`] creates the struct,
 and properties chained.
 
 ```rust,edition2018
-extern crate ansi_term;
 use ansi_term::Style;
 
 fn main() {
@@ -42,7 +40,6 @@ fn main() {
 `Colour` implements many similar functions as `Style` and can chain methods.
 
 ```rust,edition2018
-extern crate ansi_term;
 use ansi_term::Colour;
 use ansi_term::Style;
 

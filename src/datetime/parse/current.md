@@ -6,7 +6,6 @@ Gets the current UTC [`DateTime`] and its hour/minute/second via [`Timelike`]
 and its year/month/day/weekday via [`Datelike`].
 
 ```rust,edition2018
-extern crate chrono;
 use chrono::{Datelike, Timelike, Utc};
 
 fn main() {

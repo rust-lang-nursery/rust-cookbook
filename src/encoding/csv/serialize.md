@@ -9,8 +9,6 @@ such as numbers, floats, and options use [`serialize`]. Since CSV
 writer uses internal buffer, always explicitly [`flush`] when done.
 
 ```rust,edition2018
-extern crate csv;
-extern crate anyhow;
 use anyhow::Result;
 use std::io;
 

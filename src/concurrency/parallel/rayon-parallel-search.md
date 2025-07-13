@@ -13,7 +13,6 @@ Also note that the argument to the closure is a reference to a reference
 (`&&x`). See the discussion on [`std::find`] for additional details.
 
 ```rust,edition2018
-extern crate rayon;
 use rayon::prelude::*;
 
 fn main() {

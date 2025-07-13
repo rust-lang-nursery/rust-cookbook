@@ -7,8 +7,6 @@ provides a custom deserializer, [`csv::invalid_option`], which automatically
 converts invalid data to None values.
 
 ```rust,edition2018
-extern crate csv;
-extern crate serde;
 use csv::Error;
 use serde::Deserialize;
 

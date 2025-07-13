@@ -13,8 +13,6 @@ use [`foreign_links`]. An additional [`ErrorKind`] variant for the web service
 error uses `errors` block of the `thiserror` derive macro.
 
 ```rust,edition2018
-extern crate thiserror;
-extern crate reqwest;
 use thiserror::Error;
 
 #[derive(Error, Debug)]

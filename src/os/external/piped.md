@@ -10,7 +10,6 @@ sort -hr | head -n 10`.
 [`Stdio::piped`] between parent and child.
 
 ```rust,edition2018,no_run
-extern crate anyhow;
 use anyhow::Result;
 use std::process::{Command, Stdio};
 

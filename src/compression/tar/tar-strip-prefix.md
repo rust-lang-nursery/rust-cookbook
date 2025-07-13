@@ -7,9 +7,6 @@ the specified path prefix (`bundle/logs`).  Finally, extract the [`tar::Entry`]
 via [`Entry::unpack`].
 
 ```rust,edition2018,no_run
-extern crate anyhow;
-extern crate flate2;
-extern crate tar;
 use anyhow::Result;
 use std::fs::File;
 use std::path::PathBuf;

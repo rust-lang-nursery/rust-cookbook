@@ -10,8 +10,6 @@ race conditions. A [`MutexGuard`] must be acquired to read or mutate the
 value stored in a [`Mutex`].
 
 ```rust,edition2018
-extern crate anyhow;
-extern crate lazy_static;
 use anyhow::{Result, anyhow};
 use lazy_static::lazy_static;
 use std::sync::Mutex;

@@ -11,8 +11,7 @@ is able to represent any valid JSON data.
 The example below shows a `&str` of JSON being parsed.  The expected value is declared using the [`json!`] macro.
 
 ```rust,edition2018
-extern crate serde_json;
- use serde_json::json;
+use serde_json::json;
 use serde_json::{Value, Error};
 
 fn main() -> Result<(), Error> {

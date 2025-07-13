@@ -8,8 +8,6 @@ named `archive.tar.gz` located in the current working directory
 to the same location.
 
 ```rust,edition2018,no_run
-extern crate flate2;
-extern crate tar;
 use std::fs::File;
 use flate2::read::GzDecoder;
 use tar::Archive;

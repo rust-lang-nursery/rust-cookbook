@@ -12,9 +12,6 @@ Assigns the configuration to [`log4rs::config::Config`] and sets the default
 [`log::LevelFilter`].
 
 ```rust,edition2018,no_run
-extern crate log;
-extern crate log4rs;
-extern crate anyhow;
 use anyhow::Result;
 use log::LevelFilter;
 use log4rs::append::file::FileAppender;

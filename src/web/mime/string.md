@@ -7,7 +7,6 @@ The following example shows how to parse a [`MIME`] type from a string using the
 `unwrap_or` clause.
 
 ```rust,edition2018
-extern crate mime;
 use mime::{Mime, APPLICATION_OCTET_STREAM};
 
 fn main() {

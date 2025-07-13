@@ -10,7 +10,6 @@ Once the URL has been parsed, it can be used with all of the methods in the
 `Url` type.
 
 ```rust,edition2018
-extern crate url;
 use url::{Url, ParseError};
 
 fn main() -> Result<(), ParseError> {

@@ -7,7 +7,6 @@ The example uses the `rayon` crate, which is a data parallelism library for Rust
 This is an iterator-like chain that potentially executes in parallel.
 
 ```rust,edition2018
-extern crate rayon;
 use rayon::prelude::*;
 
 fn main() {

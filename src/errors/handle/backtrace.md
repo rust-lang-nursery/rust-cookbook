@@ -12,9 +12,6 @@ The below recipes attempts to deserialize the value `256` into a
 user code.
 
 ```rust,edition2018
-extern crate anyhow;
-extern crate csv;
-extern crate serde;
 use anyhow::{Result, Context};
 use serde::Deserialize;
 

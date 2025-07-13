@@ -24,12 +24,10 @@ to prevent the entire program from blocking on the worker for-loops. You can
 think of the calls to `drop` as signaling that no more messages will be sent.
 
 
-```rust,edition2018,ignore
-extern crate crossbeam;
-extern crate crossbeam_channel;
+```rust,edition2018
 use std::thread;
 use std::time::Duration;
-use crossbeam_channel::bounded;
+use crossbeam::channel::bounded;
 
 fn main() {
     let (snd1, rcv1) = bounded(1);

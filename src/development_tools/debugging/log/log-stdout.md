@@ -5,8 +5,6 @@
 Creates a custom logger configuration using the [`Builder::target`] to set the target of the log output to [`Target::Stdout`].
 
 ```rust,edition2018
-extern crate log;
-extern crate env_logger;
 use env_logger::{Builder, Target};
 
 fn main() {

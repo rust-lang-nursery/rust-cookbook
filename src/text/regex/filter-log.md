@@ -11,8 +11,6 @@ Since backslashes are very common in regular expressions, using
 [raw string literals] makes them more readable.
 
 ```rust,edition2018,no_run
-extern crate regex;
-extern crate anyhow;
 use anyhow::Result;
 use std::fs::File;
 use std::io::{BufReader, BufRead};
