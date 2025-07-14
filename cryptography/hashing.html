@@ -164,19 +164,12 @@
 <p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://badge-cache.kominick.com/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://docs.rs/data-encoding/"><img src="https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding" alt="data-encoding-badge" /></a> <a href="https://crates.io/categories/cryptography"><img src="https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge" /></a></p>
 <p>Writes some data to a file, then calculates the SHA-256 <a href="https://briansmith.org/rustdoc/ring/digest/struct.Digest.html"><code>digest::Digest</code></a> of
 the file's contents using <a href="https://briansmith.org/rustdoc/ring/digest/struct.Context.html"><code>digest::Context</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>use data_encoding::HEXUPPER;
+<pre><pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
 use ring::digest::{Context, Digest, SHA256};
+use data_encoding::HEXUPPER;
 use std::fs::File;
 use std::io::{BufReader, Read, Write};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Decode(data_encoding::DecodeError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn sha256_digest&lt;R: Read&gt;(mut reader: R) -&gt; Result&lt;Digest&gt; {
     let mut context = Context::new(&amp;SHA256);
     let mut buffer = [0; 1024];
@@ -211,7 +204,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p>The <a href="https://docs.rs/ring/*/ring/hmac/fn.sign.html"><code>hmac::sign</code></a> method is used to calculate the HMAC digest (also called a tag) of the message using the provided key.
 The resulting <a href="https://docs.rs/ring/*/ring/hmac/struct.Tag.html"><code>hmac::Tag</code></a> structure contains the raw bytes of the HMAC,
 which can later be verified with<a href="https://docs.rs/ring/*/ring/hmac/fn.verify.html"><code>hmac::verify</code></a> to ensure the message has not been tampered with and comes from a trusted source.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ring::{hmac, rand};
+<pre><pre class="playground"><code class="language-rust edition2021">use ring::{hmac, rand};
 use ring::rand::SecureRandom;
 use ring::error::Unspecified;
 

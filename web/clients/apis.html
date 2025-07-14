@@ -161,13 +161,16 @@
                     <main>
                         <h1 id="calling-a-web-api"><a class="header" href="#calling-a-web-api">Calling a Web API</a></h1>
 <h2 id="query-the-github-api"><a class="header" href="#query-the-github-api">Query the GitHub API</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
-<p>Queries GitHub <a href="https://developer.github.com/v3/activity/starring/#list-stargazers">stargazers API v3</a>
-with <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> to get list of all users who have marked a GitHub project with a star.
-<a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html"><code>reqwest::Response</code></a> is deserialized with <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.json"><code>Response::json</code></a> into <code>User</code> objects implementing <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html"><code>serde::Deserialize</code></a>.</p>
-<p>[tokio::main] is used to set up the async executor and the process waits for <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> to complete before
+<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
+<p>Queries [GitHub stargazers API v3][github-api-stargazers] with <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a>
+to get list of all users who have marked a GitHub repository with a star.
+<a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html"><code>reqwest::Response</code></a> is deserialized into <code>User</code> objects implementing <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html"><code>serde::Deserialize</code></a>.</p>
+<p>The program expects the GitHub personal access token to be specified in the
+environment variable <code>GITHUB_TOKEN</code>. Request setup includes the [<code>reqwest::header::USER_AGENT</code>]
+header as required by the [GitHub API][github-api]. The program deserializes
+the response body with [<code>serde_json::from_str</code>] into a vector of <code>User</code> objects and
 processing the response into User instances.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use serde::Deserialize;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use serde::Deserialize;
 use reqwest::Error;
 use reqwest::header::USER_AGENT;
 
@@ -177,46 +180,43 @@ struct User {
     id: u32,
 }
 
-#[tokio::main]
-async fn main() -&gt; Result&lt;(), Error&gt; {
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
                               owner = "rust-lang-nursery",
                               repo = "rust-cookbook");
     println!("{}", request_url);
     
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
     let response = client
         .get(request_url)
         .header(USER_AGENT, "rust-web-api-client") // gh api requires a user-agent header
-        .send()
-        .await?;
+        .send()?;
 
-    let users: Vec&lt;User&gt; = response.json().await?;
+    let users: Vec&lt;User&gt; = response.json()?;
     println!("{:?}", users);
     Ok(())
 }</code></pre></pre>
 <h2 id="check-if-an-api-resource-exists"><a class="header" href="#check-if-an-api-resource-exists">Check if an API resource exists</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
-<p>Query the GitHub Users Endpoint using a HEAD
-request (<a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head"><code>Client::head</code></a>) and then inspect the response code to determine
-success. This is a quick way to query a rest resource without needing to receive
-a body. <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> configured with <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.timeout"><code>ClientBuilder::timeout</code></a> ensures
-a request will not last longer than a timeout.</p>
+<p>[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]</p>
+<p>Query the GitHub Users Endpoint using a HEAD request (<a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head"><code>Client::head</code></a>) and then
+inspect the response code to determine success. This is a quick way to query a
+rest resource without needing to receive a body. <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> configured
+with <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.timeout"><code>ClientBuilder::timeout</code></a> ensures a request will not last longer than a
+timeout.</p>
 <p>Due to both <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.build"><code>ClientBuilder::build</code></a> and [<code>ReqwestBuilder::send</code>] returning <a href="https://docs.rs/reqwest/*/reqwest/struct.Error.html"><code>reqwest::Error</code></a>
 types, the shortcut <a href="https://docs.rs/reqwest/*/reqwest/type.Result.html"><code>reqwest::Result</code></a> is used for the main function return type.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use reqwest::Result;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use reqwest::Result;
 use std::time::Duration;
 use reqwest::ClientBuilder;
 
-#[tokio::main]
-async fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let user = "ferris-the-crab";
     let request_url = format!("https://api.github.com/users/{}", user);
     println!("{}", request_url);
 
     let timeout = Duration::new(5, 0);
-    let client = ClientBuilder::new().timeout(timeout).build()?;
-    let response = client.head(&amp;request_url).send().await?;
+    let client = reqwest::blocking::ClientBuilder::new().timeout(timeout).build()?;
+    let response = client.head(&amp;request_url).send()?;
 
     if response.status().is_success() {
         println!("{} is a user!", user);
@@ -227,26 +227,19 @@ async fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="create-and-delete-gist-with-github-api"><a class="header" href="#create-and-delete-gist-with-github-api">Create and delete Gist with GitHub API</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
-<p>Creates a gist with POST request to GitHub <a href="https://developer.github.com/v3/gists/">gists API v3</a>
-using <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a> and removes it with DELETE request using <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete"><code>Client::delete</code></a>.</p>
+<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
+<p>Creates a gist with POST request to GitHub [gists API v3][gists-api] using
+<a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a> and removes it with DELETE request using <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete"><code>Client::delete</code></a>.</p>
 <p>The <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> is responsible for details of both requests including
 URL, body and authentication. The POST body from <a href="https://docs.rs/serde_json/*/serde_json/macro.json.html"><code>serde_json::json!</code></a> macro
 provides arbitrary JSON body. Call to <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json"><code>RequestBuilder::json</code></a> sets the request
 body. <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth"><code>RequestBuilder::basic_auth</code></a> handles authentication. The call to
 <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> synchronously executes the requests.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use serde::Deserialize;
 use serde_json::json;
 use std::env;
 use reqwest::Client;
-
-error_chain! {
-    foreign_links {
-        EnvVar(env::VarError);
-        HttpRequest(reqwest::Error);
-    }
-}
 
 #[derive(Deserialize, Debug)]
 struct Gist {
@@ -254,8 +247,7 @@ struct Gist {
     html_url: String,
 }
 
-#[tokio::main]
-async fn main() -&gt;  Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 
@@ -269,20 +261,20 @@ async fn main() -&gt;  Result&lt;()&gt; {
         }});
 
     let request_url = "https://api.github.com/gists";
-    let response = Client::new()
+    let response = reqwest::blocking::Client::new()
         .post(request_url)
         .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
         .json(&amp;gist_body)
-        .send().await?;
+        .send()?;
 
-    let gist: Gist = response.json().await?;
+    let gist: Gist = response.json()?;
     println!("Created {:?}", gist);
 
     let request_url = format!("{}/{}",request_url, gist.id);
-    let response = Client::new()
+    let response = reqwest::blocking::Client::new()
         .delete(&amp;request_url)
         .basic_auth(gh_user, Some(gh_pass))
-        .send().await?;
+        .send()?;
 
     println!("Gist {} deleted! Status code: {}",gist.id, response.status());
     Ok(())
@@ -291,104 +283,251 @@ async fn main() -&gt;  Result&lt;()&gt; {
 Typical use case would employ one of the much more complex <a href="https://oauth.net/getting-started/">OAuth</a> authorization
 flows.</p>
 <h2 id="consume-a-paginated-restful-api"><a class="header" href="#consume-a-paginated-restful-api">Consume a paginated RESTful API</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
 <p>Wraps a paginated web API in a convenient Rust iterator. The iterator lazily
 fetches the next page of results from the remote server as it arrives at the end of each page.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">mod paginated {
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">// cargo-deps: reqwest="0.11", serde="1"
+mod paginated {
   use reqwest::Result;
-use reqwest::header::USER_AGENT;
-use serde::Deserialize;
+  use reqwest::header::USER_AGENT;
+  use serde::Deserialize;
 
-#[derive(Deserialize)]
-struct ApiResponse {
-    dependencies: Vec&lt;Dependency&gt;,
-    meta: Meta,
+  #[derive(Deserialize)]
+  struct ApiResponse {
+      dependencies: Vec&lt;Dependency&gt;,
+      meta: Meta,
+  }
+
+  #[derive(Deserialize)]
+  pub struct Dependency {
+      pub crate_id: String,
+      pub id: u32,
+  }
+
+  #[derive(Deserialize)]
+  struct Meta {
+      total: u32,
+  }
+
+  pub struct ReverseDependencies {
+      crate_id: String,
+      dependencies: &lt;Vec&lt;Dependency&gt; as IntoIterator&gt;::IntoIter,
+      client: reqwest::blocking::Client,
+      page: u32,
+      per_page: u32,
+      total: u32,
+  }
+
+  impl ReverseDependencies {
+      pub fn of(crate_id: &amp;str) -&gt; Result&lt;Self&gt; {
+          Ok(ReverseDependencies {
+                 crate_id: crate_id.to_owned(),
+                 dependencies: vec![].into_iter(),
+                 client: reqwest::blocking::Client::new(),
+                 page: 0,
+                 per_page: 100,
+                 total: 0,
+             })
+      }
+
+      fn try_next(&amp;mut self) -&gt; Result&lt;Option&lt;Dependency&gt;&gt; {
+          if let Some(dep) = self.dependencies.next() {
+              return Ok(Some(dep));
+          }
+
+          if self.page &gt; 0 &amp;&amp; self.page * self.per_page &gt;= self.total {
+              return Ok(None);
+          }
+
+          self.page += 1;
+          let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&amp;per_page={}",
+                            self.crate_id,
+                            self.page,
+                            self.per_page);
+          println!("{}", url);
+
+          let response = self.client.get(&amp;url).header(
+                     USER_AGENT,
+                     "cookbook agent",
+                 ).send()?.json::&lt;ApiResponse&gt;()?;
+          self.dependencies = response.dependencies.into_iter();
+          self.total = response.meta.total;
+          Ok(self.dependencies.next())
+      }
+  }
+
+  impl Iterator for ReverseDependencies {
+      type Item = Result&lt;Dependency&gt;;
+
+      fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+          match self.try_next() {
+              Ok(Some(dep)) =&gt; Some(Ok(dep)),
+              Ok(None) =&gt; None,
+              Err(err) =&gt; Some(Err(err)),
+          }
+      }
+  }
 }
 
-#[derive(Deserialize)]
-pub struct Dependency {
-    pub crate_id: String,
-    pub id: u32,
-}
-
-#[derive(Deserialize)]
-struct Meta {
-    total: u32,
-}
-
-pub struct ReverseDependencies {
-    crate_id: String,
-    dependencies: &lt;Vec&lt;Dependency&gt; as IntoIterator&gt;::IntoIter,
-    client: reqwest::blocking::Client,
-    page: u32,
-    per_page: u32,
-    total: u32,
-}
-
-impl ReverseDependencies {
-    pub fn of(crate_id: &amp;str) -&gt; Result&lt;Self&gt; {
-        Ok(ReverseDependencies {
-               crate_id: crate_id.to_owned(),
-               dependencies: vec![].into_iter(),
-               client: reqwest::blocking::Client::new(),
-               page: 0,
-               per_page: 100,
-               total: 0,
-           })
-    }
-
-    fn try_next(&amp;mut self) -&gt; Result&lt;Option&lt;Dependency&gt;&gt; {
-        if let Some(dep) = self.dependencies.next() {
-            return Ok(Some(dep));
-        }
-
-        if self.page &gt; 0 &amp;&amp; self.page * self.per_page &gt;= self.total {
-            return Ok(None);
-        }
-
-        self.page += 1;
-        let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&amp;per_page={}",
-                          self.crate_id,
-                          self.page,
-                          self.per_page);
-        println!("{}", url);
-
-        let response = self.client.get(&amp;url).header(
-                   USER_AGENT,
-                   "cookbook agent",
-               ).send()?.json::&lt;ApiResponse&gt;()?;
-        self.dependencies = response.dependencies.into_iter();
-        self.total = response.meta.total;
-        Ok(self.dependencies.next())
-    }
-}
-
-impl Iterator for ReverseDependencies {
-    type Item = Result&lt;Dependency&gt;;
-
-    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
-        match self.try_next() {
-            Ok(Some(dep)) =&gt; Some(Ok(dep)),
-            Ok(None) =&gt; None,
-            Err(err) =&gt; Some(Err(err)),
-        }
-    }
-}
-}
-
-fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     for dep in paginated::ReverseDependencies::of("serde")? {
         let dependency = dep?;
         println!("{} depends on {}", dependency.id, dependency.crate_id);
     }
     Ok(())
-}</code></pre></pre>
-<!--
+}
+
+&lt;!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
--->
-<!-- Categories -->
-<!-- Crates -->
+--&gt;
+
+&lt;!-- Categories --&gt;
+
+[cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
+[cat-caching]: https://crates.io/categories/caching
+[cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
+[cat-command-line]: https://crates.io/categories/command-line-interface
+[cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
+[cat-compression]: https://crates.io/categories/compression
+[cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
+[cat-concurrency]: https://crates.io/categories/concurrency
+[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
+[cat-config]: https://crates.io/categories/config
+[cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
+[cat-cryptography]: https://crates.io/categories/cryptography
+[cat-database-badge]: https://badge-cache.kominick.com/badge/database--x.svg?style=social
+[cat-database]: https://crates.io/categories/database
+[cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
+[cat-date-and-time]: https://crates.io/categories/date-and-time
+[cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
+[cat-debugging]: https://crates.io/categories/debugging
+[cat-development-tools-badge]: https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social
+[cat-development-tools]: https://crates.io/categories/development-tools
+[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
+[cat-encoding]: https://crates.io/categories/encoding
+[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
+[cat-filesystem]: https://crates.io/categories/filesystem
+[cat-hardware-support-badge]: https://badge-cache.kominick.com/badge/hardware_support--x.svg?style=social
+[cat-hardware-support]: https://crates.io/categories/hardware-support
+[cat-net-badge]: https://badge-cache.kominick.com/badge/net--x.svg?style=social
+[cat-net]: https://crates.io/categories/network-programming
+[cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
+[cat-no-std]: https://crates.io/categories/no-std
+[cat-os-badge]: https://badge-cache.kominick.com/badge/OS--x.svg?style=social
+[cat-os]: https://crates.io/categories/os
+[cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
+[cat-rendering]: https://crates.io/categories/rendering
+[cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
+[cat-rust-patterns]: https://crates.io/categories/rust-patterns
+[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
+[cat-science]: https://crates.io/categories/science
+[cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
+[cat-text-processing]: https://crates.io/categories/text-processing
+[cat-time-badge]: https://badge-cache.kominick.com/badge/time--x.svg?style=social
+[cat-time]: https://crates.io/categories/date-and-time
+
+&lt;!-- Crates --&gt;
+
+[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/ansi_term.svg?label=ansi_term
+[ansi_term]: https://docs.rs/ansi_term/
+[anyhow-badge]: https://badge-cache.kominick.com/crates/v/anyhow.svg?label=anyhow
+[anyhow]: https://docs.rs/anyhow/
+[base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
+[base64]: https://docs.rs/base64/
+[bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
+[bitflags]: https://docs.rs/bitflags/
+[byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
+[byteorder]: https://docs.rs/byteorder/
+[cc-badge]: https://badge-cache.kominick.com/crates/v/cc.svg?label=cc
+[cc]: https://docs.rs/cc
+[chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
+[chrono]: https://docs.rs/chrono/
+[clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
+[clap]: https://docs.rs/clap/
+[crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
+[crossbeam]: https://docs.rs/crossbeam/
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
+[csv]: https://docs.rs/csv/
+[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
+[data-encoding]: https://docs.rs/data-encoding/
+[env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
+[env_logger]: https://docs.rs/env_logger/
+[error-chain-badge]: https://badge-cache.kominick.com/crates/v/error-chain.svg?label=error-chain
+[error-chain]: https://docs.rs/error-chain/
+[flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2
+[flate2]: https://docs.rs/flate2/
+[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
+[glob]: https://docs.rs/glob/
+[hyper-badge]: https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper
+[hyper]: https://docs.rs/hyper/
+[image-badge]: https://badge-cache.kominick.com/crates/v/image.svg?label=image
+[image]: https://docs.rs/image/
+[lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
+[lazy_static]: https://docs.rs/lazy_static/
+[log-badge]: https://badge-cache.kominick.com/crates/v/log.svg?label=log
+[log4rs-badge]: https://badge-cache.kominick.com/crates/v/log4rs.svg?label=log4rs
+[log4rs]: https://docs.rs/log4rs/
+[log]: https://docs.rs/log/
+[memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
+[memmap]: https://docs.rs/memmap/
+[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
+[mime]: https://docs.rs/mime/
+[nalgebra-badge]: https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra
+[nalgebra]: https://docs.rs/nalgebra
+[ndarray-badge]: https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray
+[ndarray]: https://docs.rs/ndarray
+[num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
+[num]: https://docs.rs/num/
+[num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
+[num_cpus]: https://docs.rs/num_cpus/
+[percent-encoding-badge]: https://badge-cache.kominick.com/crates/v/percent-encoding.svg?label=percent-encoding
+[postgres-badge]: https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres
+[postgres]: https://docs.rs/postgres/0.15.2/postgres/
+[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
+[rand]: https://docs.rs/rand/
+[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand_distr.svg?label=rand_distr
+[rand_distr]: https://docs.rs/rand_distr/
+[rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
+[rayon]: https://docs.rs/rayon/
+[regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
+[regex]: https://docs.rs/regex/
+[reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
+[reqwest]: https://docs.rs/reqwest/
+[ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
+[ring]: https://briansmith.org/rustdoc/ring/
+[rusqlite-badge]: https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite
+[rusqlite]: https://crates.io/crates/rusqlite/
+[same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
+[same_file]: https://docs.rs/same-file/
+[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
+[select]: https://docs.rs/select/
+[semver-badge]: https://badge-cache.kominick.com/crates/v/semver.svg?label=semver
+[semver]: https://docs.rs/semver/
+[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
+[serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
+[serde-json]: https://docs.rs/serde_json/*/serde_json/
+[serde]: https://docs.rs/serde/
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg
+[std]: https://doc.rust-lang.org/std
+[syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
+[syslog]: https://docs.rs/syslog/
+[tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
+[tar]: https://docs.rs/tar/
+[tempfile-badge]: https://badge-cache.kominick.com/crates/v/tempfile.svg?label=tempfile
+[tempfile]: https://docs.rs/tempfile/
+[thiserror-badge]: https://badge-cache.kominick.com/crates/v/thiserror.svg?label=thiserror
+[thiserror]: https://docs.rs/thiserror/
+[threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
+[threadpool]: https://docs.rs/threadpool/
+[toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
+[toml]: https://docs.rs/toml/
+[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
+[url]: https://docs.rs/url/
+[unicode-segmentation-badge]: https://badge-cache.kominick.com/crates/v/unicode-segmentation.svg?label=unicode-segmentation
+[unicode-segmentation]: https://docs.rs/unicode-segmentation/
+[walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
+[walkdir]: https://docs.rs/walkdir/</code></pre></pre>
 
                     </main>
 

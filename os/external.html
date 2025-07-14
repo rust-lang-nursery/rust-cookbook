@@ -161,71 +161,34 @@
                     <main>
                         <h1 id="external-command"><a class="header" href="#external-command">External Command</a></h1>
 <h2 id="run-an-external-command-and-process-stdout"><a class="header" href="#run-an-external-command-and-process-stdout">Run an external command and process stdout</a></h2>
-<p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
-<p>Runs <code>git log --oneline</code> as an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and inspects its <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a>
-using <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> to get the hash and message of the last 5 commits.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p>Runs <code>git log --oneline</code> using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and inspects the <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a>
+status to determine if the command was successful. The command output is captured
+as a [<code>String</code>] using [<code>String::from_utf8</code>].</p>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
 use std::process::Command;
-use regex::Regex;
-<span class="boring">
-</span><span class="boring">error_chain!{
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Regex(regex::Error);
-</span><span class="boring">        Utf8(std::string::FromUtf8Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
-#[derive(PartialEq, Default, Clone, Debug)]
-struct Commit {
-    hash: String,
-    message: String,
-}
 
 fn main() -&gt; Result&lt;()&gt; {
     let output = Command::new("git").arg("log").arg("--oneline").output()?;
 
-    if !output.status.success() {
-        error_chain::bail!("Command executed with failing error code");
+    if output.status.success() {
+        let raw_output = String::from_utf8(output.stdout)?;
+        let lines = raw_output.lines();
+        println!("Found {} lines", lines.count());
+        Ok(())
+    } else {
+        return Err(anyhow!("Command executed with failing error code"));
     }
-
-    let pattern = Regex::new(r"(?x)
-                               ([0-9a-fA-F]+) # commit hash
-                               (.*)           # The commit message")?;
-
-    String::from_utf8(output.stdout)?
-        .lines()
-        .filter_map(|line| pattern.captures(line))
-        .map(|cap| {
-                 Commit {
-                     hash: cap[1].to_string(),
-                     message: cap[2].trim().to_string(),
-                 }
-             })
-        .take(5)
-        .for_each(|x| println!("{:?}", x));
-
-    Ok(())
 }</code></pre></pre>
 <h2 id="run-an-external-command-passing-it-stdin-and-check-for-an-error-code"><a class="header" href="#run-an-external-command-passing-it-stdin-and-check-for-an-error-code">Run an external command passing it stdin and check for an error code</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Opens the <code>python</code> interpreter using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and passes it a
 python statement for execution. <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a> of statement is then parsed.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span><span class="boring">
-</span>use std::collections::HashSet;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
+use std::collections::HashSet;
 use std::io::Write;
 use std::process::{Command, Stdio};
-<span class="boring">
-</span><span class="boring">error_chain!{
-</span><span class="boring">    errors { CmdError }
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Utf8(std::string::FromUtf8Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let mut child = Command::new("python").stdin(Stdio::piped())
         .stderr(Stdio::piped())
@@ -234,7 +197,7 @@ fn main() -&gt; Result&lt;()&gt; {
 
     child.stdin
         .as_mut()
-        .ok_or("Child process stdin has not been captured!")?
+        .ok_or_else(|| anyhow!("Child process stdin has not been captured!"))?
         .write_all(b"import this; copyright(); credits(); exit()")?;
 
     let output = child.wait_with_output()?;
@@ -249,7 +212,7 @@ fn main() -&gt; Result&lt;()&gt; {
         Ok(())
     } else {
         let err = String::from_utf8(output.stderr)?;
-        error_chain::bail!("External command failed:\n {}", err)
+        return Err(anyhow!("External command failed:\n {}", err));
     }
 }</code></pre></pre>
 <h2 id="run-piped-external-commands"><a class="header" href="#run-piped-external-commands">Run piped external commands</a></h2>
@@ -258,17 +221,9 @@ fn main() -&gt; Result&lt;()&gt; {
 the current working directory. It is equivalent to running: <code>du -ah . | sort -hr | head -n 10</code>.</p>
 <p><a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a>s represent a process. Output of a child process is captured with a
 <a href="https://doc.rust-lang.org/std/process/struct.Stdio.html"><code>Stdio::piped</code></a> between parent and child.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span><span class="boring">
-</span>use std::process::{Command, Stdio};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Utf8(std::string::FromUtf8Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+use std::process::{Command, Stdio};
+
 fn main() -&gt; Result&lt;()&gt; {
     let directory = std::env::current_dir()?;
     let mut du_output_child = Command::new("du")

@@ -165,7 +165,6 @@
 <p>Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
-
 use regex::Regex;
 
 fn extract_login(input: &amp;str) -&gt; Option&lt;&amp;str&gt; {
@@ -196,7 +195,6 @@ fn main() {
 <p>The hashtag regex given here only catches Latin hashtags that start with a
 letter. The complete <a href="https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255">twitter hashtag regex</a> is much more complicated.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
-
 use regex::Regex;
 use std::collections::HashSet;
 
@@ -219,18 +217,10 @@ fn main() {
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Processes a string of text using <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter"><code>Regex::captures_iter</code></a> to capture multiple
 phone numbers.  The example here is for US convention phone numbers.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use regex::Regex;
 use std::fmt;
-<span class="boring">
-</span><span class="boring">error_chain!{
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Regex(regex::Error);
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 struct PhoneNumber&lt;'a&gt; {
     area: &amp;'a str,
     exchange: &amp;'a str,
@@ -292,25 +282,17 @@ fn main() -&gt; Result&lt;()&gt; {
 <h2 id="filter-a-log-file-by-matching-multiple-regular-expressions"><a class="header" href="#filter-a-log-file-by-matching-multiple-regular-expressions">Filter a log file by matching multiple regular expressions</a></h2>
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Reads a file named <code>application.log</code> and only outputs the lines
-containing “version X.X.X”, some IP address followed by port 443
-(e.g. “192.168.0.1:443”), or a specific warning.</p>
+containing "version X.X.X", some IP address followed by port 443
+(e.g. "192.168.0.1:443"), or a specific warning.</p>
 <p>A <a href="https://docs.rs/regex/*/regex/struct.RegexSetBuilder.html"><code>regex::RegexSetBuilder</code></a> composes a <a href="https://docs.rs/regex/*/regex/struct.RegexSet.html"><code>regex::RegexSet</code></a>.
 Since backslashes are very common in regular expressions, using
 <a href="https://doc.rust-lang.org/reference/tokens.html#raw-string-literals">raw string literals</a> makes them more readable.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use std::fs::File;
 use std::io::{BufReader, BufRead};
 use regex::RegexSetBuilder;
 
-<span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Regex(regex::Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span><span class="boring">
-</span>fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let log_path = "application.log";
     let buffered = BufReader::new(File::open(log_path)?);
 

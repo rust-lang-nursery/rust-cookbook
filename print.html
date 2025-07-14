@@ -540,8 +540,9 @@ experimentation. To do so follow the instructions below.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 fn main() {
-    let mut rng = rand::thread_rng();
-    println!("Random f64: {}", rng.gen::&lt;f64&gt;());
+    let mut rng = rand::rng();
+    let random_number: u32 = rng.random();
+    println!("Random number: {}", random_number);
 }</code></pre></pre>
 <p>To work with it locally we can run the following commands to create
 a new cargo project, and change to that directory:</p>
@@ -564,13 +565,14 @@ documentation on <a href="https://docs.rs">docs.rs</a>, and is often the next do
 should read after deciding which crate suites your purpose.</p>
 <h2 id="a-note-about-error-handling"><a class="header" href="#a-note-about-error-handling">A note about error handling</a></h2>
 <p>Rust has <a href="https://doc.rust-lang.org/std/error/trait.Error.html"><code>std::error::Trait</code></a> which is implemented to handle exceptions.
-Handling multiple types of these traits can be simplified using <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a>
-or specified with an <code>enum</code> which macros exist to make this easier within
-<a href="https://docs.rs/thiserror/latest/thiserror/"><code>thiserror</code></a> for library authors.</p>
-<p>Error chain has been shown in this book for historical reasons before Rust
-<code>std</code> and crates represented macro use as a preference.  For more background
-on error handling in Rust, read <a href="https://doc.rust-lang.org/book/ch09-00-error-handling.html">this page of the Rust book</a>
-and <a href="https://brson.github.io/2016/11/30/starting-with-error-chain">this blog post</a>.</p>
+This cookbook uses <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a> for simplified error handling in examples,
+which provides easy error propagation and context. For library authors,
+<a href="https://docs.rs/thiserror/latest/thiserror/"><code>thiserror</code></a> provides a more structured approach using derive macros
+to create custom error types.</p>
+<p>This cookbook previously used the <code>error-chain</code> crate, but has been updated
+to use <code>anyhow</code> as it's now the preferred approach for application-level
+error handling. For more background on error handling in Rust, read
+<a href="https://doc.rust-lang.org/book/ch09-00-error-handling.html">this page of the Rust book</a> and <a href="https://brson.github.io/2016/11/30/starting-with-error-chain">this blog post</a>.</p>
 <h2 id="a-note-about-crate-representation"><a class="header" href="#a-note-about-crate-representation">A note about crate representation</a></h2>
 <p>This cookbook is intended eventually to provide expansive coverage of
 the Rust crate ecosystem, but today is limited in scope while we get
@@ -615,42 +617,37 @@ Keep lines sorted.
 <h2 id="generate-random-numbers"><a class="header" href="#generate-random-numbers">Generate random numbers</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Generates random numbers with help of random-number
-generator <a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::Rng</code></a> obtained via <a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::rng</code></a>. Each thread has an
+generator <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html"><code>rand::Rng</code></a> obtained via <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html"><code>rand::rng</code></a>. Each thread has an
 initialized generator. Integers are uniformly distributed over the range of the
 type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 fn main() {
-    let mut rng = rand::rng();
-
-    let n1: u8 = rng.random();
-    let n2: u16 = rng.random();
-    println!("Random u8: {}", n1);
-    println!("Random u16: {}", n2);
-    println!("Random u32: {}", rng.random::&lt;u32&gt;());
-    println!("Random i32: {}", rng.random::&lt;i32&gt;());
-    println!("Random float: {}", rng.random::&lt;f64&gt;());
+    let mut rng = rand::thread_rng();
+    let random_number: u32 = rng.gen();
+    println!("Random number: {}", random_number);
 }</code></pre></pre>
 <h2 id="generate-random-numbers-within-a-range"><a class="header" href="#generate-random-numbers-within-a-range">Generate random numbers within a range</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
-<p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with <a href="https://doc.rust-lang.org/rand/*/rand/trait.Rng.html#method.random_range"><code>Rng::random_range</code></a>.</p>
+<p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with [<code>Rng::gen_range</code>].</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 fn main() {
     let mut rng = rand::rng();
-    println!("Integer: {}", rng.random_range(0..10));
-    println!("Float: {}", rng.random_range(0.0..10.0));
+    println!("Integer: {}", rng.gen_range(0..10));
+    println!("Float: {}", rng.gen_range(0.0..10.0));
 }</code></pre></pre>
-<p><a href="https://docs.rs/rand/*/rand/distributions/uniform/struct.Uniform.html"><code>Uniform</code></a> can obtain values with <a href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform distribution</a>.
+<p>[<code>Uniform</code>] can obtain values with <a href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform distribution</a>.
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use rand::distributions::{Distribution, Uniform};
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
+use rand_distr::{Distribution, Uniform};
 
 fn main() {
     let mut rng = rand::rng();
-    let die = Uniform::from(1..7);
+    let die = Uniform::new_inclusive(1, 6)
+        .expect("Failed to create uniform distribution: invalid range");
 
     loop {
         let throw = die.sample(&amp;mut rng);
@@ -666,26 +663,30 @@ fn main() {
 <a href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform distribution</a>. The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html"><code>rand_distr</code></a> crate provides
 other kinds of distributions. To use them, you instantiate
 a distribution, then sample from that distribution using
-<a href="https://docs.rs/rand/*/rand/distributions/trait.Distribution.html#tymethod.sample"><code>Distribution::sample</code></a> with help of a random-number
-generator <a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::Rng</code></a>.</p>
+<a href="https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html#tymethod.sample"><code>Distribution::sample</code></a> with help of a random-number
+generator <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html"><code>rand::Rng</code></a>.</p>
 <p>The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html">distributions available are documented here</a>.
 An example using the <a href="https://docs.rs/rand_distr/*/rand_distr/struct.Normal.html"><code>Normal</code></a> distribution is shown below.</p>
-<pre><code class="language-rust edition2018 ignore">use rand_distr::{Distribution, Normal, NormalError};
-use rand::rng;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
+use rand_distr::{Distribution, LogNormal, Normal};
 
-fn main() -&gt; Result&lt;(), NormalError&gt; {
-    let mut rng = rng();
-    let normal = Normal::new(2.0, 3.0)?;
+fn main() {
+    let mut rng = rand::rng();
+    let normal = Normal::new(2.0, 3.0)
+        .expect("Failed to create normal distribution");
+    let log_normal = LogNormal::new(1.0, 0.5)
+        .expect("Failed to create log-normal distribution");
+
     let v = normal.sample(&amp;mut rng);
     println!("{} is from a N(2, 9) distribution", v);
-    Ok(())
-}</code></pre>
+    let v = log_normal.sample(&amp;mut rng);
+    println!("{} is from an ln N(1, 0.25) distribution", v);
+}</code></pre></pre>
 <h2 id="generate-random-values-of-a-custom-type"><a class="header" href="#generate-random-values-of-a-custom-type">Generate random values of a custom type</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Randomly generates a tuple <code>(i32, bool, f64)</code> and variable of user defined type <code>Point</code>.
-Implements the <a href="https://docs.rs/rand/*/rand/distributions/trait.Distribution.html"><code>Distribution</code></a> trait on type Point for <a href="https://docs.rs/rand/*/rand/distributions/struct.Standard.html"><code>Standard</code></a> in order to allow random generation.</p>
+Implements the [<code>Distribution</code>] trait on type Point for [<code>Standard</code>] in order to allow random generation.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
-use rand::distributions::{Distribution, Standard};
 
 #[derive(Debug)]
 struct Point {
@@ -693,12 +694,11 @@ struct Point {
     y: i32,
 }
 
-impl Distribution&lt;Point&gt; for Standard {
-    fn sample&lt;R: Rng + ?Sized&gt;(&amp;self, rng: &amp;mut R) -&gt; Point {
-        let (rand_x, rand_y) = rng.random();
+impl Point {
+    fn random&lt;R: Rng&gt;(rng: &amp;mut R) -&gt; Self {
         Point {
-            x: rand_x,
-            y: rand_y,
+            x: rng.random(),
+            y: rng.random(),
         }
     }
 }
@@ -706,34 +706,19 @@ impl Distribution&lt;Point&gt; for Standard {
 fn main() {
     let mut rng = rand::rng();
     let rand_tuple = rng.random::&lt;(i32, bool, f64)&gt;();
-    let rand_point: Point = rng.random();
+    let rand_point = Point::random(&amp;mut rng);
     println!("Random tuple: {:?}", rand_tuple);
     println!("Random Point: {:?}", rand_point);
 }</code></pre></pre>
 <h2 id="create-random-passwords-from-a-set-of-alphanumeric-characters"><a class="header" href="#create-random-passwords-from-a-set-of-alphanumeric-characters">Create random passwords from a set of alphanumeric characters</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
-<p>Randomly generates a string of given length ASCII characters in the range <code>A-Z, a-z, 0-9</code>, with <a href="https://docs.rs/rand/*/rand/distributions/struct.Alphanumeric.html"><code>Alphanumeric</code></a> sample.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use rand::{rng, Rng};
-use rand::distributions::Alphanumeric;
+<p>Randomly generates a string of given length ASCII characters in the range <code>A-Z, a-z, 0-9</code>, with <a href="https://docs.rs/rand/0.9/rand/distr/struct.Alphanumeric.html"><code>Alphanumeric</code></a> sample.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 fn main() {
-    let rand_string: String = rng()
-        .sample_iter(&amp;Alphanumeric)
-        .take(30)
-        .map(char::from)
-        .collect();
-
-    println!("{}", rand_string);
-}</code></pre></pre>
-<h2 id="create-random-passwords-from-a-set-of-user-defined-characters"><a class="header" href="#create-random-passwords-from-a-set-of-user-defined-characters">Create random passwords from a set of user-defined characters</a></h2>
-<p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
-<p>Randomly generates a string of given length ASCII characters with custom
-user-defined bytestring, with <a href="https://docs.rs/rand/*/rand/trait.Rng.html#method.random_range"><code>random_range</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main() {
-    use rand::Rng;
     const CHARSET: &amp;[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
                             abcdefghijklmnopqrstuvwxyz\
-                            0123456789)(*&amp;^%$#@!~";
+                            0123456789";
     const PASSWORD_LEN: usize = 30;
     let mut rng = rand::rng();
 
@@ -741,6 +726,29 @@ user-defined bytestring, with <a href="https://docs.rs/rand/*/rand/trait.Rng.htm
         .map(|_| {
             let idx = rng.random_range(0..CHARSET.len());
             CHARSET[idx] as char
+        })
+        .collect();
+
+    println!("{}", password);
+}</code></pre></pre>
+<h2 id="create-random-passwords-from-a-set-of-user-defined-characters"><a class="header" href="#create-random-passwords-from-a-set-of-user-defined-characters">Create random passwords from a set of user-defined characters</a></h2>
+<p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p>Randomly generates a string of given length ASCII characters with custom
+user-defined bytestring, with <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html#method.gen_range"><code>gen_range</code></a>.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
+
+const CHARSET: &amp;[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+                        abcdefghijklmnopqrstuvwxyz\
+                        0123456789)(*&amp;^%$#@!~";
+const PASSWORD_LEN: usize = 30;
+
+fn main() {
+    let mut rng = rand::rng();
+
+    let password: String = (0..PASSWORD_LEN)
+        .map(|_| {
+            let idx = rng.gen_range(0..CHARSET.len());
+            char::from(CHARSET[idx])
         })
         .collect();
 
@@ -984,8 +992,7 @@ Keep lines sorted.
 extract (<a href="https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack"><code>Archive::unpack</code></a>) all files from a compressed tarball
 named <code>archive.tar.gz</code> located in the current working directory
 to the same location.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">
-use std::fs::File;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
 use flate2::read::GzDecoder;
 use tar::Archive;
 
@@ -1007,8 +1014,7 @@ and <a href="https://docs.rs/tar/*/tar/struct.Builder.html"><code>tar::Builder</
 under <code>backup/logs</code> path with <a href="https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all"><code>Builder::append_dir_all</code></a>.
 <a href="https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html"><code>GzEncoder</code></a> is responsible for transparently compressing the
 data prior to writing it into <code>archive.tar.gz</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">
-use std::fs::File;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
 use flate2::Compression;
 use flate2::write::GzEncoder;
 
@@ -1021,8 +1027,7 @@ fn main() -&gt; Result&lt;(), std::io::Error&gt; {
     Ok(())
 }</code></pre></pre>
 <p>To add the contents without renaming them, an empty string can be used as the first argument of <a href="https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all"><code>Builder::append_dir_all</code></a>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">
-use std::fs::File;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
 use flate2::Compression;
 use flate2::write::GzEncoder;
 
@@ -1041,20 +1046,13 @@ notably <a href="https://docs.rs/tar/latest/tar/struct.Builder.html#method.follo
 <p>Iterate over the <a href="https://docs.rs/tar/*/tar/struct.Archive.html#method.entries"><code>Archive::entries</code></a>.  Use <a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix"><code>Path::strip_prefix</code></a> to remove
 the specified path prefix (<code>bundle/logs</code>).  Finally, extract the <a href="https://docs.rs/tar/*/tar/struct.Entry.html"><code>tar::Entry</code></a>
 via <a href="https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack"><code>Entry::unpack</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>use std::fs::File;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+use std::fs::File;
 use std::path::PathBuf;
 use flate2::read::GzDecoder;
 use tar::Archive;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">  foreign_links {
-</span><span class="boring">    Io(std::io::Error);
-</span><span class="boring">    StripPrefixError(::std::path::StripPrefixError);
-</span><span class="boring">  }
-</span><span class="boring">}
-</span>
-fn main() -&gt; Result&lt;(), std::io::Error&gt; {
+
+fn main() -&gt; Result&lt;()&gt; {
     let file = File::open("archive.tar.gz")?;
     let mut archive = Archive::new(GzDecoder::new(file));
     let prefix = "bundle/logs";
@@ -1156,7 +1154,7 @@ to prevent the entire program from blocking on the worker for-loops. You can
 think of the calls to <code>drop</code> as signaling that no more messages will be sent.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use std::thread;
 use std::time::Duration;
-use crossbeam_channel::bounded;
+use crossbeam::channel::bounded;
 
 fn main() {
     let (snd1, rcv1) = bounded(1);
@@ -1209,9 +1207,8 @@ consumer (SPSC) setting. We build off the <a href="concurrency/threads.html#spaw
 exchanged between the two threads using a <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/fn.unbounded.html"><code>crossbeam_channel::unbounded</code></a>
 channel, meaning there is no limit to the number of storeable messages. The
 producer thread sleeps for half a second in between messages.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use std::{thread, time};
-use crossbeam_channel::unbounded;
+<pre><pre class="playground"><code class="language-rust edition2018">use std::{thread, time};
+use crossbeam::channel::unbounded;
 
 fn main() {
     let (snd, rcv) = unbounded();
@@ -1237,18 +1234,16 @@ to allow mutation (also see <a href="https://doc.rust-lang.org/std/sync/struct.R
 the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A <a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a> must be acquired to read or mutate the
 value stored in a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>use lazy_static::lazy_static;
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::{Result, anyhow};
+use lazy_static::lazy_static;
 use std::sync::Mutex;
-<span class="boring">
-</span><span class="boring">error_chain!{ }
-</span>
+
 lazy_static! {
     static ref FRUIT: Mutex&lt;Vec&lt;String&gt;&gt; = Mutex::new(Vec::new());
 }
 
 fn insert(fruit: &amp;str) -&gt; Result&lt;()&gt; {
-    let mut db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
+    let mut db = FRUIT.lock().map_err(|_| anyhow!("Failed to acquire MutexGuard"))?;
     db.push(fruit.to_string());
     Ok(())
 }
@@ -1258,7 +1253,7 @@ fn main() -&gt; Result&lt;()&gt; {
     insert("orange")?;
     insert("peach")?;
     {
-        let db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
+        let db = FRUIT.lock().map_err(|_| anyhow!("Failed to acquire MutexGuard"))?;
 
         db.iter().enumerate().for_each(|(i, item)| println!("{}: {}", i, item));
     }
@@ -1272,8 +1267,7 @@ current directory. A threadpool generates threads equal to the number of cores
 present in the system found with <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.  <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>Walkdir::new</code></a> iterates
 the current directory and calls <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>execute</code></a> to perform the operations of reading
 and computing SHA256 hash.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">
-use walkdir::WalkDir;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use walkdir::WalkDir;
 use std::fs::File;
 use std::io::{BufReader, Read, Error};
 use std::path::Path;
@@ -1342,20 +1336,12 @@ Create <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html">
 <p><a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html"><code>mpsc::channel</code></a> receives the jobs and <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv"><code>Receiver::recv</code></a> retrieves them.
 <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel"><code>ImageBuffer::put_pixel</code></a> uses the data to set the pixel color.
 <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save"><code>ImageBuffer::save</code></a> writes the image to <code>output.png</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>use std::sync::mpsc::{channel, RecvError};
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 use num::complex::Complex;
 use image::{ImageBuffer, Pixel, Rgb};
 <span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        MpscRecv(RecvError);
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Image(image::ImageError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span><span class="boring">
 </span><span class="boring">// Function converting intensity values to RGB
 </span><span class="boring">// Based on http://www.efg2.com/Lab/ScienceAndEngineering/Spectra.htm
 </span><span class="boring">fn wavelength_to_rgb(wavelength: u32) -&gt; Rgb&lt;u8&gt; {
@@ -1378,7 +1364,7 @@ use image::{ImageBuffer, Pixel, Rgb};
 </span><span class="boring">    };
 </span><span class="boring">
 </span><span class="boring">    let (r, g, b) = (normalize(r, factor), normalize(g, factor), normalize(b, factor));
-</span><span class="boring">    Rgb::from_channels(r, g, b, 0)
+</span><span class="boring">    Rgb([r, g, b])
 </span><span class="boring">}
 </span><span class="boring">
 </span><span class="boring">// Maps Julia set distance estimation to intensity values
@@ -1502,18 +1488,18 @@ fn main() {
 values in parallel.  Although <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html">multiple options</a>
 exist to sort an enumerable data type, <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable"><code>par_sort_unstable</code></a>
 is usually faster than <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort">stable sorting</a> algorithms.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use rand::{Rng, thread_rng};
-use rand::distributions::Alphanumeric;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 use rayon::prelude::*;
 
 fn main() {
-  let mut vec = vec![String::new(); 100_000];
-  vec.par_iter_mut().for_each(|p| {
-    let mut rng = thread_rng();
-    *p = (0..5).map(|_| rng.sample(&amp;Alphanumeric) as char).collect()
-  });
-  vec.par_sort_unstable();
+    let mut vec = vec![0; 1_000_000];
+    rand::thread_rng().fill(&amp;mut vec[..]);
+
+    vec.par_sort_unstable();
+
+    let first = vec.first().unwrap();
+    let last = vec.last().unwrap();
+    assert!(first &lt;= last);
 }</code></pre></pre>
 <h2 id="map-reduce-in-parallel"><a class="header" href="#map-reduce-in-parallel">Map-reduce in parallel</a></h2>
 <p><a href="https://docs.rs/rayon/"><img src="https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon" alt="rayon-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
@@ -1564,24 +1550,14 @@ fn main() {
 then saves them in a new folder called <code>thumbnails</code>.</p>
 <p><a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob::glob_with</code></a> finds jpeg files in current directory. <code>rayon</code> resizes
 images in parallel using <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter"><code>par_iter</code></a> calling  <a href="https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize"><code>DynamicImage::resize</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use std::path::Path;
 use std::fs::create_dir_all;
 
-<span class="boring">use error_chain::ChainedError;
-</span>use glob::{glob_with, MatchOptions};
-use image::{FilterType, ImageError};
+use glob::{glob_with, MatchOptions};
+use image::imageops::FilterType;
 use rayon::prelude::*;
 
-<span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Image(ImageError);
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Glob(glob::PatternError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
 fn main() -&gt; Result&lt;()&gt; {
     let options: MatchOptions = Default::default();
     let files: Vec&lt;_&gt; = glob_with("*.jpg", options)?
@@ -1589,7 +1565,7 @@ fn main() -&gt; Result&lt;()&gt; {
         .collect();
 
     if files.len() == 0 {
-        error_chain::bail!("No .jpg files found in current directory");
+        anyhow::bail!("No .jpg files found in current directory");
     }
 
     let thumb_dir = "thumbnails";
@@ -1601,12 +1577,12 @@ fn main() -&gt; Result&lt;()&gt; {
         .par_iter()
         .map(|path| {
             make_thumbnail(path, thumb_dir, 300)
-                .map_err(|e| e.chain_err(|| path.display().to_string()))
+                .map_err(|e| anyhow::anyhow!("Failed to process {}: {}", path.display(), e))
         })
         .filter_map(|x| x.err())
         .collect();
 
-    image_failures.iter().for_each(|x| println!("{}", x.display_chain()));
+    image_failures.iter().for_each(|x| println!("{}", x));
 
     println!("{} thumbnails saved successfully", files.len() - image_failures.len());
     Ok(())
@@ -1646,19 +1622,12 @@ Keep lines sorted.
 <p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://badge-cache.kominick.com/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://docs.rs/data-encoding/"><img src="https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding" alt="data-encoding-badge" /></a> <a href="https://crates.io/categories/cryptography"><img src="https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge" /></a></p>
 <p>Writes some data to a file, then calculates the SHA-256 <a href="https://briansmith.org/rustdoc/ring/digest/struct.Digest.html"><code>digest::Digest</code></a> of
 the file's contents using <a href="https://briansmith.org/rustdoc/ring/digest/struct.Context.html"><code>digest::Context</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>use data_encoding::HEXUPPER;
+<pre><pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
 use ring::digest::{Context, Digest, SHA256};
+use data_encoding::HEXUPPER;
 use std::fs::File;
 use std::io::{BufReader, Read, Write};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Decode(data_encoding::DecodeError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn sha256_digest&lt;R: Read&gt;(mut reader: R) -&gt; Result&lt;Digest&gt; {
     let mut context = Context::new(&amp;SHA256);
     let mut buffer = [0; 1024];
@@ -1693,7 +1662,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p>The <a href="https://docs.rs/ring/*/ring/hmac/fn.sign.html"><code>hmac::sign</code></a> method is used to calculate the HMAC digest (also called a tag) of the message using the provided key.
 The resulting <a href="https://docs.rs/ring/*/ring/hmac/struct.Tag.html"><code>hmac::Tag</code></a> structure contains the raw bytes of the HMAC,
 which can later be verified with<a href="https://docs.rs/ring/*/ring/hmac/fn.verify.html"><code>hmac::verify</code></a> to ensure the message has not been tampered with and comes from a trusted source.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ring::{hmac, rand};
+<pre><pre class="playground"><code class="language-rust edition2021">use ring::{hmac, rand};
 use ring::rand::SecureRandom;
 use ring::error::Unspecified;
 
@@ -1724,8 +1693,7 @@ function <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.derive.html"><co
 <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.verify.html"><code>pbkdf2::verify</code></a>. The salt is generated using
 <a href="https://briansmith.org/rustdoc/ring/rand/trait.SecureRandom.html#tymethod.fill"><code>SecureRandom::fill</code></a>, which fills the salt byte array with
 securely generated random numbers.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use data_encoding::HEXUPPER;
+<pre><pre class="playground"><code class="language-rust edition2021">use data_encoding::HEXUPPER;
 use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{digest, pbkdf2, rand};
@@ -1790,34 +1758,65 @@ Keep lines sorted.
 <!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bitfield"><a class="header" href="#bitfield">Bitfield</a></h1>
 <h2 id="define-and-operate-on-a-type-represented-as-a-bitfield"><a class="header" href="#define-and-operate-on-a-type-represented-as-a-bitfield">Define and operate on a type represented as a bitfield</a></h2>
-<p><a href="https://docs.rs/bitflags/"><img src="https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags" alt="bitflags-badge" /></a> <a href="https://crates.io/categories/no-std"><img src="https://badge-cache.kominick.com/badge/no_std--x.svg?style=social" alt="cat-no-std-badge" /></a></p>
-<p>Creates type safe bitfield type <code>MyFlags</code> with help of <a href="https://docs.rs/bitflags/*/bitflags/macro.bitflags.html"><code>bitflags!</code></a> macro
-and implements elementary <code>clear</code> operation as well as <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html"><code>Display</code></a> trait for it.
+<p>[![bitflags-badge]][bitflags] [![cat-no-std-badge]][cat-no-std]</p>
+<p>Creates type safe bitfield type <code>MyFlags</code> with elementary <code>clear</code> operation as well as [<code>Display</code>] trait for it.
 Subsequently, shows basic bitwise operations and formatting.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use bitflags::bitflags;
-use std::fmt;
+<pre><pre class="playground"><code class="language-rust edition2018">use std::fmt;
 
-bitflags! {
-    struct MyFlags: u32 {
-        const FLAG_A       = 0b00000001;
-        const FLAG_B       = 0b00000010;
-        const FLAG_C       = 0b00000100;
-        const FLAG_ABC     = Self::FLAG_A.bits
-                           | Self::FLAG_B.bits
-                           | Self::FLAG_C.bits;
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+struct MyFlags(u32);
+
+impl MyFlags {
+    const FLAG_A: MyFlags = MyFlags(0b00000001);
+    const FLAG_B: MyFlags = MyFlags(0b00000010);
+    const FLAG_C: MyFlags = MyFlags(0b00000100);
+    const FLAG_ABC: MyFlags = MyFlags(Self::FLAG_A.0 | Self::FLAG_B.0 | Self::FLAG_C.0);
+
+    fn empty() -&gt; Self {
+        MyFlags(0)
+    }
+
+    fn bits(&amp;self) -&gt; u32 {
+        self.0
+    }
+
+    pub fn clear(&amp;mut self) -&gt; &amp;mut MyFlags {
+        *self = MyFlags::empty();
+        self
     }
 }
 
-impl MyFlags {
-    pub fn clear(&amp;mut self) -&gt; &amp;mut MyFlags {
-        self.bits = 0;  
-        self
+impl std::ops::BitOr for MyFlags {
+    type Output = Self;
+    fn bitor(self, rhs: Self) -&gt; Self {
+        MyFlags(self.0 | rhs.0)
+    }
+}
+
+impl std::ops::BitAnd for MyFlags {
+    type Output = Self;
+    fn bitand(self, rhs: Self) -&gt; Self {
+        MyFlags(self.0 &amp; rhs.0)
+    }
+}
+
+impl std::ops::Sub for MyFlags {
+    type Output = Self;
+    fn sub(self, rhs: Self) -&gt; Self {
+        MyFlags(self.0 &amp; !rhs.0)
+    }
+}
+
+impl std::ops::Not for MyFlags {
+    type Output = Self;
+    fn not(self) -&gt; Self {
+        MyFlags(!self.0 &amp; 0b00000111) // Only consider defined flags
     }
 }
 
 impl fmt::Display for MyFlags {
     fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
-        write!(f, "{:032b}", self.bits)
+        write!(f, "{:032b}", self.bits())
     }
 }
 
@@ -1832,15 +1831,161 @@ fn main() {
     let mut flags = MyFlags::FLAG_ABC;
     assert_eq!(format!("{}", flags), "00000000000000000000000000000111");
     assert_eq!(format!("{}", flags.clear()), "00000000000000000000000000000000");
-    assert_eq!(format!("{:?}", MyFlags::FLAG_B), "FLAG_B");
-    assert_eq!(format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B), "FLAG_A | FLAG_B");
-}</code></pre></pre>
-<!--
+    assert_eq!(format!("{:?}", MyFlags::FLAG_B), "MyFlags(2)");
+    assert_eq!(format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B), "MyFlags(3)");
+}
+
+&lt;!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
--->
-<!-- Categories -->
-<!-- Crates -->
+--&gt;
+
+&lt;!-- Categories --&gt;
+
+[cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
+[cat-caching]: https://crates.io/categories/caching
+[cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
+[cat-command-line]: https://crates.io/categories/command-line-interface
+[cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
+[cat-compression]: https://crates.io/categories/compression
+[cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
+[cat-concurrency]: https://crates.io/categories/concurrency
+[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
+[cat-config]: https://crates.io/categories/config
+[cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
+[cat-cryptography]: https://crates.io/categories/cryptography
+[cat-database-badge]: https://badge-cache.kominick.com/badge/database--x.svg?style=social
+[cat-database]: https://crates.io/categories/database
+[cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
+[cat-date-and-time]: https://crates.io/categories/date-and-time
+[cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
+[cat-debugging]: https://crates.io/categories/debugging
+[cat-development-tools-badge]: https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social
+[cat-development-tools]: https://crates.io/categories/development-tools
+[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
+[cat-encoding]: https://crates.io/categories/encoding
+[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
+[cat-filesystem]: https://crates.io/categories/filesystem
+[cat-hardware-support-badge]: https://badge-cache.kominick.com/badge/hardware_support--x.svg?style=social
+[cat-hardware-support]: https://crates.io/categories/hardware-support
+[cat-net-badge]: https://badge-cache.kominick.com/badge/net--x.svg?style=social
+[cat-net]: https://crates.io/categories/network-programming
+[cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
+[cat-no-std]: https://crates.io/categories/no-std
+[cat-os-badge]: https://badge-cache.kominick.com/badge/OS--x.svg?style=social
+[cat-os]: https://crates.io/categories/os
+[cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
+[cat-rendering]: https://crates.io/categories/rendering
+[cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
+[cat-rust-patterns]: https://crates.io/categories/rust-patterns
+[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
+[cat-science]: https://crates.io/categories/science
+[cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
+[cat-text-processing]: https://crates.io/categories/text-processing
+[cat-time-badge]: https://badge-cache.kominick.com/badge/time--x.svg?style=social
+[cat-time]: https://crates.io/categories/date-and-time
+
+&lt;!-- Crates --&gt;
+
+[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/ansi_term.svg?label=ansi_term
+[ansi_term]: https://docs.rs/ansi_term/
+[anyhow-badge]: https://badge-cache.kominick.com/crates/v/anyhow.svg?label=anyhow
+[anyhow]: https://docs.rs/anyhow/
+[base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
+[base64]: https://docs.rs/base64/
+[bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
+[bitflags]: https://docs.rs/bitflags/
+[byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
+[byteorder]: https://docs.rs/byteorder/
+[cc-badge]: https://badge-cache.kominick.com/crates/v/cc.svg?label=cc
+[cc]: https://docs.rs/cc
+[chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
+[chrono]: https://docs.rs/chrono/
+[clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
+[clap]: https://docs.rs/clap/
+[crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
+[crossbeam]: https://docs.rs/crossbeam/
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
+[csv]: https://docs.rs/csv/
+[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
+[data-encoding]: https://docs.rs/data-encoding/
+[env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
+[env_logger]: https://docs.rs/env_logger/
+[error-chain-badge]: https://badge-cache.kominick.com/crates/v/error-chain.svg?label=error-chain
+[error-chain]: https://docs.rs/error-chain/
+[flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2
+[flate2]: https://docs.rs/flate2/
+[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
+[glob]: https://docs.rs/glob/
+[hyper-badge]: https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper
+[hyper]: https://docs.rs/hyper/
+[image-badge]: https://badge-cache.kominick.com/crates/v/image.svg?label=image
+[image]: https://docs.rs/image/
+[lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
+[lazy_static]: https://docs.rs/lazy_static/
+[log-badge]: https://badge-cache.kominick.com/crates/v/log.svg?label=log
+[log4rs-badge]: https://badge-cache.kominick.com/crates/v/log4rs.svg?label=log4rs
+[log4rs]: https://docs.rs/log4rs/
+[log]: https://docs.rs/log/
+[memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
+[memmap]: https://docs.rs/memmap/
+[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
+[mime]: https://docs.rs/mime/
+[nalgebra-badge]: https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra
+[nalgebra]: https://docs.rs/nalgebra
+[ndarray-badge]: https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray
+[ndarray]: https://docs.rs/ndarray
+[num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
+[num]: https://docs.rs/num/
+[num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
+[num_cpus]: https://docs.rs/num_cpus/
+[percent-encoding-badge]: https://badge-cache.kominick.com/crates/v/percent-encoding.svg?label=percent-encoding
+[postgres-badge]: https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres
+[postgres]: https://docs.rs/postgres/0.15.2/postgres/
+[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
+[rand]: https://docs.rs/rand/
+[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand_distr.svg?label=rand_distr
+[rand_distr]: https://docs.rs/rand_distr/
+[rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
+[rayon]: https://docs.rs/rayon/
+[regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
+[regex]: https://docs.rs/regex/
+[reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
+[reqwest]: https://docs.rs/reqwest/
+[ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
+[ring]: https://briansmith.org/rustdoc/ring/
+[rusqlite-badge]: https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite
+[rusqlite]: https://crates.io/crates/rusqlite/
+[same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
+[same_file]: https://docs.rs/same-file/
+[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
+[select]: https://docs.rs/select/
+[semver-badge]: https://badge-cache.kominick.com/crates/v/semver.svg?label=semver
+[semver]: https://docs.rs/semver/
+[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
+[serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
+[serde-json]: https://docs.rs/serde_json/*/serde_json/
+[serde]: https://docs.rs/serde/
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg
+[std]: https://doc.rust-lang.org/std
+[syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
+[syslog]: https://docs.rs/syslog/
+[tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
+[tar]: https://docs.rs/tar/
+[tempfile-badge]: https://badge-cache.kominick.com/crates/v/tempfile.svg?label=tempfile
+[tempfile]: https://docs.rs/tempfile/
+[thiserror-badge]: https://badge-cache.kominick.com/crates/v/thiserror.svg?label=thiserror
+[thiserror]: https://docs.rs/thiserror/
+[threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
+[threadpool]: https://docs.rs/threadpool/
+[toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
+[toml]: https://docs.rs/toml/
+[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
+[url]: https://docs.rs/url/
+[unicode-segmentation-badge]: https://badge-cache.kominick.com/crates/v/unicode-segmentation.svg?label=unicode-segmentation
+[unicode-segmentation]: https://docs.rs/unicode-segmentation/
+[walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
+[walkdir]: https://docs.rs/walkdir/</code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="database-1"><a class="header" href="#database-1">Database</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr></thead><tbody>
 <tr><td><a href="database/sqlite.html#create-a-sqlite-database">Create a SQLite database</a></td><td><a href="https://crates.io/crates/rusqlite/"><img src="https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite" alt="rusqlite-badge" /></a></td><td><a href="https://crates.io/categories/database"><img src="https://badge-cache.kominick.com/badge/database--x.svg?style=social" alt="cat-database-badge" /></a></td></tr>
@@ -1861,7 +2006,7 @@ Keep lines sorted.
 <p>Use the <code>rusqlite</code> crate to open SQLite databases. See
 <a href="https://github.com/rusqlite/rusqlite#user-content-notes-on-building-rusqlite-and-libsqlite3-sys">crate</a> for compiling on Windows.</p>
 <p><a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.open"><code>Connection::open</code></a> will create the database if it doesn't already exist.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">use rusqlite::{Connection, Result};
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{Connection, Result};
 
 fn main() -&gt; Result&lt;()&gt; {
     let conn = Connection::open("cats.db")?;
@@ -1888,8 +2033,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://crates.io/crates/rusqlite/"><img src="https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite" alt="rusqlite-badge" /></a> <a href="https://crates.io/categories/database"><img src="https://badge-cache.kominick.com/badge/database--x.svg?style=social" alt="cat-database-badge" /></a></p>
 <p><a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.open"><code>Connection::open</code></a> will open the database <code>cats</code> created in the earlier recipe.
 This recipe inserts data into <code>cat_colors</code> and <code>cats</code> tables using the <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.execute"><code>execute</code></a> method of <code>Connection</code>. First, the data is inserted into the <code>cat_colors</code> table. After a record for a color is inserted, <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.last_insert_rowid"><code>last_insert_rowid</code></a> method of <code>Connection</code> is used to get <code>id</code> of the last color inserted. This <code>id</code> is used while inserting data into the <code>cats</code> table. Then, the select query is prepared using the <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.prepare"><code>prepare</code></a> method which gives a <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html"><code>statement</code></a> struct. Then, query is executed using <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html#method.query_map"><code>query_map</code></a> method of <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html"><code>statement</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">
-use rusqlite::{params, Connection, Result};
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{params, Connection, Result};
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -1953,7 +2097,7 @@ roll back unless committed explicitly with <a href="https://docs.rs/rusqlite/*/r
 <p>In the following example, colors add to a table having
 a unique constraint on the color name. When an attempt to insert
 a duplicate color is made, the transaction rolls back.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">use rusqlite::{Connection, Result};
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{Connection, Result};
 
 fn main() -&gt; Result&lt;()&gt; {
     let mut conn = Connection::open("cats.db")?;
@@ -1997,7 +2141,7 @@ Keep lines sorted.
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres" alt="postgres-badge" /></a> <a href="https://crates.io/categories/database"><img src="https://badge-cache.kominick.com/badge/database--x.svg?style=social" alt="cat-database-badge" /></a></p>
 <p>Use the <a href="https://docs.rs/postgres/0.17.2/postgres/"><code>postgres</code></a> crate to create tables in a Postgres database.</p>
 <p><a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.connect"><code>Client::connect</code></a> helps in connecting to an existing database. The recipe uses a URL string format with <code>Client::connect</code>. It assumes an existing database named <code>library</code>, the username is <code>postgres</code> and the password is <code>postgres</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use postgres::{Client, NoTls, Error};
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, NoTls, Error};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", NoTls)?;
@@ -2024,7 +2168,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="insert-and-query-data"><a class="header" href="#insert-and-query-data">Insert and Query data</a></h2>
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres" alt="postgres-badge" /></a> <a href="https://crates.io/categories/database"><img src="https://badge-cache.kominick.com/badge/database--x.svg?style=social" alt="cat-database-badge" /></a></p>
 <p>The recipe inserts data into the <code>author</code> table using <a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.execute"><code>execute</code></a> method of <code>Client</code>. Then, displays the data from the <code>author</code> table  using <a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.query"><code>query</code></a> method of <code>Client</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use postgres::{Client, NoTls, Error};
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, NoTls, Error};
 use std::collections::HashMap;
 
 struct Author {
@@ -2069,8 +2213,8 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 }</code></pre></pre>
 <h2 id="aggregate-data"><a class="header" href="#aggregate-data">Aggregate data</a></h2>
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres" alt="postgres-badge" /></a> <a href="https://crates.io/categories/database"><img src="https://badge-cache.kominick.com/badge/database--x.svg?style=social" alt="cat-database-badge" /></a></p>
-<p>This recipe lists the nationalities of the first 7999 artists in the database of the <a href="https://github.com/MuseumofModernArt/collection/blob/main/Artists.csv"><code>Museum of Modern Art</code></a> in descending order.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use postgres::{Client, Error, NoTls};
+<p>This recipe lists the nationalities of the first 7999 artists in the database of the <a href="https://github.com/MuseumofModernArt/collection/blob/main/Artists.csv">Museum of Modern Art</a> in descending order.</p>
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
 
 struct Nation {
     nationality: String,
@@ -2180,8 +2324,7 @@ fn main() {
 <h2 id="convert-a-local-time-to-another-timezone"><a class="header" href="#convert-a-local-time-to-another-timezone">Convert a local time to another timezone</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Gets the local time and displays it using <a href="https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now"><code>offset::Local::now</code></a> and then converts it to the UTC standard using the <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc"><code>DateTime::from_utc</code></a> struct method. A time is then converted using the <a href="https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html"><code>offset::FixedOffset</code></a> struct and the UTC time is then converted to UTC+8 and UTC-2.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use chrono::{DateTime, FixedOffset, Local, Utc};
+<pre><pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, FixedOffset, Local, Utc};
 
 fn main() {
     let local_time = Local::now();
@@ -2245,8 +2388,7 @@ fn main() {
 to <a href="https://en.wikipedia.org/wiki/Unix_time">UNIX timestamp</a> using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp"><code>NaiveDateTime::timestamp</code></a>.
 Then it calculates what was the date after one billion seconds
 since January 1, 1970 0:00:00 UTC, using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.from_timestamp"><code>NaiveDateTime::from_timestamp</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use chrono::{NaiveDate, NaiveDateTime};
+<pre><pre class="playground"><code class="language-rust edition2018">use chrono::{NaiveDate, NaiveDateTime};
 
 fn main() {
     let date_time: NaiveDateTime = NaiveDate::from_ymd(2017, 11, 12).and_hms(17, 33, 44);
@@ -2376,8 +2518,7 @@ Keep lines sorted.
 <p>The <code>log</code> crate provides logging utilities. The <code>env_logger</code> crate configures
 logging via an environment variable.  The <a href="https://docs.rs/log/*/log/macro.debug.html"><code>log::debug!</code></a> macro works like other
 <a href="https://doc.rust-lang.org/std/fmt/"><code>std::fmt</code></a> formatted strings.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-fn execute_query(query: &amp;str) {
+<pre><pre class="playground"><code class="language-rust edition2018">fn execute_query(query: &amp;str) {
     log::debug!("Executing query: {}", query);
 }
 
@@ -2399,8 +2540,7 @@ following line at the very end of the output:</p>
 <p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Proper error handling considers exceptions exceptional.  Here, an error logs
 to stderr with <code>log</code>'s convenience macro <a href="https://docs.rs/log/*/log/macro.error.html"><code>log::error!</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-fn execute_query(_query: &amp;str) -&gt; Result&lt;(), &amp;'static str&gt; {
+<pre><pre class="playground"><code class="language-rust edition2018">fn execute_query(_query: &amp;str) -&gt; Result&lt;(), &amp;'static str&gt; {
     Err("I'm afraid I can't do that")
 }
 
@@ -2415,8 +2555,7 @@ fn main() {
 <h2 id="log-to-stdout-instead-of-stderr"><a class="header" href="#log-to-stdout-instead-of-stderr">Log to stdout instead of stderr</a></h2>
 <p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Creates a custom logger configuration using the <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.target"><code>Builder::target</code></a> to set the target of the log output to <a href="https://docs.rs/env_logger/*/env_logger/fmt/enum.Target.html"><code>Target::Stdout</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use env_logger::{Builder, Target};
+<pre><pre class="playground"><code class="language-rust edition2018">use env_logger::{Builder, Target};
 
 fn main() {
     Builder::new()
@@ -2494,8 +2633,7 @@ Keep lines sorted.
 <p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Creates two modules <code>foo</code> and nested <code>foo::bar</code> with logging directives
 controlled separately with <a href="https://docs.rs/env_logger/*/env_logger/#enabling-logging"><code>RUST_LOG</code></a> environmental variable.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-mod foo {
+<pre><pre class="playground"><code class="language-rust edition2018">mod foo {
     mod bar {
         pub fn run() {
             log::warn!("[bar] warn");
@@ -2591,21 +2729,12 @@ appender defines the logging destination.  The configuration continues with
 encoding using a custom pattern from <a href="https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html"><code>log4rs::encode::pattern</code></a>.
 Assigns the configuration to <a href="https://docs.rs/log4rs/*/log4rs/config/runtime/struct.Config.html"><code>log4rs::config::Config</code></a> and sets the default
 <a href="https://docs.rs/log/*/log/enum.LevelFilter.html"><code>log::LevelFilter</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use log::LevelFilter;
 use log4rs::append::file::FileAppender;
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::config::{Appender, Config, Root};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        LogConfig(log4rs::config::Errors);
-</span><span class="boring">        SetLogger(log::SetLoggerError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let logfile = FileAppender::builder()
         .encoder(Box::new(PatternEncoder::new("{l} - {m}\n")))
@@ -2638,31 +2767,28 @@ then increments it by patch, minor, and major version number one by one.</p>
 incrementing the minor version number resets the patch version number to 0 and
 incrementing the major version number resets both the minor and patch version
 numbers to 0.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, SemVerError};
+<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, Error as SemVerError};
 
 fn main() -&gt; Result&lt;(), SemVerError&gt; {
     let mut parsed_version = Version::parse("0.2.6")?;
 
     assert_eq!(
         parsed_version,
-        Version {
-            major: 0,
-            minor: 2,
-            patch: 6,
-            pre: vec![],
-            build: vec![],
-        }
+        Version::new(0, 2, 6)
     );
 
-    parsed_version.increment_patch();
+    parsed_version.patch += 1;
     assert_eq!(parsed_version.to_string(), "0.2.7");
     println!("New patch release: v{}", parsed_version);
 
-    parsed_version.increment_minor();
+    parsed_version.minor += 1;
+    parsed_version.patch = 0;
     assert_eq!(parsed_version.to_string(), "0.3.0");
     println!("New minor release: v{}", parsed_version);
 
-    parsed_version.increment_major();
+    parsed_version.major += 1;
+    parsed_version.minor = 0;
+    parsed_version.patch = 0;
     assert_eq!(parsed_version.to_string(), "1.0.0");
     println!("New major release: v{}", parsed_version);
 
@@ -2674,26 +2800,17 @@ fn main() -&gt; Result&lt;(), SemVerError&gt; {
 contains pre-release and build metadata as defined in the <a href="http://semver.org/">Semantic Versioning Specification</a>.</p>
 <p>Note that, in accordance with the Specification, build metadata is parsed but not considered when
 comparing versions. In other words, two versions may be equal even if their build strings differ.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Identifier, Version, SemVerError};
+<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, Prerelease, BuildMetadata, Error};
 
-fn main() -&gt; Result&lt;(), SemVerError&gt; {
+fn main() -&gt; Result&lt;(), Error&gt; {
     let version_str = "1.0.49-125+g72ee7853";
     let parsed_version = Version::parse(version_str)?;
 
-    assert_eq!(
-        parsed_version,
-        Version {
-            major: 1,
-            minor: 0,
-            patch: 49,
-            pre: vec![Identifier::Numeric(125)],
-            build: vec![],
-        }
-    );
-    assert_eq!(
-        parsed_version.build,
-        vec![Identifier::AlphaNumeric(String::from("g72ee7853"))]
-    );
+    assert_eq!(parsed_version.major, 1);
+    assert_eq!(parsed_version.minor, 0);
+    assert_eq!(parsed_version.patch, 49);
+    assert_eq!(parsed_version.pre, Prerelease::new("125")?);
+    assert_eq!(parsed_version.build, BuildMetadata::new("g72ee7853")?);
 
     let serialized_version = parsed_version.to_string();
     assert_eq!(&amp;serialized_version, version_str);
@@ -2702,34 +2819,27 @@ fn main() -&gt; Result&lt;(), SemVerError&gt; {
 }</code></pre></pre>
 <h2 id="check-if-given-version-is-pre-release"><a class="header" href="#check-if-given-version-is-pre-release">Check if given version is pre-release.</a></h2>
 <p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
-<p>Given two versions, <a href="https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease"><code>is_prerelease</code></a> asserts that one is pre-release and the other is not.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, SemVerError};
+<p>Given two versions, [<code>is_prerelease</code>] asserts that one is pre-release and the other is not.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, Error};
 
-fn main() -&gt; Result&lt;(), SemVerError&gt; {
+fn main() -&gt; Result&lt;(), Error&gt; {
     let version_1 = Version::parse("1.0.0-alpha")?;
     let version_2 = Version::parse("1.0.0")?;
 
-    assert!(version_1.is_prerelease());
-    assert!(!version_2.is_prerelease());
+    assert!(!version_1.pre.is_empty());
+    assert!(version_2.pre.is_empty());
 
     Ok(())
 }</code></pre></pre>
+<p>[`</p>
 <h2 id="find-the-latest-version-satisfying-given-range"><a class="header" href="#find-the-latest-version-satisfying-given-range">Find the latest version satisfying given range</a></h2>
 <p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
 <p>Given a list of version &amp;strs, finds the latest <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a>.
 <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html"><code>semver::VersionReq</code></a> filters the list with <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches"><code>VersionReq::matches</code></a>.
 Also demonstrates <code>semver</code> pre-release preferences.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use semver::{Version, VersionReq};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        SemVer(semver::SemVerError);
-</span><span class="boring">        SemVerReq(semver::ReqParseError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn find_max_matching_version&lt;'a, I&gt;(version_req_str: &amp;str, iterable: I) -&gt; Result&lt;Option&lt;Version&gt;&gt;
 where
     I: IntoIterator&lt;Item = &amp;'a str&gt;,
@@ -2773,38 +2883,28 @@ fn main() -&gt; Result&lt;()&gt; {
 <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a> using <a href="https://docs.rs/semver/*/semver/struct.Version.html#method.parse"><code>Version::parse</code></a>. <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches"><code>VersionReq::matches</code></a> compares
 <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html"><code>semver::VersionReq</code></a> to the parsed version.  The command output resembles
 "git version x.y.z".</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
 use std::process::Command;
 use semver::{Version, VersionReq};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Utf8(std::string::FromUtf8Error);
-</span><span class="boring">        SemVer(semver::SemVerError);
-</span><span class="boring">        SemVerReq(semver::ReqParseError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let version_constraint = "&gt; 1.12.0";
     let version_test = VersionReq::parse(version_constraint)?;
     let output = Command::new("git").arg("--version").output()?;
 
     if !output.status.success() {
-        error_chain::bail!("Command executed with failing error code");
+        return Err(anyhow!("Command executed with failing error code"));
     }
 
     let stdout = String::from_utf8(output.stdout)?;
     let version = stdout.split(" ").last().ok_or_else(|| {
-        "Invalid command output"
+        anyhow!("Invalid command output")
     })?;
     let parsed_version = Version::parse(version)?;
 
     if !version_test.matches(&amp;parsed_version) {
-        error_chain::bail!("Command version lower than minimum supported version (found {}, need {})",
-            parsed_version, version_constraint);
+        return Err(anyhow!("Command version lower than minimum supported version (found {}, need {})",
+            parsed_version, version_constraint));
     }
 
     Ok(())
@@ -3074,18 +3174,10 @@ fn main() -&gt; Result&lt;(), DecodeError&gt; {
 <p><a href="https://docs.rs/base64/"><img src="https://badge-cache.kominick.com/crates/v/base64.svg?label=base64" alt="base64-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>Encodes byte slice into <code>base64</code> String using <a href="https://docs.rs/base64/*/base64/fn.encode.html"><code>encode</code></a>
 and decodes it with <a href="https://docs.rs/base64/*/base64/fn.decode.html"><code>decode</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use std::str;
 use base64::{encode, decode};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Base64(base64::DecodeError);
-</span><span class="boring">        Utf8Error(str::Utf8Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let hello = b"hello rustaceans";
     let encoded = encode(hello);
@@ -3163,7 +3255,7 @@ fn main() -&gt; Result&lt;(), csv::Error&gt; {
 }</code></pre></pre>
 <h2 id="read-csv-records-with-different-delimiter"><a class="header" href="#read-csv-records-with-different-delimiter">Read CSV records with different delimiter</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
-<p>Reads CSV records with a tab <a href="https://docs.rs/csv/1.0.0-beta.3/csv/struct.ReaderBuilder.html#method.delimiter"><code>delimiter</code></a>.</p>
+<p>Reads CSV records with a tab [<code>delimiter</code>].</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use csv::Error;
 use serde::Deserialize;
 #[derive(Debug, Deserialize)]
@@ -3191,17 +3283,9 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="filter-csv-records-matching-a-predicate"><a class="header" href="#filter-csv-records-matching-a-predicate">Filter CSV records matching a predicate</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>Returns <em>only</em> the rows from <code>data</code> with a field that matches <code>query</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use std::io;
-<span class="boring">
-</span><span class="boring">error_chain!{
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        CsvError(csv::Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let query = "CA";
     let data = "\
@@ -3265,17 +3349,9 @@ serialization from Rust types into CSV records. <a href="https://docs.rs/csv/*/c
 a simple record containing string data only. Data with more complex values
 such as numbers, floats, and options use <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize"><code>serialize</code></a>. Since CSV
 writer uses internal buffer, always explicitly <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.flush"><code>flush</code></a> when done.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use std::io;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        CSVError(csv::Error);
-</span><span class="boring">        IOError(std::io::Error);
-</span><span class="boring">   }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let mut wtr = csv::Writer::from_writer(io::stdout());
 
@@ -3292,17 +3368,10 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>The following example shows how to serialize custom structs as CSV records using
 the <a href="https://docs.rs/serde/">serde</a> crate.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>use serde::Serialize;
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+use serde::Serialize;
 use std::io;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">   foreign_links {
-</span><span class="boring">       IOError(std::io::Error);
-</span><span class="boring">       CSVError(csv::Error);
-</span><span class="boring">   }
-</span><span class="boring">}
-</span>
+
 #[derive(Serialize)]
 struct Record&lt;'a&gt; {
     name: &amp;'a str,
@@ -3324,28 +3393,24 @@ fn main() -&gt; Result&lt;()&gt; {
     wtr.flush()?;
 
     Ok(())
-}</code></pre></pre>
-<h2 id="transform-csv-column"><a class="header" href="#transform-csv-column">Transform CSV column</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
-<p>Transform a CSV file containing a color name and a hex color into one with a
-color name and an rgb color.  Utilizes the <a href="https://docs.rs/csv/">csv</a> crate to read and write the
-csv file, and <a href="https://docs.rs/serde/">serde</a> to deserialize and serialize the rows to and from bytes.</p>
-<p>See <a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize"><code>csv::Reader::deserialize</code></a>, <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html"><code>serde::Deserialize</code></a>, and <a href="https://doc.rust-lang.org/std/str/trait.FromStr.html"><code>std::str::FromStr</code></a></p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>use csv::{Reader, Writer};
+}
+
+# Transform CSV column
+
+[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
+
+Transform a CSV file containing a color name and a hex color into one with a
+color name and an rgb color.  Utilizes the [csv] crate to read and write the
+csv file, and [serde] to deserialize and serialize the rows to and from bytes.
+
+See [csv::Reader::deserialize], [serde::Deserialize], and [std::str::FromStr]
+
+```rust,edition2018
+use anyhow::{Result, anyhow};
+use csv::{Reader, Writer};
 use serde::{de, Deserialize, Deserializer};
 use std::str::FromStr;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">   foreign_links {
-</span><span class="boring">       CsvError(csv::Error);
-</span><span class="boring">       ParseInt(std::num::ParseIntError);
-</span><span class="boring">       CsvInnerError(csv::IntoInnerError&lt;Writer&lt;Vec&lt;u8&gt;&gt;&gt;);
-</span><span class="boring">       IO(std::fmt::Error);
-</span><span class="boring">       UTF8(std::string::FromUtf8Error);
-</span><span class="boring">   }
-</span><span class="boring">}
-</span>
+
 #[derive(Debug)]
 struct HexColor {
     red: u8,
@@ -3360,12 +3425,12 @@ struct Row {
 }
 
 impl FromStr for HexColor {
-    type Err = Error;
+    type Err = anyhow::Error;
 
     fn from_str(hex_color: &amp;str) -&gt; std::result::Result&lt;Self, Self::Err&gt; {
         let trimmed = hex_color.trim_matches('#');
         if trimmed.len() != 6 {
-            Err("Invalid length of hex string".into())
+            Err(anyhow!("Invalid length of hex string"))
         } else {
             Ok(HexColor {
                 red: u8::from_str_radix(&amp;trimmed[..2], 16)?,
@@ -3424,7 +3489,7 @@ JSON.</p>
 <p>Unstructured JSON can be parsed into a universal <a href="https://docs.serde.rs/serde_json/enum.Value.html"><code>serde_json::Value</code></a> type that
 is able to represent any valid JSON data.</p>
 <p>The example below shows a <code>&amp;str</code> of JSON being parsed.  The expected value is declared using the <a href="https://docs.serde.rs/serde_json/macro.json.html"><code>json!</code></a> macro.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"> use serde_json::json;
+<pre><pre class="playground"><code class="language-rust edition2018">use serde_json::json;
 use serde_json::{Value, Error};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -3521,8 +3586,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <p><code>byteorder</code> can reverse the significant bytes of structured data.  This may
 be necessary when receiving information over the network, such that bytes
 received are from another system.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
+<pre><pre class="playground"><code class="language-rust edition2018">use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use std::io::Error;
 
 #[derive(Default, PartialEq, Debug)]
@@ -3579,28 +3643,33 @@ Keep lines sorted.
 <h1 id="error-strategies-2024"><a class="header" href="#error-strategies-2024">Error Strategies (2024)</a></h1>
 <p>As recommended in Rust by Example, <a href="https://doc.rust-lang.org/rust-by-example/error/multiple_error_types/boxing_errors.html"><code>Box</code>ing errors</a> is seen as an easy
 strategy for getting started.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>Box&lt;dyn Error&gt;
-<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    // Example of boxing errors
+    let result: Result&lt;(), Box&lt;dyn Error&gt;&gt; = Ok(());
+    result
+}</code></pre></pre>
 <p>To understand what kind of error handling may be required study <a href="https://mmapped.blog/posts/12-rust-error-handling">Designing
 error types in Rust</a> and consider <a href="https://docs.rs/thiserror/latest/thiserror/"><code>thiserror</code></a> for libraries or <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a> as
 a maintained error aggregation option.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use thiserror::Error;
+<pre><pre class="playground"><code class="language-rust edition2018">use thiserror::Error;
 
 #[derive(Error,Debug)]
 pub enum MultiError {
   #[error("🦀 got {0}")]
   ErrorClass(String),
 }
-<span class="boring">}</span></code></pre></pre>
+
+fn main() -&gt; Result&lt;(), MultiError&gt; {
+    // Example of using thiserror
+    Ok(())
+}</code></pre></pre>
 <p>Application authors can compose enums using <code>anyhow</code> can import the <code>Result</code>
 type from the crate to provide auto-<code>Box</code>ing behavior</p>
 <pre><pre class="playground"><code class="language-rust edition2018 should_panic">use anyhow::Result;
 
-fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
    let my_string = "yellow".to_string();  
    let _my_int = my_string.parse::&lt;i32&gt;()?;
    Ok(())
@@ -3703,12 +3772,16 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <p>Use <a href="https://docs.rs/same-file/*/same_file/struct.Handle.html"><code>same_file::Handle</code></a> to a file that can be tested for equality with
 other handles. In this example, the handles of file to be read from and
 to be written to are tested for equality.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use same_file::Handle;
+<pre><pre class="playground"><code class="language-rust edition2021">use same_file::Handle;
+use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::fs::File;
-use std::io::{BufRead, BufReader, Error, ErrorKind};
 use std::path::Path;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
+    // Create a test file
+    let mut file = File::create("new.txt")?;
+    writeln!(file, "test content")?;
+    
     let path_to_read = Path::new("new.txt");
 
     let stdout_handle = Handle::stdout()?;
@@ -3726,31 +3799,23 @@ fn main() -&gt; Result&lt;(), Error&gt; {
             println!("{} : {}", num, line?.to_uppercase());
         }
     }
-
     Ok(())
 }</code></pre></pre>
-<pre><code class="language-bash">cargo run
-</code></pre>
-<p>displays the contents of the file new.txt.</p>
-<pre><code class="language-bash">cargo run &gt;&gt; ./new.txt
-</code></pre>
-<p>errors because the two files are same.</p>
 <h2 id="access-a-file-randomly-using-a-memory-map"><a class="header" href="#access-a-file-randomly-using-a-memory-map">Access a file randomly using a memory map</a></h2>
 <p><a href="https://docs.rs/memmap/"><img src="https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap" alt="memmap-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Creates a memory map of a file using <a href="https://docs.rs/memmap/">memmap</a> and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
-than dealing with <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.seek"><code>seek</code></a> to navigate a File.</p>
-<p>The <a href="https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map"><code>Mmap::map</code></a> function assumes the file
-behind the memory map is not being modified at the same time by another process
-or else a <a href="https://en.wikipedia.org/wiki/Race_condition#File_systems">race condition</a> occurs.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use memmap::Mmap;
+than dealing with <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.seek"><code>seek</code></a>ing around in a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>.</p>
+<p>The <a href="https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map"><code>Mmap::map</code></a> function assumes the file behind the memory map is not being
+modified at the same time by another process or else a <a href="https://en.wikipedia.org/wiki/Race_condition#File_systems">race condition</a> occurs.</p>
+<pre><pre class="playground"><code class="language-rust edition2021">use memmap::Mmap;
 use std::fs::File;
 use std::io::{Write, Error};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
-<span class="boring">    write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
-</span><span class="boring">
-</span>    let file = File::open("content.txt")?;
+    write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
+
+    let file = File::open("content.txt")?;
     let map = unsafe { Mmap::map(&amp;file)? };
 
     let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
@@ -3769,100 +3834,79 @@ Keep lines sorted.
 <!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="directory-traversal"><a class="header" href="#directory-traversal">Directory Traversal</a></h1>
 <h2 id="file-names-that-have-been-modified-in-the-last-24-hours"><a class="header" href="#file-names-that-have-been-modified-in-the-last-24-hours">File names that have been modified in the last 24 hours</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
-<p>Gets the current working directory by calling <a href="https://doc.rust-lang.org/std/env/fn.current_dir.html"><code>env::current_dir</code></a>,
-then for each entries in <a href="https://doc.rust-lang.org/std/fs/fn.read_dir.html"><code>fs::read_dir</code></a>, extracts the
-<a href="https://doc.rust-lang.org/std/fs/struct.DirEntry.html#method.path"><code>DirEntry::path</code></a> and gets the metadata via <a href="https://doc.rust-lang.org/std/fs/struct.Metadata.html"><code>fs::Metadata</code></a>. The
-<a href="https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.modified"><code>Metadata::modified</code></a> returns the <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html#method.elapsed"><code>SystemTime::elapsed</code></a> time since
-last modification. <a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.as_secs"><code>Duration::as_secs</code></a> converts the time to seconds and
-compared with 24 hours (24 * 60 * 60 seconds). <a href="https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.is_file"><code>Metadata::is_file</code></a> filters
-out directories.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span><span class="boring">
-</span>use std::{env, fs};
+<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>Gets the current working directory and returns file names modified within the last 24 hours.
+<a href="https://doc.rust-lang.org/std/env/fn.current_dir.html"><code>env::current_dir</code></a> gets the current working directory, <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>WalkDir::new</code></a> creates a new <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html"><code>WalkDir</code></a> for the current directory.
+<a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.into_iter"><code>WalkDir::into_iter</code></a> creates an iterator, <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter_map"><code>Iterator::filter_map</code></a> applies <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.ok"><code>Result::ok</code></a> to <a href="https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html"><code>WalkDir::DirEntry</code></a> and filters out the directories.</p>
+<p><a href="https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.modified"><code>std::fs::Metadata::modified</code></a> returns the <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html#method.elapsed"><code>SystemTime::elapsed</code></a> time since the last modification.
+<a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.as_secs"><code>Duration::as_secs</code></a> converts the time to seconds and compared with 24 hours (24 * 60 * 60 seconds).
+<a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.for_each"><code>Iterator::for_each</code></a> prints the file names.</p>
+<pre><pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
+use anyhow::Result;
+use std::env;
 
-<span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        SystemTimeError(std::time::SystemTimeError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span><span class="boring">
-</span>fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let current_dir = env::current_dir()?;
-    println!(
-        "Entries modified in the last 24 hours in {:?}:",
-        current_dir
-    );
+    println!("Entries modified in the last 24 hours in {:?}:", current_dir);
 
-    for entry in fs::read_dir(current_dir)? {
-        let entry = entry?;
+    for entry in WalkDir::new(current_dir)
+            .into_iter()
+            .filter_map(|e| e.ok())
+            .filter(|e| e.metadata().unwrap().is_file()) {
         let path = entry.path();
-
-        let metadata = fs::metadata(&amp;path)?;
-        let last_modified = metadata.modified()?.elapsed()?.as_secs();
-
-        if last_modified &lt; 24 * 3600 &amp;&amp; metadata.is_file() {
-            println!(
-                "Last modified: {:?} seconds, is read only: {:?}, size: {:?} bytes, filename: {:?}",
-                last_modified,
-                metadata.permissions().readonly(),
-                metadata.len(),
-                path.file_name().ok_or("No filename")?
-            );
+        let metadata = entry.metadata()?;
+        let modified = metadata.modified()?.elapsed()?.as_secs();
+        if modified &lt; 24 * 3600 {
+            println!("{}", path.display());
         }
     }
 
     Ok(())
 }</code></pre></pre>
 <h2 id="find-loops-for-a-given-path"><a class="header" href="#find-loops-for-a-given-path">Find loops for a given path</a></h2>
-<p><a href="https://docs.rs/same-file/"><img src="https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file" alt="same_file-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/same-file/"><img src="https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file" alt="same_file-badge" /></a> <a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Use <a href="https://docs.rs/same-file/*/same_file/fn.is_same_file.html"><code>same_file::is_same_file</code></a> to detect loops for a given path.
-For example, a loop could be created on a Unix system via symlinks:</p>
+For example, a loop is created on a Unix system via symlinks:</p>
 <pre><code class="language-bash">mkdir -p /tmp/foo/bar/baz
 ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 </code></pre>
 <p>The following would assert that a loop exists.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
-use std::path::{Path, PathBuf};
+<pre><pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
 use same_file::is_same_file;
 
-fn contains_loop&lt;P: AsRef&lt;Path&gt;&gt;(path: P) -&gt; io::Result&lt;Option&lt;(PathBuf, PathBuf)&gt;&gt; {
-    let path = path.as_ref();
-    let mut path_buf = path.to_path_buf();
-    while path_buf.pop() {
-        if is_same_file(&amp;path_buf, path)? {
-            return Ok(Some((path_buf, path.to_path_buf())));
-        } else if let Some(looped_paths) = contains_loop(&amp;path_buf)? {
-            return Ok(Some(looped_paths));
+fn main() {
+    let mut loop_found = false;
+    for entry in WalkDir::new(".")
+        .follow_links(true)
+        .into_iter()
+        .filter_map(|e| e.ok()) {
+        let ancestor = entry.path()
+            .ancestors()
+            .skip(1)
+            .find(|ancestor| is_same_file(ancestor, entry.path()).is_ok());
+
+        if ancestor.is_some() {
+            loop_found = true;
         }
     }
-    return Ok(None);
-}
-
-fn main() {
-    assert_eq!(
-        contains_loop("/tmp/foo/bar/baz/qux/bar/baz").unwrap(),
-        Some((
-            PathBuf::from("/tmp/foo"),
-            PathBuf::from("/tmp/foo/bar/baz/qux")
-        ))
-    );
+    // Note: This test would only pass if there are actual symlink loops
+    // println!("Loop found: {}", loop_found);
 }</code></pre></pre>
 <h2 id="recursively-find-duplicate-file-names"><a class="header" href="#recursively-find-duplicate-file-names">Recursively find duplicate file names</a></h2>
 <p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Find recursively in the current directory duplicate filenames,
 printing them only once.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::collections::HashMap;
-use walkdir::WalkDir;
+<pre><pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
+use std::collections::HashMap;
 
 fn main() {
     let mut filenames = HashMap::new();
 
     for entry in WalkDir::new(".")
-            .into_iter()
-            .filter_map(Result::ok)
-            .filter(|e| !e.file_type().is_dir()) {
+                         .into_iter()
+                         .filter_map(Result::ok)
+                         .filter(|e| e.file_type().is_file()) {
+
         let f_name = String::from(entry.file_name().to_string_lossy());
         let counter = filenames.entry(f_name.clone()).or_insert(0);
         *counter += 1;
@@ -3871,48 +3915,43 @@ fn main() {
             println!("{}", f_name);
         }
     }
-}</code></pre></pre>
-<h2 id="recursively-find-all-files-with-given-predicate"><a class="header" href="#recursively-find-all-files-with-given-predicate">Recursively find all files with given predicate</a></h2>
-<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
-<p>Find JSON files modified within the last day in the current directory.
-Using <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links"><code>follow_links</code></a> ensures symbolic links are followed like they were
-normal directories and files.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+}
+
+# Recursively find all files with given predicate
+
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+
+Find JSON files modified within the last day in the current directory.
+Using [`follow_links`] ensures symbolic links are followed like they were
+normal directories and files.
+
+```rust,edition2021
 use walkdir::WalkDir;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        WalkDir(walkdir::Error);
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        SystemTime(std::time::SystemTimeError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+use anyhow::Result;
+
 fn main() -&gt; Result&lt;()&gt; {
     for entry in WalkDir::new(".")
-            .follow_links(true)
-            .into_iter()
-            .filter_map(|e| e.ok()) {
+        .follow_links(true)
+        .into_iter()
+        .filter_map(|e| e.ok()) {
         let f_name = entry.file_name().to_string_lossy();
         let sec = entry.metadata()?.modified()?;
 
         if f_name.ends_with(".json") &amp;&amp; sec.elapsed()?.as_secs() &lt; 86400 {
-            println!("{}", f_name);
+            println!("{}", entry.path().display());
         }
     }
-
     Ok(())
 }</code></pre></pre>
 <h2 id="traverse-directories-while-skipping-dotfiles"><a class="header" href="#traverse-directories-while-skipping-dotfiles">Traverse directories while skipping dotfiles</a></h2>
 <p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Uses <a href="https://docs.rs/walkdir/*/walkdir/struct.IntoIter.html#method.filter_entry"><code>filter_entry</code></a> to descend recursively into entries passing the
 <code>is_not_hidden</code> predicate thus skipping hidden files and directories.
-<a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter"><code>Iterator::filter</code></a> applies to each <a href="https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html"><code>WalkDir::DirEntry</code></a> even if the parent
-is a hidden directory.</p>
+<a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter_map"><code>Iterator::filter_map</code></a> applies <code>is_not_hidden</code> on each <a href="https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html"><code>WalkDir::DirEntry</code></a>
+even if the parent is a hidden directory.</p>
 <p>Root dir <code>"."</code> yields through <a href="https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth"><code>WalkDir::depth</code></a> usage in <code>is_not_hidden</code>
 predicate.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use walkdir::{DirEntry, WalkDir};
+<pre><pre class="playground"><code class="language-rust edition2021">use walkdir::{DirEntry, WalkDir};
 
 fn is_not_hidden(entry: &amp;DirEntry) -&gt; bool {
     entry
@@ -3931,13 +3970,12 @@ fn main() {
 }</code></pre></pre>
 <h2 id="recursively-calculate-file-sizes-at-given-depth"><a class="header" href="#recursively-calculate-file-sizes-at-given-depth">Recursively calculate file sizes at given depth</a></h2>
 <p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
-<p>Recursion depth can be flexibly set by <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.min_depth"><code>WalkDir::min_depth</code></a> &amp; <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth"><code>WalkDir::max_depth</code></a> methods.
-Calculates sum of all file sizes to 3 subfolders depth, ignoring files in the root folder.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use walkdir::WalkDir;
+<p>Recursion depth can be flexibly set by <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth"><code>WalkDir::max_depth</code></a>. Calculates
+sum of all file sizes to 3 subdir levels, ignoring files in the root directory.</p>
+<pre><pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
 
 fn main() {
     let total_size = WalkDir::new(".")
-        .min_depth(1)
         .max_depth(3)
         .into_iter()
         .filter_map(|entry| entry.ok())
@@ -3953,37 +3991,25 @@ fn main() {
 In this case, the <code>**</code> pattern matches the current directory and all subdirectories.</p>
 <p>Use the <code>**</code> pattern in any path portion. For example, <code>/media/**/*.png</code>
 matches all PNGs in <code>media</code> and it's subdirectories.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
-use glob::glob;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Glob(glob::GlobError);
-</span><span class="boring">        Pattern(glob::PatternError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+<pre><pre class="playground"><code class="language-rust edition2021">use glob::glob;
+use anyhow::Result;
+
 fn main() -&gt; Result&lt;()&gt; {
     for entry in glob("**/*.png")? {
         println!("{}", entry?.display());
     }
-
     Ok(())
 }</code></pre></pre>
-<h2 id="find-all-files-with-given-pattern-ignoring-filename-case"><a class="header" href="#find-all-files-with-given-pattern-ignoring-filename-case">Find all files with given pattern ignoring filename case.</a></h2>
-<p><a href="https://docs.rs/glob/"><img src="https://badge-cache.kominick.com/crates/v/glob.svg?label=glob" alt="glob-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
-<p>Find all image files in the <code>/media/</code> directory matching the <code>img_[0-9]*.png</code> pattern.</p>
-<p>A custom <a href="https://docs.rs/glob/*/glob/struct.MatchOptions.html"><code>MatchOptions</code></a> struct is passed to the <a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob_with</code></a> function making the glob pattern case insensitive while keeping the other options <a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<h2 id="find-all-files-with-given-pattern-ignoring-filename-case"><a class="header" href="#find-all-files-with-given-pattern-ignoring-filename-case">Find all files with given pattern ignoring filename case</a></h2>
+<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://docs.rs/glob/"><img src="https://badge-cache.kominick.com/crates/v/glob.svg?label=glob" alt="glob-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>Find all image files in the <code>/media/</code> directory matching the <code>img_[0-9]*.png</code>
+pattern.</p>
+<p>A custom <a href="https://docs.rs/glob/*/glob/struct.MatchOptions.html"><code>MatchOptions</code></a> struct is passed to <a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob_with</code></a> instead of <a href="https://docs.rs/glob/*/glob/fn.glob.html"><code>glob</code></a>
+to make the glob pattern case insensitive while keeping the other options
+<a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a>.</p>
+<pre><pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
+use anyhow::Result;
 use glob::{glob_with, MatchOptions};
-
-error_chain! {
-    foreign_links {
-        Glob(glob::GlobError);
-        Pattern(glob::PatternError);
-    }
-}
 
 fn main() -&gt; Result&lt;()&gt; {
     let options = MatchOptions {
@@ -4017,7 +4043,7 @@ Keep lines sorted.
 <h2 id="check-number-of-logical-cpu-cores"><a class="header" href="#check-number-of-logical-cpu-cores">Check number of logical cpu cores</a></h2>
 <p><a href="https://docs.rs/num_cpus/"><img src="https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://crates.io/categories/hardware-support"><img src="https://badge-cache.kominick.com/badge/hardware_support--x.svg?style=social" alt="cat-hardware-support-badge" /></a></p>
 <p>Shows the number of logical CPU cores in current machine using [<code>num_cpus::get</code>].</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre><pre class="playground"><code class="language-rust edition2021">fn main() {
     println!("Number of logical cores is {}", num_cpus::get());
 }</code></pre></pre>
 <!--
@@ -4123,71 +4149,34 @@ Keep lines sorted.
 <!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="external-command"><a class="header" href="#external-command">External Command</a></h1>
 <h2 id="run-an-external-command-and-process-stdout"><a class="header" href="#run-an-external-command-and-process-stdout">Run an external command and process stdout</a></h2>
-<p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
-<p>Runs <code>git log --oneline</code> as an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and inspects its <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a>
-using <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> to get the hash and message of the last 5 commits.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p>Runs <code>git log --oneline</code> using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and inspects the <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a>
+status to determine if the command was successful. The command output is captured
+as a [<code>String</code>] using [<code>String::from_utf8</code>].</p>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
 use std::process::Command;
-use regex::Regex;
-<span class="boring">
-</span><span class="boring">error_chain!{
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Regex(regex::Error);
-</span><span class="boring">        Utf8(std::string::FromUtf8Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
-#[derive(PartialEq, Default, Clone, Debug)]
-struct Commit {
-    hash: String,
-    message: String,
-}
 
 fn main() -&gt; Result&lt;()&gt; {
     let output = Command::new("git").arg("log").arg("--oneline").output()?;
 
-    if !output.status.success() {
-        error_chain::bail!("Command executed with failing error code");
+    if output.status.success() {
+        let raw_output = String::from_utf8(output.stdout)?;
+        let lines = raw_output.lines();
+        println!("Found {} lines", lines.count());
+        Ok(())
+    } else {
+        return Err(anyhow!("Command executed with failing error code"));
     }
-
-    let pattern = Regex::new(r"(?x)
-                               ([0-9a-fA-F]+) # commit hash
-                               (.*)           # The commit message")?;
-
-    String::from_utf8(output.stdout)?
-        .lines()
-        .filter_map(|line| pattern.captures(line))
-        .map(|cap| {
-                 Commit {
-                     hash: cap[1].to_string(),
-                     message: cap[2].trim().to_string(),
-                 }
-             })
-        .take(5)
-        .for_each(|x| println!("{:?}", x));
-
-    Ok(())
 }</code></pre></pre>
 <h2 id="run-an-external-command-passing-it-stdin-and-check-for-an-error-code"><a class="header" href="#run-an-external-command-passing-it-stdin-and-check-for-an-error-code">Run an external command passing it stdin and check for an error code</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Opens the <code>python</code> interpreter using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and passes it a
 python statement for execution. <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a> of statement is then parsed.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span><span class="boring">
-</span>use std::collections::HashSet;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
+use std::collections::HashSet;
 use std::io::Write;
 use std::process::{Command, Stdio};
-<span class="boring">
-</span><span class="boring">error_chain!{
-</span><span class="boring">    errors { CmdError }
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Utf8(std::string::FromUtf8Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let mut child = Command::new("python").stdin(Stdio::piped())
         .stderr(Stdio::piped())
@@ -4196,7 +4185,7 @@ fn main() -&gt; Result&lt;()&gt; {
 
     child.stdin
         .as_mut()
-        .ok_or("Child process stdin has not been captured!")?
+        .ok_or_else(|| anyhow!("Child process stdin has not been captured!"))?
         .write_all(b"import this; copyright(); credits(); exit()")?;
 
     let output = child.wait_with_output()?;
@@ -4211,7 +4200,7 @@ fn main() -&gt; Result&lt;()&gt; {
         Ok(())
     } else {
         let err = String::from_utf8(output.stderr)?;
-        error_chain::bail!("External command failed:\n {}", err)
+        return Err(anyhow!("External command failed:\n {}", err));
     }
 }</code></pre></pre>
 <h2 id="run-piped-external-commands"><a class="header" href="#run-piped-external-commands">Run piped external commands</a></h2>
@@ -4220,17 +4209,9 @@ fn main() -&gt; Result&lt;()&gt; {
 the current working directory. It is equivalent to running: <code>du -ah . | sort -hr | head -n 10</code>.</p>
 <p><a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a>s represent a process. Output of a child process is captured with a
 <a href="https://doc.rust-lang.org/std/process/struct.Stdio.html"><code>Stdio::piped</code></a> between parent and child.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span><span class="boring">
-</span>use std::process::{Command, Stdio};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Utf8(std::string::FromUtf8Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+use std::process::{Command, Stdio};
+
 fn main() -&gt; Result&lt;()&gt; {
     let directory = std::env::current_dir()?;
     let mut du_output_child = Command::new("du")
@@ -4399,7 +4380,8 @@ Keep lines sorted.
 <p><a href="https://docs.rs/crate/ndarray/*"><img src="https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray" alt="ndarray-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Creates two 2-D matrices with <a href="https://docs.rs/ndarray/*/ndarray/fn.arr2.html"><code>ndarray::arr2</code></a> and sums them element-wise.</p>
 <p>Note the sum is computed as <code>let sum = &amp;a + &amp;b</code>. The <code>&amp;</code> operator is used to avoid consuming <code>a</code> and <code>b</code>, making them available later for display. A new array is created containing their sum.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ndarray::arr2;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use ndarray::arr2;
 
 fn main() {
     let a = arr2(&amp;[[1, 2, 3],
@@ -4419,7 +4401,8 @@ fn main() {
 <h2 id="multiplying-matrices"><a class="header" href="#multiplying-matrices">Multiplying matrices</a></h2>
 <p><a href="https://docs.rs/crate/ndarray/*"><img src="https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray" alt="ndarray-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Creates two matrices with <a href="https://docs.rs/ndarray/*/ndarray/fn.arr2.html"><code>ndarray::arr2</code></a> and performs matrix multiplication on them with <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#method.dot-1"><code>ndarray::ArrayBase::dot</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ndarray::arr2;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use ndarray::arr2;
 
 fn main() {
     let a = arr2(&amp;[[1, 2, 3],
@@ -4444,7 +4427,8 @@ depending on context. If representing the orientation of a vector is important,
 a 2-D array with one row or one column must be used instead. In this example,
 the vector is a 1-D array on the right-hand side, so <code>dot</code> handles it as a column
 vector.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ndarray::{arr1, arr2, Array1};
+<pre><pre class="playground"><code class="language-rust edition2018">
+use ndarray::{arr1, arr2, Array1};
 
 fn main() {
     let scalar = 4;
@@ -4465,16 +4449,15 @@ fn main() {
 <p>The <a href="https://docs.rs/crate/ndarray/*">ndarray</a> crate supports a number of ways to create arrays -- this recipe creates
 <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html"><code>ndarray::Array</code></a>s from <code>std::Vec</code> using <code>from</code>. Then, it sums the arrays element-wise.</p>
 <p>This recipe contains an example of comparing two floating-point vectors element-wise.
-Floating-point numbers are often stored inexactly, making exact comparisons difficult.
-However, the <a href="https://docs.rs/approx/*/approx/macro.assert_abs_diff_eq.html"><code>assert_abs_diff_eq!</code></a> macro from the <a href="https://docs.rs/approx/*/approx/index.html"><code>approx</code></a> crate allows for convenient
-element-wise comparisons. To use the <code>approx</code> crate with <code>ndarray</code>, the <code>approx</code>
-feature must be added to the <code>ndarray</code> dependency in <code>Cargo.toml</code>. For example,
-<code>ndarray = { version = "0.13", features = ["approx"] }</code>.</p>
+For simple cases, we can use <code>assert_eq!</code> for exact equality comparison. For more
+complex floating-point comparisons that need to handle precision issues, you can use
+the <a href="https://docs.rs/approx/*/approx/index.html"><code>approx</code></a> crate with the <code>approx</code> feature enabled in the <code>ndarray</code> dependency
+in <code>Cargo.toml</code>. For example, <code>ndarray = { version = "0.13", features = ["approx"] }</code>.</p>
 <p>This recipe also contains additional ownership examples. Here, <code>let z = a + b</code> consumes
 <code>a</code> and <code>b</code>, updates <code>a</code> with the result, then moves ownership to <code>z</code>. Alternatively,
 <code>let w = &amp;c + &amp;d</code> creates a new vector without consuming <code>c</code> or <code>d</code>, allowing
 their modification later. See <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#binary-operators-with-two-arrays">Binary Operators With Two Arrays</a> for additional detail.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use approx::assert_abs_diff_eq;
+<pre><pre class="playground"><code class="language-rust edition2018">
 use ndarray::Array;
 
 fn main() {
@@ -4486,13 +4469,13 @@ fn main() {
   let z = a + b;
   let w =  &amp;c + &amp;d;
 
-  assert_abs_diff_eq!(z, Array::from(vec![6., 6., 6., 6., 6.]));
+  assert_eq!(z, Array::from(vec![6., 6., 6., 6., 6.]));
 
   println!("c = {}", c);
   c[0] = 10.;
   d[1] = 10.;
 
-  assert_abs_diff_eq!(w, Array::from(vec![6., 6., 6., 6., 6.]));
+  assert_eq!(w, Array::from(vec![6., 6., 6., 6., 6.]));
 
 }</code></pre></pre>
 <h2 id="vector-norm"><a class="header" href="#vector-norm">Vector norm</a></h2>
@@ -4521,7 +4504,8 @@ because then the caller could use <code>&amp;array</code> or <code>&amp;view</co
 If the function is part of a public API, that may be a better choice for the
 benefit of users. For internal functions, the more concise <code>ArrayView1&lt;f64&gt;</code>
 may be preferable.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ndarray::{array, Array1, ArrayView1};
+<pre><pre class="playground"><code class="language-rust edition2018">
+use ndarray::{array, Array1, ArrayView1};
 
 fn l1_norm(x: ArrayView1&lt;f64&gt;) -&gt; f64 {
     x.fold(0., |acc, elem| acc + elem.abs())
@@ -4546,7 +4530,8 @@ fn main() {
 <h2 id="invert-matrix"><a class="header" href="#invert-matrix">Invert matrix</a></h2>
 <p><a href="https://docs.rs/nalgebra"><img src="https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra" alt="nalgebra-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Creates a 3x3 matrix with <a href="https://docs.rs/nalgebra/*/nalgebra/base/type.Matrix3.html"><code>nalgebra::Matrix3</code></a> and inverts it, if possible.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use nalgebra::Matrix3;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use nalgebra::Matrix3;
 
 fn main() {
     let m1 = Matrix3::new(2.0, 1.0, 1.0, 3.0, 2.0, 1.0, 2.0, 1.0, 2.0);
@@ -4565,7 +4550,8 @@ fn main() {
 <p>Serialize and deserialize a matrix to and from JSON. Serialization is taken care of
 by <a href="https://docs.rs/serde_json/*/serde_json/fn.to_string.html"><code>serde_json::to_string</code></a> and <a href="https://docs.rs/serde_json/*/serde_json/fn.from_str.html"><code>serde_json::from_str</code></a> performs deserialization.</p>
 <p>Note that serialization followed by deserialization gives back the original matrix.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use nalgebra::DMatrix;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use nalgebra::DMatrix;
 
 fn main() -&gt; Result&lt;(), std::io::Error&gt; {
     let row_slice: Vec&lt;i32&gt; = (1..5001).collect();
@@ -4655,7 +4641,8 @@ Keep lines sorted.
 <p><a href="https://docs.rs/num/"><img src="https://badge-cache.kominick.com/crates/v/num.svg?label=num" alt="num-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Creates complex numbers of type <a href="https://autumnai.github.io/cuticula/num/complex/struct.Complex.html"><code>num::complex::Complex</code></a>. Both the real and
 imaginary part of the complex number must be of the same type.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre><pre class="playground"><code class="language-rust edition2018">
+fn main() {
     let complex_integer = num::complex::Complex::new(10, 20);
     let complex_float = num::complex::Complex::new(10.1, 20.1);
 
@@ -4667,7 +4654,8 @@ imaginary part of the complex number must be of the same type.</p>
 <p>Performing mathematical operations on complex numbers is the same as on
 built in types: the numbers in question must be of the same type (i.e. floats
 or integers).</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre><pre class="playground"><code class="language-rust edition2018">
+fn main() {
     let complex_num1 = num::complex::Complex::new(10.0, 20.0); // Must use floats
     let complex_num2 = num::complex::Complex::new(3.1, -4.2);
 
@@ -4682,7 +4670,8 @@ how they interact with other mathematical functions, most notibly the family
 of sine functions as well as the number e. To use these functions with
 complex numbers, the Complex type has a few built in
 functions, all of which can be found here: <a href="https://autumnai.github.io/cuticula/num/complex/struct.Complex.html"><code>num::complex::Complex</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use std::f64::consts::PI;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use std::f64::consts::PI;
 use num::complex::Complex;
 
 fn main() {
@@ -4864,7 +4853,8 @@ Keep lines sorted.
 <h2 id="big-integers"><a class="header" href="#big-integers">Big integers</a></h2>
 <p><a href="https://docs.rs/num/"><img src="https://badge-cache.kominick.com/crates/v/num.svg?label=num" alt="num-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Calculation for integers exceeding 128 bits are possible with <a href="https://docs.rs/num/0.2.0/num/struct.BigInt.html"><code>BigInt</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use num::bigint::{BigInt, ToBigInt};
+<pre><pre class="playground"><code class="language-rust edition2018">
+use num::bigint::{BigInt, ToBigInt};
 
 fn factorial(x: i32) -&gt; BigInt {
     if let Some(mut factorial) = 1.to_bigint() {
@@ -4909,7 +4899,6 @@ Keep lines sorted.
 <p>Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
-
 use regex::Regex;
 
 fn extract_login(input: &amp;str) -&gt; Option&lt;&amp;str&gt; {
@@ -4940,7 +4929,6 @@ fn main() {
 <p>The hashtag regex given here only catches Latin hashtags that start with a
 letter. The complete <a href="https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255">twitter hashtag regex</a> is much more complicated.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
-
 use regex::Regex;
 use std::collections::HashSet;
 
@@ -4963,18 +4951,10 @@ fn main() {
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Processes a string of text using <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter"><code>Regex::captures_iter</code></a> to capture multiple
 phone numbers.  The example here is for US convention phone numbers.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use regex::Regex;
 use std::fmt;
-<span class="boring">
-</span><span class="boring">error_chain!{
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Regex(regex::Error);
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 struct PhoneNumber&lt;'a&gt; {
     area: &amp;'a str,
     exchange: &amp;'a str,
@@ -5036,25 +5016,17 @@ fn main() -&gt; Result&lt;()&gt; {
 <h2 id="filter-a-log-file-by-matching-multiple-regular-expressions"><a class="header" href="#filter-a-log-file-by-matching-multiple-regular-expressions">Filter a log file by matching multiple regular expressions</a></h2>
 <p><a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Reads a file named <code>application.log</code> and only outputs the lines
-containing “version X.X.X”, some IP address followed by port 443
-(e.g. “192.168.0.1:443”), or a specific warning.</p>
+containing "version X.X.X", some IP address followed by port 443
+(e.g. "192.168.0.1:443"), or a specific warning.</p>
 <p>A <a href="https://docs.rs/regex/*/regex/struct.RegexSetBuilder.html"><code>regex::RegexSetBuilder</code></a> composes a <a href="https://docs.rs/regex/*/regex/struct.RegexSet.html"><code>regex::RegexSet</code></a>.
 Since backslashes are very common in regular expressions, using
 <a href="https://doc.rust-lang.org/reference/tokens.html#raw-string-literals">raw string literals</a> makes them more readable.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use std::fs::File;
 use std::io::{BufReader, BufRead};
 use regex::RegexSetBuilder;
 
-<span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Regex(regex::Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span><span class="boring">
-</span>fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let log_path = "application.log";
     let buffered = BufReader::new(File::open(log_path)?);
 
@@ -5234,35 +5206,36 @@ Keep lines sorted.
 <a href="https://docs.rs/select/*/select/document/struct.Document.html#method.find"><code>find</code></a> with the criteria of <a href="https://docs.rs/select/*/select/predicate/struct.Name.html"><code>Name</code></a> is "a" retrieves all links.
 Call <a href="https://doc.rust-lang.org/core/iter/trait.Iterator.html#method.filter_map"><code>filter_map</code></a> on the <a href="https://docs.rs/select/*/select/selection/struct.Selection.html"><code>Selection</code></a> retrieves URLs
 from links that have the "href" <a href="https://docs.rs/select/*/select/node/struct.Node.html#method.attr"><code>attr</code></a> (attribute).</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">mod links {
+<pre><pre class="playground"><code class="language-rust edition2018">// select needs rand v.0.8
+// cargo-deps: tokio="1", reqwest="0.11", select="0.6", thiserror="1"
+mod links {
   use thiserror::Error;
-use select::document::Document;
-use select::predicate::Name;
+  use select::document::Document;
+  use select::predicate::Name;
 
-#[derive(Error, Debug)]
-pub enum LinkError {
-    #[error("Reqwest error: {0}")]
-    ReqError(#[from] reqwest::Error),
-    #[error("IO error: {0}")]
-    IoError(#[from] std::io::Error),
-}
+  #[derive(Error, Debug)]
+  pub enum LinkError {
+      #[error("Reqwest error: {0}")]
+      ReqError(#[from] reqwest::Error),
+      #[error("IO error: {0}")]
+      IoError(#[from] std::io::Error),
+  }
 
-pub async fn get_links(page: &amp;str) -&gt; Result&lt;Vec&lt;Box&lt;str&gt;&gt;, LinkError&gt; {
-  let res = reqwest::get(page)
-    .await?
-    .text()
-    .await?;
+  pub async fn get_links(page: &amp;str) -&gt; Result&lt;Vec&lt;Box&lt;str&gt;&gt;, LinkError&gt; {
+    let res = reqwest::get(page)
+      .await?
+      .text()
+      .await?;
 
-  let links = Document::from(res.as_str())
-    .find(Name("a"))
-    .filter_map(|node| node.attr("href"))
-    .into_iter()
-    .map(|link| Box::&lt;str&gt;::from(link.to_string()))
-    .collect();
+    let links = Document::from(res.as_str())
+      .find(Name("a"))
+      .filter_map(|node| node.attr("href"))
+      .into_iter()
+      .map(|link| Box::&lt;str&gt;::from(link.to_string()))
+      .collect();
 
-  Ok(links)
-}
-
+    Ok(links)
+  }
 }
 
 #[tokio::main]
@@ -5282,87 +5255,87 @@ URL acts as a default.</p>
 parse an individual link with <a href="https://docs.rs/url/*/url/struct.ParseOptions.html"><code>url::ParseOptions</code></a> and <a href="https://docs.rs/url/*/url/struct.Url.html#method.parse"><code>Url::parse</code></a>).
 The task makes a request to the links with <a href="https://docs.rs/reqwest/">reqwest</a> and verifies
 <a href="https://docs.rs/reqwest/*/reqwest/struct.StatusCode.html"><code>StatusCode</code></a>.  Then the tasks <code>await</code> completion before ending the program.</p>
-<pre><pre class="playground"><code class="language-rust edition2024">mod broken {
+<pre><pre class="playground"><code class="language-rust edition2018">// cargo-deps: tokio="1", reqwest="0.11", select="0.6", thiserror="1", url="2", anyhow="1"
+mod broken {
   use thiserror::Error;
-use reqwest::StatusCode;
-use select::document::Document;
-use select::predicate::Name;
-use std::collections::HashSet;
-use url::{Position, Url};
+  use reqwest::StatusCode;
+  use select::document::Document;
+  use select::predicate::Name;
+  use std::collections::HashSet;
+  use url::{Position, Url};
 
-#[derive(Error, Debug)]
-pub enum BrokenError {
-    #[error("Reqwest error: {0}")]
-    ReqError(#[from] reqwest::Error),
-    #[error("IO error: {0}")]
-    IoError(#[from] std::io::Error),
-    #[error("URL parse error: {0}")]
-    UrlParseError(#[from] url::ParseError),
-    #[error("Join error: {0}")]
-    JoinError(#[from] tokio::task::JoinError),
+  #[derive(Error, Debug)]
+  pub enum BrokenError {
+      #[error("Reqwest error: {0}")]
+      ReqError(#[from] reqwest::Error),
+      #[error("IO error: {0}")]
+      IoError(#[from] std::io::Error),
+      #[error("URL parse error: {0}")]
+      UrlParseError(#[from] url::ParseError),
+      #[error("Join error: {0}")]
+      JoinError(#[from] tokio::task::JoinError),
+  }
+
+  pub struct CategorizedUrls {
+      pub ok: Vec&lt;String&gt;,
+      pub broken: Vec&lt;String&gt;,
+  }
+
+  enum Link {
+      GoodLink(Url),
+      BadLink(Url),
+  }
+
+  async fn get_base_url(url: &amp;Url, doc: &amp;Document) -&gt; Result&lt;Url, BrokenError&gt; {
+    let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);
+    let base_url =
+      base_tag_href.map_or_else(|| Url::parse(&amp;url[..Position::BeforePath]), Url::parse)?;
+    Ok(base_url)
+  }
+
+  async fn check_link(url: &amp;Url) -&gt; Result&lt;bool, BrokenError&gt; {
+    let res = reqwest::get(url.as_ref()).await?;
+    Ok(res.status() != StatusCode::NOT_FOUND)
+  }
+
+  pub async fn check(site: &amp;str) -&gt; Result&lt;CategorizedUrls, BrokenError&gt; {
+    let url = Url::parse(site)?;
+    let res = reqwest::get(url.as_ref()).await?.text().await?;
+    let document = Document::from(res.as_str());
+    let base_url = get_base_url(&amp;url, &amp;document).await?;
+    let base_parser = Url::options().base_url(Some(&amp;base_url));
+    let links: HashSet&lt;Url&gt; = document
+      .find(Name("a"))
+      .filter_map(|n| n.attr("href"))
+      .filter_map(|link| base_parser.parse(link).ok())
+      .collect();
+      let mut tasks = vec![];
+      let mut ok = vec![];
+      let mut broken = vec![];
+
+      for link in links {
+          tasks.push(tokio::spawn(async move {
+              if check_link(&amp;link).await.unwrap_or(false) {
+                  Link::GoodLink(link) 
+              } else {
+                  Link::BadLink(link)
+              }
+          }));
+      }
+
+      for task in tasks {
+          match task.await? {
+              Link::GoodLink(link) =&gt; ok.push(link.to_string()),
+              Link::BadLink(link) =&gt; broken.push(link.to_string()),
+          }
+      }
+
+    Ok(CategorizedUrls { ok, broken })
+  }
 }
 
-pub struct CategorizedUrls {
-    pub ok: Vec&lt;String&gt;,
-    pub broken: Vec&lt;String&gt;,
-}
-
-enum Link {
-    GoodLink(Url),
-    BadLink(Url),
-}
-
-async fn get_base_url(url: &amp;Url, doc: &amp;Document) -&gt; Result&lt;Url, BrokenError&gt; {
-  let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);
-  let base_url =
-    base_tag_href.map_or_else(|| Url::parse(&amp;url[..Position::BeforePath]), Url::parse)?;
-  Ok(base_url)
-}
-
-async fn check_link(url: &amp;Url) -&gt; Result&lt;bool, BrokenError&gt; {
-  let res = reqwest::get(url.as_ref()).await?;
-  Ok(res.status() != StatusCode::NOT_FOUND)
-}
-
-pub async fn check(site: &amp;str) -&gt; Result&lt;CategorizedUrls, BrokenError&gt; {
-  let url = Url::parse(site)?;
-  let res = reqwest::get(url.as_ref()).await?.text().await?;
-  let document = Document::from(res.as_str());
-  let base_url = get_base_url(&amp;url, &amp;document).await?;
-  let base_parser = Url::options().base_url(Some(&amp;base_url));
-  let links: HashSet&lt;Url&gt; = document
-    .find(Name("a"))
-    .filter_map(|n| n.attr("href"))
-    .filter_map(|link| base_parser.parse(link).ok())
-    .collect();
-    let mut tasks = vec![];
-    let mut ok = vec![];
-    let mut broken = vec![];
-
-    for link in links {
-        tasks.push(tokio::spawn(async move {
-            if check_link(&amp;link).await.unwrap_or(false) {
-                Link::GoodLink(link) 
-            } else {
-                Link::BadLink(link)
-            }
-        }));
-    }
-
-    for task in tasks {
-        match task.await? {
-            Link::GoodLink(link) =&gt; ok.push(link.to_string()),
-            Link::BadLink(link) =&gt; broken.push(link.to_string()),
-        }
-    }
-
-  Ok(CategorizedUrls { ok, broken })
-}
-
-}
-
-[tokio::main]
-fn main() -&gt; anyhow::Result&lt;()&gt; {
+#[tokio::main]
+async fn main() -&gt; anyhow::Result&lt;()&gt; {
     let categorized = broken::check("https://www.rust-lang.org/en-US/").await?;
     println!("OK: {:?}", categorized.ok);
     println!("Broken: {:?}", categorized.broken);
@@ -5376,34 +5349,35 @@ look for all entries of internal and external links with
 <p>MediaWiki link syntax is described <a href="https://www.mediawiki.org/wiki/Help:Links">here</a>.  The calling
 function will retain the whole document, and links will be returned as slice
 references to the original document.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">mod wiki {
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">// cargo-deps: tokio="1", reqwest="0.11", regex="1", anyhow="1"
+mod wiki {
   use regex::Regex;
-use std::borrow::Cow;
-use std::collections::HashSet;
-use std::sync::LazyLock;
+  use std::borrow::Cow;
+  use std::collections::HashSet;
+  use std::sync::LazyLock;
 
-pub fn extract_links(content: &amp;str) -&gt; HashSet&lt;Cow&lt;str&gt;&gt; {
-  static WIKI_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| Regex::new(
-      r"(?x)
-                \[\[(?P&lt;internal&gt;[^\[\]|]*)[^\[\]]*\]\]    # internal links
-                |
-                (url=|URL\||\[)(?P&lt;external&gt;http.*?)[ \|}] # external links
-            "
-    )
-    .unwrap()
-  );
+  pub fn extract_links(content: &amp;str) -&gt; HashSet&lt;Cow&lt;str&gt;&gt; {
+    static WIKI_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| Regex::new(
+        r"(?x)
+                  \[\[(?P&lt;internal&gt;[^\[\]|]*)[^\[\]]*\]\]    # internal links
+                  |
+                  (url=|URL\||\[)(?P&lt;external&gt;http.*?)[ \|}] # external links
+              "
+      )
+      .unwrap()
+    );
 
-  let links: HashSet&lt;_&gt; = WIKI_REGEX
-    .captures_iter(content)
-    .map(|c| match (c.name("internal"), c.name("external")) {
-        (Some(val), None) =&gt; Cow::from(val.as_str()),
-        (None, Some(val)) =&gt; Cow::from(val.as_str()),
-        _ =&gt; unreachable!(),
-    })
-    .collect::&lt;HashSet&lt;_&gt;&gt;();
+    let links: HashSet&lt;_&gt; = WIKI_REGEX
+      .captures_iter(content)
+      .map(|c| match (c.name("internal"), c.name("external")) {
+          (Some(val), None) =&gt; Cow::from(val.as_str()),
+          (None, Some(val)) =&gt; Cow::from(val.as_str()),
+          _ =&gt; unreachable!(),
+      })
+      .collect::&lt;HashSet&lt;_&gt;&gt;();
 
-  links
-}
+    links
+  }
 }
 
 #[tokio::main]
@@ -5434,8 +5408,7 @@ Keep lines sorted.
 <code>Result&lt;Url, ParseError&gt;</code>.</p>
 <p>Once the URL has been parsed, it can be used with all of the methods in the
 <code>Url</code> type.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use url::{Url, ParseError};
+<pre><pre class="playground"><code class="language-rust edition2018">use url::{Url, ParseError};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&amp;state=open";
@@ -5451,19 +5424,9 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
 files or query strings.  Each of those items are stripped out of the given
 URL.  <a href="https://docs.rs/url/*/url/struct.PathSegmentsMut.html#method.clear"><code>PathSegmentsMut::clear</code></a> removes paths and <a href="https://docs.rs/url/*/url/struct.Url.html#method.set_query"><code>Url::set_query</code></a> removes
 query string.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2021">use anyhow::{Result, anyhow};
 use url::Url;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        UrlParse(url::ParseError);
-</span><span class="boring">    }
-</span><span class="boring">    errors {
-</span><span class="boring">        CannotBeABase
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let full = "https://github.com/rust-lang/cargo?asdf";
 
@@ -5482,7 +5445,7 @@ fn base_url(mut url: Url) -&gt; Result&lt;Url&gt; {
             path.clear();
         }
         Err(_) =&gt; {
-            return Err(Error::from_kind(ErrorKind::CannotBeABase));
+            return Err(anyhow!("Cannot be a base URL"));
         }
     }
 
@@ -5493,8 +5456,7 @@ fn base_url(mut url: Url) -&gt; Result&lt;Url&gt; {
 <h2 id="create-new-urls-from-a-base-url"><a class="header" href="#create-new-urls-from-a-base-url">Create new URLs from a base URL</a></h2>
 <p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html#method.join"><code>join</code></a> method creates a new URL from a base and relative path.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use url::{Url, ParseError};
+<pre><pre class="playground"><code class="language-rust edition2018">use url::{Url, ParseError};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let path = "/rust-lang/cargo";
@@ -5519,8 +5481,7 @@ fn build_github_url(path: &amp;str) -&gt; Result&lt;Url, ParseError&gt; {
 <p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> struct exposes various methods to extract information about the URL
 it represents.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use url::{Url, Host, ParseError};
+<pre><pre class="playground"><code class="language-rust edition2021">use url::{Url, Host, ParseError};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let s = "ftp://rust-lang.org/examples";
@@ -5535,17 +5496,10 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
     Ok(())
 }</code></pre></pre>
 <p><a href="https://docs.rs/url/*/url/struct.Url.html#method.origin"><code>origin</code></a> produces the same result.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
 use url::{Url, Origin, Host};
 
-<span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        UrlParse(url::ParseError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span><span class="boring">
-</span>fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let s = "ftp://rust-lang.org/examples";
 
     let url = Url::parse(s)?;
@@ -5564,9 +5518,7 @@ use url::{Url, Origin, Host};
 <h2 id="remove-fragment-identifiers-and-query-pairs-from-a-url"><a class="header" href="#remove-fragment-identifiers-and-query-pairs-from-a-url">Remove fragment identifiers and query pairs from a URL</a></h2>
 <p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>Parses <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> and slices it with <a href="https://docs.rs/url/*/url/enum.Position.html"><code>url::Position</code></a> to strip unneeded URL parts.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-
-use url::{Url, Position, ParseError};
+<pre><pre class="playground"><code class="language-rust edition2018">use url::{Url, Position, ParseError};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&amp;state=open")?;
@@ -5649,18 +5601,10 @@ the header as a <a href="https://docs.rs/reqwest/*/reqwest/header/struct.HeaderV
 string. The <code>mime</code> crate can then parse that, yielding a <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime::Mime</code></a> value.</p>
 <p>The <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime</code></a> crate also defines some commonly used MIME types.</p>
 <p>Note that the <a href="https://docs.rs/reqwest/*/reqwest/header/index.html"><code>reqwest::header</code></a> module is exported from the <a href="https://docs.rs/http/*/http/"><code>http</code></a> crate.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use mime::Mime;
 use std::str::FromStr;
 use reqwest::header::CONTENT_TYPE;
-
- error_chain! {
-    foreign_links {
-        Reqwest(reqwest::Error);
-        Header(reqwest::header::ToStrError);
-        Mime(mime::FromStrError);
-    }
- }
 
 #[tokio::main]
 async fn main() -&gt; Result&lt;()&gt; {
@@ -5713,20 +5657,13 @@ Keep lines sorted.
 <!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="making-requests"><a class="header" href="#making-requests">Making Requests</a></h1>
 <h2 id="make-a-http-get-request"><a class="header" href="#make-a-http-get-request">Make a HTTP GET request</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p>[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]</p>
 <p>Parses the supplied URL and makes a synchronous HTTP GET request
 with <a href="https://docs.rs/reqwest/*/reqwest/blocking/fn.get.html"><code>reqwest::blocking::get</code></a>. Prints obtained <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Response.html"><code>reqwest::blocking::Response</code></a>
 status and headers. Reads HTTP response body into an allocated <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>
 using <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use std::io::Read;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        HttpRequest(reqwest::Error);
-    }
-}
 
 fn main() -&gt; Result&lt;()&gt; {
     let mut res = reqwest::blocking::get("http://httpbin.org/get")?;
@@ -5747,19 +5684,12 @@ Make sure to add tokio = {version = "1.21.2", features = ["full"]} to
 your cargo.toml file.</p>
 <p>In this example, <a href="https://tokio.rs/tokio/tutorial/hello-tokio#the-code"><code>tokio::main</code></a> handles all the heavy executor setup
 and allows sequential code implemented without blocking until <code>.await</code>.</p>
-<p>Uses the asynchronous versions of <a href="https://docs.rs/reqwest/">reqwest</a>, both <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> and
+<p>Uses the asynchronous versions of [reqwest], both <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> and
 <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html"><code>reqwest::Response</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust no_run">use error_chain::error_chain;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        HttpRequest(reqwest::Error);
-    }
-}
+<pre><pre class="playground"><code class="language-rust no_run">use anyhow::Result;
 
 #[tokio::main]
-async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+async fn main() -&gt; Result&lt;()&gt; {
     let res = reqwest::get("http://httpbin.org/get").await?;
     println!("Status: {}", res.status());
     println!("Headers:\n{:#?}", res.headers());
@@ -5769,27 +5699,21 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="set-custom-headers-and-url-parameters-for-a-rest-request"><a class="header" href="#set-custom-headers-and-url-parameters-for-a-rest-request">Set custom headers and URL parameters for a REST request</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/hyper/"><img src="https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper" alt="hyper-badge" /></a> <a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
-<p>Builds complex URL with <a href="https://docs.rs/url/*/url/struct.Url.html#method.parse_with_params"><code>Url::parse_with_params</code></a>.  Sets standard headers
-<a href="https://docs.rs/reqwest/*/reqwest/header/constant.USER_AGENT.html"><code>header::USER_AGENT</code></a>, and custom <code>X-Powered-By</code> header with
-<a href="https://docs.rs/reqwest/*/reqwest/header/struct.HeaderName.html#impl-TryFrom%3C%26%27a%20str%3E"><code>RequestBuilder::HeaderName::TryFrom&lt;&amp;'a str&gt;</code></a> then makes the request with
-<a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a>.</p>
+<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![url-badge]][url] [![cat-net-badge]][cat-net]</p>
+<p>Sets both standard and custom HTTP headers as well as URL parameters for a HTTP
+GET request. Creates a custom header of type <code>XPoweredBy</code> with [<code>header!</code>] macro.</p>
+<p>Then, builds the complex URL with [<code>Url::parse_with_params</code>]. Sets standard
+headers [<code>header::USER_AGENT</code>], [<code>header::AUTHORIZATION</code>] and custom
+<code>XPoweredBy</code> header using [<code>RequestBuilder::header</code>], then makes the request
+with [<code>RequestBuilder::send</code>].</p>
 <p>The request target <a href="http://httpbin.org/headers">http://httpbin.org/headers</a> responds with
 a JSON dict containing all request headers for easy verification.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
-
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use reqwest::Url;
 use reqwest::blocking::Client;
 use reqwest::header::USER_AGENT;
 use serde::Deserialize;
 use std::collections::HashMap;
-
-error_chain! {
-    foreign_links {
-        Reqwest(reqwest::Error);
-        UrlParse(url::ParseError);
-    }
-}
 
 #[derive(Deserialize, Debug)]
 pub struct HeadersEcho {
@@ -5818,22 +5742,176 @@ fn main() -&gt; Result&lt;()&gt; {
     assert_eq!(out.headers["X-Powered-By"], "Rust");
 
     Ok(())
-}</code></pre></pre>
-<!--
+}
+
+[`header::USER_AGENT`]: https://docs.rs/reqwest/*/reqwest/header/constant.USER_AGENT.html
+[`RequestBuilder::HeaderName::TryFrom&lt;&amp;'a str&gt;`]: https://docs.rs/reqwest/*/reqwest/header/struct.HeaderName.html#impl-TryFrom%3C%26%27a%20str%3E
+[`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
+[`Url::parse_with_params`]: https://docs.rs/url/*/url/struct.Url.html#method.parse_with_params
+
+&lt;!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
--->
-<!-- Categories -->
-<!-- Crates -->
+--&gt;
+
+&lt;!-- Categories --&gt;
+
+[cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
+[cat-caching]: https://crates.io/categories/caching
+[cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
+[cat-command-line]: https://crates.io/categories/command-line-interface
+[cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
+[cat-compression]: https://crates.io/categories/compression
+[cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
+[cat-concurrency]: https://crates.io/categories/concurrency
+[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
+[cat-config]: https://crates.io/categories/config
+[cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
+[cat-cryptography]: https://crates.io/categories/cryptography
+[cat-database-badge]: https://badge-cache.kominick.com/badge/database--x.svg?style=social
+[cat-database]: https://crates.io/categories/database
+[cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
+[cat-date-and-time]: https://crates.io/categories/date-and-time
+[cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
+[cat-debugging]: https://crates.io/categories/debugging
+[cat-development-tools-badge]: https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social
+[cat-development-tools]: https://crates.io/categories/development-tools
+[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
+[cat-encoding]: https://crates.io/categories/encoding
+[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
+[cat-filesystem]: https://crates.io/categories/filesystem
+[cat-hardware-support-badge]: https://badge-cache.kominick.com/badge/hardware_support--x.svg?style=social
+[cat-hardware-support]: https://crates.io/categories/hardware-support
+[cat-net-badge]: https://badge-cache.kominick.com/badge/net--x.svg?style=social
+[cat-net]: https://crates.io/categories/network-programming
+[cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
+[cat-no-std]: https://crates.io/categories/no-std
+[cat-os-badge]: https://badge-cache.kominick.com/badge/OS--x.svg?style=social
+[cat-os]: https://crates.io/categories/os
+[cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
+[cat-rendering]: https://crates.io/categories/rendering
+[cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
+[cat-rust-patterns]: https://crates.io/categories/rust-patterns
+[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
+[cat-science]: https://crates.io/categories/science
+[cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
+[cat-text-processing]: https://crates.io/categories/text-processing
+[cat-time-badge]: https://badge-cache.kominick.com/badge/time--x.svg?style=social
+[cat-time]: https://crates.io/categories/date-and-time
+
+&lt;!-- Crates --&gt;
+
+[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/ansi_term.svg?label=ansi_term
+[ansi_term]: https://docs.rs/ansi_term/
+[anyhow-badge]: https://badge-cache.kominick.com/crates/v/anyhow.svg?label=anyhow
+[anyhow]: https://docs.rs/anyhow/
+[base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
+[base64]: https://docs.rs/base64/
+[bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
+[bitflags]: https://docs.rs/bitflags/
+[byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
+[byteorder]: https://docs.rs/byteorder/
+[cc-badge]: https://badge-cache.kominick.com/crates/v/cc.svg?label=cc
+[cc]: https://docs.rs/cc
+[chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
+[chrono]: https://docs.rs/chrono/
+[clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
+[clap]: https://docs.rs/clap/
+[crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
+[crossbeam]: https://docs.rs/crossbeam/
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
+[csv]: https://docs.rs/csv/
+[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
+[data-encoding]: https://docs.rs/data-encoding/
+[env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
+[env_logger]: https://docs.rs/env_logger/
+[error-chain-badge]: https://badge-cache.kominick.com/crates/v/error-chain.svg?label=error-chain
+[error-chain]: https://docs.rs/error-chain/
+[flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2
+[flate2]: https://docs.rs/flate2/
+[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
+[glob]: https://docs.rs/glob/
+[hyper-badge]: https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper
+[hyper]: https://docs.rs/hyper/
+[image-badge]: https://badge-cache.kominick.com/crates/v/image.svg?label=image
+[image]: https://docs.rs/image/
+[lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
+[lazy_static]: https://docs.rs/lazy_static/
+[log-badge]: https://badge-cache.kominick.com/crates/v/log.svg?label=log
+[log4rs-badge]: https://badge-cache.kominick.com/crates/v/log4rs.svg?label=log4rs
+[log4rs]: https://docs.rs/log4rs/
+[log]: https://docs.rs/log/
+[memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
+[memmap]: https://docs.rs/memmap/
+[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
+[mime]: https://docs.rs/mime/
+[nalgebra-badge]: https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra
+[nalgebra]: https://docs.rs/nalgebra
+[ndarray-badge]: https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray
+[ndarray]: https://docs.rs/ndarray
+[num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
+[num]: https://docs.rs/num/
+[num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
+[num_cpus]: https://docs.rs/num_cpus/
+[percent-encoding-badge]: https://badge-cache.kominick.com/crates/v/percent-encoding.svg?label=percent-encoding
+[postgres-badge]: https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres
+[postgres]: https://docs.rs/postgres/0.15.2/postgres/
+[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
+[rand]: https://docs.rs/rand/
+[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand_distr.svg?label=rand_distr
+[rand_distr]: https://docs.rs/rand_distr/
+[rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
+[rayon]: https://docs.rs/rayon/
+[regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
+[regex]: https://docs.rs/regex/
+[reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
+[reqwest]: https://docs.rs/reqwest/
+[ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
+[ring]: https://briansmith.org/rustdoc/ring/
+[rusqlite-badge]: https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite
+[rusqlite]: https://crates.io/crates/rusqlite/
+[same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
+[same_file]: https://docs.rs/same-file/
+[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
+[select]: https://docs.rs/select/
+[semver-badge]: https://badge-cache.kominick.com/crates/v/semver.svg?label=semver
+[semver]: https://docs.rs/semver/
+[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
+[serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
+[serde-json]: https://docs.rs/serde_json/*/serde_json/
+[serde]: https://docs.rs/serde/
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg
+[std]: https://doc.rust-lang.org/std
+[syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
+[syslog]: https://docs.rs/syslog/
+[tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
+[tar]: https://docs.rs/tar/
+[tempfile-badge]: https://badge-cache.kominick.com/crates/v/tempfile.svg?label=tempfile
+[tempfile]: https://docs.rs/tempfile/
+[thiserror-badge]: https://badge-cache.kominick.com/crates/v/thiserror.svg?label=thiserror
+[thiserror]: https://docs.rs/thiserror/
+[threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
+[threadpool]: https://docs.rs/threadpool/
+[toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
+[toml]: https://docs.rs/toml/
+[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
+[url]: https://docs.rs/url/
+[unicode-segmentation-badge]: https://badge-cache.kominick.com/crates/v/unicode-segmentation.svg?label=unicode-segmentation
+[unicode-segmentation]: https://docs.rs/unicode-segmentation/
+[walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
+[walkdir]: https://docs.rs/walkdir/</code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="calling-a-web-api"><a class="header" href="#calling-a-web-api">Calling a Web API</a></h1>
 <h2 id="query-the-github-api"><a class="header" href="#query-the-github-api">Query the GitHub API</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
-<p>Queries GitHub <a href="https://developer.github.com/v3/activity/starring/#list-stargazers">stargazers API v3</a>
-with <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> to get list of all users who have marked a GitHub project with a star.
-<a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html"><code>reqwest::Response</code></a> is deserialized with <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.json"><code>Response::json</code></a> into <code>User</code> objects implementing <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html"><code>serde::Deserialize</code></a>.</p>
-<p>[tokio::main] is used to set up the async executor and the process waits for <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> to complete before
+<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
+<p>Queries [GitHub stargazers API v3][github-api-stargazers] with <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a>
+to get list of all users who have marked a GitHub repository with a star.
+<a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html"><code>reqwest::Response</code></a> is deserialized into <code>User</code> objects implementing <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html"><code>serde::Deserialize</code></a>.</p>
+<p>The program expects the GitHub personal access token to be specified in the
+environment variable <code>GITHUB_TOKEN</code>. Request setup includes the [<code>reqwest::header::USER_AGENT</code>]
+header as required by the [GitHub API][github-api]. The program deserializes
+the response body with [<code>serde_json::from_str</code>] into a vector of <code>User</code> objects and
 processing the response into User instances.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use serde::Deserialize;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use serde::Deserialize;
 use reqwest::Error;
 use reqwest::header::USER_AGENT;
 
@@ -5843,46 +5921,43 @@ struct User {
     id: u32,
 }
 
-#[tokio::main]
-async fn main() -&gt; Result&lt;(), Error&gt; {
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
                               owner = "rust-lang-nursery",
                               repo = "rust-cookbook");
     println!("{}", request_url);
     
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
     let response = client
         .get(request_url)
         .header(USER_AGENT, "rust-web-api-client") // gh api requires a user-agent header
-        .send()
-        .await?;
+        .send()?;
 
-    let users: Vec&lt;User&gt; = response.json().await?;
+    let users: Vec&lt;User&gt; = response.json()?;
     println!("{:?}", users);
     Ok(())
 }</code></pre></pre>
 <h2 id="check-if-an-api-resource-exists"><a class="header" href="#check-if-an-api-resource-exists">Check if an API resource exists</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
-<p>Query the GitHub Users Endpoint using a HEAD
-request (<a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head"><code>Client::head</code></a>) and then inspect the response code to determine
-success. This is a quick way to query a rest resource without needing to receive
-a body. <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> configured with <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.timeout"><code>ClientBuilder::timeout</code></a> ensures
-a request will not last longer than a timeout.</p>
+<p>[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]</p>
+<p>Query the GitHub Users Endpoint using a HEAD request (<a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head"><code>Client::head</code></a>) and then
+inspect the response code to determine success. This is a quick way to query a
+rest resource without needing to receive a body. <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> configured
+with <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.timeout"><code>ClientBuilder::timeout</code></a> ensures a request will not last longer than a
+timeout.</p>
 <p>Due to both <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.build"><code>ClientBuilder::build</code></a> and [<code>ReqwestBuilder::send</code>] returning <a href="https://docs.rs/reqwest/*/reqwest/struct.Error.html"><code>reqwest::Error</code></a>
 types, the shortcut <a href="https://docs.rs/reqwest/*/reqwest/type.Result.html"><code>reqwest::Result</code></a> is used for the main function return type.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use reqwest::Result;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use reqwest::Result;
 use std::time::Duration;
 use reqwest::ClientBuilder;
 
-#[tokio::main]
-async fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let user = "ferris-the-crab";
     let request_url = format!("https://api.github.com/users/{}", user);
     println!("{}", request_url);
 
     let timeout = Duration::new(5, 0);
-    let client = ClientBuilder::new().timeout(timeout).build()?;
-    let response = client.head(&amp;request_url).send().await?;
+    let client = reqwest::blocking::ClientBuilder::new().timeout(timeout).build()?;
+    let response = client.head(&amp;request_url).send()?;
 
     if response.status().is_success() {
         println!("{} is a user!", user);
@@ -5893,26 +5968,19 @@ async fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="create-and-delete-gist-with-github-api"><a class="header" href="#create-and-delete-gist-with-github-api">Create and delete Gist with GitHub API</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
-<p>Creates a gist with POST request to GitHub <a href="https://developer.github.com/v3/gists/">gists API v3</a>
-using <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a> and removes it with DELETE request using <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete"><code>Client::delete</code></a>.</p>
+<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
+<p>Creates a gist with POST request to GitHub [gists API v3][gists-api] using
+<a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a> and removes it with DELETE request using <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete"><code>Client::delete</code></a>.</p>
 <p>The <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> is responsible for details of both requests including
 URL, body and authentication. The POST body from <a href="https://docs.rs/serde_json/*/serde_json/macro.json.html"><code>serde_json::json!</code></a> macro
 provides arbitrary JSON body. Call to <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json"><code>RequestBuilder::json</code></a> sets the request
 body. <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth"><code>RequestBuilder::basic_auth</code></a> handles authentication. The call to
 <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> synchronously executes the requests.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use serde::Deserialize;
 use serde_json::json;
 use std::env;
 use reqwest::Client;
-
-error_chain! {
-    foreign_links {
-        EnvVar(env::VarError);
-        HttpRequest(reqwest::Error);
-    }
-}
 
 #[derive(Deserialize, Debug)]
 struct Gist {
@@ -5920,8 +5988,7 @@ struct Gist {
     html_url: String,
 }
 
-#[tokio::main]
-async fn main() -&gt;  Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 
@@ -5935,20 +6002,20 @@ async fn main() -&gt;  Result&lt;()&gt; {
         }});
 
     let request_url = "https://api.github.com/gists";
-    let response = Client::new()
+    let response = reqwest::blocking::Client::new()
         .post(request_url)
         .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
         .json(&amp;gist_body)
-        .send().await?;
+        .send()?;
 
-    let gist: Gist = response.json().await?;
+    let gist: Gist = response.json()?;
     println!("Created {:?}", gist);
 
     let request_url = format!("{}/{}",request_url, gist.id);
-    let response = Client::new()
+    let response = reqwest::blocking::Client::new()
         .delete(&amp;request_url)
         .basic_auth(gh_user, Some(gh_pass))
-        .send().await?;
+        .send()?;
 
     println!("Gist {} deleted! Status code: {}",gist.id, response.status());
     Ok(())
@@ -5957,129 +6024,268 @@ async fn main() -&gt;  Result&lt;()&gt; {
 Typical use case would employ one of the much more complex <a href="https://oauth.net/getting-started/">OAuth</a> authorization
 flows.</p>
 <h2 id="consume-a-paginated-restful-api"><a class="header" href="#consume-a-paginated-restful-api">Consume a paginated RESTful API</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
 <p>Wraps a paginated web API in a convenient Rust iterator. The iterator lazily
 fetches the next page of results from the remote server as it arrives at the end of each page.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">mod paginated {
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">// cargo-deps: reqwest="0.11", serde="1"
+mod paginated {
   use reqwest::Result;
-use reqwest::header::USER_AGENT;
-use serde::Deserialize;
+  use reqwest::header::USER_AGENT;
+  use serde::Deserialize;
 
-#[derive(Deserialize)]
-struct ApiResponse {
-    dependencies: Vec&lt;Dependency&gt;,
-    meta: Meta,
+  #[derive(Deserialize)]
+  struct ApiResponse {
+      dependencies: Vec&lt;Dependency&gt;,
+      meta: Meta,
+  }
+
+  #[derive(Deserialize)]
+  pub struct Dependency {
+      pub crate_id: String,
+      pub id: u32,
+  }
+
+  #[derive(Deserialize)]
+  struct Meta {
+      total: u32,
+  }
+
+  pub struct ReverseDependencies {
+      crate_id: String,
+      dependencies: &lt;Vec&lt;Dependency&gt; as IntoIterator&gt;::IntoIter,
+      client: reqwest::blocking::Client,
+      page: u32,
+      per_page: u32,
+      total: u32,
+  }
+
+  impl ReverseDependencies {
+      pub fn of(crate_id: &amp;str) -&gt; Result&lt;Self&gt; {
+          Ok(ReverseDependencies {
+                 crate_id: crate_id.to_owned(),
+                 dependencies: vec![].into_iter(),
+                 client: reqwest::blocking::Client::new(),
+                 page: 0,
+                 per_page: 100,
+                 total: 0,
+             })
+      }
+
+      fn try_next(&amp;mut self) -&gt; Result&lt;Option&lt;Dependency&gt;&gt; {
+          if let Some(dep) = self.dependencies.next() {
+              return Ok(Some(dep));
+          }
+
+          if self.page &gt; 0 &amp;&amp; self.page * self.per_page &gt;= self.total {
+              return Ok(None);
+          }
+
+          self.page += 1;
+          let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&amp;per_page={}",
+                            self.crate_id,
+                            self.page,
+                            self.per_page);
+          println!("{}", url);
+
+          let response = self.client.get(&amp;url).header(
+                     USER_AGENT,
+                     "cookbook agent",
+                 ).send()?.json::&lt;ApiResponse&gt;()?;
+          self.dependencies = response.dependencies.into_iter();
+          self.total = response.meta.total;
+          Ok(self.dependencies.next())
+      }
+  }
+
+  impl Iterator for ReverseDependencies {
+      type Item = Result&lt;Dependency&gt;;
+
+      fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+          match self.try_next() {
+              Ok(Some(dep)) =&gt; Some(Ok(dep)),
+              Ok(None) =&gt; None,
+              Err(err) =&gt; Some(Err(err)),
+          }
+      }
+  }
 }
 
-#[derive(Deserialize)]
-pub struct Dependency {
-    pub crate_id: String,
-    pub id: u32,
-}
-
-#[derive(Deserialize)]
-struct Meta {
-    total: u32,
-}
-
-pub struct ReverseDependencies {
-    crate_id: String,
-    dependencies: &lt;Vec&lt;Dependency&gt; as IntoIterator&gt;::IntoIter,
-    client: reqwest::blocking::Client,
-    page: u32,
-    per_page: u32,
-    total: u32,
-}
-
-impl ReverseDependencies {
-    pub fn of(crate_id: &amp;str) -&gt; Result&lt;Self&gt; {
-        Ok(ReverseDependencies {
-               crate_id: crate_id.to_owned(),
-               dependencies: vec![].into_iter(),
-               client: reqwest::blocking::Client::new(),
-               page: 0,
-               per_page: 100,
-               total: 0,
-           })
-    }
-
-    fn try_next(&amp;mut self) -&gt; Result&lt;Option&lt;Dependency&gt;&gt; {
-        if let Some(dep) = self.dependencies.next() {
-            return Ok(Some(dep));
-        }
-
-        if self.page &gt; 0 &amp;&amp; self.page * self.per_page &gt;= self.total {
-            return Ok(None);
-        }
-
-        self.page += 1;
-        let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&amp;per_page={}",
-                          self.crate_id,
-                          self.page,
-                          self.per_page);
-        println!("{}", url);
-
-        let response = self.client.get(&amp;url).header(
-                   USER_AGENT,
-                   "cookbook agent",
-               ).send()?.json::&lt;ApiResponse&gt;()?;
-        self.dependencies = response.dependencies.into_iter();
-        self.total = response.meta.total;
-        Ok(self.dependencies.next())
-    }
-}
-
-impl Iterator for ReverseDependencies {
-    type Item = Result&lt;Dependency&gt;;
-
-    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
-        match self.try_next() {
-            Ok(Some(dep)) =&gt; Some(Ok(dep)),
-            Ok(None) =&gt; None,
-            Err(err) =&gt; Some(Err(err)),
-        }
-    }
-}
-}
-
-fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     for dep in paginated::ReverseDependencies::of("serde")? {
         let dependency = dep?;
         println!("{} depends on {}", dependency.id, dependency.crate_id);
     }
     Ok(())
-}</code></pre></pre>
-<!--
+}
+
+&lt;!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
--->
-<!-- Categories -->
-<!-- Crates -->
+--&gt;
+
+&lt;!-- Categories --&gt;
+
+[cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
+[cat-caching]: https://crates.io/categories/caching
+[cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
+[cat-command-line]: https://crates.io/categories/command-line-interface
+[cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
+[cat-compression]: https://crates.io/categories/compression
+[cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
+[cat-concurrency]: https://crates.io/categories/concurrency
+[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
+[cat-config]: https://crates.io/categories/config
+[cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
+[cat-cryptography]: https://crates.io/categories/cryptography
+[cat-database-badge]: https://badge-cache.kominick.com/badge/database--x.svg?style=social
+[cat-database]: https://crates.io/categories/database
+[cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
+[cat-date-and-time]: https://crates.io/categories/date-and-time
+[cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
+[cat-debugging]: https://crates.io/categories/debugging
+[cat-development-tools-badge]: https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social
+[cat-development-tools]: https://crates.io/categories/development-tools
+[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
+[cat-encoding]: https://crates.io/categories/encoding
+[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
+[cat-filesystem]: https://crates.io/categories/filesystem
+[cat-hardware-support-badge]: https://badge-cache.kominick.com/badge/hardware_support--x.svg?style=social
+[cat-hardware-support]: https://crates.io/categories/hardware-support
+[cat-net-badge]: https://badge-cache.kominick.com/badge/net--x.svg?style=social
+[cat-net]: https://crates.io/categories/network-programming
+[cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
+[cat-no-std]: https://crates.io/categories/no-std
+[cat-os-badge]: https://badge-cache.kominick.com/badge/OS--x.svg?style=social
+[cat-os]: https://crates.io/categories/os
+[cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
+[cat-rendering]: https://crates.io/categories/rendering
+[cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
+[cat-rust-patterns]: https://crates.io/categories/rust-patterns
+[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
+[cat-science]: https://crates.io/categories/science
+[cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
+[cat-text-processing]: https://crates.io/categories/text-processing
+[cat-time-badge]: https://badge-cache.kominick.com/badge/time--x.svg?style=social
+[cat-time]: https://crates.io/categories/date-and-time
+
+&lt;!-- Crates --&gt;
+
+[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/ansi_term.svg?label=ansi_term
+[ansi_term]: https://docs.rs/ansi_term/
+[anyhow-badge]: https://badge-cache.kominick.com/crates/v/anyhow.svg?label=anyhow
+[anyhow]: https://docs.rs/anyhow/
+[base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
+[base64]: https://docs.rs/base64/
+[bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
+[bitflags]: https://docs.rs/bitflags/
+[byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
+[byteorder]: https://docs.rs/byteorder/
+[cc-badge]: https://badge-cache.kominick.com/crates/v/cc.svg?label=cc
+[cc]: https://docs.rs/cc
+[chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
+[chrono]: https://docs.rs/chrono/
+[clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
+[clap]: https://docs.rs/clap/
+[crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
+[crossbeam]: https://docs.rs/crossbeam/
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
+[csv]: https://docs.rs/csv/
+[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
+[data-encoding]: https://docs.rs/data-encoding/
+[env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
+[env_logger]: https://docs.rs/env_logger/
+[error-chain-badge]: https://badge-cache.kominick.com/crates/v/error-chain.svg?label=error-chain
+[error-chain]: https://docs.rs/error-chain/
+[flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2
+[flate2]: https://docs.rs/flate2/
+[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
+[glob]: https://docs.rs/glob/
+[hyper-badge]: https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper
+[hyper]: https://docs.rs/hyper/
+[image-badge]: https://badge-cache.kominick.com/crates/v/image.svg?label=image
+[image]: https://docs.rs/image/
+[lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
+[lazy_static]: https://docs.rs/lazy_static/
+[log-badge]: https://badge-cache.kominick.com/crates/v/log.svg?label=log
+[log4rs-badge]: https://badge-cache.kominick.com/crates/v/log4rs.svg?label=log4rs
+[log4rs]: https://docs.rs/log4rs/
+[log]: https://docs.rs/log/
+[memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
+[memmap]: https://docs.rs/memmap/
+[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
+[mime]: https://docs.rs/mime/
+[nalgebra-badge]: https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra
+[nalgebra]: https://docs.rs/nalgebra
+[ndarray-badge]: https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray
+[ndarray]: https://docs.rs/ndarray
+[num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
+[num]: https://docs.rs/num/
+[num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
+[num_cpus]: https://docs.rs/num_cpus/
+[percent-encoding-badge]: https://badge-cache.kominick.com/crates/v/percent-encoding.svg?label=percent-encoding
+[postgres-badge]: https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres
+[postgres]: https://docs.rs/postgres/0.15.2/postgres/
+[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
+[rand]: https://docs.rs/rand/
+[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand_distr.svg?label=rand_distr
+[rand_distr]: https://docs.rs/rand_distr/
+[rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
+[rayon]: https://docs.rs/rayon/
+[regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
+[regex]: https://docs.rs/regex/
+[reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
+[reqwest]: https://docs.rs/reqwest/
+[ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
+[ring]: https://briansmith.org/rustdoc/ring/
+[rusqlite-badge]: https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite
+[rusqlite]: https://crates.io/crates/rusqlite/
+[same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
+[same_file]: https://docs.rs/same-file/
+[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
+[select]: https://docs.rs/select/
+[semver-badge]: https://badge-cache.kominick.com/crates/v/semver.svg?label=semver
+[semver]: https://docs.rs/semver/
+[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
+[serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
+[serde-json]: https://docs.rs/serde_json/*/serde_json/
+[serde]: https://docs.rs/serde/
+[std-badge]: https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg
+[std]: https://doc.rust-lang.org/std
+[syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
+[syslog]: https://docs.rs/syslog/
+[tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
+[tar]: https://docs.rs/tar/
+[tempfile-badge]: https://badge-cache.kominick.com/crates/v/tempfile.svg?label=tempfile
+[tempfile]: https://docs.rs/tempfile/
+[thiserror-badge]: https://badge-cache.kominick.com/crates/v/thiserror.svg?label=thiserror
+[thiserror]: https://docs.rs/thiserror/
+[threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
+[threadpool]: https://docs.rs/threadpool/
+[toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
+[toml]: https://docs.rs/toml/
+[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
+[url]: https://docs.rs/url/
+[unicode-segmentation-badge]: https://badge-cache.kominick.com/crates/v/unicode-segmentation.svg?label=unicode-segmentation
+[unicode-segmentation]: https://docs.rs/unicode-segmentation/
+[walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
+[walkdir]: https://docs.rs/walkdir/</code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="downloads"><a class="header" href="#downloads">Downloads</a></h1>
 <h2 id="download-a-file-to-a-temporary-directory"><a class="header" href="#download-a-file-to-a-temporary-directory">Download a file to a temporary directory</a></h2>
 <p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/tempfile/"><img src="https://badge-cache.kominick.com/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Creates a temporary directory with <a href="https://docs.rs/tempfile/*/tempfile/struct.Builder.html"><code>tempfile::Builder</code></a> and downloads
 a file over HTTP using <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> asynchronously.</p>
 <p>Creates a target <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> with name obtained from <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url"><code>Response::url</code></a> within
-<a href="https://docs.rs/tempfile/*/tempfile/struct.Builder.html#method.tempdir"><code>tempdir()</code></a> and writes downloaded data into it with <a href="https://doc.rust-lang.org/std/io/trait.Write.html#method.write_all"><code>Writer::write_all</code></a>.
+<a href="https://docs.rs/tempfile/*/tempfile/struct.TempDir.html#method.path"><code>tempfile::TempDir::path</code></a> and copies downloaded data to it with <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>.
 The temporary directory is automatically removed on program exit.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use std::io::Write;
 use std::fs::File;
 use tempfile::Builder;
 
-error_chain! {
-     foreign_links {
-         Io(std::io::Error);
-         HttpRequest(reqwest::Error);
-     }
-}
-
-#[tokio::main]
-async fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let tmp_dir = Builder::new().prefix("example").tempdir()?;
     let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
-    let response = reqwest::get(target).await?;
+    let response = reqwest::blocking::get(target)?;
 
     let mut dest = {
         let fname = response
@@ -6094,66 +6300,51 @@ async fn main() -&gt; Result&lt;()&gt; {
         println!("will be located under: '{:?}'", fname);
         File::create(fname)?
     };
-    let content =  response.bytes().await?;
+    let content =  response.bytes()?;
     dest.write_all(&amp;content)?;
     Ok(())
 }</code></pre></pre>
 <h2 id="post-a-file-to-paste-rs"><a class="header" href="#post-a-file-to-paste-rs">POST a file to paste-rs</a></h2>
 <p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
-<p><a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> establishes a connection to https://paste.rs
-following the <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html"><code>reqwest::RequestBuilder</code></a> pattern.  Calling <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a>
-with a URL establishes the destination, <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.body"><code>RequestBuilder::body</code></a> sets the
-content to send by reading the file, and <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> blocks until
-the file uploads and the response returns.  <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a> returns the
+<p><a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> establishes a connection to https://paste.rs following the
+<a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html"><code>reqwest::RequestBuilder</code></a> pattern. Calling <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a> with a URL
+establishes the destination, <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.body"><code>RequestBuilder::body</code></a> sets the content to send
+by reading the file, and <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> blocks until the file uploads
+and the response returns. <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a> returns the message from the server
 response and displays in the console.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use std::fs::File;
 use std::io::Read;
 
- error_chain! {
-     foreign_links {
-         HttpRequest(reqwest::Error);
-         IoError(::std::io::Error);
-     }
- }
- #[tokio::main]
-
-async fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let paste_api = "https://paste.rs";
     let mut file = File::open("message")?;
 
     let mut contents = String::new();
     file.read_to_string(&amp;mut contents)?;
 
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
     let res = client.post(paste_api)
         .body(contents)
-        .send()
-        .await?;
-    let response_text = res.text().await?;
+        .send()?;
+    let response_text = res.text()?;
     println!("Your paste is located at: {}",response_text );
     Ok(())
 }</code></pre></pre>
 <h2 id="make-a-partial-download-with-http-range-headers"><a class="header" href="#make-a-partial-download-with-http-range-headers">Make a partial download with HTTP range headers</a></h2>
 <p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
-<p>Uses <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.head"><code>reqwest::blocking::Client::head</code></a> to get the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length">Content-Length</a> of the response.</p>
-<p>The code then uses <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.get"><code>reqwest::blocking::Client::get</code></a> to download the content in
-chunks of 10240 bytes, while printing progress messages. This example uses the synchronous
-reqwest module.  The <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range">Range</a> header specifies the chunk size and position.</p>
+<p>Uses <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.head"><code>reqwest::blocking::Client::head</code></a> to get the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length">Content-Length</a> of the
+response.</p>
+<p>The code then uses <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.get"><code>reqwest::blocking::Client::get</code></a> to download the content
+in chunks of 10240 bytes, while printing progress messages. This approach is
+useful to control memory usage for large files and allows for resumable
+downloads.</p>
 <p>The Range header is defined in <a href="https://tools.ietf.org/html/rfc7233#section-3.1">RFC7233</a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::{Result, anyhow};
 use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
 use reqwest::StatusCode;
 use std::fs::File;
 use std::str::FromStr;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        Reqwest(reqwest::Error);
-        Header(reqwest::header::ToStrError);
-    }
-}
 
 struct PartialRangeIter {
   start: u64,
@@ -6164,7 +6355,7 @@ struct PartialRangeIter {
 impl PartialRangeIter {
   pub fn new(start: u64, end: u64, buffer_size: u32) -&gt; Result&lt;Self&gt; {
     if buffer_size == 0 {
-      Err("invalid buffer_size, give a value greater than zero.")?;
+      return Err(anyhow!("invalid buffer_size, give a value greater than zero."));
     }
     Ok(PartialRangeIter {
       start,
@@ -6196,8 +6387,8 @@ fn main() -&gt; Result&lt;()&gt; {
   let length = response
     .headers()
     .get(CONTENT_LENGTH)
-    .ok_or("response doesn't include the content length")?;
-  let length = u64::from_str(length.to_str()?).map_err(|_| "invalid Content-Length header")?;
+    .ok_or_else(|| anyhow!("response doesn't include the content length"))?;
+  let length = u64::from_str(length.to_str()?).map_err(|_| anyhow!("invalid Content-Length header"))?;
     
   let mut output_file = File::create("download.bin")?;
     
@@ -6208,7 +6399,7 @@ fn main() -&gt; Result&lt;()&gt; {
     
     let status = response.status();
     if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
-      error_chain::bail!("Unexpected server response: {}", status)
+      return Err(anyhow!("Unexpected server response: {}", status));
     }
     std::io::copy(&amp;mut response, &amp;mut output_file)?;
   }

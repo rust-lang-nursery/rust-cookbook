@@ -167,35 +167,36 @@
 <a href="https://docs.rs/select/*/select/document/struct.Document.html#method.find"><code>find</code></a> with the criteria of <a href="https://docs.rs/select/*/select/predicate/struct.Name.html"><code>Name</code></a> is "a" retrieves all links.
 Call <a href="https://doc.rust-lang.org/core/iter/trait.Iterator.html#method.filter_map"><code>filter_map</code></a> on the <a href="https://docs.rs/select/*/select/selection/struct.Selection.html"><code>Selection</code></a> retrieves URLs
 from links that have the "href" <a href="https://docs.rs/select/*/select/node/struct.Node.html#method.attr"><code>attr</code></a> (attribute).</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">mod links {
+<pre><pre class="playground"><code class="language-rust edition2018">// select needs rand v.0.8
+// cargo-deps: tokio="1", reqwest="0.11", select="0.6", thiserror="1"
+mod links {
   use thiserror::Error;
-use select::document::Document;
-use select::predicate::Name;
+  use select::document::Document;
+  use select::predicate::Name;
 
-#[derive(Error, Debug)]
-pub enum LinkError {
-    #[error("Reqwest error: {0}")]
-    ReqError(#[from] reqwest::Error),
-    #[error("IO error: {0}")]
-    IoError(#[from] std::io::Error),
-}
+  #[derive(Error, Debug)]
+  pub enum LinkError {
+      #[error("Reqwest error: {0}")]
+      ReqError(#[from] reqwest::Error),
+      #[error("IO error: {0}")]
+      IoError(#[from] std::io::Error),
+  }
 
-pub async fn get_links(page: &amp;str) -&gt; Result&lt;Vec&lt;Box&lt;str&gt;&gt;, LinkError&gt; {
-  let res = reqwest::get(page)
-    .await?
-    .text()
-    .await?;
+  pub async fn get_links(page: &amp;str) -&gt; Result&lt;Vec&lt;Box&lt;str&gt;&gt;, LinkError&gt; {
+    let res = reqwest::get(page)
+      .await?
+      .text()
+      .await?;
 
-  let links = Document::from(res.as_str())
-    .find(Name("a"))
-    .filter_map(|node| node.attr("href"))
-    .into_iter()
-    .map(|link| Box::&lt;str&gt;::from(link.to_string()))
-    .collect();
+    let links = Document::from(res.as_str())
+      .find(Name("a"))
+      .filter_map(|node| node.attr("href"))
+      .into_iter()
+      .map(|link| Box::&lt;str&gt;::from(link.to_string()))
+      .collect();
 
-  Ok(links)
-}
-
+    Ok(links)
+  }
 }
 
 #[tokio::main]
@@ -215,87 +216,87 @@ URL acts as a default.</p>
 parse an individual link with <a href="https://docs.rs/url/*/url/struct.ParseOptions.html"><code>url::ParseOptions</code></a> and <a href="https://docs.rs/url/*/url/struct.Url.html#method.parse"><code>Url::parse</code></a>).
 The task makes a request to the links with <a href="https://docs.rs/reqwest/">reqwest</a> and verifies
 <a href="https://docs.rs/reqwest/*/reqwest/struct.StatusCode.html"><code>StatusCode</code></a>.  Then the tasks <code>await</code> completion before ending the program.</p>
-<pre><pre class="playground"><code class="language-rust edition2024">mod broken {
+<pre><pre class="playground"><code class="language-rust edition2018">// cargo-deps: tokio="1", reqwest="0.11", select="0.6", thiserror="1", url="2", anyhow="1"
+mod broken {
   use thiserror::Error;
-use reqwest::StatusCode;
-use select::document::Document;
-use select::predicate::Name;
-use std::collections::HashSet;
-use url::{Position, Url};
+  use reqwest::StatusCode;
+  use select::document::Document;
+  use select::predicate::Name;
+  use std::collections::HashSet;
+  use url::{Position, Url};
 
-#[derive(Error, Debug)]
-pub enum BrokenError {
-    #[error("Reqwest error: {0}")]
-    ReqError(#[from] reqwest::Error),
-    #[error("IO error: {0}")]
-    IoError(#[from] std::io::Error),
-    #[error("URL parse error: {0}")]
-    UrlParseError(#[from] url::ParseError),
-    #[error("Join error: {0}")]
-    JoinError(#[from] tokio::task::JoinError),
+  #[derive(Error, Debug)]
+  pub enum BrokenError {
+      #[error("Reqwest error: {0}")]
+      ReqError(#[from] reqwest::Error),
+      #[error("IO error: {0}")]
+      IoError(#[from] std::io::Error),
+      #[error("URL parse error: {0}")]
+      UrlParseError(#[from] url::ParseError),
+      #[error("Join error: {0}")]
+      JoinError(#[from] tokio::task::JoinError),
+  }
+
+  pub struct CategorizedUrls {
+      pub ok: Vec&lt;String&gt;,
+      pub broken: Vec&lt;String&gt;,
+  }
+
+  enum Link {
+      GoodLink(Url),
+      BadLink(Url),
+  }
+
+  async fn get_base_url(url: &amp;Url, doc: &amp;Document) -&gt; Result&lt;Url, BrokenError&gt; {
+    let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);
+    let base_url =
+      base_tag_href.map_or_else(|| Url::parse(&amp;url[..Position::BeforePath]), Url::parse)?;
+    Ok(base_url)
+  }
+
+  async fn check_link(url: &amp;Url) -&gt; Result&lt;bool, BrokenError&gt; {
+    let res = reqwest::get(url.as_ref()).await?;
+    Ok(res.status() != StatusCode::NOT_FOUND)
+  }
+
+  pub async fn check(site: &amp;str) -&gt; Result&lt;CategorizedUrls, BrokenError&gt; {
+    let url = Url::parse(site)?;
+    let res = reqwest::get(url.as_ref()).await?.text().await?;
+    let document = Document::from(res.as_str());
+    let base_url = get_base_url(&amp;url, &amp;document).await?;
+    let base_parser = Url::options().base_url(Some(&amp;base_url));
+    let links: HashSet&lt;Url&gt; = document
+      .find(Name("a"))
+      .filter_map(|n| n.attr("href"))
+      .filter_map(|link| base_parser.parse(link).ok())
+      .collect();
+      let mut tasks = vec![];
+      let mut ok = vec![];
+      let mut broken = vec![];
+
+      for link in links {
+          tasks.push(tokio::spawn(async move {
+              if check_link(&amp;link).await.unwrap_or(false) {
+                  Link::GoodLink(link) 
+              } else {
+                  Link::BadLink(link)
+              }
+          }));
+      }
+
+      for task in tasks {
+          match task.await? {
+              Link::GoodLink(link) =&gt; ok.push(link.to_string()),
+              Link::BadLink(link) =&gt; broken.push(link.to_string()),
+          }
+      }
+
+    Ok(CategorizedUrls { ok, broken })
+  }
 }
 
-pub struct CategorizedUrls {
-    pub ok: Vec&lt;String&gt;,
-    pub broken: Vec&lt;String&gt;,
-}
-
-enum Link {
-    GoodLink(Url),
-    BadLink(Url),
-}
-
-async fn get_base_url(url: &amp;Url, doc: &amp;Document) -&gt; Result&lt;Url, BrokenError&gt; {
-  let base_tag_href = doc.find(Name("base")).filter_map(|n| n.attr("href")).nth(0);
-  let base_url =
-    base_tag_href.map_or_else(|| Url::parse(&amp;url[..Position::BeforePath]), Url::parse)?;
-  Ok(base_url)
-}
-
-async fn check_link(url: &amp;Url) -&gt; Result&lt;bool, BrokenError&gt; {
-  let res = reqwest::get(url.as_ref()).await?;
-  Ok(res.status() != StatusCode::NOT_FOUND)
-}
-
-pub async fn check(site: &amp;str) -&gt; Result&lt;CategorizedUrls, BrokenError&gt; {
-  let url = Url::parse(site)?;
-  let res = reqwest::get(url.as_ref()).await?.text().await?;
-  let document = Document::from(res.as_str());
-  let base_url = get_base_url(&amp;url, &amp;document).await?;
-  let base_parser = Url::options().base_url(Some(&amp;base_url));
-  let links: HashSet&lt;Url&gt; = document
-    .find(Name("a"))
-    .filter_map(|n| n.attr("href"))
-    .filter_map(|link| base_parser.parse(link).ok())
-    .collect();
-    let mut tasks = vec![];
-    let mut ok = vec![];
-    let mut broken = vec![];
-
-    for link in links {
-        tasks.push(tokio::spawn(async move {
-            if check_link(&amp;link).await.unwrap_or(false) {
-                Link::GoodLink(link) 
-            } else {
-                Link::BadLink(link)
-            }
-        }));
-    }
-
-    for task in tasks {
-        match task.await? {
-            Link::GoodLink(link) =&gt; ok.push(link.to_string()),
-            Link::BadLink(link) =&gt; broken.push(link.to_string()),
-        }
-    }
-
-  Ok(CategorizedUrls { ok, broken })
-}
-
-}
-
-[tokio::main]
-fn main() -&gt; anyhow::Result&lt;()&gt; {
+#[tokio::main]
+async fn main() -&gt; anyhow::Result&lt;()&gt; {
     let categorized = broken::check("https://www.rust-lang.org/en-US/").await?;
     println!("OK: {:?}", categorized.ok);
     println!("Broken: {:?}", categorized.broken);
@@ -309,34 +310,35 @@ look for all entries of internal and external links with
 <p>MediaWiki link syntax is described <a href="https://www.mediawiki.org/wiki/Help:Links">here</a>.  The calling
 function will retain the whole document, and links will be returned as slice
 references to the original document.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">mod wiki {
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">// cargo-deps: tokio="1", reqwest="0.11", regex="1", anyhow="1"
+mod wiki {
   use regex::Regex;
-use std::borrow::Cow;
-use std::collections::HashSet;
-use std::sync::LazyLock;
+  use std::borrow::Cow;
+  use std::collections::HashSet;
+  use std::sync::LazyLock;
 
-pub fn extract_links(content: &amp;str) -&gt; HashSet&lt;Cow&lt;str&gt;&gt; {
-  static WIKI_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| Regex::new(
-      r"(?x)
-                \[\[(?P&lt;internal&gt;[^\[\]|]*)[^\[\]]*\]\]    # internal links
-                |
-                (url=|URL\||\[)(?P&lt;external&gt;http.*?)[ \|}] # external links
-            "
-    )
-    .unwrap()
-  );
+  pub fn extract_links(content: &amp;str) -&gt; HashSet&lt;Cow&lt;str&gt;&gt; {
+    static WIKI_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| Regex::new(
+        r"(?x)
+                  \[\[(?P&lt;internal&gt;[^\[\]|]*)[^\[\]]*\]\]    # internal links
+                  |
+                  (url=|URL\||\[)(?P&lt;external&gt;http.*?)[ \|}] # external links
+              "
+      )
+      .unwrap()
+    );
 
-  let links: HashSet&lt;_&gt; = WIKI_REGEX
-    .captures_iter(content)
-    .map(|c| match (c.name("internal"), c.name("external")) {
-        (Some(val), None) =&gt; Cow::from(val.as_str()),
-        (None, Some(val)) =&gt; Cow::from(val.as_str()),
-        _ =&gt; unreachable!(),
-    })
-    .collect::&lt;HashSet&lt;_&gt;&gt;();
+    let links: HashSet&lt;_&gt; = WIKI_REGEX
+      .captures_iter(content)
+      .map(|c| match (c.name("internal"), c.name("external")) {
+          (Some(val), None) =&gt; Cow::from(val.as_str()),
+          (None, Some(val)) =&gt; Cow::from(val.as_str()),
+          _ =&gt; unreachable!(),
+      })
+      .collect::&lt;HashSet&lt;_&gt;&gt;();
 
-  links
-}
+    links
+  }
 }
 
 #[tokio::main]

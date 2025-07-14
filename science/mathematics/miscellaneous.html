@@ -163,7 +163,8 @@
 <h2 id="big-integers"><a class="header" href="#big-integers">Big integers</a></h2>
 <p><a href="https://docs.rs/num/"><img src="https://badge-cache.kominick.com/crates/v/num.svg?label=num" alt="num-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Calculation for integers exceeding 128 bits are possible with <a href="https://docs.rs/num/0.2.0/num/struct.BigInt.html"><code>BigInt</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use num::bigint::{BigInt, ToBigInt};
+<pre><pre class="playground"><code class="language-rust edition2018">
+use num::bigint::{BigInt, ToBigInt};
 
 fn factorial(x: i32) -&gt; BigInt {
     if let Some(mut factorial) = 1.to_bigint() {

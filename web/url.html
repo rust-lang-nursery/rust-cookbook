@@ -167,8 +167,7 @@
 <code>Result&lt;Url, ParseError&gt;</code>.</p>
 <p>Once the URL has been parsed, it can be used with all of the methods in the
 <code>Url</code> type.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use url::{Url, ParseError};
+<pre><pre class="playground"><code class="language-rust edition2018">use url::{Url, ParseError};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&amp;state=open";
@@ -184,19 +183,9 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
 files or query strings.  Each of those items are stripped out of the given
 URL.  <a href="https://docs.rs/url/*/url/struct.PathSegmentsMut.html#method.clear"><code>PathSegmentsMut::clear</code></a> removes paths and <a href="https://docs.rs/url/*/url/struct.Url.html#method.set_query"><code>Url::set_query</code></a> removes
 query string.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2021">use anyhow::{Result, anyhow};
 use url::Url;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        UrlParse(url::ParseError);
-</span><span class="boring">    }
-</span><span class="boring">    errors {
-</span><span class="boring">        CannotBeABase
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let full = "https://github.com/rust-lang/cargo?asdf";
 
@@ -215,7 +204,7 @@ fn base_url(mut url: Url) -&gt; Result&lt;Url&gt; {
             path.clear();
         }
         Err(_) =&gt; {
-            return Err(Error::from_kind(ErrorKind::CannotBeABase));
+            return Err(anyhow!("Cannot be a base URL"));
         }
     }
 
@@ -226,8 +215,7 @@ fn base_url(mut url: Url) -&gt; Result&lt;Url&gt; {
 <h2 id="create-new-urls-from-a-base-url"><a class="header" href="#create-new-urls-from-a-base-url">Create new URLs from a base URL</a></h2>
 <p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html#method.join"><code>join</code></a> method creates a new URL from a base and relative path.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use url::{Url, ParseError};
+<pre><pre class="playground"><code class="language-rust edition2018">use url::{Url, ParseError};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let path = "/rust-lang/cargo";
@@ -252,8 +240,7 @@ fn build_github_url(path: &amp;str) -&gt; Result&lt;Url, ParseError&gt; {
 <p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> struct exposes various methods to extract information about the URL
 it represents.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use url::{Url, Host, ParseError};
+<pre><pre class="playground"><code class="language-rust edition2021">use url::{Url, Host, ParseError};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let s = "ftp://rust-lang.org/examples";
@@ -268,17 +255,10 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
     Ok(())
 }</code></pre></pre>
 <p><a href="https://docs.rs/url/*/url/struct.Url.html#method.origin"><code>origin</code></a> produces the same result.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
 use url::{Url, Origin, Host};
 
-<span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        UrlParse(url::ParseError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span><span class="boring">
-</span>fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let s = "ftp://rust-lang.org/examples";
 
     let url = Url::parse(s)?;
@@ -297,9 +277,7 @@ use url::{Url, Origin, Host};
 <h2 id="remove-fragment-identifiers-and-query-pairs-from-a-url"><a class="header" href="#remove-fragment-identifiers-and-query-pairs-from-a-url">Remove fragment identifiers and query pairs from a URL</a></h2>
 <p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>Parses <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> and slices it with <a href="https://docs.rs/url/*/url/enum.Position.html"><code>url::Position</code></a> to strip unneeded URL parts.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-
-use url::{Url, Position, ParseError};
+<pre><pre class="playground"><code class="language-rust edition2018">use url::{Url, Position, ParseError};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&amp;state=open")?;

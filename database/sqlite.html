@@ -165,7 +165,7 @@
 <p>Use the <code>rusqlite</code> crate to open SQLite databases. See
 <a href="https://github.com/rusqlite/rusqlite#user-content-notes-on-building-rusqlite-and-libsqlite3-sys">crate</a> for compiling on Windows.</p>
 <p><a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.open"><code>Connection::open</code></a> will create the database if it doesn't already exist.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">use rusqlite::{Connection, Result};
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{Connection, Result};
 
 fn main() -&gt; Result&lt;()&gt; {
     let conn = Connection::open("cats.db")?;
@@ -192,8 +192,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://crates.io/crates/rusqlite/"><img src="https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite" alt="rusqlite-badge" /></a> <a href="https://crates.io/categories/database"><img src="https://badge-cache.kominick.com/badge/database--x.svg?style=social" alt="cat-database-badge" /></a></p>
 <p><a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.open"><code>Connection::open</code></a> will open the database <code>cats</code> created in the earlier recipe.
 This recipe inserts data into <code>cat_colors</code> and <code>cats</code> tables using the <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.execute"><code>execute</code></a> method of <code>Connection</code>. First, the data is inserted into the <code>cat_colors</code> table. After a record for a color is inserted, <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.last_insert_rowid"><code>last_insert_rowid</code></a> method of <code>Connection</code> is used to get <code>id</code> of the last color inserted. This <code>id</code> is used while inserting data into the <code>cats</code> table. Then, the select query is prepared using the <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.prepare"><code>prepare</code></a> method which gives a <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html"><code>statement</code></a> struct. Then, query is executed using <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html#method.query_map"><code>query_map</code></a> method of <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html"><code>statement</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">
-use rusqlite::{params, Connection, Result};
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{params, Connection, Result};
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -257,7 +256,7 @@ roll back unless committed explicitly with <a href="https://docs.rs/rusqlite/*/r
 <p>In the following example, colors add to a table having
 a unique constraint on the color name. When an attempt to insert
 a duplicate color is made, the transaction rolls back.</p>
-<pre><pre class="playground"><code class="language-rust edition2024 no_run">use rusqlite::{Connection, Result};
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{Connection, Result};
 
 fn main() -&gt; Result&lt;()&gt; {
     let mut conn = Connection::open("cats.db")?;

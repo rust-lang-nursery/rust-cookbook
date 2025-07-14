@@ -164,7 +164,8 @@
 <p><a href="https://docs.rs/num/"><img src="https://badge-cache.kominick.com/crates/v/num.svg?label=num" alt="num-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Creates complex numbers of type <a href="https://autumnai.github.io/cuticula/num/complex/struct.Complex.html"><code>num::complex::Complex</code></a>. Both the real and
 imaginary part of the complex number must be of the same type.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre><pre class="playground"><code class="language-rust edition2018">
+fn main() {
     let complex_integer = num::complex::Complex::new(10, 20);
     let complex_float = num::complex::Complex::new(10.1, 20.1);
 
@@ -176,7 +177,8 @@ imaginary part of the complex number must be of the same type.</p>
 <p>Performing mathematical operations on complex numbers is the same as on
 built in types: the numbers in question must be of the same type (i.e. floats
 or integers).</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre><pre class="playground"><code class="language-rust edition2018">
+fn main() {
     let complex_num1 = num::complex::Complex::new(10.0, 20.0); // Must use floats
     let complex_num2 = num::complex::Complex::new(3.1, -4.2);
 
@@ -191,7 +193,8 @@ how they interact with other mathematical functions, most notibly the family
 of sine functions as well as the number e. To use these functions with
 complex numbers, the Complex type has a few built in
 functions, all of which can be found here: <a href="https://autumnai.github.io/cuticula/num/complex/struct.Complex.html"><code>num::complex::Complex</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use std::f64::consts::PI;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use std::f64::consts::PI;
 use num::complex::Complex;
 
 fn main() {

@@ -207,8 +207,9 @@ experimentation. To do so follow the instructions below.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 fn main() {
-    let mut rng = rand::thread_rng();
-    println!("Random f64: {}", rng.gen::&lt;f64&gt;());
+    let mut rng = rand::rng();
+    let random_number: u32 = rng.random();
+    println!("Random number: {}", random_number);
 }</code></pre></pre>
 <p>To work with it locally we can run the following commands to create
 a new cargo project, and change to that directory:</p>
@@ -231,13 +232,14 @@ documentation on <a href="https://docs.rs">docs.rs</a>, and is often the next do
 should read after deciding which crate suites your purpose.</p>
 <h2 id="a-note-about-error-handling"><a class="header" href="#a-note-about-error-handling">A note about error handling</a></h2>
 <p>Rust has <a href="https://doc.rust-lang.org/std/error/trait.Error.html"><code>std::error::Trait</code></a> which is implemented to handle exceptions.
-Handling multiple types of these traits can be simplified using <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a>
-or specified with an <code>enum</code> which macros exist to make this easier within
-<a href="https://docs.rs/thiserror/latest/thiserror/"><code>thiserror</code></a> for library authors.</p>
-<p>Error chain has been shown in this book for historical reasons before Rust
-<code>std</code> and crates represented macro use as a preference.  For more background
-on error handling in Rust, read <a href="https://doc.rust-lang.org/book/ch09-00-error-handling.html">this page of the Rust book</a>
-and <a href="https://brson.github.io/2016/11/30/starting-with-error-chain">this blog post</a>.</p>
+This cookbook uses <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a> for simplified error handling in examples,
+which provides easy error propagation and context. For library authors,
+<a href="https://docs.rs/thiserror/latest/thiserror/"><code>thiserror</code></a> provides a more structured approach using derive macros
+to create custom error types.</p>
+<p>This cookbook previously used the <code>error-chain</code> crate, but has been updated
+to use <code>anyhow</code> as it's now the preferred approach for application-level
+error handling. For more background on error handling in Rust, read
+<a href="https://doc.rust-lang.org/book/ch09-00-error-handling.html">this page of the Rust book</a> and <a href="https://brson.github.io/2016/11/30/starting-with-error-chain">this blog post</a>.</p>
 <h2 id="a-note-about-crate-representation"><a class="header" href="#a-note-about-crate-representation">A note about crate representation</a></h2>
 <p>This cookbook is intended eventually to provide expansive coverage of
 the Rust crate ecosystem, but today is limited in scope while we get

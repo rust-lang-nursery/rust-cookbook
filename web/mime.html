@@ -228,18 +228,10 @@ the header as a <a href="https://docs.rs/reqwest/*/reqwest/header/struct.HeaderV
 string. The <code>mime</code> crate can then parse that, yielding a <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime::Mime</code></a> value.</p>
 <p>The <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime</code></a> crate also defines some commonly used MIME types.</p>
 <p>Note that the <a href="https://docs.rs/reqwest/*/reqwest/header/index.html"><code>reqwest::header</code></a> module is exported from the <a href="https://docs.rs/http/*/http/"><code>http</code></a> crate.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use mime::Mime;
 use std::str::FromStr;
 use reqwest::header::CONTENT_TYPE;
-
- error_chain! {
-    foreign_links {
-        Reqwest(reqwest::Error);
-        Header(reqwest::header::ToStrError);
-        Mime(mime::FromStrError);
-    }
- }
 
 #[tokio::main]
 async fn main() -&gt; Result&lt;()&gt; {

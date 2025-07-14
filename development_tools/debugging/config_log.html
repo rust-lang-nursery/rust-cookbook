@@ -164,8 +164,7 @@
 <p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Creates two modules <code>foo</code> and nested <code>foo::bar</code> with logging directives
 controlled separately with <a href="https://docs.rs/env_logger/*/env_logger/#enabling-logging"><code>RUST_LOG</code></a> environmental variable.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-mod foo {
+<pre><pre class="playground"><code class="language-rust edition2018">mod foo {
     mod bar {
         pub fn run() {
             log::warn!("[bar] warn");
@@ -261,21 +260,12 @@ appender defines the logging destination.  The configuration continues with
 encoding using a custom pattern from <a href="https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html"><code>log4rs::encode::pattern</code></a>.
 Assigns the configuration to <a href="https://docs.rs/log4rs/*/log4rs/config/runtime/struct.Config.html"><code>log4rs::config::Config</code></a> and sets the default
 <a href="https://docs.rs/log/*/log/enum.LevelFilter.html"><code>log::LevelFilter</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use log::LevelFilter;
 use log4rs::append::file::FileAppender;
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::config::{Appender, Config, Root};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        LogConfig(log4rs::config::Errors);
-</span><span class="boring">        SetLogger(log::SetLoggerError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let logfile = FileAppender::builder()
         .encoder(Box::new(PatternEncoder::new("{l} - {m}\n")))

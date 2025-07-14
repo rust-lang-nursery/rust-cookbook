@@ -166,8 +166,7 @@
 extract (<a href="https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack"><code>Archive::unpack</code></a>) all files from a compressed tarball
 named <code>archive.tar.gz</code> located in the current working directory
 to the same location.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">
-use std::fs::File;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
 use flate2::read::GzDecoder;
 use tar::Archive;
 
@@ -189,8 +188,7 @@ and <a href="https://docs.rs/tar/*/tar/struct.Builder.html"><code>tar::Builder</
 under <code>backup/logs</code> path with <a href="https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all"><code>Builder::append_dir_all</code></a>.
 <a href="https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html"><code>GzEncoder</code></a> is responsible for transparently compressing the
 data prior to writing it into <code>archive.tar.gz</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">
-use std::fs::File;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
 use flate2::Compression;
 use flate2::write::GzEncoder;
 
@@ -203,8 +201,7 @@ fn main() -&gt; Result&lt;(), std::io::Error&gt; {
     Ok(())
 }</code></pre></pre>
 <p>To add the contents without renaming them, an empty string can be used as the first argument of <a href="https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all"><code>Builder::append_dir_all</code></a>:</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">
-use std::fs::File;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
 use flate2::Compression;
 use flate2::write::GzEncoder;
 
@@ -223,20 +220,13 @@ notably <a href="https://docs.rs/tar/latest/tar/struct.Builder.html#method.follo
 <p>Iterate over the <a href="https://docs.rs/tar/*/tar/struct.Archive.html#method.entries"><code>Archive::entries</code></a>.  Use <a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix"><code>Path::strip_prefix</code></a> to remove
 the specified path prefix (<code>bundle/logs</code>).  Finally, extract the <a href="https://docs.rs/tar/*/tar/struct.Entry.html"><code>tar::Entry</code></a>
 via <a href="https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack"><code>Entry::unpack</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>use std::fs::File;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+use std::fs::File;
 use std::path::PathBuf;
 use flate2::read::GzDecoder;
 use tar::Archive;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">  foreign_links {
-</span><span class="boring">    Io(std::io::Error);
-</span><span class="boring">    StripPrefixError(::std::path::StripPrefixError);
-</span><span class="boring">  }
-</span><span class="boring">}
-</span>
-fn main() -&gt; Result&lt;(), std::io::Error&gt; {
+
+fn main() -&gt; Result&lt;()&gt; {
     let file = File::open("archive.tar.gz")?;
     let mut archive = Archive::new(GzDecoder::new(file));
     let prefix = "bundle/logs";

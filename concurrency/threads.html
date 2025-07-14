@@ -215,7 +215,7 @@ to prevent the entire program from blocking on the worker for-loops. You can
 think of the calls to <code>drop</code> as signaling that no more messages will be sent.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use std::thread;
 use std::time::Duration;
-use crossbeam_channel::bounded;
+use crossbeam::channel::bounded;
 
 fn main() {
     let (snd1, rcv1) = bounded(1);
@@ -268,9 +268,8 @@ consumer (SPSC) setting. We build off the <a href="#spawn-a-short-lived-thread">
 exchanged between the two threads using a <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/fn.unbounded.html"><code>crossbeam_channel::unbounded</code></a>
 channel, meaning there is no limit to the number of storeable messages. The
 producer thread sleeps for half a second in between messages.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use std::{thread, time};
-use crossbeam_channel::unbounded;
+<pre><pre class="playground"><code class="language-rust edition2018">use std::{thread, time};
+use crossbeam::channel::unbounded;
 
 fn main() {
     let (snd, rcv) = unbounded();
@@ -296,18 +295,16 @@ to allow mutation (also see <a href="https://doc.rust-lang.org/std/sync/struct.R
 the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A <a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a> must be acquired to read or mutate the
 value stored in a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>use lazy_static::lazy_static;
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::{Result, anyhow};
+use lazy_static::lazy_static;
 use std::sync::Mutex;
-<span class="boring">
-</span><span class="boring">error_chain!{ }
-</span>
+
 lazy_static! {
     static ref FRUIT: Mutex&lt;Vec&lt;String&gt;&gt; = Mutex::new(Vec::new());
 }
 
 fn insert(fruit: &amp;str) -&gt; Result&lt;()&gt; {
-    let mut db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
+    let mut db = FRUIT.lock().map_err(|_| anyhow!("Failed to acquire MutexGuard"))?;
     db.push(fruit.to_string());
     Ok(())
 }
@@ -317,7 +314,7 @@ fn main() -&gt; Result&lt;()&gt; {
     insert("orange")?;
     insert("peach")?;
     {
-        let db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard")?;
+        let db = FRUIT.lock().map_err(|_| anyhow!("Failed to acquire MutexGuard"))?;
 
         db.iter().enumerate().for_each(|(i, item)| println!("{}: {}", i, item));
     }
@@ -331,8 +328,7 @@ current directory. A threadpool generates threads equal to the number of cores
 present in the system found with <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.  <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>Walkdir::new</code></a> iterates
 the current directory and calls <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>execute</code></a> to perform the operations of reading
 and computing SHA256 hash.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">
-use walkdir::WalkDir;
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use walkdir::WalkDir;
 use std::fs::File;
 use std::io::{BufReader, Read, Error};
 use std::path::Path;
@@ -401,20 +397,12 @@ Create <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html">
 <p><a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html"><code>mpsc::channel</code></a> receives the jobs and <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv"><code>Receiver::recv</code></a> retrieves them.
 <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel"><code>ImageBuffer::put_pixel</code></a> uses the data to set the pixel color.
 <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save"><code>ImageBuffer::save</code></a> writes the image to <code>output.png</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>use std::sync::mpsc::{channel, RecvError};
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 use num::complex::Complex;
 use image::{ImageBuffer, Pixel, Rgb};
 <span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        MpscRecv(RecvError);
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Image(image::ImageError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span><span class="boring">
 </span><span class="boring">// Function converting intensity values to RGB
 </span><span class="boring">// Based on http://www.efg2.com/Lab/ScienceAndEngineering/Spectra.htm
 </span><span class="boring">fn wavelength_to_rgb(wavelength: u32) -&gt; Rgb&lt;u8&gt; {
@@ -437,7 +425,7 @@ use image::{ImageBuffer, Pixel, Rgb};
 </span><span class="boring">    };
 </span><span class="boring">
 </span><span class="boring">    let (r, g, b) = (normalize(r, factor), normalize(g, factor), normalize(b, factor));
-</span><span class="boring">    Rgb::from_channels(r, g, b, 0)
+</span><span class="boring">    Rgb([r, g, b])
 </span><span class="boring">}
 </span><span class="boring">
 </span><span class="boring">// Maps Julia set distance estimation to intensity values

@@ -165,8 +165,7 @@
 <p>The <code>log</code> crate provides logging utilities. The <code>env_logger</code> crate configures
 logging via an environment variable.  The <a href="https://docs.rs/log/*/log/macro.debug.html"><code>log::debug!</code></a> macro works like other
 <a href="https://doc.rust-lang.org/std/fmt/"><code>std::fmt</code></a> formatted strings.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-fn execute_query(query: &amp;str) {
+<pre><pre class="playground"><code class="language-rust edition2018">fn execute_query(query: &amp;str) {
     log::debug!("Executing query: {}", query);
 }
 
@@ -188,8 +187,7 @@ following line at the very end of the output:</p>
 <p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Proper error handling considers exceptions exceptional.  Here, an error logs
 to stderr with <code>log</code>'s convenience macro <a href="https://docs.rs/log/*/log/macro.error.html"><code>log::error!</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-fn execute_query(_query: &amp;str) -&gt; Result&lt;(), &amp;'static str&gt; {
+<pre><pre class="playground"><code class="language-rust edition2018">fn execute_query(_query: &amp;str) -&gt; Result&lt;(), &amp;'static str&gt; {
     Err("I'm afraid I can't do that")
 }
 
@@ -204,8 +202,7 @@ fn main() {
 <h2 id="log-to-stdout-instead-of-stderr"><a class="header" href="#log-to-stdout-instead-of-stderr">Log to stdout instead of stderr</a></h2>
 <p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Creates a custom logger configuration using the <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.target"><code>Builder::target</code></a> to set the target of the log output to <a href="https://docs.rs/env_logger/*/env_logger/fmt/enum.Target.html"><code>Target::Stdout</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use env_logger::{Builder, Target};
+<pre><pre class="playground"><code class="language-rust edition2018">use env_logger::{Builder, Target};
 
 fn main() {
     Builder::new()

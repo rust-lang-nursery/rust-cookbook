@@ -167,28 +167,33 @@
 <h1 id="error-strategies-2024"><a class="header" href="#error-strategies-2024">Error Strategies (2024)</a></h1>
 <p>As recommended in Rust by Example, <a href="https://doc.rust-lang.org/rust-by-example/error/multiple_error_types/boxing_errors.html"><code>Box</code>ing errors</a> is seen as an easy
 strategy for getting started.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>Box&lt;dyn Error&gt;
-<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    // Example of boxing errors
+    let result: Result&lt;(), Box&lt;dyn Error&gt;&gt; = Ok(());
+    result
+}</code></pre></pre>
 <p>To understand what kind of error handling may be required study <a href="https://mmapped.blog/posts/12-rust-error-handling">Designing
 error types in Rust</a> and consider <a href="https://docs.rs/thiserror/latest/thiserror/"><code>thiserror</code></a> for libraries or <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a> as
 a maintained error aggregation option.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use thiserror::Error;
+<pre><pre class="playground"><code class="language-rust edition2018">use thiserror::Error;
 
 #[derive(Error,Debug)]
 pub enum MultiError {
   #[error("🦀 got {0}")]
   ErrorClass(String),
 }
-<span class="boring">}</span></code></pre></pre>
+
+fn main() -&gt; Result&lt;(), MultiError&gt; {
+    // Example of using thiserror
+    Ok(())
+}</code></pre></pre>
 <p>Application authors can compose enums using <code>anyhow</code> can import the <code>Result</code>
 type from the crate to provide auto-<code>Box</code>ing behavior</p>
 <pre><pre class="playground"><code class="language-rust edition2018 should_panic">use anyhow::Result;
 
-fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
    let my_string = "yellow".to_string();  
    let _my_int = my_string.parse::&lt;i32&gt;()?;
    Ok(())

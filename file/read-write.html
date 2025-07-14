@@ -190,12 +190,16 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <p>Use <a href="https://docs.rs/same-file/*/same_file/struct.Handle.html"><code>same_file::Handle</code></a> to a file that can be tested for equality with
 other handles. In this example, the handles of file to be read from and
 to be written to are tested for equality.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use same_file::Handle;
+<pre><pre class="playground"><code class="language-rust edition2021">use same_file::Handle;
+use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::fs::File;
-use std::io::{BufRead, BufReader, Error, ErrorKind};
 use std::path::Path;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
+    // Create a test file
+    let mut file = File::create("new.txt")?;
+    writeln!(file, "test content")?;
+    
     let path_to_read = Path::new("new.txt");
 
     let stdout_handle = Handle::stdout()?;
@@ -213,31 +217,23 @@ fn main() -&gt; Result&lt;(), Error&gt; {
             println!("{} : {}", num, line?.to_uppercase());
         }
     }
-
     Ok(())
 }</code></pre></pre>
-<pre><code class="language-bash">cargo run
-</code></pre>
-<p>displays the contents of the file new.txt.</p>
-<pre><code class="language-bash">cargo run &gt;&gt; ./new.txt
-</code></pre>
-<p>errors because the two files are same.</p>
 <h2 id="access-a-file-randomly-using-a-memory-map"><a class="header" href="#access-a-file-randomly-using-a-memory-map">Access a file randomly using a memory map</a></h2>
 <p><a href="https://docs.rs/memmap/"><img src="https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap" alt="memmap-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Creates a memory map of a file using <a href="https://docs.rs/memmap/">memmap</a> and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
-than dealing with <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.seek"><code>seek</code></a> to navigate a File.</p>
-<p>The <a href="https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map"><code>Mmap::map</code></a> function assumes the file
-behind the memory map is not being modified at the same time by another process
-or else a <a href="https://en.wikipedia.org/wiki/Race_condition#File_systems">race condition</a> occurs.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use memmap::Mmap;
+than dealing with <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.seek"><code>seek</code></a>ing around in a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>.</p>
+<p>The <a href="https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map"><code>Mmap::map</code></a> function assumes the file behind the memory map is not being
+modified at the same time by another process or else a <a href="https://en.wikipedia.org/wiki/Race_condition#File_systems">race condition</a> occurs.</p>
+<pre><pre class="playground"><code class="language-rust edition2021">use memmap::Mmap;
 use std::fs::File;
 use std::io::{Write, Error};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
-<span class="boring">    write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
-</span><span class="boring">
-</span>    let file = File::open("content.txt")?;
+    write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
+
+    let file = File::open("content.txt")?;
     let map = unsafe { Mmap::map(&amp;file)? };
 
     let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];

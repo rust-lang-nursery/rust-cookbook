@@ -168,8 +168,7 @@ function <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.derive.html"><co
 <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.verify.html"><code>pbkdf2::verify</code></a>. The salt is generated using
 <a href="https://briansmith.org/rustdoc/ring/rand/trait.SecureRandom.html#tymethod.fill"><code>SecureRandom::fill</code></a>, which fills the salt byte array with
 securely generated random numbers.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use data_encoding::HEXUPPER;
+<pre><pre class="playground"><code class="language-rust edition2021">use data_encoding::HEXUPPER;
 use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{digest, pbkdf2, rand};

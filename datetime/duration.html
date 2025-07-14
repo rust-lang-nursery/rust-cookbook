@@ -214,8 +214,7 @@ fn main() {
 <h2 id="convert-a-local-time-to-another-timezone"><a class="header" href="#convert-a-local-time-to-another-timezone">Convert a local time to another timezone</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Gets the local time and displays it using <a href="https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now"><code>offset::Local::now</code></a> and then converts it to the UTC standard using the <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc"><code>DateTime::from_utc</code></a> struct method. A time is then converted using the <a href="https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html"><code>offset::FixedOffset</code></a> struct and the UTC time is then converted to UTC+8 and UTC-2.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use chrono::{DateTime, FixedOffset, Local, Utc};
+<pre><pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, FixedOffset, Local, Utc};
 
 fn main() {
     let local_time = Local::now();

@@ -168,31 +168,28 @@ then increments it by patch, minor, and major version number one by one.</p>
 incrementing the minor version number resets the patch version number to 0 and
 incrementing the major version number resets both the minor and patch version
 numbers to 0.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, SemVerError};
+<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, Error as SemVerError};
 
 fn main() -&gt; Result&lt;(), SemVerError&gt; {
     let mut parsed_version = Version::parse("0.2.6")?;
 
     assert_eq!(
         parsed_version,
-        Version {
-            major: 0,
-            minor: 2,
-            patch: 6,
-            pre: vec![],
-            build: vec![],
-        }
+        Version::new(0, 2, 6)
     );
 
-    parsed_version.increment_patch();
+    parsed_version.patch += 1;
     assert_eq!(parsed_version.to_string(), "0.2.7");
     println!("New patch release: v{}", parsed_version);
 
-    parsed_version.increment_minor();
+    parsed_version.minor += 1;
+    parsed_version.patch = 0;
     assert_eq!(parsed_version.to_string(), "0.3.0");
     println!("New minor release: v{}", parsed_version);
 
-    parsed_version.increment_major();
+    parsed_version.major += 1;
+    parsed_version.minor = 0;
+    parsed_version.patch = 0;
     assert_eq!(parsed_version.to_string(), "1.0.0");
     println!("New major release: v{}", parsed_version);
 
@@ -204,26 +201,17 @@ fn main() -&gt; Result&lt;(), SemVerError&gt; {
 contains pre-release and build metadata as defined in the <a href="http://semver.org/">Semantic Versioning Specification</a>.</p>
 <p>Note that, in accordance with the Specification, build metadata is parsed but not considered when
 comparing versions. In other words, two versions may be equal even if their build strings differ.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Identifier, Version, SemVerError};
+<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, Prerelease, BuildMetadata, Error};
 
-fn main() -&gt; Result&lt;(), SemVerError&gt; {
+fn main() -&gt; Result&lt;(), Error&gt; {
     let version_str = "1.0.49-125+g72ee7853";
     let parsed_version = Version::parse(version_str)?;
 
-    assert_eq!(
-        parsed_version,
-        Version {
-            major: 1,
-            minor: 0,
-            patch: 49,
-            pre: vec![Identifier::Numeric(125)],
-            build: vec![],
-        }
-    );
-    assert_eq!(
-        parsed_version.build,
-        vec![Identifier::AlphaNumeric(String::from("g72ee7853"))]
-    );
+    assert_eq!(parsed_version.major, 1);
+    assert_eq!(parsed_version.minor, 0);
+    assert_eq!(parsed_version.patch, 49);
+    assert_eq!(parsed_version.pre, Prerelease::new("125")?);
+    assert_eq!(parsed_version.build, BuildMetadata::new("g72ee7853")?);
 
     let serialized_version = parsed_version.to_string();
     assert_eq!(&amp;serialized_version, version_str);
@@ -232,34 +220,27 @@ fn main() -&gt; Result&lt;(), SemVerError&gt; {
 }</code></pre></pre>
 <h2 id="check-if-given-version-is-pre-release"><a class="header" href="#check-if-given-version-is-pre-release">Check if given version is pre-release.</a></h2>
 <p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
-<p>Given two versions, <a href="https://docs.rs/semver/*/semver/struct.Version.html#method.is_prerelease"><code>is_prerelease</code></a> asserts that one is pre-release and the other is not.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, SemVerError};
+<p>Given two versions, [<code>is_prerelease</code>] asserts that one is pre-release and the other is not.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, Error};
 
-fn main() -&gt; Result&lt;(), SemVerError&gt; {
+fn main() -&gt; Result&lt;(), Error&gt; {
     let version_1 = Version::parse("1.0.0-alpha")?;
     let version_2 = Version::parse("1.0.0")?;
 
-    assert!(version_1.is_prerelease());
-    assert!(!version_2.is_prerelease());
+    assert!(!version_1.pre.is_empty());
+    assert!(version_2.pre.is_empty());
 
     Ok(())
 }</code></pre></pre>
+<p>[`</p>
 <h2 id="find-the-latest-version-satisfying-given-range"><a class="header" href="#find-the-latest-version-satisfying-given-range">Find the latest version satisfying given range</a></h2>
 <p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
 <p>Given a list of version &amp;strs, finds the latest <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a>.
 <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html"><code>semver::VersionReq</code></a> filters the list with <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches"><code>VersionReq::matches</code></a>.
 Also demonstrates <code>semver</code> pre-release preferences.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use semver::{Version, VersionReq};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        SemVer(semver::SemVerError);
-</span><span class="boring">        SemVerReq(semver::ReqParseError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn find_max_matching_version&lt;'a, I&gt;(version_req_str: &amp;str, iterable: I) -&gt; Result&lt;Option&lt;Version&gt;&gt;
 where
     I: IntoIterator&lt;Item = &amp;'a str&gt;,
@@ -303,38 +284,28 @@ fn main() -&gt; Result&lt;()&gt; {
 <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a> using <a href="https://docs.rs/semver/*/semver/struct.Version.html#method.parse"><code>Version::parse</code></a>. <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches"><code>VersionReq::matches</code></a> compares
 <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html"><code>semver::VersionReq</code></a> to the parsed version.  The command output resembles
 "git version x.y.z".</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
 use std::process::Command;
 use semver::{Version, VersionReq};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Utf8(std::string::FromUtf8Error);
-</span><span class="boring">        SemVer(semver::SemVerError);
-</span><span class="boring">        SemVerReq(semver::ReqParseError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let version_constraint = "&gt; 1.12.0";
     let version_test = VersionReq::parse(version_constraint)?;
     let output = Command::new("git").arg("--version").output()?;
 
     if !output.status.success() {
-        error_chain::bail!("Command executed with failing error code");
+        return Err(anyhow!("Command executed with failing error code"));
     }
 
     let stdout = String::from_utf8(output.stdout)?;
     let version = stdout.split(" ").last().ok_or_else(|| {
-        "Invalid command output"
+        anyhow!("Invalid command output")
     })?;
     let parsed_version = Version::parse(version)?;
 
     if !version_test.matches(&amp;parsed_version) {
-        error_chain::bail!("Command version lower than minimum supported version (found {}, need {})",
-            parsed_version, version_constraint);
+        return Err(anyhow!("Command version lower than minimum supported version (found {}, need {})",
+            parsed_version, version_constraint));
     }
 
     Ok(())

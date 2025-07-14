@@ -236,18 +236,10 @@ fn main() -&gt; Result&lt;(), DecodeError&gt; {
 <p><a href="https://docs.rs/base64/"><img src="https://badge-cache.kominick.com/crates/v/base64.svg?label=base64" alt="base64-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>Encodes byte slice into <code>base64</code> String using <a href="https://docs.rs/base64/*/base64/fn.encode.html"><code>encode</code></a>
 and decodes it with <a href="https://docs.rs/base64/*/base64/fn.decode.html"><code>decode</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use std::str;
 use base64::{encode, decode};
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Base64(base64::DecodeError);
-</span><span class="boring">        Utf8Error(str::Utf8Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let hello = b"hello rustaceans";
     let encoded = encode(hello);

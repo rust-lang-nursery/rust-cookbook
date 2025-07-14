@@ -219,7 +219,7 @@ fn main() -&gt; Result&lt;(), csv::Error&gt; {
 }</code></pre></pre>
 <h2 id="read-csv-records-with-different-delimiter"><a class="header" href="#read-csv-records-with-different-delimiter">Read CSV records with different delimiter</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
-<p>Reads CSV records with a tab <a href="https://docs.rs/csv/1.0.0-beta.3/csv/struct.ReaderBuilder.html#method.delimiter"><code>delimiter</code></a>.</p>
+<p>Reads CSV records with a tab [<code>delimiter</code>].</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use csv::Error;
 use serde::Deserialize;
 #[derive(Debug, Deserialize)]
@@ -247,17 +247,9 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="filter-csv-records-matching-a-predicate"><a class="header" href="#filter-csv-records-matching-a-predicate">Filter CSV records matching a predicate</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>Returns <em>only</em> the rows from <code>data</code> with a field that matches <code>query</code>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use std::io;
-<span class="boring">
-</span><span class="boring">error_chain!{
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        CsvError(csv::Error);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let query = "CA";
     let data = "\
@@ -321,17 +313,9 @@ serialization from Rust types into CSV records. <a href="https://docs.rs/csv/*/c
 a simple record containing string data only. Data with more complex values
 such as numbers, floats, and options use <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize"><code>serialize</code></a>. Since CSV
 writer uses internal buffer, always explicitly <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.flush"><code>flush</code></a> when done.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use std::io;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        CSVError(csv::Error);
-</span><span class="boring">        IOError(std::io::Error);
-</span><span class="boring">   }
-</span><span class="boring">}
-</span>
+
 fn main() -&gt; Result&lt;()&gt; {
     let mut wtr = csv::Writer::from_writer(io::stdout());
 
@@ -348,17 +332,10 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>The following example shows how to serialize custom structs as CSV records using
 the <a href="https://docs.rs/serde/">serde</a> crate.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>use serde::Serialize;
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+use serde::Serialize;
 use std::io;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">   foreign_links {
-</span><span class="boring">       IOError(std::io::Error);
-</span><span class="boring">       CSVError(csv::Error);
-</span><span class="boring">   }
-</span><span class="boring">}
-</span>
+
 #[derive(Serialize)]
 struct Record&lt;'a&gt; {
     name: &amp;'a str,
@@ -380,28 +357,24 @@ fn main() -&gt; Result&lt;()&gt; {
     wtr.flush()?;
 
     Ok(())
-}</code></pre></pre>
-<h2 id="transform-csv-column"><a class="header" href="#transform-csv-column">Transform CSV column</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
-<p>Transform a CSV file containing a color name and a hex color into one with a
-color name and an rgb color.  Utilizes the <a href="https://docs.rs/csv/">csv</a> crate to read and write the
-csv file, and <a href="https://docs.rs/serde/">serde</a> to deserialize and serialize the rows to and from bytes.</p>
-<p>See <a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize"><code>csv::Reader::deserialize</code></a>, <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html"><code>serde::Deserialize</code></a>, and <a href="https://doc.rust-lang.org/std/str/trait.FromStr.html"><code>std::str::FromStr</code></a></p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use error_chain::error_chain;
-</span>use csv::{Reader, Writer};
+}
+
+# Transform CSV column
+
+[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
+
+Transform a CSV file containing a color name and a hex color into one with a
+color name and an rgb color.  Utilizes the [csv] crate to read and write the
+csv file, and [serde] to deserialize and serialize the rows to and from bytes.
+
+See [csv::Reader::deserialize], [serde::Deserialize], and [std::str::FromStr]
+
+```rust,edition2018
+use anyhow::{Result, anyhow};
+use csv::{Reader, Writer};
 use serde::{de, Deserialize, Deserializer};
 use std::str::FromStr;
-<span class="boring">
-</span><span class="boring">error_chain! {
-</span><span class="boring">   foreign_links {
-</span><span class="boring">       CsvError(csv::Error);
-</span><span class="boring">       ParseInt(std::num::ParseIntError);
-</span><span class="boring">       CsvInnerError(csv::IntoInnerError&lt;Writer&lt;Vec&lt;u8&gt;&gt;&gt;);
-</span><span class="boring">       IO(std::fmt::Error);
-</span><span class="boring">       UTF8(std::string::FromUtf8Error);
-</span><span class="boring">   }
-</span><span class="boring">}
-</span>
+
 #[derive(Debug)]
 struct HexColor {
     red: u8,
@@ -416,12 +389,12 @@ struct Row {
 }
 
 impl FromStr for HexColor {
-    type Err = Error;
+    type Err = anyhow::Error;
 
     fn from_str(hex_color: &amp;str) -&gt; std::result::Result&lt;Self, Self::Err&gt; {
         let trimmed = hex_color.trim_matches('#');
         if trimmed.len() != 6 {
-            Err("Invalid length of hex string".into())
+            Err(anyhow!("Invalid length of hex string"))
         } else {
             Ok(HexColor {
                 red: u8::from_str_radix(&amp;trimmed[..2], 16)?,

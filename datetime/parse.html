@@ -202,8 +202,7 @@ fn main() {
 to <a href="https://en.wikipedia.org/wiki/Unix_time">UNIX timestamp</a> using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp"><code>NaiveDateTime::timestamp</code></a>.
 Then it calculates what was the date after one billion seconds
 since January 1, 1970 0:00:00 UTC, using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.from_timestamp"><code>NaiveDateTime::from_timestamp</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use chrono::{NaiveDate, NaiveDateTime};
+<pre><pre class="playground"><code class="language-rust edition2018">use chrono::{NaiveDate, NaiveDateTime};
 
 fn main() {
     let date_time: NaiveDateTime = NaiveDate::from_ymd(2017, 11, 12).and_hms(17, 33, 44);

@@ -164,7 +164,8 @@
 <p><a href="https://docs.rs/crate/ndarray/*"><img src="https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray" alt="ndarray-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Creates two 2-D matrices with <a href="https://docs.rs/ndarray/*/ndarray/fn.arr2.html"><code>ndarray::arr2</code></a> and sums them element-wise.</p>
 <p>Note the sum is computed as <code>let sum = &amp;a + &amp;b</code>. The <code>&amp;</code> operator is used to avoid consuming <code>a</code> and <code>b</code>, making them available later for display. A new array is created containing their sum.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ndarray::arr2;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use ndarray::arr2;
 
 fn main() {
     let a = arr2(&amp;[[1, 2, 3],
@@ -184,7 +185,8 @@ fn main() {
 <h2 id="multiplying-matrices"><a class="header" href="#multiplying-matrices">Multiplying matrices</a></h2>
 <p><a href="https://docs.rs/crate/ndarray/*"><img src="https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray" alt="ndarray-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Creates two matrices with <a href="https://docs.rs/ndarray/*/ndarray/fn.arr2.html"><code>ndarray::arr2</code></a> and performs matrix multiplication on them with <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#method.dot-1"><code>ndarray::ArrayBase::dot</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ndarray::arr2;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use ndarray::arr2;
 
 fn main() {
     let a = arr2(&amp;[[1, 2, 3],
@@ -209,7 +211,8 @@ depending on context. If representing the orientation of a vector is important,
 a 2-D array with one row or one column must be used instead. In this example,
 the vector is a 1-D array on the right-hand side, so <code>dot</code> handles it as a column
 vector.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ndarray::{arr1, arr2, Array1};
+<pre><pre class="playground"><code class="language-rust edition2018">
+use ndarray::{arr1, arr2, Array1};
 
 fn main() {
     let scalar = 4;
@@ -230,16 +233,15 @@ fn main() {
 <p>The <a href="https://docs.rs/crate/ndarray/*">ndarray</a> crate supports a number of ways to create arrays -- this recipe creates
 <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html"><code>ndarray::Array</code></a>s from <code>std::Vec</code> using <code>from</code>. Then, it sums the arrays element-wise.</p>
 <p>This recipe contains an example of comparing two floating-point vectors element-wise.
-Floating-point numbers are often stored inexactly, making exact comparisons difficult.
-However, the <a href="https://docs.rs/approx/*/approx/macro.assert_abs_diff_eq.html"><code>assert_abs_diff_eq!</code></a> macro from the <a href="https://docs.rs/approx/*/approx/index.html"><code>approx</code></a> crate allows for convenient
-element-wise comparisons. To use the <code>approx</code> crate with <code>ndarray</code>, the <code>approx</code>
-feature must be added to the <code>ndarray</code> dependency in <code>Cargo.toml</code>. For example,
-<code>ndarray = { version = "0.13", features = ["approx"] }</code>.</p>
+For simple cases, we can use <code>assert_eq!</code> for exact equality comparison. For more
+complex floating-point comparisons that need to handle precision issues, you can use
+the <a href="https://docs.rs/approx/*/approx/index.html"><code>approx</code></a> crate with the <code>approx</code> feature enabled in the <code>ndarray</code> dependency
+in <code>Cargo.toml</code>. For example, <code>ndarray = { version = "0.13", features = ["approx"] }</code>.</p>
 <p>This recipe also contains additional ownership examples. Here, <code>let z = a + b</code> consumes
 <code>a</code> and <code>b</code>, updates <code>a</code> with the result, then moves ownership to <code>z</code>. Alternatively,
 <code>let w = &amp;c + &amp;d</code> creates a new vector without consuming <code>c</code> or <code>d</code>, allowing
 their modification later. See <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#binary-operators-with-two-arrays">Binary Operators With Two Arrays</a> for additional detail.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use approx::assert_abs_diff_eq;
+<pre><pre class="playground"><code class="language-rust edition2018">
 use ndarray::Array;
 
 fn main() {
@@ -251,13 +253,13 @@ fn main() {
   let z = a + b;
   let w =  &amp;c + &amp;d;
 
-  assert_abs_diff_eq!(z, Array::from(vec![6., 6., 6., 6., 6.]));
+  assert_eq!(z, Array::from(vec![6., 6., 6., 6., 6.]));
 
   println!("c = {}", c);
   c[0] = 10.;
   d[1] = 10.;
 
-  assert_abs_diff_eq!(w, Array::from(vec![6., 6., 6., 6., 6.]));
+  assert_eq!(w, Array::from(vec![6., 6., 6., 6., 6.]));
 
 }</code></pre></pre>
 <h2 id="vector-norm"><a class="header" href="#vector-norm">Vector norm</a></h2>
@@ -286,7 +288,8 @@ because then the caller could use <code>&amp;array</code> or <code>&amp;view</co
 If the function is part of a public API, that may be a better choice for the
 benefit of users. For internal functions, the more concise <code>ArrayView1&lt;f64&gt;</code>
 may be preferable.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use ndarray::{array, Array1, ArrayView1};
+<pre><pre class="playground"><code class="language-rust edition2018">
+use ndarray::{array, Array1, ArrayView1};
 
 fn l1_norm(x: ArrayView1&lt;f64&gt;) -&gt; f64 {
     x.fold(0., |acc, elem| acc + elem.abs())
@@ -311,7 +314,8 @@ fn main() {
 <h2 id="invert-matrix"><a class="header" href="#invert-matrix">Invert matrix</a></h2>
 <p><a href="https://docs.rs/nalgebra"><img src="https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra" alt="nalgebra-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Creates a 3x3 matrix with <a href="https://docs.rs/nalgebra/*/nalgebra/base/type.Matrix3.html"><code>nalgebra::Matrix3</code></a> and inverts it, if possible.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use nalgebra::Matrix3;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use nalgebra::Matrix3;
 
 fn main() {
     let m1 = Matrix3::new(2.0, 1.0, 1.0, 3.0, 2.0, 1.0, 2.0, 1.0, 2.0);
@@ -330,7 +334,8 @@ fn main() {
 <p>Serialize and deserialize a matrix to and from JSON. Serialization is taken care of
 by <a href="https://docs.rs/serde_json/*/serde_json/fn.to_string.html"><code>serde_json::to_string</code></a> and <a href="https://docs.rs/serde_json/*/serde_json/fn.from_str.html"><code>serde_json::from_str</code></a> performs deserialization.</p>
 <p>Note that serialization followed by deserialization gives back the original matrix.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use nalgebra::DMatrix;
+<pre><pre class="playground"><code class="language-rust edition2018">
+use nalgebra::DMatrix;
 
 fn main() -&gt; Result&lt;(), std::io::Error&gt; {
     let row_slice: Vec&lt;i32&gt; = (1..5001).collect();

@@ -165,25 +165,17 @@
 <p>Creates a temporary directory with <a href="https://docs.rs/tempfile/*/tempfile/struct.Builder.html"><code>tempfile::Builder</code></a> and downloads
 a file over HTTP using <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> asynchronously.</p>
 <p>Creates a target <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> with name obtained from <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url"><code>Response::url</code></a> within
-<a href="https://docs.rs/tempfile/*/tempfile/struct.Builder.html#method.tempdir"><code>tempdir()</code></a> and writes downloaded data into it with <a href="https://doc.rust-lang.org/std/io/trait.Write.html#method.write_all"><code>Writer::write_all</code></a>.
+<a href="https://docs.rs/tempfile/*/tempfile/struct.TempDir.html#method.path"><code>tempfile::TempDir::path</code></a> and copies downloaded data to it with <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>.
 The temporary directory is automatically removed on program exit.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use std::io::Write;
 use std::fs::File;
 use tempfile::Builder;
 
-error_chain! {
-     foreign_links {
-         Io(std::io::Error);
-         HttpRequest(reqwest::Error);
-     }
-}
-
-#[tokio::main]
-async fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let tmp_dir = Builder::new().prefix("example").tempdir()?;
     let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
-    let response = reqwest::get(target).await?;
+    let response = reqwest::blocking::get(target)?;
 
     let mut dest = {
         let fname = response
@@ -198,66 +190,51 @@ async fn main() -&gt; Result&lt;()&gt; {
         println!("will be located under: '{:?}'", fname);
         File::create(fname)?
     };
-    let content =  response.bytes().await?;
+    let content =  response.bytes()?;
     dest.write_all(&amp;content)?;
     Ok(())
 }</code></pre></pre>
 <h2 id="post-a-file-to-paste-rs"><a class="header" href="#post-a-file-to-paste-rs">POST a file to paste-rs</a></h2>
 <p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
-<p><a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> establishes a connection to https://paste.rs
-following the <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html"><code>reqwest::RequestBuilder</code></a> pattern.  Calling <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a>
-with a URL establishes the destination, <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.body"><code>RequestBuilder::body</code></a> sets the
-content to send by reading the file, and <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> blocks until
-the file uploads and the response returns.  <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a> returns the
+<p><a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> establishes a connection to https://paste.rs following the
+<a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html"><code>reqwest::RequestBuilder</code></a> pattern. Calling <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a> with a URL
+establishes the destination, <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.body"><code>RequestBuilder::body</code></a> sets the content to send
+by reading the file, and <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> blocks until the file uploads
+and the response returns. <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a> returns the message from the server
 response and displays in the console.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use std::fs::File;
 use std::io::Read;
 
- error_chain! {
-     foreign_links {
-         HttpRequest(reqwest::Error);
-         IoError(::std::io::Error);
-     }
- }
- #[tokio::main]
-
-async fn main() -&gt; Result&lt;()&gt; {
+fn main() -&gt; Result&lt;()&gt; {
     let paste_api = "https://paste.rs";
     let mut file = File::open("message")?;
 
     let mut contents = String::new();
     file.read_to_string(&amp;mut contents)?;
 
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
     let res = client.post(paste_api)
         .body(contents)
-        .send()
-        .await?;
-    let response_text = res.text().await?;
+        .send()?;
+    let response_text = res.text()?;
     println!("Your paste is located at: {}",response_text );
     Ok(())
 }</code></pre></pre>
 <h2 id="make-a-partial-download-with-http-range-headers"><a class="header" href="#make-a-partial-download-with-http-range-headers">Make a partial download with HTTP range headers</a></h2>
 <p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
-<p>Uses <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.head"><code>reqwest::blocking::Client::head</code></a> to get the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length">Content-Length</a> of the response.</p>
-<p>The code then uses <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.get"><code>reqwest::blocking::Client::get</code></a> to download the content in
-chunks of 10240 bytes, while printing progress messages. This example uses the synchronous
-reqwest module.  The <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range">Range</a> header specifies the chunk size and position.</p>
+<p>Uses <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.head"><code>reqwest::blocking::Client::head</code></a> to get the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length">Content-Length</a> of the
+response.</p>
+<p>The code then uses <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html#method.get"><code>reqwest::blocking::Client::get</code></a> to download the content
+in chunks of 10240 bytes, while printing progress messages. This approach is
+useful to control memory usage for large files and allows for resumable
+downloads.</p>
 <p>The Range header is defined in <a href="https://tools.ietf.org/html/rfc7233#section-3.1">RFC7233</a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use error_chain::error_chain;
+<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::{Result, anyhow};
 use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
 use reqwest::StatusCode;
 use std::fs::File;
 use std::str::FromStr;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        Reqwest(reqwest::Error);
-        Header(reqwest::header::ToStrError);
-    }
-}
 
 struct PartialRangeIter {
   start: u64,
@@ -268,7 +245,7 @@ struct PartialRangeIter {
 impl PartialRangeIter {
   pub fn new(start: u64, end: u64, buffer_size: u32) -&gt; Result&lt;Self&gt; {
     if buffer_size == 0 {
-      Err("invalid buffer_size, give a value greater than zero.")?;
+      return Err(anyhow!("invalid buffer_size, give a value greater than zero."));
     }
     Ok(PartialRangeIter {
       start,
@@ -300,8 +277,8 @@ fn main() -&gt; Result&lt;()&gt; {
   let length = response
     .headers()
     .get(CONTENT_LENGTH)
-    .ok_or("response doesn't include the content length")?;
-  let length = u64::from_str(length.to_str()?).map_err(|_| "invalid Content-Length header")?;
+    .ok_or_else(|| anyhow!("response doesn't include the content length"))?;
+  let length = u64::from_str(length.to_str()?).map_err(|_| anyhow!("invalid Content-Length header"))?;
     
   let mut output_file = File::create("download.bin")?;
     
@@ -312,7 +289,7 @@ fn main() -&gt; Result&lt;()&gt; {
     
     let status = response.status();
     if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
-      error_chain::bail!("Unexpected server response: {}", status)
+      return Err(anyhow!("Unexpected server response: {}", status));
     }
     std::io::copy(&amp;mut response, &amp;mut output_file)?;
   }

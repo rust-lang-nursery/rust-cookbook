@@ -167,7 +167,7 @@ JSON.</p>
 <p>Unstructured JSON can be parsed into a universal <a href="https://docs.serde.rs/serde_json/enum.Value.html"><code>serde_json::Value</code></a> type that
 is able to represent any valid JSON data.</p>
 <p>The example below shows a <code>&amp;str</code> of JSON being parsed.  The expected value is declared using the <a href="https://docs.serde.rs/serde_json/macro.json.html"><code>json!</code></a> macro.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"> use serde_json::json;
+<pre><pre class="playground"><code class="language-rust edition2018">use serde_json::json;
 use serde_json::{Value, Error};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -264,8 +264,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <p><code>byteorder</code> can reverse the significant bytes of structured data.  This may
 be necessary when receiving information over the network, such that bytes
 received are from another system.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
+<pre><pre class="playground"><code class="language-rust edition2018">use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use std::io::Error;
 
 #[derive(Default, PartialEq, Debug)]

@@ -221,18 +221,18 @@ fn main() {
 values in parallel.  Although <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html">multiple options</a>
 exist to sort an enumerable data type, <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable"><code>par_sort_unstable</code></a>
 is usually faster than <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort">stable sorting</a> algorithms.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-use rand::{Rng, thread_rng};
-use rand::distributions::Alphanumeric;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 use rayon::prelude::*;
 
 fn main() {
-  let mut vec = vec![String::new(); 100_000];
-  vec.par_iter_mut().for_each(|p| {
-    let mut rng = thread_rng();
-    *p = (0..5).map(|_| rng.sample(&amp;Alphanumeric) as char).collect()
-  });
-  vec.par_sort_unstable();
+    let mut vec = vec![0; 1_000_000];
+    rand::thread_rng().fill(&amp;mut vec[..]);
+
+    vec.par_sort_unstable();
+
+    let first = vec.first().unwrap();
+    let last = vec.last().unwrap();
+    assert!(first &lt;= last);
 }</code></pre></pre>
 <h2 id="map-reduce-in-parallel"><a class="header" href="#map-reduce-in-parallel">Map-reduce in parallel</a></h2>
 <p><a href="https://docs.rs/rayon/"><img src="https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon" alt="rayon-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
@@ -283,24 +283,14 @@ fn main() {
 then saves them in a new folder called <code>thumbnails</code>.</p>
 <p><a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob::glob_with</code></a> finds jpeg files in current directory. <code>rayon</code> resizes
 images in parallel using <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter"><code>par_iter</code></a> calling  <a href="https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize"><code>DynamicImage::resize</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run"><span class="boring">use error_chain::error_chain;
-</span>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use std::path::Path;
 use std::fs::create_dir_all;
 
-<span class="boring">use error_chain::ChainedError;
-</span>use glob::{glob_with, MatchOptions};
-use image::{FilterType, ImageError};
+use glob::{glob_with, MatchOptions};
+use image::imageops::FilterType;
 use rayon::prelude::*;
 
-<span class="boring">error_chain! {
-</span><span class="boring">    foreign_links {
-</span><span class="boring">        Image(ImageError);
-</span><span class="boring">        Io(std::io::Error);
-</span><span class="boring">        Glob(glob::PatternError);
-</span><span class="boring">    }
-</span><span class="boring">}
-</span>
 fn main() -&gt; Result&lt;()&gt; {
     let options: MatchOptions = Default::default();
     let files: Vec&lt;_&gt; = glob_with("*.jpg", options)?
@@ -308,7 +298,7 @@ fn main() -&gt; Result&lt;()&gt; {
         .collect();
 
     if files.len() == 0 {
-        error_chain::bail!("No .jpg files found in current directory");
+        anyhow::bail!("No .jpg files found in current directory");
     }
 
     let thumb_dir = "thumbnails";
@@ -320,12 +310,12 @@ fn main() -&gt; Result&lt;()&gt; {
         .par_iter()
         .map(|path| {
             make_thumbnail(path, thumb_dir, 300)
-                .map_err(|e| e.chain_err(|| path.display().to_string()))
+                .map_err(|e| anyhow::anyhow!("Failed to process {}: {}", path.display(), e))
         })
         .filter_map(|x| x.err())
         .collect();
 
-    image_failures.iter().for_each(|x| println!("{}", x.display_chain()));
+    image_failures.iter().for_each(|x| println!("{}", x));
 
     println!("{} thumbnails saved successfully", files.len() - image_failures.len());
     Ok(())
