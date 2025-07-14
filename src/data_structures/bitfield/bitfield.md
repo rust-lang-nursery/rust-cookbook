@@ -5,7 +5,7 @@
 Creates type safe bitfield type `MyFlags` with elementary `clear` operation as well as [`Display`] trait for it.
 Subsequently, shows basic bitwise operations and formatting.
 
-```rust,edition2018
+```rust,edition2021
 use std::fmt;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -68,10 +68,10 @@ impl fmt::Display for MyFlags {
 fn main() {
     let e1 = MyFlags::FLAG_A | MyFlags::FLAG_C;
     let e2 = MyFlags::FLAG_B | MyFlags::FLAG_C;
-    assert_eq!((e1 | e2), MyFlags::FLAG_ABC);   
-    assert_eq!((e1 & e2), MyFlags::FLAG_C);    
-    assert_eq!((e1 - e2), MyFlags::FLAG_A);    
-    assert_eq!(!e2, MyFlags::FLAG_A);           
+    assert_eq!((e1 | e2), MyFlags::FLAG_ABC);
+    assert_eq!((e1 & e2), MyFlags::FLAG_C);
+    assert_eq!((e1 - e2), MyFlags::FLAG_A);
+    assert_eq!(!e2, MyFlags::FLAG_A);
 
     let mut flags = MyFlags::FLAG_ABC;
     assert_eq!(format!("{}", flags), "00000000000000000000000000000111");
@@ -79,3 +79,4 @@ fn main() {
     assert_eq!(format!("{:?}", MyFlags::FLAG_B), "MyFlags(2)");
     assert_eq!(format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B), "MyFlags(3)");
 }
+```

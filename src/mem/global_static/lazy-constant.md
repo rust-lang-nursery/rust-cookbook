@@ -32,3 +32,22 @@ fn main() {
 ```
 
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
+
+## Std:cell
+
+[`OnceCell`] is included in the standard library as an alternative.
+
+```rust,edition2021
+use std::cell::OnceCell;
+
+let cell = OnceCell::new();
+assert!(cell.get().is_none());
+
+let value: &String = cell.get_or_init(|| {
+    "Hello, World!".to_string()
+});
+assert_eq!(value, "Hello, World!");
+assert!(cell.get().is_some());
+```
+
+[`OnceCell`]: https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html
