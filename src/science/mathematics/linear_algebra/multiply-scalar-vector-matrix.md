@@ -16,7 +16,7 @@ the vector is a 1-D array on the right-hand side, so `dot` handles it as a colum
 vector.
 
 ```rust,edition2018
-extern crate ndarray;
+
 use ndarray::{arr1, arr2, Array1};
 
 fn main() {

@@ -5,7 +5,7 @@
 Encodes byte slice into `base64` String using [`encode`]
 and decodes it with [`decode`].
 
-```rust,edition2018,ignore
+```rust,edition2018
 use anyhow::Result;
 use std::str;
 use base64::{encode, decode};

@@ -17,22 +17,19 @@ jobs:
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           cache: 'true'
-          toolchain: nightly
+          toolchain: stable
 
       - name: Run tests
         id: cargo_test
         run: |
-          cargo +nightly test --test skeptic -- -Z unstable-options --format junit --report-time --test-threads=1 | tee ./TEST-cookbook.xml
+          cargo test --test skeptic -- --test-threads=1
 
-      - name: List files for debugging
+      - name: Test Results
         if: always()
-        run: ls -R
-
-      - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v5.2.0
-        if: always()
-        with:
-          fail_on_failure: true
-          require_tests: true
-          summary: ${{ steps.cargo_test.outputs.summary }}
-          report_paths: '**/TEST-*.xml'
+        run: |
+          if [ ${{ steps.cargo_test.outcome }} == 'success' ]; then
+            echo "✅ All tests passed!"
+          else
+            echo "❌ Some tests failed. Check the logs above for details."
+            exit 1
+          fi

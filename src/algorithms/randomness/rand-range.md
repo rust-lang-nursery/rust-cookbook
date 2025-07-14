@@ -4,11 +4,11 @@
 
 Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::gen_range`].
 
-```rust,edition2018,ignore
+```rust,edition2018
 use rand::Rng;
 
 fn main() {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
     println!("Integer: {}", rng.gen_range(0..10));
     println!("Float: {}", rng.gen_range(0.0..10.0));
 }
@@ -18,13 +18,14 @@ fn main() {
 This has the same effect, but may be faster when repeatedly generating numbers
 in the same range.
 
-```rust,edition2018,ignore
+```rust,edition2018
 use rand::Rng;
 use rand_distr::{Distribution, Uniform};
 
 fn main() {
-    let mut rng = rand::thread_rng();
-    let die = Uniform::from(1..7);
+    let mut rng = rand::rng();
+    let die = Uniform::new_inclusive(1, 6)
+        .expect("Failed to create uniform distribution: invalid range");
 
     loop {
         let throw = die.sample(&mut rng);

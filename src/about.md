@@ -56,12 +56,12 @@ Consider this example for "generate random numbers within a range":
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-```rust,edition2018,ignore
+```rust,edition2018
 use rand::Rng;
 
 fn main() {
-    let mut rng = rand::thread_rng();
-    let random_number: u32 = rng.gen();
+    let mut rng = rand::rng();
+    let random_number: u32 = rng.random();
     println!("Random number: {}", random_number);
 }
 ```

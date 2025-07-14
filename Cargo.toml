@@ -49,6 +49,7 @@ reqwest = { version = "0.12", features = ["blocking", "json", "stream"] }
 ring = "0.17"
 rusqlite = { version = "0.32", features = ["chrono"] }
 same-file = "1.0"
+select = "0.6.0"
 
 semver = "1.0"
 serde = { version = "1.0", features = ["derive"] }
@@ -70,9 +71,9 @@ walkdir = "2.5"
 syslog = "5.0"
 
 [build-dependencies]
-skeptic = { git = "https://github.com/andygauge/rust-skeptic", branch = "rlib-patch" }
+skeptic = { git = "https://github.com/AndyGauge/rust-skeptic", branch = "rlib-patch" }
 walkdir = "2.5"
 
 [dev-dependencies]
-skeptic = { git = "https://github.com/andygauge/rust-skeptic", branch = "rlib-patch" }
+skeptic = { git = "https://github.com/AndyGauge/rust-skeptic", branch = "rlib-patch" }
 walkdir = "2.5"

@@ -11,7 +11,7 @@ parse an individual link with [`url::ParseOptions`] and [`Url::parse`]).
 The task makes a request to the links with [reqwest] and verifies
 [`StatusCode`].  Then the tasks `await` completion before ending the program.
 
-```rust,edition2024,ignore
+```rust,edition2018
 // cargo-deps: tokio="1", reqwest="0.11", select="0.6", thiserror="1", url="2", anyhow="1"
 mod broken {
   use thiserror::Error;

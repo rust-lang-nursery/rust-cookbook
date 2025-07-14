@@ -16,7 +16,7 @@ Create [`ThreadPool`] with thread count equal to number of cores with [`num_cpus
 [`ImageBuffer::put_pixel`] uses the data to set the pixel color.
 [`ImageBuffer::save`] writes the image to `output.png`.
 
-```rust,edition2018,ignore,no_run
+```rust,edition2018,no_run
 use anyhow::Result;
 use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
@@ -45,7 +45,7 @@ use image::{ImageBuffer, Pixel, Rgb};
 #     };
 #
 #     let (r, g, b) = (normalize(r, factor), normalize(g, factor), normalize(b, factor));
-#     Rgb::from_channels(r, g, b, 0)
+#     Rgb([r, g, b])
 # }
 #
 # // Maps Julia set distance estimation to intensity values

@@ -7,7 +7,7 @@ built in types: the numbers in question must be of the same type (i.e. floats
 or integers).
 
 ```rust,edition2018
-extern crate num;
+
 fn main() {
     let complex_num1 = num::complex::Complex::new(10.0, 20.0); // Must use floats
     let complex_num2 = num::complex::Complex::new(3.1, -4.2);

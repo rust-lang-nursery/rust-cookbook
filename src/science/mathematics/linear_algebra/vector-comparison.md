@@ -16,7 +16,7 @@ This recipe also contains additional ownership examples. Here, `let z = a + b` c
 their modification later. See [Binary Operators With Two Arrays] for additional detail.
 
 ```rust,edition2018
-extern crate ndarray;
+
 use ndarray::Array;
 
 fn main() {

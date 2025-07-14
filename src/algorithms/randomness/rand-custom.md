@@ -5,9 +5,8 @@
 Randomly generates a tuple `(i32, bool, f64)` and variable of user defined type `Point`.
 Implements the [`Distribution`] trait on type Point for [`Standard`] in order to allow random generation.
 
-```rust,edition2018,no_run
+```rust,edition2018
 use rand::Rng;
-use rand::distributions::{Distribution, Standard};
 
 #[derive(Debug)]
 struct Point {
@@ -15,21 +14,19 @@ struct Point {
     y: i32,
 }
 
-impl Distribution<Point> for Standard {
-    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Point {
-        let rand_x: i32 = rng.gen();
-        let rand_y: i32 = rng.gen();
+impl Point {
+    fn random<R: Rng>(rng: &mut R) -> Self {
         Point {
-            x: rand_x,
-            y: rand_y,
+            x: rng.random(),
+            y: rng.random(),
         }
     }
 }
 
 fn main() {
-    let mut rng = rand::thread_rng();
-    let rand_tuple = rng.gen::<(i32, bool, f64)>();
-    let rand_point: Point = rng.gen();
+    let mut rng = rand::rng();
+    let rand_tuple = rng.random::<(i32, bool, f64)>();
+    let rand_point = Point::random(&mut rng);
     println!("Random tuple: {:?}", rand_tuple);
     println!("Random Point: {:?}", rand_point);
 }

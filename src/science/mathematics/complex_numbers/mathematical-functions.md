@@ -9,7 +9,7 @@ complex numbers, the Complex type has a few built in
 functions, all of which can be found here: [`num::complex::Complex`].
 
 ```rust,edition2018
-extern crate num;
+
 use std::f64::consts::PI;
 use num::complex::Complex;
 

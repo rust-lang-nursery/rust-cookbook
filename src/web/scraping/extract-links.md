@@ -8,7 +8,7 @@ Use [`reqwest::get`] to perform a HTTP GET request and then use
 Call [`filter_map`] on the [`Selection`] retrieves URLs
 from links that have the "href" [`attr`] (attribute).
 
-```rust,edition2024,ignore
+```rust,edition2018
 // select needs rand v.0.8
 // cargo-deps: tokio="1", reqwest="0.11", select="0.6", thiserror="1"
 mod links {

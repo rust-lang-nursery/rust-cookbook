@@ -5,18 +5,24 @@
 Randomly generates a string of given length ASCII characters in the range `A-Z,
 a-z, 0-9`, with [`Alphanumeric`] sample.
 
-```rust,edition2018,no_run
-use rand::{thread_rng, Rng};
-use rand::distributions::Alphanumeric;
+```rust,edition2018
+use rand::Rng;
 
 fn main() {
-    let rand_string: String = thread_rng()
-        .sample_iter(&Alphanumeric)
-        .take(30)
-        .map(char::from)
+    const CHARSET: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+                            abcdefghijklmnopqrstuvwxyz\
+                            0123456789";
+    const PASSWORD_LEN: usize = 30;
+    let mut rng = rand::rng();
+
+    let password: String = (0..PASSWORD_LEN)
+        .map(|_| {
+            let idx = rng.random_range(0..CHARSET.len());
+            CHARSET[idx] as char
+        })
         .collect();
 
-    println!("{}", rand_string);
+    println!("{}", password);
 }
 ```
 
