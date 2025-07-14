@@ -5,10 +5,7 @@
 Writes some data to a file, then calculates the SHA-256 [`digest::Digest`] of
 the file's contents using [`digest::Context`].
 
-```rust,edition2018
-extern crate ring;
-extern crate data_encoding;
-extern crate anyhow;
+```rust,edition2021
 use anyhow::Result;
 use ring::digest::{Context, Digest, SHA256};
 use data_encoding::HEXUPPER;

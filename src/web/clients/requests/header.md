@@ -1,20 +1,19 @@
 ## Set custom headers and URL parameters for a REST request
 
-[![reqwest-badge]][reqwest] [![hyper-badge]][hyper] [![url-badge]][url] [![cat-net-badge]][cat-net]
+[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![url-badge]][url] [![cat-net-badge]][cat-net]
 
-Builds complex URL with [`Url::parse_with_params`].  Sets standard headers
-[`header::USER_AGENT`], and custom `X-Powered-By` header with 
-[`RequestBuilder::HeaderName::TryFrom<&'a str>`] then makes the request with
-[`RequestBuilder::send`].
+Sets both standard and custom HTTP headers as well as URL parameters for a HTTP
+GET request. Creates a custom header of type `XPoweredBy` with [`header!`] macro.
+
+Then, builds the complex URL with [`Url::parse_with_params`]. Sets standard
+headers [`header::USER_AGENT`], [`header::AUTHORIZATION`] and custom
+`XPoweredBy` header using [`RequestBuilder::header`], then makes the request
+with [`RequestBuilder::send`].
 
 The request target <http://httpbin.org/headers> responds with
 a JSON dict containing all request headers for easy verification.
 
-```rust,edition2018,no_run
-extern crate anyhow;
-extern crate reqwest;
-extern crate serde;
-extern crate url;
+```rust,edition2021,no_run
 use anyhow::Result;
 use reqwest::Url;
 use reqwest::blocking::Client;

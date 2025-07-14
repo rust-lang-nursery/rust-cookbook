@@ -2,17 +2,17 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-Uses [`reqwest::blocking::Client::head`] to get the [Content-Length] of the response.
+Uses [`reqwest::blocking::Client::head`] to get the [Content-Length] of the
+response.
 
-The code then uses [`reqwest::blocking::Client::get`] to download the content in
-chunks of 10240 bytes, while printing progress messages. This example uses the synchronous
-reqwest module.  The [Range] header specifies the chunk size and position.
+The code then uses [`reqwest::blocking::Client::get`] to download the content
+in chunks of 10240 bytes, while printing progress messages. This approach is
+useful to control memory usage for large files and allows for resumable
+downloads.
 
 The Range header is defined in [RFC7233][HTTP Range RFC7233].
 
-```rust,edition2018,no_run
-extern crate anyhow;
-extern crate reqwest;
+```rust,edition2021,no_run
 use anyhow::{Result, anyhow};
 use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
 use reqwest::StatusCode;

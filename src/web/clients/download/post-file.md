@@ -2,16 +2,14 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-[`reqwest::Client`] establishes a connection to https://paste.rs
-following the [`reqwest::RequestBuilder`] pattern.  Calling [`Client::post`]
-with a URL establishes the destination, [`RequestBuilder::body`] sets the
-content to send by reading the file, and [`RequestBuilder::send`] blocks until
-the file uploads and the response returns.  [`read_to_string`] returns the
+[`reqwest::Client`] establishes a connection to https://paste.rs following the
+[`reqwest::RequestBuilder`] pattern. Calling [`Client::post`] with a URL
+establishes the destination, [`RequestBuilder::body`] sets the content to send
+by reading the file, and [`RequestBuilder::send`] blocks until the file uploads
+and the response returns. [`read_to_string`] returns the message from the server
 response and displays in the console.
 
-```rust,edition2018,no_run
-extern crate anyhow;
-extern crate reqwest;
+```rust,edition2021,no_run
 use anyhow::Result;
 use std::fs::File;
 use std::io::Read;

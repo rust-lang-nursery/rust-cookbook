@@ -8,19 +8,14 @@ In this case, the `**` pattern matches the current directory and all subdirector
 Use the `**` pattern in any path portion. For example, `/media/**/*.png`
 matches all PNGs in `media` and it's subdirectories.
 
-```rust,edition2018
-extern crate walkdir;
-extern crate anyhow;
-extern crate glob;
-use anyhow::Result;
-use walkdir::WalkDir;
+```rust,edition2021
 use glob::glob;
+use anyhow::Result;
 
 fn main() -> Result<()> {
     for entry in glob("**/*.png")? {
         println!("{}", entry?.display());
     }
-
     Ok(())
 }
 ```
