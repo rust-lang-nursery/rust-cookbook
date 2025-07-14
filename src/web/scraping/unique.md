@@ -10,7 +10,7 @@ MediaWiki link syntax is described [here][MediaWiki link syntax].  The calling
 function will retain the whole document, and links will be returned as slice
 references to the original document.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 // cargo-deps: tokio="1", reqwest="0.11", regex="1", anyhow="1"
 mod wiki {
   use regex::Regex;

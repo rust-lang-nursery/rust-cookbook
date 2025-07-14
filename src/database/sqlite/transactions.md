@@ -12,8 +12,7 @@ a unique constraint on the color name. When an attempt to insert
 a duplicate color is made, the transaction rolls back.
 
 
-```rust,edition2024,no_run
-extern crate rusqlite;
+```rust,edition2021,no_run
 use rusqlite::{Connection, Result};
 
 fn main() -> Result<()> {

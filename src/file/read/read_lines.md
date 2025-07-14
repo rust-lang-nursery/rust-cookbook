@@ -1,5 +1,5 @@
-```rust,edition2018
-extern crate tempfile;
+```rust,edition2021
+
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, Write};
 use tempfile::NamedTempFile;
