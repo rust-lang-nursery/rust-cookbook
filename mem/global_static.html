@@ -187,6 +187,21 @@ fn main() {
 
     show_access("Jim");
 }</code></pre></pre>
+<h2 id="stdcell"><a class="header" href="#stdcell">Std:cell</a></h2>
+<p><a href="https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html"><code>OnceCell</code></a> is included in the standard library as an alternative.</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::cell::OnceCell;
+
+let cell = OnceCell::new();
+assert!(cell.get().is_none());
+
+let value: &amp;String = cell.get_or_init(|| {
+    "Hello, World!".to_string()
+});
+assert_eq!(value, "Hello, World!");
+assert!(cell.get().is_some());
+<span class="boring">}</span></code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
