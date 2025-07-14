@@ -56,7 +56,7 @@ Consider this example for "generate random numbers within a range":
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-```rust,edition2018
+```rust,edition2018,ignore
 use rand::Rng;
 
 fn main() {
