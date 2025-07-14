@@ -26,7 +26,7 @@ fn main() {
 }
 ```
 
-[`Alphanumeric`]: https://docs.rs/rand/*/rand/distributions/struct.Alphanumeric.html
+[`Alphanumeric`]: https://docs.rs/rand/0.9/rand/distr/struct.Alphanumeric.html
 
 
 

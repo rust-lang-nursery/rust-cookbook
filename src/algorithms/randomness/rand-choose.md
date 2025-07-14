@@ -27,4 +27,4 @@ fn main() {
 }
 ```
 
-[`gen_range`]: https://docs.rs/rand/*/rand/trait.Rng.html#method.gen_range
+[`gen_range`]: https://docs.rs/rand/0.9/rand/trait.Rng.html#method.gen_range

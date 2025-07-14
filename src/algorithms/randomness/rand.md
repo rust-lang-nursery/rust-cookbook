@@ -18,5 +18,5 @@ fn main() {
 }
 ```
 
-[`rand::Rng`]: https://docs.rs/rand/*/rand/trait.Rng.html
-[`rand::rng`]: https://docs.rs/rand/*/rand/fn.rng.html
+[`rand::Rng`]: https://docs.rs/rand/0.9/rand/trait.Rng.html
+[`rand::rng`]: https://docs.rs/rand/0.9/rand/fn.rng.html

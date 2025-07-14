@@ -30,9 +30,9 @@ fn main() {
 }
 ```
 
-[`Distribution::sample`]: https://docs.rs/rand/*/rand/distributions/trait.Distribution.html#tymethod.sample
+[`Distribution::sample`]: https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html#tymethod.sample
 [`Normal`]: https://docs.rs/rand_distr/*/rand_distr/struct.Normal.html
-[`rand::Rng`]: https://docs.rs/rand/*/rand/trait.Rng.html
+[`rand::Rng`]: https://docs.rs/rand/0.9/rand/trait.Rng.html
 [`rand_distr`]: https://docs.rs/rand_distr/*/rand_distr/index.html
 [rand-distributions]: https://docs.rs/rand_distr/*/rand_distr/index.html
 

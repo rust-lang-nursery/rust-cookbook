@@ -32,5 +32,5 @@ fn main() {
 }
 ```
 
-[Distribution]: https://docs.rs/rand/*/rand/distributions/trait.Distribution.html
-[Standard]: https://docs.rs/rand/*/rand/distributions/struct.Standard.html
+[Distribution]: https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html
+[Standard]: https://docs.rs/rand/0.9/rand/distr/struct.Standard.html
