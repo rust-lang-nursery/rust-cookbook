@@ -5,8 +5,6 @@
 Parses [`Url`] and slices it with [`url::Position`] to strip unneeded URL parts.
 
 ```rust,edition2018
-
-
 use url::{Url, Position, ParseError};
 
 fn main() -> Result<(), ParseError> {

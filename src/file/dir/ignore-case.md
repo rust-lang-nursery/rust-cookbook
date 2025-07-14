@@ -1,21 +1,18 @@
-## Find all files with given pattern ignoring filename case.
+## Find all files with given pattern ignoring filename case
 
-[![glob-badge]][glob] [![cat-filesystem-badge]][cat-filesystem]
+[![walkdir-badge]][walkdir] [![glob-badge]][glob] [![cat-filesystem-badge]][cat-filesystem]
 
-Find all image files in the `/media/` directory matching the `img_[0-9]*.png` pattern.
+Find all image files in the `/media/` directory matching the `img_[0-9]*.png`
+pattern.
 
-A custom [`MatchOptions`] struct is passed to the [`glob_with`] function making the glob pattern case insensitive while keeping the other options [`Default`].
+A custom [`MatchOptions`] struct is passed to [`glob_with`] instead of [`glob`]
+to make the glob pattern case insensitive while keeping the other options
+[`Default`].
 
-```rust,edition2018,no_run
-use error_chain::error_chain;
+```rust,edition2021
+use walkdir::WalkDir;
+use anyhow::Result;
 use glob::{glob_with, MatchOptions};
-
-error_chain! {
-    foreign_links {
-        Glob(glob::GlobError);
-        Pattern(glob::PatternError);
-    }
-}
 
 fn main() -> Result<()> {
     let options = MatchOptions {
@@ -32,5 +29,6 @@ fn main() -> Result<()> {
 ```
 
 [`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
+[`glob`]: https://docs.rs/glob/*/glob/fn.glob.html
 [`glob_with`]: https://docs.rs/glob/*/glob/fn.glob_with.html
 [`MatchOptions`]: https://docs.rs/glob/*/glob/struct.MatchOptions.html

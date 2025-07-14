@@ -30,5 +30,3 @@ fn main() -> Result<(), Error> {
     Ok(())
 }
 ```
-
-[`delimiter`]: https://docs.rs/csv/1.0.0-beta.3/csv/struct.ReaderBuilder.html#method.delimiter

@@ -60,8 +60,9 @@ Consider this example for "generate random numbers within a range":
 use rand::Rng;
 
 fn main() {
-    let mut rng = rand::thread_rng();
-    println!("Random f64: {}", rng.gen::<f64>());
+    let mut rng = rand::rng();
+    let random_number: u32 = rng.random();
+    println!("Random number: {}", random_number);
 }
 ```
 
@@ -97,14 +98,15 @@ should read after deciding which crate suites your purpose.
 
 ## A note about error handling
 Rust has [`std::error::Trait`] which is implemented to handle exceptions.
-Handling multiple types of these traits can be simplified using [`anyhow`]
-or specified with an `enum` which macros exist to make this easier within
-[`thiserror`] for library authors.
+This cookbook uses [`anyhow`] for simplified error handling in examples,
+which provides easy error propagation and context. For library authors,
+[`thiserror`] provides a more structured approach using derive macros
+to create custom error types.
 
-Error chain has been shown in this book for historical reasons before Rust
-`std` and crates represented macro use as a preference.  For more background
-on error handling in Rust, read [this page of the Rust book][error-docs]
-and [this blog post][error-blog].
+This cookbook previously used the `error-chain` crate, but has been updated
+to use `anyhow` as it's now the preferred approach for application-level
+error handling. For more background on error handling in Rust, read 
+[this page of the Rust book][error-docs] and [this blog post][error-blog].
 
 ## A note about crate representation
 

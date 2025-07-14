@@ -12,20 +12,11 @@ Assigns the configuration to [`log4rs::config::Config`] and sets the default
 [`log::LevelFilter`].
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-
+use anyhow::Result;
 use log::LevelFilter;
 use log4rs::append::file::FileAppender;
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::config::{Appender, Config, Root};
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         LogConfig(log4rs::config::Errors);
-#         SetLogger(log::SetLoggerError);
-#     }
-# }
 
 fn main() -> Result<()> {
     let logfile = FileAppender::builder()

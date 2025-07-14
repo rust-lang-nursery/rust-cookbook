@@ -2,39 +2,30 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-[`reqwest::Client`] establishes a connection to https://paste.rs
-following the [`reqwest::RequestBuilder`] pattern.  Calling [`Client::post`]
-with a URL establishes the destination, [`RequestBuilder::body`] sets the
-content to send by reading the file, and [`RequestBuilder::send`] blocks until
-the file uploads and the response returns.  [`read_to_string`] returns the
+[`reqwest::Client`] establishes a connection to https://paste.rs following the
+[`reqwest::RequestBuilder`] pattern. Calling [`Client::post`] with a URL
+establishes the destination, [`RequestBuilder::body`] sets the content to send
+by reading the file, and [`RequestBuilder::send`] blocks until the file uploads
+and the response returns. [`read_to_string`] returns the message from the server
 response and displays in the console.
 
-```rust,edition2018,no_run
-use error_chain::error_chain;
+```rust,edition2021,no_run
+use anyhow::Result;
 use std::fs::File;
 use std::io::Read;
 
- error_chain! {
-     foreign_links {
-         HttpRequest(reqwest::Error);
-         IoError(::std::io::Error);
-     }
- }
- #[tokio::main]
-
-async fn main() -> Result<()> {
+fn main() -> Result<()> {
     let paste_api = "https://paste.rs";
     let mut file = File::open("message")?;
 
     let mut contents = String::new();
     file.read_to_string(&mut contents)?;
 
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
     let res = client.post(paste_api)
         .body(contents)
-        .send()
-        .await?;
-    let response_text = res.text().await?;
+        .send()?;
+    let response_text = res.text()?;
     println!("Your paste is located at: {}",response_text );
     Ok(())
 }

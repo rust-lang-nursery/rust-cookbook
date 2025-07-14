@@ -10,8 +10,14 @@ As recommended in Rust by Example, [`Box`ing errors] is seen as an easy
 strategy for getting started.
 
 ```rust,edition2018
-Box<dyn Error>
-````
+use std::error::Error;
+
+fn main() -> Result<(), Box<dyn Error>> {
+    // Example of boxing errors
+    let result: Result<(), Box<dyn Error>> = Ok(());
+    result
+}
+```
 
 To understand what kind of error handling may be required study [Designing 
 error types in Rust] and consider [`thiserror`] for libraries or [`anyhow`] as 
@@ -25,6 +31,11 @@ pub enum MultiError {
   #[error("🦀 got {0}")]
   ErrorClass(String),
 }
+
+fn main() -> Result<(), MultiError> {
+    // Example of using thiserror
+    Ok(())
+}
 ```
 
 Application authors can compose enums using `anyhow` can import the `Result`
@@ -33,7 +44,7 @@ type from the crate to provide auto-`Box`ing behavior
 ```rust,edition2018,should_panic
 use anyhow::Result;
 
-fn main() -> Result<()> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
    let my_string = "yellow".to_string();  
    let _my_int = my_string.parse::<i32>()?;
    Ok(())

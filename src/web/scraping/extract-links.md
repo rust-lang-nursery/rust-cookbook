@@ -8,9 +8,37 @@ Use [`reqwest::get`] to perform a HTTP GET request and then use
 Call [`filter_map`] on the [`Selection`] retrieves URLs
 from links that have the "href" [`attr`] (attribute).
 
-```rust,edition2024,no_run
+```rust,edition2018
+// select needs rand v.0.8
+// cargo-deps: tokio="1", reqwest="0.11", select="0.6", thiserror="1"
 mod links {
-  {{#include ../../../crates/web/src/links.rs}}
+  use thiserror::Error;
+  use select::document::Document;
+  use select::predicate::Name;
+
+  #[derive(Error, Debug)]
+  pub enum LinkError {
+      #[error("Reqwest error: {0}")]
+      ReqError(#[from] reqwest::Error),
+      #[error("IO error: {0}")]
+      IoError(#[from] std::io::Error),
+  }
+
+  pub async fn get_links(page: &str) -> Result<Vec<Box<str>>, LinkError> {
+    let res = reqwest::get(page)
+      .await?
+      .text()
+      .await?;
+
+    let links = Document::from(res.as_str())
+      .find(Name("a"))
+      .filter_map(|node| node.attr("href"))
+      .into_iter()
+      .map(|link| Box::<str>::from(link.to_string()))
+      .collect();
+
+    Ok(links)
+  }
 }
 
 #[tokio::main]

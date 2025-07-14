@@ -17,19 +17,11 @@ Create [`ThreadPool`] with thread count equal to number of cores with [`num_cpus
 [`ImageBuffer::save`] writes the image to `output.png`.
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-use std::sync::mpsc::{channel, RecvError};
+use anyhow::Result;
+use std::sync::mpsc::channel;
 use threadpool::ThreadPool;
 use num::complex::Complex;
 use image::{ImageBuffer, Pixel, Rgb};
-#
-# error_chain! {
-#     foreign_links {
-#         MpscRecv(RecvError);
-#         Io(std::io::Error);
-#         Image(image::ImageError);
-#     }
-# }
 #
 # // Function converting intensity values to RGB
 # // Based on http://www.efg2.com/Lab/ScienceAndEngineering/Spectra.htm
@@ -53,7 +45,7 @@ use image::{ImageBuffer, Pixel, Rgb};
 #     };
 #
 #     let (r, g, b) = (normalize(r, factor), normalize(g, factor), normalize(b, factor));
-#     Rgb::from_channels(r, g, b, 0)
+#     Rgb([r, g, b])
 # }
 #
 # // Maps Julia set distance estimation to intensity values

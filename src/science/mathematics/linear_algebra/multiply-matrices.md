@@ -4,6 +4,7 @@
 Creates two matrices with [`ndarray::arr2`] and performs matrix multiplication on them with [`ndarray::ArrayBase::dot`].
 
 ```rust,edition2018
+
 use ndarray::arr2;
 
 fn main() {

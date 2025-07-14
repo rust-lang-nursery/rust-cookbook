@@ -9,15 +9,8 @@ using [`read_to_string`].
 
 
 ```rust,edition2018,no_run
-use error_chain::error_chain;
+use anyhow::Result;
 use std::io::Read;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        HttpRequest(reqwest::Error);
-    }
-}
 
 fn main() -> Result<()> {
     let mut res = reqwest::blocking::get("http://httpbin.org/get")?;
@@ -47,17 +40,10 @@ Uses the asynchronous versions of [reqwest], both [`reqwest::get`] and
 [`reqwest::Response`].
 
 ```rust,no_run
-use error_chain::error_chain;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        HttpRequest(reqwest::Error);
-    }
-}
+use anyhow::Result;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<()> {
     let res = reqwest::get("http://httpbin.org/get").await?;
     println!("Status: {}", res.status());
     println!("Headers:\n{:#?}", res.headers());

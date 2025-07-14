@@ -1,54 +1,26 @@
 ## Run an external command and process stdout
 
-[![regex-badge]][regex] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
+[![std-badge]][std] [![cat-os-badge]][cat-os]
 
-Runs `git log --oneline` as an external [`Command`] and inspects its [`Output`]
-using [`Regex`] to get the hash and message of the last 5 commits.
+Runs `git log --oneline` using an external [`Command`] and inspects the [`Output`]
+status to determine if the command was successful. The command output is captured
+as a [`String`] using [`String::from_utf8`].
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-
+use anyhow::{Result, anyhow};
 use std::process::Command;
-use regex::Regex;
-#
-# error_chain!{
-#     foreign_links {
-#         Io(std::io::Error);
-#         Regex(regex::Error);
-#         Utf8(std::string::FromUtf8Error);
-#     }
-# }
-
-#[derive(PartialEq, Default, Clone, Debug)]
-struct Commit {
-    hash: String,
-    message: String,
-}
 
 fn main() -> Result<()> {
     let output = Command::new("git").arg("log").arg("--oneline").output()?;
 
-    if !output.status.success() {
-        error_chain::bail!("Command executed with failing error code");
+    if output.status.success() {
+        let raw_output = String::from_utf8(output.stdout)?;
+        let lines = raw_output.lines();
+        println!("Found {} lines", lines.count());
+        Ok(())
+    } else {
+        return Err(anyhow!("Command executed with failing error code"));
     }
-
-    let pattern = Regex::new(r"(?x)
-                               ([0-9a-fA-F]+) # commit hash
-                               (.*)           # The commit message")?;
-
-    String::from_utf8(output.stdout)?
-        .lines()
-        .filter_map(|line| pattern.captures(line))
-        .map(|cap| {
-                 Commit {
-                     hash: cap[1].to_string(),
-                     message: cap[2].trim().to_string(),
-                 }
-             })
-        .take(5)
-        .for_each(|x| println!("{:?}", x));
-
-    Ok(())
 }
 ```
 

@@ -10,18 +10,18 @@ exist to sort an enumerable data type, [`par_sort_unstable`]
 is usually faster than [stable sorting] algorithms.
 
 ```rust,edition2018
-
-use rand::{Rng, thread_rng};
-use rand::distributions::Alphanumeric;
+use rand::Rng;
 use rayon::prelude::*;
 
 fn main() {
-  let mut vec = vec![String::new(); 100_000];
-  vec.par_iter_mut().for_each(|p| {
-    let mut rng = thread_rng();
-    *p = (0..5).map(|_| rng.sample(&Alphanumeric) as char).collect()
-  });
-  vec.par_sort_unstable();
+    let mut vec = vec![0; 1_000_000];
+    rand::thread_rng().fill(&mut vec[..]);
+
+    vec.par_sort_unstable();
+
+    let first = vec.first().unwrap();
+    let last = vec.last().unwrap();
+    assert!(first <= last);
 }
 ```
 

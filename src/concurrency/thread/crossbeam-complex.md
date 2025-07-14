@@ -27,7 +27,7 @@ think of the calls to `drop` as signaling that no more messages will be sent.
 ```rust,edition2018
 use std::thread;
 use std::time::Duration;
-use crossbeam_channel::bounded;
+use crossbeam::channel::bounded;
 
 fn main() {
     let (snd1, rcv1) = bounded(1);

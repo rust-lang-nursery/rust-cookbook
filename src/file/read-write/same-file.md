@@ -6,13 +6,17 @@ Use [`same_file::Handle`] to a file that can be tested for equality with
 other handles. In this example, the handles of file to be read from and
 to be written to are tested for equality.
 
-```rust,edition2018,no_run
+```rust,edition2021
 use same_file::Handle;
+use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::fs::File;
-use std::io::{BufRead, BufReader, Error, ErrorKind};
 use std::path::Path;
 
 fn main() -> Result<(), Error> {
+    // Create a test file
+    let mut file = File::create("new.txt")?;
+    writeln!(file, "test content")?;
+    
     let path_to_read = Path::new("new.txt");
 
     let stdout_handle = Handle::stdout()?;
@@ -30,19 +34,8 @@ fn main() -> Result<(), Error> {
             println!("{} : {}", num, line?.to_uppercase());
         }
     }
-
     Ok(())
 }
 ```
-
-```bash
-cargo run
-```
-displays the contents of the file new.txt.
-
-```bash
-cargo run >> ./new.txt
-```
-errors because the two files are same.
 
 [`same_file::Handle`]: https://docs.rs/same-file/*/same_file/struct.Handle.html

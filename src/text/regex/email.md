@@ -7,7 +7,6 @@ before the @ symbol.
 
 ```rust,edition2018
 use lazy_static::lazy_static;
-
 use regex::Regex;
 
 fn extract_login(input: &str) -> Option<&str> {

@@ -2,8 +2,8 @@
 
 [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
-Creates a gist with POST request to GitHub [gists API v3](https://developer.github.com/v3/gists/)
-using [`Client::post`] and removes it with DELETE request using [`Client::delete`].
+Creates a gist with POST request to GitHub [gists API v3][gists-api] using
+[`Client::post`] and removes it with DELETE request using [`Client::delete`].
 
 The [`reqwest::Client`] is responsible for details of both requests including
 URL, body and authentication. The POST body from [`serde_json::json!`] macro
@@ -11,19 +11,12 @@ provides arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request
 body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 [`RequestBuilder::send`] synchronously executes the requests.
 
-```rust,edition2018,no_run
-use error_chain::error_chain;
+```rust,edition2021,no_run
+use anyhow::Result;
 use serde::Deserialize;
 use serde_json::json;
 use std::env;
 use reqwest::Client;
-
-error_chain! {
-    foreign_links {
-        EnvVar(env::VarError);
-        HttpRequest(reqwest::Error);
-    }
-}
 
 #[derive(Deserialize, Debug)]
 struct Gist {
@@ -31,8 +24,7 @@ struct Gist {
     html_url: String,
 }
 
-#[tokio::main]
-async fn main() ->  Result<()> {
+fn main() -> Result<()> {
     let gh_user = env::var("GH_USER")?;
     let gh_pass = env::var("GH_PASS")?;
 
@@ -46,20 +38,20 @@ async fn main() ->  Result<()> {
         }});
 
     let request_url = "https://api.github.com/gists";
-    let response = Client::new()
+    let response = reqwest::blocking::Client::new()
         .post(request_url)
         .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
         .json(&gist_body)
-        .send().await?;
+        .send()?;
 
-    let gist: Gist = response.json().await?;
+    let gist: Gist = response.json()?;
     println!("Created {:?}", gist);
 
     let request_url = format!("{}/{}",request_url, gist.id);
-    let response = Client::new()
+    let response = reqwest::blocking::Client::new()
         .delete(&request_url)
         .basic_auth(gh_user, Some(gh_pass))
-        .send().await?;
+        .send()?;
 
     println!("Gist {} deleted! Status code: {}",gist.id, response.status());
     Ok(())

@@ -7,7 +7,7 @@ Use the `rusqlite` crate to open SQLite databases. See
 
 [`Connection::open`] will create the database if it doesn't already exist.
 
-```rust,edition2024,no_run
+```rust,edition2021,no_run
 use rusqlite::{Connection, Result};
 
 fn main() -> Result<()> {

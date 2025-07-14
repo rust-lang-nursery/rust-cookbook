@@ -10,16 +10,8 @@ sort -hr | head -n 10`.
 [`Stdio::piped`] between parent and child.
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-#
+use anyhow::Result;
 use std::process::{Command, Stdio};
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         Utf8(std::string::FromUtf8Error);
-#     }
-# }
 
 fn main() -> Result<()> {
     let directory = std::env::current_dir()?;

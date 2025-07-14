@@ -2,9 +2,9 @@
 
 [![postgres-badge]][postgres] [![cat-database-badge]][cat-database]
 
-This recipe lists the nationalities of the first 7999 artists in the database of the [`Museum of Modern Art`] in descending order.
+This recipe lists the nationalities of the first 7999 artists in the database of the [Museum of Modern Art] in descending order.
 
-```rust,edition2018,no_run
+```rust,edition2021,no_run
 use postgres::{Client, Error, NoTls};
 
 struct Nation {
@@ -40,4 +40,4 @@ fn main() -> Result<(), Error> {
 }
 ```
 
-[`Museum of Modern Art`]: https://github.com/MuseumofModernArt/collection/blob/main/Artists.csv
+[Museum of Modern Art]: https://github.com/MuseumofModernArt/collection/blob/main/Artists.csv

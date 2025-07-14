@@ -5,19 +5,12 @@
 Writes some data to a file, then calculates the SHA-256 [`digest::Digest`] of
 the file's contents using [`digest::Context`].
 
-```rust,edition2018
-# use error_chain::error_chain;
-use data_encoding::HEXUPPER;
+```rust,edition2021
+use anyhow::Result;
 use ring::digest::{Context, Digest, SHA256};
+use data_encoding::HEXUPPER;
 use std::fs::File;
 use std::io::{BufReader, Read, Write};
-#
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         Decode(data_encoding::DecodeError);
-#     }
-# }
 
 fn sha256_digest<R: Read>(mut reader: R) -> Result<Digest> {
     let mut context = Context::new(&SHA256);

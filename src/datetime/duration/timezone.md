@@ -5,7 +5,6 @@
 Gets the local time and displays it using [`offset::Local::now`] and then converts it to the UTC standard using the [`DateTime::from_utc`] struct method. A time is then converted using the [`offset::FixedOffset`] struct and the UTC time is then converted to UTC+8 and UTC-2.
 
 ```rust,edition2018
-
 use chrono::{DateTime, FixedOffset, Local, Utc};
 
 fn main() {

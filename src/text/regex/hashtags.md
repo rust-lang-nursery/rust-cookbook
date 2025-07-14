@@ -9,7 +9,6 @@ letter. The complete [twitter hashtag regex] is much more complicated.
 
 ```rust,edition2018
 use lazy_static::lazy_static;
-
 use regex::Regex;
 use std::collections::HashSet;
 

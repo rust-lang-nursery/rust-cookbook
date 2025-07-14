@@ -6,19 +6,10 @@ Opens the `python` interpreter using an external [`Command`] and passes it a
 python statement for execution. [`Output`] of statement is then parsed.
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-#
+use anyhow::{Result, anyhow};
 use std::collections::HashSet;
 use std::io::Write;
 use std::process::{Command, Stdio};
-#
-# error_chain!{
-#     errors { CmdError }
-#     foreign_links {
-#         Io(std::io::Error);
-#         Utf8(std::string::FromUtf8Error);
-#     }
-# }
 
 fn main() -> Result<()> {
     let mut child = Command::new("python").stdin(Stdio::piped())
@@ -28,7 +19,7 @@ fn main() -> Result<()> {
 
     child.stdin
         .as_mut()
-        .ok_or("Child process stdin has not been captured!")?
+        .ok_or_else(|| anyhow!("Child process stdin has not been captured!"))?
         .write_all(b"import this; copyright(); credits(); exit()")?;
 
     let output = child.wait_with_output()?;
@@ -43,7 +34,7 @@ fn main() -> Result<()> {
         Ok(())
     } else {
         let err = String::from_utf8(output.stderr)?;
-        error_chain::bail!("External command failed:\n {}", err)
+        return Err(anyhow!("External command failed:\n {}", err));
     }
 }
 ```

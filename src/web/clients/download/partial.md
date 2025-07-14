@@ -2,28 +2,22 @@
 
 [![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]
 
-Uses [`reqwest::blocking::Client::head`] to get the [Content-Length] of the response.
+Uses [`reqwest::blocking::Client::head`] to get the [Content-Length] of the
+response.
 
-The code then uses [`reqwest::blocking::Client::get`] to download the content in
-chunks of 10240 bytes, while printing progress messages. This example uses the synchronous
-reqwest module.  The [Range] header specifies the chunk size and position.
+The code then uses [`reqwest::blocking::Client::get`] to download the content
+in chunks of 10240 bytes, while printing progress messages. This approach is
+useful to control memory usage for large files and allows for resumable
+downloads.
 
 The Range header is defined in [RFC7233][HTTP Range RFC7233].
 
-```rust,edition2018,no_run
-use error_chain::error_chain;
+```rust,edition2021,no_run
+use anyhow::{Result, anyhow};
 use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
 use reqwest::StatusCode;
 use std::fs::File;
 use std::str::FromStr;
-
-error_chain! {
-    foreign_links {
-        Io(std::io::Error);
-        Reqwest(reqwest::Error);
-        Header(reqwest::header::ToStrError);
-    }
-}
 
 struct PartialRangeIter {
   start: u64,
@@ -34,7 +28,7 @@ struct PartialRangeIter {
 impl PartialRangeIter {
   pub fn new(start: u64, end: u64, buffer_size: u32) -> Result<Self> {
     if buffer_size == 0 {
-      Err("invalid buffer_size, give a value greater than zero.")?;
+      return Err(anyhow!("invalid buffer_size, give a value greater than zero."));
     }
     Ok(PartialRangeIter {
       start,
@@ -66,8 +60,8 @@ fn main() -> Result<()> {
   let length = response
     .headers()
     .get(CONTENT_LENGTH)
-    .ok_or("response doesn't include the content length")?;
-  let length = u64::from_str(length.to_str()?).map_err(|_| "invalid Content-Length header")?;
+    .ok_or_else(|| anyhow!("response doesn't include the content length"))?;
+  let length = u64::from_str(length.to_str()?).map_err(|_| anyhow!("invalid Content-Length header"))?;
     
   let mut output_file = File::create("download.bin")?;
     
@@ -78,7 +72,7 @@ fn main() -> Result<()> {
     
     let status = response.status();
     if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
-      error_chain::bail!("Unexpected server response: {}", status)
+      return Err(anyhow!("Unexpected server response: {}", status));
     }
     std::io::copy(&mut response, &mut output_file)?;
   }

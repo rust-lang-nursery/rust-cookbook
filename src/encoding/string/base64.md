@@ -6,17 +6,9 @@ Encodes byte slice into `base64` String using [`encode`]
 and decodes it with [`decode`].
 
 ```rust,edition2018
-# use error_chain::error_chain;
-
+use anyhow::Result;
 use std::str;
 use base64::{encode, decode};
-#
-# error_chain! {
-#     foreign_links {
-#         Base64(base64::DecodeError);
-#         Utf8Error(str::Utf8Error);
-#     }
-# }
 
 fn main() -> Result<()> {
     let hello = b"hello rustaceans";

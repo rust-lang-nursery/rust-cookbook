@@ -3,27 +3,19 @@
 [![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
 
 Reads a file named `application.log` and only outputs the lines
-containing “version X.X.X”, some IP address followed by port 443
-(e.g. “192.168.0.1:443”), or a specific warning.
+containing "version X.X.X", some IP address followed by port 443
+(e.g. "192.168.0.1:443"), or a specific warning.
 
 A [`regex::RegexSetBuilder`] composes a [`regex::RegexSet`].
 Since backslashes are very common in regular expressions, using
 [raw string literals] makes them more readable.
 
 ```rust,edition2018,no_run
-# use error_chain::error_chain;
-
+use anyhow::Result;
 use std::fs::File;
 use std::io::{BufReader, BufRead};
 use regex::RegexSetBuilder;
 
-# error_chain! {
-#     foreign_links {
-#         Io(std::io::Error);
-#         Regex(regex::Error);
-#     }
-# }
-#
 fn main() -> Result<()> {
     let log_path = "application.log";
     let buffered = BufReader::new(File::open(log_path)?);
