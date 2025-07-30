@@ -190,7 +190,7 @@ your cargo.toml file.</p>
 and allows sequential code implemented without blocking until <code>.await</code>.</p>
 <p>Uses the asynchronous versions of [reqwest], both <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> and
 <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html"><code>reqwest::Response</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust no_run">use anyhow::Result;
+<pre><pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 
 #[tokio::main]
 async fn main() -&gt; Result&lt;()&gt; {
