@@ -5,6 +5,7 @@
 | [Percent-encode a string][ex-percent-encode] | [![percent-encoding-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
+| [Encode and decode base32][ex-base32] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
 | [Read CSV records][ex-csv-read] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Read CSV records with different delimiter][ex-csv-delimiter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
@@ -20,6 +21,7 @@
 [ex-percent-encode]: encoding/strings.html#percent-encode-a-string
 [ex-urlencoded]: encoding/strings.html#encode-a-string-as-applicationx-www-form-urlencoded
 [ex-hex-encode-decode]: encoding/strings.html#encode-and-decode-hex
+[ex-base32]: encoding/strings.html#encode-and-decode-base32
 [ex-base64]: encoding/strings.html#encode-and-decode-base64
 [ex-csv-read]: encoding/csv.html#read-csv-records
 [ex-csv-delimiter]: encoding/csv.html#read-csv-records-with-different-delimiter
