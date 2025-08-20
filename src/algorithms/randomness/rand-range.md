@@ -2,15 +2,15 @@
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::gen_range`].
+Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::random_range`].
 
 ```rust,edition2018
 use rand::Rng;
 
 fn main() {
     let mut rng = rand::rng();
-    println!("Integer: {}", rng.gen_range(0..10));
-    println!("Float: {}", rng.gen_range(0.0..10.0));
+    println!("Integer: {}", rng.random_range(0..10));
+    println!("Float: {}", rng.random_range(0.0..10.0));
 }
 ```
 
