@@ -3,7 +3,7 @@
 [![rand-badge]][rand] [![cat-os-badge]][cat-os]
 
 Randomly generates a string of given length ASCII characters with custom
-user-defined bytestring, with [`gen_range`].
+user-defined bytestring, with [`random_range`].
 
 ```rust,edition2018
 use rand::Rng;
@@ -18,7 +18,7 @@ fn main() {
 
     let password: String = (0..PASSWORD_LEN)
         .map(|_| {
-            let idx = rng.gen_range(0..CHARSET.len());
+            let idx = rng.random_range(0..CHARSET.len());
             char::from(CHARSET[idx])
         })
         .collect();
@@ -27,4 +27,4 @@ fn main() {
 }
 ```
 
-[`gen_range`]: https://docs.rs/rand/0.9/rand/trait.Rng.html#method.gen_range
+[`random_range`]: https://docs.rs/rand/0.9/rand/trait.Rng.html#method.random_range
