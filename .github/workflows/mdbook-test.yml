@@ -16,7 +16,7 @@ jobs:
       - name: Set up Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
-          cache: 'true'
+          cache: "true"
           toolchain: stable
 
       - name: Run tests
@@ -31,5 +31,22 @@ jobs:
             echo "✅ All tests passed!"
           else
             echo "❌ Some tests failed. Check the logs above for details."
+            exit 1
+          fi
+  check-workspace:
+    # this job incrementally replaces the skeptic tests above as we convert examples to be written
+    # as workspace crates rather than inline in the mdbook
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - run: cargo check --workspace
+      - name: Check Results
+        if: always()
+        run: |
+          if [ ${{ steps.cargo_check.outcome }} == 'success' ]; then
+            echo "✅ Workspace check passed!"
+          else
+            echo "❌ Workspace check failed. Check the logs above for details."
             exit 1
           fi
