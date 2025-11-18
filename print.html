@@ -1169,7 +1169,7 @@ fn main() {
             let (sendr, recvr) = (snd2.clone(), rcv1.clone());
             // Spawn workers in separate threads
             s.spawn(move |_| {
-            thread::sleep(Duration::from_millis(500));
+                thread::sleep(Duration::from_millis(500));
                 // Receive until channel closes
                 for msg in recvr.iter() {
                     println!("Worker {:?} received {}.",
