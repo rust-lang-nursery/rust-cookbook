@@ -259,10 +259,10 @@ fn main() -&gt; Result&lt;(), Error&gt; {
         
         if nationality.is_some () &amp;&amp; count.is_some () {
 
-            let nation = Nation{
+            let nation = Nation {
                 nationality: nationality.unwrap(),
                 count: count.unwrap(),
-        };
+            };
             println!("{} {}", nation.nationality, nation.count);
             
         }

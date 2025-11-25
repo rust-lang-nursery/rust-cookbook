@@ -2079,10 +2079,10 @@ fn main() -&gt; Result&lt;(), Error&gt; {
         
         if nationality.is_some () &amp;&amp; count.is_some () {
 
-            let nation = Nation{
+            let nation = Nation {
                 nationality: nationality.unwrap(),
                 count: count.unwrap(),
-        };
+            };
             println!("{} {}", nation.nationality, nation.count);
             
         }
@@ -2674,7 +2674,6 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 
     Ok(())
 }</code></pre></pre>
-<p>[`</p>
 <h2 id="find-the-latest-version-satisfying-given-range"><a class="header" href="#find-the-latest-version-satisfying-given-range">Find the latest version satisfying given range</a></h2>
 <p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
 <p>Given a list of version &amp;strs, finds the latest <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a>.
@@ -3236,20 +3235,14 @@ fn main() -&gt; Result&lt;()&gt; {
     wtr.flush()?;
 
     Ok(())
-}
-
-# Transform CSV column
-
-[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
-
-Transform a CSV file containing a color name and a hex color into one with a
-color name and an rgb color.  Utilizes the [csv] crate to read and write the
-csv file, and [serde] to deserialize and serialize the rows to and from bytes.
-
-See [csv::Reader::deserialize], [serde::Deserialize], and [std::str::FromStr]
-
-```rust,edition2018
-use anyhow::{Result, anyhow};
+}</code></pre></pre>
+<h2 id="transform-csv-column"><a class="header" href="#transform-csv-column">Transform CSV column</a></h2>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>Transform a CSV file containing a color name and a hex color into one with a
+color name and an rgb color.  Utilizes the <a href="https://docs.rs/csv/">csv</a> crate to read and write the
+csv file, and <a href="https://docs.rs/serde/">serde</a> to deserialize and serialize the rows to and from bytes.</p>
+<p>See <a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize">csv::Reader::deserialize</a>, <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html">serde::Deserialize</a>, and <a href="https://doc.rust-lang.org/std/str/trait.FromStr.html">std::str::FromStr</a></p>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::{Result, anyhow};
 use csv::{Reader, Writer};
 use serde::{de, Deserialize, Deserializer};
 use std::str::FromStr;
@@ -3758,18 +3751,13 @@ fn main() {
             println!("{}", f_name);
         }
     }
-}
-
-# Recursively find all files with given predicate
-
-[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
-
-Find JSON files modified within the last day in the current directory.
-Using [`follow_links`] ensures symbolic links are followed like they were
-normal directories and files.
-
-```rust,edition2021
-use walkdir::WalkDir;
+}</code></pre></pre>
+<h2 id="recursively-find-all-files-with-given-predicate"><a class="header" href="#recursively-find-all-files-with-given-predicate">Recursively find all files with given predicate</a></h2>
+<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>Find JSON files modified within the last day in the current directory.
+Using <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links"><code>follow_links</code></a> ensures symbolic links are followed like they were
+normal directories and files.</p>
+<pre><pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
 use anyhow::Result;
 
 fn main() -&gt; Result&lt;()&gt; {

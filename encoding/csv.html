@@ -357,20 +357,14 @@ fn main() -&gt; Result&lt;()&gt; {
     wtr.flush()?;
 
     Ok(())
-}
-
-# Transform CSV column
-
-[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
-
-Transform a CSV file containing a color name and a hex color into one with a
-color name and an rgb color.  Utilizes the [csv] crate to read and write the
-csv file, and [serde] to deserialize and serialize the rows to and from bytes.
-
-See [csv::Reader::deserialize], [serde::Deserialize], and [std::str::FromStr]
-
-```rust,edition2018
-use anyhow::{Result, anyhow};
+}</code></pre></pre>
+<h2 id="transform-csv-column"><a class="header" href="#transform-csv-column">Transform CSV column</a></h2>
+<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p>Transform a CSV file containing a color name and a hex color into one with a
+color name and an rgb color.  Utilizes the <a href="https://docs.rs/csv/">csv</a> crate to read and write the
+csv file, and <a href="https://docs.rs/serde/">serde</a> to deserialize and serialize the rows to and from bytes.</p>
+<p>See <a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize">csv::Reader::deserialize</a>, <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html">serde::Deserialize</a>, and <a href="https://doc.rust-lang.org/std/str/trait.FromStr.html">std::str::FromStr</a></p>
+<pre><pre class="playground"><code class="language-rust edition2018">use anyhow::{Result, anyhow};
 use csv::{Reader, Writer};
 use serde::{de, Deserialize, Deserializer};
 use std::str::FromStr;
