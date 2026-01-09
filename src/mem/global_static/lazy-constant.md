@@ -53,3 +53,51 @@ fn main() {
 ```
 
 [`OnceCell`]: https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html
+
+## `std::cell::LazyCell`
+[`LazyCell`] and its thread-safe counterpart [`LazyLock`] can be used to create a value which is initialized on the first access.
+```rust,edition2021
+use std::cell::LazyCell;
+
+fn main() {
+    let lazy: LazyCell<usize> = LazyCell::new(|| {
+        println!("Evaluated Lazily");
+        5
+    });
+    println!("Starting Program!");
+    let lazy_constant = &*lazy;
+    assert_eq!(*lazy_constant, 5);
+}
+```
+
+[`LazyCell`]: https://doc.rust-lang.org/std/cell/struct.LazyCell.html
+
+## `std::sync::LazyLock`
+
+The [`LazyLock`] type is a thread-safe alternative to [`LazyCell`].
+```rust,edition2024
+use std::sync::LazyLock;
+use std::collections::HashMap;
+
+static PRIVILEGES: LazyLock<HashMap<&'static str, Vec<&'static str>>> = LazyLock::new(|| {
+    {
+        let mut map = HashMap::new();
+        map.insert("James", vec!["user", "admin"]);
+        map.insert("Jim", vec!["user"]);
+        map
+    }
+});
+
+fn show_access(name: &str) {
+    let access = PRIVILEGES.get(name);
+    println!("{}: {:?}", name, access);
+}
+
+fn main() {
+    let access = PRIVILEGES.get("James");
+    println!("James: {:?}", access);
+
+    show_access("Jim");
+}
+```
+[`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
