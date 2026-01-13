@@ -59,15 +59,37 @@ fn main() {
 ```rust,edition2021
 use std::cell::LazyCell;
 
-fn main() {
-    let lazy: LazyCell<usize> = LazyCell::new(|| {
-        println!("Evaluated Lazily");
-        5
-    });
-    println!("Starting Program!");
-    let lazy_constant = &*lazy;
-    assert_eq!(*lazy_constant, 5);
+struct User {
+    id: u32,
+    username: String,
+    // We defer the expensive permission calculation
+    permissions: LazyCell<Vec<String>>,
 }
+
+impl User {
+    fn new(id: u32, username: String) -> Self {
+        Self {
+            id,
+            username,
+            permissions: LazyCell::new(|| {
+                println!("--- Fetching permissions from database for ID {} ---", id);
+                // Simulate a heavy operation
+                vec!["read".to_string(), "write".to_string()]
+            }),
+        }
+    }
+}
+
+fn main() {
+    let user = User::new(1, "ferris_rustacean".into());
+
+    println!("User {} loaded.", user.username);
+
+    // If we never access user.permissions, the closure is never run.
+
+    if true { // Imagine a conditional check here
+        println!("Permissions: {:?}", *user.permissions);
+    }
 ```
 
 [`LazyCell`]: https://doc.rust-lang.org/std/cell/struct.LazyCell.html
@@ -79,25 +101,28 @@ The [`LazyLock`] type is a thread-safe alternative to [`LazyCell`].
 use std::sync::LazyLock;
 use std::collections::HashMap;
 
-static PRIVILEGES: LazyLock<HashMap<&'static str, Vec<&'static str>>> = LazyLock::new(|| {
-    {
-        let mut map = HashMap::new();
-        map.insert("James", vec!["user", "admin"]);
-        map.insert("Jim", vec!["user"]);
-        map
+struct Config {
+    api_key: String,
+    timeout: u64,
+}
+
+// Imagine loading this from a .env file or a vault
+static APP_CONFIG: LazyLock<Config> = LazyLock::new(|| {
+    println!("Loading configuration...");
+    Config {
+        api_key: std::env::var("API_KEY").unwrap_or_else(|_| "default_key".to_string()),
+        timeout: 30,
     }
 });
 
-fn show_access(name: &str) {
-    let access = PRIVILEGES.get(name);
-    println!("{}: {:?}", name, access);
-}
-
 fn main() {
-    let access = PRIVILEGES.get("James");
-    println!("James: {:?}", access);
+    println!("App started.");
 
-    show_access("Jim");
+    // The closure above isn't run until we access APP_CONFIG here.
+    let timeout = APP_CONFIG.timeout;
+
+    println!("Timeout is: {}s", timeout);
+    println!("API Key is hidden: {}", APP_CONFIG.api_key.len() > 0);
 }
 ```
 [`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
