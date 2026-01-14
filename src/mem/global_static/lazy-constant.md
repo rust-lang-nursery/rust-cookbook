@@ -53,3 +53,76 @@ fn main() {
 ```
 
 [`OnceCell`]: https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html
+
+## `std::cell::LazyCell`
+[`LazyCell`] and its thread-safe counterpart [`LazyLock`] can be used to create a value which is initialized on the first access.
+```rust,edition2021
+use std::cell::LazyCell;
+
+struct User {
+    id: u32,
+    username: String,
+    // We defer the expensive permission calculation
+    permissions: LazyCell<Vec<String>>,
+}
+
+impl User {
+    fn new(id: u32, username: String) -> Self {
+        Self {
+            id,
+            username,
+            permissions: LazyCell::new(|| {
+                println!("--- Fetching permissions from database for ID {} ---", id);
+                // Simulate a heavy operation
+                vec!["read".to_string(), "write".to_string()]
+            }),
+        }
+    }
+}
+
+fn main() {
+    let user = User::new(1, "ferris_rustacean".into());
+
+    println!("User {} loaded.", user.username);
+
+    // If we never access user.permissions, the closure is never run.
+
+    if true { // Imagine a conditional check here
+        println!("Permissions: {:?}", *user.permissions);
+    }
+```
+
+[`LazyCell`]: https://doc.rust-lang.org/std/cell/struct.LazyCell.html
+
+## `std::sync::LazyLock`
+
+The [`LazyLock`] type is a thread-safe alternative to [`LazyCell`].
+```rust,edition2024
+use std::sync::LazyLock;
+use std::collections::HashMap;
+
+struct Config {
+    api_key: String,
+    timeout: u64,
+}
+
+// Imagine loading this from a .env file or a vault
+static APP_CONFIG: LazyLock<Config> = LazyLock::new(|| {
+    println!("Loading configuration...");
+    Config {
+        api_key: std::env::var("API_KEY").unwrap_or_else(|_| "default_key".to_string()),
+        timeout: 30,
+    }
+});
+
+fn main() {
+    println!("App started.");
+
+    // The closure above isn't run until we access APP_CONFIG here.
+    let timeout = APP_CONFIG.timeout;
+
+    println!("Timeout is: {}s", timeout);
+    println!("API Key is hidden: {}", APP_CONFIG.api_key.len() > 0);
+}
+```
+[`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
