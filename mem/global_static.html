@@ -218,7 +218,7 @@ impl User {
             id,
             username,
             permissions: LazyCell::new(|| {
-                println!("--- Fetching permissions from database for ID {} ---", id);
+                println!("--- Fetching permissions from database ---");
                 // Simulate a heavy operation
                 vec!["read".to_string(), "write".to_string()]
             }),
@@ -235,7 +235,8 @@ fn main() {
 
     if true { // Imagine a conditional check here
         println!("Permissions: {:?}", *user.permissions);
-    }</code></pre></pre>
+    }
+}</code></pre></pre>
 <h2 id="stdsynclazylock"><a class="header" href="#stdsynclazylock"><code>std::sync::LazyLock</code></a></h2>
 <p>The <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a> type is a thread-safe alternative to <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2024 edition2018">use std::sync::LazyLock;
