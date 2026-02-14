@@ -9,4 +9,4 @@ with [`random_range`].
 {{#include ../../../crates/algorithms/randomness/src/bin/choose.rs }}
 ```
 
-[`random_range`]: https://docs.rs/rand/latest/rand/trait.Rng.html#method.random_range
+[`random_range`]: https://docs.rs/rand/0.9/rand/trait.Rng.html#method.random_range

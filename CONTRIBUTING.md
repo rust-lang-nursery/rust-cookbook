@@ -44,6 +44,12 @@ To run the cookbook test suite:
 cargo test
 ```
 
+To run only the skeptic tests (useful when working on examples):
+
+```
+cargo test --test skeptic
+```
+
 ### xtask
 
 To simplify common tasks like testing, building the book, and running linters.
@@ -58,6 +64,12 @@ cargo install mdbook@0.4.43 lychee@0.17.0
 
   ```bash
   cargo xtask test all
+  ```
+
+- To run only the skeptic tests:
+
+  ```bash
+  cargo test --test skeptic
   ```
 
 - To build the book locally:
@@ -75,28 +87,24 @@ run on the continuous integration server.  These linters should be run locally
 before submitting a pull request to ensure there are no dead links or spelling
 errors made.
 
-To install the link checker, review the documentation for [python] to install
-python 3.6 and pip3.  Installing link-checker once the dependencies are met
-is done with pip3.
+To install the link checker, use Cargo:
 
-```
-[sudo] pip3 install link-checker==0.1.0
+```bash
+cargo install lychee@0.17.0
 ```
 
-Alternatively, add the user install directory (probably `~/.local/bin`) to
-your PATH variable and install link-checker for your user.
+Checking the links of the book locally can be done with the xtask tool.
+First, ensure the book is built with mdBook.
 
-```
-pip3 install --user link-checker==0.1.0
+```bash
+cargo xtask book
+cargo xtask test link
 ```
 
-Checking the links of the book locally first requires the book to be built
-with mdBook.  From the root directory of the cookbook, the following commands
-run the link checker.
+Alternatively, you can run lychee directly to check all files in the repository:
 
-```
-mdbook build
-link-checker ./book
+```bash
+lychee --base . --config ./ci/lychee.toml .
 ```
 
 The aspell binary provides spell checking.  Apt packages provide installation
@@ -132,7 +140,7 @@ Pressing `a` or `l` will not add the word to the custom dictionary.
 If there are no errors, it will just print the local Aspell version and exit.
 
 [mdbook]: https://github.com/rust-lang-nursery/mdBook
-[python]: https://packaging.python.org/tutorials/installing-packages/#install-pip-setuptools-and-wheel
+[lychee]: https://github.com/lycheeverse/lychee
 [skeptic]: https://github.com/brson/rust-skeptic
 
 
