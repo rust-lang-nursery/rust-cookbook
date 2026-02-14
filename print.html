@@ -2604,6 +2604,60 @@ Keep lines sorted.
 -->
 <!-- Categories -->
 <!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tracing"><a class="header" href="#tracing">Tracing</a></h1>
+<p><a href="https://crates.io/crates/tracing"><code>tracing</code></a> is a framework for instrumenting Rust programs to
+collect structured, event-based diagnostic information. It is alternative to the older
+<a href="https://crates.io/crates/log"><code>log</code></a> crate and has adapters to be backwards compatible.</p>
+<p>To enable tracing in your application, add the following crates to your project:</p>
+<pre><code class="language-shell">cargo add tracing tracing-subscriber
+</code></pre>
+<p>For libraries, tracing-subscriber is usually not required.</p>
+<h2 id="log-messages-to-the-console"><a class="header" href="#log-messages-to-the-console">Log messages to the console</a></h2>
+<p><a href="https://docs.rs/tracing/"><img src="https://badge-cache.kominick.com/crates/v/tracing.svg?label=tracing" alt="tracing-badge" /></a> <a href="https://docs.rs/tracing-subscriber/"><img src="https://badge-cache.kominick.com/crates/v/tracing-subscriber.svg?label=tracing-subscriber" alt="tracing-subscriber-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p>The <code>tracing</code> crate provides macros to emit log events to a tracing subscriber. The
+<code>tracing-subscriber</code> crate configures where to send the events. To install the default tracing
+subscriber, call <a href="https://docs.rs/tracing-subscriber/latest/tracing_subscriber/fmt/fn.init.html"><code>tracing_subscriber::fmt::init()</code></a>.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use tracing::{debug, error, info, trace, warn};
+
+fn main() {
+    tracing_subscriber::fmt::init();
+
+    error!("This is an error!");
+    warn!("This is a warning.");
+    info!("This is an informational message.");
+
+    // with the default configuration, debug! and trace! messages are not shown
+    debug!("This is a debug message.");
+    trace!("This is a trace message.");
+}
+
+#[test]
+fn test_main() {
+    main();
+}</code></pre></pre>
+<p>The default log level is <code>INFO</code>. Tracing will drop events logged at lower levels. Running this code
+prints the following to the console:</p>
+<!-- 
+    Generated using https://crates.io/crates/to-html, running:
+    RUST_LOG=trace to-html --no-prompt  "cargo run --quiet --example=tracing-console
+-->
+<pre class="terminal"><code><span style='opacity:0.67'>2024-12-01T07:56:14.778440Z</span> <span style='color:var(--red,#a00)'>ERROR</span> <span style='opacity:0.67'>tracing_console:</span> This is an error!
+<span style='opacity:0.67'>2024-12-01T07:56:14.778568Z</span> <span style='color:var(--yellow,#a60)'> WARN</span> <span style='opacity:0.67'>tracing_console:</span> This is a warning.
+<span style='opacity:0.67'>2024-12-01T07:56:14.778596Z</span> <span style='color:var(--green,#0a0)'> INFO</span> <span style='opacity:0.67'>tracing_console:</span> This is an informational message.
+</code></pre>
+<p>To configure a more verbose default level, set the <code>RUST_LOG</code> environment variable:</p>
+<pre><code class="language-shell">RUST_LOG=trace cargo run --example log-debug
+</code></pre>
+<p>Cargo prints these following extra lines in addition to the ones above:</p>
+<pre class="terminal"><code><span style='opacity:0.67'>2024-12-01T07:56:14.778613Z</span> <span style='color:var(--blue,#00a)'>DEBUG</span> <span style='opacity:0.67'>tracing_console:</span> This is a debug message.
+<span style='opacity:0.67'>2024-12-01T07:56:14.778640Z</span> <span style='color:var(--magenta,#a0a)'>TRACE</span> <span style='opacity:0.67'>tracing_console:</span> This is a trace message.
+</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="versioning-2"><a class="header" href="#versioning-2">Versioning</a></h1>
 <h2 id="parse-and-increment-a-version-string"><a class="header" href="#parse-and-increment-a-version-string">Parse and increment a version string.</a></h2>
 <p><a href="https://docs.rs/semver/"><img src="https://img.shields.io/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
@@ -6022,6 +6076,10 @@ Keep lines sorted.
 [threadpool]: https://docs.rs/threadpool/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
+[tracing-badge]: https://badge-cache.kominick.com/crates/v/tracing.svg?label=tracing
+[tracing]: https://docs.rs/tracing/
+[tracing-subscriber-badge]: https://badge-cache.kominick.com/crates/v/tracing-subscriber.svg?label=tracing-subscriber
+[tracing-subscriber]: https://docs.rs/tracing-subscriber/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
 [unicode-segmentation-badge]: https://img.shields.io/crates/v/unicode-segmentation.svg?label=unicode-segmentation
