@@ -5,7 +5,10 @@ const REMOVED_TESTS: &[&str] = &[
     "./src/web/clients/api/rate-limited.md",
 ];
 
-const REMOVED_PREFIXES: &[&str] = &["./src/algorithms/randomness/"];
+const REMOVED_PREFIXES: &[&str] = &[
+    "./src/algorithms/randomness/",
+    "./src/development_tools/debugging/tracing/",
+];
 
 fn main() {
     let paths = WalkDir::new("./src/")

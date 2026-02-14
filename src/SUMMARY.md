@@ -2,6 +2,7 @@
 
 [Table of Contents](intro.md)
 [About](about.md)
+
 - [Algorithms](algorithms.md)
   - [Generate Random Values](algorithms/randomness.md)
   - [Sort a Vector](algorithms/sorting.md)
@@ -28,6 +29,7 @@
   - [Debugging](development_tools/debugging.md)
     - [Log Messages](development_tools/debugging/log.md)
     - [Configure Logging](development_tools/debugging/config_log.md)
+    - [Tracing Messages](development_tools/debugging/tracing.md)
   - [Versioning](development_tools/versioning.md)
   - [Build Time Tooling](development_tools/build_tools.md)
 - [Encoding](encoding.md)
