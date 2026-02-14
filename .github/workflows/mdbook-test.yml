@@ -27,7 +27,7 @@ jobs:
       - name: Test Results
         if: always()
         run: |
-          if [ ${{ steps.cargo_test.outcome }} == 'success' ]; then
+          if [ "${{ steps.cargo_test.outcome }}" == "success" ]; then
             echo "✅ All tests passed!"
           else
             echo "❌ Some tests failed. Check the logs above for details."
@@ -40,11 +40,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-      - run: cargo check --workspace
+      - name: cargo check
+        id: cargo_check
+        run: cargo check --workspace
       - name: Check Results
         if: always()
         run: |
-          if [ ${{ steps.cargo_check.outcome }} == 'success' ]; then
+          if [ "${{ steps.cargo_check.outcome }}" == "success" ]; then
             echo "✅ Workspace check passed!"
           else
             echo "❌ Workspace check failed. Check the logs above for details."
