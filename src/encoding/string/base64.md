@@ -8,12 +8,12 @@ and decodes it with [`decode`].
 ```rust,edition2018
 use anyhow::Result;
 use std::str;
-use base64::{encode, decode};
+use base64::prelude::{Engine as _, BASE64_STANDARD};
 
 fn main() -> Result<()> {
     let hello = b"hello rustaceans";
-    let encoded = encode(hello);
-    let decoded = decode(&encoded)?;
+    let encoded = BASE64_STANDARD.encode(hello);
+    let decoded = BASE64_STANDARD.decode(&encoded)?;
 
     println!("origin: {}", str::from_utf8(hello)?);
     println!("base64 encoded: {}", encoded);
@@ -23,5 +23,5 @@ fn main() -> Result<()> {
 }
 ```
 
-[`decode`]: https://docs.rs/base64/*/base64/fn.decode.html
-[`encode`]: https://docs.rs/base64/*/base64/fn.encode.html
+[`decode`]: https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.decode
+[`encode`]: https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.encode

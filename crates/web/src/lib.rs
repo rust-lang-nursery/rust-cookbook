@@ -1,7 +1,7 @@
-mod broken;
-mod paginated;
-mod links;
-mod wiki;
+pub mod broken;
+pub mod paginated;
+pub mod links;
+pub mod wiki;
 
 #[cfg(test)]
 mod tests {
