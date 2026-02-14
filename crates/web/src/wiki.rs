@@ -3,7 +3,7 @@ use std::borrow::Cow;
 use std::collections::HashSet;
 use std::sync::LazyLock;
 
-pub fn extract_links(content: &str) -> HashSet<Cow<str>> {
+pub fn extract_links(content: &str) -> HashSet<Cow<'_, str>> {
   static WIKI_REGEX: LazyLock<Regex> = LazyLock::new(|| Regex::new(
       r"(?x)
                 \[\[(?P<internal>[^\[\]|]*)[^\[\]]*\]\]    # internal links

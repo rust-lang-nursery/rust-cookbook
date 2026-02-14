@@ -54,7 +54,7 @@ fn main() {
 
 [`OnceCell`]: https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html
 
-## `std::cell::LazyCell`
+## std::cell::LazyCell
 
 [![std-badge]][std] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
@@ -91,7 +91,7 @@ fn main() {
 
 [`LazyCell`]: https://doc.rust-lang.org/std/cell/struct.LazyCell.html
 
-## `std::sync::LazyLock`
+## std::sync::LazyLock
 
 [![std-badge]][std] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
