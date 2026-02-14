@@ -9,19 +9,7 @@ subscriber, call [`tracing_subscriber::fmt::init()`].
 [`tracing_subscriber::fmt::init()`]: https://docs.rs/tracing-subscriber/latest/tracing_subscriber/fmt/fn.init.html
 
 ```rust
-use tracing::{debug, error, info, trace, warn};
-
-fn main() {
-    tracing_subscriber::fmt::init();
-
-    error!("This is an error!");
-    warn!("This is a warning.");
-    info!("This is an informational message.");
-
-    // with the default configuration, debug! and trace! messages are not shown
-    debug!("This is a debug message.");
-    trace!("This is a trace message.");
-}
+{{#include ../../../../crates/development_tools/debugging/tracing/src/bin/tracing-console.rs }}
 ```
 
 The default log level is `INFO`. Tracing will drop events logged at lower levels. Running this code

@@ -4,7 +4,7 @@
 collect structured, event-based diagnostic information. It is alternative to the older
 [`log`](https://crates.io/crates/log) crate and has adapters to be backwards compatible.
 
-To enable tracing in your applicaiont, add the following crates to your project:
+To enable tracing in your application, add the following crates to your project:
 
 ```shell
 cargo add tracing tracing-subscriber

@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/algorithms/*", "crates/web", "xtask"]
+members = ["crates/algorithms/*", "crates/development_tools/debugging/tracing", "crates/web", "xtask"]
 
 [workspace.package]
 edition = "2024"
@@ -23,6 +23,8 @@ default = []
 [workspace.dependencies]
 rand = "0.9"
 rand_distr = "0.5"
+tracing = "0.1"
+tracing-subscriber = "0.3"
 
 # NOTE: These dependencies add dependencies to the rust playground (play.rust-lang.org).
 # Be wary removing or changing these without considering this fact.
