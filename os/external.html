@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="external-command"><a class="header" href="#external-command">External Command</a></h1>
 <h2 id="run-an-external-command-and-process-stdout"><a class="header" href="#run-an-external-command-and-process-stdout">Run an external command and process stdout</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Runs <code>git log --oneline</code> using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and inspects the <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a>
 status to determine if the command was successful. The command output is captured
 as a [<code>String</code>] using [<code>String::from_utf8</code>].</p>
@@ -181,7 +181,7 @@ fn main() -&gt; Result&lt;()&gt; {
     }
 }</code></pre></pre>
 <h2 id="run-an-external-command-passing-it-stdin-and-check-for-an-error-code"><a class="header" href="#run-an-external-command-passing-it-stdin-and-check-for-an-error-code">Run an external command passing it stdin and check for an error code</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Opens the <code>python</code> interpreter using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and passes it a
 python statement for execution. <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a> of statement is then parsed.</p>
 <pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
@@ -216,7 +216,7 @@ fn main() -&gt; Result&lt;()&gt; {
     }
 }</code></pre></pre>
 <h2 id="run-piped-external-commands"><a class="header" href="#run-piped-external-commands">Run piped external commands</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Shows up to the 10<sup>th</sup> biggest files and subdirectories in
 the current working directory. It is equivalent to running: <code>du -ah . | sort -hr | head -n 10</code>.</p>
 <p><a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a>s represent a process. Output of a child process is captured with a
@@ -263,7 +263,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="redirect-both-stdout-and-stderr-of-child-process-to-the-same-file"><a class="header" href="#redirect-both-stdout-and-stderr-of-child-process-to-the-same-file">Redirect both stdout and stderr of child process to the same file</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Spawns a child process and redirects <code>stdout</code> and <code>stderr</code> to the same
 file. It follows the same idea as <a href="#run-piped-external-commands">run piped external
 commands</a>, however <a href="https://doc.rust-lang.org/std/process/struct.Stdio.html"><code>process::Stdio</code></a>
@@ -289,7 +289,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="continuously-process-child-process-outputs"><a class="header" href="#continuously-process-child-process-outputs">Continuously process child process' outputs</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>In <a href="#run-an-external-command-and-process-stdout">Run an external command and process stdout</a>,
 processing doesn't start until external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> is finished.
 The recipe below calls <a href="https://doc.rust-lang.org/std/process/struct.Stdio.html"><code>Stdio::piped</code></a> to create a pipe, and reads
@@ -317,7 +317,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
      Ok(())
 }</code></pre></pre>
 <h2 id="read-environment-variable"><a class="header" href="#read-environment-variable">Read Environment Variable</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Reads an environment variable via <a href="https://doc.rust-lang.org/std/env/fn.var.html">std::env::var</a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::env;
 use std::fs;

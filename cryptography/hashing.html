@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="hashing"><a class="header" href="#hashing">Hashing</a></h1>
 <h2 id="calculate-the-sha-256-digest-of-a-file"><a class="header" href="#calculate-the-sha-256-digest-of-a-file">Calculate the SHA-256 digest of a file</a></h2>
-<p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://badge-cache.kominick.com/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://docs.rs/data-encoding/"><img src="https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding" alt="data-encoding-badge" /></a> <a href="https://crates.io/categories/cryptography"><img src="https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge" /></a></p>
+<p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://img.shields.io/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://docs.rs/data-encoding/"><img src="https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding" alt="data-encoding-badge" /></a> <a href="https://crates.io/categories/cryptography"><img src="https://img.shields.io/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge" /></a></p>
 <p>Writes some data to a file, then calculates the SHA-256 <a href="https://briansmith.org/rustdoc/ring/digest/struct.Digest.html"><code>digest::Digest</code></a> of
 the file's contents using <a href="https://briansmith.org/rustdoc/ring/digest/struct.Context.html"><code>digest::Context</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
@@ -200,7 +200,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="sign-and-verify-a-message-with-hmac-digest"><a class="header" href="#sign-and-verify-a-message-with-hmac-digest">Sign and verify a message with HMAC digest</a></h2>
-<p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://badge-cache.kominick.com/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://crates.io/categories/cryptography"><img src="https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge" /></a></p>
+<p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://img.shields.io/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://crates.io/categories/cryptography"><img src="https://img.shields.io/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge" /></a></p>
 <p>The <a href="https://docs.rs/ring/*/ring/hmac/fn.sign.html"><code>hmac::sign</code></a> method is used to calculate the HMAC digest (also called a tag) of the message using the provided key.
 The resulting <a href="https://docs.rs/ring/*/ring/hmac/struct.Tag.html"><code>hmac::Tag</code></a> structure contains the raw bytes of the HMAC,
 which can later be verified with<a href="https://docs.rs/ring/*/ring/hmac/fn.verify.html"><code>hmac::verify</code></a> to ensure the message has not been tampered with and comes from a trusted source.</p>

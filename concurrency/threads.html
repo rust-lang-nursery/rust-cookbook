@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="threads"><a class="header" href="#threads">Threads</a></h1>
 <h2 id="spawn-a-short-lived-thread"><a class="header" href="#spawn-a-short-lived-thread">Spawn a short-lived thread</a></h2>
-<p><a href="https://docs.rs/crossbeam/"><img src="https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p><a href="https://docs.rs/crossbeam/"><img src="https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
 <p>The example uses the <a href="https://docs.rs/crossbeam/">crossbeam</a> crate, which provides data structures and functions
 for concurrent and parallel programming. <a href="https://docs.rs/crossbeam/*/crossbeam/thread/struct.Scope.html#method.spawn"><code>Scope::spawn</code></a> spawns a new scoped thread that is guaranteed
 to terminate before returning from the closure that passed into <a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a> function, meaning that
@@ -194,7 +194,7 @@ fn find_max(arr: &amp;[i32]) -&gt; Option&lt;i32&gt; {
     }).unwrap()
 }</code></pre></pre>
 <h2 id="create-a-parallel-pipeline"><a class="header" href="#create-a-parallel-pipeline">Create a parallel pipeline</a></h2>
-<p><a href="https://docs.rs/crossbeam/"><img src="https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p><a href="https://docs.rs/crossbeam/"><img src="https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
 <p>This example uses the <a href="https://docs.rs/crossbeam/">crossbeam</a> and <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/index.html">crossbeam-channel</a> crates to create
 a parallel pipeline, similar to that described in the ZeroMQ <a href="http://zguide.zeromq.org/page:all#Divide-and-Conquer">guide</a>
 There is a data source and a data sink, with data being processed by two worker
@@ -261,7 +261,7 @@ fn main() {
     }).unwrap();
 }</code></pre></pre>
 <h1 id="pass-data-between-two-threads"><a class="header" href="#pass-data-between-two-threads">Pass data between two threads</a></h1>
-<p><a href="https://docs.rs/crossbeam/"><img src="https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
+<p><a href="https://docs.rs/crossbeam/"><img src="https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a></p>
 <p>This example demonstrates the use of <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/index.html">crossbeam-channel</a> in a single producer, single
 consumer (SPSC) setting. We build off the <a href="#spawn-a-short-lived-thread">ex-crossbeam-spawn</a> example by using
 <a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a> and <a href="https://docs.rs/crossbeam/*/crossbeam/thread/struct.Scope.html#method.spawn"><code>Scope::spawn</code></a> to manage the producer thread. Data is
@@ -288,7 +288,7 @@ fn main() {
     }
 }</code></pre></pre>
 <h2 id="maintain-global-mutable-state"><a class="header" href="#maintain-global-mutable-state">Maintain global mutable state</a></h2>
-<p><a href="https://docs.rs/lazy_static/"><img src="https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p><a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
 <p>Declare global state using <a href="https://docs.rs/lazy_static/">lazy_static</a>. <a href="https://docs.rs/lazy_static/">lazy_static</a>
 creates a globally available <code>static ref</code> which requires a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>
 to allow mutation (also see <a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><code>RwLock</code></a>). The <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> wrap ensures
@@ -322,7 +322,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="calculate-sha256-sum-of-iso-files-concurrently"><a class="header" href="#calculate-sha256-sum-of-iso-files-concurrently">Calculate SHA256 sum of iso files concurrently</a></h2>
-<p><a href="https://docs.rs/threadpool/"><img src="https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge" /></a> <a href="https://docs.rs/num_cpus/"><img src="https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://briansmith.org/rustdoc/ring/"><img src="https://badge-cache.kominick.com/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a><a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/threadpool/"><img src="https://img.shields.io/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge" /></a> <a href="https://docs.rs/num_cpus/"><img src="https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://briansmith.org/rustdoc/ring/"><img src="https://img.shields.io/crates/v/ring.svg?label=ring" alt="ring-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>This example calculates the SHA256 for every file with iso extension in the
 current directory. A threadpool generates threads equal to the number of cores
 present in the system found with <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.  <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>Walkdir::new</code></a> iterates
@@ -386,7 +386,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="draw-fractal-dispatching-work-to-a-thread-pool"><a class="header" href="#draw-fractal-dispatching-work-to-a-thread-pool">Draw fractal dispatching work to a thread pool</a></h2>
-<p><a href="https://docs.rs/threadpool/"><img src="https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge" /></a> <a href="https://docs.rs/num/"><img src="https://badge-cache.kominick.com/crates/v/num.svg?label=num" alt="num-badge" /></a> <a href="https://docs.rs/num_cpus/"><img src="https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://docs.rs/image/"><img src="https://badge-cache.kominick.com/crates/v/image.svg?label=image" alt="image-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a><a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a><a href="https://crates.io/categories/rendering"><img src="https://badge-cache.kominick.com/badge/rendering--x.svg?style=social" alt="cat-rendering-badge" /></a></p>
+<p><a href="https://docs.rs/threadpool/"><img src="https://img.shields.io/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge" /></a> <a href="https://docs.rs/num/"><img src="https://img.shields.io/crates/v/num.svg?label=num" alt="num-badge" /></a> <a href="https://docs.rs/num_cpus/"><img src="https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a> <a href="https://docs.rs/image/"><img src="https://img.shields.io/crates/v/image.svg?label=image" alt="image-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a><a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a><a href="https://crates.io/categories/rendering"><img src="https://img.shields.io/badge/rendering--x.svg?style=social" alt="cat-rendering-badge" /></a></p>
 <p>This example generates an image by drawing a fractal from the <a href="https://en.wikipedia.org/wiki/Julia_set">Julia set</a>
 with a thread pool for distributed computation.</p>
 <p><a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a></p>

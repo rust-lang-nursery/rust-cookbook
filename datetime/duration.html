@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="duration-and-calculation"><a class="header" href="#duration-and-calculation">Duration and Calculation</a></h1>
 <h2 id="measure-the-elapsed-time-between-two-code-sections"><a class="header" href="#measure-the-elapsed-time-between-two-code-sections">Measure the elapsed time between two code sections</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/time--x.svg?style=social" alt="cat-time-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/time--x.svg?style=social" alt="cat-time-badge" /></a></p>
 <p>Measures <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>time::Instant::elapsed</code></a> since <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>time::Instant::now</code></a>.</p>
 <p>Calling <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>time::Instant::elapsed</code></a> returns a <a href="https://doc.rust-lang.org/std/time/struct.Duration.html"><code>time::Duration</code></a> that we print at the end of the example.
 This method will not mutate or reset the <a href="https://doc.rust-lang.org/std/time/struct.Instant.html"><code>time::Instant</code></a> object.</p>
@@ -180,7 +180,7 @@ fn main() {
     println!("Time elapsed in expensive_function() is: {:?}", duration);
 }</code></pre></pre>
 <h2 id="perform-checked-date-and-time-calculations"><a class="header" href="#perform-checked-date-and-time-calculations">Perform checked date and time calculations</a></h2>
-<p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
+<p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Calculates and displays the date and time two weeks from now using
 <a href="https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_add_signed"><code>DateTime::checked_add_signed</code></a> and the date of the day before that using
 <a href="https://docs.rs/chrono/*/chrono/struct.Date.html#method.checked_sub_signed"><code>DateTime::checked_sub_signed</code></a>. The methods return None if the date and time
@@ -212,7 +212,7 @@ fn main() {
     }
 }</code></pre></pre>
 <h2 id="convert-a-local-time-to-another-timezone"><a class="header" href="#convert-a-local-time-to-another-timezone">Convert a local time to another timezone</a></h2>
-<p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
+<p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Gets the local time and displays it using <a href="https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now"><code>offset::Local::now</code></a> and then converts it to the UTC standard using the <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc"><code>DateTime::from_utc</code></a> struct method. A time is then converted using the <a href="https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html"><code>offset::FixedOffset</code></a> struct and the UTC time is then converted to UTC+8 and UTC-2.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, FixedOffset, Local, Utc};
 

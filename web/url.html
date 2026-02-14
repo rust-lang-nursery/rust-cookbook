@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="uniform-resource-location"><a class="header" href="#uniform-resource-location">Uniform Resource Location</a></h1>
 <h2 id="parse-a-url-from-a-string-to-a-url-type"><a class="header" href="#parse-a-url-from-a-string-to-a-url-type">Parse a URL from a string to a <code>Url</code> type</a></h2>
-<p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html#method.parse"><code>parse</code></a> method from the <code>url</code> crate validates and parses a <code>&amp;str</code> into a
 <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> struct. The input string may be malformed so this method returns
 <code>Result&lt;Url, ParseError&gt;</code>.</p>
@@ -178,7 +178,7 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="create-a-base-url-by-removing-path-segments"><a class="header" href="#create-a-base-url-by-removing-path-segments">Create a base URL by removing path segments</a></h2>
-<p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>A base URL includes a protocol and a domain.  Base URLs have no folders,
 files or query strings.  Each of those items are stripped out of the given
 URL.  <a href="https://docs.rs/url/*/url/struct.PathSegmentsMut.html#method.clear"><code>PathSegmentsMut::clear</code></a> removes paths and <a href="https://docs.rs/url/*/url/struct.Url.html#method.set_query"><code>Url::set_query</code></a> removes
@@ -213,7 +213,7 @@ fn base_url(mut url: Url) -&gt; Result&lt;Url&gt; {
     Ok(url)
 }</code></pre></pre>
 <h2 id="create-new-urls-from-a-base-url"><a class="header" href="#create-new-urls-from-a-base-url">Create new URLs from a base URL</a></h2>
-<p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html#method.join"><code>join</code></a> method creates a new URL from a base and relative path.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use url::{Url, ParseError};
 
@@ -237,7 +237,7 @@ fn build_github_url(path: &amp;str) -&gt; Result&lt;Url, ParseError&gt; {
     Ok(joined)
 }</code></pre></pre>
 <h2 id="extract-the-url-origin-scheme--host--port"><a class="header" href="#extract-the-url-origin-scheme--host--port">Extract the URL origin (scheme / host / port)</a></h2>
-<p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> struct exposes various methods to extract information about the URL
 it represents.</p>
 <pre><pre class="playground"><code class="language-rust edition2021">use url::{Url, Host, ParseError};
@@ -275,7 +275,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="remove-fragment-identifiers-and-query-pairs-from-a-url"><a class="header" href="#remove-fragment-identifiers-and-query-pairs-from-a-url">Remove fragment identifiers and query pairs from a URL</a></h2>
-<p><a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>Parses <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> and slices it with <a href="https://docs.rs/url/*/url/enum.Position.html"><code>url::Position</code></a> to strip unneeded URL parts.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use url::{Url, Position, ParseError};
 

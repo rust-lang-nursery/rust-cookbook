@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="extracting-links"><a class="header" href="#extracting-links">Extracting Links</a></h1>
 <h2 id="extract-all-links-from-a-webpage-html"><a class="header" href="#extract-all-links-from-a-webpage-html">Extract all links from a webpage HTML</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/select/"><img src="https://badge-cache.kominick.com/crates/v/select.svg?label=select" alt="select-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/select/"><img src="https://img.shields.io/crates/v/select.svg?label=select" alt="select-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>Use <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> to perform a HTTP GET request and then use
 <a href="https://docs.rs/select/*/select/document/struct.Document.html#method.from_read"><code>Document::from_read</code></a> to parse the response into a HTML document.
 <a href="https://docs.rs/select/*/select/document/struct.Document.html#method.find"><code>find</code></a> with the criteria of <a href="https://docs.rs/select/*/select/predicate/struct.Name.html"><code>Name</code></a> is "a" retrieves all links.
@@ -208,7 +208,7 @@ async fn main() -&gt; Result&lt;(), links::LinkError&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="check-a-webpage-for-broken-links"><a class="header" href="#check-a-webpage-for-broken-links">Check a webpage for broken links</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/select/"><img src="https://badge-cache.kominick.com/crates/v/select.svg?label=select" alt="select-badge" /></a> <a href="https://docs.rs/url/"><img src="https://badge-cache.kominick.com/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/select/"><img src="https://img.shields.io/crates/v/select.svg?label=select" alt="select-badge" /></a> <a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>Call <code>get_base_url</code> to retrieve the base URL. If the document has a base tag,
 get the href <a href="https://docs.rs/select/*/select/node/struct.Node.html#method.attr"><code>attr</code></a> from base tag. <a href="https://docs.rs/url/*/url/enum.Position.html#variant.BeforePath"><code>Position::BeforePath</code></a> of the original
 URL acts as a default.</p>
@@ -303,7 +303,7 @@ async fn main() -&gt; anyhow::Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="extract-all-unique-links-from-a-mediawiki-markup"><a class="header" href="#extract-all-unique-links-from-a-mediawiki-markup">Extract all unique links from a MediaWiki markup</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/regex/"><img src="https://badge-cache.kominick.com/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://badge-cache.kominick.com/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>Pull the source of a MediaWiki page using <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> and then
 look for all entries of internal and external links with
 <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter"><code>Regex::captures_iter</code></a>. Using <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html"><code>Cow</code></a> avoids excessive <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> allocations.</p>

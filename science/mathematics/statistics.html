@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="statistics"><a class="header" href="#statistics">Statistics</a></h1>
 <h3 id="measures-of-central-tendency"><a class="header" href="#measures-of-central-tendency">Measures of central tendency</a></h3>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>These examples calculate measures of central tendency for a data set contained within a Rust array. There may be no mean, median or mode to calculate for an empty set of data, so each function returns an <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> to be handled by the caller.</p>
 <p>The first example calculates the mean (the sum of all measurements divided by the number of measurements in the set) by producing an iterator of references over the data, and using <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum"><code>sum</code></a> and <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.len"><code>len</code></a> to determine the total value and count of values respectively.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">fn main() {
@@ -269,7 +269,7 @@ fn main() {
     println!("Mode of the data is {:?}", mode);
 }</code></pre></pre>
 <h3 id="standard-deviation"><a class="header" href="#standard-deviation">Standard deviation</a></h3>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>This example calculates the standard deviation and z-score of a set of measurements.</p>
 <p>The standard deviation is defined as the square root of the variance (here calculated with f32's [<code>sqrt</code>], where the variance is the <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum"><code>sum</code></a> of the squared difference between each measurement and the [<code>mean</code>], divided by the number of measurements.</p>
 <p>The z-score is the number of standard deviations a single measurement spans away from the [<code>mean</code>] of the data set.</p>

@@ -161,12 +161,12 @@
                     <main>
                         <h1 id="making-requests"><a class="header" href="#making-requests">Making Requests</a></h1>
 <h2 id="make-a-http-get-request"><a class="header" href="#make-a-http-get-request">Make a HTTP GET request</a></h2>
-<p>[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]</p>
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>Parses the supplied URL and makes a synchronous HTTP GET request
-with <a href="https://docs.rs/reqwest/*/reqwest/blocking/fn.get.html"><code>reqwest::blocking::get</code></a>. Prints obtained <a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Response.html"><code>reqwest::blocking::Response</code></a>
+with <a href="https://docs.rs/reqwest/latest/reqwest/blocking/fn.get.html"><code>reqwest::blocking::get</code></a>. Prints obtained <a href="https://docs.rs/reqwest/latest/reqwest/blocking/struct.Response.html"><code>reqwest::blocking::Response</code></a>
 status and headers. Reads HTTP response body into an allocated <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>
 using <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+<pre><pre class="playground"><code class="language-rust edition2024 no_run edition2018">use anyhow::Result;
 use std::io::Read;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -182,14 +182,12 @@ fn main() -&gt; Result&lt;()&gt; {
 }
 </code></pre></pre>
 <h2 id="async"><a class="header" href="#async">Async</a></h2>
-<p>A similar approach can be used by including the <a href="https://docs.rs/crate/tokio/0.2.11"><code>tokio</code></a> executor
-to make the main function asynchronous, retrieving the same information.
-Make sure to add tokio = {version = "1.21.2", features = ["full"]} to
-your cargo.toml file.</p>
-<p>In this example, <a href="https://tokio.rs/tokio/tutorial/hello-tokio#the-code"><code>tokio::main</code></a> handles all the heavy executor setup
+<p>A similar approach can be used by including the <a href="https://docs.rs/tokio/latest/tokio/"><code>tokio</code></a> executor
+to make the main function asynchronous, retrieving the same information.</p>
+<p>In this example, <a href="https://docs.rs/tokio/latest/tokio/attr.main.html"><code>tokio::main</code></a> handles all the heavy executor setup
 and allows sequential code implemented without blocking until <code>.await</code>.</p>
-<p>Uses the asynchronous versions of [reqwest], both <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a> and
-<a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html"><code>reqwest::Response</code></a>.</p>
+<p>Uses the asynchronous versions of <a href="https://docs.rs/reqwest/">reqwest</a>, both <a href="https://docs.rs/reqwest/latest/reqwest/fn.get.html"><code>reqwest::get</code></a> and
+<a href="https://docs.rs/reqwest/latest/reqwest/struct.Response.html"><code>reqwest::Response</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 
 #[tokio::main]
@@ -203,19 +201,19 @@ async fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="set-custom-headers-and-url-parameters-for-a-rest-request"><a class="header" href="#set-custom-headers-and-url-parameters-for-a-rest-request">Set custom headers and URL parameters for a REST request</a></h2>
-<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![url-badge]][url] [![cat-net-badge]][cat-net]</p>
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge" /></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge" /></a></p>
 <p>Sets both standard and custom HTTP headers as well as URL parameters for a HTTP
-GET request. Creates a custom header of type <code>XPoweredBy</code> with [<code>header!</code>] macro.</p>
-<p>Then, builds the complex URL with [<code>Url::parse_with_params</code>]. Sets standard
-headers [<code>header::USER_AGENT</code>], [<code>header::AUTHORIZATION</code>] and custom
-<code>XPoweredBy</code> header using [<code>RequestBuilder::header</code>], then makes the request
-with [<code>RequestBuilder::send</code>].</p>
+GET request.</p>
+<p>Builds a complex URL with <a href="https://docs.rs/url/latest/url/struct.Url.html#method.parse_with_params"><code>Url::parse_with_params</code></a>. Sets standard
+headers <a href="https://docs.rs/reqwest/latest/reqwest/header/constant.USER_AGENT.html"><code>header::USER_AGENT</code></a> and <a href="https://docs.rs/reqwest/latest/reqwest/header/constant.AUTHORIZATION.html"><code>header::AUTHORIZATION</code></a>, plus a custom
+<code>X-Powered-By</code> header using <a href="https://docs.rs/reqwest/latest/reqwest/blocking/struct.RequestBuilder.html#method.header"><code>RequestBuilder::header</code></a>, then makes the request
+with <a href="https://docs.rs/reqwest/latest/reqwest/blocking/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a>.</p>
 <p>The request target <a href="http://httpbin.org/headers">http://httpbin.org/headers</a> responds with
 a JSON dict containing all request headers for easy verification.</p>
-<pre><pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+<pre><pre class="playground"><code class="language-rust edition2024 no_run edition2018">use anyhow::Result;
 use reqwest::Url;
 use reqwest::blocking::Client;
-use reqwest::header::USER_AGENT;
+use reqwest::header::{AUTHORIZATION, USER_AGENT};
 use serde::Deserialize;
 use std::collections::HashMap;
 
@@ -233,6 +231,7 @@ fn main() -&gt; Result&lt;()&gt; {
     let response = Client::new()
         .get(url)
         .header(USER_AGENT, "Rust-test-agent")
+        .header(AUTHORIZATION, "Bearer my-token")
         .header("X-Powered-By", "Rust")
         .send()?;
 
@@ -243,167 +242,17 @@ fn main() -&gt; Result&lt;()&gt; {
 
     let out: HeadersEcho = response.json()?;
     assert_eq!(out.headers["User-Agent"], "Rust-test-agent");
+    assert_eq!(out.headers["Authorization"], "Bearer my-token");
     assert_eq!(out.headers["X-Powered-By"], "Rust");
 
     Ok(())
-}
-
-[`header::USER_AGENT`]: https://docs.rs/reqwest/*/reqwest/header/constant.USER_AGENT.html
-[`RequestBuilder::HeaderName::TryFrom&lt;&amp;'a str&gt;`]: https://docs.rs/reqwest/*/reqwest/header/struct.HeaderName.html#impl-TryFrom%3C%26%27a%20str%3E
-[`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
-[`Url::parse_with_params`]: https://docs.rs/url/*/url/struct.Url.html#method.parse_with_params
-
-&lt;!--
+}</code></pre></pre>
+<!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
---&gt;
-
-&lt;!-- Categories --&gt;
-
-[cat-caching-badge]: https://badge-cache.kominick.com/badge/caching--x.svg?style=social
-[cat-caching]: https://crates.io/categories/caching
-[cat-command-line-badge]: https://badge-cache.kominick.com/badge/command_line--x.svg?style=social
-[cat-command-line]: https://crates.io/categories/command-line-interface
-[cat-compression-badge]: https://badge-cache.kominick.com/badge/compression--x.svg?style=social
-[cat-compression]: https://crates.io/categories/compression
-[cat-concurrency-badge]: https://badge-cache.kominick.com/badge/concurrency--x.svg?style=social
-[cat-concurrency]: https://crates.io/categories/concurrency
-[cat-config-badge]: https://badge-cache.kominick.com/badge/config--x.svg?style=social
-[cat-config]: https://crates.io/categories/config
-[cat-cryptography-badge]: https://badge-cache.kominick.com/badge/cryptography--x.svg?style=social
-[cat-cryptography]: https://crates.io/categories/cryptography
-[cat-database-badge]: https://badge-cache.kominick.com/badge/database--x.svg?style=social
-[cat-database]: https://crates.io/categories/database
-[cat-date-and-time-badge]: https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social
-[cat-date-and-time]: https://crates.io/categories/date-and-time
-[cat-debugging-badge]: https://badge-cache.kominick.com/badge/debugging--x.svg?style=social
-[cat-debugging]: https://crates.io/categories/debugging
-[cat-development-tools-badge]: https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social
-[cat-development-tools]: https://crates.io/categories/development-tools
-[cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
-[cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social
-[cat-filesystem]: https://crates.io/categories/filesystem
-[cat-hardware-support-badge]: https://badge-cache.kominick.com/badge/hardware_support--x.svg?style=social
-[cat-hardware-support]: https://crates.io/categories/hardware-support
-[cat-net-badge]: https://badge-cache.kominick.com/badge/net--x.svg?style=social
-[cat-net]: https://crates.io/categories/network-programming
-[cat-no-std-badge]: https://badge-cache.kominick.com/badge/no_std--x.svg?style=social
-[cat-no-std]: https://crates.io/categories/no-std
-[cat-os-badge]: https://badge-cache.kominick.com/badge/OS--x.svg?style=social
-[cat-os]: https://crates.io/categories/os
-[cat-rendering-badge]: https://badge-cache.kominick.com/badge/rendering--x.svg?style=social
-[cat-rendering]: https://crates.io/categories/rendering
-[cat-rust-patterns-badge]: https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social
-[cat-rust-patterns]: https://crates.io/categories/rust-patterns
-[cat-science-badge]: https://badge-cache.kominick.com/badge/science--x.svg?style=social
-[cat-science]: https://crates.io/categories/science
-[cat-text-processing-badge]: https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social
-[cat-text-processing]: https://crates.io/categories/text-processing
-[cat-time-badge]: https://badge-cache.kominick.com/badge/time--x.svg?style=social
-[cat-time]: https://crates.io/categories/date-and-time
-
-&lt;!-- Crates --&gt;
-
-[ansi_term-badge]: https://badge-cache.kominick.com/crates/v/ansi_term.svg?label=ansi_term
-[ansi_term]: https://docs.rs/ansi_term/
-[anyhow-badge]: https://badge-cache.kominick.com/crates/v/anyhow.svg?label=anyhow
-[anyhow]: https://docs.rs/anyhow/
-[base64-badge]: https://badge-cache.kominick.com/crates/v/base64.svg?label=base64
-[base64]: https://docs.rs/base64/
-[bitflags-badge]: https://badge-cache.kominick.com/crates/v/bitflags.svg?label=bitflags
-[bitflags]: https://docs.rs/bitflags/
-[byteorder-badge]: https://badge-cache.kominick.com/crates/v/byteorder.svg?label=byteorder
-[byteorder]: https://docs.rs/byteorder/
-[cc-badge]: https://badge-cache.kominick.com/crates/v/cc.svg?label=cc
-[cc]: https://docs.rs/cc
-[chrono-badge]: https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono
-[chrono]: https://docs.rs/chrono/
-[clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
-[clap]: https://docs.rs/clap/
-[crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
-[crossbeam]: https://docs.rs/crossbeam/
-[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
-[csv]: https://docs.rs/csv/
-[data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
-[data-encoding]: https://docs.rs/data-encoding/
-[env_logger-badge]: https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger
-[env_logger]: https://docs.rs/env_logger/
-[error-chain-badge]: https://badge-cache.kominick.com/crates/v/error-chain.svg?label=error-chain
-[error-chain]: https://docs.rs/error-chain/
-[flate2-badge]: https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2
-[flate2]: https://docs.rs/flate2/
-[glob-badge]:https://badge-cache.kominick.com/crates/v/glob.svg?label=glob
-[glob]: https://docs.rs/glob/
-[hyper-badge]: https://badge-cache.kominick.com/crates/v/hyper.svg?label=hyper
-[hyper]: https://docs.rs/hyper/
-[image-badge]: https://badge-cache.kominick.com/crates/v/image.svg?label=image
-[image]: https://docs.rs/image/
-[lazy_static-badge]: https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static
-[lazy_static]: https://docs.rs/lazy_static/
-[log-badge]: https://badge-cache.kominick.com/crates/v/log.svg?label=log
-[log4rs-badge]: https://badge-cache.kominick.com/crates/v/log4rs.svg?label=log4rs
-[log4rs]: https://docs.rs/log4rs/
-[log]: https://docs.rs/log/
-[memmap-badge]: https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap
-[memmap]: https://docs.rs/memmap/
-[mime-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=mime
-[mime]: https://docs.rs/mime/
-[nalgebra-badge]: https://badge-cache.kominick.com/crate/nalgebra.svg?label=nalgebra
-[nalgebra]: https://docs.rs/nalgebra
-[ndarray-badge]: https://badge-cache.kominick.com/crate/ndarray.svg?label=ndarray
-[ndarray]: https://docs.rs/ndarray
-[num-badge]: https://badge-cache.kominick.com/crates/v/num.svg?label=num
-[num]: https://docs.rs/num/
-[num_cpus-badge]: https://badge-cache.kominick.com/crates/v/num_cpus.svg?label=num_cpus
-[num_cpus]: https://docs.rs/num_cpus/
-[percent-encoding-badge]: https://badge-cache.kominick.com/crates/v/percent-encoding.svg?label=percent-encoding
-[postgres-badge]: https://badge-cache.kominick.com/crates/v/postgres.svg?label=postgres
-[postgres]: https://docs.rs/postgres/0.15.2/postgres/
-[rand-badge]: https://badge-cache.kominick.com/crates/v/rand.svg?label=rand
-[rand]: https://docs.rs/rand/
-[rand_distr-badge]: https://badge-cache.kominick.com/crates/v/rand_distr.svg?label=rand_distr
-[rand_distr]: https://docs.rs/rand_distr/
-[rayon-badge]: https://badge-cache.kominick.com/crates/v/rayon.svg?label=rayon
-[rayon]: https://docs.rs/rayon/
-[regex-badge]: https://badge-cache.kominick.com/crates/v/regex.svg?label=regex
-[regex]: https://docs.rs/regex/
-[reqwest-badge]: https://badge-cache.kominick.com/crates/v/reqwest.svg?label=reqwest
-[reqwest]: https://docs.rs/reqwest/
-[ring-badge]: https://badge-cache.kominick.com/crates/v/ring.svg?label=ring
-[ring]: https://briansmith.org/rustdoc/ring/
-[rusqlite-badge]: https://badge-cache.kominick.com/crates/v/rusqlite.svg?label=rusqlite
-[rusqlite]: https://crates.io/crates/rusqlite/
-[same_file-badge]: https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file
-[same_file]: https://docs.rs/same-file/
-[select-badge]: https://badge-cache.kominick.com/crates/v/select.svg?label=select
-[select]: https://docs.rs/select/
-[semver-badge]: https://badge-cache.kominick.com/crates/v/semver.svg?label=semver
-[semver]: https://docs.rs/semver/
-[serde-badge]: https://badge-cache.kominick.com/crates/v/serde.svg?label=serde
-[serde-json-badge]: https://badge-cache.kominick.com/crates/v/serde_json.svg?label=serde_json
-[serde-json]: https://docs.rs/serde_json/*/serde_json/
-[serde]: https://docs.rs/serde/
-[std-badge]: https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg
-[std]: https://doc.rust-lang.org/std
-[syslog-badge]: https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog
-[syslog]: https://docs.rs/syslog/
-[tar-badge]: https://badge-cache.kominick.com/crates/v/tar.svg?label=tar
-[tar]: https://docs.rs/tar/
-[tempfile-badge]: https://badge-cache.kominick.com/crates/v/tempfile.svg?label=tempfile
-[tempfile]: https://docs.rs/tempfile/
-[thiserror-badge]: https://badge-cache.kominick.com/crates/v/thiserror.svg?label=thiserror
-[thiserror]: https://docs.rs/thiserror/
-[threadpool-badge]: https://badge-cache.kominick.com/crates/v/threadpool.svg?label=threadpool
-[threadpool]: https://docs.rs/threadpool/
-[toml-badge]: https://badge-cache.kominick.com/crates/v/toml.svg?label=toml
-[toml]: https://docs.rs/toml/
-[url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
-[url]: https://docs.rs/url/
-[unicode-segmentation-badge]: https://badge-cache.kominick.com/crates/v/unicode-segmentation.svg?label=unicode-segmentation
-[unicode-segmentation]: https://docs.rs/unicode-segmentation/
-[walkdir-badge]: https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir
-[walkdir]: https://docs.rs/walkdir/</code></pre></pre>
+-->
+<!-- Categories -->
+<!-- Crates -->
 
                     </main>
 

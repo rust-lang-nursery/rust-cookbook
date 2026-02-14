@@ -165,7 +165,7 @@ Conventionally, build-time code lives in a <strong>build.rs</strong> file and is
 Common use cases include rust code generation and compilation of bundled C/C++/asm code.
 See crates.io's <a href="http://doc.crates.io/build-script.html">documentation on the matter</a> for more information.</p>
 <h2 id="compile-and-link-statically-to-a-bundled-c-library"><a class="header" href="#compile-and-link-statically-to-a-bundled-c-library">Compile and link statically to a bundled C library</a></h2>
-<p><a href="https://docs.rs/cc"><img src="https://badge-cache.kominick.com/crates/v/cc.svg?label=cc" alt="cc-badge" /></a> <a href="https://crates.io/categories/development-tools"><img src="https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge" /></a></p>
+<p><a href="https://docs.rs/cc"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge" /></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge" /></a></p>
 <p>To accommodate scenarios where additional C, C++, or assembly is required in a project, the <a href="https://docs.rs/cc"><strong>cc</strong></a> crate
 offers a simple api for compiling bundled C/C++/asm code into static libraries (<strong>.a</strong>) that can be statically linked to by <strong>rustc</strong>.</p>
 <p>The following example has some bundled C code (<strong>src/hello.c</strong>) that will be used from rust.
@@ -231,7 +231,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="compile-and-link-statically-to-a-bundled-c-library-1"><a class="header" href="#compile-and-link-statically-to-a-bundled-c-library-1">Compile and link statically to a bundled C++ library</a></h2>
-<p><a href="https://docs.rs/cc"><img src="https://badge-cache.kominick.com/crates/v/cc.svg?label=cc" alt="cc-badge" /></a> <a href="https://crates.io/categories/development-tools"><img src="https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge" /></a></p>
+<p><a href="https://docs.rs/cc"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge" /></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge" /></a></p>
 <p>Linking a bundled C++ library is very similar to linking a bundled C library. The two core differences when compiling and statically linking a bundled C++ library are specifying a C++ compiler via the builder method <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.cpp"><code>cpp(true)</code></a> and preventing name mangling by the C++ compiler by adding the <code>extern "C"</code> section at the top of our C++ source file.</p>
 <h3 id="cargotoml-1"><a class="header" href="#cargotoml-1"><code>Cargo.toml</code></a></h3>
 <pre><code class="language-toml">[package]
@@ -268,7 +268,7 @@ fn main(){
     }   
 }</code></pre>
 <h2 id="compile-a-c-library-while-setting-custom-defines"><a class="header" href="#compile-a-c-library-while-setting-custom-defines">Compile a C library while setting custom defines</a></h2>
-<p><a href="https://docs.rs/cc"><img src="https://badge-cache.kominick.com/crates/v/cc.svg?label=cc" alt="cc-badge" /></a> <a href="https://crates.io/categories/development-tools"><img src="https://badge-cache.kominick.com/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge" /></a></p>
+<p><a href="https://docs.rs/cc"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge" /></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge" /></a></p>
 <p>It is simple to build bundled C code with custom defines using <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.define"><code>cc::Build::define</code></a>.
 The method takes an <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> value, so it is possible to create defines such as <code>#define APP_NAME "foo"</code>
 as well as <code>#define WELCOME</code> (pass <code>None</code> as the value for a value-less define). This example builds

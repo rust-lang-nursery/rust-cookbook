@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="csv-processing"><a class="header" href="#csv-processing">CSV processing</a></h1>
 <h2 id="read-csv-records"><a class="header" href="#read-csv-records">Read CSV records</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>Reads standard CSV records into <a href="https://docs.rs/csv/*/csv/struct.StringRecord.html"><code>csv::StringRecord</code></a> — a weakly typed
 data representation which expects valid UTF-8 rows. Alternatively,
 <a href="https://docs.rs/csv/*/csv/struct.ByteRecord.html"><code>csv::ByteRecord</code></a> makes no assumptions about UTF-8.</p>
@@ -218,7 +218,7 @@ fn main() -&gt; Result&lt;(), csv::Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="read-csv-records-with-different-delimiter"><a class="header" href="#read-csv-records-with-different-delimiter">Read CSV records with different delimiter</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>Reads CSV records with a tab [<code>delimiter</code>].</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use csv::Error;
 use serde::Deserialize;
@@ -245,7 +245,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="filter-csv-records-matching-a-predicate"><a class="header" href="#filter-csv-records-matching-a-predicate">Filter CSV records matching a predicate</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>Returns <em>only</em> the rows from <code>data</code> with a field that matches <code>query</code>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use std::io;
@@ -276,7 +276,7 @@ West Hollywood,CA,37031,34.0900000,-118.3608333";
 }</code></pre></pre>
 <p><em>Disclaimer: this example has been adapted from <a href="https://docs.rs/csv/*/csv/tutorial/index.html#filter-by-search">the csv crate tutorial</a></em>.</p>
 <h2 id="handle-invalid-csv-data-with-serde"><a class="header" href="#handle-invalid-csv-data-with-serde">Handle invalid CSV data with Serde</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>CSV files often contain invalid data. For these cases, the <code>csv</code> crate
 provides a custom deserializer, <a href="https://docs.rs/csv/*/csv/fn.invalid_option.html"><code>csv::invalid_option</code></a>, which automatically
 converts invalid data to None values.</p>
@@ -307,7 +307,7 @@ alisha,colombo,xyz";
     Ok(())
 }</code></pre></pre>
 <h2 id="serialize-records-to-csv"><a class="header" href="#serialize-records-to-csv">Serialize records to CSV</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>This example shows how to serialize a Rust tuple. <a href="https://docs.rs/csv/*/csv/struct.Writer.html"><code>csv::writer</code></a> supports automatic
 serialization from Rust types into CSV records. <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record"><code>write_record</code></a> writes
 a simple record containing string data only. Data with more complex values
@@ -329,7 +329,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="serialize-records-to-csv-using-serde"><a class="header" href="#serialize-records-to-csv-using-serde">Serialize records to CSV using Serde</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>The following example shows how to serialize custom structs as CSV records using
 the <a href="https://docs.rs/serde/">serde</a> crate.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
@@ -359,7 +359,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="transform-csv-column"><a class="header" href="#transform-csv-column">Transform CSV column</a></h2>
-<p><a href="https://docs.rs/csv/"><img src="https://badge-cache.kominick.com/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://badge-cache.kominick.com/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://badge-cache.kominick.com/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
+<p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge" /></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge" /></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></p>
 <p>Transform a CSV file containing a color name and a hex color into one with a
 color name and an rgb color.  Utilizes the <a href="https://docs.rs/csv/">csv</a> crate to read and write the
 csv file, and <a href="https://docs.rs/serde/">serde</a> to deserialize and serialize the rows to and from bytes.</p>

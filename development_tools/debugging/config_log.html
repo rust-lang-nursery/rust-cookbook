@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="configure-logging"><a class="header" href="#configure-logging">Configure Logging</a></h1>
 <h2 id="enable-log-levels-per-module"><a class="header" href="#enable-log-levels-per-module">Enable log levels per module</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Creates two modules <code>foo</code> and nested <code>foo::bar</code> with logging directives
 controlled separately with <a href="https://docs.rs/env_logger/*/env_logger/#enabling-logging"><code>RUST_LOG</code></a> environmental variable.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">mod foo {
@@ -203,7 +203,7 @@ INFO:test::foo::bar: [bar] info
 DEBUG:test::foo::bar: [bar] debug
 </code></pre>
 <h2 id="use-a-custom-environment-variable-to-set-up-logging"><a class="header" href="#use-a-custom-environment-variable-to-set-up-logging">Use a custom environment variable to set up logging</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p><a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html"><code>Builder</code></a> configures logging.</p>
 <p><a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.from_env"><code>Builder::from_env</code></a> parses <code>MY_APP_LOG</code>
 environment variable contents in the form of <a href="https://docs.rs/env_logger/*/env_logger/#enabling-logging"><code>RUST_LOG</code></a> syntax.
@@ -218,7 +218,7 @@ fn main() {
     log::error!("this is an error {}", "message");
 }</code></pre></pre>
 <h2 id="include-timestamp-in-log-messages"><a class="header" href="#include-timestamp-in-log-messages">Include timestamp in log messages</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Creates a custom logger configuration with <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html"><code>Builder</code></a>.
 Each log entry calls <a href="https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now"><code>Local::now</code></a> to get the current <a href="https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html"><code>DateTime</code></a> in local
 timezone and uses <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format"><code>DateTime::format</code></a> with <a href="https://docs.rs/chrono/*/chrono/format/strftime/index.html#specifiers"><code>strftime::specifiers</code></a> to format
@@ -252,7 +252,7 @@ fn main() {
 2017-05-22T21:57:06 [INFO] - info
 </code></pre>
 <h2 id="log-messages-to-a-custom-location"><a class="header" href="#log-messages-to-a-custom-location">Log messages to a custom location</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/log4rs/"><img src="https://badge-cache.kominick.com/crates/v/log4rs.svg?label=log4rs" alt="log4rs-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/log4rs/"><img src="https://img.shields.io/crates/v/log4rs.svg?label=log4rs" alt="log4rs-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p><a href="https://docs.rs/log4rs/">log4rs</a> configures log output to a custom location. <a href="https://docs.rs/log4rs/">log4rs</a> can use either an
 external YAML file or a builder configuration.</p>
 <p>Create the log configuration with <a href="https://docs.rs/log4rs/*/log4rs/append/file/struct.FileAppender.html"><code>log4rs::append::file::FileAppender</code></a>. An

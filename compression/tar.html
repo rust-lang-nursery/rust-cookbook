@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="working-with-tarballs"><a class="header" href="#working-with-tarballs">Working with Tarballs</a></h1>
 <h2 id="decompress-a-tarball"><a class="header" href="#decompress-a-tarball">Decompress a tarball</a></h2>
-<p><a href="https://docs.rs/flate2/"><img src="https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2" alt="flate2-badge" /></a> <a href="https://docs.rs/tar/"><img src="https://badge-cache.kominick.com/crates/v/tar.svg?label=tar" alt="tar-badge" /></a> <a href="https://crates.io/categories/compression"><img src="https://badge-cache.kominick.com/badge/compression--x.svg?style=social" alt="cat-compression-badge" /></a></p>
+<p><a href="https://docs.rs/flate2/"><img src="https://img.shields.io/crates/v/flate2.svg?label=flate2" alt="flate2-badge" /></a> <a href="https://docs.rs/tar/"><img src="https://img.shields.io/crates/v/tar.svg?label=tar" alt="tar-badge" /></a> <a href="https://crates.io/categories/compression"><img src="https://img.shields.io/badge/compression--x.svg?style=social" alt="cat-compression-badge" /></a></p>
 <p>Decompress (<a href="https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html"><code>GzDecoder</code></a>) and
 extract (<a href="https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack"><code>Archive::unpack</code></a>) all files from a compressed tarball
 named <code>archive.tar.gz</code> located in the current working directory
@@ -181,7 +181,7 @@ fn main() -&gt; Result&lt;(), std::io::Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="compress-a-directory-into-tarball"><a class="header" href="#compress-a-directory-into-tarball">Compress a directory into tarball</a></h2>
-<p><a href="https://docs.rs/flate2/"><img src="https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2" alt="flate2-badge" /></a> <a href="https://docs.rs/tar/"><img src="https://badge-cache.kominick.com/crates/v/tar.svg?label=tar" alt="tar-badge" /></a> <a href="https://crates.io/categories/compression"><img src="https://badge-cache.kominick.com/badge/compression--x.svg?style=social" alt="cat-compression-badge" /></a></p>
+<p><a href="https://docs.rs/flate2/"><img src="https://img.shields.io/crates/v/flate2.svg?label=flate2" alt="flate2-badge" /></a> <a href="https://docs.rs/tar/"><img src="https://img.shields.io/crates/v/tar.svg?label=tar" alt="tar-badge" /></a> <a href="https://crates.io/categories/compression"><img src="https://img.shields.io/badge/compression--x.svg?style=social" alt="cat-compression-badge" /></a></p>
 <p>Compress <code>/var/log</code> directory into <code>archive.tar.gz</code>.</p>
 <p>Creates a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> wrapped in <a href="https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html"><code>GzEncoder</code></a>
 and <a href="https://docs.rs/tar/*/tar/struct.Builder.html"><code>tar::Builder</code></a>. </br>Adds contents of <code>/var/log</code> directory recursively into the archive
@@ -216,7 +216,7 @@ fn main() -&gt; Result&lt;(), std::io::Error&gt; {
 <p>The default behavior of <a href="https://docs.rs/tar/*/tar/struct.Builder.html"><code>tar::Builder</code></a> differs from the GNU <code>tar</code> utility's defaults <a href="https://man7.org/linux/man-pages/man1/tar.1.html">tar(1)</a>,
 notably <a href="https://docs.rs/tar/latest/tar/struct.Builder.html#method.follow_symlinks"><code>tar::Builder::follow_symlinks(true)</code></a> is the equivalent of <code>tar --dereference</code>.</p>
 <h2 id="decompress-a-tarball-while-removing-a-prefix-from-the-paths"><a class="header" href="#decompress-a-tarball-while-removing-a-prefix-from-the-paths">Decompress a tarball while removing a prefix from the paths</a></h2>
-<p><a href="https://docs.rs/flate2/"><img src="https://badge-cache.kominick.com/crates/v/flate2.svg?label=flate2" alt="flate2-badge" /></a> <a href="https://docs.rs/tar/"><img src="https://badge-cache.kominick.com/crates/v/tar.svg?label=tar" alt="tar-badge" /></a> <a href="https://crates.io/categories/compression"><img src="https://badge-cache.kominick.com/badge/compression--x.svg?style=social" alt="cat-compression-badge" /></a></p>
+<p><a href="https://docs.rs/flate2/"><img src="https://img.shields.io/crates/v/flate2.svg?label=flate2" alt="flate2-badge" /></a> <a href="https://docs.rs/tar/"><img src="https://img.shields.io/crates/v/tar.svg?label=tar" alt="tar-badge" /></a> <a href="https://crates.io/categories/compression"><img src="https://img.shields.io/badge/compression--x.svg?style=social" alt="cat-compression-badge" /></a></p>
 <p>Iterate over the <a href="https://docs.rs/tar/*/tar/struct.Archive.html#method.entries"><code>Archive::entries</code></a>.  Use <a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix"><code>Path::strip_prefix</code></a> to remove
 the specified path prefix (<code>bundle/logs</code>).  Finally, extract the <a href="https://docs.rs/tar/*/tar/struct.Entry.html"><code>tar::Entry</code></a>
 via <a href="https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack"><code>Entry::unpack</code></a>.</p>

@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="versioning"><a class="header" href="#versioning">Versioning</a></h1>
 <h2 id="parse-and-increment-a-version-string"><a class="header" href="#parse-and-increment-a-version-string">Parse and increment a version string.</a></h2>
-<p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
+<p><a href="https://docs.rs/semver/"><img src="https://img.shields.io/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
 <p>Constructs a <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a> from a string literal using <a href="https://docs.rs/semver/*/semver/struct.Version.html#method.parse"><code>Version::parse</code></a>,
 then increments it by patch, minor, and major version number one by one.</p>
 <p>Note that in accordance with the <a href="http://semver.org/">Semantic Versioning Specification</a>,
@@ -196,7 +196,7 @@ fn main() -&gt; Result&lt;(), SemVerError&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="parse-a-complex-version-string"><a class="header" href="#parse-a-complex-version-string">Parse a complex version string.</a></h2>
-<p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
+<p><a href="https://docs.rs/semver/"><img src="https://img.shields.io/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
 <p>Constructs a <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a> from a complex version string using <a href="https://docs.rs/semver/*/semver/struct.Version.html#method.parse"><code>Version::parse</code></a>. The string
 contains pre-release and build metadata as defined in the <a href="http://semver.org/">Semantic Versioning Specification</a>.</p>
 <p>Note that, in accordance with the Specification, build metadata is parsed but not considered when
@@ -219,7 +219,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="check-if-given-version-is-pre-release"><a class="header" href="#check-if-given-version-is-pre-release">Check if given version is pre-release.</a></h2>
-<p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
+<p><a href="https://docs.rs/semver/"><img src="https://img.shields.io/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
 <p>Given two versions, [<code>is_prerelease</code>] asserts that one is pre-release and the other is not.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use semver::{Version, Error};
 
@@ -233,7 +233,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="find-the-latest-version-satisfying-given-range"><a class="header" href="#find-the-latest-version-satisfying-given-range">Find the latest version satisfying given range</a></h2>
-<p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://badge-cache.kominick.com/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
+<p><a href="https://docs.rs/semver/"><img src="https://img.shields.io/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge" /></a></p>
 <p>Given a list of version &amp;strs, finds the latest <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a>.
 <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html"><code>semver::VersionReq</code></a> filters the list with <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches"><code>VersionReq::matches</code></a>.
 Also demonstrates <code>semver</code> pre-release preferences.</p>
@@ -278,7 +278,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="check-external-command-version-for-compatibility"><a class="header" href="#check-external-command-version-for-compatibility">Check external command version for compatibility</a></h2>
-<p><a href="https://docs.rs/semver/"><img src="https://badge-cache.kominick.com/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
+<p><a href="https://docs.rs/semver/"><img src="https://img.shields.io/crates/v/semver.svg?label=semver" alt="semver-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Runs <code>git --version</code> using <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a>, then parses the version number into a
 <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a> using <a href="https://docs.rs/semver/*/semver/struct.Version.html#method.parse"><code>Version::parse</code></a>. <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches"><code>VersionReq::matches</code></a> compares
 <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html"><code>semver::VersionReq</code></a> to the parsed version.  The command output resembles

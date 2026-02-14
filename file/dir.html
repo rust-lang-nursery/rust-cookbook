@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="directory-traversal"><a class="header" href="#directory-traversal">Directory Traversal</a></h1>
 <h2 id="file-names-that-have-been-modified-in-the-last-24-hours"><a class="header" href="#file-names-that-have-been-modified-in-the-last-24-hours">File names that have been modified in the last 24 hours</a></h2>
-<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Gets the current working directory and returns file names modified within the last 24 hours.
 <a href="https://doc.rust-lang.org/std/env/fn.current_dir.html"><code>env::current_dir</code></a> gets the current working directory, <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>WalkDir::new</code></a> creates a new <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html"><code>WalkDir</code></a> for the current directory.
 <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.into_iter"><code>WalkDir::into_iter</code></a> creates an iterator, <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter_map"><code>Iterator::filter_map</code></a> applies <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.ok"><code>Result::ok</code></a> to <a href="https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html"><code>WalkDir::DirEntry</code></a> and filters out the directories.</p>
@@ -191,7 +191,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="find-loops-for-a-given-path"><a class="header" href="#find-loops-for-a-given-path">Find loops for a given path</a></h2>
-<p><a href="https://docs.rs/same-file/"><img src="https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file" alt="same_file-badge" /></a> <a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/same-file/"><img src="https://img.shields.io/crates/v/same_file.svg?label=same_file" alt="same_file-badge" /></a> <a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Use <a href="https://docs.rs/same-file/*/same_file/fn.is_same_file.html"><code>same_file::is_same_file</code></a> to detect loops for a given path.
 For example, a loop is created on a Unix system via symlinks:</p>
 <pre><code class="language-bash">mkdir -p /tmp/foo/bar/baz
@@ -220,7 +220,7 @@ fn main() {
     // println!("Loop found: {}", loop_found);
 }</code></pre></pre>
 <h2 id="recursively-find-duplicate-file-names"><a class="header" href="#recursively-find-duplicate-file-names">Recursively find duplicate file names</a></h2>
-<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Find recursively in the current directory duplicate filenames,
 printing them only once.</p>
 <pre><pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
@@ -244,7 +244,7 @@ fn main() {
     }
 }</code></pre></pre>
 <h2 id="recursively-find-all-files-with-given-predicate"><a class="header" href="#recursively-find-all-files-with-given-predicate">Recursively find all files with given predicate</a></h2>
-<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Find JSON files modified within the last day in the current directory.
 Using <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links"><code>follow_links</code></a> ensures symbolic links are followed like they were
 normal directories and files.</p>
@@ -266,7 +266,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="traverse-directories-while-skipping-dotfiles"><a class="header" href="#traverse-directories-while-skipping-dotfiles">Traverse directories while skipping dotfiles</a></h2>
-<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Uses <a href="https://docs.rs/walkdir/*/walkdir/struct.IntoIter.html#method.filter_entry"><code>filter_entry</code></a> to descend recursively into entries passing the
 <code>is_not_hidden</code> predicate thus skipping hidden files and directories.
 <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter_map"><code>Iterator::filter_map</code></a> applies <code>is_not_hidden</code> on each <a href="https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html"><code>WalkDir::DirEntry</code></a>
@@ -291,7 +291,7 @@ fn main() {
         .for_each(|x| println!("{}", x.path().display()));
 }</code></pre></pre>
 <h2 id="recursively-calculate-file-sizes-at-given-depth"><a class="header" href="#recursively-calculate-file-sizes-at-given-depth">Recursively calculate file sizes at given depth</a></h2>
-<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Recursion depth can be flexibly set by <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth"><code>WalkDir::max_depth</code></a>. Calculates
 sum of all file sizes to 3 subdir levels, ignoring files in the root directory.</p>
 <pre><pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
@@ -308,7 +308,7 @@ fn main() {
     println!("Total size: {} bytes.", total_size);
 }</code></pre></pre>
 <h2 id="find-all-png-files-recursively"><a class="header" href="#find-all-png-files-recursively">Find all png files recursively</a></h2>
-<p><a href="https://docs.rs/glob/"><img src="https://badge-cache.kominick.com/crates/v/glob.svg?label=glob" alt="glob-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/glob/"><img src="https://img.shields.io/crates/v/glob.svg?label=glob" alt="glob-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Recursively find all PNG files in the current directory.
 In this case, the <code>**</code> pattern matches the current directory and all subdirectories.</p>
 <p>Use the <code>**</code> pattern in any path portion. For example, <code>/media/**/*.png</code>
@@ -323,7 +323,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="find-all-files-with-given-pattern-ignoring-filename-case"><a class="header" href="#find-all-files-with-given-pattern-ignoring-filename-case">Find all files with given pattern ignoring filename case</a></h2>
-<p><a href="https://docs.rs/walkdir/"><img src="https://badge-cache.kominick.com/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://docs.rs/glob/"><img src="https://badge-cache.kominick.com/crates/v/glob.svg?label=glob" alt="glob-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a> <a href="https://docs.rs/glob/"><img src="https://img.shields.io/crates/v/glob.svg?label=glob" alt="glob-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Find all image files in the <code>/media/</code> directory matching the <code>img_[0-9]*.png</code>
 pattern.</p>
 <p>A custom <a href="https://docs.rs/glob/*/glob/struct.MatchOptions.html"><code>MatchOptions</code></a> struct is passed to <a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob_with</code></a> instead of <a href="https://docs.rs/glob/*/glob/fn.glob.html"><code>glob</code></a>

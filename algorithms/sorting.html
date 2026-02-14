@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="sorting-vectors"><a class="header" href="#sorting-vectors">Sorting Vectors</a></h1>
 <h2 id="sort-a-vector-of-integers"><a class="header" href="#sort-a-vector-of-integers">Sort a Vector of Integers</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>This example sorts a Vector of integers via <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort"><code>vec::sort</code></a>. Alternative would
 be to use <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_unstable"><code>vec::sort_unstable</code></a> which can be faster, but does not preserve
 the order of equal elements.</p>
@@ -173,7 +173,7 @@ the order of equal elements.</p>
     assert_eq!(vec, vec![1, 2, 5, 10, 15]);
 }</code></pre></pre>
 <h2 id="sort-a-vector-of-floats"><a class="header" href="#sort-a-vector-of-floats">Sort a Vector of Floats</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>A Vector of f32 or f64 can be sorted with <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by"><code>vec::sort_by</code></a> and <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#tymethod.partial_cmp"><code>PartialOrd::partial_cmp</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">fn main() {
     let mut vec = vec![1.1, 1.15, 5.5, 1.123, 2.0];
@@ -183,7 +183,7 @@ the order of equal elements.</p>
     assert_eq!(vec, vec![1.1, 1.123, 1.15, 2.0, 5.5]);
 }</code></pre></pre>
 <h2 id="sort-a-vector-of-structs"><a class="header" href="#sort-a-vector-of-structs">Sort a Vector of Structs</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Sorts a Vector of Person structs with properties <code>name</code> and <code>age</code> by its natural
 order (By name and age). In order to make Person sortable you need four traits <a href="https://doc.rust-lang.org/std/cmp/trait.Eq.html"><code>Eq</code></a>,
 <a href="https://doc.rust-lang.org/std/cmp/trait.PartialEq.html"><code>PartialEq</code></a>, <a href="https://doc.rust-lang.org/std/cmp/trait.Ord.html"><code>Ord</code></a> and <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html"><code>PartialOrd</code></a>. These traits can be simply derived.

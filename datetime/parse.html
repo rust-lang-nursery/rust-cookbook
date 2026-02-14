@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="parsing-and-displaying"><a class="header" href="#parsing-and-displaying">Parsing and Displaying</a></h1>
 <h2 id="examine-the-date-and-time"><a class="header" href="#examine-the-date-and-time">Examine the date and time</a></h2>
-<p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
+<p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Gets the current UTC <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html"><code>DateTime</code></a> and its hour/minute/second via <a href="https://docs.rs/chrono/*/chrono/trait.Timelike.html"><code>Timelike</code></a>
 and its year/month/day/weekday via <a href="https://docs.rs/chrono/*/chrono/trait.Datelike.html"><code>Datelike</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use chrono::{Datelike, Timelike, Utc};
@@ -197,7 +197,7 @@ fn main() {
     );
 }</code></pre></pre>
 <h2 id="convert-date-to-unix-timestamp-and-vice-versa"><a class="header" href="#convert-date-to-unix-timestamp-and-vice-versa">Convert date to UNIX timestamp and vice versa</a></h2>
-<p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
+<p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Converts a date given by <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html#method.from_ymd"><code>NaiveDate::from_ymd</code></a> and <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html#method.from_hms"><code>NaiveTime::from_hms</code></a>
 to <a href="https://en.wikipedia.org/wiki/Unix_time">UNIX timestamp</a> using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp"><code>NaiveDateTime::timestamp</code></a>.
 Then it calculates what was the date after one billion seconds
@@ -216,7 +216,7 @@ fn main() {
         date_time_after_a_billion_seconds);
 }</code></pre></pre>
 <h2 id="display-formatted-date-and-time"><a class="header" href="#display-formatted-date-and-time">Display formatted date and time</a></h2>
-<p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
+<p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Gets and displays the current time in UTC using <a href="https://docs.rs/chrono/*/chrono/offset/struct.Utc.html#method.now"><code>Utc::now</code></a>. Formats the
 current time in the well-known formats <a href="https://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> using <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822"><code>DateTime::to_rfc2822</code></a>
 and <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a> using <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339"><code>DateTime::to_rfc3339</code></a>, and in a custom format using
@@ -232,7 +232,7 @@ fn main() {
     println!("UTC now in a custom format is: {}", now.format("%a %b %e %T %Y"));
 }</code></pre></pre>
 <h2 id="parse-string-into-datetime-struct"><a class="header" href="#parse-string-into-datetime-struct">Parse string into DateTime struct</a></h2>
-<p><a href="https://docs.rs/chrono/"><img src="https://badge-cache.kominick.com/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://badge-cache.kominick.com/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
+<p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge" /></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge" /></a></p>
 <p>Parses a <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html"><code>DateTime</code></a> struct from strings representing the well-known formats
 <a href="https://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a>, <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a>, and a custom format, using
 <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc2822"><code>DateTime::parse_from_rfc2822</code></a>, <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.parse_from_rfc3339"><code>DateTime::parse_from_rfc3339</code></a>, and

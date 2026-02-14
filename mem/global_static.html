@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="constants"><a class="header" href="#constants">Constants</a></h1>
 <h2 id="declare-lazily-evaluated-constant"><a class="header" href="#declare-lazily-evaluated-constant">Declare lazily evaluated constant</a></h2>
-<p><a href="https://docs.rs/lazy_static/"><img src="https://badge-cache.kominick.com/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/caching"><img src="https://badge-cache.kominick.com/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p><a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a> <a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
 <p>Declares a lazily evaluated constant <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a>. The <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> will
 be evaluated once and stored behind a global static reference.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
@@ -202,7 +202,7 @@ fn main() {
     assert!(cell.get().is_some());
 }</code></pre></pre>
 <h2 id="stdcelllazycell"><a class="header" href="#stdcelllazycell">std::cell::LazyCell</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/caching"><img src="https://badge-cache.kominick.com/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
 <p>The <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> type can be used to defer the initialization of a value until the first time it is accessed.
 It is useful for expensive computations that might not be needed during the entire execution of a scope.</p>
 <p>In this example, we use <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> to lazily compute a set of permissions based on a user ID.
@@ -230,7 +230,7 @@ fn main() {
     println!("First permission: {}", permissions[0]);
 }</code></pre></pre>
 <h2 id="stdsynclazylock"><a class="header" href="#stdsynclazylock">std::sync::LazyLock</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/caching"><img src="https://badge-cache.kominick.com/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
 <p>The <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a> type is a thread-safe version of <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> that can be used in <code>static</code> contexts.
 It is the standard library alternative to the <code>lazy_static</code> crate for global, lazily initialized data.</p>
 <p>The example shows how to use <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a> to create a global configuration that is loaded once from

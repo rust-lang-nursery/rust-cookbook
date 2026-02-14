@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="string-parsing"><a class="header" href="#string-parsing">String Parsing</a></h1>
 <h2 id="collect-unicode-graphemes"><a class="header" href="#collect-unicode-graphemes">Collect Unicode Graphemes</a></h2>
-<p><a href="https://docs.rs/unicode-segmentation/1.2.1/unicode_segmentation/"><img src="https://badge-cache.kominick.com/crates/v/unicode-segmentation.svg?label=unicode-segmentation" alt="unicode-segmentation-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
+<p><a href="https://docs.rs/unicode-segmentation/1.2.1/unicode_segmentation/"><img src="https://img.shields.io/crates/v/unicode-segmentation.svg?label=unicode-segmentation" alt="unicode-segmentation-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Collect individual Unicode graphemes from UTF-8 string using the
 <a href="https://docs.rs/unicode-segmentation/*/unicode_segmentation/trait.UnicodeSegmentation.html#tymethod.graphemes"><code>UnicodeSegmentation::graphemes</code></a> function from the <a href="https://docs.rs/unicode-segmentation/1.2.1/unicode_segmentation/"><code>unicode-segmentation</code></a> crate.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use unicode_segmentation::UnicodeSegmentation;
@@ -173,7 +173,7 @@ fn main() {
 	assert_eq!(graphemes[3], "é");
 }</code></pre></pre>
 <h2 id="implement-the-fromstr-trait-for-a-custom-struct"><a class="header" href="#implement-the-fromstr-trait-for-a-custom-struct">Implement the <code>FromStr</code> trait for a custom <code>struct</code></a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://badge-cache.kominick.com/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></p>
 <p>Creates a custom struct <code>RGB</code> and implements the <code>FromStr</code> trait to convert a provided color hex code into its RGB color code.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use std::str::FromStr;
 

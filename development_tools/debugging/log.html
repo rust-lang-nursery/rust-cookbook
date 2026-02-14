@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="log-messages"><a class="header" href="#log-messages">Log Messages</a></h1>
 <h2 id="log-a-debug-message-to-the-console"><a class="header" href="#log-a-debug-message-to-the-console">Log a debug message to the console</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>The <code>log</code> crate provides logging utilities. The <code>env_logger</code> crate configures
 logging via an environment variable.  The <a href="https://docs.rs/log/*/log/macro.debug.html"><code>log::debug!</code></a> macro works like other
 <a href="https://doc.rust-lang.org/std/fmt/"><code>std::fmt</code></a> formatted strings.</p>
@@ -184,7 +184,7 @@ following line at the very end of the output:</p>
 <pre><code>DEBUG:main: Executing query: DROP TABLE students
 </code></pre>
 <h2 id="log-an-error-message-to-the-console"><a class="header" href="#log-an-error-message-to-the-console">Log an error message to the console</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Proper error handling considers exceptions exceptional.  Here, an error logs
 to stderr with <code>log</code>'s convenience macro <a href="https://docs.rs/log/*/log/macro.error.html"><code>log::error!</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">fn execute_query(_query: &amp;str) -&gt; Result&lt;(), &amp;'static str&gt; {
@@ -200,7 +200,7 @@ fn main() {
     }
 }</code></pre></pre>
 <h2 id="log-to-stdout-instead-of-stderr"><a class="header" href="#log-to-stdout-instead-of-stderr">Log to stdout instead of stderr</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://badge-cache.kominick.com/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Creates a custom logger configuration using the <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.target"><code>Builder::target</code></a> to set the target of the log output to <a href="https://docs.rs/env_logger/*/env_logger/fmt/enum.Target.html"><code>Target::Stdout</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use env_logger::{Builder, Target};
 
@@ -212,7 +212,7 @@ fn main() {
     log::error!("This error has been printed to Stdout");
 }</code></pre></pre>
 <h2 id="log-messages-with-a-custom-logger"><a class="header" href="#log-messages-with-a-custom-logger">Log messages with a custom logger</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Implements a custom logger <code>ConsoleLogger</code> which prints to stdout.
 In order to use the logging macros, <code>ConsoleLogger</code> implements
 the <a href="https://docs.rs/log/*/log/trait.Log.html"><code>log::Log</code></a> trait and <a href="https://docs.rs/log/*/log/fn.set_logger.html"><code>log::set_logger</code></a> installs it.</p>
@@ -246,7 +246,7 @@ fn main() -&gt; Result&lt;(), SetLoggerError&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="log-to-the-unix-syslog"><a class="header" href="#log-to-the-unix-syslog">Log to the Unix syslog</a></h2>
-<p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/syslog/"><img src="https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog" alt="syslog-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
+<p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/syslog/"><img src="https://img.shields.io/crates/v/syslog.svg?label=syslog" alt="syslog-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
 <p>Logs messages to <a href="https://sourceware.org/glibc/manual/latest/html_node/Overview-of-Syslog.html">UNIX syslog</a>. Initializes logger backend
 with <a href="https://docs.rs/syslog/*/syslog/fn.init.html"><code>syslog::init</code></a>. <a href="https://docs.rs/syslog/*/syslog/enum.Facility.html"><code>syslog::Facility</code></a> records the program submitting
 the log entry's classification, <a href="https://docs.rs/log/*/log/enum.LevelFilter.html"><code>log::LevelFilter</code></a> denotes allowed log verbosity

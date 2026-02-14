@@ -161,7 +161,7 @@
                     <main>
                         <h1 id="read--write"><a class="header" href="#read--write">Read &amp; Write</a></h1>
 <h2 id="read-lines-of-strings-from-a-file"><a class="header" href="#read-lines-of-strings-from-a-file">Read lines of strings from a file</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Writes a three-line message to a file, then reads it back a line at a
 time with the <a href="https://doc.rust-lang.org/std/io/struct.Lines.html"><code>Lines</code></a> iterator created by
 <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines"><code>BufRead::lines</code></a>. <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a> which provides <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a>
@@ -186,7 +186,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="avoid-writing-and-reading-from-a-same-file"><a class="header" href="#avoid-writing-and-reading-from-a-same-file">Avoid writing and reading from a same file</a></h2>
-<p><a href="https://docs.rs/same-file/"><img src="https://badge-cache.kominick.com/crates/v/same_file.svg?label=same_file" alt="same_file-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/same-file/"><img src="https://img.shields.io/crates/v/same_file.svg?label=same_file" alt="same_file-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Use <a href="https://docs.rs/same-file/*/same_file/struct.Handle.html"><code>same_file::Handle</code></a> to a file that can be tested for equality with
 other handles. In this example, the handles of file to be read from and
 to be written to are tested for equality.</p>
@@ -220,7 +220,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre></pre>
 <h2 id="access-a-file-randomly-using-a-memory-map"><a class="header" href="#access-a-file-randomly-using-a-memory-map">Access a file randomly using a memory map</a></h2>
-<p><a href="https://docs.rs/memmap/"><img src="https://badge-cache.kominick.com/crates/v/memmap.svg?label=memmap" alt="memmap-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://badge-cache.kominick.com/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p><a href="https://docs.rs/memmap/"><img src="https://img.shields.io/crates/v/memmap.svg?label=memmap" alt="memmap-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
 <p>Creates a memory map of a file using <a href="https://docs.rs/memmap/">memmap</a> and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
 than dealing with <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.seek"><code>seek</code></a>ing around in a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>.</p>
