@@ -619,8 +619,8 @@ Keep lines sorted.
 <div style="break-before: page; page-break-before: always;"></div><h1 id="generate-random-values"><a class="header" href="#generate-random-values">Generate Random Values</a></h1>
 <h2 id="generate-random-numbers"><a class="header" href="#generate-random-numbers">Generate random numbers</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
-<p>Generates random numbers with help of random-number generator <a href="https://docs.rs/rand/latest/rand/trait.Rng.html"><code>rand::Rng</code></a> obtained via
-<a href="https://docs.rs/rand/latest/rand/fn.rng.html"><code>rand::rng()</code></a>. Each thread has an initialized generator. Integers are uniformly distributed over the
+<p>Generates random numbers with help of random-number generator <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html"><code>rand::Rng</code></a> obtained via
+<a href="https://docs.rs/rand/0.9/rand/fn.rng.html"><code>rand::rng()</code></a>. Each thread has an initialized generator. Integers are uniformly distributed over the
 range of the type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
@@ -632,7 +632,7 @@ fn main() {
 }</code></pre></pre>
 <h2 id="generate-random-numbers-within-a-range"><a class="header" href="#generate-random-numbers-within-a-range">Generate random numbers within a range</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
-<p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with <a href="https://docs.rs/rand/latest/rand/trait.Rng.html#method.random_range"><code>Rng::random_range</code></a>.</p>
+<p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html#method.random_range"><code>Rng::random_range</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 fn main() {
@@ -662,7 +662,7 @@ fn main() {
 <p>By default, random numbers in the <code>rand</code> crate have <a href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform distribution</a>. The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html"><code>rand_distr</code></a> crate
 provides other kinds of distributions. To use them, you instantiate a distribution, then sample from
 that distribution using <a href="https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html#tymethod.sample"><code>Distribution::sample</code></a> with help of a random-number generator
-<a href="https://docs.rs/rand/latest/rand/trait.Rng.html"><code>rand::Rng</code></a>.</p>
+<a href="https://docs.rs/rand/0.9/rand/trait.Rng.html"><code>rand::Rng</code></a>.</p>
 <p>The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html">distributions available are documented here</a>. An example using the
 <a href="https://docs.rs/rand_distr/*/rand_distr/struct.Normal.html"><code>Normal</code></a> distribution is shown below.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand_distr::{Distribution, LogNormal, Normal};
@@ -680,7 +680,7 @@ fn main() {
 <h2 id="generate-random-values-of-a-custom-type"><a class="header" href="#generate-random-values-of-a-custom-type">Generate random values of a custom type</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://badge-cache.kominick.com/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Randomly generates a tuple <code>(i32, bool, f64)</code> and variable of user defined type <code>Point</code>. Implements
-the <a href="https://docs.rs/rand/latest/rand/distr/trait.Distribution.html"><code>Distribution</code></a> trait on type Point for <a href="https://docs.rs/rand/latest/rand/distr/struct.Standard.html"><code>Standard</code></a> in order to allow random generation.</p>
+the <a href="https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html"><code>Distribution</code></a> trait on type Point for <a href="https://docs.rs/rand/0.9/rand/distr/struct.StandardUniform.html"><code>StandardUniform</code></a> in order to allow random generation.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">#![allow(dead_code)]
 use rand::Rng;
 
@@ -726,7 +726,7 @@ fn main() {
 <h2 id="create-random-passwords-from-a-set-of-user-defined-characters"><a class="header" href="#create-random-passwords-from-a-set-of-user-defined-characters">Create random passwords from a set of user-defined characters</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://badge-cache.kominick.com/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://badge-cache.kominick.com/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Randomly generates a string of given length ASCII characters with custom user-defined bytestring,
-with <a href="https://docs.rs/rand/latest/rand/trait.Rng.html#method.random_range"><code>random_range</code></a>.</p>
+with <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html#method.random_range"><code>random_range</code></a>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
 
 const CHARSET: &amp;[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
