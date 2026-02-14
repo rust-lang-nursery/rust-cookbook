@@ -254,7 +254,7 @@ fn main() {
 <p>Randomly generates a string of given length ASCII characters in the range <code>A-Z, a-z, 0-9</code>, with
 <a href="https://docs.rs/rand/0.9/rand/distr/struct.Alphanumeric.html"><code>Alphanumeric</code></a> sample.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
-use rand_distr::Alphanumeric;
+use rand::distr::Alphanumeric;
 
 fn main() {
     const PASSWORD_LEN: usize = 30;
