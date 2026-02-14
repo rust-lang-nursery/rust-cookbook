@@ -72,7 +72,7 @@ impl User {
             id,
             username,
             permissions: LazyCell::new(|| {
-                println!("--- Fetching permissions from database for ID {} ---", id);
+                println!("--- Fetching permissions from database ---");
                 // Simulate a heavy operation
                 vec!["read".to_string(), "write".to_string()]
             }),
@@ -90,6 +90,7 @@ fn main() {
     if true { // Imagine a conditional check here
         println!("Permissions: {:?}", *user.permissions);
     }
+}
 ```
 
 [`LazyCell`]: https://doc.rust-lang.org/std/cell/struct.LazyCell.html
