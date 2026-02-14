@@ -32,4 +32,4 @@ fn main() -> Result<(), Error> {
 [`syslog::Facility`]: https://docs.rs/syslog/*/syslog/enum.Facility.html
 [`syslog::init`]: https://docs.rs/syslog/*/syslog/fn.init.html
 
-[UNIX syslog]: https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html
+[UNIX syslog]: https://sourceware.org/glibc/manual/latest/html_node/Overview-of-Syslog.html
