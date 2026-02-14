@@ -247,7 +247,7 @@ fn main() -&gt; Result&lt;(), SetLoggerError&gt; {
 }</code></pre></pre>
 <h2 id="log-to-the-unix-syslog"><a class="header" href="#log-to-the-unix-syslog">Log to the Unix syslog</a></h2>
 <p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/syslog/"><img src="https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog" alt="syslog-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
-<p>Logs messages to <a href="https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html">UNIX syslog</a>. Initializes logger backend
+<p>Logs messages to <a href="https://sourceware.org/glibc/manual/latest/html_node/Overview-of-Syslog.html">UNIX syslog</a>. Initializes logger backend
 with <a href="https://docs.rs/syslog/*/syslog/fn.init.html"><code>syslog::init</code></a>. <a href="https://docs.rs/syslog/*/syslog/enum.Facility.html"><code>syslog::Facility</code></a> records the program submitting
 the log entry's classification, <a href="https://docs.rs/log/*/log/enum.LevelFilter.html"><code>log::LevelFilter</code></a> denotes allowed log verbosity
 and <code>Option&lt;&amp;str&gt;</code> holds optional application name.</p>

@@ -2446,7 +2446,7 @@ fn main() -&gt; Result&lt;(), SetLoggerError&gt; {
 }</code></pre></pre>
 <h2 id="log-to-the-unix-syslog"><a class="header" href="#log-to-the-unix-syslog">Log to the Unix syslog</a></h2>
 <p><a href="https://docs.rs/log/"><img src="https://badge-cache.kominick.com/crates/v/log.svg?label=log" alt="log-badge" /></a> <a href="https://docs.rs/syslog/"><img src="https://badge-cache.kominick.com/crates/v/syslog.svg?label=syslog" alt="syslog-badge" /></a> <a href="https://crates.io/categories/debugging"><img src="https://badge-cache.kominick.com/badge/debugging--x.svg?style=social" alt="cat-debugging-badge" /></a></p>
-<p>Logs messages to <a href="https://www.gnu.org/software/libc/manual/html_node/Overview-of-Syslog.html">UNIX syslog</a>. Initializes logger backend
+<p>Logs messages to <a href="https://sourceware.org/glibc/manual/latest/html_node/Overview-of-Syslog.html">UNIX syslog</a>. Initializes logger backend
 with <a href="https://docs.rs/syslog/*/syslog/fn.init.html"><code>syslog::init</code></a>. <a href="https://docs.rs/syslog/*/syslog/enum.Facility.html"><code>syslog::Facility</code></a> records the program submitting
 the log entry's classification, <a href="https://docs.rs/log/*/log/enum.LevelFilter.html"><code>log::LevelFilter</code></a> denotes allowed log verbosity
 and <code>Option&lt;&amp;str&gt;</code> holds optional application name.</p>
@@ -3941,7 +3941,7 @@ fn main() {
     assert_eq!(value, "Hello, World!");
     assert!(cell.get().is_some());
 }</code></pre></pre>
-<h2 id="stdcelllazycell"><a class="header" href="#stdcelllazycell"><code>std::cell::LazyCell</code></a></h2>
+<h2 id="stdcelllazycell"><a class="header" href="#stdcelllazycell">std::cell::LazyCell</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/caching"><img src="https://badge-cache.kominick.com/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
 <p>The <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> type can be used to defer the initialization of a value until the first time it is accessed.
 It is useful for expensive computations that might not be needed during the entire execution of a scope.</p>
@@ -3969,7 +3969,7 @@ fn main() {
     // Subsequent accesses use the already initialized value.
     println!("First permission: {}", permissions[0]);
 }</code></pre></pre>
-<h2 id="stdsynclazylock"><a class="header" href="#stdsynclazylock"><code>std::sync::LazyLock</code></a></h2>
+<h2 id="stdsynclazylock"><a class="header" href="#stdsynclazylock">std::sync::LazyLock</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://badge-cache.kominick.com/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/caching"><img src="https://badge-cache.kominick.com/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://badge-cache.kominick.com/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
 <p>The <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a> type is a thread-safe version of <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> that can be used in <code>static</code> contexts.
 It is the standard library alternative to the <code>lazy_static</code> crate for global, lazily initialized data.</p>
