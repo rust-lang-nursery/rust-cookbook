@@ -55,41 +55,37 @@ fn main() {
 [`OnceCell`]: https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html
 
 ## `std::cell::LazyCell`
-[`LazyCell`] and its thread-safe counterpart [`LazyLock`] can be used to create a value which is initialized on the first access.
+
+[![std-badge]][std] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
+
+The [`LazyCell`] type can be used to defer the initialization of a value until the first time it is accessed.
+It is useful for expensive computations that might not be needed during the entire execution of a scope.
+
+In this example, we use [`LazyCell`] to lazily compute a set of permissions based on a user ID.
+Unlike `static` lazy types, [`LazyCell`] can capture local variables from its surrounding scope.
+
 ```rust,edition2021
 use std::cell::LazyCell;
 
-struct User {
-    id: u32,
-    username: String,
-    // We defer the expensive permission calculation
-    permissions: LazyCell<Vec<String>>,
-}
-
-impl User {
-    fn new(id: u32, username: String) -> Self {
-        Self {
-            id,
-            username,
-            permissions: LazyCell::new(|| {
-                println!("--- Fetching permissions from database ---");
-                // Simulate a heavy operation
-                vec!["read".to_string(), "write".to_string()]
-            }),
-        }
-    }
-}
-
 fn main() {
-    let user = User::new(1, "ferris_rustacean".into());
+    let user_id = 42;
 
-    println!("User {} loaded.", user.username);
+    // The closure is not executed yet.
+    let permissions = LazyCell::new(|| {
+        println!("--- Fetching permissions from database for ID {} ---", user_id);
+        // Simulate an expensive operation
+        vec!["read".to_string(), "write".to_string()]
+    });
 
-    // If we never access user.permissions, the closure is never run.
+    println!("User {} session started.", user_id);
 
+    // The initialization happens only when we dereference permissions for the first time.
     if true { // Imagine a conditional check here
-        println!("Permissions: {:?}", *user.permissions);
+        println!("Permissions: {:?}", *permissions);
     }
+    
+    // Subsequent accesses use the already initialized value.
+    println!("First permission: {}", permissions[0]);
 }
 ```
 
@@ -97,17 +93,23 @@ fn main() {
 
 ## `std::sync::LazyLock`
 
-The [`LazyLock`] type is a thread-safe alternative to [`LazyCell`].
+[![std-badge]][std] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
+
+The [`LazyLock`] type is a thread-safe version of [`LazyCell`] that can be used in `static` contexts.
+It is the standard library alternative to the `lazy_static` crate for global, lazily initialized data.
+
+The example shows how to use [`LazyLock`] to create a global configuration that is loaded once from 
+the environment upon first access.
+
 ```rust,edition2024
 use std::sync::LazyLock;
-use std::collections::HashMap;
 
 struct Config {
     api_key: String,
     timeout: u64,
 }
 
-// Imagine loading this from a .env file or a vault
+// Global configuration initialized on first use.
 static APP_CONFIG: LazyLock<Config> = LazyLock::new(|| {
     println!("Loading configuration...");
     Config {
@@ -119,11 +121,12 @@ static APP_CONFIG: LazyLock<Config> = LazyLock::new(|| {
 fn main() {
     println!("App started.");
 
-    // The closure above isn't run until we access APP_CONFIG here.
+    // The initialization happens here.
     let timeout = APP_CONFIG.timeout;
 
     println!("Timeout is: {}s", timeout);
     println!("API Key is hidden: {}", APP_CONFIG.api_key.len() > 0);
 }
 ```
+
 [`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
