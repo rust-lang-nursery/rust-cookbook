@@ -21,7 +21,7 @@ build = "build.rs"
 default = []
 
 [workspace.dependencies]
-rand = "0.9"
+rand = "0.10"
 rand_distr = "0.5"
 tracing = "0.1"
 tracing-subscriber = "0.3"
@@ -59,7 +59,7 @@ num_cpus = "1.16"
 percent-encoding = "2.3"
 petgraph = "0.6"
 postgres = "0.19.7"
-rand = "0.9"
+rand = "0.10"
 rand_distr = "0.5"
 rayon = "1.10"
 regex = "1.11"

@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-use rand::Rng;
+use rand::{Rng, RngExt};
 
 #[derive(Debug)]
 struct Point {
