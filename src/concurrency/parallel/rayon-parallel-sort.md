@@ -10,12 +10,12 @@ exist to sort an enumerable data type, [`par_sort_unstable`]
 is usually faster than [stable sorting] algorithms.
 
 ```rust,edition2018
-use rand::Rng;
+use rand::RngExt;
 use rayon::prelude::*;
 
 fn main() {
     let mut vec = vec![0; 1_000_000];
-    rand::thread_rng().fill(&mut vec[..]);
+    rand::rng().fill(&mut vec[..]);
 
     vec.par_sort_unstable();
 

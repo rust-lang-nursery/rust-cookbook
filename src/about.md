@@ -57,7 +57,7 @@ Consider this example for "generate random numbers within a range":
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
 ```rust,edition2018
-use rand::Rng;
+use rand::RngExt;
 
 fn main() {
     let mut rng = rand::rng();
