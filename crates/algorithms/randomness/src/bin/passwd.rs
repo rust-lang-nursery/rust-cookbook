@@ -1,4 +1,4 @@
-use rand::{distr::Alphanumeric, Rng};
+use rand::{distr::Alphanumeric, RngExt};
 
 fn main() {
     let password = generate_password();

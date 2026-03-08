@@ -56,14 +56,8 @@ Consider this example for "generate random numbers within a range":
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
-```rust,edition2018
-use rand::Rng;
-
-fn main() {
-    let mut rng = rand::rng();
-    let random_number: u32 = rng.random();
-    println!("Random number: {}", random_number);
-}
+```rust
+{{#include ../crates/algorithms/randomness/src/bin/rand.rs::7 }}
 ```
 
 To work with it locally we can run the following commands to create

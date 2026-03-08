@@ -9,20 +9,8 @@ values in parallel.  Although [multiple options]
 exist to sort an enumerable data type, [`par_sort_unstable`]
 is usually faster than [stable sorting] algorithms.
 
-```rust,edition2018
-use rand::Rng;
-use rayon::prelude::*;
-
-fn main() {
-    let mut vec = vec![0; 1_000_000];
-    rand::thread_rng().fill(&mut vec[..]);
-
-    vec.par_sort_unstable();
-
-    let first = vec.first().unwrap();
-    let last = vec.last().unwrap();
-    assert!(first <= last);
-}
+```rust
+{{#include ../../../crates/concurrency/parallel/src/bin/rayon_parallel_sort.rs::13 }}
 ```
 
 [`par_sort_unstable`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable
