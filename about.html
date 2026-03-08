@@ -204,12 +204,12 @@ that they may be copied directly into your own projects for
 experimentation. To do so follow the instructions below.</p>
 <p>Consider this example for "generate random numbers within a range":</p>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
-<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 
 fn main() {
     let mut rng = rand::rng();
     let random_number: u32 = rng.random();
-    println!("Random number: {}", random_number);
+    println!("Random number: {random_number}");
 }</code></pre></pre>
 <p>To work with it locally we can run the following commands to create
 a new cargo project, and change to that directory:</p>

@@ -166,17 +166,28 @@
 <a href="https://docs.rs/rand/0.9/rand/fn.rng.html"><code>rand::rng()</code></a>. Each thread has an initialized generator. Integers are uniformly distributed over the
 range of the type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 
 fn main() {
     let mut rng = rand::rng();
     let random_number: u32 = rng.random();
     println!("Random number: {random_number}");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_random_number() {
+        let mut rng = rand::rng();
+        let _: u32 = rng.random();
+    }
 }</code></pre></pre>
 <h2 id="generate-random-numbers-within-a-range"><a class="header" href="#generate-random-numbers-within-a-range">Generate random numbers within a range</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
 <p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html#method.random_range"><code>Rng::random_range</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 
 fn main() {
     let mut rng = rand::rng();
@@ -225,7 +236,7 @@ fn main() {
 <p>Randomly generates a tuple <code>(i32, bool, f64)</code> and variable of user defined type <code>Point</code>. Implements
 the <a href="https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html"><code>Distribution</code></a> trait on type Point for <a href="https://docs.rs/rand/0.9/rand/distr/struct.StandardUniform.html"><code>StandardUniform</code></a> in order to allow random generation.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">#![allow(dead_code)]
-use rand::Rng;
+use rand::{Rng, RngExt};
 
 #[derive(Debug)]
 struct Point {
@@ -253,7 +264,7 @@ fn main() {
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Randomly generates a string of given length ASCII characters in the range <code>A-Z, a-z, 0-9</code>, with
 <a href="https://docs.rs/rand/0.9/rand/distr/struct.Alphanumeric.html"><code>Alphanumeric</code></a> sample.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use rand::{distr::Alphanumeric, Rng};
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::{distr::Alphanumeric, RngExt};
 
 fn main() {
     let password = generate_password();
@@ -272,7 +283,7 @@ fn generate_password() -&gt; String {
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge" /></a></p>
 <p>Randomly generates a string of given length ASCII characters with custom user-defined bytestring,
 with <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html#method.random_range"><code>random_range</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 
 const CHARSET: &amp;[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
                         abcdefghijklmnopqrstuvwxyz\

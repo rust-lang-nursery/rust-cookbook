@@ -221,12 +221,12 @@ fn main() {
 values in parallel.  Although <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html">multiple options</a>
 exist to sort an enumerable data type, <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable"><code>par_sort_unstable</code></a>
 is usually faster than <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort">stable sorting</a> algorithms.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">use rand::Rng;
+<pre><pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 use rayon::prelude::*;
 
 fn main() {
     let mut vec = vec![0; 1_000_000];
-    rand::thread_rng().fill(&amp;mut vec[..]);
+    rand::rng().fill(&amp;mut vec[..]);
 
     vec.par_sort_unstable();
 
