@@ -294,9 +294,6 @@ fn main() -&gt; Result&lt;()&gt; {
     std::io::copy(&amp;mut response, &amp;mut output_file)?;
   }
     
-  let content = response.text()?;
-  std::io::copy(&amp;mut content.as_bytes(), &amp;mut output_file)?;
-
   println!("Finished with success!");
   Ok(())
 }</code></pre></pre>
