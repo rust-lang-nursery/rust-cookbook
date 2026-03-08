@@ -1,5 +1,5 @@
 [package]
-name = "randomness"
+name = "parallel"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -8,4 +8,4 @@ publish.workspace = true
 
 [dependencies]
 rand = "0.10"
-rand_distr = "0.6"
+rayon = "1.10"

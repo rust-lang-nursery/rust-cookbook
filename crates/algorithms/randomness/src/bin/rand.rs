@@ -5,3 +5,14 @@ fn main() {
     let random_number: u32 = rng.random();
     println!("Random number: {random_number}");
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_random_number() {
+        let mut rng = rand::rng();
+        let _: u32 = rng.random();
+    }
+}
