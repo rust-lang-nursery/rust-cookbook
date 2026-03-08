@@ -20,7 +20,7 @@ test: ## Run all tests
 dev: build test ## Build and test (development workflow)
 	@echo "Development build complete!"
 
-deploy: dev ## Deploy to GitHub Pages (requires maintainer permissions)
+deploy: clean dev ## Deploy to GitHub Pages (requires maintainer permissions)
 	./scripts/deploy.sh
 
 deploy-skip-tests: build ## Deploy to GitHub Pages without running tests
