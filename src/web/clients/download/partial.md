@@ -77,9 +77,6 @@ fn main() -> Result<()> {
     std::io::copy(&mut response, &mut output_file)?;
   }
     
-  let content = response.text()?;
-  std::io::copy(&mut content.as_bytes(), &mut output_file)?;
-
   println!("Finished with success!");
   Ok(())
 }
