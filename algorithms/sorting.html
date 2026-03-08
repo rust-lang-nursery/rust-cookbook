@@ -174,11 +174,13 @@ the order of equal elements.</p>
 }</code></pre></pre>
 <h2 id="sort-a-vector-of-floats"><a class="header" href="#sort-a-vector-of-floats">Sort a Vector of Floats</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
-<p>A Vector of f32 or f64 can be sorted with <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by"><code>vec::sort_by</code></a> and <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#tymethod.partial_cmp"><code>PartialOrd::partial_cmp</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust edition2018">fn main() {
-    let mut vec = vec![1.1, 1.15, 5.5, 1.123, 2.0];
+<p>A Vector of f32 or f64 can be sorted with <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by"><code>vec::sort_by</code></a> and <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp"><code>f64::total_cmp</code></a>.
+Unlike <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#tymethod.partial_cmp"><code>PartialOrd::partial_cmp</code></a>, <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp"><code>total_cmp</code></a> handles NaN values without panicking
+by placing them at the end of the sort order.</p>
+<pre><pre class="playground"><code class="language-rust edition2021">fn main() {
+    let mut vec = vec![1.1_f64, 1.15, 5.5, 1.123, 2.0];
 
-    vec.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    vec.sort_by(|a, b| a.total_cmp(b));
 
     assert_eq!(vec, vec![1.1, 1.123, 1.15, 2.0, 5.5]);
 }</code></pre></pre>
