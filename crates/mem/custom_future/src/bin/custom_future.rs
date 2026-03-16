@@ -69,3 +69,22 @@ async fn main() {
     println!("done in {:?}", start.elapsed());
     assert!(start.elapsed() >= Duration::from_millis(10));
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn test_delay_completes_after_deadline() {
+        let start = Instant::now();
+        Delay::new(Duration::from_millis(50)).await;
+        assert!(start.elapsed() >= Duration::from_millis(50));
+    }
+
+    #[tokio::test]
+    async fn test_zero_delay_resolves_immediately() {
+        let start = Instant::now();
+        Delay::new(Duration::ZERO).await;
+        assert!(start.elapsed() < Duration::from_millis(10));
+    }
+}
