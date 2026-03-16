@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Text Processing - Rust Cookbook</title>
+        <title>No-Panic Guarantee - Rust Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/custom.css">
+        <link rel="stylesheet" href="../theme/custom.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -90,7 +90,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -124,13 +124,13 @@
                     <h1 class="menu-title">Rust Cookbook</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/text.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/safety_critical/no_panic.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -159,17 +159,89 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="text-processing"><a class="header" href="#text-processing">Text Processing</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr></thead><tbody>
-<tr><td><a href="text/string_parsing.html#collect-unicode-graphemes">Collect Unicode Graphemes</a></td><td><a href="https://docs.rs/unicode-segmentation/"><img src="https://img.shields.io/crates/v/unicode-segmentation.svg?label=unicode-segmentation" alt="unicode-segmentation-badge" /></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></td></tr>
-<tr><td><a href="text/regex.html#verify-and-extract-login-from-an-email-address">Verify and extract login from an email address</a></td><td><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></td></tr>
-<tr><td><a href="text/regex.html#extract-a-list-of-unique-hashtags-from-a-text">Extract a list of unique #Hashtags from a text</a></td><td><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></td></tr>
-<tr><td><a href="text/regex.html#extract-phone-numbers-from-text">Extract phone numbers from text</a></td><td><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge" /></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></td></tr>
-<tr><td><a href="text/regex.html#filter-a-log-file-by-matching-multiple-regular-expressions">Filter a log file by matching multiple regular expressions</a></td><td><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge" /></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></td></tr>
-<tr><td><a href="text/regex.html#replace-all-occurrences-of-one-text-pattern-with-another-pattern">Replace all occurrences of one text pattern with another pattern.</a></td><td><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge" /></a> <a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge" /></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></td></tr>
-<tr><td><a href="text/string_parsing.html#implement-the-fromstr-trait-for-a-custom-struct">Implement the <code>FromStr</code> trait for a custom <code>struct</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge" /></a></td></tr>
+                        <h1 id="no-panic-guarantee"><a class="header" href="#no-panic-guarantee">No-Panic Guarantee</a></h1>
+<h2 id="compile-time-no-panic-guarantee"><a class="header" href="#compile-time-no-panic-guarantee">Compile-Time No-Panic Guarantee</a></h2>
+<p><a href="https://docs.rs/no-panic"><img src="https://img.shields.io/crates/v/no-panic.svg?label=no-panic" alt="no-panic-badge" /></a> <a href="https://crates.io/categories/no-std"><img src="https://img.shields.io/badge/no_std--x.svg?style=social" alt="cat-no-std-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p>In safety-critical systems—automotive braking, medical devices, aerospace—a
+<code>panic!</code> is a catastrophic failure, not just a crash.  Standard operations like
+<code>array[i]</code> insert a hidden bounds check that panics on out-of-bounds access.</p>
+<p>The <a href="https://docs.rs/no-panic"><code>#[no_panic]</code></a> attribute macro makes the <strong>compiler prove</strong> at
+link time that a function can never reach a panicking code path.  If it can't
+prove it, the build fails.</p>
+<div class="table-wrapper"><table><thead><tr><th>Panicking pattern</th><th>Safe alternative</th></tr></thead><tbody>
+<tr><td><code>slice[i]</code></td><td><code>slice.get(i)</code> with exhaustive <code>match</code></td></tr>
+<tr><td><code>for i in 0..len { slice[i] }</code></td><td><code>for &amp;v in slice</code> (iterator)</td></tr>
+<tr><td><code>value.unwrap()</code></td><td><code>match</code> / <code>if let</code> / <code>?</code></td></tr>
+<tr><td><code>a / b</code> (integer, <code>b</code> might be 0)</td><td>Check <code>b</code> before dividing</td></tr>
 </tbody></table>
-</div><!--
+</div>
+<p>The example below shows three panic-free functions—aggregation, lookup, and
+sensor normalization—each proven at compile time by <code>#[no_panic]</code>.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use no_panic::no_panic;
+
+/// Sums a slice without any operation that could panic.
+///
+/// In safety-critical code, a `panic!` is a catastrophic failure.
+/// Standard indexing like `slice[i]` inserts a bounds check that
+/// calls `panic!` on out-of-bounds access.  Iterators avoid this
+/// entirely—the compiler can prove no panic path exists.
+#[no_panic]
+fn safe_sum(values: &amp;[i32]) -&gt; i64 {
+    let mut total: i64 = 0;
+    for &amp;v in values {
+        total += v as i64;
+    }
+    total
+}
+
+/// Looks up a value by index, returning `None` instead of panicking.
+///
+/// Using `get()` + exhaustive pattern matching guarantees every code
+/// path is handled.  The `#[no_panic]` attribute makes the compiler
+/// **prove** it at link time—if any hidden panic path remains, the
+/// build fails.
+#[no_panic]
+fn safe_lookup(data: &amp;[u8], index: usize) -&gt; Option&lt;u8&gt; {
+    match data.get(index) {
+        Some(&amp;val) =&gt; Some(val),
+        None =&gt; None,
+    }
+}
+
+/// Clamps a sensor reading into a valid range without panicking.
+///
+/// Real-world example: an ADC returns a raw `u16` that must be
+/// mapped to 0–100 %.  Using `clamp` and simple arithmetic keeps
+/// the function panic-free.
+#[no_panic]
+fn normalize_sensor(raw: u16, min: u16, max: u16) -&gt; f32 {
+    if max == min {
+        return 0.0;
+    }
+    let clamped = raw.clamp(min, max);
+    (clamped - min) as f32 / (max - min) as f32
+}
+
+fn main() {
+    let readings = [10, 20, 30, 40, 50];
+
+    let total = safe_sum(&amp;readings);
+    println!("sum = {total}");
+    assert_eq!(total, 150);
+
+    let val = safe_lookup(&amp;[0xAA, 0xBB, 0xCC], 1);
+    println!("lookup index 1 = {val:?}");
+    assert_eq!(val, Some(0xBB));
+
+    let miss = safe_lookup(&amp;[0xAA, 0xBB, 0xCC], 99);
+    println!("lookup index 99 = {miss:?}");
+    assert_eq!(miss, None);
+
+    let pct = normalize_sensor(2048, 0, 4095);
+    println!("sensor = {pct:.2}%");
+    assert!((pct - 0.5).abs() &lt; 0.01);
+}</code></pre></pre>
+<!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
 -->
@@ -180,11 +252,11 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="safety_critical/heapless_alloc.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../safety_critical.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="text/regex.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../safety_critical/heapless_alloc.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -194,11 +266,11 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="safety_critical/heapless_alloc.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../safety_critical.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="text/regex.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../safety_critical/heapless_alloc.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -213,13 +285,13 @@ Keep lines sorted.
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
 

@@ -5122,6 +5122,214 @@ Keep lines sorted.
 -->
 <!-- Categories -->
 <!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="safety-critical-rust"><a class="header" href="#safety-critical-rust">Safety-Critical Rust</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr></thead><tbody>
+<tr><td><a href="safety_critical/no_panic.html#compile-time-no-panic-guarantee">Compile-Time No-Panic Guarantee</a></td><td><a href="https://docs.rs/no-panic/"><img src="https://img.shields.io/crates/v/no-panic.svg?label=no-panic" alt="no-panic-badge" /></a></td><td><a href="https://crates.io/categories/no-std"><img src="https://img.shields.io/badge/no_std--x.svg?style=social" alt="cat-no-std-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
+<tr><td><a href="safety_critical/heapless_alloc.html#deterministic-memory-with-heapless-collections">Deterministic Memory with Heapless Collections</a></td><td><a href="https://docs.rs/heapless/"><img src="https://img.shields.io/crates/v/heapless.svg?label=heapless" alt="heapless-badge" /></a></td><td><a href="https://crates.io/categories/no-std"><img src="https://img.shields.io/badge/no_std--x.svg?style=social" alt="cat-no-std-badge" /></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge" /></a></td></tr>
+</tbody></table>
+</div><!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="no-panic-guarantee"><a class="header" href="#no-panic-guarantee">No-Panic Guarantee</a></h1>
+<h2 id="compile-time-no-panic-guarantee"><a class="header" href="#compile-time-no-panic-guarantee">Compile-Time No-Panic Guarantee</a></h2>
+<p><a href="https://docs.rs/no-panic"><img src="https://img.shields.io/crates/v/no-panic.svg?label=no-panic" alt="no-panic-badge" /></a> <a href="https://crates.io/categories/no-std"><img src="https://img.shields.io/badge/no_std--x.svg?style=social" alt="cat-no-std-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p>In safety-critical systems—automotive braking, medical devices, aerospace—a
+<code>panic!</code> is a catastrophic failure, not just a crash.  Standard operations like
+<code>array[i]</code> insert a hidden bounds check that panics on out-of-bounds access.</p>
+<p>The <a href="https://docs.rs/no-panic"><code>#[no_panic]</code></a> attribute macro makes the <strong>compiler prove</strong> at
+link time that a function can never reach a panicking code path.  If it can't
+prove it, the build fails.</p>
+<div class="table-wrapper"><table><thead><tr><th>Panicking pattern</th><th>Safe alternative</th></tr></thead><tbody>
+<tr><td><code>slice[i]</code></td><td><code>slice.get(i)</code> with exhaustive <code>match</code></td></tr>
+<tr><td><code>for i in 0..len { slice[i] }</code></td><td><code>for &amp;v in slice</code> (iterator)</td></tr>
+<tr><td><code>value.unwrap()</code></td><td><code>match</code> / <code>if let</code> / <code>?</code></td></tr>
+<tr><td><code>a / b</code> (integer, <code>b</code> might be 0)</td><td>Check <code>b</code> before dividing</td></tr>
+</tbody></table>
+</div>
+<p>The example below shows three panic-free functions—aggregation, lookup, and
+sensor normalization—each proven at compile time by <code>#[no_panic]</code>.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use no_panic::no_panic;
+
+/// Sums a slice without any operation that could panic.
+///
+/// In safety-critical code, a `panic!` is a catastrophic failure.
+/// Standard indexing like `slice[i]` inserts a bounds check that
+/// calls `panic!` on out-of-bounds access.  Iterators avoid this
+/// entirely—the compiler can prove no panic path exists.
+#[no_panic]
+fn safe_sum(values: &amp;[i32]) -&gt; i64 {
+    let mut total: i64 = 0;
+    for &amp;v in values {
+        total += v as i64;
+    }
+    total
+}
+
+/// Looks up a value by index, returning `None` instead of panicking.
+///
+/// Using `get()` + exhaustive pattern matching guarantees every code
+/// path is handled.  The `#[no_panic]` attribute makes the compiler
+/// **prove** it at link time—if any hidden panic path remains, the
+/// build fails.
+#[no_panic]
+fn safe_lookup(data: &amp;[u8], index: usize) -&gt; Option&lt;u8&gt; {
+    match data.get(index) {
+        Some(&amp;val) =&gt; Some(val),
+        None =&gt; None,
+    }
+}
+
+/// Clamps a sensor reading into a valid range without panicking.
+///
+/// Real-world example: an ADC returns a raw `u16` that must be
+/// mapped to 0–100 %.  Using `clamp` and simple arithmetic keeps
+/// the function panic-free.
+#[no_panic]
+fn normalize_sensor(raw: u16, min: u16, max: u16) -&gt; f32 {
+    if max == min {
+        return 0.0;
+    }
+    let clamped = raw.clamp(min, max);
+    (clamped - min) as f32 / (max - min) as f32
+}
+
+fn main() {
+    let readings = [10, 20, 30, 40, 50];
+
+    let total = safe_sum(&amp;readings);
+    println!("sum = {total}");
+    assert_eq!(total, 150);
+
+    let val = safe_lookup(&amp;[0xAA, 0xBB, 0xCC], 1);
+    println!("lookup index 1 = {val:?}");
+    assert_eq!(val, Some(0xBB));
+
+    let miss = safe_lookup(&amp;[0xAA, 0xBB, 0xCC], 99);
+    println!("lookup index 99 = {miss:?}");
+    assert_eq!(miss, None);
+
+    let pct = normalize_sensor(2048, 0, 4095);
+    println!("sensor = {pct:.2}%");
+    assert!((pct - 0.5).abs() &lt; 0.01);
+}</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="deterministic-memory"><a class="header" href="#deterministic-memory">Deterministic Memory</a></h1>
+<h2 id="deterministic-memory-with-heapless-collections"><a class="header" href="#deterministic-memory-with-heapless-collections">Deterministic Memory with Heapless Collections</a></h2>
+<p><a href="https://docs.rs/heapless/"><img src="https://img.shields.io/crates/v/heapless.svg?label=heapless" alt="heapless-badge" /></a> <a href="https://crates.io/categories/no-std"><img src="https://img.shields.io/badge/no_std--x.svg?style=social" alt="cat-no-std-badge" /></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge" /></a></p>
+<p>Safety-critical and real-time systems often <strong>forbid the heap</strong> entirely.  The
+global allocator is non-deterministic—allocation time varies, and long-running
+firmware risks fragmentation and silent OOM failures.</p>
+<p><a href="https://docs.rs/heapless"><code>heapless</code></a> provides <code>Vec</code>, <code>String</code>, <code>Deque</code>, and map types that store data
+on the <strong>stack</strong> (or in a <code>static</code>) with a capacity fixed at compile time.
+Pushing beyond capacity returns <code>Err</code> instead of panicking or allocating,
+letting the caller decide how to handle it.</p>
+<div class="table-wrapper"><table><thead><tr><th><code>std</code> type</th><th><code>heapless</code> equivalent</th><th>Guarantee</th></tr></thead><tbody>
+<tr><td><code>Vec&lt;T&gt;</code></td><td><code>heapless::Vec&lt;T, N&gt;</code></td><td>At most <code>N</code> elements, no allocator</td></tr>
+<tr><td><code>String</code></td><td><code>heapless::String&lt;N&gt;</code></td><td>At most <code>N</code> bytes, no allocator</td></tr>
+<tr><td><code>VecDeque&lt;T&gt;</code></td><td><code>heapless::Deque&lt;T, N&gt;</code></td><td>Fixed-capacity ring buffer</td></tr>
+<tr><td><code>HashMap&lt;K,V&gt;</code></td><td><code>heapless::IndexMap&lt;K,V,S,N&gt;</code></td><td>Fixed-capacity hash map</td></tr>
+</tbody></table>
+</div>
+<p>The example below builds a stack-allocated event log and demonstrates
+capacity enforcement—the kind of predictable, constant-memory behavior
+required by embedded and real-time systems.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use heapless::{String, Vec};
+
+/// A fixed-capacity event log that never touches the heap.
+///
+/// In real-time and safety-critical systems the global allocator is
+/// forbidden because allocation time is unbounded and fragmentation
+/// can cause silent OOM failures in long-running firmware.
+///
+/// [`heapless::Vec`] stores up to `N` elements on the stack (or in a
+/// `static`).  The capacity is fixed at compile time, so the memory
+/// footprint is constant and predictable.
+struct EventLog&lt;const N: usize&gt; {
+    entries: Vec&lt;Event, N&gt;,
+}
+
+#[derive(Debug, Clone)]
+struct Event {
+    timestamp_ms: u32,
+    code: u16,
+}
+
+impl&lt;const N: usize&gt; EventLog&lt;N&gt; {
+    /// Creates an empty log.
+    fn new() -&gt; Self {
+        Self {
+            entries: Vec::new(),
+        }
+    }
+
+    /// Records an event.  Returns `Err` if the log is full instead
+    /// of panicking or allocating—the caller decides what to do.
+    fn record(&amp;mut self, timestamp_ms: u32, code: u16) -&gt; Result&lt;(), Event&gt; {
+        let event = Event { timestamp_ms, code };
+        self.entries.push(event).map_err(|e| e)
+    }
+
+    /// Returns how many events have been recorded.
+    fn len(&amp;self) -&gt; usize {
+        self.entries.len()
+    }
+
+    /// Returns the most recent event, if any.
+    fn latest(&amp;self) -&gt; Option&lt;&amp;Event&gt; {
+        self.entries.last()
+    }
+}
+
+/// Formats a sensor label without heap allocation.
+///
+/// [`heapless::String&lt;N&gt;`] works like `std::string::String` but
+/// stores up to `N` bytes on the stack.  `write!` returns `Err` if
+/// the formatted text would exceed capacity.
+fn format_label(sensor_id: u16, value: f32) -&gt; Result&lt;String&lt;32&gt;, core::fmt::Error&gt; {
+    use core::fmt::Write;
+    let mut buf: String&lt;32&gt; = String::new();
+    write!(buf, "S{sensor_id}={value:.1}")?;
+    Ok(buf)
+}
+
+fn main() {
+    // A log that holds at most 8 events — zero heap allocation.
+    let mut log: EventLog&lt;8&gt; = EventLog::new();
+
+    log.record(100, 0x01).expect("log not full");
+    log.record(200, 0x02).expect("log not full");
+    log.record(300, 0xFF).expect("log not full");
+
+    println!("logged {} events", log.len());
+    println!("latest: {:?}", log.latest().unwrap());
+
+    // Stack-allocated string formatting.
+    let label = format_label(42, 3.14).expect("fits in 32 bytes");
+    println!("label: {label}");
+
+    // Demonstrate capacity enforcement — the 9th push returns Err.
+    let mut full_log: EventLog&lt;2&gt; = EventLog::new();
+    full_log.record(0, 1).unwrap();
+    full_log.record(1, 2).unwrap();
+    let overflow = full_log.record(2, 3);
+    assert!(overflow.is_err());
+    println!("overflow correctly rejected");
+}
+</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="text-processing-1"><a class="header" href="#text-processing-1">Text Processing</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr></thead><tbody>
 <tr><td><a href="text/string_parsing.html#collect-unicode-graphemes">Collect Unicode Graphemes</a></td><td><a href="https://docs.rs/unicode-segmentation/"><img src="https://img.shields.io/crates/v/unicode-segmentation.svg?label=unicode-segmentation" alt="unicode-segmentation-badge" /></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge" /></a></td></tr>
@@ -6233,6 +6441,8 @@ Keep lines sorted.
 [cat-cryptography]: https://crates.io/categories/cryptography
 [cat-database-badge]: https://img.shields.io/badge/database--x.svg?style=social
 [cat-database]: https://crates.io/categories/database
+[cat-data-structures-badge]: https://img.shields.io/badge/data_structures--x.svg?style=social
+[cat-data-structures]: https://crates.io/categories/data-structures
 [cat-date-and-time-badge]: https://img.shields.io/badge/date_and_time--x.svg?style=social
 [cat-date-and-time]: https://crates.io/categories/date-and-time
 [cat-debugging-badge]: https://img.shields.io/badge/debugging--x.svg?style=social
@@ -6294,6 +6504,8 @@ Keep lines sorted.
 [flate2]: https://docs.rs/flate2/
 [glob-badge]:https://img.shields.io/crates/v/glob.svg?label=glob
 [glob]: https://docs.rs/glob/
+[heapless-badge]: https://img.shields.io/crates/v/heapless.svg?label=heapless
+[heapless]: https://docs.rs/heapless/
 [hyper-badge]: https://img.shields.io/crates/v/hyper.svg?label=hyper
 [hyper]: https://docs.rs/hyper/
 [image-badge]: https://img.shields.io/crates/v/image.svg?label=image
@@ -6312,6 +6524,8 @@ Keep lines sorted.
 [nalgebra]: https://docs.rs/nalgebra
 [ndarray-badge]: https://img.shields.io/crate/ndarray.svg?label=ndarray
 [ndarray]: https://docs.rs/ndarray
+[no-panic-badge]: https://img.shields.io/crates/v/no-panic.svg?label=no-panic
+[no-panic]: https://docs.rs/no-panic/
 [num-badge]: https://img.shields.io/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus
