@@ -11,6 +11,7 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/algorithms/randomness/",
     "./src/development_tools/debugging/tracing/",
     "./src/mem/actor/",
+    "./src/mem/custom_future/",
 ];
 
 fn main() {

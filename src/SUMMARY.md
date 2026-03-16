@@ -46,6 +46,7 @@
 - [Memory Management](mem.md)
   - [Global Static](mem/global_static.md)
   - [Actor Pattern](mem/actor.md)
+  - [Custom Future](mem/custom_future.md)
 - [Network](net.md)
   - [Server](net/server.md)
 - [Operating System](os.md)
