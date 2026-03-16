@@ -7,3 +7,4 @@ lines.txt
 .idea/
 .skeptic-cache
 .lycheecache
+.deploy.sh

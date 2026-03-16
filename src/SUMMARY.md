@@ -45,6 +45,7 @@
   - [Processor](hardware/processor.md)
 - [Memory Management](mem.md)
   - [Global Static](mem/global_static.md)
+  - [Actor Pattern](mem/actor.md)
 - [Network](net.md)
   - [Server](net/server.md)
 - [Operating System](os.md)
