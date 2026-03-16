@@ -377,6 +377,7 @@ Keep lines sorted.
 <tr><td><a href="mem/global_static.html#stdcelllazycell"><code>std::cell:LazyCell</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 <tr><td><a href="mem/global_static.html#stdsynclazylock"><code>std::sync::LazyLock</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 <tr><td><a href="mem/actor.html#actor-pattern-with-tokio-handleactormessage">Actor Pattern with Tokio</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
+<tr><td><a href="mem/custom_future.html#implement-a-custom-future-pin-waker-poll">Custom Future (Pin, Waker, Poll)</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 </tbody></table>
 </div><!--
 Links, in a few categories. Follow the existing structure.
@@ -3962,6 +3963,7 @@ Keep lines sorted.
 <tr><td><a href="mem/global_static.html#stdcelllazycell"><code>std::cell:LazyCell</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 <tr><td><a href="mem/global_static.html#stdsynclazylock"><code>std::sync::LazyLock</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 <tr><td><a href="mem/actor.html#actor-pattern-with-tokio-handleactormessage">Actor Pattern with Tokio</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
+<tr><td><a href="mem/custom_future.html#implement-a-custom-future-pin-waker-poll">Custom Future (Pin, Waker, Poll)</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 </tbody></table>
 </div><!--
 Links, in a few categories. Follow the existing structure.
@@ -4239,6 +4241,91 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 
     Ok(())
 }</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="custom-future"><a class="header" href="#custom-future">Custom Future</a></h1>
+<h2 id="implement-a-custom-future-pin-waker-poll"><a class="header" href="#implement-a-custom-future-pin-waker-poll">Implement a Custom <code>Future</code> (Pin, Waker, Poll)</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p>When you need low-level control: a custom hardware driver, a specialized timer,
+or a zero-allocation protocol parser—you can implement <a href="https://doc.rust-lang.org/std/future/trait.Future.html"><code>Future</code></a> by hand
+instead of relying on <code>async</code>/<code>await</code>.</p>
+<p>Every custom future must handle three concepts:</p>
+<div class="table-wrapper"><table><thead><tr><th>Concept</th><th>Why it matters</th></tr></thead><tbody>
+<tr><td><strong><a href="https://doc.rust-lang.org/std/pin/struct.Pin.html"><code>Pin&lt;&amp;mut Self&gt;</code></a></strong></td><td>Guarantees the future won't move in memory after the first poll. This is critical for self-referential futures (e.g., those holding borrows across <code>.await</code> points). If your struct contains only ordinary fields (no self-references), the compiler auto-implements <code>Unpin</code> and pinning is effectively a no-op.</td></tr>
+<tr><td><strong><a href="https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Pending"><code>Poll::Pending</code></a> / <a href="https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Ready"><code>Poll::Ready</code></a></strong></td><td><code>Pending</code> tells the executor "not done yet," while <code>Ready(value)</code> completes the future.</td></tr>
+<tr><td><strong><a href="https://doc.rust-lang.org/std/task/struct.Context.html#method.waker"><code>cx.waker()</code></a></strong></td><td>A handle the executor gives you. You <em>must</em> call <code>wake()</code> at some point after returning <code>Pending</code>, or the executor will never poll the future again and it will hang.</td></tr>
+</tbody></table>
+</div>
+<p>The example below builds a simple <code>Delay</code> future that resolves after a
+deadline.  It has no self-referential fields, so it is <code>Unpin</code> automatically—
+pinning costs nothing.  A production timer would register with a reactor;
+here we call <code>wake_by_ref()</code> immediately so the executor re-polls us.</p>
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::future::Future;
+use std::pin::Pin;
+use std::task::{Context, Poll};
+use std::time::{Duration, Instant};
+
+/// A hand-rolled future that resolves after a deadline.
+///
+/// This is intentionally simple—no timer wheel, no reactor—just a
+/// busy-polling future that shows the three things every custom
+/// `Future` must handle:
+///
+/// 1. **`Pin&lt;&amp;mut Self&gt;`** — guarantees our struct won't move in
+///    memory.  Because `Delay` contains only `Instant` and
+///    `Duration` (both `Unpin`), the compiler auto-implements
+///    `Unpin` for us and pinning is a no-op here.  If the struct
+///    held a self-referential borrow (like a hand-written async
+///    state machine), pinning would *prevent* the struct from
+///    being moved after the first poll, which would invalidate
+///    the borrow.
+///
+/// 2. **`Poll::Pending` vs `Poll::Ready`** — returning `Pending`
+///    tells the executor "I'm not done yet; wake me later."
+///
+/// 3. **`cx.waker()`** — the mechanism to *schedule* a re-poll.
+///    Without calling `wake()`, the executor would never poll us
+///    again and the future would hang.
+struct Delay {
+    /// When we should resolve.
+    deadline: Instant,
+}
+
+impl Delay {
+    fn new(dur: Duration) -&gt; Self {
+        Self {
+            deadline: Instant::now() + dur,
+        }
+    }
+}
+
+impl Future for Delay {
+    type Output = ();
+
+    fn poll(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;Self::Output&gt; {
+        if Instant::now() &gt;= self.deadline {
+            // Deadline reached — resolve the future.
+            Poll::Ready(())
+        } else {
+            // Not ready yet.
+            //
+            // We MUST arrange for `wake()` to be called later or the
+            // executor will never poll us again.  A production timer
+            // would register with a reactor; here we just ask to be
+            // re-polled immediately. The executor may yield to other
+            // tasks before coming back to us.
+            cx.waker().wake_by_ref();
+            Poll::Pending
+        }
+    }
+}
+<span class="boring">}</span></code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
