@@ -376,6 +376,7 @@ Keep lines sorted.
 <tr><td><a href="mem/global_static.html#stdcell">Std::cell</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 <tr><td><a href="mem/global_static.html#stdcelllazycell"><code>std::cell:LazyCell</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 <tr><td><a href="mem/global_static.html#stdsynclazylock"><code>std::sync::LazyLock</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
+<tr><td><a href="mem/actor.html#actor-pattern-with-tokio-handleactormessage">Actor Pattern with Tokio</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 </tbody></table>
 </div><!--
 Links, in a few categories. Follow the existing structure.
@@ -3960,6 +3961,7 @@ Keep lines sorted.
 <tr><td><a href="mem/global_static.html#stdcell">Std::cell</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 <tr><td><a href="mem/global_static.html#stdcelllazycell"><code>std::cell:LazyCell</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 <tr><td><a href="mem/global_static.html#stdsynclazylock"><code>std::sync::LazyLock</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
+<tr><td><a href="mem/actor.html#actor-pattern-with-tokio-handleactormessage">Actor Pattern with Tokio</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></td></tr>
 </tbody></table>
 </div><!--
 Links, in a few categories. Follow the existing structure.
@@ -4067,6 +4069,175 @@ fn main() {
 
     println!("Timeout is: {}s", timeout);
     println!("API Key is hidden: {}", APP_CONFIG.api_key.len() &gt; 0);
+}</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="actor-pattern"><a class="header" href="#actor-pattern">Actor Pattern</a></h1>
+<h2 id="actor-pattern-with-tokio-handleactormessage"><a class="header" href="#actor-pattern-with-tokio-handleactormessage">Actor Pattern with Tokio (Handle/Actor/Message)</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge" /></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge" /></a></p>
+<p>A common pattern for managing shared mutable state without <code>Arc&lt;Mutex&lt;T&gt;&gt;</code> is the
+actor pattern, popularized by <a href="https://ryhl.io/blog/actors-with-tokio/">Alice Ryhl</a>. An <strong>actor</strong> is a struct that owns its
+data and runs inside a single spawned task. A clonable <strong>handle</strong> holds an
+<a href="https://docs.rs/tokio/latest/tokio/sync/mpsc/struct.Sender.html"><code>mpsc::Sender</code></a> and is the public API. <strong>Messages</strong> are an enum describing every
+command the actor can process.</p>
+<p>Because only one task ever accesses the data, there is no locking. Request–response
+pairs use a <a href="https://docs.rs/tokio/latest/tokio/sync/oneshot/index.html"><code>oneshot</code></a> channel embedded in the message variant.</p>
+<pre><pre class="playground"><code class="language-rust edition2021">use tokio::sync::{mpsc, oneshot};
+
+// The Message enum represents commands sent to the actor.
+enum Message {
+    UpdateLocation {
+        driver_id: u32,
+        lat: f64,
+        lng: f64,
+    },
+    GetDriverStatus {
+        driver_id: u32,
+        respond_to: oneshot::Sender&lt;Option&lt;DriverStatus&gt;&gt;,
+    },
+}
+
+#[derive(Debug, Clone)]
+struct DriverStatus {
+    driver_id: u32,
+    lat: f64,
+    lng: f64,
+    update_count: u64,
+}
+
+// The Actor: a struct that owns data and lives inside a spawned task.
+// No Arc&lt;Mutex&gt; needed—only one task accesses the data.
+struct DriverActor {
+    receiver: mpsc::Receiver&lt;Message&gt;,
+    drivers: std::collections::HashMap&lt;u32, DriverStatus&gt;,
+}
+
+impl DriverActor {
+    fn new(receiver: mpsc::Receiver&lt;Message&gt;) -&gt; Self {
+        Self {
+            receiver,
+            drivers: std::collections::HashMap::new(),
+        }
+    }
+
+    async fn run(&amp;mut self) {
+        while let Some(msg) = self.receiver.recv().await {
+            self.handle_message(msg);
+        }
+    }
+
+    fn handle_message(&amp;mut self, msg: Message) {
+        match msg {
+            Message::UpdateLocation {
+                driver_id,
+                lat,
+                lng,
+            } =&gt; {
+                let status = self
+                    .drivers
+                    .entry(driver_id)
+                    .or_insert(DriverStatus {
+                        driver_id,
+                        lat: 0.0,
+                        lng: 0.0,
+                        update_count: 0,
+                    });
+                status.lat = lat;
+                status.lng = lng;
+                status.update_count += 1;
+            }
+            Message::GetDriverStatus {
+                driver_id,
+                respond_to,
+            } =&gt; {
+                let status = self.drivers.get(&amp;driver_id).cloned();
+                // Ignore send errors if the caller dropped the receiver.
+                let _ = respond_to.send(status);
+            }
+        }
+    }
+}
+
+// The Handle: a clonable struct that holds an mpsc::Sender.
+// This is what you pass around the application.
+#[derive(Clone)]
+struct DriverHandle {
+    sender: mpsc::Sender&lt;Message&gt;,
+}
+
+impl DriverHandle {
+    fn new() -&gt; Self {
+        let (sender, receiver) = mpsc::channel(32);
+        let mut actor = DriverActor::new(receiver);
+        tokio::spawn(async move { actor.run().await });
+        Self { sender }
+    }
+
+    async fn update_location(
+        &amp;self,
+        driver_id: u32,
+        lat: f64,
+        lng: f64,
+    ) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+        self.sender
+            .send(Message::UpdateLocation {
+                driver_id,
+                lat,
+                lng,
+            })
+            .await?;
+        Ok(())
+    }
+
+    async fn get_driver_status(
+        &amp;self,
+        driver_id: u32,
+    ) -&gt; Result&lt;Option&lt;DriverStatus&gt;, Box&lt;dyn std::error::Error&gt;&gt; {
+        let (tx, rx) = oneshot::channel();
+        self.sender
+            .send(Message::GetDriverStatus {
+                driver_id,
+                respond_to: tx,
+            })
+            .await?;
+        Ok(rx.await?)
+    }
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let handle = DriverHandle::new();
+
+    // Multiple clones can be sent to different tasks.
+    let h1 = handle.clone();
+    let h2 = handle.clone();
+
+    let task1 = tokio::spawn(async move {
+        h1.update_location(1, 40.7128, -74.0060).await.unwrap();
+        h1.update_location(1, 40.7130, -74.0062).await.unwrap();
+    });
+
+    let task2 = tokio::spawn(async move {
+        h2.update_location(2, 34.0522, -118.2437).await.unwrap();
+    });
+
+    task1.await?;
+    task2.await?;
+
+    let status = handle.get_driver_status(1).await?;
+    println!("Driver 1: {:?}", status);
+
+    let status = handle.get_driver_status(2).await?;
+    println!("Driver 2: {:?}", status);
+
+    let status = handle.get_driver_status(99).await?;
+    println!("Driver 99: {:?}", status);
+
+    Ok(())
 }</code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
@@ -6088,6 +6259,8 @@ Keep lines sorted.
 [thiserror]: https://docs.rs/thiserror/
 [threadpool-badge]: https://img.shields.io/crates/v/threadpool.svg?label=threadpool
 [threadpool]: https://docs.rs/threadpool/
+[tokio-badge]: https://img.shields.io/crates/v/tokio.svg?label=tokio
+[tokio]: https://docs.rs/tokio/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
 [tracing-badge]: https://badge-cache.kominick.com/crates/v/tracing.svg?label=tracing
