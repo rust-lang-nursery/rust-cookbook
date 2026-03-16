@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/algorithms/*", "crates/concurrency/*", "crates/development_tools/debugging/tracing", "crates/web", "xtask"]
+members = ["crates/algorithms/*", "crates/concurrency/*", "crates/development_tools/debugging/tracing", "crates/safety_critical/*", "crates/web", "xtask"]
 
 [workspace.package]
 edition = "2024"
