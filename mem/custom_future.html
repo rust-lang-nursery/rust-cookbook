@@ -176,9 +176,7 @@ instead of relying on <code>async</code>/<code>await</code>.</p>
 deadline.  It has no self-referential fields, so it is <code>Unpin</code> automatically—
 pinning costs nothing.  A production timer would register with a reactor;
 here we call <code>wake_by_ref()</code> immediately so the executor re-polls us.</p>
-<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use std::future::Future;
+<pre><pre class="playground"><code class="language-rust edition2018">use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use std::time::{Duration, Instant};
@@ -237,7 +235,18 @@ impl Future for Delay {
         }
     }
 }
-<span class="boring">}</span></code></pre></pre>
+
+#[tokio::main]
+async fn main() {
+    let start = Instant::now();
+    println!("waiting 10 ms …");
+
+    // Use the custom future just like any other async expression.
+    Delay::new(Duration::from_millis(10)).await;
+
+    println!("done in {:?}", start.elapsed());
+    assert!(start.elapsed() &gt;= Duration::from_millis(10));
+}</code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
