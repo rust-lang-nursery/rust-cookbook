@@ -14,6 +14,8 @@
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+| [Actor Pattern with Tokio][ex-actor-pattern] | [![tokio-badge]][tokio] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Custom Future (Pin, Waker, Poll)][ex-custom-future] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 
 [ex-crossbeam-spawn]: concurrency/threads.html#spawn-a-short-lived-thread
@@ -28,5 +30,7 @@
 [ex-rayon-parallel-sort]: concurrency/parallel.html#sort-a-vector-in-parallel
 [ex-rayon-map-reduce]: concurrency/parallel.html#map-reduce-in-parallel
 [ex-rayon-thumbnails]: concurrency/parallel.html#generate-jpg-thumbnails-in-parallel
+[ex-actor-pattern]: concurrency/actor.html#actor-pattern-with-tokio-handleactormessage
+[ex-custom-future]: concurrency/custom_future.html#implement-a-custom-future-pin-waker-poll
 
 {{#include links.md}}

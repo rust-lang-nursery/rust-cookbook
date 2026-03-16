@@ -20,7 +20,7 @@ pinning costs nothing.  A production timer would register with a reactor;
 here we call `wake_by_ref()` immediately so the executor re-polls us.
 
 ```rust
-{{#include ../../../crates/mem/custom_future/src/bin/custom_future.rs::71}}
+{{#include ../../../crates/concurrency/custom_future/src/bin/custom_future.rs::71}}
 ```
 
 [`Future`]: https://doc.rust-lang.org/std/future/trait.Future.html
