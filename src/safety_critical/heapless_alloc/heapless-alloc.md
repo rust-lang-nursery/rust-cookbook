@@ -11,6 +11,8 @@ on the **stack** (or in a `static`) with a capacity fixed at compile time.
 Pushing beyond capacity returns `Err` instead of panicking or allocating,
 letting the caller decide how to handle it.
 
+<div class="comparison">
+
 | `std` type | `heapless` equivalent | Guarantee |
 |---|---|---|
 | `Vec<T>` | `heapless::Vec<T, N>` | At most `N` elements, no allocator |
@@ -18,12 +20,14 @@ letting the caller decide how to handle it.
 | `VecDeque<T>` | `heapless::Deque<T, N>` | Fixed-capacity ring buffer |
 | `HashMap<K,V>` | `heapless::IndexMap<K,V,S,N>` | Fixed-capacity hash map |
 
+</div>
+
 The example below builds a stack-allocated event log and demonstrates
 capacity enforcement—the kind of predictable, constant-memory behavior
 required by embedded and real-time systems.
 
 ```rust
-{{#include ../../../crates/safety_critical/heapless_alloc/src/bin/heapless_alloc.rs::83}}
+{{#include ../../../crates/safety_critical/heapless_alloc/src/bin/heapless_alloc.rs::98}}
 ```
 
 [`heapless`]: https://docs.rs/heapless
