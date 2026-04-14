@@ -149,8 +149,8 @@ If there are no errors, it will just print the local Aspell version and exit.
 This project is intended to be simple to contribute to, and to always
 have obvious next work items available. If at any time there is not
 something obvious to contribute, that is a bug. Feel free to ask for
-additional support at the
-[Rust Ecosystem Working Group](https://gitter.im/rust-lang/WG-ecosystem).
+additional support in the cookbook's Zulip channel,
+[#t-lang-docs/cookbook](https://rust-lang.zulipchat.com/#narrow/channel/520946-t-lang-docs.2Fcookbook).
 
 The development process for the cookbook is presently oriented around
 crates: we decide which crates to represent in the cookbook, then come
