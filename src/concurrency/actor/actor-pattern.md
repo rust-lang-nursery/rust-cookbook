@@ -12,7 +12,7 @@ Because only one task ever accesses the data, there is no locking. Request–res
 pairs use a [`oneshot`] channel embedded in the message variant.
 
 ```rust,edition2021
-{{#include ../../../crates/concurrency/actor/src/bin/actor_pattern.rs::153 }}
+{{#include ../../../crates/concurrency/actor/src/bin/actor_pattern.rs::168 }}
 ```
 
 [Alice Ryhl]: https://ryhl.io/blog/actors-with-tokio/

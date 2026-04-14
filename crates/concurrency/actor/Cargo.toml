@@ -7,4 +7,5 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+thiserror = "2"
 tokio = { version = "1", features = ["full"] }
