@@ -1,0 +1,31 @@
+name: Spellcheck
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install aspell
+        run: sudo apt-get update && sudo apt-get install -y aspell aspell-en
+
+      - name: Run spellcheck
+        id: spellcheck
+        run: ./ci/spellcheck.sh list
+
+      - name: Spellcheck Results
+        if: always()
+        run: |
+          if [ "${{ steps.spellcheck.outcome }}" == "success" ]; then
+            echo "✅ Spellcheck passed!"
+          else
+            echo "❌ Spellcheck found unknown words. Add valid words to ci/dictionary.txt."
+            exit 1
+          fi
