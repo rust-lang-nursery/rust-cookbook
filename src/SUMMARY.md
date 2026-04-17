@@ -73,3 +73,4 @@
     - [Calling a Web API](web/clients/apis.md)
     - [Downloads](web/clients/download.md)
     - [Web Authentication](web/clients/authentication.md)
+  - [Full Stack Web](web/leptos.md)

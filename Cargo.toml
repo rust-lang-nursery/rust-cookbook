@@ -1,5 +1,6 @@
 [workspace]
 members = ["crates/algorithms/*", "crates/concurrency/*", "crates/development_tools/debugging/tracing", "crates/safety_critical/*", "crates/web", "xtask"]
+exclude = ["crates/web_leptos", "crates/web_leptos_hydrate"]
 
 [workspace.package]
 edition = "2024"

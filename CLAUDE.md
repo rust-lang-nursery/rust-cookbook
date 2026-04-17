@@ -116,3 +116,21 @@ When a dependency version needs to change, migrate the affected examples rather 
 - Mark examples needing external services with `no_run`
 - Hide boilerplate with `# ` prefix (hidden from book, visible to skeptic)
 - Prefer creating standalone crates for new examples over adding dependencies to root `Cargo.toml`
+
+## Pull Request Checklist
+
+From `.github/PULL_REQUEST_TEMPLATE.md`. Verify all of these before opening or
+updating a PR:
+
+- Tests pass locally with `cargo xtask test all`
+- Commits are squashed into one and rebased to latest `master`
+- PR body contains a correct `fixes #ISSUE_ID` clause, or the clause is removed if no issue exists
+- Non-rendered items are in sorted order (links, references, identifiers, `Cargo.toml`)
+- `docs.rs` links use the wildcard version: `https://docs.rs/tar/*/tar/struct.Entry.html`
+- Example uses the standard [error handling](https://rust-lang-nursery.github.io/rust-cookbook/about.html#a-note-about-error-handling) (no `unwrap`)
+- Code identifiers in the description are hyperlinked backticks:
+  ```markdown
+  [`Entry::unpack`]: https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack
+  ```
+
+After submitting, watch CI and fix any failures.

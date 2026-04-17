@@ -5,6 +5,7 @@ const REMOVED_TESTS: &[&str] = &[
     "./src/web/clients/requests/header.md",
     "./src/web/clients/api/rate-limited.md",
     "./src/concurrency/parallel/rayon-parallel-sort.md",
+    "./src/web/leptos.md",
 ];
 
 const REMOVED_PREFIXES: &[&str] = &[
