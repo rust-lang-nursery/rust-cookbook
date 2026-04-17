@@ -1625,7 +1625,18 @@ data and runs inside a single spawned task. A clonable <strong>handle</strong> h
 command the actor can process.</p>
 <p>Because only one task ever accesses the data, there is no locking. Request–response
 pairs use a <a href="https://docs.rs/tokio/latest/tokio/sync/oneshot/index.html"><code>oneshot</code></a> channel embedded in the message variant.</p>
-<pre><pre class="playground"><code class="language-rust edition2021">use tokio::sync::{mpsc, oneshot};
+<pre><pre class="playground"><code class="language-rust edition2021">use thiserror::Error;
+use tokio::sync::{mpsc, oneshot};
+
+#[derive(Debug, Error)]
+enum ActorError {
+    #[error("failed to send message to actor")]
+    Send(#[from] mpsc::error::SendError&lt;Message&gt;),
+    #[error("actor dropped response channel")]
+    Recv(#[from] oneshot::error::RecvError),
+    #[error("task failed")]
+    Join(#[from] tokio::task::JoinError),
+}
 
 // The Message enum represents commands sent to the actor.
 enum Message {
@@ -1721,7 +1732,7 @@ impl DriverHandle {
         driver_id: u32,
         lat: f64,
         lng: f64,
-    ) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    ) -&gt; Result&lt;(), ActorError&gt; {
         self.sender
             .send(Message::UpdateLocation {
                 driver_id,
@@ -1735,7 +1746,7 @@ impl DriverHandle {
     async fn get_driver_status(
         &amp;self,
         driver_id: u32,
-    ) -&gt; Result&lt;Option&lt;DriverStatus&gt;, Box&lt;dyn std::error::Error&gt;&gt; {
+    ) -&gt; Result&lt;Option&lt;DriverStatus&gt;, ActorError&gt; {
         let (tx, rx) = oneshot::channel();
         self.sender
             .send(Message::GetDriverStatus {
@@ -1748,7 +1759,7 @@ impl DriverHandle {
 }
 
 #[tokio::main]
-async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+async fn main() -&gt; Result&lt;(), ActorError&gt; {
     let handle = DriverHandle::new();
 
     // Multiple clones can be sent to different tasks.
@@ -1756,25 +1767,29 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let h2 = handle.clone();
 
     let task1 = tokio::spawn(async move {
-        h1.update_location(1, 40.7128, -74.0060).await.unwrap();
-        h1.update_location(1, 40.7130, -74.0062).await.unwrap();
+        h1.update_location(1, 40.7128, -74.0060).await?;
+        h1.update_location(1, 40.7130, -74.0062).await?;
+        Ok::&lt;(), ActorError&gt;(())
     });
 
     let task2 = tokio::spawn(async move {
-        h2.update_location(2, 34.0522, -118.2437).await.unwrap();
+        h2.update_location(2, 34.0522, -118.2437).await?;
+        Ok::&lt;(), ActorError&gt;(())
     });
 
-    task1.await?;
-    task2.await?;
+    task1.await??;
+    task2.await??;
 
-    let status = handle.get_driver_status(1).await?;
-    println!("Driver 1: {:?}", status);
+    if let Some(s) = handle.get_driver_status(1).await? {
+        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+    }
 
-    let status = handle.get_driver_status(2).await?;
-    println!("Driver 2: {:?}", status);
+    if let Some(s) = handle.get_driver_status(2).await? {
+        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+    }
 
-    let status = handle.get_driver_status(99).await?;
-    println!("Driver 99: {:?}", status);
+    let missing = handle.get_driver_status(99).await?;
+    println!("Driver 99: {:?}", missing);
 
     Ok(())
 }</code></pre></pre>
@@ -1791,12 +1806,13 @@ Keep lines sorted.
 or a zero-allocation protocol parser—you can implement <a href="https://doc.rust-lang.org/std/future/trait.Future.html"><code>Future</code></a> by hand
 instead of relying on <code>async</code>/<code>await</code>.</p>
 <p>Every custom future must handle three concepts:</p>
+<div class="comparison">
 <div class="table-wrapper"><table><thead><tr><th>Concept</th><th>Why it matters</th></tr></thead><tbody>
 <tr><td><strong><a href="https://doc.rust-lang.org/std/pin/struct.Pin.html"><code>Pin&lt;&amp;mut Self&gt;</code></a></strong></td><td>Guarantees the future won't move in memory after the first poll. This is critical for self-referential futures (e.g., those holding borrows across <code>.await</code> points). If your struct contains only ordinary fields (no self-references), the compiler auto-implements <code>Unpin</code> and pinning is effectively a no-op.</td></tr>
 <tr><td><strong><a href="https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Pending"><code>Poll::Pending</code></a> / <a href="https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Ready"><code>Poll::Ready</code></a></strong></td><td><code>Pending</code> tells the executor "not done yet," while <code>Ready(value)</code> completes the future.</td></tr>
 <tr><td><strong><a href="https://doc.rust-lang.org/std/task/struct.Context.html#method.waker"><code>cx.waker()</code></a></strong></td><td>A handle the executor gives you. You <em>must</em> call <code>wake()</code> at some point after returning <code>Pending</code>, or the executor will never poll the future again and it will hang.</td></tr>
 </tbody></table>
-</div>
+</div></div>
 <p>The example below builds a simple <code>Delay</code> future that resolves after a
 deadline.  It has no self-referential fields, so it is <code>Unpin</code> automatically—
 pinning costs nothing.  A production timer would register with a reactor;
@@ -5142,13 +5158,14 @@ Keep lines sorted.
 <p>The <a href="https://docs.rs/no-panic"><code>#[no_panic]</code></a> attribute macro makes the <strong>compiler prove</strong> at
 link time that a function can never reach a panicking code path.  If it can't
 prove it, the build fails.</p>
+<div class="comparison">
 <div class="table-wrapper"><table><thead><tr><th>Panicking pattern</th><th>Safe alternative</th></tr></thead><tbody>
 <tr><td><code>slice[i]</code></td><td><code>slice.get(i)</code> with exhaustive <code>match</code></td></tr>
 <tr><td><code>for i in 0..len { slice[i] }</code></td><td><code>for &amp;v in slice</code> (iterator)</td></tr>
 <tr><td><code>value.unwrap()</code></td><td><code>match</code> / <code>if let</code> / <code>?</code></td></tr>
 <tr><td><code>a / b</code> (integer, <code>b</code> might be 0)</td><td>Check <code>b</code> before dividing</td></tr>
 </tbody></table>
-</div>
+</div></div>
 <p>The example below shows three panic-free functions—aggregation, lookup, and
 sensor normalization—each proven at compile time by <code>#[no_panic]</code>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use no_panic::no_panic;
@@ -5231,17 +5248,29 @@ firmware risks fragmentation and silent OOM failures.</p>
 on the <strong>stack</strong> (or in a <code>static</code>) with a capacity fixed at compile time.
 Pushing beyond capacity returns <code>Err</code> instead of panicking or allocating,
 letting the caller decide how to handle it.</p>
+<div class="comparison">
 <div class="table-wrapper"><table><thead><tr><th><code>std</code> type</th><th><code>heapless</code> equivalent</th><th>Guarantee</th></tr></thead><tbody>
 <tr><td><code>Vec&lt;T&gt;</code></td><td><code>heapless::Vec&lt;T, N&gt;</code></td><td>At most <code>N</code> elements, no allocator</td></tr>
 <tr><td><code>String</code></td><td><code>heapless::String&lt;N&gt;</code></td><td>At most <code>N</code> bytes, no allocator</td></tr>
 <tr><td><code>VecDeque&lt;T&gt;</code></td><td><code>heapless::Deque&lt;T, N&gt;</code></td><td>Fixed-capacity ring buffer</td></tr>
 <tr><td><code>HashMap&lt;K,V&gt;</code></td><td><code>heapless::IndexMap&lt;K,V,S,N&gt;</code></td><td>Fixed-capacity hash map</td></tr>
 </tbody></table>
-</div>
+</div></div>
 <p>The example below builds a stack-allocated event log and demonstrates
 capacity enforcement—the kind of predictable, constant-memory behavior
 required by embedded and real-time systems.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use heapless::{String, Vec};
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+enum LogError {
+    #[error("log full (capacity exceeded)")]
+    Full,
+    #[error("log is empty")]
+    Empty,
+    #[error(transparent)]
+    Fmt(#[from] core::fmt::Error),
+}
 
 /// A fixed-capacity event log that never touches the heap.
 ///
@@ -5272,9 +5301,9 @@ impl&lt;const N: usize&gt; EventLog&lt;N&gt; {
 
     /// Records an event.  Returns `Err` if the log is full instead
     /// of panicking or allocating—the caller decides what to do.
-    fn record(&amp;mut self, timestamp_ms: u32, code: u16) -&gt; Result&lt;(), Event&gt; {
+    fn record(&amp;mut self, timestamp_ms: u32, code: u16) -&gt; Result&lt;(), LogError&gt; {
         let event = Event { timestamp_ms, code };
-        self.entries.push(event).map_err(|e| e)
+        self.entries.push(event).map_err(|_| LogError::Full)
     }
 
     /// Returns how many events have been recorded.
@@ -5283,8 +5312,8 @@ impl&lt;const N: usize&gt; EventLog&lt;N&gt; {
     }
 
     /// Returns the most recent event, if any.
-    fn latest(&amp;self) -&gt; Option&lt;&amp;Event&gt; {
-        self.entries.last()
+    fn latest(&amp;self) -&gt; Result&lt;&amp;Event, LogError&gt; {
+        self.entries.last().ok_or(LogError::Empty)
     }
 }
 
@@ -5293,37 +5322,41 @@ impl&lt;const N: usize&gt; EventLog&lt;N&gt; {
 /// [`heapless::String&lt;N&gt;`] works like `std::string::String` but
 /// stores up to `N` bytes on the stack.  `write!` returns `Err` if
 /// the formatted text would exceed capacity.
-fn format_label(sensor_id: u16, value: f32) -&gt; Result&lt;String&lt;32&gt;, core::fmt::Error&gt; {
+fn format_label(sensor_id: u16, value: f32) -&gt; Result&lt;String&lt;32&gt;, LogError&gt; {
     use core::fmt::Write;
     let mut buf: String&lt;32&gt; = String::new();
     write!(buf, "S{sensor_id}={value:.1}")?;
     Ok(buf)
 }
 
-fn main() {
+fn main() -&gt; Result&lt;(), LogError&gt; {
     // A log that holds at most 8 events — zero heap allocation.
     let mut log: EventLog&lt;8&gt; = EventLog::new();
 
-    log.record(100, 0x01).expect("log not full");
-    log.record(200, 0x02).expect("log not full");
-    log.record(300, 0xFF).expect("log not full");
+    log.record(100, 0x01)?;
+    log.record(200, 0x02)?;
+    log.record(300, 0xFF)?;
 
     println!("logged {} events", log.len());
-    println!("latest: {:?}", log.latest().unwrap());
+    let latest = log.latest()?;
+    println!(
+        "latest: timestamp={}ms code=0x{:02X}",
+        latest.timestamp_ms, latest.code
+    );
 
     // Stack-allocated string formatting.
-    let label = format_label(42, 3.14).expect("fits in 32 bytes");
+    let label = format_label(42, 3.14)?;
     println!("label: {label}");
 
     // Demonstrate capacity enforcement — the 9th push returns Err.
     let mut full_log: EventLog&lt;2&gt; = EventLog::new();
-    full_log.record(0, 1).unwrap();
-    full_log.record(1, 2).unwrap();
-    let overflow = full_log.record(2, 3);
-    assert!(overflow.is_err());
+    full_log.record(0, 1)?;
+    full_log.record(1, 2)?;
+    assert!(full_log.record(2, 3).is_err());
     println!("overflow correctly rejected");
-}
-</code></pre></pre>
+
+    Ok(())
+}</code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.

@@ -15,6 +15,25 @@ table td:nth-child(3) {
   padding: 3px;
 }
 
+/* Auto-sized comparison tables (not TOC tables) */
+.comparison table {
+  table-layout: auto;
+}
+
+.comparison table td:first-child {
+  width: auto;
+}
+
+.comparison table td:nth-child(2) {
+  width: auto;
+}
+
+.comparison table td,
+.comparison table th {
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
 /* underline hyperlinked inline code items */
 a:hover > .hljs {
   text-decoration: underline;

@@ -166,12 +166,13 @@
 or a zero-allocation protocol parser—you can implement <a href="https://doc.rust-lang.org/std/future/trait.Future.html"><code>Future</code></a> by hand
 instead of relying on <code>async</code>/<code>await</code>.</p>
 <p>Every custom future must handle three concepts:</p>
+<div class="comparison">
 <div class="table-wrapper"><table><thead><tr><th>Concept</th><th>Why it matters</th></tr></thead><tbody>
 <tr><td><strong><a href="https://doc.rust-lang.org/std/pin/struct.Pin.html"><code>Pin&lt;&amp;mut Self&gt;</code></a></strong></td><td>Guarantees the future won't move in memory after the first poll. This is critical for self-referential futures (e.g., those holding borrows across <code>.await</code> points). If your struct contains only ordinary fields (no self-references), the compiler auto-implements <code>Unpin</code> and pinning is effectively a no-op.</td></tr>
 <tr><td><strong><a href="https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Pending"><code>Poll::Pending</code></a> / <a href="https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Ready"><code>Poll::Ready</code></a></strong></td><td><code>Pending</code> tells the executor "not done yet," while <code>Ready(value)</code> completes the future.</td></tr>
 <tr><td><strong><a href="https://doc.rust-lang.org/std/task/struct.Context.html#method.waker"><code>cx.waker()</code></a></strong></td><td>A handle the executor gives you. You <em>must</em> call <code>wake()</code> at some point after returning <code>Pending</code>, or the executor will never poll the future again and it will hang.</td></tr>
 </tbody></table>
-</div>
+</div></div>
 <p>The example below builds a simple <code>Delay</code> future that resolves after a
 deadline.  It has no self-referential fields, so it is <code>Unpin</code> automatically—
 pinning costs nothing.  A production timer would register with a reactor;

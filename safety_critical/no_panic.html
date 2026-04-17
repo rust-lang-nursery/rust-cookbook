@@ -168,13 +168,14 @@
 <p>The <a href="https://docs.rs/no-panic"><code>#[no_panic]</code></a> attribute macro makes the <strong>compiler prove</strong> at
 link time that a function can never reach a panicking code path.  If it can't
 prove it, the build fails.</p>
+<div class="comparison">
 <div class="table-wrapper"><table><thead><tr><th>Panicking pattern</th><th>Safe alternative</th></tr></thead><tbody>
 <tr><td><code>slice[i]</code></td><td><code>slice.get(i)</code> with exhaustive <code>match</code></td></tr>
 <tr><td><code>for i in 0..len { slice[i] }</code></td><td><code>for &amp;v in slice</code> (iterator)</td></tr>
 <tr><td><code>value.unwrap()</code></td><td><code>match</code> / <code>if let</code> / <code>?</code></td></tr>
 <tr><td><code>a / b</code> (integer, <code>b</code> might be 0)</td><td>Check <code>b</code> before dividing</td></tr>
 </tbody></table>
-</div>
+</div></div>
 <p>The example below shows three panic-free functions—aggregation, lookup, and
 sensor normalization—each proven at compile time by <code>#[no_panic]</code>.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use no_panic::no_panic;

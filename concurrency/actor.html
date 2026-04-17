@@ -169,7 +169,18 @@ data and runs inside a single spawned task. A clonable <strong>handle</strong> h
 command the actor can process.</p>
 <p>Because only one task ever accesses the data, there is no locking. Request–response
 pairs use a <a href="https://docs.rs/tokio/latest/tokio/sync/oneshot/index.html"><code>oneshot</code></a> channel embedded in the message variant.</p>
-<pre><pre class="playground"><code class="language-rust edition2021">use tokio::sync::{mpsc, oneshot};
+<pre><pre class="playground"><code class="language-rust edition2021">use thiserror::Error;
+use tokio::sync::{mpsc, oneshot};
+
+#[derive(Debug, Error)]
+enum ActorError {
+    #[error("failed to send message to actor")]
+    Send(#[from] mpsc::error::SendError&lt;Message&gt;),
+    #[error("actor dropped response channel")]
+    Recv(#[from] oneshot::error::RecvError),
+    #[error("task failed")]
+    Join(#[from] tokio::task::JoinError),
+}
 
 // The Message enum represents commands sent to the actor.
 enum Message {
@@ -265,7 +276,7 @@ impl DriverHandle {
         driver_id: u32,
         lat: f64,
         lng: f64,
-    ) -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    ) -&gt; Result&lt;(), ActorError&gt; {
         self.sender
             .send(Message::UpdateLocation {
                 driver_id,
@@ -279,7 +290,7 @@ impl DriverHandle {
     async fn get_driver_status(
         &amp;self,
         driver_id: u32,
-    ) -&gt; Result&lt;Option&lt;DriverStatus&gt;, Box&lt;dyn std::error::Error&gt;&gt; {
+    ) -&gt; Result&lt;Option&lt;DriverStatus&gt;, ActorError&gt; {
         let (tx, rx) = oneshot::channel();
         self.sender
             .send(Message::GetDriverStatus {
@@ -292,7 +303,7 @@ impl DriverHandle {
 }
 
 #[tokio::main]
-async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+async fn main() -&gt; Result&lt;(), ActorError&gt; {
     let handle = DriverHandle::new();
 
     // Multiple clones can be sent to different tasks.
@@ -300,25 +311,29 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let h2 = handle.clone();
 
     let task1 = tokio::spawn(async move {
-        h1.update_location(1, 40.7128, -74.0060).await.unwrap();
-        h1.update_location(1, 40.7130, -74.0062).await.unwrap();
+        h1.update_location(1, 40.7128, -74.0060).await?;
+        h1.update_location(1, 40.7130, -74.0062).await?;
+        Ok::&lt;(), ActorError&gt;(())
     });
 
     let task2 = tokio::spawn(async move {
-        h2.update_location(2, 34.0522, -118.2437).await.unwrap();
+        h2.update_location(2, 34.0522, -118.2437).await?;
+        Ok::&lt;(), ActorError&gt;(())
     });
 
-    task1.await?;
-    task2.await?;
+    task1.await??;
+    task2.await??;
 
-    let status = handle.get_driver_status(1).await?;
-    println!("Driver 1: {:?}", status);
+    if let Some(s) = handle.get_driver_status(1).await? {
+        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+    }
 
-    let status = handle.get_driver_status(2).await?;
-    println!("Driver 2: {:?}", status);
+    if let Some(s) = handle.get_driver_status(2).await? {
+        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+    }
 
-    let status = handle.get_driver_status(99).await?;
-    println!("Driver 99: {:?}", status);
+    let missing = handle.get_driver_status(99).await?;
+    println!("Driver 99: {:?}", missing);
 
     Ok(())
 }</code></pre></pre>

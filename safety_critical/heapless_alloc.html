@@ -169,17 +169,29 @@ firmware risks fragmentation and silent OOM failures.</p>
 on the <strong>stack</strong> (or in a <code>static</code>) with a capacity fixed at compile time.
 Pushing beyond capacity returns <code>Err</code> instead of panicking or allocating,
 letting the caller decide how to handle it.</p>
+<div class="comparison">
 <div class="table-wrapper"><table><thead><tr><th><code>std</code> type</th><th><code>heapless</code> equivalent</th><th>Guarantee</th></tr></thead><tbody>
 <tr><td><code>Vec&lt;T&gt;</code></td><td><code>heapless::Vec&lt;T, N&gt;</code></td><td>At most <code>N</code> elements, no allocator</td></tr>
 <tr><td><code>String</code></td><td><code>heapless::String&lt;N&gt;</code></td><td>At most <code>N</code> bytes, no allocator</td></tr>
 <tr><td><code>VecDeque&lt;T&gt;</code></td><td><code>heapless::Deque&lt;T, N&gt;</code></td><td>Fixed-capacity ring buffer</td></tr>
 <tr><td><code>HashMap&lt;K,V&gt;</code></td><td><code>heapless::IndexMap&lt;K,V,S,N&gt;</code></td><td>Fixed-capacity hash map</td></tr>
 </tbody></table>
-</div>
+</div></div>
 <p>The example below builds a stack-allocated event log and demonstrates
 capacity enforcement—the kind of predictable, constant-memory behavior
 required by embedded and real-time systems.</p>
 <pre><pre class="playground"><code class="language-rust edition2018">use heapless::{String, Vec};
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+enum LogError {
+    #[error("log full (capacity exceeded)")]
+    Full,
+    #[error("log is empty")]
+    Empty,
+    #[error(transparent)]
+    Fmt(#[from] core::fmt::Error),
+}
 
 /// A fixed-capacity event log that never touches the heap.
 ///
@@ -210,9 +222,9 @@ impl&lt;const N: usize&gt; EventLog&lt;N&gt; {
 
     /// Records an event.  Returns `Err` if the log is full instead
     /// of panicking or allocating—the caller decides what to do.
-    fn record(&amp;mut self, timestamp_ms: u32, code: u16) -&gt; Result&lt;(), Event&gt; {
+    fn record(&amp;mut self, timestamp_ms: u32, code: u16) -&gt; Result&lt;(), LogError&gt; {
         let event = Event { timestamp_ms, code };
-        self.entries.push(event).map_err(|e| e)
+        self.entries.push(event).map_err(|_| LogError::Full)
     }
 
     /// Returns how many events have been recorded.
@@ -221,8 +233,8 @@ impl&lt;const N: usize&gt; EventLog&lt;N&gt; {
     }
 
     /// Returns the most recent event, if any.
-    fn latest(&amp;self) -&gt; Option&lt;&amp;Event&gt; {
-        self.entries.last()
+    fn latest(&amp;self) -&gt; Result&lt;&amp;Event, LogError&gt; {
+        self.entries.last().ok_or(LogError::Empty)
     }
 }
 
@@ -231,37 +243,41 @@ impl&lt;const N: usize&gt; EventLog&lt;N&gt; {
 /// [`heapless::String&lt;N&gt;`] works like `std::string::String` but
 /// stores up to `N` bytes on the stack.  `write!` returns `Err` if
 /// the formatted text would exceed capacity.
-fn format_label(sensor_id: u16, value: f32) -&gt; Result&lt;String&lt;32&gt;, core::fmt::Error&gt; {
+fn format_label(sensor_id: u16, value: f32) -&gt; Result&lt;String&lt;32&gt;, LogError&gt; {
     use core::fmt::Write;
     let mut buf: String&lt;32&gt; = String::new();
     write!(buf, "S{sensor_id}={value:.1}")?;
     Ok(buf)
 }
 
-fn main() {
+fn main() -&gt; Result&lt;(), LogError&gt; {
     // A log that holds at most 8 events — zero heap allocation.
     let mut log: EventLog&lt;8&gt; = EventLog::new();
 
-    log.record(100, 0x01).expect("log not full");
-    log.record(200, 0x02).expect("log not full");
-    log.record(300, 0xFF).expect("log not full");
+    log.record(100, 0x01)?;
+    log.record(200, 0x02)?;
+    log.record(300, 0xFF)?;
 
     println!("logged {} events", log.len());
-    println!("latest: {:?}", log.latest().unwrap());
+    let latest = log.latest()?;
+    println!(
+        "latest: timestamp={}ms code=0x{:02X}",
+        latest.timestamp_ms, latest.code
+    );
 
     // Stack-allocated string formatting.
-    let label = format_label(42, 3.14).expect("fits in 32 bytes");
+    let label = format_label(42, 3.14)?;
     println!("label: {label}");
 
     // Demonstrate capacity enforcement — the 9th push returns Err.
     let mut full_log: EventLog&lt;2&gt; = EventLog::new();
-    full_log.record(0, 1).unwrap();
-    full_log.record(1, 2).unwrap();
-    let overflow = full_log.record(2, 3);
-    assert!(overflow.is_err());
+    full_log.record(0, 1)?;
+    full_log.record(1, 2)?;
+    assert!(full_log.record(2, 3).is_err());
     println!("overflow correctly rejected");
-}
-</code></pre></pre>
+
+    Ok(())
+}</code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
