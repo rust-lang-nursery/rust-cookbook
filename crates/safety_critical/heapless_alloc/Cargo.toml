@@ -8,3 +8,4 @@ publish.workspace = true
 
 [dependencies]
 heapless = "0.8"
+thiserror = "2"

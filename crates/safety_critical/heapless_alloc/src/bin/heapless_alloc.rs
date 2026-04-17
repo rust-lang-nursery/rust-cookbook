@@ -1,4 +1,15 @@
 use heapless::{String, Vec};
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+enum LogError {
+    #[error("log full (capacity exceeded)")]
+    Full,
+    #[error("log is empty")]
+    Empty,
+    #[error(transparent)]
+    Fmt(#[from] core::fmt::Error),
+}
 
 /// A fixed-capacity event log that never touches the heap.
 ///
@@ -29,9 +40,9 @@ impl<const N: usize> EventLog<N> {
 
     /// Records an event.  Returns `Err` if the log is full instead
     /// of panicking or allocating—the caller decides what to do.
-    fn record(&mut self, timestamp_ms: u32, code: u16) -> Result<(), Event> {
+    fn record(&mut self, timestamp_ms: u32, code: u16) -> Result<(), LogError> {
         let event = Event { timestamp_ms, code };
-        self.entries.push(event).map_err(|e| e)
+        self.entries.push(event).map_err(|_| LogError::Full)
     }
 
     /// Returns how many events have been recorded.
@@ -40,8 +51,8 @@ impl<const N: usize> EventLog<N> {
     }
 
     /// Returns the most recent event, if any.
-    fn latest(&self) -> Option<&Event> {
-        self.entries.last()
+    fn latest(&self) -> Result<&Event, LogError> {
+        self.entries.last().ok_or(LogError::Empty)
     }
 }
 
@@ -50,35 +61,40 @@ impl<const N: usize> EventLog<N> {
 /// [`heapless::String<N>`] works like `std::string::String` but
 /// stores up to `N` bytes on the stack.  `write!` returns `Err` if
 /// the formatted text would exceed capacity.
-fn format_label(sensor_id: u16, value: f32) -> Result<String<32>, core::fmt::Error> {
+fn format_label(sensor_id: u16, value: f32) -> Result<String<32>, LogError> {
     use core::fmt::Write;
     let mut buf: String<32> = String::new();
     write!(buf, "S{sensor_id}={value:.1}")?;
     Ok(buf)
 }
 
-fn main() {
+fn main() -> Result<(), LogError> {
     // A log that holds at most 8 events — zero heap allocation.
     let mut log: EventLog<8> = EventLog::new();
 
-    log.record(100, 0x01).expect("log not full");
-    log.record(200, 0x02).expect("log not full");
-    log.record(300, 0xFF).expect("log not full");
+    log.record(100, 0x01)?;
+    log.record(200, 0x02)?;
+    log.record(300, 0xFF)?;
 
     println!("logged {} events", log.len());
-    println!("latest: {:?}", log.latest().unwrap());
+    let latest = log.latest()?;
+    println!(
+        "latest: timestamp={}ms code=0x{:02X}",
+        latest.timestamp_ms, latest.code
+    );
 
     // Stack-allocated string formatting.
-    let label = format_label(42, 3.14).expect("fits in 32 bytes");
+    let label = format_label(42, 3.14)?;
     println!("label: {label}");
 
     // Demonstrate capacity enforcement — the 9th push returns Err.
     let mut full_log: EventLog<2> = EventLog::new();
-    full_log.record(0, 1).unwrap();
-    full_log.record(1, 2).unwrap();
-    let overflow = full_log.record(2, 3);
-    assert!(overflow.is_err());
+    full_log.record(0, 1)?;
+    full_log.record(1, 2)?;
+    assert!(full_log.record(2, 3).is_err());
     println!("overflow correctly rejected");
+
+    Ok(())
 }
 
 #[cfg(test)]

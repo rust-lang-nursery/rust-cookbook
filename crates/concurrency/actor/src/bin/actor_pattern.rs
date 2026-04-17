@@ -1,4 +1,15 @@
+use thiserror::Error;
 use tokio::sync::{mpsc, oneshot};
+
+#[derive(Debug, Error)]
+enum ActorError {
+    #[error("failed to send message to actor")]
+    Send(#[from] mpsc::error::SendError<Message>),
+    #[error("actor dropped response channel")]
+    Recv(#[from] oneshot::error::RecvError),
+    #[error("task failed")]
+    Join(#[from] tokio::task::JoinError),
+}
 
 // The Message enum represents commands sent to the actor.
 enum Message {
@@ -94,7 +105,7 @@ impl DriverHandle {
         driver_id: u32,
         lat: f64,
         lng: f64,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    ) -> Result<(), ActorError> {
         self.sender
             .send(Message::UpdateLocation {
                 driver_id,
@@ -108,7 +119,7 @@ impl DriverHandle {
     async fn get_driver_status(
         &self,
         driver_id: u32,
-    ) -> Result<Option<DriverStatus>, Box<dyn std::error::Error>> {
+    ) -> Result<Option<DriverStatus>, ActorError> {
         let (tx, rx) = oneshot::channel();
         self.sender
             .send(Message::GetDriverStatus {
@@ -121,7 +132,7 @@ impl DriverHandle {
 }
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), ActorError> {
     let handle = DriverHandle::new();
 
     // Multiple clones can be sent to different tasks.
@@ -129,25 +140,29 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let h2 = handle.clone();
 
     let task1 = tokio::spawn(async move {
-        h1.update_location(1, 40.7128, -74.0060).await.unwrap();
-        h1.update_location(1, 40.7130, -74.0062).await.unwrap();
+        h1.update_location(1, 40.7128, -74.0060).await?;
+        h1.update_location(1, 40.7130, -74.0062).await?;
+        Ok::<(), ActorError>(())
     });
 
     let task2 = tokio::spawn(async move {
-        h2.update_location(2, 34.0522, -118.2437).await.unwrap();
+        h2.update_location(2, 34.0522, -118.2437).await?;
+        Ok::<(), ActorError>(())
     });
 
-    task1.await?;
-    task2.await?;
+    task1.await??;
+    task2.await??;
 
-    let status = handle.get_driver_status(1).await?;
-    println!("Driver 1: {:?}", status);
+    if let Some(s) = handle.get_driver_status(1).await? {
+        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+    }
 
-    let status = handle.get_driver_status(2).await?;
-    println!("Driver 2: {:?}", status);
+    if let Some(s) = handle.get_driver_status(2).await? {
+        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+    }
 
-    let status = handle.get_driver_status(99).await?;
-    println!("Driver 99: {:?}", status);
+    let missing = handle.get_driver_status(99).await?;
+    println!("Driver 99: {:?}", missing);
 
     Ok(())
 }

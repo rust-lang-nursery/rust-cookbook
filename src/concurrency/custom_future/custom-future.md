@@ -8,11 +8,15 @@ instead of relying on `async`/`await`.
 
 Every custom future must handle three concepts:
 
+<div class="comparison">
+
 | Concept | Why it matters |
 |---------|----------------|
 | **[`Pin<&mut Self>`]** | Guarantees the future won't move in memory after the first poll. This is critical for self-referential futures (e.g., those holding borrows across `.await` points). If your struct contains only ordinary fields (no self-references), the compiler auto-implements `Unpin` and pinning is effectively a no-op. |
 | **[`Poll::Pending`] / [`Poll::Ready`]** | `Pending` tells the executor "not done yet," while `Ready(value)` completes the future. |
 | **[`cx.waker()`]** | A handle the executor gives you. You *must* call `wake()` at some point after returning `Pending`, or the executor will never poll the future again and it will hang. |
+
+</div>
 
 The example below builds a simple `Delay` future that resolves after a
 deadline.  It has no self-referential fields, so it is `Unpin` automatically—
