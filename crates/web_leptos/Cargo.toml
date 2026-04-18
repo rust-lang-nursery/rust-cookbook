@@ -1,0 +1,14 @@
+[package]
+name = "web_leptos"
+version = "1.1.0"
+authors = ["Brian Anderson <banderson@mozilla.com>", "Andrew Gauger <andygauge@gmail.com>"]
+edition = "2024"
+license = "MIT OR Apache-2.0"
+publish = false
+
+[dependencies]
+axum = "0.8"
+leptos = { version = "0.8.19", features = ["ssr"] }
+leptos_axum = "0.8.9"
+leptos_router = { version = "0.8.13", features = ["ssr"] }
+tokio = { version = "1.42", features = ["full"] }

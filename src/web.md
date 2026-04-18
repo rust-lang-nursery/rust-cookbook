@@ -46,6 +46,13 @@
 |--------|--------|------------|
 | [Basic Authentication][ex-basic-authentication] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 
+## Full Stack Web
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
+| [Return filtered results as HTML][ex-leptos-render] | [![leptos-badge]][leptos] [![leptos-router-badge]][leptos-router] [![leptos-axum-badge]][leptos-axum] [![axum-badge]][axum] [![tokio-badge]][tokio] | [![cat-net-badge]][cat-net] |
+| [Synchronize component state with the server][ex-leptos-hydrate] | [![leptos-badge]][leptos] [![leptos-axum-badge]][leptos-axum] [![axum-badge]][axum] [![tokio-badge]][tokio] [![wasm-bindgen-badge]][wasm-bindgen] | [![cat-net-badge]][cat-net] |
+
 [ex-extract-links-webpage]: web/scraping.html#extract-all-links-from-a-webpage-html
 [ex-check-broken-links]: web/scraping.html#check-a-webpage-for-broken-links
 [ex-extract-mediawiki-links]: web/scraping.html#extract-all-unique-links-from-a-mediawiki-markup
@@ -73,5 +80,8 @@
 [ex-file-post]: web/clients/download.html#post-a-file-to-paste-rs
 
 [ex-basic-authentication]: web/clients/authentication.html#basic-authentication
+
+[ex-leptos-render]: web/leptos.html#return-filtered-results-as-html
+[ex-leptos-hydrate]: web/leptos.html#synchronize-component-state-with-the-server
 
 {{#include links.md}}

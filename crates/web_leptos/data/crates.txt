@@ -1,0 +1,17 @@
+axum
+leptos
+leptos_axum
+leptos_router
+reqwest
+serde
+serde_json
+tokio
+tracing
+tracing-subscriber
+rand
+rayon
+regex
+rusqlite
+url
+anyhow
+thiserror

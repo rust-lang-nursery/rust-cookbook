@@ -1,0 +1,40 @@
+[package]
+name = "web_leptos_hydrate"
+version = "1.1.0"
+authors = ["Brian Anderson <banderson@mozilla.com>", "Andrew Gauger <andygauge@gmail.com>"]
+edition = "2024"
+license = "MIT OR Apache-2.0"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+leptos = "0.8.19"
+leptos_axum = { version = "0.8.9", optional = true }
+leptos_router = "0.8.13"
+axum = { version = "0.8", optional = true }
+tokio = { version = "1.42", features = ["rt-multi-thread", "macros"], optional = true }
+wasm-bindgen = "=0.2.118"
+console_error_panic_hook = "0.1"
+
+[features]
+hydrate = ["leptos/hydrate"]
+ssr = [
+    "dep:leptos_axum",
+    "dep:axum",
+    "dep:tokio",
+    "leptos/ssr",
+    "leptos_router/ssr",
+]
+
+[package.metadata.leptos]
+output-name = "web_leptos_hydrate"
+site-root = "target/site"
+site-pkg-dir = "pkg"
+site-addr = "127.0.0.1:3000"
+reload-port = 3001
+bin-features = ["ssr"]
+bin-default-features = false
+lib-features = ["hydrate"]
+lib-default-features = false
