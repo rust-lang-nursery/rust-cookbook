@@ -7121,7 +7121,8 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 #[cfg(not(feature = "ssr"))]
 fn main() {}</code></pre>
 <p>Run it:</p>
-<pre><code class="language-shell">cargo leptos watch --manifest-path crates/web_leptos_hydrate/Cargo.toml
+<pre><code class="language-shell">cd crates/web_leptos_hydrate
+cargo leptos watch
 # http://127.0.0.1:3000/
 </code></pre>
 <p>More in the Leptos book: <a href="https://book.leptos.dev/server/25_server_functions.html">Server Functions</a> and
