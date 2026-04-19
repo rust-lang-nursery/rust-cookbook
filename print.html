@@ -6865,7 +6865,7 @@ fn FilterPage() -&gt; impl IntoView {
             .unwrap_or_default()
     };
 
-    let results = Resource::new(query, |q| async move { filter_crates(q).await });
+    let results = Resource::new(query, filter_crates);
 
     view! {
         &lt;h1&gt;"Results"&lt;/h1&gt;
@@ -6977,8 +6977,12 @@ leptos_axum = { version = "0.8.9", optional = true }
 leptos_router = "0.8.13"
 axum = { version = "0.8", optional = true }
 tokio = { version = "1.42", features = ["rt-multi-thread", "macros"], optional = true }
+tower-http = "0.6"
 wasm-bindgen = "=0.2.118"
 console_error_panic_hook = "0.1"
+
+[dev-dependencies]
+cargo-leptos = "0.3.6"
 
 [features]
 hydrate = ["leptos/hydrate"]
@@ -6997,9 +7001,6 @@ site-pkg-dir = "pkg"
 site-addr = "127.0.0.1:3000"
 reload-port = 3001
 bin-features = ["ssr"]
-bin-default-features = false
-lib-features = ["hydrate"]
-lib-default-features = false
 </code></pre>
 <h3 id="put-the-filter-behind-a-server-function"><a class="header" href="#put-the-filter-behind-a-server-function">Put the filter behind a server function</a></h3>
 <p><a href="https://docs.rs/leptos/*/leptos/attr.server.html"><code>#[server]</code></a> makes <code>filter_crates</code> a function the client can
@@ -7094,6 +7095,8 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     use axum::Router;
     use leptos::config::get_configuration;
     use leptos_axum::{LeptosRoutes, generate_route_list};
+    use std::path::Path;
+    use tower_http::services::ServeDir;
     use web_leptos_hydrate::{App, shell};
 
     let conf = get_configuration(None)?;
@@ -7106,6 +7109,7 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
             let opts = options.clone();
             move || shell(opts.clone())
         })
+        .nest_service("/pkg", ServeDir::new(Path::new(&amp;*options.site_root).join("pkg")))
         .with_state(options);
 
     let listener = tokio::net::TcpListener::bind(&amp;addr).await?;
