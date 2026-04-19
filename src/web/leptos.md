@@ -217,7 +217,8 @@ server function endpoint automatically.
 Run it:
 
 ```shell
-cargo leptos watch --manifest-path crates/web_leptos_hydrate/Cargo.toml
+cd crates/web_leptos_hydrate
+cargo leptos watch
 # http://127.0.0.1:3000/
 ```
 
