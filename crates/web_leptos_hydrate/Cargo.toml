@@ -15,8 +15,12 @@ leptos_axum = { version = "0.8.9", optional = true }
 leptos_router = "0.8.13"
 axum = { version = "0.8", optional = true }
 tokio = { version = "1.42", features = ["rt-multi-thread", "macros"], optional = true }
+tower-http = "0.6"
 wasm-bindgen = "=0.2.118"
 console_error_panic_hook = "0.1"
+
+[dev-dependencies]
+cargo-leptos = "0.3.6"
 
 [features]
 hydrate = ["leptos/hydrate"]

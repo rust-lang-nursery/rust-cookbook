@@ -47,7 +47,7 @@ fn FilterPage() -> impl IntoView {
             .unwrap_or_default()
     };
 
-    let results = Resource::new(query, |q| async move { filter_crates(q).await });
+    let results = Resource::new(query, filter_crates);
 
     view! {
         <h1>"Results"</h1>
