@@ -5,6 +5,8 @@ Keep lines sorted.
 
 <!-- Categories -->
 
+[cat-asyncronous-badge]: https://img.shields.io/badge/asyncronous--x.svg?style=social
+[cat-asyncronous]: https://crates.io/categories/asynchronous
 [cat-caching-badge]: https://img.shields.io/badge/caching--x.svg?style=social
 [cat-caching]: https://crates.io/categories/caching
 [cat-command-line-badge]: https://img.shields.io/badge/command_line--x.svg?style=social
