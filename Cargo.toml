@@ -5,18 +5,36 @@ exclude = ["crates/web_leptos", "crates/web_leptos_hydrate"]
 [workspace.package]
 edition = "2024"
 version = "1.1.0"
-authors = ["Brian Anderson <banderson@mozilla.com>", "Andrew Gauger <andygauge@gmail.com>"]
+authors = [
+    "Brian Anderson <banderson@mozilla.com>",
+    "David Tolnay <dtolnay@gmail.com>",
+    "Michał Budzyński <budziq@gmail.com>",
+    "Brad Anderson <brad.anderson1995@gmail.com>",
+    "David Harris <dhharris9@gmail.com>",
+]
 license = "MIT OR Apache-2.0"
 publish = false
+
+[workspace.metadata]
+curator = "Andrew Gauger <andygauge@gmail.com>"
 
 [package]
 name = "rust-cookbook"
 version = "1.1.0"
-authors = ["Brian Anderson <banderson@mozilla.com>", "Andrew Gauger <andygauge@gmail.com>"]
+authors = [
+    "Brian Anderson <banderson@mozilla.com>",
+    "David Tolnay <dtolnay@gmail.com>",
+    "Michał Budzyński <budziq@gmail.com>",
+    "Brad Anderson <brad.anderson1995@gmail.com>",
+    "David Harris <dhharris9@gmail.com>",
+]
 edition = "2018"
 license = "MIT OR Apache-2.0"
 publish = false
 build = "build.rs"
+
+[package.metadata]
+curator = "Andrew Gauger <andygauge@gmail.com>"
 
 [features]
 default = []
