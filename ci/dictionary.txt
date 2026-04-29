@@ -24,6 +24,8 @@ args
 AsRef
 AsyncRead
 AsyncWrite
+asyncread
+asyncwrite
 ascii
 ashley
 async
