@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Async I/O - Rust Cookbook</title>
+        <title>Message Passing - Rust Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -130,7 +130,7 @@
                         <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/file/async.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/asynchronous/channel.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -159,51 +159,134 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="async-io"><a class="header" href="#async-io">Async I/O</a></h1>
-<h2 id="read-multiple-files-concurrently"><a class="header" href="#read-multiple-files-concurrently">Read multiple files concurrently</a></h2>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
-<p>Reads several files at once instead of one after another. Each
-read is spawned onto the runtime with <a href="https://docs.rs/tokio/*/tokio/task/struct.JoinSet.html"><code>tokio::task::JoinSet</code></a>, so
-the syscalls overlap and total wall time is roughly the slowest
-read rather than the sum of all of them. This is the pattern to
-reach for when collecting log shards, manifest files, or chunked
-uploads from disk.</p>
-<p>The example seeds a temp directory with five files, then reads
-them concurrently and reports each file's size and the total. The
-async equivalent of <a href="https://doc.rust-lang.org/std/fs/fn.read.html"><code>std::fs::read</code></a> is <a href="https://docs.rs/tokio/*/tokio/fs/fn.read.html"><code>tokio::fs::read</code></a>.</p>
-<pre><pre class="playground"><code class="language-rust no_run edition2018">use std::path::PathBuf;
-use tempfile::tempdir;
-use tokio::fs;
-use tokio::task::JoinSet;
+                        <h1 id="message-passing"><a class="header" href="#message-passing">Message Passing</a></h1>
+<p>When your program has multiple tasks running at the same time, they sometimes need to talk to each
+other. Channels are how you do that, one task sends a message, another receives it.
+Think of it like a pipe: you put something in one end, and it comes out the other.</p>
+<h2 id="bounded-channels"><a class="header" href="#bounded-channels">Bounded Channels</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>A <a href="https://docs.rs/tokio/*/tokio/sync/mpsc/fn.channel.html"><code>bounded channel</code></a> has a limit on how many messages it can hold at once. If the channel is full,
+the sender has to wait until there is room before it can send another message.</p>
+<p>Think of it like a physical mailbox. It can only hold a fixed number of letters. If it's full,
+the postman has to wait until someone clears it out before dropping in another letter.</p>
+<p>In this example, two book stores send books through a channel with a capacity of 5.
+A shelf collects whatever comes through.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::io;
+use tokio::sync::mpsc::channel;
+
+struct Book {
+    title: &amp;'static str,
+}
+
+impl Book {
+    fn new(title: &amp;'static str) -&gt; Self {
+        Self { title }
+    }
+}
 
 #[tokio::main]
-async fn main() -&gt; std::io::Result&lt;()&gt; {
-    let dir = tempdir()?;
-    let paths: Vec&lt;PathBuf&gt; = (0..5)
-        .map(|i| dir.path().join(format!("part-{i}.log")))
-        .collect();
+async fn main() -&gt; io::Result&lt;()&gt; {
+    let (book_sender, mut book_receiver) = channel(5);
 
-    for (i, path) in paths.iter().enumerate() {
-        fs::write(path, "x".repeat((i + 1) * 1024)).await?;
+    // Each store gets its own copy of the sender.
+    let store_one_book_sender = book_sender.clone();
+    let book_store_one = tokio::task::spawn(async move {
+        if let Err(err) = store_one_book_sender
+            .send(Book::new("Shawshank Redemption"))
+            .await
+        {
+            eprintln!("Failed to send book from store one: {}", err);
+        }
+    });
+
+    let book_store_two = tokio::task::spawn(async move {
+        if let Err(err) = book_sender.send(Book::new("Secret Recipe")).await {
+            eprintln!("Failed to send book from store two: {}", err);
+        }
+    });
+
+    let mut shelf: Vec&lt;Book&gt; = Vec::new();
+    // Collect every book that arrives until both stores are done sending.
+    while let Some(new_book) = book_receiver.recv().await {
+        shelf.push(new_book);
     }
 
-    let mut tasks: JoinSet&lt;std::io::Result&lt;(PathBuf, usize)&gt;&gt; = JoinSet::new();
-    for path in paths {
-        tasks.spawn(async move {
-            let bytes = fs::read(&amp;path).await?;
-            Ok((path, bytes.len()))
-        });
+    book_store_one.await?;
+    book_store_two.await?;
+
+    for book in &amp;shelf {
+        println!("Title: {}", book.title);
     }
 
-    let mut total = 0;
-    while let Some(joined) = tasks.join_next().await {
-        let (path, len) = joined.expect("read task panicked")?;
-        println!("{}: {len} bytes", path.display());
-        total += len;
-    }
-    println!("total: {total} bytes");
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#sync"><code>sync</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "sync"] }
+</code></pre>
+</blockquote>
+<h2 id="unbounded-channels"><a class="header" href="#unbounded-channels">Unbounded Channels</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>An <a href="https://docs.rs/tokio/*/tokio/sync/mpsc/fn.unbounded_channel.html"><code>unbounded channel</code></a> has no limit on how many messages it can hold. The sender never has to wait,
+it can always drop a message in, no matter how many are already sitting there.</p>
+<p>Think of it like a digital inbox. It just keeps growing as new messages arrive. There's no cap,
+but if messages pile up faster than they're being read, your program will use more and more memory.
+Sending on an unbounded channel will always succeed as long as the receiving end is still open.
+If the receiver is slow, messages simply queue up and wait.</p>
+<p>In this example, two people send messages through a channel. An inbox collects whatever comes
+through.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::io;
+use tokio::sync::mpsc::unbounded_channel;
 
-    Ok(())</code></pre></pre>
+struct Message {
+    from: &amp;'static str,
+    text: &amp;'static str,
+}
+
+impl Message {
+    fn new(from: &amp;'static str, text: &amp;'static str) -&gt; Self {
+        Self { from, text }
+    }
+}
+
+#[tokio::main]
+async fn main() -&gt; io::Result&lt;()&gt; {
+    let (message_sender, mut message_receiver) = unbounded_channel();
+
+    let alice_message_sender = message_sender.clone();
+    let person_one = tokio::task::spawn(async move {
+        if let Err(err) = alice_message_sender.send(Message::new("Alice", "Meeting postponed")) {
+            eprintln!("Failed to send message from Alice: {}", err);
+        }
+    });
+
+    let person_two = tokio::task::spawn(async move {
+        if let Err(err) = message_sender.send(Message::new("Bob", "Secret Leaked")) {
+            eprintln!("Failed to send message from Bob: {}", err);
+        }
+    });
+
+    let mut inbox: Vec&lt;Message&gt; = Vec::new();
+    while let Some(new_book) = message_receiver.recv().await {
+        inbox.push(new_book);
+    }
+
+    person_one.await?;
+    person_two.await?;
+
+    for msg in &amp;inbox {
+        println!("{} says: {}", msg.from, msg.text);
+    }
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#sync"><code>sync</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "sync"] }
+</code></pre>
+</blockquote>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -215,11 +298,11 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../file/dir.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../asynchronous/timeout.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../hardware.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../asynchronous/ftc.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -229,11 +312,11 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../file/dir.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../asynchronous/timeout.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../hardware.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../asynchronous/ftc.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
