@@ -1,9 +1,15 @@
 # Builder Approach
 [![tokio-badge]][tokio] [![std-badge]][std]
 
-[`Builder`] gives you full control over the async runtime configuration before starting it. This 
-is used when there is a need to tune thread count, stack size, or thread names instead of accepting
-the defaults from #[[`tokio::main`]].
+[`tokio::main`] works well for most programs, but it makes all the decisions for you.
+If you need control over how the runtime is set up, use the [`Builder`] instead.
+
+Think of Builder as a recipe. Each method you call adds an instruction, how many threads to
+use, what to call them, how much memory to give each one. Nothing actually happens until 
+you call [`.build()`] at the end, which is when the runtime is created and ready to run.
+
+In this example, the recipe sets up 4 worker threads, gives them the name "thread-one",
+and sets a stack size of 3MB each.
 
 ```rust,edition2018
 use std::io;
@@ -38,3 +44,4 @@ fn main() -> io::Result<()> {
 [`Builder`]: https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html
 [`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread
 [`tokio::main`]: https://docs.rs/tokio/*/tokio/attr.main.html
+[`.build()`]: https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html#method.build

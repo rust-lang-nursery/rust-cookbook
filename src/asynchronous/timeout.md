@@ -2,9 +2,12 @@
 
 [![tokio-badge]][tokio] [![std-badge]][std]
 
-This example shows the use of timeouts in async operations. [`tokio::time::timeout`] wraps a
-future and sets a maximum time it can run. If the future finishes in time you get the result,
-otherwise it is cancelled and an error is returned.
+Sometimes a task takes too long and you don't want to wait forever. A [`timeout`] puts a time limit
+on a task. If it finishes in time you get the result, if it doesn't, it is cancelled and you get
+an error back.
+
+In this example, a network request is given 5 milliseconds to complete. If it finishes in time, 
+the result is printed. If it runs over, the program reports a timeout.
 
 ```rust,edition2018
 use std::time::Duration;
@@ -33,4 +36,4 @@ async fn main() {
 
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
 [`time`]: https://docs.rs/crate/tokio/*/features#time
-[`tokio::time::timeout`]: https://docs.rs/tokio/*/tokio/time/fn.timeout.html
+[`timeout`]: https://docs.rs/tokio/*/tokio/time/fn.timeout.html

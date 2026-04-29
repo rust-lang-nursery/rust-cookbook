@@ -2,8 +2,8 @@
 
 [![tokio-badge]][tokio] [![std-badge]][std]
 
-[`tokio::fs::write`] writes bytes to a file asynchronously. It creates the file if it doesn't exist,
-or overwrites it if it does.
+Writing to disk takes time. [`tokio::fs::write`] is a non-blocking way to write bytes to a file.
+It creates the file if it does not exist, or overwrites it if it does.
 
 ```rust,edition2018,no_run
 use std::io;

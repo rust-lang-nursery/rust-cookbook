@@ -2,8 +2,12 @@
 
 [![tokio-badge]][tokio] [![std-badge]][std]
 
-[`tokio::fs::remove_file`] deletes a file asynchronously, [`tokio::fs::remove_dir`] deletes an
-empty directory, and [`tokio::fs::remove_dir_all`] deletes a directory and everything inside it.
+Deleting from disk takes time. Tokio provides non-blocking versions of these operations so your
+program does not have to stop and wait while the work is done.
+
+- [`remove_file`] deletes a single file.
+- [`remove_dir`] deletes a single directory. Only works if the directory is empty.
+- [`remove_dir_all`] deletes a directory and everything inside it.
 
 ```rust,edition2018,no_run
 use std::io;
@@ -31,6 +35,6 @@ async fn main() -> io::Result<()> {
 
 [`fs`]: https://docs.rs/crate/tokio/*/features#fs
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
-[`tokio::fs::remove_dir_all`]: https://docs.rs/tokio/*/tokio/fs/fn.remove_dir_all.html
-[`tokio::fs::remove_dir`]: https://docs.rs/tokio/*/tokio/fs/fn.remove_dir.html
-[`tokio::fs::remove_file`]: https://docs.rs/tokio/*/tokio/fs/fn.remove_file.html
+[`remove_dir_all`]: https://docs.rs/tokio/*/tokio/fs/fn.remove_dir_all.html
+[`remove_dir`]: https://docs.rs/tokio/*/tokio/fs/fn.remove_dir.html
+[`remove_file`]: https://docs.rs/tokio/*/tokio/fs/fn.remove_file.html

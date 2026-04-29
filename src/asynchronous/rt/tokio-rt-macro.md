@@ -1,8 +1,10 @@
-# Tokio Runtime
+# Macro
 [![tokio-badge]][tokio]
 
-This example uses [`tokio::main`] macro to set up an async runtime and mark the entry point of 
-the program. It allows main to be async, so you can use .await directly inside it.
+The easiest way to start the Tokio runtime is with the [`tokio::main`] macro. Put it above your
+main function and it handles everything for you, starting the runtime, running your code, and 
+shutting it down when done. It also lets `main` be non-blocking, so you can use `.await` directly
+inside it.
 
 ```rust,edition2018
 async fn fetch_network_request() -> u32 {

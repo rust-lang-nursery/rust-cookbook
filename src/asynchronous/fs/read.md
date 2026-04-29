@@ -2,9 +2,12 @@
 
 [![tokio-badge]][tokio] [![std-badge]][std]
 
-[`tokio::fs`] provides async versions of the standard file operations. [`read`] loads the file into a 
-`Vec<u8>` and [`read_to_string`] loads it into a [`String`]. Both of these functions do not block the 
-current thread while waiting for the disk.
+Reading a file from disk takes time. Tokio provides non-blocking versions of file reads so your
+program can keep doing other work while waiting for the data to come back.
+
+- [`read`] loads the file into raw bytes. Useful when you need to process the data directly.
+- [`read_to_string`] loads the file into plain text. Useful when you know the file contains readable
+characters.
 
 ```rust,edition2018,no_run
 use std::io;
@@ -33,9 +36,7 @@ async fn main() -> io::Result<()> {
 > tokio = { version = "*", features = ["macros", "fs"] }
 > ```
 
-[`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`fs`]: https://docs.rs/crate/tokio/*/features#fs
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
 [`read_to_string`]: https://docs.rs/tokio/*/tokio/fs/fn.read_to_string.html
 [`read`]: https://docs.rs/tokio/*/tokio/fs/fn.read.html
-[`tokio::fs`]: https://docs.rs/tokio/*/tokio/fs/index.html

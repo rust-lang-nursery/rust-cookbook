@@ -2,9 +2,15 @@
 
 [![tokio-badge]][tokio] [![std-badge]][std]
 
-This example shows the use of [`AsyncRead`] and [`AsyncWrite`] which are the core traits for async 
-I/O in Tokio. Their extensions [`AsyncReadExt`] and [`AsyncWriteExt`] add convenient methods like
-[`read`], [`write`], [`read_to_end`], and [`copy`] directly on any async stream or file.
+[`AsyncRead`] and [`AsyncWrite`] are the building blocks for all non-blocking I/O in Tokio. 
+Any type that can be read from or written to non-blocking i.e [`file`], a [`network stream`], or 
+a [`buffer`], implements one or both of these.
+
+Their extensions [`AsyncReadExt`] and [`AsyncWriteExt`] add convenient methods on top:
+
+- [`write_all`] writes bytes to a writer.
+- [`read_to_end`] reads everything from a reader into a buffer.
+- [`copy`] streams data from a reader directly into a writer.
 
 ```rust,edition2018,no_run
 use std::io;
@@ -32,9 +38,6 @@ async fn main() -> io::Result<()> {
 }
 ```
 
-> Types like [`File`], [`TcpStream`], and [`BufReader`] implement the traits [`AsyncRead`] and 
-[`AsyncWrite`].
-
 > Add `tokio` to `Cargo.toml` with the [`macros`], [`io-util`] and [`fs`] features enabled.
 > ```toml
 > [dependencies]
@@ -45,13 +48,12 @@ async fn main() -> io::Result<()> {
 [`AsyncRead`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncRead.html
 [`AsyncWriteExt`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncWriteExt.html
 [`AsyncWrite`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncWrite.html
-[`BufReader`]: https://docs.rs/tokio/*/tokio/io/struct.BufReader.html
-[`File`]: https://docs.rs/tokio/*/tokio/fs/struct.File.html
-[`TcpStream`]: https://docs.rs/tokio/*/tokio/net/struct.TcpStream.html
+[`buffer`]: https://docs.rs/tokio/*/tokio/io/struct.BufReader.html
+[`file`]: https://docs.rs/tokio/*/tokio/fs/struct.File.html
+[`network stream`]: https://docs.rs/tokio/*/tokio/net/struct.TcpStream.html
 [`copy`]: https://docs.rs/tokio/*/tokio/io/fn.copy.html
 [`fs`]: https://docs.rs/crate/tokio/*/features#fs
 [`io-util`]: https://docs.rs/crate/tokio/*/features#io-util
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
 [`read_to_end`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncReadExt.html#method.read_to_end
-[`read`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncReadExt.html#method.read
-[`write`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncWriteExt.html#method.write
+[`write_all`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncWriteExt.html#method.write_all
