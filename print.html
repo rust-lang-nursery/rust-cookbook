@@ -856,6 +856,544 @@ Keep lines sorted.
 -->
 <!-- Categories -->
 <!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="asynchronous"><a class="header" href="#asynchronous">Asynchronous</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr></thead><tbody>
+<tr><td><a href="asynchronous/intro.html">Intro</a></td><td>-</td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/rt.html#tokio-runtime">Tokio Runtime</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/rt.html#builder-approach">Tokio Runtime Builder</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/fs.html#create-files-and-directories">Create Files Operations</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/fs.html#read-files">Read Files Operations</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/fs.html#write-files">Write Files Operations</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/fs.html#remove-files-and-directories">Remove Files Operations</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/fs.html#asyncread-and-asyncwrite">AsyncRead and AsyncWrite traits</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/channel.html#bounded-channels">Bounded channels</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/channel.html#unbounded-channels">Unbounded channels</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/ftc.html">First-to-complete</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/timeout.html">Task Timeouts</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+<tr><td><a href="asynchronous/join.html#join-sets">Join Sets</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge" /></a></td></tr>
+</tbody></table>
+</div><!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>When your program asks for something that takes time, e.g reading a file, fetching data from a
+server, waiting for a timer, it has two choices: sit and wait doing nothing, or go do something
+else while it waits.</p>
+<p><code>Blocking</code> means sitting and waiting. Your program freezes until the result comes back.
+Nothing else can happen in the meantime.</p>
+<p><code>Non-blocking (async)</code> means your program starts the task, steps away, and comes back to collect
+the result when it is ready. While it waits, it can work on other things.</p>
+<p>In Rust, async code is written using two keywords:</p>
+<ul>
+<li><code>async</code> marks a function as non-blocking. Calling it does not run it immediately. It gives you
+back a task that is ready to be run.</li>
+<li><code>.await</code> is where you hand control back and say "run this task, and come back to me when it is
+done."</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="async-runtime"><a class="header" href="#async-runtime">Async Runtime</a></h1>
+<p>Before your non-blocking code can run, something needs to manage it, deciding which tasks run,
+when they run, and what to do while they are waiting. That manager is called a runtime.</p>
+<p>Think of it like a coordinator at a call center; instead of one person sitting idle waiting for a
+call back, the coordinator keeps everyone busy by assigning new work while others wait.</p>
+<p>Tokio is that runtime for Rust. Without it, <code>async</code> functions and <code>.await</code> do nothing on their own.</p>
+<h1 id="macro"><a class="header" href="#macro">Macro</a></h1>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></p>
+<p>The easiest way to start the Tokio runtime is with the <a href="https://docs.rs/tokio/*/tokio/attr.main.html"><code>tokio::main</code></a> macro. Put it above your
+main function and it handles everything for you, starting the runtime, running your code, and
+shutting it down when done. It also lets <code>main</code> be non-blocking, so you can use <code>.await</code> directly
+inside it.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">async fn fetch_network_request() -&gt; u32 {
+    89
+}
+
+#[tokio::main]
+async fn main() {
+    let result = fetch_network_request().await;
+    assert_eq!(result, 89);
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#rt-multi-thread"><code>rt-multi-thread</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
+</code></pre>
+</blockquote>
+<h1 id="builder-approach"><a class="header" href="#builder-approach">Builder Approach</a></h1>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p><a href="https://docs.rs/tokio/*/tokio/attr.main.html"><code>tokio::main</code></a> works well for most programs, but it makes all the decisions for you.
+If you need control over how the runtime is set up, use the <a href="https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html"><code>Builder</code></a> instead.</p>
+<p>Think of Builder as a recipe. Each method you call adds an instruction, how many threads to
+use, what to call them, how much memory to give each one. Nothing actually happens until
+you call <a href="https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html#method.build"><code>.build()</code></a> at the end, which is when the runtime is created and ready to run.</p>
+<p>In this example, the recipe sets up 4 worker threads, gives them the name "thread-one",
+and sets a stack size of 3MB each.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::io;
+use tokio::runtime::Builder;
+
+async fn fetch_network_request() -&gt; u32 {
+    89
+}
+
+fn main() -&gt; io::Result&lt;()&gt; {
+     let runtime = Builder::new_multi_thread()
+        .worker_threads(4)
+        .thread_name("thread-one")
+        .thread_stack_size(3 * 1024 * 1024)
+        .build()?;
+
+    runtime.spawn(async {
+        let result = fetch_network_request().await;
+        assert_eq!(result, 89);
+    });
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#rt-multi-thread"><code>rt-multi-thread</code></a> feature enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["rt-multi-thread"] }
+</code></pre>
+</blockquote>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="file-io"><a class="header" href="#file-io">File IO</a></h1>
+<h2 id="create-files-and-directories"><a class="header" href="#create-files-and-directories">Create Files and Directories</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>Creating files and directories on disk takes time. Tokio provides non-blocking versions of these
+operations so your program does not have to stop and wait while the work is done.</p>
+<p><a href="https://docs.rs/tokio/*/tokio/fs/struct.File.html#method.create"><code>File::create</code></a> creates a new file. If the file already exists, it is overwritten.
+<a href="https://docs.rs/tokio/*/tokio/fs/fn.create_dir.html"><code>create_dir</code></a> creates a single directory. If it already exists, it fails.
+<a href="https://docs.rs/tokio/*/tokio/fs/fn.create_dir_all.html"><code>create_dir_all</code></a> creates a directory and any missing parent directories along the path.</p>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+use tokio::fs::File;
+
+#[tokio::main]
+async fn main() -&gt; io::Result&lt;()&gt; {
+    // create a file
+    File::create("data.txt").await?;
+
+    // create a single directory
+    tokio::fs::create_dir("my_dir").await?;
+
+    // create directory and missing parents
+    tokio::fs::create_dir_all("my_dir/sub_dir/inner").await?;
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "fs"] }
+</code></pre>
+</blockquote>
+<h2 id="read-files"><a class="header" href="#read-files">Read files</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>Reading a file from disk takes time. Tokio provides non-blocking versions of file reads so your
+program can keep doing other work while waiting for the data to come back.</p>
+<ul>
+<li><a href="https://docs.rs/tokio/*/tokio/fs/fn.read.html"><code>read</code></a> loads the file into raw bytes. Useful when you need to process the data directly.</li>
+<li><a href="https://docs.rs/tokio/*/tokio/fs/fn.read_to_string.html"><code>read_to_string</code></a> loads the file into plain text. Useful when you know the file contains readable
+characters.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+
+fn process_data(data: &amp;[u8]) {
+    println!("Data Length: {}", data.len());
+}
+
+#[tokio::main]
+async fn main() -&gt; io::Result&lt;()&gt; {
+    // read to a Vec&lt;u8&gt;
+    let content = tokio::fs::read("data.txt").await?;
+    process_data(&amp;content);
+
+    // read to a String
+    let str_content = tokio::fs::read_to_string("data.txt").await?;
+    process_data(str_content.as_bytes());
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "fs"] }
+</code></pre>
+</blockquote>
+<h2 id="write-files"><a class="header" href="#write-files">Write Files</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>Writing to disk takes time. <a href="https://docs.rs/tokio/*/tokio/fs/fn.write.html"><code>tokio::fs::write</code></a> is a non-blocking way to write bytes to a file.
+It creates the file if it does not exist, or overwrites it if it does.</p>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+
+#[tokio::main]
+async fn main() -&gt; io::Result&lt;()&gt; {
+    let content = b"Generic data from program!";
+    tokio::fs::write("data.txt", content).await?;
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "fs"] }
+</code></pre>
+</blockquote>
+<h2 id="remove-files-and-directories"><a class="header" href="#remove-files-and-directories">Remove Files and Directories</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>Deleting from disk takes time. Tokio provides non-blocking versions of these operations so your
+program does not have to stop and wait while the work is done.</p>
+<ul>
+<li><a href="https://docs.rs/tokio/*/tokio/fs/fn.remove_file.html"><code>remove_file</code></a> deletes a single file.</li>
+<li><a href="https://docs.rs/tokio/*/tokio/fs/fn.remove_dir.html"><code>remove_dir</code></a> deletes a single directory. Only works if the directory is empty.</li>
+<li><a href="https://docs.rs/tokio/*/tokio/fs/fn.remove_dir_all.html"><code>remove_dir_all</code></a> deletes a directory and everything inside it.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+
+#[tokio::main]
+async fn main() -&gt; io::Result&lt;()&gt; {
+    // remove a file
+    tokio::fs::remove_file("data.txt").await?;
+
+    // remove an empty directory
+    tokio::fs::remove_dir("my_dir").await?;
+
+    // remove a directory and all its contents
+    tokio::fs::remove_dir_all("my_dir").await?;
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "fs"] }
+</code></pre>
+</blockquote>
+<h2 id="asyncread-and-asyncwrite"><a class="header" href="#asyncread-and-asyncwrite">AsyncRead and AsyncWrite</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p><a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncRead.html"><code>AsyncRead</code></a> and <a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncWrite.html"><code>AsyncWrite</code></a> are the building blocks for all non-blocking I/O in Tokio.
+Any type that can be read from or written to non-blocking i.e <a href="https://docs.rs/tokio/*/tokio/fs/struct.File.html"><code>file</code></a>, a <a href="https://docs.rs/tokio/*/tokio/net/struct.TcpStream.html"><code>network stream</code></a>, or
+a <a href="https://docs.rs/tokio/*/tokio/io/struct.BufReader.html"><code>buffer</code></a>, implements one or both of these.</p>
+<p>Their extensions <a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncReadExt.html"><code>AsyncReadExt</code></a> and <a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncWriteExt.html"><code>AsyncWriteExt</code></a> add convenient methods on top:</p>
+<ul>
+<li><a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncWriteExt.html#method.write_all"><code>write_all</code></a> writes bytes to a writer.</li>
+<li><a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncReadExt.html#method.read_to_end"><code>read_to_end</code></a> reads everything from a reader into a buffer.</li>
+<li><a href="https://docs.rs/tokio/*/tokio/io/fn.copy.html"><code>copy</code></a> streams data from a reader directly into a writer.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+use tokio::fs::File;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+#[tokio::main]
+async fn main() -&gt; io::Result&lt;()&gt; {
+    // AsyncWrite: write bytes to a file
+    let mut file = File::create("data.txt").await?;
+    file.write_all(b"Generated Data!").await?;
+
+    // AsyncRead: read bytes from a file
+    let mut file = File::open("data.txt").await?;
+    let mut contents = Vec::new();
+    file.read_to_end(&amp;mut contents).await?;
+    println!("Data Length: {}", contents.len());
+
+    // stream from reader to writer
+    let mut reader = File::open("data.txt").await?;
+    let mut writer = File::create("copy.txt").await?;
+    tokio::io::copy(&amp;mut reader, &amp;mut writer).await?;
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a>, <a href="https://docs.rs/crate/tokio/*/features#io-util"><code>io-util</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "fs", "io-util"] }
+</code></pre>
+</blockquote>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="timeouts"><a class="header" href="#timeouts">Timeouts</a></h1>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>Sometimes a task takes too long and you don't want to wait forever. A <a href="https://docs.rs/tokio/*/tokio/time/fn.timeout.html"><code>timeout</code></a> puts a time limit
+on a task. If it finishes in time you get the result, if it doesn't, it is cancelled and you get
+an error back.</p>
+<p>In this example, a network request is given 5 milliseconds to complete. If it finishes in time,
+the result is printed. If it runs over, the program reports a timeout.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::time::Duration;
+use tokio::time::timeout;
+
+async fn fetch_network_request() -&gt; u32 {
+    89
+}
+
+#[tokio::main]
+async fn main() {
+    match timeout(Duration::from_millis(5), fetch_network_request()).await {
+        Ok(x) =&gt; println!("Received {x}"),
+        Err(_) =&gt; eprintln!("Timed Out!"),
+    }
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#time"><code>time</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "time"] }
+</code></pre>
+</blockquote>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="message-passing"><a class="header" href="#message-passing">Message Passing</a></h1>
+<p>When your program has multiple tasks running at the same time, they sometimes need to talk to each
+other. Channels are how you do that, one task sends a message, another receives it.
+Think of it like a pipe: you put something in one end, and it comes out the other.</p>
+<h2 id="bounded-channels"><a class="header" href="#bounded-channels">Bounded Channels</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>A <a href="https://docs.rs/tokio/*/tokio/sync/mpsc/fn.channel.html"><code>bounded channel</code></a> has a limit on how many messages it can hold at once. If the channel is full,
+the sender has to wait until there is room before it can send another message.</p>
+<p>Think of it like a physical mailbox. It can only hold a fixed number of letters. If it's full,
+the postman has to wait until someone clears it out before dropping in another letter.</p>
+<p>In this example, two book stores send books through a channel with a capacity of 5.
+A shelf collects whatever comes through.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::io;
+use tokio::sync::mpsc::channel;
+
+struct Book {
+    title: &amp;'static str,
+}
+
+impl Book {
+    fn new(title: &amp;'static str) -&gt; Self {
+        Self { title }
+    }
+}
+
+#[tokio::main]
+async fn main() -&gt; io::Result&lt;()&gt; {
+    let (book_sender, mut book_receiver) = channel(5);
+
+    // Each store gets its own copy of the sender.
+    let store_one_book_sender = book_sender.clone();
+    let book_store_one = tokio::task::spawn(async move {
+        if let Err(err) = store_one_book_sender
+            .send(Book::new("Shawshank Redemption"))
+            .await
+        {
+            eprintln!("Failed to send book from store one: {}", err);
+        }
+    });
+
+    let book_store_two = tokio::task::spawn(async move {
+        if let Err(err) = book_sender.send(Book::new("Secret Recipe")).await {
+            eprintln!("Failed to send book from store two: {}", err);
+        }
+    });
+
+    let mut shelf: Vec&lt;Book&gt; = Vec::new();
+    // Collect every book that arrives until both stores are done sending.
+    while let Some(new_book) = book_receiver.recv().await {
+        shelf.push(new_book);
+    }
+
+    book_store_one.await?;
+    book_store_two.await?;
+
+    for book in &amp;shelf {
+        println!("Title: {}", book.title);
+    }
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#sync"><code>sync</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "sync"] }
+</code></pre>
+</blockquote>
+<h2 id="unbounded-channels"><a class="header" href="#unbounded-channels">Unbounded Channels</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
+<p>An <a href="https://docs.rs/tokio/*/tokio/sync/mpsc/fn.unbounded_channel.html"><code>unbounded channel</code></a> has no limit on how many messages it can hold. The sender never has to wait,
+it can always drop a message in, no matter how many are already sitting there.</p>
+<p>Think of it like a digital inbox. It just keeps growing as new messages arrive. There's no cap,
+but if messages pile up faster than they're being read, your program will use more and more memory.
+Sending on an unbounded channel will always succeed as long as the receiving end is still open.
+If the receiver is slow, messages simply queue up and wait.</p>
+<p>In this example, two people send messages through a channel. An inbox collects whatever comes
+through.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::io;
+use tokio::sync::mpsc::unbounded_channel;
+
+struct Message {
+    from: &amp;'static str,
+    text: &amp;'static str,
+}
+
+impl Message {
+    fn new(from: &amp;'static str, text: &amp;'static str) -&gt; Self {
+        Self { from, text }
+    }
+}
+
+#[tokio::main]
+async fn main() -&gt; io::Result&lt;()&gt; {
+    let (message_sender, mut message_receiver) = unbounded_channel();
+
+    let alice_message_sender = message_sender.clone();
+    let person_one = tokio::task::spawn(async move {
+        if let Err(err) = alice_message_sender.send(Message::new("Alice", "Meeting postponed")) {
+            eprintln!("Failed to send message from Alice: {}", err);
+        }
+    });
+
+    let person_two = tokio::task::spawn(async move {
+        if let Err(err) = message_sender.send(Message::new("Bob", "Secret Leaked")) {
+            eprintln!("Failed to send message from Bob: {}", err);
+        }
+    });
+
+    let mut inbox: Vec&lt;Message&gt; = Vec::new();
+    while let Some(new_book) = message_receiver.recv().await {
+        inbox.push(new_book);
+    }
+
+    person_one.await?;
+    person_two.await?;
+
+    for msg in &amp;inbox {
+        println!("{} says: {}", msg.from, msg.text);
+    }
+
+    Ok(())
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#sync"><code>sync</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "sync"] }
+</code></pre>
+</blockquote>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="select-first-to-complete"><a class="header" href="#select-first-to-complete">Select First to Complete</a></h1>
+<h1 id="ctrl-c"><a class="header" href="#ctrl-c">Ctrl-C</a></h1>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></p>
+<p>Sometimes you want to run a task, but also be ready to stop everything if the user presses Ctrl-C.
+<a href="https://docs.rs/tokio/latest/tokio/macro.select.html"><code>tokio::select!</code></a> lets you do exactly that. It runs multiple things at the same time and stops
+as soon as the first one finishes, cancelling everything else.</p>
+<p>In this example, the program tries to fetch some data. If the user presses Ctrl-C before the fetch
+is done, the program shuts down cleanly instead of waiting.</p>
+<p>Both branches start at the same time. Whichever one finishes first wins and the other is cancelled.
+If fetch_data completes first, the result is printed and the loop runs again.
+If Ctrl-C comes in first, the program exits.</p>
+<pre><pre class="playground"><code class="language-rust edition2018 no_run">use tokio::signal;
+use tokio::time::{Duration, sleep};
+
+async fn fetch_data() -&gt; String {
+    // simulate a slow network request
+    sleep(Duration::from_secs(5)).await;
+    "data".to_string()
+}
+
+#[tokio::main]
+async fn main() {
+    loop {
+        tokio::select! {
+            result = fetch_data() =&gt; {
+                println!("Got: {}", result);
+            }
+            _ = signal::ctrl_c() =&gt; {
+                println!("Shutting down...");
+                return;
+            }
+        }
+    }
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#signal"><code>signal</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "signal"] }
+</code></pre>
+</blockquote>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="structured-concurrency"><a class="header" href="#structured-concurrency">Structured Concurrency</a></h1>
+<p>When your program runs multiple tasks at the same time, you need a way to keep track of them,
+know when they finish, collect their results, and clean up if something goes wrong.
+This section shows how to do that.</p>
+<h2 id="join-sets"><a class="header" href="#join-sets">Join Sets</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></p>
+<p>A <a href="https://docs.rs/tokio/*/tokio/task/struct.JoinSet.html"><code>JoinSet</code></a> is a container that holds a group of non-blocking tasks running at the same time.
+You add tasks to it, and then you can wait for them to finish one by one. When a task finishes,
+you can grab its result. If you throw away the JoinSet before all tasks are done, every
+unfinished task is cancelled automatically.</p>
+<p>In this example, five jobs are created and added to a JoinSet. Each job does some work on its own,
+and the program waits until all of them are done before moving on.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use tokio::task::JoinSet;
+
+struct Job {
+    id: usize,
+    data: String,
+}
+
+impl Job {
+    fn new(id: usize) -&gt; Self {
+        let data = "d".repeat(id);
+        Self { id, data }
+    }
+
+    async fn process(&amp;mut self) {
+        // do some work, like fetching more data over the network
+        self.data = self.data.replace("d", "x");
+        println!("Id {} -&gt; {}", self.id, self.data);
+    }
+}
+
+#[tokio::main]
+async fn main() {
+    let mut set = JoinSet::new();
+    const JOB_COUNT: usize = 5;
+    let jobs = (0..JOB_COUNT).map(Job::new).collect::&lt;Vec&lt;Job&gt;&gt;();
+
+    for mut job in jobs {
+        set.spawn(async move { job.process().await });
+    }
+
+    let mut complete = 0usize;
+    while set.join_next().await.is_some() { // wait for each job to finish
+        complete += 1;
+    }
+
+    assert_eq!(complete, JOB_COUNT);
+}</code></pre></pre>
+<blockquote>
+<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#rt"><code>rt</code></a> features enabled.</p>
+<pre><code class="language-toml">[dependencies]
+tokio = { version = "*", features = ["macros", "rt"] }
+</code></pre>
+</blockquote>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-1"><a class="header" href="#command-line-1">Command Line</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr></thead><tbody>
 <tr><td><a href="cli/arguments.html#parse-command-line-arguments">Parse command line arguments</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge" /></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge" /></a></td></tr>
@@ -6472,6 +7010,8 @@ Keep lines sorted.
 
 &lt;!-- Categories --&gt;
 
+[cat-asynchronous-badge]: https://img.shields.io/badge/asynchronous--x.svg?style=social
+[cat-asynchronous]: https://crates.io/categories/asynchronous
 [cat-caching-badge]: https://img.shields.io/badge/caching--x.svg?style=social
 [cat-caching]: https://crates.io/categories/caching
 [cat-command-line-badge]: https://img.shields.io/badge/command_line--x.svg?style=social
