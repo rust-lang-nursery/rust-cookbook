@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Hardware Support - Rust Cookbook</title>
+        <title>Async I/O - Rust Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/custom.css">
+        <link rel="stylesheet" href="../theme/custom.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -90,7 +90,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -124,13 +124,13 @@
                     <h1 class="menu-title">Rust Cookbook</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/hardware.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/file/async.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -159,11 +159,52 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="hardware-support"><a class="header" href="#hardware-support">Hardware Support</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr></thead><tbody>
-<tr><td><a href="hardware/processor.html#check-number-of-logical-cpu-cores">Check number of logical cpu cores</a></td><td><a href="https://docs.rs/num_cpus/"><img src="https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge" /></a></td><td><a href="https://crates.io/categories/hardware-support"><img src="https://img.shields.io/badge/hardware_support--x.svg?style=social" alt="cat-hardware-support-badge" /></a></td></tr>
-</tbody></table>
-</div><!--
+                        <h1 id="async-io"><a class="header" href="#async-io">Async I/O</a></h1>
+<h2 id="read-multiple-files-concurrently"><a class="header" href="#read-multiple-files-concurrently">Read multiple files concurrently</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>Reads several files at once instead of one after another. Each
+read is spawned onto the runtime with <a href="https://docs.rs/tokio/*/tokio/task/struct.JoinSet.html"><code>tokio::task::JoinSet</code></a>, so
+the syscalls overlap and total wall time is roughly the slowest
+read rather than the sum of all of them. This is the pattern to
+reach for when collecting log shards, manifest files, or chunked
+uploads from disk.</p>
+<p>The example seeds a temp directory with five files, then reads
+them concurrently and reports each file's size and the total. The
+async equivalent of <a href="https://doc.rust-lang.org/std/fs/fn.read.html"><code>std::fs::read</code></a> is <a href="https://docs.rs/tokio/*/tokio/fs/fn.read.html"><code>tokio::fs::read</code></a>.</p>
+<pre><pre class="playground"><code class="language-rust no_run edition2018">use std::path::PathBuf;
+use tempfile::tempdir;
+use tokio::fs;
+use tokio::task::JoinSet;
+
+#[tokio::main]
+async fn main() -&gt; std::io::Result&lt;()&gt; {
+    let dir = tempdir()?;
+    let paths: Vec&lt;PathBuf&gt; = (0..5)
+        .map(|i| dir.path().join(format!("part-{i}.log")))
+        .collect();
+
+    for (i, path) in paths.iter().enumerate() {
+        fs::write(path, "x".repeat((i + 1) * 1024)).await?;
+    }
+
+    let mut tasks: JoinSet&lt;std::io::Result&lt;(PathBuf, usize)&gt;&gt; = JoinSet::new();
+    for path in paths {
+        tasks.spawn(async move {
+            let bytes = fs::read(&amp;path).await?;
+            Ok((path, bytes.len()))
+        });
+    }
+
+    let mut total = 0;
+    while let Some(joined) = tasks.join_next().await {
+        let (path, len) = joined.expect("read task panicked")?;
+        println!("{}: {len} bytes", path.display());
+        total += len;
+    }
+    println!("total: {total} bytes");
+
+    Ok(())</code></pre></pre>
+<!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
 -->
@@ -174,11 +215,11 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="file/async.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../file/dir.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="hardware/processor.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../hardware.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -188,11 +229,11 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="file/async.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../file/dir.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="hardware/processor.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../hardware.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -207,13 +248,13 @@ Keep lines sorted.
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
 

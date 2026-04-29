@@ -355,6 +355,7 @@ Keep lines sorted.
 <tr><td><a href="file/dir.html#recursively-calculate-file-sizes-at-given-depth">Recursively calculate file sizes at given depth</a></td><td><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></td></tr>
 <tr><td><a href="file/dir.html#find-all-png-files-recursively">Find all png files recursively</a></td><td><a href="https://docs.rs/glob/"><img src="https://img.shields.io/crates/v/glob.svg?label=glob" alt="glob-badge" /></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></td></tr>
 <tr><td><a href="file/dir.html#find-all-files-with-given-pattern-ignoring-filename-case">Find all files with given pattern ignoring filename case</a></td><td><a href="https://docs.rs/glob/"><img src="https://img.shields.io/crates/v/glob.svg?label=glob" alt="glob-badge" /></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></td></tr>
+<tr><td><a href="file/async.html#read-multiple-files-concurrently">Read multiple files concurrently</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></td></tr>
 </tbody></table>
 </div><!--
 Links, in a few categories. Follow the existing structure.
@@ -3930,6 +3931,7 @@ Keep lines sorted.
 <tr><td><a href="file/dir.html#recursively-calculate-file-sizes-at-given-depth">Recursively calculate file sizes at given depth</a></td><td><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge" /></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></td></tr>
 <tr><td><a href="file/dir.html#find-all-png-files-recursively">Find all png files recursively</a></td><td><a href="https://docs.rs/glob/"><img src="https://img.shields.io/crates/v/glob.svg?label=glob" alt="glob-badge" /></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></td></tr>
 <tr><td><a href="file/dir.html#find-all-files-with-given-pattern-ignoring-filename-case">Find all files with given pattern ignoring filename case</a></td><td><a href="https://docs.rs/glob/"><img src="https://img.shields.io/crates/v/glob.svg?label=glob" alt="glob-badge" /></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></td></tr>
+<tr><td><a href="file/async.html#read-multiple-files-concurrently">Read multiple files concurrently</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></td></tr>
 </tbody></table>
 </div><!--
 Links, in a few categories. Follow the existing structure.
@@ -4214,6 +4216,57 @@ fn main() -&gt; Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="async-io"><a class="header" href="#async-io">Async I/O</a></h1>
+<h2 id="read-multiple-files-concurrently"><a class="header" href="#read-multiple-files-concurrently">Read multiple files concurrently</a></h2>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge" /></a></p>
+<p>Reads several files at once instead of one after another. Each
+read is spawned onto the runtime with <a href="https://docs.rs/tokio/*/tokio/task/struct.JoinSet.html"><code>tokio::task::JoinSet</code></a>, so
+the syscalls overlap and total wall time is roughly the slowest
+read rather than the sum of all of them. This is the pattern to
+reach for when collecting log shards, manifest files, or chunked
+uploads from disk.</p>
+<p>The example seeds a temp directory with five files, then reads
+them concurrently and reports each file's size and the total. The
+async equivalent of <a href="https://doc.rust-lang.org/std/fs/fn.read.html"><code>std::fs::read</code></a> is <a href="https://docs.rs/tokio/*/tokio/fs/fn.read.html"><code>tokio::fs::read</code></a>.</p>
+<pre><pre class="playground"><code class="language-rust no_run edition2018">use std::path::PathBuf;
+use tempfile::tempdir;
+use tokio::fs;
+use tokio::task::JoinSet;
+
+#[tokio::main]
+async fn main() -&gt; std::io::Result&lt;()&gt; {
+    let dir = tempdir()?;
+    let paths: Vec&lt;PathBuf&gt; = (0..5)
+        .map(|i| dir.path().join(format!("part-{i}.log")))
+        .collect();
+
+    for (i, path) in paths.iter().enumerate() {
+        fs::write(path, "x".repeat((i + 1) * 1024)).await?;
+    }
+
+    let mut tasks: JoinSet&lt;std::io::Result&lt;(PathBuf, usize)&gt;&gt; = JoinSet::new();
+    for path in paths {
+        tasks.spawn(async move {
+            let bytes = fs::read(&amp;path).await?;
+            Ok((path, bytes.len()))
+        });
+    }
+
+    let mut total = 0;
+    while let Some(joined) = tasks.join_next().await {
+        let (path, len) = joined.expect("read task panicked")?;
+        println!("{}: {len} bytes", path.display());
+        total += len;
+    }
+    println!("total: {total} bytes");
+
+    Ok(())</code></pre></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
