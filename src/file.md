@@ -13,6 +13,7 @@
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Read multiple files concurrently][ex-async-concurrent-read] | [![tokio-badge]][tokio] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-std-read-lines]: file/read-write.html#read-lines-of-strings-from-a-file
 [ex-avoid-read-write]: file/read-write.html#avoid-writing-and-reading-from-a-same-file
@@ -25,5 +26,6 @@
 [ex-file-sizes]: file/dir.html#recursively-calculate-file-sizes-at-given-depth
 [ex-glob-recursive]: file/dir.html#find-all-png-files-recursively
 [ex-glob-with]: file/dir.html#find-all-files-with-given-pattern-ignoring-filename-case
+[ex-async-concurrent-read]: file/async.html#read-multiple-files-concurrently
 
 {{#include links.md}}

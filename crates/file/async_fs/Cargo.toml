@@ -1,0 +1,11 @@
+[package]
+name = "async-fs"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+tempfile = "3"
+tokio = { version = "1", features = ["full"] }

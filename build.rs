@@ -13,6 +13,7 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/development_tools/debugging/tracing/",
     "./src/concurrency/actor/",
     "./src/concurrency/custom_future/",
+    "./src/file/async/",
     "./src/safety_critical/no_panic/",
     "./src/safety_critical/heapless_alloc/",
 ];

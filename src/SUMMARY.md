@@ -43,6 +43,7 @@
 - [File System](file.md)
   - [Read & Write](file/read-write.md)
   - [Directory Traversal](file/dir.md)
+  - [Async I/O](file/async.md)
 - [Hardware Support](hardware.md)
   - [Processor](hardware/processor.md)
 - [Memory Management](mem.md)

@@ -17,6 +17,10 @@ additional-css = ["theme/custom.css"]
 git-repository-url = "https://github.com/rust-lang-nursery/rust-cookbook"
 edit-url-template = "https://github.com/rust-lang-nursery/rust-cookbook/edit/master/{path}"
 
+[output.html.redirect]
+"/asynchronous.html" = "file/async.html"
+"/asynchronous/fs.html" = "../file/async.html"
+
 [output.html.playpen]
 editable = false
 
