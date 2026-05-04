@@ -1,3 +1,17 @@
+#[component]
+fn App() -> impl IntoView {
+    view! {
+        <LeptosRouter>
+            <nav><A href="/">"Home"</A>" | "<A href="/filter/serde">"serde"</A>" | "<A href="/filter/tokio">"tokio"</A></nav>
+            <main>
+                <Routes fallback=|| "Not found.">
+                    <Route path=path!("") view=HomePage />
+                    <Route path=path!("/filter/:query") view=FilterPage />
+                </Routes>
+            </main>
+        </LeptosRouter>
+    }
+}
 # Full Stack Web
 
 [Leptos][book] is a full stack web framework. The first recipe renders HTML
@@ -228,4 +242,5 @@ More in the Leptos book: [Server Functions][book-server-fn] and
 [book-server-fn]: https://book.leptos.dev/server/25_server_functions.html
 [book-cargo-leptos-2]: https://book.leptos.dev/ssr/21_cargo_leptos.html
 
-{{#include ../links.md}}
+{{#include ../links.md}} m
+
