@@ -1,0 +1,20 @@
+[package]
+name = "sqlx-recipes"
+version = "1.1.0"
+authors = ["Brian Anderson <banderson@mozilla.com>", "Andrew Gauger <andygauge@gmail.com>"]
+edition = "2024"
+license= "MIT OR Apache-2.0"
+publish = false
+
+[features]
+default = []
+macros = ["sqlx/macros"]
+
+[dependencies]
+tokio = { version = "1", features = ["full"]}
+sqlx = { version = "0.8", features = ["sqlite", "postgres", "runtime-tokio"] }
+
+[[bin]]
+name = "query_macros"
+path = "src/bin/query_macros.rs"
+required-features = ["macros"]

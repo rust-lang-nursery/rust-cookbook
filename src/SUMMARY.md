@@ -32,6 +32,8 @@
 - [Database](database.md)
   - [SQLite](database/sqlite.md)
   - [Postgres](database/postgres.md)
+  - [SQLx](database/sqlx.md)
+  - [Sea ORM](database/sea_orm.md)
 - [Date and Time](datetime.md)
   - [Duration and Calculation](datetime/duration.md)
   - [Parsing and Displaying](datetime/parse.md)

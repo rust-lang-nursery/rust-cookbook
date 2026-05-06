@@ -1,0 +1,11 @@
+[package]
+name = "sea-orm-recipes"
+version = "1.1.0"
+authors = ["Brian Anderson <banderson@mozilla.com>", "Andrew Gauger <andygauge@gmail.com>"]
+edition = "2024"
+license = "MIT Or Apache-2.0"
+publish = false
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+sea-orm = { version = "1", features = ["sqlx-sqlite", "runtime-tokio-native-tls", "macros"]}
