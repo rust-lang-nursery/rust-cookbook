@@ -180,12 +180,10 @@ async fn main() {
     let result = fetch_network_request().await;
     assert_eq!(result, 89);
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#rt-multi-thread"><code>rt-multi-thread</code></a> features enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
 </code></pre>
-</blockquote>
 <h1 id="builder-approach"><a class="header" href="#builder-approach">Builder Approach</a></h1>
 <p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
 <p><a href="https://docs.rs/tokio/*/tokio/attr.main.html"><code>tokio::main</code></a> works well for most programs, but it makes all the decisions for you.
@@ -216,12 +214,10 @@ fn main() -&gt; io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#rt-multi-thread"><code>rt-multi-thread</code></a> feature enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["rt-multi-thread"] }
 </code></pre>
-</blockquote>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.

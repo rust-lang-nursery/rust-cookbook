@@ -183,12 +183,10 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["macros", "fs"] }
 </code></pre>
-</blockquote>
 <h2 id="read-files"><a class="header" href="#read-files">Read files</a></h2>
 <p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
 <p>Reading a file from disk takes time. Tokio provides non-blocking versions of file reads so your
@@ -216,12 +214,10 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["macros", "fs"] }
 </code></pre>
-</blockquote>
 <h2 id="write-files"><a class="header" href="#write-files">Write Files</a></h2>
 <p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
 <p>Writing to disk takes time. <a href="https://docs.rs/tokio/*/tokio/fs/fn.write.html"><code>tokio::fs::write</code></a> is a non-blocking way to write bytes to a file.
@@ -235,12 +231,10 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["macros", "fs"] }
 </code></pre>
-</blockquote>
 <h2 id="remove-files-and-directories"><a class="header" href="#remove-files-and-directories">Remove Files and Directories</a></h2>
 <p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
 <p>Deleting from disk takes time. Tokio provides non-blocking versions of these operations so your
@@ -265,12 +259,10 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["macros", "fs"] }
 </code></pre>
-</blockquote>
 <h2 id="asyncread-and-asyncwrite"><a class="header" href="#asyncread-and-asyncwrite">AsyncRead and AsyncWrite</a></h2>
 <p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
 <p><a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncRead.html"><code>AsyncRead</code></a> and <a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncWrite.html"><code>AsyncWrite</code></a> are the building blocks for all non-blocking I/O in Tokio.
@@ -305,12 +297,10 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a>, <a href="https://docs.rs/crate/tokio/*/features#io-util"><code>io-util</code></a> and <a href="https://docs.rs/crate/tokio/*/features#fs"><code>fs</code></a> features enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["macros", "fs", "io-util"] }
 </code></pre>
-</blockquote>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.

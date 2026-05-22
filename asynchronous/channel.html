@@ -220,12 +220,10 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#sync"><code>sync</code></a> features enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["macros", "sync"] }
 </code></pre>
-</blockquote>
 <h2 id="unbounded-channels"><a class="header" href="#unbounded-channels">Unbounded Channels</a></h2>
 <p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge" /></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge" /></a></p>
 <p>An <a href="https://docs.rs/tokio/*/tokio/sync/mpsc/fn.unbounded_channel.html"><code>unbounded channel</code></a> has no limit on how many messages it can hold. The sender never has to wait,
@@ -281,12 +279,10 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 
     Ok(())
 }</code></pre></pre>
-<blockquote>
 <p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#sync"><code>sync</code></a> features enabled.</p>
 <pre><code class="language-toml">[dependencies]
 tokio = { version = "*", features = ["macros", "sync"] }
 </code></pre>
-</blockquote>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
