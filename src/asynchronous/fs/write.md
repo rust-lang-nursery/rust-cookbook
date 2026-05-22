@@ -17,11 +17,12 @@ async fn main() -> io::Result<()> {
 }
 ```
 
-> Add `tokio` to `Cargo.toml` with the [`macros`] and [`fs`] features enabled.
-> ```toml
-> [dependencies]
-> tokio = { version = "*", features = ["macros", "fs"] }
-> ```
+Add `tokio` to `Cargo.toml` with the [`macros`] and [`fs`] features enabled.
+
+```toml
+[dependencies]
+tokio = { version = "*", features = ["macros", "fs"] }
+```
 
 [`fs`]: https://docs.rs/crate/tokio/*/features#fs
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros

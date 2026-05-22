@@ -29,11 +29,12 @@ async fn main() -> io::Result<()> {
 ```
 
 
-> Add `tokio` to `Cargo.toml` with the [`macros`] and [`fs`] features enabled.
-> ```toml
-> [dependencies]
-> tokio = { version = "*", features = ["macros", "fs"] }
-> ```
+Add `tokio` to `Cargo.toml` with the [`macros`] and [`fs`] features enabled.
+
+```toml
+[dependencies]
+tokio = { version = "*", features = ["macros", "fs"] }
+```
 
 [`File::create`]: https://docs.rs/tokio/*/tokio/fs/struct.File.html#method.create
 [`create_dir_all`]: https://docs.rs/tokio/*/tokio/fs/fn.create_dir_all.html

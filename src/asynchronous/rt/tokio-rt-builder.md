@@ -35,11 +35,12 @@ fn main() -> io::Result<()> {
 }
 ```
 
-> Add `tokio` to `Cargo.toml` with the [`rt-multi-thread`] feature enabled.
-> ```toml
-> [dependencies]
-> tokio = { version = "*", features = ["rt-multi-thread"] }
-> ```
+Add `tokio` to `Cargo.toml` with the [`rt-multi-thread`] feature enabled.
+
+```toml
+[dependencies]
+tokio = { version = "*", features = ["rt-multi-thread"] }
+```
 
 [`Builder`]: https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html
 [`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread

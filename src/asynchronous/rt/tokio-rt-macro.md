@@ -18,11 +18,12 @@ async fn main() {
 }
 ```
 
-> Add `tokio` to `Cargo.toml` with the [`macros`] and [`rt-multi-thread`] features enabled.
-> ```toml
-> [dependencies]
-> tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
-> ```
+Add `tokio` to `Cargo.toml` with the [`macros`] and [`rt-multi-thread`] features enabled.
+
+```toml
+[dependencies]
+tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
+```
 
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
 [`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread

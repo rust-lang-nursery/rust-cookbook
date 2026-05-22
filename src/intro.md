@@ -18,6 +18,8 @@ community. It needs and welcomes help. For details see
 
 {{#include algorithms.md}}
 
+{{#include asynchronous.md}}
+
 {{#include cli.md}}
 
 {{#include compression.md}}
