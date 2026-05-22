@@ -55,11 +55,12 @@ async fn main() {
 }
 ```
 
-> Add `tokio` to `Cargo.toml` with the [`macros`] and [`rt`] features enabled.
-> ```toml
-> [dependencies]
-> tokio = { version = "*", features = ["macros", "rt"] }
-> ```
+Add `tokio` to `Cargo.toml` with the [`macros`] and [`rt`] features enabled.
+
+```toml
+[dependencies]
+tokio = { version = "*", features = ["macros", "rt"] }
+```
 
 {{#include ../links.md}}
 

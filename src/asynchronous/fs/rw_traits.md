@@ -38,11 +38,12 @@ async fn main() -> io::Result<()> {
 }
 ```
 
-> Add `tokio` to `Cargo.toml` with the [`macros`], [`io-util`] and [`fs`] features enabled.
-> ```toml
-> [dependencies]
-> tokio = { version = "*", features = ["macros", "fs", "io-util"] }
-> ```
+Add `tokio` to `Cargo.toml` with the [`macros`], [`io-util`] and [`fs`] features enabled.
+
+```toml
+[dependencies]
+tokio = { version = "*", features = ["macros", "fs", "io-util"] }
+```
 
 [`AsyncReadExt`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncReadExt.html
 [`AsyncRead`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncRead.html

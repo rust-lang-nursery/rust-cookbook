@@ -39,11 +39,12 @@ async fn main() {
 }
 ```
 
-> Add `tokio` to `Cargo.toml` with the [`macros`] and [`signal`] features enabled.
-> ```toml
-> [dependencies]
-> tokio = { version = "*", features = ["macros", "signal"] }
-> ```
+Add `tokio` to `Cargo.toml` with the [`macros`] and [`signal`] features enabled.
+
+```toml
+[dependencies]
+tokio = { version = "*", features = ["macros", "signal"] }
+```
 
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
 [`signal`]: https://docs.rs/crate/tokio/*/features#signal

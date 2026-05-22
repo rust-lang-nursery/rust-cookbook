@@ -63,11 +63,12 @@ async fn main() -> io::Result<()> {
 }
 ```
 
-> Add `tokio` to `Cargo.toml` with the [`macros`] and [`sync`] features enabled.
-> ```toml
-> [dependencies]
-> tokio = { version = "*", features = ["macros", "sync"] }
-> ```
+Add `tokio` to `Cargo.toml` with the [`macros`] and [`sync`] features enabled.
+
+```toml
+[dependencies]
+tokio = { version = "*", features = ["macros", "sync"] }
+```
 
 [`bounded channel`]: https://docs.rs/tokio/*/tokio/sync/mpsc/fn.channel.html
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
