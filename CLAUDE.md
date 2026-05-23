@@ -38,7 +38,7 @@ cargo xtask test link         # or: lychee --base . --config ./ci/lychee.toml .
 ./ci/spellcheck.sh            # interactive; add words to ci/dictionary.txt
 ```
 
-Required tools: `cargo install mdbook@0.4.43 lychee@0.17.0`
+Required tools: `cargo install mdbook@0.5.3 lychee@0.17.0`
 
 ## Architecture
 
