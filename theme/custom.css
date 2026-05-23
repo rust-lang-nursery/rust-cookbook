@@ -34,6 +34,11 @@ table td:nth-child(3) {
   white-space: nowrap;
 }
 
+/* section sub-category labels (bold-only paragraphs in summary tables) */
+p > strong:only-child {
+  font-size: 1.1em;
+}
+
 /* underline hyperlinked inline code items */
 a:hover > .hljs {
   text-decoration: underline;

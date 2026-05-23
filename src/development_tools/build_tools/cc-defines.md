@@ -9,7 +9,7 @@ a bundled C file with dynamic defines set in `build.rs` and prints "**Welcome to
 when run. Cargo sets some [environment variables][cargo-env] which may be useful for some custom defines.
 
 
-### `Cargo.toml`
+`Cargo.toml`
 
 ```toml
 [package]
@@ -21,7 +21,7 @@ build = "build.rs"
 cc = "1"
 ```
 
-### `build.rs`
+`build.rs`
 
 ```rust,edition2018,no_run
 fn main() {
@@ -34,7 +34,7 @@ fn main() {
 }
 ```
 
-### `src/foo.c`
+`src/foo.c`
 
 ```c
 #include <stdio.h>
@@ -47,7 +47,7 @@ void print_app_info() {
 }
 ```
 
-### `src/main.rs`
+`src/main.rs`
 
 ```rust,edition2018,ignore
 extern {

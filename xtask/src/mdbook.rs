@@ -30,7 +30,7 @@ fn execute_mdbook_command(command: &str, additional_args: &[&str]) -> Result<(),
 }
 
 fn check_mdbook_version() -> Result<(), Box<dyn Error>> {
-    let required_version = "0.4.43";
+    let required_version = "0.5.3";
 
     let output = Command::new("mdbook").arg("--version").output()?;
 

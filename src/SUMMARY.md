@@ -7,7 +7,6 @@
   - [Generate Random Values](algorithms/randomness.md)
   - [Sort a Vector](algorithms/sorting.md)
 - [Asynchronous](asynchronous.md)
-  - [Introduction](asynchronous/intro.md)
   - [Runtime](asynchronous/rt.md)
   - [File IO](asynchronous/fs.md)
   - [Timeouts](asynchronous/timeout.md)

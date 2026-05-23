@@ -14,7 +14,7 @@ Since the bundled C is very simple, only a single source file needs to be passed
 For more complex build requirements, [`cc::Build`][cc-build] offers a full suite of builder methods for specifying
 [`include`][cc-build-include] paths and extra compiler [`flag`][cc-build-flag]s.
 
-### `Cargo.toml`
+`Cargo.toml`
 
 ```toml
 [package]
@@ -28,7 +28,7 @@ cc = "1"
 anyhow = "1"
 ```
 
-### `build.rs`
+`build.rs`
 
 ```rust,edition2018,no_run
 fn main() {
@@ -38,7 +38,7 @@ fn main() {
 }
 ```
 
-### `src/hello.c`
+`src/hello.c`
 
 ```c
 #include <stdio.h>
@@ -53,7 +53,7 @@ void greet(const char* name) {
 }
 ```
 
-### `src/main.rs`
+`src/main.rs`
 
 ```rust,edition2018,ignore
 use anyhow::Result;

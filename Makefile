@@ -6,7 +6,7 @@ help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 install-mdbook: ## Install mdbook with the correct version
-	cargo install mdbook --vers "0.4.43"
+	cargo install mdbook --vers "0.5.3"
 
 build: install-mdbook ## Build the book locally
 	mdbook build

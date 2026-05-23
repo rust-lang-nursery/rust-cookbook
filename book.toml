@@ -3,7 +3,6 @@
 title = "Rust Cookbook"
 description = "Collection of useful Rust code examples"
 authors = ["Rust Language Community"]
-multilingual = false
 language = "en"
 src = "src"
 
@@ -16,6 +15,10 @@ mathjax-support = false
 additional-css = ["theme/custom.css"]
 git-repository-url = "https://github.com/rust-lang-nursery/rust-cookbook"
 edit-url-template = "https://github.com/rust-lang-nursery/rust-cookbook/edit/master/{path}"
+
+[output.html.fold]
+enable = true
+level = 1
 
 [output.html.playpen]
 editable = false

@@ -20,12 +20,12 @@ jobs:
         with:
           path: |
             ~/.cargo/bin/mdbook
-          key: mdbook-v0.4.43
+          key: mdbook-v0.5.3
 
       - name: Install mdBook (if not cached)
         if: steps.cache-mdbook.outputs.cache-hit != 'true'
         run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.43/mdbook-v0.4.43-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C ~/.cargo/bin
+          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.5.3/mdbook-v0.5.3-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C ~/.cargo/bin
           chmod +x ~/.cargo/bin/mdbook
 
       - name: Build mdBook
