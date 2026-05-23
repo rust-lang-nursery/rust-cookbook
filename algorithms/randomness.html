@@ -172,17 +172,6 @@ fn main() {
     let mut rng = rand::rng();
     let random_number: u32 = rng.random();
     println!("Random number: {random_number}");
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_random_number() {
-        let mut rng = rand::rng();
-        let _: u32 = rng.random();
-    }
 }</code></pre></pre>
 <h2 id="generate-random-numbers-within-a-range"><a class="header" href="#generate-random-numbers-within-a-range">Generate random numbers within a range</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge" /></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge" /></a></p>
