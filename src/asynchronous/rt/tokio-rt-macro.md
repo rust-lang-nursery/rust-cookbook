@@ -1,4 +1,4 @@
-# Macro
+## Macro
 [![tokio-badge]][tokio]
 
 The easiest way to start the Tokio runtime is with the [`tokio::main`] macro. Put it above your

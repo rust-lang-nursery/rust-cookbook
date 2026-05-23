@@ -1,6 +1,6 @@
 # Development Tools
 
-## Debugging
+**Debugging**
 
 | Recipe                                                                     | Crates                                                                          | Categories                              |
 | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------------------------------------- |
@@ -24,7 +24,7 @@
 [ex-log-timestamp]: development_tools/debugging/config_log.html#include-timestamp-in-log-messages
 [ex-log-custom]: development_tools/debugging/config_log.html#log-messages-to-a-custom-location
 
-## Versioning
+**Versioning**
 
 | Recipe                                                                | Crates                    | Categories                                                                    |
 | --------------------------------------------------------------------- | ------------------------- | ----------------------------------------------------------------------------- |
@@ -34,7 +34,7 @@
 | [Find the latest version satisfying given range][ex-semver-latest]    | [![semver-badge]][semver] | [![cat-config-badge]][cat-config]                                             |
 | [Check external command version for compatibility][ex-semver-command] | [![semver-badge]][semver] | [![cat-text-processing-badge]][cat-text-processing] [![cat-os-badge]][cat-os] |
 
-## Build Time
+**Build Time**
 
 | Recipe                                                                           | Crates            | Categories                                              |
 | -------------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------- |

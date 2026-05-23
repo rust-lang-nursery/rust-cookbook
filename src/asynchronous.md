@@ -3,7 +3,6 @@
 
 | Recipe | Crates | Categories|
 |-------|-------|----------|
-| [Intro][ex-async-intro] |-| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Tokio Runtime][ex-tokio-macro] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Tokio Runtime Builder][ex-tokio-builder] |[![tokio-badge]][tokio] [![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Create Files Operations][ex-fs-create] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
@@ -17,7 +16,6 @@
 | [Task Timeouts][ex-timeout] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Join Sets][ex-join-set] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 
-[ex-async-intro]: asynchronous/intro.html
 [ex-tokio-macro]: asynchronous/rt.html#tokio-runtime
 [ex-tokio-builder]: asynchronous/rt.html#builder-approach
 [ex-fs]: asynchronous/fs.html

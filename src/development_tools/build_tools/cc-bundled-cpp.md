@@ -5,7 +5,7 @@
 Linking a bundled C++ library is very similar to linking a bundled C library. The two core differences when compiling and statically linking a bundled C++ library are specifying a C++ compiler via the builder method [`cpp(true)`][cc-build-cpp] and preventing name mangling by the C++ compiler by adding the `extern "C"` section at the top of our C++ source file.
 
 
-### `Cargo.toml`
+`Cargo.toml`
 
 ```toml
 [package]
@@ -16,7 +16,7 @@ build = "build.rs"
 cc = "1"
 ```
 
-### `build.rs`
+`build.rs`
 
 ```rust,edition2018,no_run
 fn main() {
@@ -27,7 +27,7 @@ fn main() {
 }
 ```
 
-### `src/foo.cpp`
+`src/foo.cpp`
 
 ```cpp
 extern "C" {
@@ -39,7 +39,7 @@ int multiply(int x, int y) {
 }
 ```
 
-### `src/main.rs`
+`src/main.rs`
 
 ```rust,edition2018,ignore
 extern {

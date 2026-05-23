@@ -1,4 +1,4 @@
-# Builder Approach
+## Builder Approach
 [![tokio-badge]][tokio] [![std-badge]][std]
 
 [`tokio::main`] works well for most programs, but it makes all the decisions for you.

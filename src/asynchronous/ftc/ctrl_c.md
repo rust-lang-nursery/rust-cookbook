@@ -1,4 +1,4 @@
-# Ctrl-C
+## Ctrl-C
 
 [![tokio-badge]][tokio]
 
