@@ -161,9 +161,9 @@ Keep lines sorted.
 [tokio]: https://docs.rs/tokio/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
-[tracing-badge]: https://badge-cache.kominick.com/crates/v/tracing.svg?label=tracing
+[tracing-badge]: https://img.shields.io/crates/v/tracing.svg?label=tracing
 [tracing]: https://docs.rs/tracing/
-[tracing-subscriber-badge]: https://badge-cache.kominick.com/crates/v/tracing-subscriber.svg?label=tracing-subscriber
+[tracing-subscriber-badge]: https://img.shields.io/crates/v/tracing-subscriber.svg?label=tracing-subscriber
 [tracing-subscriber]: https://docs.rs/tracing-subscriber/
 [url-badge]: https://img.shields.io/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
