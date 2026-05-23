@@ -1,0 +1,10 @@
+[package]
+name = "wasm-component-host"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+anyhow = "1.0"
+wasmtime = { version = "45", features = ["component-model"] }
+wasmtime-wasi = "45"

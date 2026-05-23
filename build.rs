@@ -6,6 +6,7 @@ const REMOVED_TESTS: &[&str] = &[
     "./src/web/clients/api/rate-limited.md",
     "./src/concurrency/parallel/rayon-parallel-sort.md",
     "./src/web/leptos.md",
+    "./src/wasm.md",
 ];
 
 const REMOVED_PREFIXES: &[&str] = &[
@@ -15,6 +16,7 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/concurrency/custom_future/",
     "./src/safety_critical/no_panic/",
     "./src/safety_critical/heapless_alloc/",
+    "./src/wasm/",
 ];
 
 fn main() {

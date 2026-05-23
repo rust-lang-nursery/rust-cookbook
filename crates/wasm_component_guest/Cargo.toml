@@ -1,0 +1,14 @@
+[package]
+name = "greeter"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[package.metadata.component]
+package = "example:greeter"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wit-bindgen = "0.43"

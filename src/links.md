@@ -51,6 +51,8 @@ Keep lines sorted.
 [cat-text-processing]: https://crates.io/categories/text-processing
 [cat-time-badge]: https://img.shields.io/badge/time--x.svg?style=social
 [cat-time]: https://crates.io/categories/date-and-time
+[cat-wasm-badge]: https://img.shields.io/badge/wasm--x.svg?style=social
+[cat-wasm]: https://crates.io/categories/wasm
 
 <!-- Crates -->
 
@@ -173,3 +175,9 @@ Keep lines sorted.
 [walkdir]: https://docs.rs/walkdir/
 [wasm-bindgen-badge]: https://img.shields.io/crates/v/wasm-bindgen.svg?label=wasm-bindgen
 [wasm-bindgen]: https://docs.rs/wasm-bindgen/
+[wasmtime-badge]: https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime
+[wasmtime]: https://docs.rs/wasmtime/
+[wasmtime-wasi-badge]: https://img.shields.io/crates/v/wasmtime-wasi.svg?label=wasmtime-wasi
+[wasmtime-wasi]: https://docs.rs/wasmtime-wasi/
+[wit-bindgen-badge]: https://img.shields.io/crates/v/wit-bindgen.svg?label=wit-bindgen
+[wit-bindgen]: https://docs.rs/wit-bindgen/

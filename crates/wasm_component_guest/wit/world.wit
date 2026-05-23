@@ -1,0 +1,5 @@
+package example:greeter@0.1.0;
+
+world greeter {
+    export greet: func(name: string) -> string;
+}
