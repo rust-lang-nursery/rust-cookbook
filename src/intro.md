@@ -52,6 +52,8 @@ community. It needs and welcomes help. For details see
 
 {{#include text.md}}
 
+{{#include wasm.md}}
+
 {{#include web.md}}
 
 
