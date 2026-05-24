@@ -94,6 +94,7 @@ DirEntry
 distr
 dotfiles
 DynamicImage
+embeddable
 endian
 endif
 enum
@@ -370,7 +371,10 @@ Walkdir
 WalkDir
 wasm
 WASM
+wasi
+wasmtime
 WebAssembly
+webassembly
 webpage
 webservice
 whitespace

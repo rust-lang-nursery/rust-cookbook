@@ -81,3 +81,8 @@
     - [Downloads](web/clients/download.md)
     - [Web Authentication](web/clients/authentication.md)
   - [Full Stack Web](web/leptos.md)
+- [WebAssembly](wasm.md)
+  - [Call an exported function](wasm/call_export.md)
+  - [Exchange data via linear memory](wasm/linear_memory.md)
+  - [Define host functions](wasm/host_fn.md)
+  - [Component Model](wasm/component.md)
