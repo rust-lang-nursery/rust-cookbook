@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-c0d1ce22.js";
+            window.path_to_searchindex_js = "searchindex-979a9838.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-05c4b9e5.js"></script>
+        <script src="toc-8dba1631.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -7552,6 +7552,8 @@ Keep lines sorted.
 [cat-text-processing]: https://crates.io/categories/text-processing
 [cat-time-badge]: https://img.shields.io/badge/time--x.svg?style=social
 [cat-time]: https://crates.io/categories/date-and-time
+[cat-wasm-badge]: https://img.shields.io/badge/wasm--x.svg?style=social
+[cat-wasm]: https://crates.io/categories/wasm
 
 &lt;!-- Crates --&gt;
 
@@ -7673,7 +7675,13 @@ Keep lines sorted.
 [walkdir-badge]: https://img.shields.io/crates/v/walkdir.svg?label=walkdir
 [walkdir]: https://docs.rs/walkdir/
 [wasm-bindgen-badge]: https://img.shields.io/crates/v/wasm-bindgen.svg?label=wasm-bindgen
-[wasm-bindgen]: https://docs.rs/wasm-bindgen/</code></pre>
+[wasm-bindgen]: https://docs.rs/wasm-bindgen/
+[wasmtime-badge]: https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime
+[wasmtime]: https://docs.rs/wasmtime/
+[wasmtime-wasi-badge]: https://img.shields.io/crates/v/wasmtime-wasi.svg?label=wasmtime-wasi
+[wasmtime-wasi]: https://docs.rs/wasmtime-wasi/
+[wit-bindgen-badge]: https://img.shields.io/crates/v/wit-bindgen.svg?label=wit-bindgen
+[wit-bindgen]: https://docs.rs/wit-bindgen/</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="downloads"><a class="header" href="#downloads">Downloads</a></h1>
 <h2 id="download-a-file-to-a-temporary-directory"><a class="header" href="#download-a-file-to-a-temporary-directory">Download a file to a temporary directory</a></h2>
@@ -8166,6 +8174,311 @@ cargo leptos watch
 </code></pre>
 <p>More in the Leptos book: <a href="https://book.leptos.dev/server/25_server_functions.html">Server Functions</a> and
 <a href="https://book.leptos.dev/ssr/21_cargo_leptos.html"><code>cargo-leptos</code></a>.</p>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="webassembly"><a class="header" href="#webassembly">WebAssembly</a></h1>
+<p><a href="https://docs.rs/wasmtime/"><code>wasmtime</code></a> is an embeddable WebAssembly runtime. These recipes
+cover the <strong>host embedding API</strong> — loading modules, calling exports, sharing
+linear memory, and wiring up host-defined functions that guests can call back
+into.</p>
+<p>The recipes live outside the main workspace because <code>wasmtime</code> is a large
+dependency not used elsewhere. Run them with
+<code>cargo run --manifest-path crates/wasm/Cargo.toml --bin &lt;name&gt;</code>.</p>
+<p><strong>Embedding wasmtime</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#call-an-exported-webassembly-function">Call an exported WebAssembly function</a></td><td><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a></td><td><a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></td></tr>
+<tr><td><a href="#exchange-data-via-webassembly-linear-memory">Exchange data via WebAssembly linear memory</a></td><td><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a></td><td><a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></td></tr>
+<tr><td><a href="#define-host-functions-for-webassembly">Define host functions for WebAssembly</a></td><td><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a></td><td><a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></td></tr>
+<tr><td><a href="#component-model--typed-strings-and-structs">Component Model — typed strings and structs</a></td><td><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a> <a href="https://docs.rs/wasmtime-wasi/"><img src="https://img.shields.io/crates/v/wasmtime-wasi.svg?label=wasmtime-wasi" alt="wasmtime-wasi-badge"></a> <a href="https://docs.rs/wit-bindgen/"><img src="https://img.shields.io/crates/v/wit-bindgen.svg?label=wit-bindgen" alt="wit-bindgen-badge"></a></td><td><a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></td></tr>
+</tbody>
+</table>
+</div>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="call-an-exported-webassembly-function"><a class="header" href="#call-an-exported-webassembly-function">Call an exported WebAssembly function</a></h1>
+<p><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a> <a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></p>
+<p><a href="https://docs.rs/wasmtime/"><code>wasmtime</code></a> embeds a WebAssembly runtime inside a Rust host
+program. This recipe compiles a module from <a href="https://webassembly.github.io/spec/core/text/index.html">WebAssembly Text format
+(WAT)</a>, instantiates it, and calls an exported function.</p>
+<p>The three core types are <a href="https://docs.rs/wasmtime/*/wasmtime/struct.Engine.html"><code>Engine</code></a>, which holds compiler settings;
+<a href="https://docs.rs/wasmtime/*/wasmtime/struct.Module.html"><code>Module</code></a>, which holds compiled bytecode; and <a href="https://docs.rs/wasmtime/*/wasmtime/struct.Store.html"><code>Store</code></a>, which
+holds all runtime state for a set of instances.</p>
+<p><a href="https://docs.rs/wasmtime/*/wasmtime/struct.Instance.html#method.new"><code>Instance::new</code></a> links the compiled module with its imports
+(none here) and produces a live instance. <a href="https://docs.rs/wasmtime/*/wasmtime/struct.Instance.html#method.get_typed_func"><code>get_typed_func</code></a>
+looks up an export by name and checks that its signature matches the Rust
+generic parameters — <code>(i32, i32)</code> in, <code>i32</code> out.</p>
+<p>Core WebAssembly function parameters are limited to four numeric types:
+<code>i32</code>, <code>i64</code>, <code>f32</code>, and <code>f64</code>. Strings, structs, and other complex values
+cannot cross the function boundary directly — see <a href="#exchange-data-via-webassembly-linear-memory">Exchange data via linear
+memory</a> for the pointer-and-length pattern, or the
+<a href="https://component-model.bytecodealliance.org/">Component Model</a> for a higher-level IDL that lifts
+these restrictions.</p>
+<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+use wasmtime::{Engine, Instance, Module, Store};
+
+fn main() -&gt; Result&lt;()&gt; {
+    let engine = Engine::default();
+    let module = Module::new(
+        &amp;engine,
+        r#"
+        (module
+            (func (export "add") (param i32 i32) (result i32)
+                local.get 0
+                local.get 1
+                i32.add)
+        )
+        "#,
+    )?;
+    let mut store = Store::new(&amp;engine, ());
+    let instance = Instance::new(&amp;mut store, &amp;module, &amp;[])?;
+    let add = instance.get_typed_func::&lt;(i32, i32), i32&gt;(&amp;mut store, "add")?;
+    let result = add.call(&amp;mut store, (5, 37))?;
+    println!("5 + 37 = {result}");
+    Ok(())
+}</code></pre>
+<p>Run it:</p>
+<pre><code class="language-shell">cargo run --manifest-path crates/wasm/Cargo.toml --bin call_export
+# 5 + 37 = 42
+</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="exchange-data-via-webassembly-linear-memory"><a class="header" href="#exchange-data-via-webassembly-linear-memory">Exchange data via WebAssembly linear memory</a></h1>
+<p><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a> <a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></p>
+<p>WebAssembly modules communicate with their host through <a href="https://webassembly.github.io/spec/core/exec/runtime.html#memory-instances">linear
+memory</a> — a flat, byte-addressable array that both sides
+can read and write. This recipe writes two <code>i32</code> values into the WASM module’s
+memory, calls a function that adds them, and reads the result back from the
+return value.</p>
+<p><a href="https://docs.rs/wasmtime/*/wasmtime/struct.Instance.html#method.get_memory"><code>get_memory</code></a> retrieves the module’s exported <code>memory</code> object.
+<a href="https://docs.rs/wasmtime/*/wasmtime/struct.Memory.html#method.data_mut"><code>data_mut</code></a> gives a mutable byte slice covering the entire linear
+memory so the host can write inputs before the call.</p>
+<pre class="playground"><code class="language-rust edition2018">use anyhow::{anyhow, Result};
+use wasmtime::{Engine, Instance, Module, Store};
+
+fn main() -&gt; Result&lt;()&gt; {
+    let engine = Engine::default();
+    let module = Module::new(
+        &amp;engine,
+        r#"
+        (module
+            (memory (export "memory") 1)
+            (func (export "add_from_memory") (result i32)
+                (i32.add
+                    (i32.load (i32.const 0))
+                    (i32.load (i32.const 4))))
+        )
+        "#,
+    )?;
+    let mut store = Store::new(&amp;engine, ());
+    let instance = Instance::new(&amp;mut store, &amp;module, &amp;[])?;
+
+    let memory = instance
+        .get_memory(&amp;mut store, "memory")
+        .ok_or_else(|| anyhow!("memory export not found"))?;
+    let add = instance.get_typed_func::&lt;(), i32&gt;(&amp;mut store, "add_from_memory")?;
+
+    let data = memory.data_mut(&amp;mut store);
+    data[0..4].copy_from_slice(&amp;17i32.to_le_bytes());
+    data[4..8].copy_from_slice(&amp;25i32.to_le_bytes());
+
+    let result = add.call(&amp;mut store, ())?;
+    println!("17 + 25 = {result}");
+    Ok(())
+}</code></pre>
+<p>Run it:</p>
+<pre><code class="language-shell">cargo run --manifest-path crates/wasm/Cargo.toml --bin linear_memory
+# 17 + 25 = 42
+</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="define-host-functions-for-webassembly"><a class="header" href="#define-host-functions-for-webassembly">Define host functions for WebAssembly</a></h1>
+<p><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a> <a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></p>
+<p>WebAssembly modules can import functions from the host, enabling guests to
+call back into Rust. This recipe defines a <code>print</code> function in the host that
+the WASM guest calls to write a message stored in its own linear memory.</p>
+<p><a href="https://docs.rs/wasmtime/*/wasmtime/struct.Func.html#method.wrap"><code>Func::wrap</code></a> creates a host-defined function from a Rust closure.
+The first parameter is a <a href="https://docs.rs/wasmtime/*/wasmtime/struct.Caller.html"><code>Caller</code></a> — a handle to the calling
+instance’s store. The guest module declares the import with
+<code>(import "host" "print" ...)</code> and the host passes <code>[print_fn.into()]</code> as the
+imports slice to <a href="https://docs.rs/wasmtime/*/wasmtime/struct.Instance.html#method.new"><code>Instance::new</code></a>.</p>
+<p><a href="https://docs.rs/wasmtime/*/wasmtime/struct.Instance.html#method.new"><code>Instance::new</code></a> takes <code>&amp;[Extern]</code> — the enum that can hold a
+<a href="https://docs.rs/wasmtime/*/wasmtime/struct.Func.html"><code>Func</code></a>, <code>Memory</code>, <code>Global</code>, or <code>Table</code>. <code>.into()</code> converts the
+<code>Func</code> into an <code>Extern</code> so the slice type is satisfied.</p>
+<p>Inside the closure, <a href="https://docs.rs/wasmtime/*/wasmtime/struct.Caller.html#method.get_export"><code>Caller::get_export</code></a> retrieves the guest’s
+<code>memory</code> export so the host can read the bytes the guest passed by pointer and
+length.</p>
+<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+use wasmtime::{Caller, Engine, Extern, Func, Instance, Module, Store};
+
+fn main() -&gt; Result&lt;()&gt; {
+    let engine = Engine::default();
+    let module = Module::new(
+        &amp;engine,
+        r#"
+        (module
+            (import "host" "print" (func $print (param i32 i32)))
+            (memory (export "memory") 1)
+            (data (i32.const 0) "Hello from WebAssembly!")
+            (func (export "run")
+                (call $print (i32.const 0) (i32.const 23)))
+        )
+        "#,
+    )?;
+
+    let mut store = Store::new(&amp;engine, ());
+    let print_fn = Func::wrap(
+        &amp;mut store,
+        |mut caller: Caller&lt;'_, ()&gt;, ptr: i32, len: i32| {
+            if let Some(Extern::Memory(mem)) = caller.get_export("memory") {
+                let data = mem.data(&amp;caller);
+                let bytes = &amp;data[ptr as usize..(ptr + len) as usize];
+                if let Ok(s) = std::str::from_utf8(bytes) {
+                    println!("[wasm] {s}");
+                }
+            }
+        },
+    );
+
+    let imports = [print_fn.into()];
+    let instance = Instance::new(&amp;mut store, &amp;module, &amp;imports)?;
+    let run = instance.get_typed_func::&lt;(), ()&gt;(&amp;mut store, "run")?;
+    run.call(&amp;mut store, ())?;
+    Ok(())
+}</code></pre>
+<p>Run it:</p>
+<pre><code class="language-shell">cargo run --manifest-path crates/wasm/Cargo.toml --bin host_fn
+# [wasm] Hello from WebAssembly!
+</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="component-model--typed-strings-and-structs"><a class="header" href="#component-model--typed-strings-and-structs">Component Model — typed strings and structs</a></h1>
+<p><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a> <a href="https://docs.rs/wasmtime-wasi/"><img src="https://img.shields.io/crates/v/wasmtime-wasi.svg?label=wasmtime-wasi" alt="wasmtime-wasi-badge"></a> <a href="https://docs.rs/wit-bindgen/"><img src="https://img.shields.io/crates/v/wit-bindgen.svg?label=wit-bindgen" alt="wit-bindgen-badge"></a> <a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></p>
+<p>Core WebAssembly function parameters are limited to <code>i32</code>, <code>i64</code>, <code>f32</code>, and
+<code>f64</code>. The <a href="https://component-model.bytecodealliance.org/">WebAssembly Component Model</a> removes that restriction by
+adding a language-neutral interface description language called
+<a href="https://component-model.bytecodealliance.org/design/wit.html">WIT</a>. Strings, lists, records, and variants all become first-class
+types that cross the guest/host boundary without manual pointer arithmetic.</p>
+<p>This recipe requires two extra tools:</p>
+<pre><code class="language-shell">cargo install cargo-component
+rustup target add wasm32-wasip2
+</code></pre>
+<h2 id="define-the-interface-in-wit"><a class="header" href="#define-the-interface-in-wit">Define the interface in WIT</a></h2>
+<p>A WIT <em>world</em> declares what a component exports and imports. This one exports a
+single <code>greet</code> function that takes and returns a <code>string</code>.</p>
+<pre><code class="language-wit">package example:greeter@0.1.0;
+
+world greeter {
+    export greet: func(name: string) -&gt; string;
+}
+</code></pre>
+<h2 id="implement-the-guest"><a class="header" href="#implement-the-guest">Implement the guest</a></h2>
+<p><a href="https://docs.rs/wit-bindgen/latest/wit_bindgen/macro.generate.html"><code>wit_bindgen::generate!</code></a> reads the WIT file at compile
+time and emits a <code>Guest</code> trait. The concrete type <code>Component</code> implements it,
+and <a href="https://docs.rs/wit-bindgen/latest/wit_bindgen/macro.generate.html#exports-the-export-macro"><code>export!</code></a> wires it up as the component’s entry point.</p>
+<pre><code class="language-rust ignore">wit_bindgen::generate!({ world: "greeter" });
+
+struct Component;
+
+impl Guest for Component {
+    fn greet(name: String) -&gt; String {
+        format!("Hello, {name}!")
+    }
+}
+
+export!(Component);</code></pre>
+<p>Build the guest into a <code>.wasm</code> component:</p>
+<pre><code class="language-shell">cd crates/wasm_component_guest
+cargo component build --release --target wasm32-wasip2
+</code></pre>
+<h2 id="run-it-from-the-host"><a class="header" href="#run-it-from-the-host">Run it from the host</a></h2>
+<p>The host uses <a href="https://docs.rs/wasmtime/*/wasmtime/component/macro.bindgen.html"><code>wasmtime::component::bindgen!</code></a> — the same WIT
+file, read at compile time — to generate a typed <code>Greeter</code> wrapper. <a href="https://docs.rs/wasmtime/*/wasmtime/struct.Config.html"><code>Config</code></a>
+enables the component model, <a href="https://docs.rs/wasmtime-wasi/*/wasmtime_wasi/p2/fn.add_to_linker_sync.html"><code>wasmtime_wasi::p2::add_to_linker_sync</code></a> wires
+up WASI Preview 2 (required even for guests that don’t use WASI directly), and
+<a href="https://docs.rs/wasmtime/*/wasmtime/component/struct.Instance.html"><code>Greeter::instantiate</code></a> produces a handle whose <code>call_greet</code> method accepts a
+<code>&amp;str</code> and returns a <code>String</code>.</p>
+<pre><code class="language-rust ignore">use anyhow::Result;
+use wasmtime::component::{bindgen, Component, Linker, ResourceTable};
+use wasmtime::{Config, Engine, Store};
+use wasmtime_wasi::{WasiCtx, WasiCtxBuilder, WasiCtxView, WasiView};
+
+bindgen!({
+    world: "greeter",
+    path: "../wasm_component_guest/wit/world.wit",
+});
+
+struct State {
+    table: ResourceTable,
+    wasi: WasiCtx,
+}
+
+impl WasiView for State {
+    fn ctx(&amp;mut self) -&gt; WasiCtxView&lt;'_&gt; {
+        WasiCtxView {
+            ctx: &amp;mut self.wasi,
+            table: &amp;mut self.table,
+        }
+    }
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let mut config = Config::new();
+    config.wasm_component_model(true);
+    let engine = Engine::new(&amp;config)?;
+
+    let component = Component::from_file(
+        &amp;engine,
+        "crates/wasm_component_guest/target/wasm32-wasip2/release/greeter.wasm",
+    )?;
+
+    let mut linker: Linker&lt;State&gt; = Linker::new(&amp;engine);
+    wasmtime_wasi::p2::add_to_linker_sync(&amp;mut linker)?;
+
+    let wasi = WasiCtxBuilder::new().build();
+    let mut store = Store::new(&amp;engine, State {
+        table: ResourceTable::new(),
+        wasi,
+    });
+
+    let greeter = Greeter::instantiate(&amp;mut store, &amp;component, &amp;linker)?;
+    let message = greeter.call_greet(&amp;mut store, "WebAssembly")?;
+    println!("{message}");
+    Ok(())
+}</code></pre>
+<p>Run from the repo root (after building the guest):</p>
+<pre><code class="language-shell">cargo run --manifest-path crates/wasm_component_host/Cargo.toml
+# Hello, WebAssembly!
+</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
