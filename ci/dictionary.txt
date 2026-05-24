@@ -370,7 +370,10 @@ Walkdir
 WalkDir
 wasm
 WASM
+wasi
+wasmtime
 WebAssembly
+webassembly
 webpage
 webservice
 whitespace

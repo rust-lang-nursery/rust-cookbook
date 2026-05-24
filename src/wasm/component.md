@@ -33,8 +33,8 @@ single `greet` function that takes and returns a `string`.
 time and emits a `Guest` trait. The concrete type `Component` implements it,
 and [`export!`][wit-bindgen-export] wires it up as the component's entry point.
 
-[wit-bindgen-generate]: https://docs.rs/wit-bindgen/*/wit_bindgen/macro.generate.html
-[wit-bindgen-export]: https://docs.rs/wit-bindgen/*/wit_bindgen/macro.export.html
+[wit-bindgen-generate]: https://docs.rs/wit-bindgen/latest/wit_bindgen/macro.generate.html
+[wit-bindgen-export]: https://docs.rs/wit-bindgen/latest/wit_bindgen/macro.generate.html#exports-the-export-macro
 
 ```rust,ignore
 {{#include ../../crates/wasm_component_guest/src/lib.rs}}
