@@ -44,7 +44,7 @@ Build the guest into a `.wasm` component:
 
 ```shell
 cd crates/wasm_component_guest
-cargo component build --release
+cargo component build --release --target wasm32-wasip2
 ```
 
 ## Run it from the host
