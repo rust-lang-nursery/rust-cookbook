@@ -94,6 +94,7 @@ DirEntry
 distr
 dotfiles
 DynamicImage
+embeddable
 endian
 endif
 enum
