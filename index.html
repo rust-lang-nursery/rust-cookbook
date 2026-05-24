@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-979a9838.js";
+            window.path_to_searchindex_js = "searchindex-5b9cf996.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-8dba1631.js"></script>
@@ -624,6 +624,34 @@ Keep lines sorted.
 <tr><td><a href="text/regex.html#filter-a-log-file-by-matching-multiple-regular-expressions">Filter a log file by matching multiple regular expressions</a></td><td><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></td></tr>
 <tr><td><a href="text/regex.html#replace-all-occurrences-of-one-text-pattern-with-another-pattern">Replace all occurrences of one text pattern with another pattern.</a></td><td><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge"></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></td></tr>
 <tr><td><a href="text/string_parsing.html#implement-the-fromstr-trait-for-a-custom-struct">Implement the <code>FromStr</code> trait for a custom <code>struct</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></td></tr>
+</tbody>
+</table>
+</div>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<h1 id="webassembly"><a class="header" href="#webassembly">WebAssembly</a></h1>
+<p><a href="https://docs.rs/wasmtime/"><code>wasmtime</code></a> is an embeddable WebAssembly runtime. These recipes
+cover the <strong>host embedding API</strong> — loading modules, calling exports, sharing
+linear memory, and wiring up host-defined functions that guests can call back
+into.</p>
+<p>The recipes live outside the main workspace because <code>wasmtime</code> is a large
+dependency not used elsewhere. Run them with
+<code>cargo run --manifest-path crates/wasm/Cargo.toml --bin &lt;name&gt;</code>.</p>
+<p><strong>Embedding wasmtime</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="wasm/call_export.html#call-an-exported-webassembly-function">Call an exported WebAssembly function</a></td><td><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a></td><td><a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></td></tr>
+<tr><td><a href="wasm/linear_memory.html#exchange-data-via-webassembly-linear-memory">Exchange data via WebAssembly linear memory</a></td><td><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a></td><td><a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></td></tr>
+<tr><td><a href="wasm/host_fn.html#define-host-functions-for-webassembly">Define host functions for WebAssembly</a></td><td><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a></td><td><a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></td></tr>
+<tr><td><a href="wasm/component.html#component-model--typed-strings-and-structs">Component Model — typed strings and structs</a></td><td><a href="https://docs.rs/wasmtime/"><img src="https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime" alt="wasmtime-badge"></a> <a href="https://docs.rs/wasmtime-wasi/"><img src="https://img.shields.io/crates/v/wasmtime-wasi.svg?label=wasmtime-wasi" alt="wasmtime-wasi-badge"></a> <a href="https://docs.rs/wit-bindgen/"><img src="https://img.shields.io/crates/v/wit-bindgen.svg?label=wit-bindgen" alt="wit-bindgen-badge"></a></td><td><a href="https://crates.io/categories/wasm"><img src="https://img.shields.io/badge/wasm--x.svg?style=social" alt="cat-wasm-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
