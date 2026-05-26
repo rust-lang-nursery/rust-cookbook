@@ -3,7 +3,7 @@
 [![std-badge]][std] [![cat-net-badge]][cat-net]
 
 In this example, the port is displayed on the console, and the program will
-listen until a request is made.  `TcpListener::bind` uses a random port
+listen until a request is made.  [`TcpListener::bind`] uses a random port
 allocated by the OS when requested to bind to port 0.
 
 ```rust,edition2018,no_run
@@ -22,3 +22,5 @@ fn main() -> Result<(), Error> {
     Ok(())
 }
 ```
+
+[`TcpListener::bind`]: https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind
