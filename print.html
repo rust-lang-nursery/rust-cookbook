@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-5b9cf996.js";
+            window.path_to_searchindex_js = "searchindex-de9bfd91.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-8dba1631.js"></script>
+        <script src="toc-29e1e3c6.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -337,6 +337,12 @@ Keep lines sorted.
 </thead>
 <tbody>
 <tr><td><a href="#define-and-operate-on-a-type-represented-as-a-bitfield">Define and operate on a type represented as a bitfield</a></td><td><a href="https://docs.rs/bitflags/"><img src="https://img.shields.io/crates/v/bitflags.svg?label=bitflags" alt="bitflags-badge"></a></td><td><a href="https://crates.io/categories/no-std"><img src="https://img.shields.io/badge/no_std--x.svg?style=social" alt="cat-no-std-badge"></a></td></tr>
+<tr><td><a href="#count-word-frequency-in-a-document">Count word frequency in a document</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#group-records-by-key">Group records by key</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#look-up-records-within-a-time-range">Look up records within a time range</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#set-operations-with-hashset">Set operations with HashSet</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#process-tasks-in-priority-order">Process tasks in priority order</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#sliding-window-buffer-with-vecdeque">Sliding-window buffer with VecDeque</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -2871,6 +2877,12 @@ Keep lines sorted.
 </thead>
 <tbody>
 <tr><td><a href="#define-and-operate-on-a-type-represented-as-a-bitfield">Define and operate on a type represented as a bitfield</a></td><td><a href="https://docs.rs/bitflags/"><img src="https://img.shields.io/crates/v/bitflags.svg?label=bitflags" alt="bitflags-badge"></a></td><td><a href="https://crates.io/categories/no-std"><img src="https://img.shields.io/badge/no_std--x.svg?style=social" alt="cat-no-std-badge"></a></td></tr>
+<tr><td><a href="#count-word-frequency-in-a-document">Count word frequency in a document</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#group-records-by-key">Group records by key</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#look-up-records-within-a-time-range">Look up records within a time range</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#set-operations-with-hashset">Set operations with HashSet</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#process-tasks-in-priority-order">Process tasks in priority order</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
+<tr><td><a href="#sliding-window-buffer-with-vecdeque">Sliding-window buffer with VecDeque</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -2958,6 +2970,194 @@ fn main() {
     assert_eq!(format!("{}", flags.clear()), "00000000000000000000000000000000");
     assert_eq!(format!("{:?}", MyFlags::FLAG_B), "MyFlags(2)");
     assert_eq!(format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B), "MyFlags(3)");
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="collections"><a class="header" href="#collections">Collections</a></h1>
+<h2 id="count-word-frequency-in-a-document"><a class="header" href="#count-word-frequency-in-a-document">Count Word Frequency in a Document</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
+<p>Splits a string into words with <a href="https://doc.rust-lang.org/std/primitive.str.html#method.split_whitespace"><code>split_whitespace</code></a> and counts each word’s occurrences. <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.entry"><code>HashMap::entry</code></a> with <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html#method.or_insert"><code>or_insert</code></a> initializes a missing key to zero and returns a mutable reference, so the increment requires no separate lookup. <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by_key"><code>sort_by_key</code></a> with <a href="https://doc.rust-lang.org/std/cmp/struct.Reverse.html"><code>Reverse</code></a> sorts the results descending by count; wrapping the count in <code>Reverse</code> flips the natural ascending order without a manual comparator.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::cmp::Reverse;
+use std::collections::HashMap;
+
+fn word_count(text: &amp;str) -&gt; HashMap&lt;&amp;str, usize&gt; {
+    let mut counts = HashMap::new();
+    for word in text.split_whitespace() {
+        *counts.entry(word).or_insert(0) += 1;
+    }
+    counts
+}
+
+fn main() {
+    let text = "the quick brown fox jumps over the lazy dog the fox";
+    let counts = word_count(text);
+
+    let mut pairs: Vec&lt;(&amp;str, usize)&gt; = counts.iter().map(|(&amp;w, &amp;c)| (w, c)).collect();
+    pairs.sort_by_key(|&amp;(word, count)| (Reverse(count), word));
+    for (word, count) in &amp;pairs {
+        println!("{word:&gt;12}  {count}");
+    }
+
+    assert_eq!(counts["the"], 3);
+    assert_eq!(counts["fox"], 2);
+    assert_eq!(counts["quick"], 1);
+}</code></pre>
+<h2 id="group-records-by-key"><a class="header" href="#group-records-by-key">Group Records by Key</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
+<p>Groups a flat list of records into a <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> of vectors using <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.entry"><code>entry</code></a> with <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html#method.or_default"><code>or_default</code></a>, which inserts an empty <code>Vec</code> the first time a key is seen and returns a mutable reference to it on every call. <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.keys"><code>keys</code></a> with <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.copied"><code>copied</code></a> produces an owned <code>Vec&lt;&amp;str&gt;</code> for sorting — <code>copied</code> turns the <code>&amp;&amp;str</code> references that <code>keys</code> yields into <code>&amp;str</code> values.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+
+fn main() {
+    let log_lines = vec![
+        ("ERROR", "disk full"),
+        ("WARN",  "high memory usage"),
+        ("INFO",  "server started"),
+        ("ERROR", "connection refused"),
+        ("INFO",  "request received"),
+    ];
+
+    let mut by_level: HashMap&lt;&amp;str, Vec&lt;&amp;str&gt;&gt; = HashMap::new();
+    for (level, message) in log_lines {
+        by_level.entry(level).or_default().push(message);
+    }
+
+    let mut levels: Vec&lt;&amp;str&gt; = by_level.keys().copied().collect();
+    levels.sort();
+    for level in levels {
+        println!("[{level}]");
+        for msg in &amp;by_level[level] {
+            println!("  {msg}");
+        }
+    }
+
+    assert_eq!(by_level["ERROR"].len(), 2);
+    assert_eq!(by_level["INFO"].len(), 2);
+    assert_eq!(by_level["WARN"].len(), 1);
+}</code></pre>
+<h2 id="look-up-records-within-a-time-range"><a class="header" href="#look-up-records-within-a-time-range">Look Up Records Within a Time Range</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
+<p>Stores timestamped sensor readings in a <a href="https://doc.rust-lang.org/std/collections/struct.BTreeMap.html"><code>BTreeMap</code></a>, which keeps keys in sorted order using a B-tree structure. <a href="https://doc.rust-lang.org/std/collections/struct.BTreeMap.html#method.range"><code>BTreeMap::range</code></a> locates the start of the range with binary search in O(log n) time and then iterates forward — so the cost scales with the result size, not the total number of entries. A <code>HashMap</code> cannot do this at all; it has no ordering to exploit.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::collections::BTreeMap;
+
+fn main() {
+    let mut readings: BTreeMap&lt;u32, f64&gt; = BTreeMap::new();
+    readings.insert(1_000, 20.1);
+    readings.insert(2_000, 21.3);
+    readings.insert(3_000, 19.8);
+    readings.insert(4_000, 22.5);
+    readings.insert(5_000, 23.1);
+
+    let window: Vec&lt;(&amp;u32, &amp;f64)&gt; = readings.range(2_000..=4_000).collect();
+    println!("Readings from t=2000 to t=4000:");
+    for (ts, temp) in &amp;window {
+        println!("  t={ts:&gt;5}  {temp:.1}°C");
+    }
+
+    assert_eq!(window.len(), 3);
+    assert_eq!(*window[0].0, 2_000);
+    assert_eq!(*window[2].0, 4_000);
+}</code></pre>
+<h2 id="set-operations-with-hashset"><a class="header" href="#set-operations-with-hashset">Set Operations with HashSet</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
+<p>Computes the <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.difference"><code>difference</code></a>, <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.intersection"><code>intersection</code></a>, and <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.union"><code>union</code></a> of two <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html"><code>HashSet</code></a>s. Each operation returns an iterator of references; <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.copied"><code>copied</code></a> converts <code>&amp;&amp;str</code> to <code>&amp;str</code> for easier collection.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::collections::HashSet;
+
+fn main() {
+    let deployed: HashSet&lt;&amp;str&gt; = ["web", "api", "worker", "scheduler"]
+        .iter()
+        .copied()
+        .collect();
+    let monitored: HashSet&lt;&amp;str&gt; = ["web", "api", "database"]
+        .iter()
+        .copied()
+        .collect();
+
+    // Services running but not being monitored
+    let mut unmonitored: Vec&lt;&amp;str&gt; = deployed.difference(&amp;monitored).copied().collect();
+    unmonitored.sort();
+    println!("Deployed but not monitored: {unmonitored:?}");
+    assert_eq!(unmonitored, ["scheduler", "worker"]);
+
+    // Services present in both sets
+    let mut common: Vec&lt;&amp;str&gt; = deployed.intersection(&amp;monitored).copied().collect();
+    common.sort();
+    println!("Monitored and deployed:     {common:?}");
+    assert_eq!(common, ["api", "web"]);
+
+    // All services mentioned across both sets
+    let mut all: Vec&lt;&amp;str&gt; = deployed.union(&amp;monitored).copied().collect();
+    all.sort();
+    println!("All services:               {all:?}");
+    assert_eq!(all.len(), 5);
+}</code></pre>
+<h2 id="process-tasks-in-priority-order"><a class="header" href="#process-tasks-in-priority-order">Process Tasks in Priority Order</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
+<p>Uses <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html"><code>BinaryHeap</code></a> as a max-priority queue: <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html#method.push"><code>push</code></a> inserts an item and <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html#method.pop"><code>pop</code></a> always removes the highest-priority one first. Wrapping items in <a href="https://doc.rust-lang.org/std/cmp/struct.Reverse.html"><code>Reverse</code></a> turns it into a min-priority queue without a custom comparator.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::cmp::Reverse;
+use std::collections::BinaryHeap;
+
+fn main() {
+    // Max-heap: highest priority number is processed first
+    let mut queue: BinaryHeap&lt;(u32, &amp;str)&gt; = BinaryHeap::new();
+    queue.push((3, "send report"));
+    queue.push((1, "check email"));
+    queue.push((5, "fix production bug"));
+    queue.push((2, "review PR"));
+
+    println!("Max-heap — processing order:");
+    while let Some((priority, task)) = queue.pop() {
+        println!("  [{priority}] {task}");
+    }
+
+    // Min-heap: wrap with Reverse so lowest number is processed first
+    let mut min_queue: BinaryHeap&lt;Reverse&lt;(u32, &amp;str)&gt;&gt; = BinaryHeap::new();
+    min_queue.push(Reverse((3, "send report")));
+    min_queue.push(Reverse((1, "check email")));
+    min_queue.push(Reverse((5, "fix production bug")));
+
+    println!("Min-heap — processing order:");
+    while let Some(Reverse((priority, task))) = min_queue.pop() {
+        println!("  [{priority}] {task}");
+    }
+}</code></pre>
+<h2 id="sliding-window-buffer-with-vecdeque"><a class="header" href="#sliding-window-buffer-with-vecdeque">Sliding-Window Buffer with VecDeque</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
+<p>Maintains a fixed-size window over a stream of values using <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html"><code>VecDeque</code></a>. <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.push_back"><code>push_back</code></a> appends new values and <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.pop_front"><code>pop_front</code></a> discards the oldest, keeping memory bounded regardless of input length. <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.with_capacity"><code>with_capacity</code></a> is optional — <code>VecDeque::new()</code> works fine — but pre-allocating the window size avoids reallocations as the buffer fills up for the first time. <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.zip"><code>zip</code></a> pairs each original reading with its computed average for display.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::collections::VecDeque;
+
+fn sliding_average(values: &amp;[f64], window: usize) -&gt; Vec&lt;f64&gt; {
+    let mut buf: VecDeque&lt;f64&gt; = VecDeque::with_capacity(window);
+    let mut averages = Vec::with_capacity(values.len());
+
+    for &amp;v in values {
+        if buf.len() == window {
+            buf.pop_front();
+        }
+        buf.push_back(v);
+        averages.push(buf.iter().sum::&lt;f64&gt;() / buf.len() as f64);
+    }
+    averages
+}
+
+fn main() {
+    let readings = [1.0, 2.0, 3.0, 4.0, 5.0];
+    let averages = sliding_average(&amp;readings, 3);
+
+    println!("reading  average");
+    for (r, a) in readings.iter().zip(&amp;averages) {
+        println!("  {r:.1}      {a:.2}");
+    }
+
+    assert_eq!(averages[0], 1.0);  // window: [1.0]
+    assert_eq!(averages[1], 1.5);  // window: [1.0, 2.0]
+    assert_eq!(averages[2], 2.0);  // window: [1.0, 2.0, 3.0]
+    assert_eq!(averages[3], 3.0);  // window: [2.0, 3.0, 4.0]
+    assert_eq!(averages[4], 4.0);  // window: [3.0, 4.0, 5.0]
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
