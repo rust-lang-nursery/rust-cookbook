@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a1094d1f.js";
+            window.path_to_searchindex_js = "../searchindex-598a8977.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-6582db82.js"></script>
@@ -182,6 +182,58 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="read--write"><a class="header" href="#read--write">Read &amp; Write</a></h1>
+<h2 id="read-a-whole-file-into-a-string"><a class="header" href="#read-a-whole-file-into-a-string">Read a whole file into a string</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>fs::read_to_string</code></a> opens the file, reads it to end, closes it, and returns
+a <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> — one call for the common case of loading a small text file in
+full. It sizes the buffer from the file’s length up front, so the read is a
+single allocation plus a single syscall loop.</p>
+<p>For files large enough that loading them whole would waste memory, switch to a
+<a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> over <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.open"><code>File::open</code></a> and stream lines or bytes. The cutoff is
+workload-specific; past a few megabytes, the streaming form is usually the
+right choice.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fs;
+use std::io;
+use tempfile::tempdir;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let dir = tempdir()?;
+    let path = dir.path().join("config.toml");
+    fs::write(&amp;path, "name = \"cookbook\"\nedition = 2021\n")?;
+
+    // One call: open, read, close.
+    let contents = fs::read_to_string(&amp;path)?;
+    assert!(contents.contains("cookbook"));
+    println!("{contents}");
+    Ok(())
+}</code></pre>
+<h2 id="write-a-string-to-a-file"><a class="header" href="#write-a-string-to-a-file">Write a string to a file</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/fs/fn.write.html"><code>fs::write</code></a> is the mirror of <a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>fs::read_to_string</code></a>: it opens the path,
+writes the bytes, and closes the file in one call. The semantics are
+create-or-truncate — if the file exists, its previous contents are discarded;
+if it doesn’t, it’s created with default permissions.</p>
+<p>To append instead of replacing, build a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> through <a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html"><code>OpenOptions</code></a> with
+<a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html#method.append"><code>append</code></a> set. To refuse to overwrite an existing file — useful when a stale
+file would be a bug — use <a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html#method.create_new"><code>create_new</code></a> instead of <code>create</code>.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fs;
+use std::io;
+use tempfile::tempdir;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let dir = tempdir()?;
+    let path = dir.path().join("report.txt");
+
+    // Creates the file if missing.
+    fs::write(&amp;path, "build ok\n")?;
+
+    // Calling write again replaces — does not append to — the previous contents.
+    fs::write(&amp;path, "build ok\nemitted 12 warnings\n")?;
+
+    let back = fs::read_to_string(&amp;path)?;
+    assert_eq!(back, "build ok\nemitted 12 warnings\n");
+    Ok(())
+}</code></pre>
 <h2 id="read-lines-of-strings-from-a-file"><a class="header" href="#read-lines-of-strings-from-a-file">Read lines of strings from a file</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>Writes a three-line message to a file, then reads it back a line at a
@@ -205,6 +257,38 @@ fn main() -&gt; Result&lt;(), Error&gt; {
         println!("{}", line?);
     }
 
+    Ok(())
+}</code></pre>
+<h2 id="rename-or-atomically-replace-a-file"><a class="header" href="#rename-or-atomically-replace-a-file">Rename or atomically replace a file</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/fs/fn.rename.html"><code>fs::rename</code></a> is the atomic-replace primitive when source and destination
+live on the same filesystem: on Unix it’s a single <code>rename(2)</code> syscall, on
+Windows it’s <code>MoveFileExW</code> with <code>MOVEFILE_REPLACE_EXISTING</code>. A concurrent
+reader either opens the old contents or the new — never a half-written file,
+never a window where the path is missing.</p>
+<p>The write-to-temp-then-rename pattern below is how editors, package managers,
+and config writers avoid leaving a torn file behind if the process dies
+mid-write. The staging file and the final path must live on the same
+filesystem; across devices the kernel has no atomic move, and <code>rename</code> fails
+instead of silently degrading to a copy.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fs;
+use std::io;
+use tempfile::tempdir;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let dir = tempdir()?;
+    let final_path = dir.path().join("config.toml");
+    let staging = dir.path().join("config.toml.new");
+
+    // Write the new contents to a sibling path first...
+    fs::write(&amp;staging, "version = 2\n")?;
+
+    // ...then swap it into place. Readers see either the old file or the
+    // new one, never a partial write.
+    fs::rename(&amp;staging, &amp;final_path)?;
+
+    assert_eq!(fs::read_to_string(&amp;final_path)?, "version = 2\n");
+    assert!(!staging.exists());
     Ok(())
 }</code></pre>
 <h2 id="avoid-writing-and-reading-from-a-same-file"><a class="header" href="#avoid-writing-and-reading-from-a-same-file">Avoid writing and reading from a same file</a></h2>
