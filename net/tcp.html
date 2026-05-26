@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Structured Data - Rust Cookbook</title>
+        <title>TCP - Rust Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -147,7 +147,7 @@
                         <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
                             <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
-                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/encoding/complex.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/net/tcp.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
                             <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
                         </a>
 
@@ -181,141 +181,230 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="structured-data"><a class="header" href="#structured-data">Structured Data</a></h1>
-<h2 id="serialize-and-deserialize-unstructured-json"><a class="header" href="#serialize-and-deserialize-unstructured-json">Serialize and deserialize unstructured JSON</a></h2>
-<p><a href="https://docs.rs/serde_json/*/serde_json/"><img src="https://img.shields.io/crates/v/serde_json.svg?label=serde_json" alt="serde-json-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
-<p>The <a href="https://docs.serde.rs/serde_json/"><code>serde_json</code></a> crate provides a <a href="https://docs.serde.rs/serde_json/fn.from_str.html"><code>from_str</code></a> function to parse a <code>&amp;str</code> of
-JSON.</p>
-<p>Unstructured JSON can be parsed into a universal <a href="https://docs.serde.rs/serde_json/enum.Value.html"><code>serde_json::Value</code></a> type that
-is able to represent any valid JSON data.</p>
-<p>The example below shows a <code>&amp;str</code> of JSON being parsed.  The expected value is declared using the <a href="https://docs.serde.rs/serde_json/macro.json.html"><code>json!</code></a> macro.</p>
-<pre class="playground"><code class="language-rust edition2018">use serde_json::json;
-use serde_json::{Value, Error};
+                        <h1 id="tcp"><a class="header" href="#tcp">TCP</a></h1>
+<h2 id="listen-on-unused-port-tcpip"><a class="header" href="#listen-on-unused-port-tcpip">Listen on unused port TCP/IP</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
+<p>In this example, the port is displayed on the console, and the program will
+listen until a request is made.  <a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind"><code>TcpListener::bind</code></a> uses a random port
+allocated by the OS when requested to bind to port 0.</p>
+<pre class="playground"><code class="language-rust edition2018 no_run">use std::net::TcpListener;
+use std::io::{Read, Error};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
-    let j = r#"{
-                 "userid": 103609,
-                 "verified": true,
-                 "access_privileges": [
-                   "user",
-                   "admin"
-                 ]
-               }"#;
+    let listener = TcpListener::bind("localhost:0")?;
+    let port = listener.local_addr()?;
+    println!("Listening on {}, access this port to end the program", port);
+    let (mut tcp_stream, addr) = listener.accept()?; //block  until requested
+    println!("Connection received! {:?} is sending data.", addr);
+    let mut input = String::new();
+    let _ = tcp_stream.read_to_string(&amp;mut input)?;
+    println!("{:?} says {}", addr, input);
+    Ok(())
+}</code></pre>
+<h2 id="tcp-echo-server"><a class="header" href="#tcp-echo-server">TCP echo server</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
+<p>When you’re building a TCP client you need a server that behaves predictably.
+An echo server is that server: every byte you send comes back unchanged. Point
+your client at it to check framing, disconnect handling, or timeouts.</p>
+<p><a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind"><code>TcpListener::bind</code></a> starts listening on an address. <a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.incoming"><code>incoming</code></a> yields each
+new connection. Spawning a thread per connection keeps the accept loop free for
+the next client. Inside the handler, <a href="https://doc.rust-lang.org/std/io/trait.Read.html#tymethod.read"><code>read</code></a> returning <code>0</code> means the peer
+closed the connection — that’s the cue to drop out of the loop.</p>
+<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+use std::net::{TcpListener, TcpStream};
+use std::thread;
 
-    let parsed: Value = serde_json::from_str(j)?;
+fn handle_connection(mut stream: TcpStream) -&gt; io::Result&lt;()&gt; {
+    let mut buf = [0u8; 1024];
+    loop {
+        let n = stream.read(&amp;mut buf)?;
+        if n == 0 {
+            return Ok(());
+        }
+        stream.write_all(&amp;buf[..n])?;
+    }
+}
 
-    let expected = json!({
-        "userid": 103609,
-        "verified": true,
-        "access_privileges": [
-            "user",
-            "admin"
-        ]
+fn main() -&gt; io::Result&lt;()&gt; {
+    let listener = TcpListener::bind("127.0.0.1:7878")?;
+    println!("echo server listening on {}", listener.local_addr()?);
+    for incoming in listener.incoming() {
+        let stream = incoming?;
+        thread::spawn(move || {
+            if let Err(e) = handle_connection(stream) {
+                eprintln!("connection error: {e}");
+            }
+        });
+    }
+    Ok(())
+}</code></pre>
+<h2 id="tcp-client"><a class="header" href="#tcp-client">TCP client</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
+<p>With the echo server from the previous recipe running on <code>127.0.0.1:7878</code>, a
+client can connect, send a message, and read the reply.</p>
+<p><a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html#method.connect"><code>TcpStream::connect</code></a> opens a connection. The returned <a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html"><code>TcpStream</code></a> is both a
+reader and a writer. <a href="https://doc.rust-lang.org/std/io/trait.Write.html#method.write_all"><code>write_all</code></a> sends the request; <a href="https://doc.rust-lang.org/std/io/trait.Read.html#tymethod.read"><code>read</code></a> fills a buffer
+with whatever the server returns. Echo guarantees the bytes round-trip
+unchanged, so the client can assert on what came back.</p>
+<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+use std::net::TcpStream;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let mut stream = TcpStream::connect("127.0.0.1:7878")?;
+    stream.write_all(b"ping")?;
+
+    let mut buf = [0u8; 4];
+    stream.read_exact(&amp;mut buf)?;
+    println!("echo: {}", std::str::from_utf8(&amp;buf).unwrap_or("&lt;binary&gt;"));
+
+    assert_eq!(&amp;buf, b"ping");
+    Ok(())
+}</code></pre>
+<h2 id="tcp-connect-with-a-timeout"><a class="header" href="#tcp-connect-with-a-timeout">TCP connect with a timeout</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
+<p>Plain <a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html#method.connect"><code>TcpStream::connect</code></a> waits for the kernel to give up on SYN retries.
+When the peer is down or a firewall is silently dropping packets, that can
+take a minute or more. <a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html#method.connect_timeout"><code>TcpStream::connect_timeout</code></a> caps the wait.</p>
+<p>The timeout variant takes a <a href="https://doc.rust-lang.org/std/net/enum.SocketAddr.html"><code>SocketAddr</code></a>, not a string, so resolve the
+hostname first.</p>
+<pre class="playground"><code class="language-rust edition2021 no_run">use std::io;
+use std::net::{TcpStream, ToSocketAddrs};
+use std::time::Duration;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let addr = "example.com:443"
+        .to_socket_addrs()?
+        .next()
+        .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, "no address"))?;
+
+    match TcpStream::connect_timeout(&amp;addr, Duration::from_secs(3)) {
+        Ok(_stream) =&gt; println!("connected to {addr}"),
+        Err(e) if e.kind() == io::ErrorKind::TimedOut =&gt; {
+            eprintln!("connect timed out");
+        }
+        Err(e) =&gt; return Err(e),
+    }
+    Ok(())
+}</code></pre>
+<h2 id="set-a-read-timeout-on-a-tcp-stream"><a class="header" href="#set-a-read-timeout-on-a-tcp-stream">Set a read timeout on a TCP stream</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
+<p>A default <a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html"><code>TcpStream</code></a> read blocks until data arrives or the peer hangs up.
+If the peer goes silent — process stuck, network partition, slow upstream —
+the read hangs with it. <a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html#method.set_read_timeout"><code>set_read_timeout</code></a> caps the wait.</p>
+<p>On timeout the read returns an <a href="https://doc.rust-lang.org/std/io/struct.Error.html"><code>io::Error</code></a>. The platform decides the kind:
+<a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.WouldBlock"><code>WouldBlock</code></a> on Unix, <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.TimedOut"><code>TimedOut</code></a> on Windows. Match both or your code
+breaks on the other platform.</p>
+<p>This example stands up a listener that accepts but never sends, then connects
+and reads with a short timeout to prove the timeout fires.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::io::{self, Read};
+use std::net::{TcpListener, TcpStream};
+use std::thread;
+use std::time::Duration;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let listener = TcpListener::bind("127.0.0.1:0")?;
+    let addr = listener.local_addr()?;
+
+    // Accept the connection but never write to it.
+    thread::spawn(move || {
+        let _conn = listener.accept();
+        thread::sleep(Duration::from_secs(60));
     });
 
-    assert_eq!(parsed, expected);
+    let mut stream = TcpStream::connect(addr)?;
+    stream.set_read_timeout(Some(Duration::from_millis(50)))?;
 
+    let mut buf = [0u8; 16];
+    match stream.read(&amp;mut buf) {
+        Ok(n) =&gt; println!("received {n} bytes"),
+        Err(e) if e.kind() == io::ErrorKind::WouldBlock
+            || e.kind() == io::ErrorKind::TimedOut =&gt;
+        {
+            println!("read timed out ({:?})", e.kind());
+        }
+        Err(e) =&gt; return Err(e),
+    }
     Ok(())
 }</code></pre>
-<h2 id="deserialize-a-toml-configuration-file"><a class="header" href="#deserialize-a-toml-configuration-file">Deserialize a TOML configuration file</a></h2>
-<p><a href="https://docs.rs/toml/"><img src="https://img.shields.io/crates/v/toml.svg?label=toml" alt="toml-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
-<p>Parse some TOML into a universal <code>toml::Value</code> that is able to represent any
-valid TOML data.</p>
-<pre class="playground"><code class="language-rust edition2018">use toml::{Value, de::Error};
+<h2 id="disable-nagles-algorithm"><a class="header" href="#disable-nagles-algorithm">Disable Nagle’s algorithm</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
+<p>TCP coalesces small writes by default — Nagle’s algorithm — to avoid
+flooding the network with tiny packets. For interactive protocols that’s the
+wrong tradeoff: a typed keystroke or a chat message can sit in the kernel
+buffer for tens of milliseconds waiting for company. <a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html#method.set_nodelay"><code>set_nodelay</code></a> turns
+Nagle off so each write goes out as its own segment.</p>
+<p>Use it for chat, games, REPL-style protocols, and RPCs where round-trip
+latency matters more than packet count. Leave it on for bulk transfer.</p>
+<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Write};
+use std::net::TcpStream;
 
-fn main() -&gt; Result&lt;(), Error&gt; {
-    let toml_content = r#"
-          [package]
-          name = "your_package"
-          version = "0.1.0"
-          authors = ["You! &lt;you@example.org&gt;"]
+fn main() -&gt; io::Result&lt;()&gt; {
+    let mut stream = TcpStream::connect("127.0.0.1:7878")?;
+    stream.set_nodelay(true)?;
 
-          [dependencies]
-          serde = "1.0"
-          "#;
-
-    let package_info: Value = toml::from_str(toml_content)?;
-
-    assert_eq!(package_info["dependencies"]["serde"].as_str(), Some("1.0"));
-    assert_eq!(package_info["package"]["name"].as_str(),
-               Some("your_package"));
-
+    stream.write_all(b"ping ")?;
+    stream.write_all(b"pong\n")?;
     Ok(())
 }</code></pre>
-<p>Parse TOML into your own structs using <a href="https://docs.rs/serde/">Serde</a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use serde::Deserialize;
+<h2 id="half-close-a-tcp-connection"><a class="header" href="#half-close-a-tcp-connection">Half-close a TCP connection</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
+<p>Many request-then-response protocols expect the client to finish sending
+before the server replies: HTTP/1.0, custom RPCs, anything that reads
+until EOF. To say “I’m done sending, give me your reply” without losing the
+ability to read, shut down only the write side with <a href="https://doc.rust-lang.org/std/net/enum.Shutdown.html#variant.Write"><code>Shutdown::Write</code></a>.</p>
+<p>After the half-close the peer sees EOF on its read, can do its work, and
+writes a response that you read normally. <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_end"><code>read_to_end</code></a> keeps reading until
+the peer closes its own write half.</p>
+<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+use std::net::{Shutdown, TcpStream};
 
-use toml::de::Error;
-use std::collections::HashMap;
+fn main() -&gt; io::Result&lt;()&gt; {
+    let mut stream = TcpStream::connect("example.com:80")?;
+    stream.write_all(b"GET / HTTP/1.0\r\nHost: example.com\r\n\r\n")?;
+    stream.shutdown(Shutdown::Write)?;
 
-#[derive(Deserialize)]
-struct Config {
-    package: Package,
-    dependencies: HashMap&lt;String, String&gt;,
-}
-
-#[derive(Deserialize)]
-struct Package {
-    name: String,
-    version: String,
-    authors: Vec&lt;String&gt;,
-}
-
-fn main() -&gt; Result&lt;(), Error&gt; {
-    let toml_content = r#"
-          [package]
-          name = "your_package"
-          version = "0.1.0"
-          authors = ["You! &lt;you@example.org&gt;"]
-
-          [dependencies]
-          serde = "1.0"
-          "#;
-
-    let package_info: Config = toml::from_str(toml_content)?;
-
-    assert_eq!(package_info.package.name, "your_package");
-    assert_eq!(package_info.package.version, "0.1.0");
-    assert_eq!(package_info.package.authors, vec!["You! &lt;you@example.org&gt;"]);
-    assert_eq!(package_info.dependencies["serde"], "1.0");
-
+    let mut response = Vec::new();
+    stream.read_to_end(&amp;mut response)?;
+    println!("received {} bytes", response.len());
     Ok(())
 }</code></pre>
-<h2 id="read-and-write-integers-in-little-endian-byte-order"><a class="header" href="#read-and-write-integers-in-little-endian-byte-order">Read and write integers in little-endian byte order</a></h2>
-<p><a href="https://docs.rs/byteorder/"><img src="https://img.shields.io/crates/v/byteorder.svg?label=byteorder" alt="byteorder-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
-<p><code>byteorder</code> can reverse the significant bytes of structured data.  This may
-be necessary when receiving information over the network, such that bytes
-received are from another system.</p>
-<pre class="playground"><code class="language-rust edition2018">use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
-use std::io::Error;
+<h2 id="non-blocking-tcp-accept"><a class="header" href="#non-blocking-tcp-accept">Non-blocking TCP accept</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
+<p>A normal <a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.accept"><code>accept</code></a> blocks until a client arrives. If a single thread needs
+to do other work between connections — poll a timer, watch another file
+descriptor — flip the listener into non-blocking mode with
+<a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.set_nonblocking"><code>set_nonblocking</code></a>. <a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.accept"><code>accept</code></a> then returns immediately with an
+<a href="https://doc.rust-lang.org/std/io/struct.Error.html"><code>io::Error</code></a> of kind <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.WouldBlock"><code>WouldBlock</code></a> when nothing is pending.</p>
+<p>This readiness pattern is the primitive every async runtime uses underneath.
+For production code, reach for <a href="https://docs.rs/mio"><code>mio</code></a> or an async runtime — what follows is
+the manual version of what they automate.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::io::{self, ErrorKind};
+use std::net::{TcpListener, TcpStream};
+use std::thread;
+use std::time::Duration;
 
-#[derive(Default, PartialEq, Debug)]
-struct Payload {
-    kind: u8,
-    value: u16,
-}
+fn main() -&gt; io::Result&lt;()&gt; {
+    let listener = TcpListener::bind("127.0.0.1:0")?;
+    let addr = listener.local_addr()?;
+    listener.set_nonblocking(true)?;
 
-fn main() -&gt; Result&lt;(), Error&gt; {
-    let original_payload = Payload::default();
-    let encoded_bytes = encode(&amp;original_payload)?;
-    let decoded_payload = decode(&amp;encoded_bytes)?;
-    assert_eq!(original_payload, decoded_payload);
-    Ok(())
-}
+    // Spawn a client so the listener has something to accept.
+    thread::spawn(move || {
+        let _ = TcpStream::connect(addr);
+    });
 
-fn encode(payload: &amp;Payload) -&gt; Result&lt;Vec&lt;u8&gt;, Error&gt; {
-    let mut bytes = vec![];
-    bytes.write_u8(payload.kind)?;
-    bytes.write_u16::&lt;LittleEndian&gt;(payload.value)?;
-    Ok(bytes)
-}
-
-fn decode(mut bytes: &amp;[u8]) -&gt; Result&lt;Payload, Error&gt; {
-    let payload = Payload {
-        kind: bytes.read_u8()?,
-        value: bytes.read_u16::&lt;LittleEndian&gt;()?,
+    let stream = loop {
+        match listener.accept() {
+            Ok((s, _)) =&gt; break s,
+            Err(e) if e.kind() == ErrorKind::WouldBlock =&gt; {
+                thread::sleep(Duration::from_millis(10));
+            }
+            Err(e) =&gt; return Err(e),
+        }
     };
-    Ok(payload)
+
+    println!("accepted from {}", stream.peer_addr()?);
+    Ok(())
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
@@ -328,11 +417,11 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../encoding/csv.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../net.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../errors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../net/udp.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -342,11 +431,11 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../encoding/csv.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../net.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../errors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../net/udp.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
