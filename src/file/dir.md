@@ -1,5 +1,9 @@
 # Directory Traversal
 
+{{#include dir/path.md}}
+
+{{#include dir/create-dir-all.md}}
+
 {{#include dir/modified.md}}
 
 {{#include dir/loops.md}}
