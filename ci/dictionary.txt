@@ -40,10 +40,14 @@ Backtrace
 BACKTRACE
 BeforePath
 bindgen
+BinaryHeap
+binaryheap
 bitfield
 bitflags
 bitwise
 bool
+BTreeMap
+btreemap
 BufRead
 BufReader
 byteorder
@@ -133,7 +137,9 @@ Hackerman
 handleactormessage
 hardcoded
 Hardcoded
+hashmap
 HashMap
+hashset
 HashSet
 hashtag
 HASHTAG
@@ -359,6 +365,8 @@ UserAgent
 userid
 usize
 VarError
+VecDeque
+vecdeque
 versa
 versioning
 Versioning
