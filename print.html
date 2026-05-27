@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-598a8977.js";
+            window.path_to_searchindex_js = "searchindex-8bf21d30.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-6582db82.js"></script>
+        <script src="toc-554cf7f0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -364,6 +364,11 @@ Keep lines sorted.
 <tr><td><a href="#create-tables-in-a-postgres-database">Create tables in a Postgres database</a></td><td><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
 <tr><td><a href="#insert-and-query-data">Insert and Query data</a></td><td><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
 <tr><td><a href="#aggregate-data">Aggregate data</a></td><td><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#connect-to-sqlite-and-query-data">Connect to SQLite pool and simple query</a></td><td><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#connect-to-postgres-and-query-typed-rows">Connect to Pg Pool and query typed rows</a></td><td><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#compile-time-checked-queries">Compile-time checked queries</a></td><td><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#transactions-with-sqlx">Transactions in SQLx</a></td><td><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#simple-orm-pattern">Simple ORM pattern</a></td><td><a href="https://docs.rs/sea_orm/*/sea_orm"><img src="https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm" alt="sea_orm-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -3195,6 +3200,11 @@ Keep lines sorted.
 <tr><td><a href="#create-tables-in-a-postgres-database">Create tables in a Postgres database</a></td><td><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
 <tr><td><a href="#insert-and-query-data">Insert and Query data</a></td><td><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
 <tr><td><a href="#aggregate-data">Aggregate data</a></td><td><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#connect-to-sqlite-and-query-data">Connect to SQLite pool and simple query</a></td><td><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#connect-to-postgres-and-query-typed-rows">Connect to Pg Pool and query typed rows</a></td><td><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#compile-time-checked-queries">Compile-time checked queries</a></td><td><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#transactions-with-sqlx">Transactions in SQLx</a></td><td><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
+<tr><td><a href="#simple-orm-pattern">Simple ORM pattern</a></td><td><a href="https://docs.rs/sea_orm/*/sea_orm"><img src="https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm" alt="sea_orm-badge"></a></td><td><a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -3451,6 +3461,255 @@ fn main() -&gt; Result&lt;(), Error&gt; {
         }
     }
 
+    Ok(())
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sqlx"><a class="header" href="#sqlx">SQLx</a></h1>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><code>sqlx</code></a> is an async SQL toolkit for Rust. It supports connection pools, prepared queries, transactions, and compile-time
+checked queries for supported databases. To use <a href="https://docs.rs/sqlx/*/sqlx"><code>sqlx</code></a> in your application, add the following crates to your project:</p>
+<pre><code class="language-shell">cargo add tokio --features full
+cargo add sqlx --features sqlite,postgres,runtime-tokio
+</code></pre>
+<h2 id="connect-to-sqlite-and-query-data"><a class="header" href="#connect-to-sqlite-and-query-data">Connect to SQLite and query data</a></h2>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p>Use <a href="https://docs.rs/sqlx/*/sqlx/sqlite/type.SqlitePoolOptions.html#method.connect"><code>SqlitePoolOptions::connect</code></a> to open an in-memory SQLite database backed by a connection pool that only allows a maximum of 1 concurrent connections.
+Create a table and insert rows with <a href="https://docs.rs/sqlx/*/sqlx/fn.query.html"><code>sqlx::query</code></a> and <a href="https://docs.rs/sqlx/*/sqlx/trait.Executor.html#method.execute"><code>Executor::execute</code></a>, then load the results with <a href="https://docs.rs/sqlx/*/sqlx/query/struct.Query.html#method.fetch_all"><code>Query::fetch_all</code></a>.
+Each row is read by calling <a href="https://docs.rs/sqlx/*/sqlx/trait.Row.html#method.try_get"><code>Row::try_get</code></a> for the selected columns.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use sqlx::{Error, Row, sqlite::SqlitePoolOptions};
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    let pool = SqlitePoolOptions::new()
+        .max_connections(1)
+        .connect("sqlite::memory:")
+        .await?;
+
+    sqlx::query(
+        "CREATE TABLE IF NOT EXISTS location (
+            id                  INTEGER PRIMARY KEY,
+            name                TEXT NOT NULL,
+            latitude            REAL NOT NULL,
+            longitude           REAL NOT NULL
+            )
+        ",
+    )
+    .execute(&amp;pool)
+    .await?;
+
+    sqlx::query("INSERT INTO location (name, latitude, longitude) VALUES (?1, ?2, ?3)")
+        .bind("Null Island")
+        .bind(0.00)
+        .bind(0.00)
+        .execute(&amp;pool)
+        .await?;
+
+    sqlx::query("INSERT INTO location (name, latitude, longitude) VALUES (?1, ?2, ?3)")
+        .bind("Titanic")
+        .bind(41.726931)
+        .bind(-49.948253)
+        .execute(&amp;pool)
+        .await?;
+
+    let locations = sqlx::query("SELECT name, latitude, longitude FROM location")
+        .fetch_all(&amp;pool)
+        .await?;
+
+    for row in locations {
+        let name: String = row.try_get("name")?;
+        let lat: f64 = row.try_get("latitude")?;
+        let longitude: f64 = row.try_get("longitude")?;
+        println!("{name} is at coordinates latitude: {lat} and longitude: {longitude}");
+    }
+    Ok(())
+}</code></pre>
+<h2 id="connect-to-postgres-and-query-typed-rows"><a class="header" href="#connect-to-postgres-and-query-typed-rows">Connect to Postgres and query typed rows</a></h2>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p>Use <a href="https://docs.rs/sqlx/*/sqlx/struct.Pool.html#method.connect"><code>PgPool::connect</code></a> to open a connection pool for an existing <code>locations</code> Postgres
+database. Query values in the database and map query results into a typed <code>Location</code> struct with
+<a href="https://docs.rs/sqlx/*/sqlx/fn.query_as.html"><code>sqlx::query_as</code></a> and <a href="https://docs.rs/sqlx/*/sqlx/trait.FromRow.html"><code>FromRow</code></a>, then load all rows with
+<a href="https://docs.rs/sqlx/*/sqlx/query/struct.QueryAs.html#method.fetch_all"><code>QueryAs::fetch_all</code></a>.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use sqlx::{Error, postgres::PgPool};
+
+#[derive(sqlx::FromRow)]
+struct Location {
+    name: String,
+    latitude: f64,
+    longitude: f64,
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    let pool =
+        PgPool::connect("postgresql://postgres:postgres@localhost/locations").await?;
+
+    let locations = sqlx::query_as::&lt;_, Location&gt;("SELECT name, latitude, longitude FROM location")
+        .fetch_all(&amp;pool)
+        .await?;
+
+    for location in locations {
+        println!(
+            "{} is at coordinates latitude: {} and longitude: {}",
+            location.name, location.latitude, location.longitude
+        );
+    }
+
+    Ok(())
+}</code></pre>
+<h2 id="compile-time-checked-queries"><a class="header" href="#compile-time-checked-queries">Compile-time checked queries</a></h2>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p>Use <a href="https://docs.rs/sqlx/*/sqlx/trait.Connection.html#tymethod.connect"><code>Connection::connect</code></a> to open a Postgres connection and
+<a href="https://docs.rs/sqlx/*/sqlx/macro.query_as.html"><code>sqlx::query_as!</code></a> to validate the SQL query against the database schema at
+compile time. The macro maps the selected columns into a <code>Location</code> struct
+and fetches a single row using <a href="https://docs.rs/sqlx/latest/sqlx/query/struct.Query.html#method.fetch_one"><code>Query::fetch_one</code></a>.</p>
+<pre><code class="language-rust ignore">use sqlx::{Connection, Error, postgres::PgConnection};
+
+struct Location {
+    name: String,
+    latitude: f64,
+    longitude: f64,
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    let mut conn =
+        PgConnection::connect("postgresql://postgres:postgres@localhost/locations").await?;
+
+    let location = sqlx::query_as!(
+        Location,
+        "SELECT  name, latitude, longitude FROM location where id = $1",
+        1i32
+    )
+    .fetch_one(&amp;mut conn)
+    .await?;
+
+    println!(
+        "{} is at coordinates latitude: {} and longitude: {}",
+        location.name, location.latitude, location.longitude
+    );
+
+    Ok(())
+}</code></pre>
+<p>Set <code>DATABASE_URL</code> to a Postgres database that already contains the <code>location</code>
+table before building. This may be achieved by either adding a <code>DATABASE_URL</code> variable
+to a <code>.env</code> file or running:</p>
+<pre><code class="language-shell">export DATABASE_URL=&lt;your_database_url&gt;
+</code></pre>
+<h2 id="transactions-with-sqlx"><a class="header" href="#transactions-with-sqlx">Transactions with SQLx</a></h2>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p>Use <a href="https://docs.rs/sqlx/*/sqlx/postgres/type.PgPoolOptions.html#method.connect"><code>PgPoolOptions::connect</code></a> to open a connection pool for an existing
+<code>locations</code> Postgres database. Start a transaction with <a href="https://docs.rs/sqlx/*/sqlx/struct.Pool.html#method.begin"><code>Pool::begin</code></a>, run
+two <code>INSERT</code> statements with <a href="https://docs.rs/sqlx/*/sqlx/fn.query.html"><code>sqlx::query</code></a>, and save both rows together with
+<a href="https://docs.rs/sqlx/*/sqlx/struct.Transaction.html#method.commit"><code>Transaction::commit</code></a>.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use sqlx::{Error, postgres::PgPoolOptions};
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), Error&gt; {
+    let pool = PgPoolOptions::new()
+        .max_connections(3)
+        .connect("postgresql://postgres:postgres@localhost/locations")
+        .await?;
+
+    let mut tx = pool.begin().await?;
+
+    sqlx::query("INSERT INTO location (name, latitude, longitude) VALUES ($1, $2, $3)")
+        .bind("Area 51")
+        .bind(37.2350)
+        .bind(-115.8111)
+        .execute(&amp;mut *tx)
+        .await?;
+
+    sqlx::query("INSERT INTO location (name, latitude, longitude) VALUES ($1, $2, $3)")
+        .bind("Point Nemo")
+        .bind(-48.8767)
+        .bind(-123.3933)
+        .execute(&amp;mut *tx)
+        .await?;
+
+    tx.commit().await?;
+    Ok(())
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="seaorm"><a class="header" href="#seaorm">SeaORM</a></h1>
+<p><a href="https://docs.rs/sea_orm/*/sea_orm"><code>SeaORM</code></a> maps database tables to Rust entities and active models, so
+you can create, query, and update rows with typed values instead of writing raw
+SQL for each step. The entity in the recipe below shows the generated Rust
+types clearly, but you do not need to write all of that code by hand when you
+already have a database schema. Use <a href="https://www.sea-ql.org/SeaORM/docs/generate-entity/sea-orm-cli/"><code>sea-orm-cli</code></a> to generate entities from
+an existing database.</p>
+<h2 id="create-query-and-update-rows-with-seaorm"><a class="header" href="#create-query-and-update-rows-with-seaorm">Create, query, and update rows with SeaORM</a></h2>
+<p><a href="https://docs.rs/sea_orm/*/sea_orm"><img src="https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm" alt="sea_orm-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p>Use <a href="https://docs.rs/sea_orm/*/sea_orm/struct.Database.html#method.connect"><code>Database::connect</code></a> to open an in-memory SQLite database and
+<a href="https://docs.rs/sea_orm/*/sea_orm/schema/struct.Schema.html#method.create_table_from_entity"><code>Schema::create_table_from_entity</code></a> to create a table from a SeaORM entity.
+Create a row with <a href="https://docs.rs/sea_orm/*/sea_orm/entity/trait.ActiveModelTrait.html#method.save"><code>ActiveModelTrait::save</code></a>, load it with <a href="https://docs.rs/sea_orm/*/sea_orm/entity/trait.EntityTrait.html#tymethod.find"><code>EntityTrait::find</code></a>,
+then update it and check the saved value returned by <a href="https://docs.rs/sea_orm/*/sea_orm/entity/trait.ActiveModelTrait.html#method.save"><code>ActiveModelTrait::save</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2018">use sea_orm::sea_query::TableCreateStatement;
+use sea_orm::{
+    ActiveModelTrait, ConnectionTrait, Database, DatabaseBackend, DatabaseConnection, DbErr,
+    EntityTrait, Schema, Set,
+};
+
+mod location {
+    use sea_orm::entity::prelude::*;
+
+    #[derive(Debug, Clone, PartialEq, DeriveEntityModel)]
+    #[sea_orm(table_name = "location")]
+    pub struct Model {
+        #[sea_orm(primary_key)]
+        pub id: i32,
+        pub name: String,
+        pub latitude: f64,
+        pub longitude: f64,
+    }
+
+    #[derive(Debug, Clone, PartialEq, EnumIter, DeriveRelation)]
+    pub enum Relation {}
+
+    impl ActiveModelBehavior for ActiveModel {}
+}
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;(), DbErr&gt; {
+    let db = Database::connect("sqlite::memory:").await?;
+
+    create_location_table(&amp;db).await?;
+
+    let mut null_island = location::ActiveModel {
+        name: Set("Null Island".to_owned()),
+        latitude: Set(0.0),
+        longitude: Set(0.0),
+        ..Default::default()
+    }
+    .save(&amp;db)
+    .await?;
+
+    let location = location::Entity::find().one(&amp;db).await?;
+    println!("{location:?}");
+
+    null_island.name = Set("Null Island V2".to_owned());
+    let null_island = null_island.save(&amp;db).await?;
+
+    println!("Updated location: {null_island:?}");
+    Ok(())
+}
+
+async fn create_location_table(db: &amp;DatabaseConnection) -&gt; Result&lt;(), DbErr&gt; {
+    let builder = DatabaseBackend::Sqlite;
+    let schema = Schema::new(builder);
+
+    let statement: TableCreateStatement = schema.create_table_from_entity(location::Entity);
+    db.execute(builder.build(&amp;statement)).await?;
     Ok(())
 }</code></pre>
 <!--
@@ -8397,6 +8656,8 @@ Keep lines sorted.
 [rusqlite]: https://crates.io/crates/rusqlite/
 [same_file-badge]: https://img.shields.io/crates/v/same_file.svg?label=same_file
 [same_file]: https://docs.rs/same-file/
+[sea_orm-badge]: https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm
+[sea_orm]: https://docs.rs/sea_orm/*/sea_orm
 [select-badge]: https://img.shields.io/crates/v/select.svg?label=select
 [select]: https://docs.rs/select/
 [semver-badge]: https://img.shields.io/crates/v/semver.svg?label=semver
@@ -8405,6 +8666,8 @@ Keep lines sorted.
 [serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.rs/serde_json/*/serde_json/
 [serde]: https://docs.rs/serde/
+[sqlx-badge]: https://img.shields.io/crates/v/sqlx.svg?label=sqlx
+[sqlx]: https://docs.rs/sqlx/*/sqlx
 [std-badge]: https://img.shields.io/badge/std-1.29.1-blue.svg
 [std]: https://doc.rust-lang.org/std
 [syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
