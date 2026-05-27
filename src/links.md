@@ -139,6 +139,8 @@ Keep lines sorted.
 [rusqlite]: https://crates.io/crates/rusqlite/
 [same_file-badge]: https://img.shields.io/crates/v/same_file.svg?label=same_file
 [same_file]: https://docs.rs/same-file/
+[sea_orm-badge]: https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm
+[sea_orm]: https://docs.rs/sea_orm/*/sea_orm
 [select-badge]: https://img.shields.io/crates/v/select.svg?label=select
 [select]: https://docs.rs/select/
 [semver-badge]: https://img.shields.io/crates/v/semver.svg?label=semver
@@ -147,6 +149,8 @@ Keep lines sorted.
 [serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.rs/serde_json/*/serde_json/
 [serde]: https://docs.rs/serde/
+[sqlx-badge]: https://img.shields.io/crates/v/sqlx.svg?label=sqlx
+[sqlx]: https://docs.rs/sqlx/*/sqlx
 [std-badge]: https://img.shields.io/badge/std-1.29.1-blue.svg
 [std]: https://doc.rust-lang.org/std
 [syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog

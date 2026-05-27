@@ -310,6 +310,8 @@ SocketAddrV
 spsc
 sqlite
 SQLite
+SQLx
+sqlx
 StatusCode
 stdcell
 stdcelllazycell
