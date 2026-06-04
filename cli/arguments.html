@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-8bf21d30.js";
+            window.path_to_searchindex_js = "../searchindex-6c5c8119.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-554cf7f0.js"></script>
+        <script src="../toc-1eff1bb2.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -181,8 +181,177 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="clap-basic"><a class="header" href="#clap-basic">Clap basic</a></h1>
-<h2 id="parse-command-line-arguments"><a class="header" href="#parse-command-line-arguments">Parse command line arguments</a></h2>
+                        <h1 id="parse-command-line-arguments"><a class="header" href="#parse-command-line-arguments">Parse command line arguments</a></h1>
+<h2 id="basic-argument-parsing"><a class="header" href="#basic-argument-parsing">Basic Argument Parsing</a></h2>
+<p>This section covers a basic implementation of commandline argument parsing.
+Use <a href="https://doc.rust-lang.org/std/env/fn.args.html"><code>args</code></a> to get the arguments this process was started with:</p>
+<pre class="playground"><code class="language-rust edition2024">use std::env;
+
+fn main() {
+    let args: Vec&lt;String&gt; = env::args().collect();
+    assert!(!args.is_empty());
+
+    // Skip the program name, it's usually the first argument
+    let args: Vec&lt;String&gt; = env::args().skip(1).collect();
+}</code></pre>
+<p>Some args, e.g. file paths, may not be valid UTF-8. Use <a href="https://doc.rust-lang.org/std/env/fn.args_os.html"><code>args_os</code></a> to handle those safely:</p>
+<pre class="playground"><code class="language-rust edition2024">use std::{env, ffi::OsString};
+
+fn main() {
+    let os_args: Vec&lt;OsString&gt; = env::args_os().collect();
+    assert!(!os_args.is_empty());
+}</code></pre>
+<h2 id="calculate-file-stats"><a class="header" href="#calculate-file-stats">Calculate File Stats</a></h2>
+<p>In this section we parse CLI args and compute per-file stats (line/word counts). A mini <a href="https://www.man7.org/linux/man-pages/man1/wc.1.html"><code>wc</code></a>-like
+utility</p>
+<p>Flags:</p>
+<ul>
+<li>–lines, -l Count lines per file</li>
+<li>–words, -w Count words per file</li>
+<li>–paths, -p Remaining args treated as file paths</li>
+</ul>
+<blockquote>
+<p><code>-p</code> acts as a terminator. Everything after it is consumed as file paths and parsing stops
+immediately.</p>
+</blockquote>
+<p><code>CliArgs</code> holds the parsed state of the process args. It uses <a href="https://doc.rust-lang.org/std/env/fn.args_os.html"><code>args_os</code></a> over <a href="https://doc.rust-lang.org/std/env/fn.args.html"><code>args</code></a> to
+safely handle non-UTF-8 paths, which can occur on Linux. <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.skip"><code>skip(1)</code></a> drops the bin name since it is
+always the first arg. Once <code>-p</code> flag is is encountered, all remaining args are collected into paths.</p>
+<p><code>Stats&lt;'p&gt;</code> represents the computed result for a single file. It borrows filepath directly from
+<code>CliArgs</code> rather than cloning it, with the lifetime ’p tying each Stats instance to its source
+<code>CliArgs</code>. Both <code>lines</code> and <code>words</code> are <code>Option&lt;usize&gt;</code>, where <code>None</code> means the flag was absent and
+the stat was never computed, while <code>Some(n)</code> means the flag was set and the count is <code>n</code>. This
+distinction matters because it avoids confusing “not requested” with a legitimate count of zero.</p>
+<p><code>stat_files</code> is the core logic. Iterates over <code>cli_args.paths</code> and builds a <code>Vec&lt;Stats&lt;'_&gt;&gt;</code>.
+Non-files and IO errors are skipped silently via <code>continue</code> for simplicity.  Each file is read
+to a string buffer with fs::<a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>read_to_string()</code></a> for processing. Line count uses
+content.<a href="https://doc.rust-lang.org/std/primitive.str.html#method.lines"><code>lines()</code></a>.<a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.count"><code>count()</code></a>. Word count splits each line on whitespace via
+<a href="https://doc.rust-lang.org/std/primitive.str.html#method.split_whitespace"><code>split_whitespace()</code></a>, counts tokens per line, then sums across all lines, which correctly handles
+tabs and multiple consecutive spaces. Both stats are computed only if their respective flag was set,
+so there is no wasted work.</p>
+<p>The result is output as one line per file. Stats omitted by the user are excluded from the output
+entirely rather than printed as zero or a placeholder.</p>
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::env;
+use std::fs;
+use std::path::{Path, PathBuf};
+
+// Represents the arguments passed to this process during initialization
+#[derive(Debug)]
+struct CliArgs {
+    lines: bool,
+    words: bool,
+    paths: Vec&lt;PathBuf&gt;,
+}
+
+impl CliArgs {
+    fn parse() -&gt; Self {
+        let mut lines = false;
+        let mut words = false;
+        let mut paths = Vec::new();
+
+        let args = env::args_os().skip(1);
+        let mut args = args.into_iter();
+        while let Some(arg) = args.next() {
+            match arg.to_str().unwrap_or_default() {
+                "-l" | "--lines" =&gt; lines = true,
+                "-w" | "--words" =&gt; words = true,
+                "-p" | "--paths" =&gt; {
+                    paths.extend(args.by_ref().map(PathBuf::from));
+                    break;
+                }
+                _ =&gt; {}
+            }
+        }
+
+        CliArgs {
+            lines,
+            words,
+            paths,
+        }
+    }
+}
+
+// Represents the statistics of a given filepath
+struct Stats&lt;'p&gt; {
+    filepath: &amp;'p Path,
+    lines: Option&lt;usize&gt;,
+    words: Option&lt;usize&gt;,
+}
+
+fn stat_files(cli_args: &amp;CliArgs) -&gt; Vec&lt;Stats&lt;'_&gt;&gt; {
+    let mut stat_collection: Vec&lt;Stats&gt; = Vec::new();
+    // If no flag is set, do no work
+    if !cli_args.words &amp;&amp; !cli_args.lines {
+        return stat_collection;
+    }
+
+    for filepath in &amp;cli_args.paths {
+        // Skip anything that ain't a file
+        if !filepath.is_file() {
+            continue;
+        }
+
+        let Ok(content) = fs::read_to_string(filepath) else {
+            continue;
+        };
+
+        let lines = match cli_args.lines {
+            true =&gt; Some(content.lines().count()),
+            false =&gt; None,
+        };
+
+        let words = match cli_args.words {
+            true =&gt; Some(
+                content
+                    .lines()
+                    .map(|line| line.split_whitespace().count())
+                    .sum(),
+            ),
+            false =&gt; None,
+        };
+
+        let stats = Stats {
+            filepath,
+            lines,
+            words,
+        };
+
+        stat_collection.push(stats);
+    }
+
+    stat_collection
+}
+
+fn main() {
+    let cli_args = CliArgs::parse();
+    let stats = stat_files(&amp;cli_args);
+    // Print individual file statistics
+    for stat in stats {
+        println!(
+            "Path: {:?} {} {}",
+            stat.filepath,
+            if let Some(words) = stat.words {
+                format!("Words: {}", words)
+            } else {
+                "".to_string()
+            },
+            if let Some(lines) = stat.lines {
+                format!("Lines: {}", lines)
+            } else {
+                "".to_string()
+            },
+        );
+    }
+}</code></pre>
+<p>Example Usage:</p>
+<pre><code class="language-bash">cargo run --release -- -l -w -p src/main.rs Cargo.toml
+# Path: "src/main.rs" Words: 312 Lines: 84
+# Path: "Cargo.toml" Words: 21 Lines: 9
+
+cargo run --release -- -l -p src/main.rs
+# Path: "src/main.rs" Lines: 84
+</code></pre>
+<h2 id="clap-basic"><a class="header" href="#clap-basic">Clap Basic</a></h2>
 <p><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a> <a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></p>
 <p>This application describes the structure of its command-line interface using
 <code>clap</code>’s builder style. The <a href="https://docs.rs/clap/">documentation</a> gives two other possible ways to

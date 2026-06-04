@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-8bf21d30.js";
+            window.path_to_searchindex_js = "searchindex-6c5c8119.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-554cf7f0.js"></script>
+        <script src="toc-1eff1bb2.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -250,8 +250,11 @@ Keep lines sorted.
 <tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#parse-command-line-arguments">Parse command line arguments</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#basic-argument-parsing">Parse command line arguments</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#clap-basic">Clap Basic Argument Parsing</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#ansi-terminal">ANSI Terminal</a></td><td><a href="https://docs.rs/ansi_term/"><img src="https://img.shields.io/crates/v/ansi_term.svg?label=ansi_term" alt="ansi_term-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#environment-variables">Environment Variables</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#loading-config-from-the-environment">Load Config Example</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -1664,8 +1667,11 @@ Keep lines sorted.
 <tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#parse-command-line-arguments">Parse command line arguments</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#basic-argument-parsing">Parse command line arguments</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#clap-basic">Clap Basic Argument Parsing</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#ansi-terminal">ANSI Terminal</a></td><td><a href="https://docs.rs/ansi_term/"><img src="https://img.shields.io/crates/v/ansi_term.svg?label=ansi_term" alt="ansi_term-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#environment-variables">Environment Variables</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#loading-config-from-the-environment">Load Config Example</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -1676,8 +1682,177 @@ Keep lines sorted.
 <!-- Categories -->
 <!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="clap-basic"><a class="header" href="#clap-basic">Clap basic</a></h1>
-<h2 id="parse-command-line-arguments"><a class="header" href="#parse-command-line-arguments">Parse command line arguments</a></h2>
+<h1 id="parse-command-line-arguments"><a class="header" href="#parse-command-line-arguments">Parse command line arguments</a></h1>
+<h2 id="basic-argument-parsing"><a class="header" href="#basic-argument-parsing">Basic Argument Parsing</a></h2>
+<p>This section covers a basic implementation of commandline argument parsing.
+Use <a href="https://doc.rust-lang.org/std/env/fn.args.html"><code>args</code></a> to get the arguments this process was started with:</p>
+<pre class="playground"><code class="language-rust edition2024">use std::env;
+
+fn main() {
+    let args: Vec&lt;String&gt; = env::args().collect();
+    assert!(!args.is_empty());
+
+    // Skip the program name, it's usually the first argument
+    let args: Vec&lt;String&gt; = env::args().skip(1).collect();
+}</code></pre>
+<p>Some args, e.g. file paths, may not be valid UTF-8. Use <a href="https://doc.rust-lang.org/std/env/fn.args_os.html"><code>args_os</code></a> to handle those safely:</p>
+<pre class="playground"><code class="language-rust edition2024">use std::{env, ffi::OsString};
+
+fn main() {
+    let os_args: Vec&lt;OsString&gt; = env::args_os().collect();
+    assert!(!os_args.is_empty());
+}</code></pre>
+<h2 id="calculate-file-stats"><a class="header" href="#calculate-file-stats">Calculate File Stats</a></h2>
+<p>In this section we parse CLI args and compute per-file stats (line/word counts). A mini <a href="https://www.man7.org/linux/man-pages/man1/wc.1.html"><code>wc</code></a>-like
+utility</p>
+<p>Flags:</p>
+<ul>
+<li>–lines, -l Count lines per file</li>
+<li>–words, -w Count words per file</li>
+<li>–paths, -p Remaining args treated as file paths</li>
+</ul>
+<blockquote>
+<p><code>-p</code> acts as a terminator. Everything after it is consumed as file paths and parsing stops
+immediately.</p>
+</blockquote>
+<p><code>CliArgs</code> holds the parsed state of the process args. It uses <a href="https://doc.rust-lang.org/std/env/fn.args_os.html"><code>args_os</code></a> over <a href="https://doc.rust-lang.org/std/env/fn.args.html"><code>args</code></a> to
+safely handle non-UTF-8 paths, which can occur on Linux. <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.skip"><code>skip(1)</code></a> drops the bin name since it is
+always the first arg. Once <code>-p</code> flag is is encountered, all remaining args are collected into paths.</p>
+<p><code>Stats&lt;'p&gt;</code> represents the computed result for a single file. It borrows filepath directly from
+<code>CliArgs</code> rather than cloning it, with the lifetime ’p tying each Stats instance to its source
+<code>CliArgs</code>. Both <code>lines</code> and <code>words</code> are <code>Option&lt;usize&gt;</code>, where <code>None</code> means the flag was absent and
+the stat was never computed, while <code>Some(n)</code> means the flag was set and the count is <code>n</code>. This
+distinction matters because it avoids confusing “not requested” with a legitimate count of zero.</p>
+<p><code>stat_files</code> is the core logic. Iterates over <code>cli_args.paths</code> and builds a <code>Vec&lt;Stats&lt;'_&gt;&gt;</code>.
+Non-files and IO errors are skipped silently via <code>continue</code> for simplicity.  Each file is read
+to a string buffer with fs::<a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>read_to_string()</code></a> for processing. Line count uses
+content.<a href="https://doc.rust-lang.org/std/primitive.str.html#method.lines"><code>lines()</code></a>.<a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.count"><code>count()</code></a>. Word count splits each line on whitespace via
+<a href="https://doc.rust-lang.org/std/primitive.str.html#method.split_whitespace"><code>split_whitespace()</code></a>, counts tokens per line, then sums across all lines, which correctly handles
+tabs and multiple consecutive spaces. Both stats are computed only if their respective flag was set,
+so there is no wasted work.</p>
+<p>The result is output as one line per file. Stats omitted by the user are excluded from the output
+entirely rather than printed as zero or a placeholder.</p>
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::env;
+use std::fs;
+use std::path::{Path, PathBuf};
+
+// Represents the arguments passed to this process during initialization
+#[derive(Debug)]
+struct CliArgs {
+    lines: bool,
+    words: bool,
+    paths: Vec&lt;PathBuf&gt;,
+}
+
+impl CliArgs {
+    fn parse() -&gt; Self {
+        let mut lines = false;
+        let mut words = false;
+        let mut paths = Vec::new();
+
+        let args = env::args_os().skip(1);
+        let mut args = args.into_iter();
+        while let Some(arg) = args.next() {
+            match arg.to_str().unwrap_or_default() {
+                "-l" | "--lines" =&gt; lines = true,
+                "-w" | "--words" =&gt; words = true,
+                "-p" | "--paths" =&gt; {
+                    paths.extend(args.by_ref().map(PathBuf::from));
+                    break;
+                }
+                _ =&gt; {}
+            }
+        }
+
+        CliArgs {
+            lines,
+            words,
+            paths,
+        }
+    }
+}
+
+// Represents the statistics of a given filepath
+struct Stats&lt;'p&gt; {
+    filepath: &amp;'p Path,
+    lines: Option&lt;usize&gt;,
+    words: Option&lt;usize&gt;,
+}
+
+fn stat_files(cli_args: &amp;CliArgs) -&gt; Vec&lt;Stats&lt;'_&gt;&gt; {
+    let mut stat_collection: Vec&lt;Stats&gt; = Vec::new();
+    // If no flag is set, do no work
+    if !cli_args.words &amp;&amp; !cli_args.lines {
+        return stat_collection;
+    }
+
+    for filepath in &amp;cli_args.paths {
+        // Skip anything that ain't a file
+        if !filepath.is_file() {
+            continue;
+        }
+
+        let Ok(content) = fs::read_to_string(filepath) else {
+            continue;
+        };
+
+        let lines = match cli_args.lines {
+            true =&gt; Some(content.lines().count()),
+            false =&gt; None,
+        };
+
+        let words = match cli_args.words {
+            true =&gt; Some(
+                content
+                    .lines()
+                    .map(|line| line.split_whitespace().count())
+                    .sum(),
+            ),
+            false =&gt; None,
+        };
+
+        let stats = Stats {
+            filepath,
+            lines,
+            words,
+        };
+
+        stat_collection.push(stats);
+    }
+
+    stat_collection
+}
+
+fn main() {
+    let cli_args = CliArgs::parse();
+    let stats = stat_files(&amp;cli_args);
+    // Print individual file statistics
+    for stat in stats {
+        println!(
+            "Path: {:?} {} {}",
+            stat.filepath,
+            if let Some(words) = stat.words {
+                format!("Words: {}", words)
+            } else {
+                "".to_string()
+            },
+            if let Some(lines) = stat.lines {
+                format!("Lines: {}", lines)
+            } else {
+                "".to_string()
+            },
+        );
+    }
+}</code></pre>
+<p>Example Usage:</p>
+<pre><code class="language-bash">cargo run --release -- -l -w -p src/main.rs Cargo.toml
+# Path: "src/main.rs" Words: 312 Lines: 84
+# Path: "Cargo.toml" Words: 21 Lines: 9
+
+cargo run --release -- -l -p src/main.rs
+# Path: "src/main.rs" Lines: 84
+</code></pre>
+<h2 id="clap-basic"><a class="header" href="#clap-basic">Clap Basic</a></h2>
 <p><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a> <a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></p>
 <p>This application describes the structure of its command-line interface using
 <code>clap</code>’s builder style. The <a href="https://docs.rs/clap/">documentation</a> gives two other possible ways to
@@ -1798,6 +1973,127 @@ Keep lines sorted.
 -->
 <!-- Categories -->
 <!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="environment-variables"><a class="header" href="#environment-variables">Environment Variables</a></h1>
+<p>The <a href="https://doc.rust-lang.org/std/env/index.html"><code>env</code></a> module lets you inspect and manipulate the process environment, including env vars, CLI
+args, and working directories.</p>
+<h2 id="get-environment-variables"><a class="header" href="#get-environment-variables">Get Environment Variables</a></h2>
+<p><a href="https://doc.rust-lang.org/std/env/fn.var.html"><code>var</code></a> fetches an env var from the current process. It returns <code>Result&lt;String, VarError&gt;</code>, so you
+decide how to handle missing values:</p>
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::env;
+
+fn main() {
+    // If not set, we use a sensible default value
+    let mode = env::var("MODE").unwrap_or_else(|_| "INFO".to_string());
+}</code></pre>
+<h2 id="set-environment-variables"><a class="header" href="#set-environment-variables">Set Environment Variables</a></h2>
+<p><a href="https://doc.rust-lang.org/std/env/fn.set_var.html"><code>set_var</code></a> is safe in single-threaded programs, and always safe on Windows. Avoid it in
+multi-threaded programs on other OSes. <a href="https://doc.rust-lang.org/std/env/fn.set_var.html"><code>See safety note</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::env;
+
+fn main() {
+    // SAFETY: No other thread is currently manipulating the environment
+    unsafe {
+        env::set_var("MODE", "debug");
+    }
+}</code></pre>
+<h2 id="remove-environment-variables"><a class="header" href="#remove-environment-variables">Remove Environment Variables</a></h2>
+<p>Same threading rules apply as <a href="https://doc.rust-lang.org/std/env/fn.set_var.html"><code>set_var</code></a>. <a href="https://doc.rust-lang.org/std/env/fn.remove_var.html"><code>See safety note first</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::env;
+
+fn main() {
+    // SAFETY: No other thread is currently manipulating the environment
+    unsafe {
+        env::remove_var("MODE");
+    }
+}</code></pre>
+<h2 id="loading-config-from-the-environment"><a class="header" href="#loading-config-from-the-environment">Loading Config from the Environment</a></h2>
+<p>A common pattern is loading config at startup from env vars, falling back to sensible defaults when
+vars are missing or invalid. This approach keeps the program runnable without requiring every var to
+be set, which is useful during development.</p>
+<p>The chain <code>.ok().and_then(|v| ...)</code> is used here intentionally:</p>
+<ul>
+<li><code>.ok()</code> converts Result to Option, discarding the error</li>
+<li><code>.and_then()</code> applies a fallible transform, like parsing, flattening the result</li>
+<li><code>.unwrap_or_else(|_| DEFAULT)</code> then supplies the fallback. <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.unwrap_or_else"><code>unwrap_or_else</code></a> only allocates
+during the evaluation of the else branch.</li>
+</ul>
+<pre class="playground"><code class="language-rust edition2024">use std::env;
+
+#[derive(Debug)]
+enum LogLevel {
+    Info,
+    Warn,
+    Error,
+    Debug,
+    Trace,
+}
+
+// Handles conversion of string env variables to LogLevel enum.
+impl TryFrom&lt;String&gt; for LogLevel {
+    type Error = String;
+
+    fn try_from(value: String) -&gt; Result&lt;Self, String&gt; {
+        let level = match value.to_lowercase().as_str() {
+            "info" =&gt; LogLevel::Info,
+            "debug" =&gt; LogLevel::Debug,
+            "warn" =&gt; LogLevel::Warn,
+            "error" =&gt; LogLevel::Error,
+            "trace" =&gt; LogLevel::Trace,
+            other =&gt; return Err(format!("Unknown log level: {}", other)),
+        };
+        Ok(level)
+    }
+}
+
+#[allow(dead_code)]
+#[derive(Debug)]
+struct Config {
+    server_url: String,
+    log_level: LogLevel,
+    server_port: u16,
+}
+
+const DEFAULT_SERVER_URL: &amp;str = "http://127.0.0.1";
+const DEFAULT_SERVER_PORT: u16 = 8080_u16;
+const DEFAULT_LOG_LEVEL: LogLevel = LogLevel::Info;
+
+impl std::default::Default for Config {
+    fn default() -&gt; Self {
+        Self {
+            server_url: DEFAULT_SERVER_URL.into(),
+            log_level: DEFAULT_LOG_LEVEL,
+            server_port: DEFAULT_SERVER_PORT,
+        }
+    }
+}
+
+impl Config {
+    fn load() -&gt; Self {
+        let server_url =
+            env::var("BACKEND_SERVER_URL").unwrap_or_else(|_| DEFAULT_SERVER_URL.into());
+        let server_port = env::var("BACKEND_SERVER_PORT")
+            .ok()
+            .and_then(|v| v.parse::&lt;u16&gt;().ok())
+            .unwrap_or(DEFAULT_SERVER_PORT);
+
+        let log_level = env::var("BACKEND_LOG_LEVEL")
+            .ok()
+            .and_then(|v| v.try_into().ok())
+            .unwrap_or(DEFAULT_LOG_LEVEL);
+
+        Config {
+            server_url,
+            server_port,
+            log_level,
+        }
+    }
+}
+
+fn main() {
+    let cfg = Config::load();
+    dbg!(cfg);
+}</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="compression-1"><a class="header" href="#compression-1">Compression</a></h1>
 <div class="table-wrapper">
