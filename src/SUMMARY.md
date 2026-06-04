@@ -16,6 +16,7 @@
 - [Command Line](cli.md)
   - [Argument Parsing](cli/arguments.md)
   - [ANSI Terminal](cli/ansi_terminal.md)
+  - [Environment Variables](cli/env.md)
 - [Compression](compression.md)
   - [Working with Tarballs](compression/tar.md)
 - [Concurrency](concurrency.md)
