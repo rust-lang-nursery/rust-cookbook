@@ -188,7 +188,7 @@ cargo run --release -- -l -p src/main.rs
 [`args`]: https://doc.rust-lang.org/std/env/fn.args.html
 [`count()`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.count
 [`env`]: https://doc.rust-lang.org/std/env/index.html
-[`lines()`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines
+[`lines()`]: https://doc.rust-lang.org/std/primitive.str.html#method.lines
 [`read_to_string()`]: https://doc.rust-lang.org/std/fs/fn.read_to_string.html
 [`skip(1)`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.skip
 [`split_whitespace()`]: https://doc.rust-lang.org/std/primitive.str.html#method.split_whitespace
