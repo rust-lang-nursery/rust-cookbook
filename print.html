@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6c5c8119.js";
+            window.path_to_searchindex_js = "searchindex-e6190808.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-1eff1bb2.js"></script>
@@ -501,6 +501,11 @@ Keep lines sorted.
 <tr><td><a href="#rename-or-atomically-replace-a-file">Rename or atomically replace a file</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#avoid-writing-and-reading-from-a-same-file">Avoid writing and reading from a same file</a></td><td><a href="https://docs.rs/same-file/"><img src="https://img.shields.io/crates/v/same_file.svg?label=same_file" alt="same_file-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#access-a-file-randomly-using-a-memory-map">Access a file randomly using a memory map</a></td><td><a href="https://docs.rs/memmap/"><img src="https://img.shields.io/crates/v/memmap.svg?label=memmap" alt="memmap-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#read-a-file-line-by-line-with-bufreader">Read a file line by line with BufReader</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#write-to-a-file-with-bufwriter">Write to a file with BufWriter</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#read-a-line-from-stdin">Read a line from stdin</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#use-cursor-as-an-in-memory-buffer">Use Cursor as an in-memory buffer</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#format-text-into-a-string-with-write">Format text into a String with write!</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#construct-and-inspect-a-path">Construct and inspect a path</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#create-a-nested-directory-tree">Create a nested directory tree</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#file-names-that-have-been-modified-in-the-last-24-hours">File names that have been modified in the last 24 hours</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></td></tr>
@@ -5609,6 +5614,11 @@ Keep lines sorted.
 <tr><td><a href="#rename-or-atomically-replace-a-file">Rename or atomically replace a file</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#avoid-writing-and-reading-from-a-same-file">Avoid writing and reading from a same file</a></td><td><a href="https://docs.rs/same-file/"><img src="https://img.shields.io/crates/v/same_file.svg?label=same_file" alt="same_file-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#access-a-file-randomly-using-a-memory-map">Access a file randomly using a memory map</a></td><td><a href="https://docs.rs/memmap/"><img src="https://img.shields.io/crates/v/memmap.svg?label=memmap" alt="memmap-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#read-a-file-line-by-line-with-bufreader">Read a file line by line with BufReader</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#write-to-a-file-with-bufwriter">Write to a file with BufWriter</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#read-a-line-from-stdin">Read a line from stdin</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#use-cursor-as-an-in-memory-buffer">Use Cursor as an in-memory buffer</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+<tr><td><a href="#format-text-into-a-string-with-write">Format text into a String with write!</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#construct-and-inspect-a-path">Construct and inspect a path</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#create-a-nested-directory-tree">Create a nested directory tree</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#file-names-that-have-been-modified-in-the-last-24-hours">File names that have been modified in the last 24 hours</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></td></tr>
@@ -5796,6 +5806,126 @@ fn main() -&gt; Result&lt;(), Error&gt; {
         .map(|&amp;idx| map[idx])
         .collect();
     assert_eq!(&amp;random_bytes[..], b"My loaf!");
+    Ok(())
+}</code></pre>
+<h2 id="read-a-file-line-by-line-with-bufreader"><a class="header" href="#read-a-file-line-by-line-with-bufreader">Read a file line by line with BufReader</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p>For files too large to load into memory at once, wrap a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> in a
+<a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> and iterate with <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines"><code>BufRead::lines</code></a>. Unlike
+<a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>fs::read_to_string</code></a>, this streams one kernel-buffered chunk at a time —
+typically 8 KB — so memory usage stays flat regardless of file size.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+use std::io::{self, BufRead, BufReader, Write};
+use tempfile::tempdir;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let dir = tempdir()?;
+    let path = dir.path().join("large.txt");
+
+    // Write some lines so the example is self-contained.
+    let mut file = File::create(&amp;path)?;
+    writeln!(file, "line one")?;
+    writeln!(file, "line two")?;
+    writeln!(file, "line three")?;
+
+    // BufReader wraps the File and adds an internal 8 KB buffer.
+    let reader = BufReader::new(File::open(&amp;path)?);
+    for line in reader.lines() {
+        println!("{}", line?);
+    }
+    Ok(())
+}</code></pre>
+<h2 id="write-to-a-file-with-bufwriter"><a class="header" href="#write-to-a-file-with-bufwriter">Write to a file with BufWriter</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/io/struct.BufWriter.html"><code>BufWriter</code></a> wraps any <a href="https://doc.rust-lang.org/std/io/trait.Write.html"><code>io::Write</code></a> and batches small writes into a single
+in-memory buffer — typically 8 KB — before flushing to the OS. This reduces
+syscall overhead when making many small writes. Always call <a href="https://doc.rust-lang.org/std/io/trait.Write.html#tymethod.flush"><code>Write::flush</code></a>
+explicitly when you are done; the buffer is also flushed when the <code>BufWriter</code>
+is dropped, but any error from that implicit flush is silently discarded.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+use std::io::{self, BufWriter, Write};
+use tempfile::tempdir;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let dir = tempdir()?;
+    let path = dir.path().join("report.txt");
+
+    let file = File::create(&amp;path)?;
+    let mut writer = BufWriter::new(file);
+
+    // These writes go into an in-memory buffer, not directly to disk.
+    writeln!(writer, "line one")?;
+    writeln!(writer, "line two")?;
+    writeln!(writer, "line three")?;
+
+    // Explicit flush drains the buffer to the OS in one syscall.
+    writer.flush()?;
+    Ok(())
+}</code></pre>
+<h2 id="read-a-line-from-stdin"><a class="header" href="#read-a-line-from-stdin">Read a line from stdin</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/io/fn.stdin.html"><code>io::stdin</code></a> returns a handle to the standard input stream. Calling
+<a href="https://doc.rust-lang.org/std/io/struct.Stdin.html#method.lock"><code>Stdin::lock</code></a> acquires an exclusive lock and gives access to
+<a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.read_line"><code>BufRead::read_line</code></a>, which appends characters — including the trailing
+newline — into the supplied <code>String</code> buffer. The lock is released when it
+goes out of scope.</p>
+<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, BufRead};
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let stdin = io::stdin();
+    let mut line = String::new();
+
+    // lock() gives exclusive BufRead access to stdin.
+    stdin.lock().read_line(&amp;mut line)?;
+
+    // The buffer includes the trailing newline; trim before using.
+    print!("you typed: {}", line.trim_end());
+    Ok(())
+}</code></pre>
+<h2 id="use-cursor-as-an-in-memory-buffer"><a class="header" href="#use-cursor-as-an-in-memory-buffer">Use Cursor as an in-memory buffer</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/io/struct.Cursor.html"><code>Cursor</code></a> wraps an in-memory buffer and implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>io::Read</code></a>,
+<a href="https://doc.rust-lang.org/std/io/trait.Write.html"><code>io::Write</code></a>, and <a href="https://doc.rust-lang.org/std/io/trait.Seek.html"><code>io::Seek</code></a>, making it a drop-in replacement for a
+<a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> in tests or whenever bytes need to be assembled before deciding
+where to send them. The internal position advances with each read or write,
+so call <a href="https://doc.rust-lang.org/std/io/struct.Cursor.html#method.set_position"><code>Cursor::set_position</code></a> to rewind before reading back what you wrote.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::io::{self, Cursor, Read, Write};
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let mut buf = Cursor::new(Vec::&lt;u8&gt;::new());
+
+    // Write into the buffer exactly as you would a File.
+    write!(buf, "hello, ")?;
+    write!(buf, "world")?;
+
+    // Rewind to the start before reading back.
+    buf.set_position(0);
+    let mut out = String::new();
+    buf.read_to_string(&amp;mut out)?;
+
+    assert_eq!(out, "hello, world");
+    println!("{out}");
+    Ok(())
+}</code></pre>
+<h2 id="format-text-into-a-string-with-write"><a class="header" href="#format-text-into-a-string-with-write">Format text into a String with write!</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> implements <a href="https://doc.rust-lang.org/std/fmt/trait.Write.html"><code>fmt::Write</code></a>, so the <a href="https://doc.rust-lang.org/std/macro.write.html"><code>write!</code></a> macro can push
+formatted text into it with no I/O and no file handle. Import
+<a href="https://doc.rust-lang.org/std/fmt/trait.Write.html"><code>fmt::Write</code></a> — not <a href="https://doc.rust-lang.org/std/io/trait.Write.html"><code>io::Write</code></a> — to bring the required trait into scope;
+the two traits share the macro name but operate on different targets.
+The <code>String</code> implementation never actually errors, but the signature uses
+<code>?</code> for consistency with other writers.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fmt::Write;
+
+fn main() -&gt; std::fmt::Result {
+    let mut s = String::new();
+
+    // write! on a String uses fmt::Write — no I/O, no file handle needed.
+    write!(s, "Hello, {}!", "world")?;
+    write!(s, " The answer is {}.", 42)?;
+
+    assert_eq!(s, "Hello, world! The answer is 42.");
+    println!("{s}");
     Ok(())
 }</code></pre>
 <!--
