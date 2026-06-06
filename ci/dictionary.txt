@@ -50,6 +50,9 @@ BTreeMap
 btreemap
 BufRead
 BufReader
+bufreader
+BufWriter
+bufwriter
 byteorder
 ByteRecord
 bytestring
@@ -270,6 +273,7 @@ RandomResponseError
 RateLimit
 ReadBytesExt
 ReaderBuilder
+readline
 recusively
 recv
 RecvError

@@ -12,4 +12,14 @@
 
 {{#include read-write/memmap.md}}
 
+{{#include read-write/buf-reader.md}}
+
+{{#include read-write/buf-writer.md}}
+
+{{#include read-write/stdin-readline.md}}
+
+{{#include read-write/cursor.md}}
+
+{{#include read-write/write-fmt.md}}
+
 {{#include ../links.md}}
