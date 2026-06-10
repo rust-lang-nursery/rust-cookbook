@@ -71,11 +71,9 @@ cd my-example
 
 Now, we also need to add the necessary crates to [Cargo.toml], as
 indicated by the crate badges, in this case just "rand". To do so,
-we'll use the `cargo add` command, which is provided by the
-[`cargo-edit`] crate, which we need to install first:
+we'll use the `cargo add` command:
 
 ```sh
-cargo install cargo-edit
 cargo add rand
 ```
 
@@ -133,6 +131,5 @@ as are crates that are pending evaluation.
 [docs.rs]: https://docs.rs
 [Cargo.toml]: http://doc.crates.io/manifest.html
 [`anyhow`]: https://docs.rs/anyhow/latest/anyhow/
-[`cargo-edit`]: https://github.com/killercup/cargo-edit
 [`std::error::Trait`]: https://doc.rust-lang.org/std/error/trait.Error.html
 [`thiserror`]: https://docs.rs/thiserror/latest/thiserror/
