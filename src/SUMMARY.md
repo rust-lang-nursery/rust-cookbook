@@ -58,6 +58,7 @@
   - [Processor](hardware/processor.md)
 - [Memory Management](mem.md)
   - [Global Static](mem/global_static.md)
+  - [Smart Pointers](mem/smart_pointers.md)
 - [Network](net.md)
   - [TCP](net/tcp.md)
   - [UDP](net/udp.md)

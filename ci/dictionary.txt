@@ -277,6 +277,8 @@ readline
 recusively
 recv
 RecvError
+refcell
+RefCell
 regex
 Regex
 REGEX
