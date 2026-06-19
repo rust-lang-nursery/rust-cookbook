@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a8085999.js";
+            window.path_to_searchindex_js = "searchindex-2d3b630e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-1eff1bb2.js"></script>
+        <script src="toc-5467040f.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -553,6 +553,10 @@ Keep lines sorted.
 <tr><td><a href="#stdcell">Std::cell</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#stdcelllazycell"><code>std::cell:LazyCell</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#stdsynclazylock"><code>std::sync::LazyLock</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#store-different-types-in-one-vector-with-box">Store different types in one vector with <code>Box&lt;dyn Trait&gt;</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#share-mutable-structure-between-owners-with-rc-and-refcell">Share mutable structure between owners with <code>Rc&lt;RefCell&lt;T&gt;&gt;</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#return-borrowed-or-owned-text-with-cow">Return borrowed or owned text with <code>Cow&lt;str&gt;</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#update-text-using-swap-take-and-replace">Update text using <code>mem::swap</code>, <code>mem::take</code> and <code>mem::replace</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -6235,6 +6239,10 @@ Keep lines sorted.
 <tr><td><a href="#stdcell">Std::cell</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#stdcelllazycell"><code>std::cell:LazyCell</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#stdsynclazylock"><code>std::sync::LazyLock</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#store-different-types-in-one-vector-with-box">Store different types in one vector with <code>Box&lt;dyn Trait&gt;</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#share-mutable-structure-between-owners-with-rc-and-refcell">Share mutable structure between owners with <code>Rc&lt;RefCell&lt;T&gt;&gt;</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#return-borrowed-or-owned-text-with-cow">Return borrowed or owned text with <code>Cow&lt;str&gt;</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#update-text-using-swap-take-and-replace">Update text using <code>mem::swap</code>, <code>mem::take</code> and <code>mem::replace</code></a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -6345,6 +6353,169 @@ fn main() {
 
     println!("Timeout is: {}s", timeout);
     println!("API Key is hidden: {}", APP_CONFIG.api_key.len() &gt; 0);
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="smart-pointers"><a class="header" href="#smart-pointers">Smart Pointers</a></h1>
+<h2 id="store-different-types-in-one-vector-with-box"><a class="header" href="#store-different-types-in-one-vector-with-box">Store different types in one vector with <code>Box</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>Defines the trait <code>Notification</code> that requires the implementation of the function <code>send(&amp;self)</code>. Implement <code>Notification</code> trait for <code>Email</code> and <code>Sms</code>.
+Creates a vector that holds different types that implement the same trait <code>Notification</code> and <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html"><code>Box&lt;T&gt;</code></a>. Iterate over that vector calling the method <code>send(&amp;self)</code>.</p>
+<p>Trait objects such as <code>dyn Notification</code> do not have a size known at compile time, so they cannot be stored directly by value. <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html"><code>Box&lt;T&gt;</code></a> stores the value behind
+a pointer with a known size, making it possible to use different <code>Notification</code> implementations.</p>
+<pre class="playground"><code class="language-rust edition2021">trait Notification {
+    fn send(&amp;self);
+}
+
+struct Email {
+    address: String,
+}
+
+struct Sms {
+    phone_number: String,
+}
+
+impl Notification for Email {
+    fn send(&amp;self) {
+        println!("Sending email notification to {}", self.address);
+    }
+}
+
+impl Notification for Sms {
+    fn send(&amp;self) {
+        println!("Sending sms notification to {}", self.phone_number);
+    }
+}
+
+fn main() {
+    let email = Email { address: "example@mail.com".to_string() };
+    let sms = Sms { phone_number: "1-800-555-0100".to_string() };
+
+    let notifications: Vec&lt;Box&lt;dyn Notification&gt;&gt; = vec![Box::new(email), Box::new(sms)];
+
+    for notification in notifications {
+        notification.send();
+    }
+}</code></pre>
+<h2 id="share-mutable-structure-between-owners-with-rc-and-refcell"><a class="header" href="#share-mutable-structure-between-owners-with-rc-and-refcell">Share mutable structure between owners with <code>Rc</code> and <code>RefCell</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>Uses <a href="https://doc.rust-lang.org/std/rc/struct.Rc.html"><code>Rc&lt;T&gt;</code></a> to share ownership of one task between multiple dependents and <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html"><code>RefCell&lt;T&gt;</code></a> to mutate that shared task through <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.try_borrow_mut"><code>RefCell::try_borrow_mut</code></a>.
+The example updates one shared task and reads the result through each dependent using <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.borrow"><code>RefCell::borrow</code></a>.</p>
+<p>This pattern is useful when several parts of a single-threaded program need access to the same owned value, but mutations have borrows checked through <code>RefCell</code>.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::cell::{BorrowMutError, RefCell};
+use std::rc::Rc;
+
+#[derive(Debug)]
+struct Task {
+    name: String,
+    done: bool,
+    dependencies: Vec&lt;Rc&lt;RefCell&lt;Task&gt;&gt;&gt;,
+}
+
+fn new_task(name: &amp;str) -&gt; Rc&lt;RefCell&lt;Task&gt;&gt; {
+    Rc::new(RefCell::new(Task {
+        name: name.to_owned(),
+        done: false,
+        dependencies: Vec::new(),
+    }))
+}
+
+fn main() -&gt; Result&lt;(), BorrowMutError&gt; {
+    let generate_api_contract = new_task("Generate API contract");
+    let implement_endpoint_1 = new_task("Implement endpoint 1 from API contract");
+    let implement_endpoint_2 = new_task("Implement endpoint 2 from API contract");
+    
+    {
+        let mut borrowed_task_1 = implement_endpoint_1.try_borrow_mut()?;
+        borrowed_task_1.dependencies.push(Rc::clone(&amp;generate_api_contract));
+
+        let mut borrowed_task_2 = implement_endpoint_2.try_borrow_mut()?;
+        borrowed_task_2.dependencies.push(Rc::clone(&amp;generate_api_contract));
+    
+        generate_api_contract.borrow_mut().done = true;
+    }
+
+    assert!(implement_endpoint_1.borrow().dependencies[0].borrow().done);
+    assert!(implement_endpoint_2.borrow().dependencies[0].borrow().done);
+
+    println!("{:?}", implement_endpoint_1.borrow().dependencies);
+    println!("{:?}", implement_endpoint_2.borrow().dependencies);
+    Ok(())
+}</code></pre>
+<h2 id="return-borrowed-or-owned-text-with-cow"><a class="header" href="#return-borrowed-or-owned-text-with-cow">Return borrowed or owned text with <code>Cow</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>Uses <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html"><code>borrow::Cow</code></a> to avoid allocating when the input string already has the desired form. The function returns <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html#variant.Borrowed"><code>Cow::Borrowed</code></a> for unchanged input and <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html#variant.Owned"><code>Cow::Owned</code></a>
+only when normalization requires a new <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>, such as converting uppercase text with <a href="https://doc.rust-lang.org/std/primitive.str.html#method.to_lowercase"><code>str::to_lowercase</code></a>.
+This keeps the fast path allocation-free while still allowing transformed output.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::borrow::Cow;
+
+fn normalize(input: &amp;str) -&gt; Cow&lt;'_, str&gt; {
+    if input.chars().any(|c| c.is_uppercase()) {
+        Cow::Owned(input.to_lowercase())
+    } else {
+        Cow::Borrowed(input)
+    }
+}
+
+fn main() {
+    let owned = normalize("Changes are REQUIRED, this will be Cow::Owned");
+    let borrowed = normalize("no changes required, this will be cow::borrowed");
+
+    assert!(matches!(owned, Cow::Owned(_)));
+    assert!(matches!(borrowed, Cow::Borrowed(_)));
+
+    println!("{}", owned);
+    println!("{}", borrowed);
+}</code></pre>
+<h2 id="update-text-using-swap-take-and-replace"><a class="header" href="#update-text-using-swap-take-and-replace">Update text using <code>swap</code>, <code>take</code>, and <code>replace</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>Uses <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"><code>mem::swap</code></a>, <a href="https://doc.rust-lang.org/std/mem/fn.take.html"><code>mem::take</code></a>, and <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"><code>mem::replace</code></a> to move owned String values between document fields without cloning.
+<a href="https://doc.rust-lang.org/std/mem/fn.swap.html"><code>mem::swap</code></a> exchanges the drafts of two documents, <a href="https://doc.rust-lang.org/std/mem/fn.take.html"><code>mem::take</code></a> moves a draft out for publishing while leaving an empty String behind,
+and <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"><code>mem::replace</code></a> installs the new published text while returning the previous version.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::mem::{replace, swap, take};
+
+struct Document {
+    name: &amp;'static str,
+    draft: String,
+    published: String,
+}
+
+impl Document {
+    fn publish(&amp;mut self) -&gt; String {
+        let next_version = take(&amp;mut self.draft);
+        replace(&amp;mut self.published, next_version)
+    }
+}
+
+fn main() {
+    let mut guide = Document {
+        name: "Guide",
+        draft: "Guide Version 2".to_string(),
+        published: "Guide Version 1".to_string(),
+    };
+
+    let mut release_notes = Document {
+        name: "Release notes",
+        draft: "Release notes for version 2".to_string(),
+        published: "Release notes for version 1".to_string(),
+    };
+
+    swap(&amp;mut guide.draft, &amp;mut release_notes.draft);
+
+    println!("Swapped:");
+    println!("{} draft: {}", guide.name, guide.draft);
+    println!("{} draft: {}", release_notes.name, release_notes.draft);
+
+    let previous_version = guide.publish();
+
+    assert!(guide.draft.is_empty());
+    assert_eq!(guide.published, "Release notes for version 2");
+    assert_eq!(previous_version, "Guide Version 1");
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
