@@ -21,6 +21,7 @@
   - [Working with Tarballs](compression/tar.md)
 - [Concurrency](concurrency.md)
   - [Explicit Threads](concurrency/threads.md)
+  - [Synchronization Primitives](concurrency/sync.md)
   - [Data Parallelism](concurrency/parallel.md)
   - [Actor Pattern](concurrency/actor.md)
   - [Custom Future](concurrency/custom_future.md)
