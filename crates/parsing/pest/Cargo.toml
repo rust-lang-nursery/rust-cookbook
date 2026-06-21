@@ -1,0 +1,11 @@
+[package]
+name = "pest-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+pest = "2.7"
+pest_derive = "2.7"
