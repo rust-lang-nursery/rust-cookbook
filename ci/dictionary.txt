@@ -20,6 +20,8 @@ APIs
 appender
 Appender
 applicationx
+arcmutext
+arcrwlockt
 args
 AsRef
 AsyncRead
@@ -29,6 +31,8 @@ asyncwrite
 ascii
 ashley
 async
+AtomicUsize
+atomicusize
 attr
 auth
 Auth
@@ -66,6 +70,8 @@ ClientBuilder
 CmdError
 colombo
 concat
+Condvar
+condvar
 config
 Config
 ConsoleLogger
@@ -224,6 +230,7 @@ MpscRecv
 multicast
 Mutex
 MutexGuard
+mutex
 myfile
 MyFlags
 Nagle
@@ -301,6 +308,7 @@ rustaceans
 rustc
 rustup
 RwLock
+rwlock
 SecureRandom
 semver
 Semver

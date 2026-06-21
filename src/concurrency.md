@@ -8,6 +8,12 @@
 | [Maintain global mutable state][ex-global-mut-state] | [![lazy_static-badge]][lazy_static] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Calculate SHA1 sum of *.iso files concurrently][ex-threadpool-walk]  | [![threadpool-badge]][threadpool] [![walkdir-badge]][walkdir] [![num_cpus-badge]][num_cpus] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
+| [Lock-free counter with `AtomicUsize`][ex-sync-atomic] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Guard compound state with `Arc<Mutex<T>>`][ex-sync-arc-mutex] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Concurrent reads with `Arc<RwLock<T>>`][ex-sync-rwlock] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Communicate between threads with `mpsc` channels][ex-sync-mpsc] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Coordinate thread phases with `Barrier`][ex-sync-barrier] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Signal a waiting thread with `Condvar`][ex-sync-condvar] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Test in parallel if any or all elements of a collection match a given predicate][ex-rayon-any-all] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Search items using given predicate in parallel][ex-rayon-parallel-search] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
@@ -24,6 +30,12 @@
 [ex-global-mut-state]: concurrency/threads.html#maintain-global-mutable-state
 [ex-threadpool-walk]: concurrency/threads.html#calculate-sha256-sum-of-iso-files-concurrently
 [ex-threadpool-fractal]: concurrency/threads.html#draw-fractal-dispatching-work-to-a-thread-pool
+[ex-sync-arc-mutex]: concurrency/sync.html#guard-compound-state-with-arcmutext
+[ex-sync-atomic]: concurrency/sync.html#lock-free-counter-with-atomicusize
+[ex-sync-barrier]: concurrency/sync.html#coordinate-thread-phases-with-barrier
+[ex-sync-condvar]: concurrency/sync.html#signal-a-waiting-thread-with-condvar
+[ex-sync-mpsc]: concurrency/sync.html#communicate-between-threads-with-mpsc-channels
+[ex-sync-rwlock]: concurrency/sync.html#concurrent-reads-with-arcrwlockt
 [ex-rayon-iter-mut]: concurrency/parallel.html#mutate-the-elements-of-an-array-in-parallel
 [ex-rayon-any-all]: concurrency/parallel.html#test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate
 [ex-rayon-parallel-search]: concurrency/parallel.html#search-items-using-given-predicate-in-parallel
