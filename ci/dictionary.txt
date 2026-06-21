@@ -69,6 +69,7 @@ chrono
 ClientBuilder
 CmdError
 colombo
+combinators
 concat
 Condvar
 condvar
@@ -117,6 +118,7 @@ EnvVar
 eprintln
 ErrorKind
 extern
+fallbacks
 ferris
 FileAppender
 filename

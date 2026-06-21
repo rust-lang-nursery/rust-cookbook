@@ -52,6 +52,7 @@
   - [Structured Data](encoding/complex.md)
 - [Error Handling](errors.md)
   - [Handle Error Variants](errors/handle.md)
+  - [Option and Result Combinators](errors/combinators.md)
 - [File System](file.md)
   - [Read & Write](file/read-write.md)
   - [Directory Traversal](file/dir.md)
