@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-825a4892.js";
+            window.path_to_searchindex_js = "searchindex-22b5ae25.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-fe2f901f.js"></script>
+        <script src="toc-1760ef24.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -638,6 +638,26 @@ Keep lines sorted.
 <tr><td><a href="#redirect-both-stdout-and-stderr-of-child-process-to-the-same-file">Redirect both stdout and stderr of child process to the same file</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></td></tr>
 <tr><td><a href="#continuously-process-child-process-outputs">Continuously process child process’ outputs</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a><a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></td></tr>
 <tr><td><a href="#read-environment-variable">Read environment variable</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></td></tr>
+</tbody>
+</table>
+</div>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<h1 id="parsing"><a class="header" href="#parsing">Parsing</a></h1>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#parse-tagged-fields-from-a-log-line">Parse tagged fields from a log line</a></td><td><a href="https://docs.rs/nom/"><img src="https://img.shields.io/crates/v/nom.svg?label=nom" alt="nom-badge"></a></td><td><a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></td></tr>
+<tr><td><a href="#decode-a-hex-color">Decode a hex color</a></td><td><a href="https://docs.rs/nom/"><img src="https://img.shields.io/crates/v/nom.svg?label=nom" alt="nom-badge"></a></td><td><a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></td></tr>
+<tr><td><a href="#parse-an-unstructured-string-into-key-value-pairs">Parse an unstructured string into key value pairs</a></td><td><a href="https://docs.rs/winnow/"><img src="https://img.shields.io/crates/v/winnow.svg?label=winnow" alt="winnow-badge"></a></td><td><a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></td></tr>
+<tr><td><a href="#read-csv-data-with-a-parsing-expression-grammar">Read CSV data with a parsing expression grammar</a></td><td><a href="https://docs.rs/pest/"><img src="https://img.shields.io/crates/v/pest.svg?label=pest" alt="pest-badge"></a></td><td><a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -7677,6 +7697,341 @@ Keep lines sorted.
 <!-- Categories -->
 <!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="parsing-1"><a class="header" href="#parsing-1">Parsing</a></h1>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#parse-tagged-fields-from-a-log-line">Parse tagged fields from a log line</a></td><td><a href="https://docs.rs/nom/"><img src="https://img.shields.io/crates/v/nom.svg?label=nom" alt="nom-badge"></a></td><td><a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></td></tr>
+<tr><td><a href="#decode-a-hex-color">Decode a hex color</a></td><td><a href="https://docs.rs/nom/"><img src="https://img.shields.io/crates/v/nom.svg?label=nom" alt="nom-badge"></a></td><td><a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></td></tr>
+<tr><td><a href="#parse-an-unstructured-string-into-key-value-pairs">Parse an unstructured string into key value pairs</a></td><td><a href="https://docs.rs/winnow/"><img src="https://img.shields.io/crates/v/winnow.svg?label=winnow" alt="winnow-badge"></a></td><td><a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></td></tr>
+<tr><td><a href="#read-csv-data-with-a-parsing-expression-grammar">Read CSV data with a parsing expression grammar</a></td><td><a href="https://docs.rs/pest/"><img src="https://img.shields.io/crates/v/pest.svg?label=pest" alt="pest-badge"></a></td><td><a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></td></tr>
+</tbody>
+</table>
+</div>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="parsing-content-from-string"><a class="header" href="#parsing-content-from-string">Parsing content from string</a></h1>
+<h2 id="parse-tagged-fields-from-a-log-line"><a class="header" href="#parse-tagged-fields-from-a-log-line">Parse tagged fields from a log line</a></h2>
+<p><a href="https://docs.rs/nom/"><img src="https://img.shields.io/crates/v/nom.svg?label=nom" alt="nom-badge"></a> <a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></p>
+<p><a href="https://docs.rs/nom/"><code>nom</code></a> is a parser-combinator library: you build a parser by composing
+small parsers, each of which consumes part of the input and hands the rest to
+the next. A parser is any function <code>fn(Input) -&gt; IResult&lt;Input, Output&gt;</code>, where
+<a href="https://docs.rs/nom/*/nom/type.IResult.html"><code>IResult</code></a> carries either the parsed value together with the unconsumed tail,
+or an error.</p>
+<p>The example parses a log line like <code>level=warn line=42</code> into a struct. Tokens
+are matched with <a href="https://docs.rs/nom/*/nom/bytes/complete/fn.tag.html"><code>tag</code></a> and alternatives with <a href="https://docs.rs/nom/*/nom/branch/fn.alt.html"><code>alt</code></a>; <a href="https://docs.rs/nom/*/nom/combinator/fn.value.html"><code>value</code></a> maps each
+matched keyword to a <code>Level</code> without a closure. A fallible conversion (string to
+<code>u32</code>) is wrapped in <a href="https://docs.rs/nom/*/nom/combinator/fn.map_res.html"><code>map_res</code></a> so a bad number becomes a parse error rather
+than a panic, and <a href="https://docs.rs/nom/*/nom/trait.Finish.html"><code>Finish</code></a> turns the streaming-style result into a plain
+<code>Result</code> once parsing is complete.</p>
+<pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+
+use nom::branch::alt;
+use nom::bytes::complete::tag;
+use nom::character::complete::{digit1, space1};
+use nom::combinator::{map, map_res, value};
+use nom::sequence::{preceded, separated_pair};
+use nom::{Finish, IResult, Parser};
+
+/// A single log line such as `level=warn line=42` parsed into a struct.
+#[derive(Debug, PartialEq)]
+struct LogEntry {
+    level: Level,
+    line: u32,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+enum Level {
+    Info,
+    Warn,
+    Error,
+}
+
+/// `nom` builds a parser by combining small parsers. Each one takes the
+/// remaining input and returns the parsed value plus the unconsumed tail,
+/// so combinators like `separated_pair` and `preceded` thread that tail
+/// through for you. `parse` drives one of these combinators over the input.
+///
+/// `value` matches a token and yields a fixed value, ignoring the matched
+/// text — exactly what mapping each keyword to a `Level` needs.
+fn level(input: &amp;str) -&gt; IResult&lt;&amp;str, Level&gt; {
+    alt((
+        value(Level::Info, tag("info")),
+        value(Level::Warn, tag("warn")),
+        value(Level::Error, tag("error")),
+    ))
+    .parse(input)
+}
+
+/// `map_res` runs a fallible conversion (`str::parse`) and turns an `Err`
+/// into a parse failure instead of panicking.
+fn number(input: &amp;str) -&gt; IResult&lt;&amp;str, u32&gt; {
+    map_res(digit1, str::parse).parse(input)
+}
+
+/// `level=&lt;level&gt; line=&lt;number&gt;`, separated by whitespace.
+fn log_entry(input: &amp;str) -&gt; IResult&lt;&amp;str, LogEntry&gt; {
+    map(
+        separated_pair(
+            preceded(tag("level="), level),
+            space1,
+            preceded(tag("line="), number),
+        ),
+        |(level, line)| LogEntry { level, line },
+    )
+    .parse(input)
+}
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    // `Finish` converts the streaming-style result into a plain `Result`;
+    // `?` then propagates a parse error instead of panicking. The empty
+    // remaining input is discarded.
+    let (_, entry) = log_entry("level=warn line=42").finish()?;
+    println!("{entry:?}");
+    assert_eq!(
+        entry,
+        LogEntry {
+            level: Level::Warn,
+            line: 42
+        }
+    );
+    Ok(())
+}</code></pre>
+<h2 id="decode-a-hex-color"><a class="header" href="#decode-a-hex-color">Decode a hex color</a></h2>
+<p><a href="https://docs.rs/nom/"><img src="https://img.shields.io/crates/v/nom.svg?label=nom" alt="nom-badge"></a> <a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></p>
+<p>A second <a href="https://docs.rs/nom/"><code>nom</code></a> parser, this one working at the byte level: it decodes an
+HTML-style <code>#1b2a3c</code> color literal into its red, green and blue components.</p>
+<p><a href="https://docs.rs/nom/*/nom/bytes/complete/fn.take_while_m_n.html"><code>take_while_m_n</code></a> consumes a fixed number of characters matching a predicate —
+here exactly two hex digits — and <a href="https://docs.rs/nom/*/nom/combinator/fn.map_res.html"><code>map_res</code></a> converts each pair into a <code>u8</code>,
+failing the parse instead of panicking on invalid input. A tuple of parsers,
+<code>(hex_byte, hex_byte, hex_byte)</code>, is itself a parser that runs each in sequence,
+and <a href="https://docs.rs/nom/*/nom/sequence/fn.preceded.html"><code>preceded</code></a> discards the leading <code>#</code>. <a href="https://docs.rs/nom/*/nom/trait.Finish.html"><code>Finish</code></a> turns the streaming-style
+result into a plain <code>Result</code> once parsing is complete.</p>
+<pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+
+use nom::bytes::complete::take_while_m_n;
+use nom::character::complete::char;
+use nom::combinator::map_res;
+use nom::sequence::preceded;
+use nom::{Finish, IResult, Parser};
+
+/// An HTML-style `#1b2a3c` color literal decoded into its red, green and
+/// blue components.
+#[derive(Debug, PartialEq)]
+struct Color {
+    red: u8,
+    green: u8,
+    blue: u8,
+}
+
+/// `take_while_m_n` consumes between `m` and `n` characters matching a
+/// predicate — here exactly two hex digits — and `map_res` turns them into
+/// a byte, failing the parse instead of panicking on bad input.
+fn hex_byte(input: &amp;str) -&gt; IResult&lt;&amp;str, u8&gt; {
+    map_res(
+        take_while_m_n(2, 2, |c: char| c.is_ascii_hexdigit()),
+        |hex| u8::from_str_radix(hex, 16),
+    )
+    .parse(input)
+}
+
+/// A leading `#` followed by three hex bytes.
+fn color(input: &amp;str) -&gt; IResult&lt;&amp;str, Color&gt; {
+    // A tuple of parsers is itself a parser that runs each in sequence.
+    let (input, (red, green, blue)) =
+        preceded(char('#'), (hex_byte, hex_byte, hex_byte)).parse(input)?;
+    Ok((input, Color { red, green, blue }))
+}
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    // `Finish` converts the streaming-style result into a plain `Result`;
+    // `?` then propagates a parse error instead of panicking.
+    let (_, parsed) = color("#1b2a3c").finish()?;
+    println!("{parsed:?}");
+    assert_eq!(
+        parsed,
+        Color {
+            red: 0x1b,
+            green: 0x2a,
+            blue: 0x3c
+        }
+    );
+    Ok(())
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="parse-an-unstructured-string-into-key-value-pairs"><a class="header" href="#parse-an-unstructured-string-into-key-value-pairs">Parse an unstructured string into key value pairs</a></h1>
+<p><a href="https://docs.rs/winnow/"><img src="https://img.shields.io/crates/v/winnow.svg?label=winnow" alt="winnow-badge"></a> <a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></p>
+<p><a href="https://docs.rs/winnow/"><code>winnow</code></a> is a parser-combinator library descended from <code>nom</code>, tuned
+for ergonomics and speed. Its defining choice is that a parser takes <code>&amp;mut &amp;str</code>
+and advances that slice in place, returning only the parsed value via
+<a href="https://docs.rs/winnow/*/winnow/trait.Parser.html#tymethod.parse_next"><code>Parser::parse_next</code></a>. Combinators such as <a href="https://docs.rs/winnow/*/winnow/combinator/fn.separated_pair.html"><code>separated_pair</code></a> and <a href="https://docs.rs/winnow/*/winnow/combinator/fn.separated.html"><code>separated</code></a>
+compose those functions into larger ones.</p>
+<p>The example parses a settings string like <code>name=ferris; age=8; lang=rust</code> into a
+list of key/value pairs. <a href="https://docs.rs/winnow/*/winnow/token/fn.take_while.html"><code>take_while</code></a> collects identifier characters, and
+<a href="https://docs.rs/winnow/*/winnow/trait.Parser.html#method.parse"><code>Parser::parse</code></a> runs the whole parser to completion. When the input is
+malformed, the returned <a href="https://docs.rs/winnow/*/winnow/error/struct.ParseError.html"><code>ParseError</code></a> reports the byte offset where parsing
+stopped — the foundation for location-aware diagnostics.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use winnow::ascii::space0;
+use winnow::combinator::{separated, separated_pair};
+use winnow::error::{ContextError, ParseError};
+use winnow::prelude::*;
+use winnow::token::take_while;
+
+#[derive(Debug, PartialEq)]
+struct Pair {
+    key: String,
+    value: String,
+}
+
+/// In `winnow` a parser is a function over `&amp;mut &amp;str`: it advances the
+/// input slice in place and returns just the parsed value. `parse_next`
+/// drives a single parser, and combinators like `separated_pair` compose
+/// several into a larger one.
+fn identifier(input: &amp;mut &amp;str) -&gt; ModalResult&lt;String&gt; {
+    take_while(1.., |c: char| c.is_alphanumeric() || c == '_')
+        .map(|s: &amp;str| s.to_string())
+        .parse_next(input)
+}
+
+/// `key=value`, discarding the `=` separator.
+fn pair(input: &amp;mut &amp;str) -&gt; ModalResult&lt;Pair&gt; {
+    separated_pair(identifier, '=', identifier)
+        .map(|(key, value)| Pair { key, value })
+        .parse_next(input)
+}
+
+/// One or more `pair`s separated by `;` and optional spaces.
+fn pairs(input: &amp;mut &amp;str) -&gt; ModalResult&lt;Vec&lt;Pair&gt;&gt; {
+    separated(1.., pair, (space0, ';', space0)).parse_next(input)
+}
+
+/// `Parser::parse` runs a parser to completion over the whole input. On
+/// failure it returns a `ParseError` that knows the byte offset where
+/// parsing stopped, which is what makes good diagnostics possible.
+fn parse_settings(input: &amp;str) -&gt; Result&lt;Vec&lt;Pair&gt;, ParseError&lt;&amp;str, ContextError&gt;&gt; {
+    pairs.parse(input)
+}
+
+fn main() {
+    // winnow's `ParseError` isn't a `std::error::Error`, so it is handled
+    // explicitly rather than with `?`.
+    match parse_settings("name=ferris; age=8; lang=rust") {
+        Ok(settings) =&gt; {
+            println!("{settings:?}");
+            assert_eq!(settings.len(), 3);
+            assert_eq!(
+                settings[0],
+                Pair {
+                    key: "name".to_string(),
+                    value: "ferris".to_string()
+                }
+            );
+        }
+        Err(err) =&gt; eprintln!("unexpected parse error at byte offset {}", err.offset()),
+    }
+
+    // On malformed input the error reports exactly where parsing failed.
+    if let Err(err) = parse_settings("name=ferris;=oops") {
+        println!("parse failed at byte offset {}", err.offset());
+    }
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="read-csv-data-with-a-parsing-expression-grammar"><a class="header" href="#read-csv-data-with-a-parsing-expression-grammar">Read CSV data with a parsing expression grammar</a></h1>
+<p><a href="https://docs.rs/pest/"><img src="https://img.shields.io/crates/v/pest.svg?label=pest" alt="pest-badge"></a> <a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></p>
+<p><a href="https://docs.rs/pest/"><code>pest</code></a> takes a different approach from the combinator libraries: instead
+of writing parser code, you describe the language in a <a href="https://docs.rs/pest/*/pest/index.html">Parsing Expression
+Grammar</a> kept in a separate <code>.pest</code> file, and <a href="https://docs.rs/pest_derive/*/pest_derive/"><code>pest_derive</code></a> generates the
+parser at compile time. Each named rule becomes a variant of a generated <code>Rule</code>
+enum.</p>
+<p>The grammar below recognises a tiny CSV of numbers:</p>
+<pre><code class="language-text">WHITESPACE = _{ " " | "\t" }
+
+field  = @{ "-"? ~ (ASCII_DIGIT | ".")+ }
+record =  { field ~ ("," ~ field)* }
+file   =  { SOI ~ (record ~ NEWLINE)* ~ record? ~ EOI }
+</code></pre>
+<p>The example feeds input to the derived <code>CsvParser</code>, walks the resulting parse
+tree with <a href="https://docs.rs/pest/*/pest/iterators/struct.Pair.html#method.into_inner"><code>Pairs::into_inner</code></a>, and sums every field. Because the grammar
+encodes what is valid, malformed input produces a <a href="https://docs.rs/pest/*/pest/error/struct.Error.html"><code>pest::error::Error</code></a> that
+renders a caret pointing at the exact line and column — note the <code>?</code> operator
+propagates it like any other error, with no <code>unwrap</code>.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use std::error::Error;
+
+use pest::Parser;
+use pest_derive::Parser;
+
+/// `pest` derives a parser from a PEG grammar kept in a separate `.pest`
+/// file. Each named rule in `csv.pest` becomes a `Rule` variant, and the
+/// grammar — not hand-written code — describes what is valid.
+#[derive(Parser)]
+#[grammar = "csv.pest"]
+struct CsvParser;
+
+/// Parse a tiny CSV of numbers and return their sum. Walking the parse
+/// tree is a matter of iterating `into_inner()` over the matched rules.
+fn sum_csv(input: &amp;str) -&gt; Result&lt;f64, Box&lt;dyn Error&gt;&gt; {
+    let file = CsvParser::parse(Rule::file, input)?
+        .next()
+        .ok_or("no file rule produced")?;
+
+    let mut total = 0.0;
+    for record in file.into_inner() {
+        if record.as_rule() == Rule::record {
+            for field in record.into_inner() {
+                total += field.as_str().parse::&lt;f64&gt;()?;
+            }
+        }
+    }
+    Ok(total)
+}
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    let total = sum_csv("1, 2, 3\n4, 5, 6")?;
+    println!("sum = {total}");
+    assert_eq!(total, 21.0);
+
+    // pest errors carry line/column information and render a caret that
+    // points at the offending input.
+    if let Err(err) = sum_csv("1, 2\n3, x") {
+        println!("{err}");
+    }
+    Ok(())
+}</code></pre>
+<p>Parsing <code>1, 2\n3, x</code> prints a located error:</p>
+<pre><code class="language-text"> --&gt; 2:4
+  |
+2 | 3, x
+  |    ^---
+  |
+  = expected field
+</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="science-1"><a class="header" href="#science-1">Science</a></h1>
 <p><strong>science/mathematics</strong></p>
 <div class="table-wrapper">
@@ -9699,6 +10054,8 @@ Keep lines sorted.
 [cat-no-std]: https://crates.io/categories/no-std
 [cat-os-badge]: https://img.shields.io/badge/OS--x.svg?style=social
 [cat-os]: https://crates.io/categories/os
+[cat-parser-implementations-badge]: https://img.shields.io/badge/parser_implementations--x.svg?style=social
+[cat-parser-implementations]: https://crates.io/categories/parser-implementations
 [cat-rendering-badge]: https://img.shields.io/badge/rendering--x.svg?style=social
 [cat-rendering]: https://crates.io/categories/rendering
 [cat-rust-patterns-badge]: https://img.shields.io/badge/rust_patterns--x.svg?style=social
@@ -9774,11 +10131,15 @@ Keep lines sorted.
 [ndarray]: https://docs.rs/ndarray
 [no-panic-badge]: https://img.shields.io/crates/v/no-panic.svg?label=no-panic
 [no-panic]: https://docs.rs/no-panic/
+[nom-badge]: https://img.shields.io/crates/v/nom.svg?label=nom
+[nom]: https://docs.rs/nom/
 [num-badge]: https://img.shields.io/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus
 [num_cpus]: https://docs.rs/num_cpus/
 [percent-encoding-badge]: https://img.shields.io/crates/v/percent-encoding.svg?label=percent-encoding
+[pest-badge]: https://img.shields.io/crates/v/pest.svg?label=pest
+[pest]: https://docs.rs/pest/
 [postgres-badge]: https://img.shields.io/crates/v/postgres.svg?label=postgres
 [postgres]: https://docs.rs/postgres/0.15.2/postgres/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
@@ -9841,6 +10202,8 @@ Keep lines sorted.
 [wasmtime]: https://docs.rs/wasmtime/
 [wasmtime-wasi-badge]: https://img.shields.io/crates/v/wasmtime-wasi.svg?label=wasmtime-wasi
 [wasmtime-wasi]: https://docs.rs/wasmtime-wasi/
+[winnow-badge]: https://img.shields.io/crates/v/winnow.svg?label=winnow
+[winnow]: https://docs.rs/winnow/
 [wit-bindgen-badge]: https://img.shields.io/crates/v/wit-bindgen.svg?label=wit-bindgen
 [wit-bindgen]: https://docs.rs/wit-bindgen/</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>

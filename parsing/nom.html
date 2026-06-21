@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Clients - Rust Cookbook</title>
+        <title>Parsing content from string - Rust Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -147,7 +147,7 @@
                         <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
                             <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
-                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/web/clients.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/parsing/nom.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
                             <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
                         </a>
 
@@ -181,25 +181,154 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="clients"><a class="header" href="#clients">Clients</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
-</thead>
-<tbody>
-<tr><td><a href="clients/requests.html#make-a-http-get-request">Make a HTTP GET request</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></td></tr>
-<tr><td><a href="clients/requests.html#set-custom-headers-and-url-parameters-for-a-rest-request">Set custom headers and URL parameters for a REST request</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></td></tr>
-<tr><td><a href="clients/apis.html#query-the-github-api">Query the GitHub API</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
-<tr><td><a href="clients/apis.html#check-if-an-api-resource-exists">Check if an API resource exists</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></td></tr>
-<tr><td><a href="clients/apis.html#create-and-delete-gist-with-github-api">Create and delete Gist with GitHub API</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
-<tr><td><a href="clients/apis.html#consume-a-paginated-restful-api">Consume a paginated RESTful API</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
-<tr><td><a href="clients/download.html#download-a-file-to-a-temporary-directory">Download a file to a temporary directory</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
-<tr><td><a href="clients/download.html#make-a-partial-download-with-http-range-headers">Make a partial download with HTTP range headers</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></td></tr>
-<tr><td><a href="clients/download.html#post-a-file-to-paste-rs">POST a file to paste-rs</a></td><td><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a></td><td><a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></td></tr>
-</tbody>
-</table>
-</div>
+                        <h1 id="parsing-content-from-string"><a class="header" href="#parsing-content-from-string">Parsing content from string</a></h1>
+<h2 id="parse-tagged-fields-from-a-log-line"><a class="header" href="#parse-tagged-fields-from-a-log-line">Parse tagged fields from a log line</a></h2>
+<p><a href="https://docs.rs/nom/"><img src="https://img.shields.io/crates/v/nom.svg?label=nom" alt="nom-badge"></a> <a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></p>
+<p><a href="https://docs.rs/nom/"><code>nom</code></a> is a parser-combinator library: you build a parser by composing
+small parsers, each of which consumes part of the input and hands the rest to
+the next. A parser is any function <code>fn(Input) -&gt; IResult&lt;Input, Output&gt;</code>, where
+<a href="https://docs.rs/nom/*/nom/type.IResult.html"><code>IResult</code></a> carries either the parsed value together with the unconsumed tail,
+or an error.</p>
+<p>The example parses a log line like <code>level=warn line=42</code> into a struct. Tokens
+are matched with <a href="https://docs.rs/nom/*/nom/bytes/complete/fn.tag.html"><code>tag</code></a> and alternatives with <a href="https://docs.rs/nom/*/nom/branch/fn.alt.html"><code>alt</code></a>; <a href="https://docs.rs/nom/*/nom/combinator/fn.value.html"><code>value</code></a> maps each
+matched keyword to a <code>Level</code> without a closure. A fallible conversion (string to
+<code>u32</code>) is wrapped in <a href="https://docs.rs/nom/*/nom/combinator/fn.map_res.html"><code>map_res</code></a> so a bad number becomes a parse error rather
+than a panic, and <a href="https://docs.rs/nom/*/nom/trait.Finish.html"><code>Finish</code></a> turns the streaming-style result into a plain
+<code>Result</code> once parsing is complete.</p>
+<pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+
+use nom::branch::alt;
+use nom::bytes::complete::tag;
+use nom::character::complete::{digit1, space1};
+use nom::combinator::{map, map_res, value};
+use nom::sequence::{preceded, separated_pair};
+use nom::{Finish, IResult, Parser};
+
+/// A single log line such as `level=warn line=42` parsed into a struct.
+#[derive(Debug, PartialEq)]
+struct LogEntry {
+    level: Level,
+    line: u32,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+enum Level {
+    Info,
+    Warn,
+    Error,
+}
+
+/// `nom` builds a parser by combining small parsers. Each one takes the
+/// remaining input and returns the parsed value plus the unconsumed tail,
+/// so combinators like `separated_pair` and `preceded` thread that tail
+/// through for you. `parse` drives one of these combinators over the input.
+///
+/// `value` matches a token and yields a fixed value, ignoring the matched
+/// text — exactly what mapping each keyword to a `Level` needs.
+fn level(input: &amp;str) -&gt; IResult&lt;&amp;str, Level&gt; {
+    alt((
+        value(Level::Info, tag("info")),
+        value(Level::Warn, tag("warn")),
+        value(Level::Error, tag("error")),
+    ))
+    .parse(input)
+}
+
+/// `map_res` runs a fallible conversion (`str::parse`) and turns an `Err`
+/// into a parse failure instead of panicking.
+fn number(input: &amp;str) -&gt; IResult&lt;&amp;str, u32&gt; {
+    map_res(digit1, str::parse).parse(input)
+}
+
+/// `level=&lt;level&gt; line=&lt;number&gt;`, separated by whitespace.
+fn log_entry(input: &amp;str) -&gt; IResult&lt;&amp;str, LogEntry&gt; {
+    map(
+        separated_pair(
+            preceded(tag("level="), level),
+            space1,
+            preceded(tag("line="), number),
+        ),
+        |(level, line)| LogEntry { level, line },
+    )
+    .parse(input)
+}
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    // `Finish` converts the streaming-style result into a plain `Result`;
+    // `?` then propagates a parse error instead of panicking. The empty
+    // remaining input is discarded.
+    let (_, entry) = log_entry("level=warn line=42").finish()?;
+    println!("{entry:?}");
+    assert_eq!(
+        entry,
+        LogEntry {
+            level: Level::Warn,
+            line: 42
+        }
+    );
+    Ok(())
+}</code></pre>
+<h2 id="decode-a-hex-color"><a class="header" href="#decode-a-hex-color">Decode a hex color</a></h2>
+<p><a href="https://docs.rs/nom/"><img src="https://img.shields.io/crates/v/nom.svg?label=nom" alt="nom-badge"></a> <a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></p>
+<p>A second <a href="https://docs.rs/nom/"><code>nom</code></a> parser, this one working at the byte level: it decodes an
+HTML-style <code>#1b2a3c</code> color literal into its red, green and blue components.</p>
+<p><a href="https://docs.rs/nom/*/nom/bytes/complete/fn.take_while_m_n.html"><code>take_while_m_n</code></a> consumes a fixed number of characters matching a predicate —
+here exactly two hex digits — and <a href="https://docs.rs/nom/*/nom/combinator/fn.map_res.html"><code>map_res</code></a> converts each pair into a <code>u8</code>,
+failing the parse instead of panicking on invalid input. A tuple of parsers,
+<code>(hex_byte, hex_byte, hex_byte)</code>, is itself a parser that runs each in sequence,
+and <a href="https://docs.rs/nom/*/nom/sequence/fn.preceded.html"><code>preceded</code></a> discards the leading <code>#</code>. <a href="https://docs.rs/nom/*/nom/trait.Finish.html"><code>Finish</code></a> turns the streaming-style
+result into a plain <code>Result</code> once parsing is complete.</p>
+<pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+
+use nom::bytes::complete::take_while_m_n;
+use nom::character::complete::char;
+use nom::combinator::map_res;
+use nom::sequence::preceded;
+use nom::{Finish, IResult, Parser};
+
+/// An HTML-style `#1b2a3c` color literal decoded into its red, green and
+/// blue components.
+#[derive(Debug, PartialEq)]
+struct Color {
+    red: u8,
+    green: u8,
+    blue: u8,
+}
+
+/// `take_while_m_n` consumes between `m` and `n` characters matching a
+/// predicate — here exactly two hex digits — and `map_res` turns them into
+/// a byte, failing the parse instead of panicking on bad input.
+fn hex_byte(input: &amp;str) -&gt; IResult&lt;&amp;str, u8&gt; {
+    map_res(
+        take_while_m_n(2, 2, |c: char| c.is_ascii_hexdigit()),
+        |hex| u8::from_str_radix(hex, 16),
+    )
+    .parse(input)
+}
+
+/// A leading `#` followed by three hex bytes.
+fn color(input: &amp;str) -&gt; IResult&lt;&amp;str, Color&gt; {
+    // A tuple of parsers is itself a parser that runs each in sequence.
+    let (input, (red, green, blue)) =
+        preceded(char('#'), (hex_byte, hex_byte, hex_byte)).parse(input)?;
+    Ok((input, Color { red, green, blue }))
+}
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    // `Finish` converts the streaming-style result into a plain `Result`;
+    // `?` then propagates a parse error instead of panicking.
+    let (_, parsed) = color("#1b2a3c").finish()?;
+    println!("{parsed:?}");
+    assert_eq!(
+        parsed,
+        Color {
+            red: 0x1b,
+            green: 0x2a,
+            blue: 0x3c
+        }
+    );
+    Ok(())
+}</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -211,11 +340,11 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../web/mime.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../parsing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../web/clients/requests.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../parsing/winnow.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -225,11 +354,11 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../web/mime.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../parsing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../web/clients/requests.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../parsing/winnow.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
