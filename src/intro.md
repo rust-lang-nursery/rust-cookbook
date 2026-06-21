@@ -38,6 +38,8 @@ community. It needs and welcomes help. For details see
 
 {{#include encoding.md}}
 
+{{#include errors.md}}
+
 {{#include file.md}}
 
 {{#include hardware.md}}
