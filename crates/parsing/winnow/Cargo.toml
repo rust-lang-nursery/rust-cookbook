@@ -1,0 +1,10 @@
+[package]
+name = "winnow-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+winnow = "1"

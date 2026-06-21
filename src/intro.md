@@ -50,6 +50,8 @@ community. It needs and welcomes help. For details see
 
 {{#include os.md}}
 
+{{#include parsing.md}}
+
 {{#include science.md}}
 
 {{#include text.md}}

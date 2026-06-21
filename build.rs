@@ -12,6 +12,7 @@ const REMOVED_TESTS: &[&str] = &[
 const REMOVED_PREFIXES: &[&str] = &[
     "./src/algorithms/randomness/",
     "./src/development_tools/debugging/tracing/",
+    "./src/parsing/",
     "./src/concurrency/actor/",
     "./src/concurrency/custom_future/",
     "./src/safety_critical/no_panic/",
