@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Timeouts - Rust Cookbook</title>
+        <title>Synchronization Primitives - Rust Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -147,7 +147,7 @@
                         <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
                             <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
-                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/asynchronous/timeout.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/concurrency/sync.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
                             <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
                         </a>
 
@@ -181,31 +181,318 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="timeouts"><a class="header" href="#timeouts">Timeouts</a></h1>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
-<p>Sometimes a task takes too long and you don’t want to wait forever. A <a href="https://docs.rs/tokio/*/tokio/time/fn.timeout.html"><code>timeout</code></a> puts a time limit
-on a task. If it finishes in time you get the result, if it doesn’t, it is cancelled and you get
-an error back.</p>
-<p>In this example, a network request is given 5 milliseconds to complete. If it finishes in time,
-the result is printed. If it runs over, the program reports a timeout.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::time::Duration;
-use tokio::time::timeout;
+                        <h1 id="synchronization-primitives"><a class="header" href="#synchronization-primitives">Synchronization Primitives</a></h1>
+<h2 id="lock-free-counter-with-atomicusize"><a class="header" href="#lock-free-counter-with-atomicusize">Lock-free counter with <code>AtomicUsize</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
+<p>For a simple shared counter, an <a href="https://doc.rust-lang.org/std/sync/atomic/type.AtomicUsize.html"><code>AtomicUsize</code></a> avoids the overhead of a
+<a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> entirely. Atomic operations such as <a href="https://doc.rust-lang.org/std/sync/atomic/type.AtomicUsize.html#method.fetch_add"><code>AtomicUsize::fetch_add</code></a> complete
+as a single indivisible step, so concurrent increments never lose updates and no
+lock is required.</p>
+<p>Every atomic operation takes an <a href="https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html"><code>Ordering</code></a> that controls how the compiler and
+CPU may reorder surrounding memory accesses. <a href="https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html#variant.Relaxed"><code>Ordering::Relaxed</code></a> guarantees the
+atomicity of the operation itself but imposes no ordering relative to other
+memory operations — perfect for a standalone counter. <a href="https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html#variant.SeqCst"><code>Ordering::SeqCst</code></a>
+(sequentially consistent) is the strongest, establishing a single global order
+across all <code>SeqCst</code> operations; reach for it when an atomic guards access to
+<em>other</em> data and you need those accesses to be visible in a predictable order.</p>
+<p>This counter needs neither. The increments are <a href="https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html#variant.Relaxed"><code>Ordering::Relaxed</code></a> because only
+their atomicity matters, and the final read is <code>Relaxed</code> too: <a href="https://doc.rust-lang.org/std/thread/struct.JoinHandle.html#method.join"><code>JoinHandle::join</code></a>
+already establishes a happens-before edge, so once every thread has joined the
+load is guaranteed to observe all of their increments. Using <code>SeqCst</code> for that
+load would only suggest an ordering requirement that does not exist.</p>
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+use std::sync::Arc;
+use std::sync::atomic::{AtomicUsize, Ordering};
+use std::thread;
 
-async fn fetch_network_request() -&gt; u32 {
-    89
+fn main() -&gt; Result&lt;()&gt; {
+    let counter = Arc::new(AtomicUsize::new(0));
+    let mut handles = Vec::new();
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&amp;counter);
+        handles.push(thread::spawn(move || {
+            for _ in 0..1000 {
+                // Relaxed is enough: we only care that the count is exact.
+                counter.fetch_add(1, Ordering::Relaxed);
+            }
+        }));
+    }
+
+    for handle in handles {
+        handle.join().map_err(|_| anyhow!("thread panicked"))?;
+    }
+
+    // join() above synchronizes the threads, so a Relaxed load sees the total.
+    let total = counter.load(Ordering::Relaxed);
+    println!("total: {}", total);
+    assert_eq!(total, 10_000);
+    Ok(())
+}</code></pre>
+<h2 id="guard-compound-state-with-arcmutext"><a class="header" href="#guard-compound-state-with-arcmutext">Guard compound state with <code>Arc&lt;Mutex&lt;T&gt;&gt;</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
+<p>When the shared value is more than a single atomic-sized field — a struct whose
+fields must stay consistent with one another — a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> is the right tool.
+<a href="https://doc.rust-lang.org/std/sync/struct.Arc.html"><code>Arc</code></a> gives every thread shared ownership of the same value; <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> ensures
+only one thread mutates it at a time. For a plain integer counter, prefer
+<a href="https://doc.rust-lang.org/std/sync/atomic/type.AtomicUsize.html"><code>AtomicUsize</code></a> (above); reach for <code>Arc&lt;Mutex&lt;T&gt;&gt;</code> once an update touches several
+fields that must change together.</p>
+<p>Each thread acquires the lock through <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html#method.lock"><code>Mutex::lock</code></a>, updates <em>both</em> fields of
+the shared <code>Stats</code>, and releases the lock when the returned <a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a> drops.
+Holding one lock across the whole update is what keeps <code>count</code> and <code>total</code> from
+ever being observed out of sync — something separate atomics could not
+guarantee. A poisoned lock (a thread panicked while holding it) surfaces as an
+error rather than a panic. When the shared state grows into its own long-lived
+component, the <a href="actor.html">Actor Pattern</a> is the usual scale-up path.</p>
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+use std::sync::{Arc, Mutex};
+use std::thread;
+
+#[derive(Debug, Default)]
+struct Stats {
+    count: u64,
+    total: u64,
 }
 
-#[tokio::main]
-async fn main() {
-    match timeout(Duration::from_millis(5), fetch_network_request()).await {
-        Ok(x) =&gt; println!("Received {x}"),
-        Err(_) =&gt; eprintln!("Timed Out!"),
+fn main() -&gt; Result&lt;()&gt; {
+    let stats = Arc::new(Mutex::new(Stats::default()));
+    let mut handles = Vec::new();
+
+    for value in 1..=10 {
+        let stats = Arc::clone(&amp;stats);
+        let handle = thread::spawn(move || -&gt; Result&lt;()&gt; {
+            let mut stats = stats.lock().map_err(|_| anyhow!("mutex poisoned"))?;
+            // Both fields update under one lock, so count and total can
+            // never be observed out of step with each other.
+            stats.count += 1;
+            stats.total += value;
+            Ok(())
+        });
+        handles.push(handle);
     }
+
+    for handle in handles {
+        handle.join().map_err(|_| anyhow!("thread panicked"))??;
+    }
+
+    let stats = stats.lock().map_err(|_| anyhow!("mutex poisoned"))?;
+    println!("{:?}", *stats);
+    assert_eq!(stats.count, 10);
+    assert_eq!(stats.total, 55);
+    Ok(())
 }</code></pre>
-<p>Add <code>tokio</code> to <code>Cargo.toml</code> with the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#time"><code>time</code></a> features enabled.</p>
-<pre><code class="language-toml">[dependencies]
-tokio = { version = "*", features = ["macros", "time"] }
-</code></pre>
+<h2 id="concurrent-reads-with-arcrwlockt"><a class="header" href="#concurrent-reads-with-arcrwlockt">Concurrent reads with <code>Arc&lt;RwLock&lt;T&gt;&gt;</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
+<p>When data is read often and written rarely, <a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><code>RwLock</code></a> is a better fit than
+<a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>. It allows any number of concurrent readers <em>or</em> a single exclusive
+writer. Readers acquire a shared lock with <a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html#method.read"><code>RwLock::read</code></a>; a writer acquires an
+exclusive lock with <a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html#method.write"><code>RwLock::write</code></a> that blocks until every reader has released
+its lock.</p>
+<p><a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><code>RwLock</code></a> gives no fairness or priority guarantee, and the policy is
+platform-dependent. On some targets a steady stream of readers can keep the lock
+held continuously and <em>starve</em> a waiting writer, so reach for <code>RwLock</code> only when
+reads genuinely dominate; under heavy contention a plain <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> (or a
+dedicated fair lock) can be the safer choice.</p>
+<p>The example spawns several reader threads that observe the shared vector
+simultaneously, plus one writer thread that appends to it under an exclusive
+lock.</p>
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+use std::sync::{Arc, RwLock};
+use std::thread;
+
+fn main() -&gt; Result&lt;()&gt; {
+    let data = Arc::new(RwLock::new(vec![1, 2, 3]));
+    let mut handles = Vec::new();
+
+    for id in 0..3 {
+        let data = Arc::clone(&amp;data);
+        handles.push(thread::spawn(move || -&gt; Result&lt;()&gt; {
+            let reader = data.read().map_err(|_| anyhow!("lock poisoned"))?;
+            println!("reader {} sees {:?}", id, *reader);
+            Ok(())
+        }));
+    }
+
+    let writer_data = Arc::clone(&amp;data);
+    handles.push(thread::spawn(move || -&gt; Result&lt;()&gt; {
+        let mut writer = writer_data.write().map_err(|_| anyhow!("lock poisoned"))?;
+        writer.push(4);
+        Ok(())
+    }));
+
+    for handle in handles {
+        handle.join().map_err(|_| anyhow!("thread panicked"))??;
+    }
+
+    let final_state = data.read().map_err(|_| anyhow!("lock poisoned"))?;
+    println!("final: {:?}", *final_state);
+    Ok(())
+}</code></pre>
+<h2 id="communicate-between-threads-with-mpsc-channels"><a class="header" href="#communicate-between-threads-with-mpsc-channels">Communicate between threads with <code>mpsc</code> channels</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
+<p>A <a href="https://doc.rust-lang.org/std/sync/mpsc/index.html"><code>mpsc</code></a> (multiple producer, single consumer) channel moves values from one or
+more producer threads to a single consumer. <a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html"><code>channel</code></a> returns a <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> and
+a <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html"><code>Receiver</code></a>; producers push work with <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html#method.send"><code>Sender::send</code></a>. The “multiple
+producer” half comes from cloning the <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> — every clone feeds the same
+<a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html"><code>Receiver</code></a>.</p>
+<p>The idiomatic way to consume a channel is to <strong>iterate the <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html"><code>Receiver</code></a></strong>: the
+loop blocks for each value and ends cleanly once every <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> (including
+clones) has been dropped. That drop is the channel’s natural shutdown signal, so
+the original <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> is dropped explicitly after the producers are spawned.</p>
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+use std::sync::mpsc;
+use std::thread;
+
+fn main() -&gt; Result&lt;()&gt; {
+    let (tx, rx) = mpsc::channel();
+
+    // One Sender clone per producer thread; all feed the single Receiver.
+    let producers: Vec&lt;_&gt; = (0..3)
+        .map(|id| {
+            let tx = tx.clone();
+            thread::spawn(move || -&gt; Result&lt;()&gt; {
+                for item in 0..3 {
+                    tx.send((id, item)).map_err(|e| anyhow!("send failed: {e}"))?;
+                }
+                Ok(())
+            })
+        })
+        .collect();
+
+    // Drop the original Sender so the channel closes once the clones do;
+    // otherwise the loop below would block forever waiting for more senders.
+    drop(tx);
+
+    // Blocking, idiomatic consumption: iterate until every Sender is gone.
+    let mut received = 0;
+    for (id, item) in rx {
+        println!("producer {id} sent {item}");
+        received += 1;
+    }
+
+    for producer in producers {
+        producer.join().map_err(|_| anyhow!("producer panicked"))??;
+    }
+    assert_eq!(received, 9);
+    Ok(())
+}</code></pre>
+<p>For the common “block, but wake up periodically to do maintenance” case, reach
+for <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv_timeout"><code>Receiver::recv_timeout</code></a> rather than polling. Save <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.try_recv"><code>Receiver::try_recv</code></a>
+for the situation it is actually built for: a consumer that runs its <em>own</em> loop
+and only wants to fold in whatever has arrived, without ever stalling on the
+channel. The loop below models that — each iteration does a unit of its own work
+and then drains any messages that happen to be ready. <a href="https://doc.rust-lang.org/std/sync/mpsc/enum.TryRecvError.html#variant.Empty"><code>TryRecvError::Empty</code></a>
+means “nothing queued, carry on”; <a href="https://doc.rust-lang.org/std/sync/mpsc/enum.TryRecvError.html#variant.Disconnected"><code>TryRecvError::Disconnected</code></a> means every
+<a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> is gone.</p>
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+use std::sync::mpsc::{self, TryRecvError};
+use std::thread;
+use std::time::Duration;
+
+fn main() -&gt; Result&lt;()&gt; {
+    let (tx, rx) = mpsc::channel();
+
+    let producer = thread::spawn(move || -&gt; Result&lt;()&gt; {
+        for command in ["load", "render", "save"] {
+            tx.send(command).map_err(|e| anyhow!("send failed: {e}"))?;
+            thread::sleep(Duration::from_millis(10));
+        }
+        Ok(())
+    });
+
+    let mut frame = 0u32;
+    loop {
+        // The consumer's own work — this is why try_recv beats a blocking
+        // recv() here: the loop must keep ticking even with no input.
+        frame += 1;
+        thread::sleep(Duration::from_millis(3)); // stand-in for real work
+
+        match rx.try_recv() {
+            Ok(command) =&gt; println!("frame {frame}: handling {command}"),
+            Err(TryRecvError::Empty) =&gt; continue,
+            Err(TryRecvError::Disconnected) =&gt; break,
+        }
+    }
+
+    producer.join().map_err(|_| anyhow!("producer panicked"))??;
+    println!("ran {frame} frames");
+    Ok(())
+}</code></pre>
+<h2 id="coordinate-thread-phases-with-barrier"><a class="header" href="#coordinate-thread-phases-with-barrier">Coordinate thread phases with <code>Barrier</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
+<p>A <a href="https://doc.rust-lang.org/std/sync/struct.Barrier.html"><code>Barrier</code></a> synchronizes a fixed number of threads at a common point. Each
+thread calls <a href="https://doc.rust-lang.org/std/sync/struct.Barrier.html#method.wait"><code>Barrier::wait</code></a>; the call blocks until exactly that many threads
+have reached it, then releases them all together. This guarantees every thread
+finishes phase 1 before any thread begins phase 2.</p>
+<p>The barrier is constructed for three threads, so each of the three workers blocks
+in <a href="https://doc.rust-lang.org/std/sync/struct.Barrier.html#method.wait"><code>Barrier::wait</code></a> until its peers catch up.</p>
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+use std::sync::{Arc, Barrier};
+use std::thread;
+
+fn main() -&gt; Result&lt;()&gt; {
+    let barrier = Arc::new(Barrier::new(3));
+    let mut handles = Vec::new();
+
+    for id in 0..3 {
+        let barrier = Arc::clone(&amp;barrier);
+        handles.push(thread::spawn(move || {
+            println!("thread {} finished phase 1", id);
+            // No thread proceeds until all three have arrived.
+            barrier.wait();
+            println!("thread {} starting phase 2", id);
+        }));
+    }
+
+    for handle in handles {
+        handle.join().map_err(|_| anyhow!("thread panicked"))?;
+    }
+    Ok(())
+}</code></pre>
+<h2 id="signal-a-waiting-thread-with-condvar"><a class="header" href="#signal-a-waiting-thread-with-condvar">Signal a waiting thread with <code>Condvar</code></a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
+<p>A <a href="https://doc.rust-lang.org/std/sync/struct.Condvar.html"><code>Condvar</code></a> (condition variable) lets a thread sleep until another thread
+signals that some shared state has changed, without busy-waiting. It is always
+paired with a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> that protects the state being watched.</p>
+<p>The waiting thread locks the mutex, then loops while the condition is false,
+releasing the lock and sleeping inside <a href="https://doc.rust-lang.org/std/sync/struct.Condvar.html#method.wait"><code>Condvar::wait</code></a>. The signaling thread
+locks the same mutex, updates the state, drops the guard, and calls
+<a href="https://doc.rust-lang.org/std/sync/struct.Condvar.html#method.notify_one"><code>Condvar::notify_one</code></a> to wake the waiter. The <code>while</code> loop guards against
+spurious wakeups: the waiter re-checks the condition every time it wakes.</p>
+<p>Dropping the guard <em>before</em> notifying is a small but worthwhile habit: if the
+lock is still held when <a href="https://doc.rust-lang.org/std/sync/struct.Condvar.html#method.notify_one"><code>Condvar::notify_one</code></a> fires, the woken thread wakes
+only to block again immediately on re-acquiring the mutex. Releasing first lets
+it proceed straight away. The result is correct either way — only the hand-off is
+tidier.</p>
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+use std::sync::{Arc, Condvar, Mutex};
+use std::thread;
+
+fn main() -&gt; Result&lt;()&gt; {
+    let pair = Arc::new((Mutex::new(false), Condvar::new()));
+
+    let signaler = Arc::clone(&amp;pair);
+    let worker = thread::spawn(move || -&gt; Result&lt;()&gt; {
+        let (lock, cvar) = &amp;*signaler;
+        let mut ready = lock.lock().map_err(|_| anyhow!("mutex poisoned"))?;
+        *ready = true;
+        // Release the lock before signaling so the woken thread can proceed
+        // immediately instead of blocking to re-acquire it.
+        drop(ready);
+        cvar.notify_one();
+        Ok(())
+    });
+
+    let (lock, cvar) = &amp;*pair;
+    let mut ready = lock.lock().map_err(|_| anyhow!("mutex poisoned"))?;
+    while !*ready {
+        ready = cvar.wait(ready).map_err(|_| anyhow!("mutex poisoned"))?;
+    }
+    println!("worker signaled readiness");
+
+    worker.join().map_err(|_| anyhow!("worker panicked"))??;
+    Ok(())
+}</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -217,11 +504,11 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../asynchronous/fs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../concurrency/threads.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../asynchronous/channel.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../concurrency/parallel.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -231,11 +518,11 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../asynchronous/fs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../concurrency/threads.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../asynchronous/channel.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../concurrency/parallel.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
