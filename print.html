@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-c8c64e16.js";
+            window.path_to_searchindex_js = "searchindex-825a4892.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-7bc88a4d.js"></script>
+        <script src="toc-fe2f901f.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -485,6 +485,30 @@ Keep lines sorted.
 <tr><td><a href="#serialize-and-deserialize-unstructured-json">Serialize and deserialize unstructured JSON</a></td><td><a href="https://docs.rs/serde_json/*/serde_json/"><img src="https://img.shields.io/crates/v/serde_json.svg?label=serde_json" alt="serde-json-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
 <tr><td><a href="#deserialize-a-toml-configuration-file">Deserialize a TOML configuration file</a></td><td><a href="https://docs.rs/toml/"><img src="https://img.shields.io/crates/v/toml.svg?label=toml" alt="toml-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
 <tr><td><a href="#read-and-write-integers-in-little-endian-byte-order">Read and write integers in little-endian byte order</a></td><td><a href="https://docs.rs/byteorder/"><img src="https://img.shields.io/crates/v/byteorder.svg?label=byteorder" alt="byteorder-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
+</tbody>
+</table>
+</div>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<h1 id="error-handling"><a class="header" href="#error-handling">Error Handling</a></h1>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#thiserror">Composing errors with an enum</a></td><td><a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#anyhow">Dynamic errors with anyhow</a></td><td><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#handle-errors-correctly-in-main">Handle errors correctly in main</a></td><td><a href="https://docs.rs/error-chain/"><img src="https://img.shields.io/crates/v/error-chain.svg?label=error-chain" alt="error-chain-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#transform-an-option-value">Transform an Option value</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#provide-fallbacks-for-missing-values">Provide fallbacks for missing values</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#convert-an-option-to-a-result">Convert an Option to a Result</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#chain-fallible-operations-with-result">Chain fallible operations with Result</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#collect-an-iterator-of-results">Collect an iterator of Results</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -5827,7 +5851,7 @@ Keep lines sorted.
 <!-- Categories -->
 <!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="error-handling"><a class="header" href="#error-handling">Error Handling</a></h1>
+<h1 id="error-handling-1"><a class="header" href="#error-handling-1">Error Handling</a></h1>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -5837,6 +5861,11 @@ Keep lines sorted.
 <tr><td><a href="#thiserror">Composing errors with an enum</a></td><td><a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#anyhow">Dynamic errors with anyhow</a></td><td><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#handle-errors-correctly-in-main">Handle errors correctly in main</a></td><td><a href="https://docs.rs/error-chain/"><img src="https://img.shields.io/crates/v/error-chain.svg?label=error-chain" alt="error-chain-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#transform-an-option-value">Transform an Option value</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#provide-fallbacks-for-missing-values">Provide fallbacks for missing values</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#convert-an-option-to-a-result">Convert an Option to a Result</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#chain-fallible-operations-with-result">Chain fallible operations with Result</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#collect-an-iterator-of-results">Collect an iterator of Results</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -5847,7 +5876,7 @@ Keep lines sorted.
 <!-- Categories -->
 <!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="error-handling-1"><a class="header" href="#error-handling-1">Error Handling</a></h1>
+<h1 id="error-handling-2"><a class="header" href="#error-handling-2">Error Handling</a></h1>
 <h2 id="handle-errors-correctly-in-main"><a class="header" href="#handle-errors-correctly-in-main">Handle errors correctly in main</a></h2>
 <p><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a>
 <a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a>
@@ -5926,6 +5955,192 @@ fn main() {
         Ok(uptime) =&gt; println!("uptime: {} seconds", uptime),
         Err(err) =&gt; eprintln!("error: {}", err),
     };
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="option-and-result-combinators"><a class="header" href="#option-and-result-combinators">Option and Result Combinators</a></h1>
+<h2 id="transform-an-option-value"><a class="header" href="#transform-an-option-value">Transform an Option value</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>Rather than matching on every <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> by hand, the standard library
+provides combinators that transform the contained value in place. This recipe
+classifies an uploaded file by extension: <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.and_then"><code>Option::and_then</code></a> chains
+<a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.extension"><code>Path::extension</code></a> into <a href="https://doc.rust-lang.org/std/ffi/struct.OsStr.html#method.to_str"><code>OsStr::to_str</code></a>, where each step may itself yield
+<code>None</code>; <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map"><code>Option::map</code></a> normalizes the matched value; and <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.filter"><code>Option::filter</code></a>
+rejects anything that is not a supported image. <code>None</code> falls straight through
+the chain, so no intermediate value needs to be unwrapped.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::path::Path;
+
+/// Return the lowercase extension of `filename`, but only when it names an
+/// image we are willing to accept.
+fn image_extension(filename: &amp;str) -&gt; Option&lt;String&gt; {
+    Path::new(filename)
+        .extension() // `Option&lt;&amp;OsStr&gt;`: `None` when there is no extension
+        .and_then(|ext| ext.to_str()) // `and_then` chains another `Option`-returning step
+        .map(|ext| ext.to_lowercase()) // `map` normalizes the matched value
+        .filter(|ext| matches!(ext.as_str(), "png" | "jpg" | "jpeg" | "gif"))
+}
+
+fn main() {
+    println!("photo.JPG      -&gt; {:?}", image_extension("photo.JPG"));
+    println!("archive.tar.gz -&gt; {:?}", image_extension("archive.tar.gz"));
+    println!("README         -&gt; {:?}", image_extension("README"));
+
+    assert_eq!(image_extension("photo.JPG"), Some("jpg".to_string()));
+    assert_eq!(image_extension("archive.tar.gz"), None);
+    assert_eq!(image_extension("README"), None);
+}</code></pre>
+<h2 id="provide-fallbacks-for-missing-values"><a class="header" href="#provide-fallbacks-for-missing-values">Provide fallbacks for missing values</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>When a value may be absent, the right way to supply a default depends on how
+expensive that default is to produce. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or"><code>Option::unwrap_or</code></a> takes a value that
+is <em>always</em> evaluated, so it suits cheap constants. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_else"><code>Option::unwrap_or_else</code></a>
+defers to a closure, computing the fallback only when the value is <code>None</code> —
+prefer it when the default is costly or has side effects.
+<a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_default"><code>Option::unwrap_or_default</code></a> returns the type’s <a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a> value.</p>
+<pre class="playground"><code class="language-rust edition2021">fn expensive_default() -&gt; i32 {
+    // Pretend this performs costly work we want to avoid when possible.
+    42
+}
+
+fn main() {
+    let present: Option&lt;i32&gt; = Some(7);
+    let missing: Option&lt;i32&gt; = None;
+
+    // `unwrap_or` returns the value, or an eagerly evaluated default.
+    println!("present.unwrap_or(0)       = {}", present.unwrap_or(0));
+    println!("missing.unwrap_or(0)       = {}", missing.unwrap_or(0));
+    assert_eq!(present.unwrap_or(0), 7);
+    assert_eq!(missing.unwrap_or(0), 0);
+
+    // `unwrap_or_else` defers the default to a closure, so the
+    // fallback runs only when the value is absent.
+    println!("missing.unwrap_or_else(..) = {}", missing.unwrap_or_else(expensive_default));
+    assert_eq!(missing.unwrap_or_else(expensive_default), 42);
+
+    // `unwrap_or_default` uses the type's `Default` implementation.
+    println!("missing.unwrap_or_default  = {}", missing.unwrap_or_default());
+    assert_eq!(missing.unwrap_or_default(), 0);
+}</code></pre>
+<h2 id="convert-an-option-to-a-result"><a class="header" href="#convert-an-option-to-a-result">Convert an Option to a Result</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>A missing <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> often needs to become a meaningful error so it can be
+propagated with <code>?</code>. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or"><code>Option::ok_or</code></a> turns <code>Some(v)</code> into <code>Ok(v)</code> and <code>None</code>
+into <code>Err(e)</code> using a supplied error value. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else"><code>Option::ok_or_else</code></a> builds that
+error lazily from a closure, which is preferable when constructing the error
+allocates or is otherwise expensive.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+
+#[derive(Debug, PartialEq)]
+struct MissingKey(String);
+
+fn get_setting(config: &amp;HashMap&lt;String, String&gt;, key: &amp;str) -&gt; Result&lt;String, MissingKey&gt; {
+    // `ok_or_else` bridges `Option` to `Result`: `Some(v)` becomes
+    // `Ok(v)`, and `None` becomes `Err`, with the error built lazily.
+    config
+        .get(key)
+        .cloned()
+        .ok_or_else(|| MissingKey(key.to_string()))
+}
+
+fn main() -&gt; Result&lt;(), MissingKey&gt; {
+    let mut config = HashMap::new();
+    config.insert("host".to_string(), "localhost".to_string());
+
+    let host = get_setting(&amp;config, "host")?;
+    println!("host setting: {host}");
+    assert_eq!(host, "localhost");
+
+    // Use `ok_or` when the error value is cheap to create up front.
+    let port: Result&lt;&amp;String, MissingKey&gt; =
+        config.get("port").ok_or(MissingKey("port".to_string()));
+    println!("port setting: {port:?}");
+    assert_eq!(port, Err(MissingKey("port".to_string())));
+
+    Ok(())
+}</code></pre>
+<h2 id="chain-fallible-operations-with-result"><a class="header" href="#chain-fallible-operations-with-result">Chain fallible operations with Result</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a> carries the same family of combinators as <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a>, letting a
+sequence of fallible steps read as a single expression. <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.map_err"><code>Result::map_err</code></a>
+rewrites an error into a domain-specific type so it can cross an API boundary.
+<a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.and_then"><code>Result::and_then</code></a> sequences another fallible step, short-circuiting at the
+first error. <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.map"><code>Result::map</code></a> transforms a successful value while leaving any
+error untouched.</p>
+<pre class="playground"><code class="language-rust edition2021">#[derive(Debug)]
+enum ConfigError {
+    NotANumber(String),
+    OutOfRange(u32),
+}
+
+fn socket_addr(host: &amp;str, raw_port: &amp;str) -&gt; Result&lt;String, ConfigError&gt; {
+    raw_port
+        .parse::&lt;u32&gt;()
+        // `map_err` rewrites the standard-library error as our own type.
+        .map_err(|_| ConfigError::NotANumber(raw_port.to_string()))
+        // `and_then` runs another fallible step, short-circuiting on error.
+        .and_then(|n| u16::try_from(n).map_err(|_| ConfigError::OutOfRange(n)))
+        // `map` transforms the success value, leaving any error untouched.
+        .map(|port| format!("{host}:{port}"))
+}
+
+fn main() -&gt; Result&lt;(), ConfigError&gt; {
+    println!("valid:      {:?}", socket_addr("localhost", "8080"));
+    println!("not number: {:?}", socket_addr("localhost", "nope"));
+    println!("out of range: {:?}", socket_addr("localhost", "70000"));
+
+    assert_eq!(socket_addr("localhost", "8080")?, "localhost:8080");
+    assert!(matches!(
+        socket_addr("localhost", "nope"),
+        Err(ConfigError::NotANumber(_))
+    ));
+    assert!(matches!(
+        socket_addr("localhost", "70000"),
+        Err(ConfigError::OutOfRange(_))
+    ));
+
+    Ok(())
+}</code></pre>
+<h2 id="collect-an-iterator-of-results"><a class="header" href="#collect-an-iterator-of-results">Collect an iterator of Results</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>When every item of an iterator is fallible, <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect"><code>Iterator::collect</code></a> can gather
+them into a single <code>Result&lt;Vec&lt;_&gt;, _&gt;</code>. It returns the whole vector only if
+every element is <code>Ok</code>, short-circuiting to the first <code>Err</code> otherwise. When
+failures should instead be skipped, <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter_map"><code>Iterator::filter_map</code></a> paired with
+<a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.ok"><code>Result::ok</code></a> keeps only the successful values.</p>
+<p><a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect"><code>Iterator::collect</code></a> needs to know which collection to build. The two calls
+below show the interchangeable ways to tell it: a turbofish on <code>collect</code>
+(<code>collect::&lt;Result&lt;Vec&lt;_&gt;, _&gt;&gt;()</code>) or a type annotation on the binding
+(<code>let result: Result&lt;Vec&lt;i32&gt;, _&gt;</code>). Pick whichever reads better at the call
+site; the result is identical.</p>
+<pre class="playground"><code class="language-rust edition2021">fn main() -&gt; Result&lt;(), std::num::ParseIntError&gt; {
+    let raw = ["1", "2", "3"];
+
+    // Collecting into `Result&lt;Vec&lt;_&gt;, _&gt;` yields the whole vector only
+    // when every item parses successfully.
+    let numbers: Vec&lt;i32&gt; = raw
+        .iter()
+        .map(|s| s.parse::&lt;i32&gt;())
+        .collect::&lt;Result&lt;Vec&lt;_&gt;, _&gt;&gt;()?;
+    println!("all parsed:    {numbers:?}");
+    assert_eq!(numbers, vec![1, 2, 3]);
+
+    // A single bad value short-circuits the entire collection into `Err`.
+    let mixed = ["1", "x", "3"];
+    let result: Result&lt;Vec&lt;i32&gt;, _&gt; = mixed.iter().map(|s| s.parse::&lt;i32&gt;()).collect();
+    println!("short-circuit: {result:?}");
+    assert!(result.is_err());
+
+    // To ignore failures instead, use `filter_map` to keep the `Ok` values.
+    let valid: Vec&lt;i32&gt; = mixed.iter().filter_map(|s| s.parse::&lt;i32&gt;().ok()).collect();
+    println!("skip failures: {valid:?}");
+    assert_eq!(valid, vec![1, 3]);
+
+    Ok(())
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.

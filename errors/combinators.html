@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Data Parallelism - Rust Cookbook</title>
+        <title>Option and Result Combinators - Rust Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -147,7 +147,7 @@
                         <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
                             <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
-                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/concurrency/parallel.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/errors/combinators.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
                             <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
                         </a>
 
@@ -181,178 +181,184 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="parallel-tasks"><a class="header" href="#parallel-tasks">Parallel Tasks</a></h1>
-<h2 id="mutate-the-elements-of-an-array-in-parallel"><a class="header" href="#mutate-the-elements-of-an-array-in-parallel">Mutate the elements of an array in parallel</a></h2>
-<p><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
-<p>The example uses the <code>rayon</code> crate, which is a data parallelism library for Rust.
-<code>rayon</code> provides the <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut"><code>par_iter_mut</code></a> method for any parallel iterable data type.
-This is an iterator-like chain that potentially executes in parallel.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+                        <h1 id="option-and-result-combinators"><a class="header" href="#option-and-result-combinators">Option and Result Combinators</a></h1>
+<h2 id="transform-an-option-value"><a class="header" href="#transform-an-option-value">Transform an Option value</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>Rather than matching on every <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> by hand, the standard library
+provides combinators that transform the contained value in place. This recipe
+classifies an uploaded file by extension: <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.and_then"><code>Option::and_then</code></a> chains
+<a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.extension"><code>Path::extension</code></a> into <a href="https://doc.rust-lang.org/std/ffi/struct.OsStr.html#method.to_str"><code>OsStr::to_str</code></a>, where each step may itself yield
+<code>None</code>; <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map"><code>Option::map</code></a> normalizes the matched value; and <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.filter"><code>Option::filter</code></a>
+rejects anything that is not a supported image. <code>None</code> falls straight through
+the chain, so no intermediate value needs to be unwrapped.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::path::Path;
 
-fn main() {
-    let mut arr = [0, 7, 9, 11];
-    arr.par_iter_mut().for_each(|p| *p -= 1);
-    println!("{:?}", arr);
-}</code></pre>
-<h2 id="test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate"><a class="header" href="#test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate">Test in parallel if any or all elements of a collection match a given predicate</a></h2>
-<p><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
-<p>This example demonstrates using the <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any"><code>rayon::any</code></a> and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all"><code>rayon::all</code></a> methods, which are parallelized counterparts to <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.any"><code>std::any</code></a> and <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.all"><code>std::all</code></a>. <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any"><code>rayon::any</code></a> checks in parallel whether any element of the iterator matches the predicate, and returns as soon as one is found. <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all"><code>rayon::all</code></a> checks in parallel whether all elements of the iterator match the predicate, and returns as soon as a non-matching element is found.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
-
-fn main() {
-    let mut vec = vec![2, 4, 6, 8];
-
-    assert!(!vec.par_iter().any(|n| (*n % 2) != 0));
-    assert!(vec.par_iter().all(|n| (*n % 2) == 0));
-    assert!(!vec.par_iter().any(|n| *n &gt; 8 ));
-    assert!(vec.par_iter().all(|n| *n &lt;= 8 ));
-
-    vec.push(9);
-
-    assert!(vec.par_iter().any(|n| (*n % 2) != 0));
-    assert!(!vec.par_iter().all(|n| (*n % 2) == 0));
-    assert!(vec.par_iter().any(|n| *n &gt; 8 ));
-    assert!(!vec.par_iter().all(|n| *n &lt;= 8 )); 
-}</code></pre>
-<h2 id="search-items-using-given-predicate-in-parallel"><a class="header" href="#search-items-using-given-predicate-in-parallel">Search items using given predicate in parallel</a></h2>
-<p><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
-<p>This example uses <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.find_any"><code>rayon::find_any</code></a> and <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter"><code>par_iter</code></a> to search a vector in
-parallel for an element satisfying the predicate in the given closure.</p>
-<p>If there are multiple elements satisfying the predicate defined in the closure
-argument of <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.find_any"><code>rayon::find_any</code></a>, <code>rayon</code> returns the first one found, not
-necessarily the first one.</p>
-<p>Also note that the argument to the closure is a reference to a reference
-(<code>&amp;&amp;x</code>). See the discussion on <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.find"><code>std::find</code></a> for additional details.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
-
-fn main() {
-    let v = vec![6, 2, 1, 9, 3, 8, 11];
-
-    let f1 = v.par_iter().find_any(|&amp;&amp;x| x == 9);
-    let f2 = v.par_iter().find_any(|&amp;&amp;x| x % 2 == 0 &amp;&amp; x &gt; 6);
-    let f3 = v.par_iter().find_any(|&amp;&amp;x| x &gt; 8);
-
-    assert_eq!(f1, Some(&amp;9));
-    assert_eq!(f2, Some(&amp;8));
-    assert!(f3 &gt; Some(&amp;8));
-}</code></pre>
-<h2 id="sort-a-vector-in-parallel"><a class="header" href="#sort-a-vector-in-parallel">Sort a vector in parallel</a></h2>
-<p><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
-<p>This example will sort in parallel a vector of Strings.</p>
-<p>Allocate a vector of empty Strings. <code>par_iter_mut().for_each</code> populates random
-values in parallel.  Although <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html">multiple options</a>
-exist to sort an enumerable data type, <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort_unstable"><code>par_sort_unstable</code></a>
-is usually faster than <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_sort">stable sorting</a> algorithms.</p>
-<pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
-use rayon::prelude::*;
-
-fn main() {
-    let mut vec = vec![0; 1_000_000];
-    rand::rng().fill(&amp;mut vec[..]);
-
-    vec.par_sort_unstable();
-
-    let first = vec.first().unwrap();
-    let last = vec.last().unwrap();
-    assert!(first &lt;= last);
-}</code></pre>
-<h2 id="map-reduce-in-parallel"><a class="header" href="#map-reduce-in-parallel">Map-reduce in parallel</a></h2>
-<p><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
-<p>This example uses <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.filter"><code>rayon::filter</code></a>, <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.map"><code>rayon::map</code></a>, and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.reduce"><code>rayon::reduce</code></a>
-to calculate the average age of <code>Person</code> objects whose age is over 30.</p>
-<p><a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.filter"><code>rayon::filter</code></a> returns elements from a collection that satisfy the given
-predicate.  <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.map"><code>rayon::map</code></a> performs an operation on every element, creating a
-new iteration, and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.reduce"><code>rayon::reduce</code></a> performs an operation given the previous
-reduction and the current element.  Also shows use of <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.sum"><code>rayon::sum</code></a>,
-which has the same result as the reduce operation in this example.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
-
-struct Person {
-    age: u32,
+/// Return the lowercase extension of `filename`, but only when it names an
+/// image we are willing to accept.
+fn image_extension(filename: &amp;str) -&gt; Option&lt;String&gt; {
+    Path::new(filename)
+        .extension() // `Option&lt;&amp;OsStr&gt;`: `None` when there is no extension
+        .and_then(|ext| ext.to_str()) // `and_then` chains another `Option`-returning step
+        .map(|ext| ext.to_lowercase()) // `map` normalizes the matched value
+        .filter(|ext| matches!(ext.as_str(), "png" | "jpg" | "jpeg" | "gif"))
 }
 
 fn main() {
-    let v: Vec&lt;Person&gt; = vec![
-        Person { age: 23 },
-        Person { age: 19 },
-        Person { age: 42 },
-        Person { age: 17 },
-        Person { age: 17 },
-        Person { age: 31 },
-        Person { age: 30 },
-    ];
+    println!("photo.JPG      -&gt; {:?}", image_extension("photo.JPG"));
+    println!("archive.tar.gz -&gt; {:?}", image_extension("archive.tar.gz"));
+    println!("README         -&gt; {:?}", image_extension("README"));
 
-    let num_over_30 = v.par_iter().filter(|&amp;x| x.age &gt; 30).count() as f32;
-    let sum_over_30 = v.par_iter()
-        .map(|x| x.age)
-        .filter(|&amp;x| x &gt; 30)
-        .reduce(|| 0, |x, y| x + y);
-
-    let alt_sum_30: u32 = v.par_iter()
-        .map(|x| x.age)
-        .filter(|&amp;x| x &gt; 30)
-        .sum();
-
-    let avg_over_30 = sum_over_30 as f32 / num_over_30;
-    let alt_avg_over_30 = alt_sum_30 as f32/ num_over_30;
-
-    assert!((avg_over_30 - alt_avg_over_30).abs() &lt; std::f32::EPSILON);
-    println!("The average age of people older than 30 is {}", avg_over_30);
+    assert_eq!(image_extension("photo.JPG"), Some("jpg".to_string()));
+    assert_eq!(image_extension("archive.tar.gz"), None);
+    assert_eq!(image_extension("README"), None);
 }</code></pre>
-<h2 id="generate-jpg-thumbnails-in-parallel"><a class="header" href="#generate-jpg-thumbnails-in-parallel">Generate jpg thumbnails in parallel</a></h2>
-<p><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://docs.rs/glob/"><img src="https://img.shields.io/crates/v/glob.svg?label=glob" alt="glob-badge"></a> <a href="https://docs.rs/image/"><img src="https://img.shields.io/crates/v/image.svg?label=image" alt="image-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
-<p>This example generates thumbnails for all .jpg files in the current directory
-then saves them in a new folder called <code>thumbnails</code>.</p>
-<p><a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob::glob_with</code></a> finds jpeg files in current directory. <code>rayon</code> resizes
-images in parallel using <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter"><code>par_iter</code></a> calling  <a href="https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize"><code>DynamicImage::resize</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
-use std::path::Path;
-use std::fs::create_dir_all;
+<h2 id="provide-fallbacks-for-missing-values"><a class="header" href="#provide-fallbacks-for-missing-values">Provide fallbacks for missing values</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>When a value may be absent, the right way to supply a default depends on how
+expensive that default is to produce. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or"><code>Option::unwrap_or</code></a> takes a value that
+is <em>always</em> evaluated, so it suits cheap constants. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_else"><code>Option::unwrap_or_else</code></a>
+defers to a closure, computing the fallback only when the value is <code>None</code> —
+prefer it when the default is costly or has side effects.
+<a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_default"><code>Option::unwrap_or_default</code></a> returns the type’s <a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a> value.</p>
+<pre class="playground"><code class="language-rust edition2021">fn expensive_default() -&gt; i32 {
+    // Pretend this performs costly work we want to avoid when possible.
+    42
+}
 
-use glob::{glob_with, MatchOptions};
-use image::imageops::FilterType;
-use rayon::prelude::*;
+fn main() {
+    let present: Option&lt;i32&gt; = Some(7);
+    let missing: Option&lt;i32&gt; = None;
 
-fn main() -&gt; Result&lt;()&gt; {
-    let options: MatchOptions = Default::default();
-    let files: Vec&lt;_&gt; = glob_with("*.jpg", options)?
-        .filter_map(|x| x.ok())
-        .collect();
+    // `unwrap_or` returns the value, or an eagerly evaluated default.
+    println!("present.unwrap_or(0)       = {}", present.unwrap_or(0));
+    println!("missing.unwrap_or(0)       = {}", missing.unwrap_or(0));
+    assert_eq!(present.unwrap_or(0), 7);
+    assert_eq!(missing.unwrap_or(0), 0);
 
-    if files.len() == 0 {
-        anyhow::bail!("No .jpg files found in current directory");
-    }
+    // `unwrap_or_else` defers the default to a closure, so the
+    // fallback runs only when the value is absent.
+    println!("missing.unwrap_or_else(..) = {}", missing.unwrap_or_else(expensive_default));
+    assert_eq!(missing.unwrap_or_else(expensive_default), 42);
 
-    let thumb_dir = "thumbnails";
-    create_dir_all(thumb_dir)?;
+    // `unwrap_or_default` uses the type's `Default` implementation.
+    println!("missing.unwrap_or_default  = {}", missing.unwrap_or_default());
+    assert_eq!(missing.unwrap_or_default(), 0);
+}</code></pre>
+<h2 id="convert-an-option-to-a-result"><a class="header" href="#convert-an-option-to-a-result">Convert an Option to a Result</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>A missing <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> often needs to become a meaningful error so it can be
+propagated with <code>?</code>. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or"><code>Option::ok_or</code></a> turns <code>Some(v)</code> into <code>Ok(v)</code> and <code>None</code>
+into <code>Err(e)</code> using a supplied error value. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else"><code>Option::ok_or_else</code></a> builds that
+error lazily from a closure, which is preferable when constructing the error
+allocates or is otherwise expensive.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
 
-    println!("Saving {} thumbnails into '{}'...", files.len(), thumb_dir);
+#[derive(Debug, PartialEq)]
+struct MissingKey(String);
 
-    let image_failures: Vec&lt;_&gt; = files
-        .par_iter()
-        .map(|path| {
-            make_thumbnail(path, thumb_dir, 300)
-                .map_err(|e| anyhow::anyhow!("Failed to process {}: {}", path.display(), e))
-        })
-        .filter_map(|x| x.err())
-        .collect();
+fn get_setting(config: &amp;HashMap&lt;String, String&gt;, key: &amp;str) -&gt; Result&lt;String, MissingKey&gt; {
+    // `ok_or_else` bridges `Option` to `Result`: `Some(v)` becomes
+    // `Ok(v)`, and `None` becomes `Err`, with the error built lazily.
+    config
+        .get(key)
+        .cloned()
+        .ok_or_else(|| MissingKey(key.to_string()))
+}
 
-    image_failures.iter().for_each(|x| println!("{}", x));
+fn main() -&gt; Result&lt;(), MissingKey&gt; {
+    let mut config = HashMap::new();
+    config.insert("host".to_string(), "localhost".to_string());
 
-    println!("{} thumbnails saved successfully", files.len() - image_failures.len());
+    let host = get_setting(&amp;config, "host")?;
+    println!("host setting: {host}");
+    assert_eq!(host, "localhost");
+
+    // Use `ok_or` when the error value is cheap to create up front.
+    let port: Result&lt;&amp;String, MissingKey&gt; =
+        config.get("port").ok_or(MissingKey("port".to_string()));
+    println!("port setting: {port:?}");
+    assert_eq!(port, Err(MissingKey("port".to_string())));
+
     Ok(())
+}</code></pre>
+<h2 id="chain-fallible-operations-with-result"><a class="header" href="#chain-fallible-operations-with-result">Chain fallible operations with Result</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p><a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a> carries the same family of combinators as <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a>, letting a
+sequence of fallible steps read as a single expression. <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.map_err"><code>Result::map_err</code></a>
+rewrites an error into a domain-specific type so it can cross an API boundary.
+<a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.and_then"><code>Result::and_then</code></a> sequences another fallible step, short-circuiting at the
+first error. <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.map"><code>Result::map</code></a> transforms a successful value while leaving any
+error untouched.</p>
+<pre class="playground"><code class="language-rust edition2021">#[derive(Debug)]
+enum ConfigError {
+    NotANumber(String),
+    OutOfRange(u32),
 }
 
-fn make_thumbnail&lt;PA, PB&gt;(original: PA, thumb_dir: PB, longest_edge: u32) -&gt; Result&lt;()&gt;
-where
-    PA: AsRef&lt;Path&gt;,
-    PB: AsRef&lt;Path&gt;,
-{
-    let img = image::open(original.as_ref())?;
-    let file_path = thumb_dir.as_ref().join(original);
+fn socket_addr(host: &amp;str, raw_port: &amp;str) -&gt; Result&lt;String, ConfigError&gt; {
+    raw_port
+        .parse::&lt;u32&gt;()
+        // `map_err` rewrites the standard-library error as our own type.
+        .map_err(|_| ConfigError::NotANumber(raw_port.to_string()))
+        // `and_then` runs another fallible step, short-circuiting on error.
+        .and_then(|n| u16::try_from(n).map_err(|_| ConfigError::OutOfRange(n)))
+        // `map` transforms the success value, leaving any error untouched.
+        .map(|port| format!("{host}:{port}"))
+}
 
-    Ok(img.resize(longest_edge, longest_edge, FilterType::Nearest)
-        .save(file_path)?)
+fn main() -&gt; Result&lt;(), ConfigError&gt; {
+    println!("valid:      {:?}", socket_addr("localhost", "8080"));
+    println!("not number: {:?}", socket_addr("localhost", "nope"));
+    println!("out of range: {:?}", socket_addr("localhost", "70000"));
+
+    assert_eq!(socket_addr("localhost", "8080")?, "localhost:8080");
+    assert!(matches!(
+        socket_addr("localhost", "nope"),
+        Err(ConfigError::NotANumber(_))
+    ));
+    assert!(matches!(
+        socket_addr("localhost", "70000"),
+        Err(ConfigError::OutOfRange(_))
+    ));
+
+    Ok(())
+}</code></pre>
+<h2 id="collect-an-iterator-of-results"><a class="header" href="#collect-an-iterator-of-results">Collect an iterator of Results</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>When every item of an iterator is fallible, <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect"><code>Iterator::collect</code></a> can gather
+them into a single <code>Result&lt;Vec&lt;_&gt;, _&gt;</code>. It returns the whole vector only if
+every element is <code>Ok</code>, short-circuiting to the first <code>Err</code> otherwise. When
+failures should instead be skipped, <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter_map"><code>Iterator::filter_map</code></a> paired with
+<a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.ok"><code>Result::ok</code></a> keeps only the successful values.</p>
+<p><a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect"><code>Iterator::collect</code></a> needs to know which collection to build. The two calls
+below show the interchangeable ways to tell it: a turbofish on <code>collect</code>
+(<code>collect::&lt;Result&lt;Vec&lt;_&gt;, _&gt;&gt;()</code>) or a type annotation on the binding
+(<code>let result: Result&lt;Vec&lt;i32&gt;, _&gt;</code>). Pick whichever reads better at the call
+site; the result is identical.</p>
+<pre class="playground"><code class="language-rust edition2021">fn main() -&gt; Result&lt;(), std::num::ParseIntError&gt; {
+    let raw = ["1", "2", "3"];
+
+    // Collecting into `Result&lt;Vec&lt;_&gt;, _&gt;` yields the whole vector only
+    // when every item parses successfully.
+    let numbers: Vec&lt;i32&gt; = raw
+        .iter()
+        .map(|s| s.parse::&lt;i32&gt;())
+        .collect::&lt;Result&lt;Vec&lt;_&gt;, _&gt;&gt;()?;
+    println!("all parsed:    {numbers:?}");
+    assert_eq!(numbers, vec![1, 2, 3]);
+
+    // A single bad value short-circuits the entire collection into `Err`.
+    let mixed = ["1", "x", "3"];
+    let result: Result&lt;Vec&lt;i32&gt;, _&gt; = mixed.iter().map(|s| s.parse::&lt;i32&gt;()).collect();
+    println!("short-circuit: {result:?}");
+    assert!(result.is_err());
+
+    // To ignore failures instead, use `filter_map` to keep the `Ok` values.
+    let valid: Vec&lt;i32&gt; = mixed.iter().filter_map(|s| s.parse::&lt;i32&gt;().ok()).collect();
+    println!("skip failures: {valid:?}");
+    assert_eq!(valid, vec![1, 3]);
+
+    Ok(())
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
@@ -365,11 +371,11 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../concurrency/sync.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../errors/handle.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../concurrency/actor.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../file.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -379,11 +385,11 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../concurrency/sync.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../errors/handle.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../concurrency/actor.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../file.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
