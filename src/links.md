@@ -112,9 +112,9 @@ Keep lines sorted.
 [memmap]: https://docs.rs/memmap/
 [mime-badge]: https://img.shields.io/crates/v/mime.svg?label=mime
 [mime]: https://docs.rs/mime/
-[nalgebra-badge]: https://img.shields.io/crate/nalgebra.svg?label=nalgebra
+[nalgebra-badge]: https://img.shields.io/crates/v/nalgebra.svg?label=nalgebra
 [nalgebra]: https://docs.rs/nalgebra
-[ndarray-badge]: https://img.shields.io/crate/ndarray.svg?label=ndarray
+[ndarray-badge]: https://img.shields.io/crates/v/ndarray.svg?label=ndarray
 [ndarray]: https://docs.rs/ndarray
 [no-panic-badge]: https://img.shields.io/crates/v/no-panic.svg?label=no-panic
 [no-panic]: https://docs.rs/no-panic/
