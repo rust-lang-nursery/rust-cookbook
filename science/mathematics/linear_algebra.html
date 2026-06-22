@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-22b5ae25.js";
+            window.path_to_searchindex_js = "../../searchindex-72b33720.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-1760ef24.js"></script>
@@ -183,7 +183,7 @@
                     <main>
                         <h1 id="linear-algebra"><a class="header" href="#linear-algebra">Linear Algebra</a></h1>
 <h2 id="adding-matrices"><a class="header" href="#adding-matrices">Adding matrices</a></h2>
-<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crate/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Creates two 2-D matrices with <a href="https://docs.rs/ndarray/*/ndarray/fn.arr2.html"><code>ndarray::arr2</code></a> and sums them element-wise.</p>
 <p>Note the sum is computed as <code>let sum = &amp;a + &amp;b</code>. The <code>&amp;</code> operator is used to avoid consuming <code>a</code> and <code>b</code>, making them available later for display. A new array is created containing their sum.</p>
 <pre class="playground"><code class="language-rust edition2018">
@@ -205,7 +205,7 @@ fn main() {
     println!("{}", sum);
 }</code></pre>
 <h2 id="multiplying-matrices"><a class="header" href="#multiplying-matrices">Multiplying matrices</a></h2>
-<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crate/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Creates two matrices with <a href="https://docs.rs/ndarray/*/ndarray/fn.arr2.html"><code>ndarray::arr2</code></a> and performs matrix multiplication on them with <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#method.dot-1"><code>ndarray::ArrayBase::dot</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2018">
 use ndarray::arr2;
@@ -221,7 +221,7 @@ fn main() {
     println!("{}", a.dot(&amp;b));
 }</code></pre>
 <h2 id="multiply-a-scalar-with-a-vector-with-a-matrix"><a class="header" href="#multiply-a-scalar-with-a-vector-with-a-matrix">Multiply a scalar with a vector with a matrix</a></h2>
-<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crate/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Creates a 1-D array (vector) with <a href="https://docs.rs/ndarray/*/ndarray/fn.arr1.html"><code>ndarray::arr1</code></a> and a 2-D array (matrix)
 with <a href="https://docs.rs/ndarray/*/ndarray/fn.arr2.html"><code>ndarray::arr2</code></a>.</p>
 <p>First, a scalar is multiplied by the vector to get
@@ -251,7 +251,7 @@ fn main() {
     println!("{}", new_matrix);
 }</code></pre>
 <h2 id="vector-comparison"><a class="header" href="#vector-comparison">Vector comparison</a></h2>
-<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crate/ndarray.svg?label=ndarray" alt="ndarray-badge"></a></p>
+<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a></p>
 <p>The <a href="https://docs.rs/crate/ndarray/*">ndarray</a> crate supports a number of ways to create arrays – this recipe creates
 <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html"><code>ndarray::Array</code></a>s from <code>std::Vec</code> using <code>from</code>. Then, it sums the arrays element-wise.</p>
 <p>This recipe contains an example of comparing two floating-point vectors element-wise.
@@ -285,7 +285,7 @@ fn main() {
 
 }</code></pre>
 <h2 id="vector-norm"><a class="header" href="#vector-norm">Vector norm</a></h2>
-<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crate/ndarray.svg?label=ndarray" alt="ndarray-badge"></a></p>
+<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a></p>
 <p>This recipe demonstrates use of the <a href="https://docs.rs/ndarray/*/ndarray/type.Array1.html"><code>Array1</code></a> type, <a href="https://docs.rs/ndarray/*/ndarray/type.ArrayView1.html"><code>ArrayView1</code></a> type,
 <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#method.fold"><code>fold</code></a> method, and <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#method.dot"><code>dot</code></a> method in computing the <a href="http://mathworld.wolfram.com/L1-Norm.html">l1</a> and <a href="http://mathworld.wolfram.com/L2-Norm.html">l2</a> norms of a
 given vector.</p>
@@ -334,7 +334,7 @@ fn main() {
     println!("Normalizing x yields {:?}", normalize(x));
 }</code></pre>
 <h2 id="invert-matrix"><a class="header" href="#invert-matrix">Invert matrix</a></h2>
-<p><a href="https://docs.rs/nalgebra"><img src="https://img.shields.io/crate/nalgebra.svg?label=nalgebra" alt="nalgebra-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><a href="https://docs.rs/nalgebra"><img src="https://img.shields.io/crates/v/nalgebra.svg?label=nalgebra" alt="nalgebra-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Creates a 3x3 matrix with <a href="https://docs.rs/nalgebra/*/nalgebra/base/type.Matrix3.html"><code>nalgebra::Matrix3</code></a> and inverts it, if possible.</p>
 <pre class="playground"><code class="language-rust edition2018">
 use nalgebra::Matrix3;
@@ -352,7 +352,7 @@ fn main() {
     }
 }</code></pre>
 <h2 id="de-serialize-a-matrix"><a class="header" href="#de-serialize-a-matrix">(De)-Serialize a Matrix</a></h2>
-<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crate/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Serialize and deserialize a matrix to and from JSON. Serialization is taken care of
 by <a href="https://docs.rs/serde_json/*/serde_json/fn.to_string.html"><code>serde_json::to_string</code></a> and <a href="https://docs.rs/serde_json/*/serde_json/fn.from_str.html"><code>serde_json::from_str</code></a> performs deserialization.</p>
 <p>Note that serialization followed by deserialization gives back the original matrix.</p>
