@@ -1,10 +1,10 @@
 ## Calculate SHA256 sum of iso files concurrently
 
-[![threadpool-badge]][threadpool] [![num_cpus-badge]][num_cpus] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
+[![threadpool-badge]][threadpool] [![std-badge]][std] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
 
 This example calculates the SHA256 for every file with iso extension in the
 current directory. A threadpool generates threads equal to the number of cores
-present in the system found with [`num_cpus::get`].  [`Walkdir::new`] iterates
+present in the system found with [`std::thread::available_parallelism`].  [`Walkdir::new`] iterates
 the current directory and calls [`execute`] to perform the operations of reading
 and computing SHA256 hash.
 
@@ -13,6 +13,7 @@ use walkdir::WalkDir;
 use std::fs::File;
 use std::io::{BufReader, Read, Error};
 use std::path::Path;
+use std::thread::available_parallelism;
 use threadpool::ThreadPool;
 use std::sync::mpsc::channel;
 use ring::digest::{Context, Digest, SHA256};
@@ -42,7 +43,7 @@ fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P), Error> {
 }
 
 fn main() -> Result<(), Error> {
-    let pool = ThreadPool::new(num_cpus::get());
+    let pool = ThreadPool::new(available_parallelism()?.get());
 
     let (tx, rx) = channel();
 
@@ -69,5 +70,5 @@ fn main() -> Result<(), Error> {
 ```
 
 [`execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute
-[`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
+[`std::thread::available_parallelism`]: https://doc.rust-lang.org/std/thread/fn.available_parallelism.html
 [`Walkdir::new`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new
