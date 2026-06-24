@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-72b33720.js";
+            window.path_to_searchindex_js = "../searchindex-60aa1754.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-1760ef24.js"></script>
@@ -343,16 +343,17 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="calculate-sha256-sum-of-iso-files-concurrently"><a class="header" href="#calculate-sha256-sum-of-iso-files-concurrently">Calculate SHA256 sum of iso files concurrently</a></h2>
-<p><a href="https://docs.rs/threadpool/"><img src="https://img.shields.io/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge"></a> <a href="https://docs.rs/num_cpus/"><img src="https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge"></a> <a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge"></a> <a href="https://briansmith.org/rustdoc/ring/"><img src="https://img.shields.io/crates/v/ring.svg?label=ring" alt="ring-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://docs.rs/threadpool/"><img src="https://img.shields.io/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge"></a> <a href="https://briansmith.org/rustdoc/ring/"><img src="https://img.shields.io/crates/v/ring.svg?label=ring" alt="ring-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>This example calculates the SHA256 for every file with iso extension in the
 current directory. A threadpool generates threads equal to the number of cores
-present in the system found with <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.  <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>Walkdir::new</code></a> iterates
+present in the system found with <a href="https://doc.rust-lang.org/std/thread/fn.available_parallelism.html"><code>std::thread::available_parallelism</code></a>.  <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new"><code>Walkdir::new</code></a> iterates
 the current directory and calls <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>execute</code></a> to perform the operations of reading
 and computing SHA256 hash.</p>
 <pre class="playground"><code class="language-rust edition2018 no_run">use walkdir::WalkDir;
 use std::fs::File;
 use std::io::{BufReader, Read, Error};
 use std::path::Path;
+use std::thread::available_parallelism;
 use threadpool::ThreadPool;
 use std::sync::mpsc::channel;
 use ring::digest::{Context, Digest, SHA256};
@@ -382,7 +383,7 @@ fn compute_digest&lt;P: AsRef&lt;Path&gt;&gt;(filepath: P) -&gt; Result&lt;(Dige
 }
 
 fn main() -&gt; Result&lt;(), Error&gt; {
-    let pool = ThreadPool::new(num_cpus::get());
+    let pool = ThreadPool::new(available_parallelism()?.get());
 
     let (tx, rx) = channel();
 
@@ -407,19 +408,20 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre>
 <h2 id="draw-fractal-dispatching-work-to-a-thread-pool"><a class="header" href="#draw-fractal-dispatching-work-to-a-thread-pool">Draw fractal dispatching work to a thread pool</a></h2>
-<p><a href="https://docs.rs/threadpool/"><img src="https://img.shields.io/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge"></a> <a href="https://docs.rs/num/"><img src="https://img.shields.io/crates/v/num.svg?label=num" alt="num-badge"></a> <a href="https://docs.rs/num_cpus/"><img src="https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge"></a> <a href="https://docs.rs/image/"><img src="https://img.shields.io/crates/v/image.svg?label=image" alt="image-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a><a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a><a href="https://crates.io/categories/rendering"><img src="https://img.shields.io/badge/rendering--x.svg?style=social" alt="cat-rendering-badge"></a></p>
+<p><a href="https://docs.rs/threadpool/"><img src="https://img.shields.io/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge"></a> <a href="https://docs.rs/num/"><img src="https://img.shields.io/crates/v/num.svg?label=num" alt="num-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/image/"><img src="https://img.shields.io/crates/v/image.svg?label=image" alt="image-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a><a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a><a href="https://crates.io/categories/rendering"><img src="https://img.shields.io/badge/rendering--x.svg?style=social" alt="cat-rendering-badge"></a></p>
 <p>This example generates an image by drawing a fractal from the <a href="https://en.wikipedia.org/wiki/Julia_set">Julia set</a>
 with a thread pool for distributed computation.</p>
 <p><a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a></p>
 <p>Allocate memory for output image of given width and height with <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new"><code>ImageBuffer::new</code></a>.
 <a href="https://docs.rs/image/*/image/struct.Rgb.html#method.from_channels"><code>Rgb::from_channels</code></a> calculates RGB pixel values.
-Create <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html"><code>ThreadPool</code></a> with thread count equal to number of cores with <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.
+Create <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html"><code>ThreadPool</code></a> with thread count equal to the available parallelism with <a href="https://doc.rust-lang.org/std/thread/fn.available_parallelism.html"><code>std::thread::available_parallelism</code></a>.
 <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>ThreadPool::execute</code></a> receives each pixel as a separate job.</p>
 <p><a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html"><code>mpsc::channel</code></a> receives the jobs and <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv"><code>Receiver::recv</code></a> retrieves them.
 <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel"><code>ImageBuffer::put_pixel</code></a> uses the data to set the pixel color.
 <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save"><code>ImageBuffer::save</code></a> writes the image to <code>output.png</code>.</p>
 <pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use std::sync::mpsc::channel;
+use std::thread::available_parallelism;
 use threadpool::ThreadPool;
 use num::complex::Complex;
 use image::{ImageBuffer, Pixel, Rgb};
@@ -483,7 +485,7 @@ fn main() -&gt; Result&lt;()&gt; {
 
     let c = Complex::new(-0.8, 0.156);
 
-    let pool = ThreadPool::new(num_cpus::get());
+    let pool = ThreadPool::new(available_parallelism()?.get());
     let (tx, rx) = channel();
 
     for y in 0..height {

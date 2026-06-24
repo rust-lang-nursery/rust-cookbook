@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-72b33720.js";
+            window.path_to_searchindex_js = "../searchindex-60aa1754.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-1760ef24.js"></script>
@@ -182,9 +182,33 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="processor"><a class="header" href="#processor">Processor</a></h1>
+<h2 id="check-available-parallelism"><a class="header" href="#check-available-parallelism">Check available parallelism</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/hardware-support"><img src="https://img.shields.io/badge/hardware_support--x.svg?style=social" alt="cat-hardware-support-badge"></a></p>
+<p>Queries the amount of parallelism available to the current process with
+<a href="https://doc.rust-lang.org/std/thread/fn.available_parallelism.html"><code>std::thread::available_parallelism</code></a>. This returns the parallelism the program
+can <em>actually</em> use: it honors CPU affinity masks and container limits such as
+Linux cgroup quotas. The result is a <a href="https://doc.rust-lang.org/std/num/type.NonZeroUsize.html"><code>NonZeroUsize</code></a>, so it is guaranteed to be
+at least <code>1</code>, and it is wrapped in an <a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a> because the value cannot
+always be determined. This has been available in the standard library since Rust
+1.59, making it a good default for sizing thread pools.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::thread::available_parallelism;
+
+fn main() -&gt; std::io::Result&lt;()&gt; {
+    let count = available_parallelism()?.get();
+    println!("Number of available threads is {}", count);
+    Ok(())
+}</code></pre>
 <h2 id="check-number-of-logical-cpu-cores"><a class="header" href="#check-number-of-logical-cpu-cores">Check number of logical cpu cores</a></h2>
 <p><a href="https://docs.rs/num_cpus/"><img src="https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus" alt="num_cpus-badge"></a> <a href="https://crates.io/categories/hardware-support"><img src="https://img.shields.io/badge/hardware_support--x.svg?style=social" alt="cat-hardware-support-badge"></a></p>
-<p>Shows the number of logical CPU cores in current machine using <a href="https://docs.rs/num_cpus/latest/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.</p>
+<p>Shows the number of logical CPU cores in current machine using <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get.html"><code>num_cpus::get</code></a>.</p>
+<p>This differs from <a href="https://doc.rust-lang.org/std/thread/fn.available_parallelism.html"><code>std::thread::available_parallelism</code></a> above: <code>num_cpus::get</code>
+reports the total number of logical cores on the machine, whereas
+<code>available_parallelism</code> reports only the parallelism available to the current
+process, accounting for CPU affinity masks and container limits such as Linux
+cgroup quotas. <code>num_cpus::get</code> also returns a plain <code>usize</code> rather than a
+<a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a>, so it needs no error handling, and <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get_physical.html"><code>num_cpus::get_physical</code></a>
+additionally exposes the count of <em>physical</em> cores, which the standard library
+does not provide.</p>
 <pre class="playground"><code class="language-rust edition2021">fn main() {
     println!("Number of logical cores is {}", num_cpus::get());
 }</code></pre>
