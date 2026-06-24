@@ -1,6 +1,6 @@
 ## Draw fractal dispatching work to a thread pool
 
-[![threadpool-badge]][threadpool] [![num-badge]][num] [![num_cpus-badge]][num_cpus] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
+[![threadpool-badge]][threadpool] [![num-badge]][num] [![std-badge]][std] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
 
 This example generates an image by drawing a fractal from the [Julia set]
 with a thread pool for distributed computation.
@@ -9,7 +9,7 @@ with a thread pool for distributed computation.
 
 Allocate memory for output image of given width and height with [`ImageBuffer::new`].
 [`Rgb::from_channels`] calculates RGB pixel values.
-Create [`ThreadPool`] with thread count equal to number of cores with [`num_cpus::get`].
+Create [`ThreadPool`] with thread count equal to the available parallelism with [`std::thread::available_parallelism`].
 [`ThreadPool::execute`] receives each pixel as a separate job.
 
 [`mpsc::channel`] receives the jobs and [`Receiver::recv`] retrieves them.
@@ -19,6 +19,7 @@ Create [`ThreadPool`] with thread count equal to number of cores with [`num_cpus
 ```rust,edition2018,no_run
 use anyhow::Result;
 use std::sync::mpsc::channel;
+use std::thread::available_parallelism;
 use threadpool::ThreadPool;
 use num::complex::Complex;
 use image::{ImageBuffer, Pixel, Rgb};
@@ -82,7 +83,7 @@ fn main() -> Result<()> {
 
     let c = Complex::new(-0.8, 0.156);
 
-    let pool = ThreadPool::new(num_cpus::get());
+    let pool = ThreadPool::new(available_parallelism()?.get());
     let (tx, rx) = channel();
 
     for y in 0..height {
@@ -107,9 +108,9 @@ fn main() -> Result<()> {
 [`ImageBuffer::put_pixel`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel
 [`ImageBuffer::save`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save
 [`mpsc::channel`]: https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html
-[`num_cpus::get`]: https://docs.rs/num_cpus/*/num_cpus/fn.get.html
 [`Receiver::recv`]: https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv
 [`Rgb::from_channels`]: https://docs.rs/image/*/image/struct.Rgb.html#method.from_channels
+[`std::thread::available_parallelism`]: https://doc.rust-lang.org/std/thread/fn.available_parallelism.html
 [`ThreadPool`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html
 [`ThreadPool::execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute
 
