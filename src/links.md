@@ -76,6 +76,10 @@ Keep lines sorted.
 [chrono]: https://docs.rs/chrono/
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
+[config-badge]: https://img.shields.io/crates/v/config.svg?label=config
+[config]: https://docs.rs/config/
+[confy-badge]: https://img.shields.io/crates/v/confy.svg?label=confy
+[confy]: https://docs.rs/confy/
 [crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam/
 [csv-badge]: https://img.shields.io/crates/v/csv.svg?label=csv
@@ -86,6 +90,8 @@ Keep lines sorted.
 [env_logger]: https://docs.rs/env_logger/
 [error-chain-badge]: https://img.shields.io/crates/v/error-chain.svg?label=error-chain
 [error-chain]: https://docs.rs/error-chain/
+[figment-badge]: https://img.shields.io/crates/v/figment.svg?label=figment
+[figment]: https://docs.rs/figment/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
 [flate2]: https://docs.rs/flate2/
 [glob-badge]:https://img.shields.io/crates/v/glob.svg?label=glob
