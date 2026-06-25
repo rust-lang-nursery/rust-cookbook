@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60aa1754.js";
+            window.path_to_searchindex_js = "../searchindex-9357076d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-1760ef24.js"></script>
+        <script src="../toc-d1367457.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -291,6 +291,58 @@ fn main() -&gt; io::Result&lt;()&gt; {
     assert!(!staging.exists());
     Ok(())
 }</code></pre>
+<h2 id="create-a-temporary-file"><a class="header" href="#create-a-temporary-file">Create a temporary file</a></h2>
+<p><a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p>A <a href="https://docs.rs/tempfile/*/tempfile/struct.NamedTempFile.html"><code>NamedTempFile</code></a> is a real, named file in the system temporary directory. It
+deletes itself when its handle drops. That includes an early return through <code>?</code>,
+so scratch files never leak. The file is created atomically and held open,
+unlike a path assembled from a guessed name. Its <a href="https://docs.rs/tempfile/*/tempfile/struct.NamedTempFile.html#method.path"><code>path</code></a> can be handed to other
+code while the handle keeps it alive.</p>
+<p>The handle implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a>, <a href="https://doc.rust-lang.org/std/io/trait.Write.html"><code>Write</code></a> and <a href="https://doc.rust-lang.org/std/io/trait.Seek.html"><code>Seek</code></a> just like any other
+<a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>. Seeking back to the start reads back what was just written.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::io::{Read, Seek, SeekFrom, Write};
+use tempfile::NamedTempFile;
+
+fn main() -&gt; std::io::Result&lt;()&gt; {
+    let mut file = NamedTempFile::new()?;
+    writeln!(file, "scratch data")?;
+
+    file.seek(SeekFrom::Start(0))?;
+    let mut contents = String::new();
+    file.read_to_string(&amp;mut contents)?;
+
+    assert_eq!(contents, "scratch data\n");
+    Ok(())
+}</code></pre>
+<h2 id="atomically-replace-a-file-with-a-temporary-file"><a class="header" href="#atomically-replace-a-file-with-a-temporary-file">Atomically replace a file with a temporary file</a></h2>
+<p><a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://docs.rs/tempfile/*/tempfile/struct.NamedTempFile.html#method.persist"><code>NamedTempFile::persist</code></a> is the <a href="https://docs.rs/tempfile/"><code>tempfile</code></a>-native form of the
+write-to-temp-then-rename pattern. The <a href="#rename-or-atomically-replace-a-file">Rename or atomically replace a
+file</a> recipe shows the plain <code>std</code>
+version. Creating the staging file with <a href="https://docs.rs/tempfile/*/tempfile/struct.NamedTempFile.html#method.new_in"><code>new_in</code></a> on the destination directory
+keeps it on the same filesystem. The final move is then an atomic rename rather
+than a cross-device copy. <a href="https://docs.rs/tempfile/*/tempfile/struct.NamedTempFile.html#method.persist"><code>persist</code></a> performs that rename. It returns the
+now-permanent <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>.</p>
+<p>A reader of the target path sees either the old contents or the complete new
+ones. It never sees a half-written file. If the process dies before <code>persist</code>,
+only the temporary file is left behind. The original is untouched.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fs;
+use std::io::Write;
+use tempfile::NamedTempFile;
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let dir = tempfile::tempdir()?;
+    let final_path = dir.path().join("config.toml");
+
+    let mut staging = NamedTempFile::new_in(&amp;dir)?;
+    writeln!(staging, "version = 2")?;
+    staging.flush()?;
+
+    staging.persist(&amp;final_path)?;
+
+    assert_eq!(fs::read_to_string(&amp;final_path)?, "version = 2\n");
+    Ok(())
+}</code></pre>
 <h2 id="avoid-writing-and-reading-from-a-same-file"><a class="header" href="#avoid-writing-and-reading-from-a-same-file">Avoid writing and reading from a same file</a></h2>
 <p><a href="https://docs.rs/same-file/"><img src="https://img.shields.io/crates/v/same_file.svg?label=same_file" alt="same_file-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>Use <a href="https://docs.rs/same-file/*/same_file/struct.Handle.html"><code>same_file::Handle</code></a> to a file that can be tested for equality with
@@ -329,7 +381,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <p><a href="https://docs.rs/memmap/"><img src="https://img.shields.io/crates/v/memmap.svg?label=memmap" alt="memmap-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>Creates a memory map of a file using <a href="https://docs.rs/memmap/">memmap</a> and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
-than dealing with <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.seek"><code>seek</code></a>ing around in a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>.</p>
+than dealing with <a href="https://doc.rust-lang.org/std/io/trait.Seek.html"><code>seek</code></a>ing around in a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>.</p>
 <p>The <a href="https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map"><code>Mmap::map</code></a> function assumes the file behind the memory map is not being
 modified at the same time by another process or else a <a href="https://en.wikipedia.org/wiki/Race_condition#File_systems">race condition</a> occurs.</p>
 <pre class="playground"><code class="language-rust edition2021">use memmap::Mmap;
