@@ -56,6 +56,8 @@
 - [File System](file.md)
   - [Read & Write](file/read-write.md)
   - [Directory Traversal](file/dir.md)
+  - [File Watching](file/watch.md)
+  - [Find an Executable](file/which.md)
 - [Hardware Support](hardware.md)
   - [Processor](hardware/processor.md)
 - [Memory Management](mem.md)

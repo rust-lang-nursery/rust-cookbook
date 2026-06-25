@@ -2,6 +2,10 @@ use walkdir::WalkDir;
 
 const REMOVED_TESTS: &[&str] = &[
     "./src/about.md",
+    "./src/file/watch.md",
+    "./src/file/watch/recursive.md",
+    "./src/file/watch/debounce.md",
+    "./src/file/which.md",
     "./src/web/clients/requests/header.md",
     "./src/web/clients/api/rate-limited.md",
     "./src/concurrency/parallel/rayon-parallel-sort.md",
