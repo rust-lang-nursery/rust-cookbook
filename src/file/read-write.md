@@ -8,6 +8,10 @@
 
 {{#include read-write/rename.md}}
 
+{{#include read-write/tempfile.md}}
+
+{{#include read-write/atomic-write.md}}
+
 {{#include read-write/same-file.md}}
 
 {{#include read-write/memmap.md}}

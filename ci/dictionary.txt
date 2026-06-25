@@ -93,6 +93,9 @@ DateParse
 datetime
 DateTime
 DEadBEEfc
+debounce
+Debounce
+debouncer
 DecodeError
 dedup
 deduplicated

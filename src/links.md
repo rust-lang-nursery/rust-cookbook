@@ -120,6 +120,10 @@ Keep lines sorted.
 [no-panic]: https://docs.rs/no-panic/
 [nom-badge]: https://img.shields.io/crates/v/nom.svg?label=nom
 [nom]: https://docs.rs/nom/
+[notify-badge]: https://img.shields.io/crates/v/notify.svg?label=notify
+[notify]: https://docs.rs/notify/
+[notify-debouncer-full-badge]: https://img.shields.io/crates/v/notify-debouncer-full.svg?label=notify-debouncer-full
+[notify-debouncer-full]: https://docs.rs/notify-debouncer-full/
 [num-badge]: https://img.shields.io/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus
@@ -189,6 +193,8 @@ Keep lines sorted.
 [wasmtime]: https://docs.rs/wasmtime/
 [wasmtime-wasi-badge]: https://img.shields.io/crates/v/wasmtime-wasi.svg?label=wasmtime-wasi
 [wasmtime-wasi]: https://docs.rs/wasmtime-wasi/
+[which-badge]: https://img.shields.io/crates/v/which.svg?label=which
+[which]: https://docs.rs/which/
 [winnow-badge]: https://img.shields.io/crates/v/winnow.svg?label=winnow
 [winnow]: https://docs.rs/winnow/
 [wit-bindgen-badge]: https://img.shields.io/crates/v/wit-bindgen.svg?label=wit-bindgen
