@@ -1,0 +1,17 @@
+[package]
+name = "config-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+anyhow = "1.0"
+config = "0.15"
+notify = "8"
+notify-debouncer-full = "0.7"
+serde = { version = "1.0", features = ["derive"] }
+
+[dev-dependencies]
+tempfile = "3"

@@ -1,0 +1,11 @@
+[package]
+name = "figment-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+figment = { version = "0.10", features = ["env", "json", "test", "toml"] }
+serde = { version = "1.0", features = ["derive"] }

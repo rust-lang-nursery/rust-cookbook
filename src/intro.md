@@ -26,6 +26,8 @@ community. It needs and welcomes help. For details see
 
 {{#include concurrency.md}}
 
+{{#include configuration.md}}
+
 {{#include cryptography.md}}
 
 {{#include data_structures.md}}
