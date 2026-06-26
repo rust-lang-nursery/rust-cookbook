@@ -1,0 +1,11 @@
+[package]
+name = "multimedia-playback-example"
+version = "1.1.0"
+authors = ["Brian Anderson <banderson@mozilla.com>"]
+edition = "2024"
+license = "MIT OR Apache-2.0"
+publish = false
+
+[dependencies]
+anyhow = "1.0"
+rodio = "0.22"
