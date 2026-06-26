@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9357076d.js";
+            window.path_to_searchindex_js = "searchindex-15abaeee.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d1367457.js"></script>
+        <script src="toc-9149df39.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -310,6 +310,26 @@ Keep lines sorted.
 <tr><td><a href="#generate-jpg-thumbnails-in-parallel">Generate jpg thumbnails in parallel</a></td><td><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://docs.rs/glob/"><img src="https://img.shields.io/crates/v/glob.svg?label=glob" alt="glob-badge"></a> <a href="https://docs.rs/image/"><img src="https://img.shields.io/crates/v/image.svg?label=image" alt="image-badge"></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 <tr><td><a href="#actor-pattern-with-tokio-handleactormessage">Actor Pattern with Tokio</a></td><td><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#implement-a-custom-future-pin-waker-poll">Custom Future (Pin, Waker, Poll)</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+</tbody>
+</table>
+</div>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#layer-defaults-a-file-and-environment-variables">Layer defaults, a file, and environment variables</a></td><td><a href="https://docs.rs/config/"><img src="https://img.shields.io/crates/v/config.svg?label=config" alt="config-badge"></a></td><td><a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></td></tr>
+<tr><td><a href="#merge-multiple-providers-with-figment">Merge multiple providers with figment</a></td><td><a href="https://docs.rs/figment/"><img src="https://img.shields.io/crates/v/figment.svg?label=figment" alt="figment-badge"></a></td><td><a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></td></tr>
+<tr><td><a href="#store-per-user-configuration-with-confy">Store per-user configuration with confy</a></td><td><a href="https://docs.rs/confy/"><img src="https://img.shields.io/crates/v/confy.svg?label=confy" alt="confy-badge"></a></td><td><a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></td></tr>
+<tr><td><a href="#reload-configuration-when-the-file-changes">Reload configuration when the file changes</a></td><td><a href="https://docs.rs/config/"><img src="https://img.shields.io/crates/v/config.svg?label=config" alt="config-badge"></a> <a href="https://docs.rs/notify/"><img src="https://img.shields.io/crates/v/notify.svg?label=notify" alt="notify-badge"></a></td><td><a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -3418,6 +3438,273 @@ async fn main() {
 
     println!("done in {:?}", start.elapsed());
     assert!(start.elapsed() &gt;= Duration::from_millis(10));
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h1>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#layer-defaults-a-file-and-environment-variables">Layer defaults, a file, and environment variables</a></td><td><a href="https://docs.rs/config/"><img src="https://img.shields.io/crates/v/config.svg?label=config" alt="config-badge"></a></td><td><a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></td></tr>
+<tr><td><a href="#merge-multiple-providers-with-figment">Merge multiple providers with figment</a></td><td><a href="https://docs.rs/figment/"><img src="https://img.shields.io/crates/v/figment.svg?label=figment" alt="figment-badge"></a></td><td><a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></td></tr>
+<tr><td><a href="#store-per-user-configuration-with-confy">Store per-user configuration with confy</a></td><td><a href="https://docs.rs/confy/"><img src="https://img.shields.io/crates/v/confy.svg?label=confy" alt="confy-badge"></a></td><td><a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></td></tr>
+<tr><td><a href="#reload-configuration-when-the-file-changes">Reload configuration when the file changes</a></td><td><a href="https://docs.rs/config/"><img src="https://img.shields.io/crates/v/config.svg?label=config" alt="config-badge"></a> <a href="https://docs.rs/notify/"><img src="https://img.shields.io/crates/v/notify.svg?label=notify" alt="notify-badge"></a></td><td><a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></td></tr>
+</tbody>
+</table>
+</div>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="layered-configuration"><a href="#layered-configuration" class="header">Layered Configuration</a></h1>
+<h2 id="layer-defaults-a-file-and-environment-variables"><a class="header" href="#layer-defaults-a-file-and-environment-variables">Layer defaults, a file, and environment variables</a></h2>
+<p><a href="https://docs.rs/config/"><img src="https://img.shields.io/crates/v/config.svg?label=config" alt="config-badge"></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></p>
+<p>Most applications resolve their configuration from several places: defaults that
+ship with the binary, a config file an operator edits, and environment variables
+set at deploy time. <a href="https://docs.rs/config/"><code>config</code></a> builds one typed value from those layers,
+where each source overrides the one before it.</p>
+<p><a href="https://docs.rs/config/*/config/builder/struct.ConfigBuilder.html"><code>ConfigBuilder</code></a> collects sources in precedence order. <a href="https://docs.rs/config/*/config/builder/struct.ConfigBuilder.html#method.set_default"><code>set_default</code></a> seeds the
+baseline values, <a href="https://docs.rs/config/*/config/struct.File.html"><code>File</code></a> loads <code>config.toml</code> (marked <a href="https://docs.rs/config/*/config/struct.File.html#method.required"><code>required(false)</code></a> so a
+missing file falls back to the defaults), and <a href="https://docs.rs/config/*/config/struct.Environment.html"><code>Environment</code></a> reads <code>APP_</code>-prefixed
+variables. <code>APP_PORT=9090</code> sets the <code>port</code> key. <a href="https://docs.rs/config/*/config/builder/struct.ConfigBuilder.html#method.build"><code>build</code></a> merges them and
+<a href="https://docs.rs/config/*/config/struct.Config.html#method.try_deserialize"><code>try_deserialize</code></a> produces the typed <code>Settings</code>.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use std::path::Path;
+
+use config::{Config, Environment, File};
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
+struct Settings {
+    host: String,
+    port: u16,
+    log_level: String,
+}
+
+fn load(config_path: &amp;Path) -&gt; Result&lt;Settings, config::ConfigError&gt; {
+    Config::builder()
+        .set_default("host", "127.0.0.1")?
+        .set_default("port", 8080)?
+        .set_default("log_level", "info")?
+        .add_source(File::from(config_path).required(false))
+        .add_source(Environment::with_prefix("APP"))
+        .build()?
+        .try_deserialize()
+}
+
+fn main() -&gt; Result&lt;(), config::ConfigError&gt; {
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("config.toml");
+    let settings = load(&amp;path)?;
+    println!("listening on {}:{}", settings.host, settings.port);
+    println!("log level: {}", settings.log_level);
+    Ok(())
+}</code></pre>
+<p>The bundled <code>config.toml</code> supplies the file layer:</p>
+<pre><code class="language-toml">host = "0.0.0.0"
+port = 3000
+log_level = "debug"
+</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="multi-provider-configuration"><a href="#multi-provider-configuration" class="header">Multi-Provider Configuration</a></h1>
+<h2 id="merge-multiple-providers-with-figment"><a class="header" href="#merge-multiple-providers-with-figment">Merge multiple providers with figment</a></h2>
+<p><a href="https://docs.rs/figment/"><img src="https://img.shields.io/crates/v/figment.svg?label=figment" alt="figment-badge"></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></p>
+<p><a href="https://docs.rs/figment/"><code>figment</code></a> assembles configuration from independent <em>providers</em>. A
+provider can be a TOML, JSON, or YAML file, or a set of environment variables.
+Figment merges them into a typed value.
+It is the configuration library behind <a href="https://rocket.rs/">Rocket</a>, and its <a href="https://docs.rs/figment/*/figment/struct.Jail.html"><code>Jail</code></a> makes
+configuration code testable without touching the real filesystem or environment.</p>
+<p>A <a href="https://docs.rs/figment/*/figment/struct.Figment.html"><code>Figment</code></a> stacks providers with <a href="https://docs.rs/figment/*/figment/struct.Figment.html#method.merge"><code>merge</code></a>: later providers override keys set
+by earlier ones. Here <a href="https://docs.rs/figment/*/figment/providers/trait.Format.html#method.file"><code>Toml::file</code></a> reads the base settings and <a href="https://docs.rs/figment/*/figment/providers/struct.Env.html#method.prefixed"><code>Env::prefixed</code></a>
+layers <code>APP_</code>-prefixed environment variables on top, so <code>APP_PORT=9000</code>
+overrides the file’s <code>port</code>. <a href="https://docs.rs/figment/*/figment/struct.Figment.html#method.extract"><code>extract</code></a> deserializes the merged result into the
+<code>Config</code> struct.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use figment::providers::{Env, Format, Toml};
+use figment::Figment;
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
+struct Config {
+    name: String,
+    port: u16,
+    workers: usize,
+}
+
+fn figment() -&gt; Figment {
+    Figment::new()
+        .merge(Toml::file("App.toml"))
+        .merge(Env::prefixed("APP_"))
+}
+
+fn main() -&gt; Result&lt;(), figment::Error&gt; {
+    let config: Config = figment().extract()?;
+    println!(
+        "{} listening on port {} with {} workers",
+        config.name, config.port, config.workers
+    );
+    Ok(())
+}</code></pre>
+<p>Configuration code is awkward to test when it reads real files and environment
+variables. <a href="https://docs.rs/figment/*/figment/struct.Jail.html#method.expect_with"><code>Jail::expect_with</code></a> runs a closure in a temporary directory with a
+sandboxed environment, so a test can create an <code>App.toml</code> and set variables that
+disappear when the closure returns:</p>
+<pre><code class="language-rust ignore">    Jail::expect_with(|jail| {
+        jail.create_file(
+            "App.toml",
+            r#"
+                name = "api"
+                port = 8000
+                workers = 4
+            "#,
+        )?;
+        jail.set_env("APP_PORT", 9000);
+
+        let config: Config = figment().extract()?;
+        assert_eq!(config.name, "api");
+        assert_eq!(config.port, 9000);
+        assert_eq!(config.workers, 4);
+        Ok(())
+    });</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="per-user-configuration"><a href="#per-user-configuration" class="header">Per-User Configuration</a></h1>
+<h2 id="store-per-user-configuration-with-confy"><a class="header" href="#store-per-user-configuration-with-confy">Store per-user configuration with confy</a></h2>
+<p><a href="https://docs.rs/confy/"><img src="https://img.shields.io/crates/v/confy.svg?label=confy" alt="confy-badge"></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></p>
+<p>A desktop or CLI program that remembers a user’s preferences should write them
+to the platform’s standard config location, not next to the binary.
+<a href="https://docs.rs/confy/"><code>confy</code></a> handles that: it serializes a <code>Default</code>-able, <code>Serialize</code> +
+<code>Deserialize</code> struct to the per-user config directory and reads it back, creating
+the file from the defaults on first run.</p>
+<p><a href="https://docs.rs/confy/*/confy/fn.load.html"><code>confy::load</code></a> takes an application name and resolves <code>~/.config/&lt;app&gt;/&lt;app&gt;.toml</code>
+on Linux (and the platform equivalent elsewhere); <a href="https://docs.rs/confy/*/confy/fn.get_configuration_file_path.html"><code>get_configuration_file_path</code></a>
+returns that location without writing anything. To keep the example from touching
+your real config directory, it round-trips through an explicit path with
+<a href="https://docs.rs/confy/*/confy/fn.load_path.html"><code>load_path</code></a> and <a href="https://docs.rs/confy/*/confy/fn.store_path.html"><code>store_path</code></a> instead.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Prefs {
+    username: String,
+    theme: String,
+    autosave: bool,
+}
+
+impl Default for Prefs {
+    fn default() -&gt; Self {
+        Prefs {
+            username: "anonymous".to_owned(),
+            theme: "dark".to_owned(),
+            autosave: true,
+        }
+    }
+}
+
+fn main() -&gt; Result&lt;(), confy::ConfyError&gt; {
+    let path = confy::get_configuration_file_path("cookbook-prefs", None)?;
+    println!("per-user config path: {}", path.display());
+
+    let scratch = std::env::temp_dir().join("cookbook-prefs.toml");
+    let mut prefs: Prefs = confy::load_path(&amp;scratch)?;
+    println!("loaded {prefs:?}");
+
+    prefs.theme = "light".to_owned();
+    confy::store_path(&amp;scratch, &amp;prefs)?;
+    println!("saved {prefs:?} to {}", scratch.display());
+
+    Ok(())
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="reload-on-change"><a href="#reload-on-change" class="header">Reload on Change</a></h1>
+<h2 id="reload-configuration-when-the-file-changes"><a class="header" href="#reload-configuration-when-the-file-changes">Reload configuration when the file changes</a></h2>
+<p><a href="https://docs.rs/config/"><img src="https://img.shields.io/crates/v/config.svg?label=config" alt="config-badge"></a> <a href="https://docs.rs/notify/"><img src="https://img.shields.io/crates/v/notify.svg?label=notify" alt="notify-badge"></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p>A long-running service can pick up edits to its config file without a restart by
+watching the file and rebuilding its settings when it changes. This combines
+<a href="https://docs.rs/config/"><code>config</code></a> for loading with <a href="https://docs.rs/notify/"><code>notify</code></a> for change detection.
+<a href="#file-watching">Watch a directory for changes</a> covers the watching primitives.</p>
+<p><a href="https://docs.rs/notify-debouncer-full/*/notify_debouncer_full/fn.new_debouncer.html"><code>new_debouncer</code></a> collapses the burst of filesystem events an editor emits on
+save into a single notification, so the config is reloaded once per change rather
+than several times. Each notification triggers a fresh <code>load</code>; a parse error is
+logged and the previous settings are kept, so a malformed edit never takes down
+the running program.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use std::path::{Path, PathBuf};
+use std::sync::mpsc;
+use std::time::Duration;
+
+use anyhow::Result;
+use config::{Config, File};
+use notify::RecursiveMode;
+use notify_debouncer_full::new_debouncer;
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
+struct Settings {
+    host: String,
+    port: u16,
+}
+
+fn load(path: &amp;Path) -&gt; Result&lt;Settings, config::ConfigError&gt; {
+    Config::builder()
+        .add_source(File::from(path))
+        .build()?
+        .try_deserialize()
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("config.toml");
+
+    let mut settings = load(&amp;path)?;
+    println!("serving {}:{}", settings.host, settings.port);
+
+    let (tx, rx) = mpsc::channel();
+    let mut debouncer = new_debouncer(Duration::from_secs(1), None, tx)?;
+    debouncer.watch(&amp;path, RecursiveMode::NonRecursive)?;
+
+    println!("watching {} for changes. Press Ctrl-C to stop.", path.display());
+
+    for result in rx {
+        match result {
+            Ok(_events) =&gt; match load(&amp;path) {
+                Ok(updated) =&gt; {
+                    settings = updated;
+                    println!("reloaded {}:{}", settings.host, settings.port);
+                }
+                Err(error) =&gt; eprintln!("ignoring invalid config: {error}"),
+            },
+            Err(errors) =&gt; {
+                for error in errors {
+                    eprintln!("watch error: {error:?}");
+                }
+            }
+        }
+    }
+
+    Ok(())
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
@@ -10316,6 +10603,10 @@ Keep lines sorted.
 [chrono]: https://docs.rs/chrono/
 [clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
+[config-badge]: https://img.shields.io/crates/v/config.svg?label=config
+[config]: https://docs.rs/config/
+[confy-badge]: https://img.shields.io/crates/v/confy.svg?label=confy
+[confy]: https://docs.rs/confy/
 [crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam/
 [csv-badge]: https://img.shields.io/crates/v/csv.svg?label=csv
@@ -10326,6 +10617,8 @@ Keep lines sorted.
 [env_logger]: https://docs.rs/env_logger/
 [error-chain-badge]: https://img.shields.io/crates/v/error-chain.svg?label=error-chain
 [error-chain]: https://docs.rs/error-chain/
+[figment-badge]: https://img.shields.io/crates/v/figment.svg?label=figment
+[figment]: https://docs.rs/figment/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
 [flate2]: https://docs.rs/flate2/
 [glob-badge]:https://img.shields.io/crates/v/glob.svg?label=glob

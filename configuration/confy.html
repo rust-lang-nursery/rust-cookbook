@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Parse an unstructured string into key value pairs - Rust Cookbook</title>
+        <title>Per-User Configuration - Rust Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -147,7 +147,7 @@
                         <a href="https://github.com/rust-lang-nursery/rust-cookbook" title="Git repository" aria-label="Git repository">
                             <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
-                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/parsing/winnow.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                        <a href="https://github.com/rust-lang-nursery/rust-cookbook/edit/master/src/configuration/confy.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
                             <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
                         </a>
 
@@ -181,81 +181,50 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="parse-an-unstructured-string-into-key-value-pairs"><a class="header" href="#parse-an-unstructured-string-into-key-value-pairs">Parse an unstructured string into key value pairs</a></h1>
-<p><a href="https://docs.rs/winnow/"><img src="https://img.shields.io/crates/v/winnow.svg?label=winnow" alt="winnow-badge"></a> <a href="https://crates.io/categories/parser-implementations"><img src="https://img.shields.io/badge/parser_implementations--x.svg?style=social" alt="cat-parser-implementations-badge"></a></p>
-<p><a href="https://docs.rs/winnow/"><code>winnow</code></a> is a parser-combinator library descended from <code>nom</code>, tuned
-for ergonomics and speed. Its defining choice is that a parser takes <code>&amp;mut &amp;str</code>
-and advances that slice in place, returning only the parsed value via
-<a href="https://docs.rs/winnow/*/winnow/trait.Parser.html#tymethod.parse_next"><code>Parser::parse_next</code></a>. Combinators such as <a href="https://docs.rs/winnow/*/winnow/combinator/fn.separated_pair.html"><code>separated_pair</code></a> and <a href="https://docs.rs/winnow/*/winnow/combinator/fn.separated.html"><code>separated</code></a>
-compose those functions into larger ones.</p>
-<p>The example parses a settings string like <code>name=ferris; age=8; lang=rust</code> into a
-list of key/value pairs. <a href="https://docs.rs/winnow/*/winnow/token/fn.take_while.html"><code>take_while</code></a> collects identifier characters, and
-<a href="https://docs.rs/winnow/*/winnow/trait.Parser.html#method.parse"><code>Parser::parse</code></a> runs the whole parser to completion. When the input is
-malformed, the returned <a href="https://docs.rs/winnow/*/winnow/error/struct.ParseError.html"><code>ParseError</code></a> reports the byte offset where parsing
-stopped — the foundation for location-aware diagnostics.</p>
-<pre class="playground"><code class="language-rust no_run edition2018">use winnow::ascii::space0;
-use winnow::combinator::{separated, separated_pair};
-use winnow::error::{ContextError, ParseError};
-use winnow::prelude::*;
-use winnow::token::take_while;
+                        <h2 id="store-per-user-configuration-with-confy"><a class="header" href="#store-per-user-configuration-with-confy">Store per-user configuration with confy</a></h2>
+<p><a href="https://docs.rs/confy/"><img src="https://img.shields.io/crates/v/confy.svg?label=confy" alt="confy-badge"></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></p>
+<p>A desktop or CLI program that remembers a user’s preferences should write them
+to the platform’s standard config location, not next to the binary.
+<a href="https://docs.rs/confy/"><code>confy</code></a> handles that: it serializes a <code>Default</code>-able, <code>Serialize</code> +
+<code>Deserialize</code> struct to the per-user config directory and reads it back, creating
+the file from the defaults on first run.</p>
+<p><a href="https://docs.rs/confy/*/confy/fn.load.html"><code>confy::load</code></a> takes an application name and resolves <code>~/.config/&lt;app&gt;/&lt;app&gt;.toml</code>
+on Linux (and the platform equivalent elsewhere); <a href="https://docs.rs/confy/*/confy/fn.get_configuration_file_path.html"><code>get_configuration_file_path</code></a>
+returns that location without writing anything. To keep the example from touching
+your real config directory, it round-trips through an explicit path with
+<a href="https://docs.rs/confy/*/confy/fn.load_path.html"><code>load_path</code></a> and <a href="https://docs.rs/confy/*/confy/fn.store_path.html"><code>store_path</code></a> instead.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use serde::{Deserialize, Serialize};
 
-#[derive(Debug, PartialEq)]
-struct Pair {
-    key: String,
-    value: String,
+#[derive(Debug, Serialize, Deserialize)]
+struct Prefs {
+    username: String,
+    theme: String,
+    autosave: bool,
 }
 
-/// In `winnow` a parser is a function over `&amp;mut &amp;str`: it advances the
-/// input slice in place and returns just the parsed value. `parse_next`
-/// drives a single parser, and combinators like `separated_pair` compose
-/// several into a larger one.
-fn identifier(input: &amp;mut &amp;str) -&gt; ModalResult&lt;String&gt; {
-    take_while(1.., |c: char| c.is_alphanumeric() || c == '_')
-        .map(|s: &amp;str| s.to_string())
-        .parse_next(input)
-}
-
-/// `key=value`, discarding the `=` separator.
-fn pair(input: &amp;mut &amp;str) -&gt; ModalResult&lt;Pair&gt; {
-    separated_pair(identifier, '=', identifier)
-        .map(|(key, value)| Pair { key, value })
-        .parse_next(input)
-}
-
-/// One or more `pair`s separated by `;` and optional spaces.
-fn pairs(input: &amp;mut &amp;str) -&gt; ModalResult&lt;Vec&lt;Pair&gt;&gt; {
-    separated(1.., pair, (space0, ';', space0)).parse_next(input)
-}
-
-/// `Parser::parse` runs a parser to completion over the whole input. On
-/// failure it returns a `ParseError` that knows the byte offset where
-/// parsing stopped, which is what makes good diagnostics possible.
-fn parse_settings(input: &amp;str) -&gt; Result&lt;Vec&lt;Pair&gt;, ParseError&lt;&amp;str, ContextError&gt;&gt; {
-    pairs.parse(input)
-}
-
-fn main() {
-    // winnow's `ParseError` isn't a `std::error::Error`, so it is handled
-    // explicitly rather than with `?`.
-    match parse_settings("name=ferris; age=8; lang=rust") {
-        Ok(settings) =&gt; {
-            println!("{settings:?}");
-            assert_eq!(settings.len(), 3);
-            assert_eq!(
-                settings[0],
-                Pair {
-                    key: "name".to_string(),
-                    value: "ferris".to_string()
-                }
-            );
+impl Default for Prefs {
+    fn default() -&gt; Self {
+        Prefs {
+            username: "anonymous".to_owned(),
+            theme: "dark".to_owned(),
+            autosave: true,
         }
-        Err(err) =&gt; eprintln!("unexpected parse error at byte offset {}", err.offset()),
     }
+}
 
-    // On malformed input the error reports exactly where parsing failed.
-    if let Err(err) = parse_settings("name=ferris;=oops") {
-        println!("parse failed at byte offset {}", err.offset());
-    }
+fn main() -&gt; Result&lt;(), confy::ConfyError&gt; {
+    let path = confy::get_configuration_file_path("cookbook-prefs", None)?;
+    println!("per-user config path: {}", path.display());
+
+    let scratch = std::env::temp_dir().join("cookbook-prefs.toml");
+    let mut prefs: Prefs = confy::load_path(&amp;scratch)?;
+    println!("loaded {prefs:?}");
+
+    prefs.theme = "light".to_owned();
+    confy::store_path(&amp;scratch, &amp;prefs)?;
+    println!("saved {prefs:?} to {}", scratch.display());
+
+    Ok(())
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
@@ -268,11 +237,11 @@ Keep lines sorted.
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../parsing/nom.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../configuration/figment.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../parsing/pest.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../configuration/reload.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -282,11 +251,11 @@ Keep lines sorted.
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../parsing/nom.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../configuration/figment.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../parsing/pest.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../configuration/reload.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
