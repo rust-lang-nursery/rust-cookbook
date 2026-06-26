@@ -1,0 +1,11 @@
+[package]
+name = "multimedia-audio-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+anyhow = "1.0"
+symphonia = { version = "0.6", features = ["wav"] }

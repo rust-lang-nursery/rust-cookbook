@@ -48,6 +48,8 @@ community. It needs and welcomes help. For details see
 
 {{#include mem.md}}
 
+{{#include multimedia.md}}
+
 {{#include net.md}}
 
 {{#include os.md}}
