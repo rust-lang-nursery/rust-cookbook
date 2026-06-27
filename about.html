@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-314f264c.js";
+            window.path_to_searchindex_js = "searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-b208ef47.js"></script>
@@ -224,7 +224,7 @@ further information.</p>
 <p>All recipes in the cookbook are full, self contained programs, so
 that they may be copied directly into your own projects for
 experimentation. To do so follow the instructions below.</p>
-<p>Consider this example for “generate random numbers within a range”:</p>
+<p>Consider this recipe for “generate random numbers within a range”:</p>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 
@@ -244,15 +244,15 @@ we’ll use the <code>cargo add</code> command:</p>
 <pre><code class="language-sh">cargo add rand
 </code></pre>
 <p>Now you can replace <code>src/main.rs</code> with the full contents of the
-example and run it:</p>
+recipe and run it:</p>
 <pre><code class="language-sh">cargo run
 </code></pre>
-<p>The crate badges that accompany the examples link to the crates’ full
+<p>The crate badges that accompany the recipes link to the crates’ full
 documentation on <a href="https://docs.rs">docs.rs</a>, and is often the next documentation you
 should read after deciding which crate suites your purpose.</p>
 <h2 id="a-note-about-error-handling"><a class="header" href="#a-note-about-error-handling">A note about error handling</a></h2>
 <p>Rust has <a href="https://doc.rust-lang.org/std/error/trait.Error.html"><code>std::error::Trait</code></a> which is implemented to handle exceptions.
-This cookbook uses <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a> for simplified error handling in examples,
+This cookbook uses <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a> for simplified error handling in recipes,
 which provides easy error propagation and context. For library authors,
 <a href="https://docs.rs/thiserror/latest/thiserror/"><code>thiserror</code></a> provides a more structured approach using derive macros
 to create custom error types.</p>

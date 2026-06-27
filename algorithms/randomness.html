@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -228,8 +228,8 @@ fn main() {
 provides other kinds of distributions. To use them, you instantiate a distribution, then sample from
 that distribution using <a href="https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html#tymethod.sample"><code>Distribution::sample</code></a> with help of a random-number generator
 <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html"><code>rand::Rng</code></a>.</p>
-<p>The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html">distributions available are documented here</a>. An example using the
-<a href="https://docs.rs/rand_distr/*/rand_distr/struct.Normal.html"><code>Normal</code></a> distribution is shown below.</p>
+<p>The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html">distributions available are documented here</a>. The recipe
+below uses the <a href="https://docs.rs/rand_distr/*/rand_distr/struct.Normal.html"><code>Normal</code></a> distribution.</p>
 <pre class="playground"><code class="language-rust edition2018">use rand_distr::{Distribution, LogNormal, Normal};
 
 fn main() {

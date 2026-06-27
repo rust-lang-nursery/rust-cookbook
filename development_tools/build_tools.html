@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -190,7 +190,7 @@ See crates.io’s <a href="http://doc.crates.io/build-script.html">documentation
 <p><a href="https://docs.rs/cc"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>
 <p>To accommodate scenarios where additional C, C++, or assembly is required in a project, the <a href="https://docs.rs/cc"><strong>cc</strong></a> crate
 offers a simple api for compiling bundled C/C++/asm code into static libraries (<strong>.a</strong>) that can be statically linked to by <strong>rustc</strong>.</p>
-<p>The following example has some bundled C code (<strong>src/hello.c</strong>) that will be used from rust.
+<p>The following recipe has some bundled C code (<strong>src/hello.c</strong>) that will be used from rust.
 Before compiling rust source code, the “build” file (<strong>build.rs</strong>) specified in <strong>Cargo.toml</strong> runs.
 Using the <a href="https://docs.rs/cc"><strong>cc</strong></a> crate, a static library file will be produced (in this case, <strong>libhello.a</strong>, see
 <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.compile"><code>compile</code> docs</a>) which can then be used from rust by declaring the external function signatures in an <code>extern</code> block.</p>
@@ -293,7 +293,7 @@ fn main(){
 <p><a href="https://docs.rs/cc"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>
 <p>It is simple to build bundled C code with custom defines using <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.define"><code>cc::Build::define</code></a>.
 The method takes an <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> value, so it is possible to create defines such as <code>#define APP_NAME "foo"</code>
-as well as <code>#define WELCOME</code> (pass <code>None</code> as the value for a value-less define). This example builds
+as well as <code>#define WELCOME</code> (pass <code>None</code> as the value for a value-less define). This recipe builds
 a bundled C file with dynamic defines set in <code>build.rs</code> and prints “<strong>Welcome to foo - version 1.0.2</strong>”
 when run. Cargo sets some <a href="https://doc.rust-lang.org/cargo/reference/environment-variables.html">environment variables</a> which may be useful for some custom defines.</p>
 <p><code>Cargo.toml</code></p>

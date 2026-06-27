@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -188,7 +188,7 @@ for ergonomics and speed. Its defining choice is that a parser takes <code>&amp;
 and advances that slice in place, returning only the parsed value via
 <a href="https://docs.rs/winnow/*/winnow/trait.Parser.html#tymethod.parse_next"><code>Parser::parse_next</code></a>. Combinators such as <a href="https://docs.rs/winnow/*/winnow/combinator/fn.separated_pair.html"><code>separated_pair</code></a> and <a href="https://docs.rs/winnow/*/winnow/combinator/fn.separated.html"><code>separated</code></a>
 compose those functions into larger ones.</p>
-<p>The example parses a settings string like <code>name=ferris; age=8; lang=rust</code> into a
+<p>This recipe parses a settings string like <code>name=ferris; age=8; lang=rust</code> into a
 list of key/value pairs. <a href="https://docs.rs/winnow/*/winnow/token/fn.take_while.html"><code>take_while</code></a> collects identifier characters, and
 <a href="https://docs.rs/winnow/*/winnow/trait.Parser.html#method.parse"><code>Parser::parse</code></a> runs the whole parser to completion. When the input is
 malformed, the returned <a href="https://docs.rs/winnow/*/winnow/error/struct.ParseError.html"><code>ParseError</code></a> reports the byte offset where parsing

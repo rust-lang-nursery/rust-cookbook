@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -296,7 +296,7 @@ West Hollywood,CA,37031,34.0900000,-118.3608333";
     wtr.flush()?;
     Ok(())
 }</code></pre>
-<p><em>Disclaimer: this example has been adapted from <a href="https://docs.rs/csv/*/csv/tutorial/index.html#filter-by-search">the csv crate tutorial</a></em>.</p>
+<p><em>Disclaimer: this recipe has been adapted from <a href="https://docs.rs/csv/*/csv/tutorial/index.html#filter-by-search">the csv crate tutorial</a></em>.</p>
 <h2 id="handle-invalid-csv-data-with-serde"><a class="header" href="#handle-invalid-csv-data-with-serde">Handle invalid CSV data with Serde</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>CSV files often contain invalid data. For these cases, the <code>csv</code> crate
@@ -330,7 +330,7 @@ alisha,colombo,xyz";
 }</code></pre>
 <h2 id="serialize-records-to-csv"><a class="header" href="#serialize-records-to-csv">Serialize records to CSV</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
-<p>This example shows how to serialize a Rust tuple. <a href="https://docs.rs/csv/*/csv/struct.Writer.html"><code>csv::writer</code></a> supports automatic
+<p>This recipe shows how to serialize a Rust tuple. <a href="https://docs.rs/csv/*/csv/struct.Writer.html"><code>csv::writer</code></a> supports automatic
 serialization from Rust types into CSV records. <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.write_record"><code>write_record</code></a> writes
 a simple record containing string data only. Data with more complex values
 such as numbers, floats, and options use <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize"><code>serialize</code></a>. Since CSV
@@ -352,7 +352,7 @@ fn main() -&gt; Result&lt;()&gt; {
 }</code></pre>
 <h2 id="serialize-records-to-csv-using-serde"><a class="header" href="#serialize-records-to-csv-using-serde">Serialize records to CSV using Serde</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
-<p>The following example shows how to serialize custom structs as CSV records using
+<p>The following recipe shows how to serialize custom structs as CSV records using
 the <a href="https://docs.rs/serde/">serde</a> crate.</p>
 <pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
 use serde::Serialize;

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -189,7 +189,7 @@ small parsers, each of which consumes part of the input and hands the rest to
 the next. A parser is any function <code>fn(Input) -&gt; IResult&lt;Input, Output&gt;</code>, where
 <a href="https://docs.rs/nom/*/nom/type.IResult.html"><code>IResult</code></a> carries either the parsed value together with the unconsumed tail,
 or an error.</p>
-<p>The example parses a log line like <code>level=warn line=42</code> into a struct. Tokens
+<p>This recipe parses a log line like <code>level=warn line=42</code> into a struct. Tokens
 are matched with <a href="https://docs.rs/nom/*/nom/bytes/complete/fn.tag.html"><code>tag</code></a> and alternatives with <a href="https://docs.rs/nom/*/nom/branch/fn.alt.html"><code>alt</code></a>; <a href="https://docs.rs/nom/*/nom/combinator/fn.value.html"><code>value</code></a> maps each
 matched keyword to a <code>Level</code> without a closure. A fallible conversion (string to
 <code>u32</code>) is wrapped in <a href="https://docs.rs/nom/*/nom/combinator/fn.map_res.html"><code>map_res</code></a> so a bad number becomes a parse error rather

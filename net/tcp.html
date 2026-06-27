@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -184,7 +184,7 @@
                         <h1 id="tcp"><a class="header" href="#tcp">TCP</a></h1>
 <h2 id="listen-on-unused-port-tcpip"><a class="header" href="#listen-on-unused-port-tcpip">Listen on unused port TCP/IP</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
-<p>In this example, the port is displayed on the console, and the program will
+<p>In this recipe, the port is displayed on the console, and the program will
 listen until a request is made.  <a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind"><code>TcpListener::bind</code></a> uses a random port
 allocated by the OS when requested to bind to port 0.</p>
 <pre class="playground"><code class="language-rust edition2018 no_run">use std::net::TcpListener;
@@ -294,7 +294,7 @@ the read hangs with it. <a href="https://doc.rust-lang.org/std/net/struct.TcpStr
 <p>On timeout the read returns an <a href="https://doc.rust-lang.org/std/io/struct.Error.html"><code>io::Error</code></a>. The platform decides the kind:
 <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.WouldBlock"><code>WouldBlock</code></a> on Unix, <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.TimedOut"><code>TimedOut</code></a> on Windows. Match both or your code
 breaks on the other platform.</p>
-<p>This example stands up a listener that accepts but never sends, then connects
+<p>This recipe stands up a listener that accepts but never sends, then connects
 and reads with a short timeout to prove the timeout fires.</p>
 <pre class="playground"><code class="language-rust edition2021">use std::io::{self, Read};
 use std::net::{TcpListener, TcpStream};

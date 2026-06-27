@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -227,7 +227,7 @@ fn main() {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
 <p>The <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> type can be used to defer the initialization of a value until the first time it is accessed.
 It is useful for expensive computations that might not be needed during the entire execution of a scope.</p>
-<p>In this example, we use <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> to lazily compute a set of permissions based on a user ID.
+<p>In this recipe, we use <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> to lazily compute a set of permissions based on a user ID.
 Unlike <code>static</code> lazy types, <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> can capture local variables from its surrounding scope.</p>
 <pre class="playground"><code class="language-rust edition2021">use std::cell::LazyCell;
 
@@ -255,7 +255,7 @@ fn main() {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/caching"><img src="https://img.shields.io/badge/caching--x.svg?style=social" alt="cat-caching-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
 <p>The <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a> type is a thread-safe version of <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> that can be used in <code>static</code> contexts.
 It is the standard library alternative to the <code>lazy_static</code> crate for global, lazily initialized data.</p>
-<p>The example shows how to use <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a> to create a global configuration that is loaded once from
+<p>This recipe shows how to use <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a> to create a global configuration that is loaded once from
 the environment upon first access.</p>
 <pre class="playground"><code class="language-rust edition2024">use std::sync::LazyLock;
 

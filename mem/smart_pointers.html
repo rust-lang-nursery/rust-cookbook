@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -225,7 +225,7 @@ fn main() {
 <h2 id="share-mutable-structure-between-owners-with-rc-and-refcell"><a class="header" href="#share-mutable-structure-between-owners-with-rc-and-refcell">Share mutable structure between owners with <code>Rc</code> and <code>RefCell</code></a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
 <p>Uses <a href="https://doc.rust-lang.org/std/rc/struct.Rc.html"><code>Rc&lt;T&gt;</code></a> to share ownership of one task between multiple dependents and <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html"><code>RefCell&lt;T&gt;</code></a> to mutate that shared task through <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.try_borrow_mut"><code>RefCell::try_borrow_mut</code></a>.
-The example updates one shared task and reads the result through each dependent using <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.borrow"><code>RefCell::borrow</code></a>.</p>
+This recipe updates one shared task and reads the result through each dependent using <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.borrow"><code>RefCell::borrow</code></a>.</p>
 <p>This pattern is useful when several parts of a single-threaded program need access to the same owned value, but mutations have borrows checked through <code>RefCell</code>.</p>
 <pre class="playground"><code class="language-rust edition2021">use std::cell::{BorrowMutError, RefCell};
 use std::rc::Rc;

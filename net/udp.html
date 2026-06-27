@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -188,7 +188,7 @@
 picks it up if it arrives. There is no session, no handshake, no retransmit.
 Statsd, syslog, NTP, and DNS all run on UDP for the same reason — minimum
 overhead when delivery guarantees aren’t worth the cost.</p>
-<p>This example wires both ends together so it runs as a single program. The
+<p>This recipe wires both ends together so it runs as a single program. The
 collector binds to an OS-allocated port and waits with <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.recv_from"><code>recv_from</code></a>. The
 client binds to its own ephemeral port and uses <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.send_to"><code>send_to</code></a> to deliver a
 metric. <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.recv_from"><code>recv_from</code></a> returns the byte count and the sender’s address.</p>

@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-b208ef47.js"></script>
@@ -206,7 +206,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <h2 id="async"><a class="header" href="#async">Async</a></h2>
 <p>A similar approach can be used by including the <a href="https://docs.rs/tokio/latest/tokio/"><code>tokio</code></a> executor
 to make the main function asynchronous, retrieving the same information.</p>
-<p>In this example, <a href="https://docs.rs/tokio/latest/tokio/attr.main.html"><code>tokio::main</code></a> handles all the heavy executor setup
+<p>In this recipe, <a href="https://docs.rs/tokio/latest/tokio/attr.main.html"><code>tokio::main</code></a> handles all the heavy executor setup
 and allows sequential code implemented without blocking until <code>.await</code>.</p>
 <p>Uses the asynchronous versions of <a href="https://docs.rs/reqwest/">reqwest</a>, both <a href="https://docs.rs/reqwest/latest/reqwest/fn.get.html"><code>reqwest::get</code></a> and
 <a href="https://docs.rs/reqwest/latest/reqwest/struct.Response.html"><code>reqwest::Response</code></a>.</p>

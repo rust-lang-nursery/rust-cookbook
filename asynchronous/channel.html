@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -191,7 +191,7 @@ Think of it like a pipe: you put something in one end, and it comes out the othe
 the sender has to wait until there is room before it can send another message.</p>
 <p>Think of it like a physical mailbox. It can only hold a fixed number of letters. If it’s full,
 the postman has to wait until someone clears it out before dropping in another letter.</p>
-<p>In this example, two book stores send books through a channel with a capacity of 5.
+<p>In this recipe, two book stores send books through a channel with a capacity of 5.
 A shelf collects whatever comes through.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::io;
 use tokio::sync::mpsc::channel;
@@ -254,7 +254,7 @@ it can always drop a message in, no matter how many are already sitting there.</
 but if messages pile up faster than they’re being read, your program will use more and more memory.
 Sending on an unbounded channel will always succeed as long as the receiving end is still open.
 If the receiver is slow, messages simply queue up and wait.</p>
-<p>In this example, two people send messages through a channel. An inbox collects whatever comes
+<p>In this recipe, two people send messages through a channel. An inbox collects whatever comes
 through.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::io;
 use tokio::sync::mpsc::unbounded_channel;

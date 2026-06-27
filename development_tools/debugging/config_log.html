@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-b208ef47.js"></script>
@@ -245,7 +245,7 @@ fn main() {
 Each log entry calls <a href="https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now"><code>Local::now</code></a> to get the current <a href="https://docs.rs/chrono/*/chrono/datetime/struct.DateTime.html"><code>DateTime</code></a> in local
 timezone and uses <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format"><code>DateTime::format</code></a> with <a href="https://docs.rs/chrono/*/chrono/format/strftime/index.html#specifiers"><code>strftime::specifiers</code></a> to format
 a timestamp used in the final log.</p>
-<p>The example calls <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.format"><code>Builder::format</code></a> to set a closure which formats each
+<p>This recipe calls <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.format"><code>Builder::format</code></a> to set a closure which formats each
 message text with timestamp, <a href="https://docs.rs/log/*/log/struct.Record.html#method.level"><code>Record::level</code></a> and body (<a href="https://docs.rs/log/*/log/struct.Record.html#method.args"><code>Record::args</code></a>).</p>
 <pre class="playground"><code class="language-rust edition2018">use std::io::Write;
 use chrono::Local;

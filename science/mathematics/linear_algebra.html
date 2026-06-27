@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-b208ef47.js"></script>
@@ -230,7 +230,7 @@ another vector. Then, the matrix is multiplied by the new vector with
 the <code>*</code> operator performs element-wise multiplication.)</p>
 <p>In <code>ndarray</code>, 1-D arrays can be interpreted as either row or column vectors
 depending on context. If representing the orientation of a vector is important,
-a 2-D array with one row or one column must be used instead. In this example,
+a 2-D array with one row or one column must be used instead. In this recipe,
 the vector is a 1-D array on the right-hand side, so <code>dot</code> handles it as a column
 vector.</p>
 <pre class="playground"><code class="language-rust edition2018">
@@ -254,12 +254,12 @@ fn main() {
 <p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a></p>
 <p>The <a href="https://docs.rs/crate/ndarray/*">ndarray</a> crate supports a number of ways to create arrays – this recipe creates
 <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html"><code>ndarray::Array</code></a>s from <code>std::Vec</code> using <code>from</code>. Then, it sums the arrays element-wise.</p>
-<p>This recipe contains an example of comparing two floating-point vectors element-wise.
+<p>This recipe compares two floating-point vectors element-wise.
 For simple cases, we can use <code>assert_eq!</code> for exact equality comparison. For more
 complex floating-point comparisons that need to handle precision issues, you can use
 the <a href="https://docs.rs/approx/*/approx/index.html"><code>approx</code></a> crate with the <code>approx</code> feature enabled in the <code>ndarray</code> dependency
 in <code>Cargo.toml</code>. For example, <code>ndarray = { version = "0.13", features = ["approx"] }</code>.</p>
-<p>This recipe also contains additional ownership examples. Here, <code>let z = a + b</code> consumes
+<p>This recipe also demonstrates additional ownership behavior. Here, <code>let z = a + b</code> consumes
 <code>a</code> and <code>b</code>, updates <code>a</code> with the result, then moves ownership to <code>z</code>. Alternatively,
 <code>let w = &amp;c + &amp;d</code> creates a new vector without consuming <code>c</code> or <code>d</code>, allowing
 their modification later. See <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#binary-operators-with-two-arrays">Binary Operators With Two Arrays</a> for additional detail.</p>

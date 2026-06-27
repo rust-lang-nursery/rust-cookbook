@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -186,7 +186,7 @@
 <p>Sometimes a task takes too long and you don’t want to wait forever. A <a href="https://docs.rs/tokio/*/tokio/time/fn.timeout.html"><code>timeout</code></a> puts a time limit
 on a task. If it finishes in time you get the result, if it doesn’t, it is cancelled and you get
 an error back.</p>
-<p>In this example, a network request is given 5 milliseconds to complete. If it finishes in time,
+<p>In this recipe, a network request is given 5 milliseconds to complete. If it finishes in time,
 the result is printed. If it runs over, the program reports a timeout.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::time::Duration;
 use tokio::time::timeout;

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -187,7 +187,7 @@
 <p>Sometimes you want to run a task, but also be ready to stop everything if the user presses Ctrl-C.
 <a href="https://docs.rs/tokio/latest/tokio/macro.select.html"><code>tokio::select!</code></a> lets you do exactly that. It runs multiple things at the same time and stops
 as soon as the first one finishes, cancelling everything else.</p>
-<p>In this example, the program tries to fetch some data. If the user presses Ctrl-C before the fetch
+<p>In this recipe, the program tries to fetch some data. If the user presses Ctrl-C before the fetch
 is done, the program shuts down cleanly instead of waiting.</p>
 <p>Both branches start at the same time. Whichever one finishes first wins and the other is cancelled.
 If fetch_data completes first, the result is printed and the loop runs again.

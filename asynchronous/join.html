@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -191,7 +191,7 @@ This section shows how to do that.</p>
 You add tasks to it, and then you can wait for them to finish one by one. When a task finishes,
 you can grab its result. If you throw away the JoinSet before all tasks are done, every
 unfinished task is cancelled automatically.</p>
-<p>In this example, five jobs are created and added to a JoinSet. Each job does some work on its own,
+<p>In this recipe, five jobs are created and added to a JoinSet. Each job does some work on its own,
 and the program waits until all of them are done before moving on.</p>
 <pre class="playground"><code class="language-rust edition2018">use tokio::task::JoinSet;
 

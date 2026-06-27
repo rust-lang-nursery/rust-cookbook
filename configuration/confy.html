@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -190,7 +190,7 @@ to the platform’s standard config location, not next to the binary.
 the file from the defaults on first run.</p>
 <p><a href="https://docs.rs/confy/*/confy/fn.load.html"><code>confy::load</code></a> takes an application name and resolves <code>~/.config/&lt;app&gt;/&lt;app&gt;.toml</code>
 on Linux (and the platform equivalent elsewhere); <a href="https://docs.rs/confy/*/confy/fn.get_configuration_file_path.html"><code>get_configuration_file_path</code></a>
-returns that location without writing anything. To keep the example from touching
+returns that location without writing anything. To keep the recipe from touching
 your real config directory, it round-trips through an explicit path with
 <a href="https://docs.rs/confy/*/confy/fn.load_path.html"><code>load_path</code></a> and <a href="https://docs.rs/confy/*/confy/fn.store_path.html"><code>store_path</code></a> instead.</p>
 <pre class="playground"><code class="language-rust no_run edition2018">use serde::{Deserialize, Serialize};

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -195,7 +195,7 @@ field  = @{ "-"? ~ (ASCII_DIGIT | ".")+ }
 record =  { field ~ ("," ~ field)* }
 file   =  { SOI ~ (record ~ NEWLINE)* ~ record? ~ EOI }
 </code></pre>
-<p>The example feeds input to the derived <code>CsvParser</code>, walks the resulting parse
+<p>This recipe feeds input to the derived <code>CsvParser</code>, walks the resulting parse
 tree with <a href="https://docs.rs/pest/*/pest/iterators/struct.Pair.html#method.into_inner"><code>Pairs::into_inner</code></a>, and sums every field. Because the grammar
 encodes what is valid, malformed input produces a <a href="https://docs.rs/pest/*/pest/error/struct.Error.html"><code>pest::error::Error</code></a> that
 renders a caret pointing at the exact line and column — note the <code>?</code> operator

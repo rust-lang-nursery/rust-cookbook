@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-b208ef47.js"></script>
@@ -184,8 +184,8 @@
                         <h1 id="statistics"><a class="header" href="#statistics">Statistics</a></h1>
 <h3 id="measures-of-central-tendency"><a class="header" href="#measures-of-central-tendency">Measures of central tendency</a></h3>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
-<p>These examples calculate measures of central tendency for a data set contained within a Rust array. There may be no mean, median or mode to calculate for an empty set of data, so each function returns an <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> to be handled by the caller.</p>
-<p>The first example calculates the mean (the sum of all measurements divided by the number of measurements in the set) by producing an iterator of references over the data, and using <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum"><code>sum</code></a> and <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.len"><code>len</code></a> to determine the total value and count of values respectively.</p>
+<p>This recipe calculates measures of central tendency for a data set contained within a Rust array. There may be no mean, median or mode to calculate for an empty set of data, so each function returns an <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> to be handled by the caller.</p>
+<p>The first function calculates the mean (the sum of all measurements divided by the number of measurements in the set) by producing an iterator of references over the data, and using <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum"><code>sum</code></a> and <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.len"><code>len</code></a> to determine the total value and count of values respectively.</p>
 <pre class="playground"><code class="language-rust edition2018">fn main() {
     let data = [3, 1, 6, 1, 5, 8, 1, 8, 10, 11];
 
@@ -199,7 +199,7 @@
 
     println!("Mean of the data is {:?}", mean);
 }</code></pre>
-<p>The second example calculates the median using the quickselect algorithm, which avoids a full <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort"><code>sort</code></a> by sorting only partitions of the data set known to possibly contain the median. This uses <a href="https://doc.rust-lang.org/std/cmp/trait.Ord.html#tymethod.cmp"><code>cmp</code></a> and <a href="https://doc.rust-lang.org/std/cmp/enum.Ordering.html"><code>Ordering</code></a> to succinctly decide the next partition to examine, and <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.split_at"><code>split_at</code></a> to choose an arbitrary pivot for the next partition at each step.</p>
+<p>The second function calculates the median using the quickselect algorithm, which avoids a full <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort"><code>sort</code></a> by sorting only partitions of the data set known to possibly contain the median. This uses <a href="https://doc.rust-lang.org/std/cmp/trait.Ord.html#tymethod.cmp"><code>cmp</code></a> and <a href="https://doc.rust-lang.org/std/cmp/enum.Ordering.html"><code>Ordering</code></a> to succinctly decide the next partition to examine, and <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.split_at"><code>split_at</code></a> to choose an arbitrary pivot for the next partition at each step.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::cmp::Ordering;
 
 fn partition(data: &amp;[i32]) -&gt; Option&lt;(Vec&lt;i32&gt;, i32, Vec&lt;i32&gt;)&gt; {
@@ -272,7 +272,7 @@ fn main() {
     let med = median(&amp;data);
     println!("Median is {:?}", med);
 }</code></pre>
-<p>The final example calculates the  mode using a mutable <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> to collect counts of each distinct integer from the set, using a <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.fold"><code>fold</code></a> and the <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html"><code>entry</code></a> API. The most frequent value in the <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> surfaces with <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.max_by_key"><code>max_by_key</code></a>.</p>
+<p>The final function calculates the  mode using a mutable <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> to collect counts of each distinct integer from the set, using a <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.fold"><code>fold</code></a> and the <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html"><code>entry</code></a> API. The most frequent value in the <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> surfaces with <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.max_by_key"><code>max_by_key</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::collections::HashMap;
 
 fn main() {
@@ -292,7 +292,7 @@ fn main() {
 }</code></pre>
 <h3 id="standard-deviation"><a class="header" href="#standard-deviation">Standard deviation</a></h3>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
-<p>This example calculates the standard deviation and z-score of a set of measurements.</p>
+<p>This recipe calculates the standard deviation and z-score of a set of measurements.</p>
 <p>The standard deviation is defined as the square root of the variance (here calculated with f32’s [<code>sqrt</code>], where the variance is the <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum"><code>sum</code></a> of the squared difference between each measurement and the [<code>mean</code>], divided by the number of measurements.</p>
 <p>The z-score is the number of standard deviations a single measurement spans away from the [<code>mean</code>] of the data set.</p>
 <pre class="playground"><code class="language-rust edition2018">fn mean(data: &amp;[i32]) -&gt; Option&lt;f32&gt; {

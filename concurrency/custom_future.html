@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -203,7 +203,7 @@ instead of relying on <code>async</code>/<code>await</code>.</p>
 </div>
 </div>
 
-<p>The example below builds a simple <code>Delay</code> future that resolves after a
+<p>The recipe below builds a simple <code>Delay</code> future that resolves after a
 deadline.  It has no self-referential fields, so it is <code>Unpin</code> automatically—
 pinning costs nothing.  A production timer would register with a reactor;
 here we call <code>wake_by_ref()</code> immediately so the executor re-polls us.</p>

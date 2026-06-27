@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -227,7 +227,7 @@ If you need control over how the runtime is set up, use the <a href="https://doc
 <p>Think of Builder as a recipe. Each method you call adds an instruction, how many threads to
 use, what to call them, how much memory to give each one. Nothing actually happens until
 you call <a href="https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html#method.build"><code>.build()</code></a> at the end, which is when the runtime is created and ready to run.</p>
-<p>In this example, the recipe sets up 4 worker threads, gives them the name “thread-one”,
+<p>This recipe sets up 4 worker threads, gives them the name “thread-one”,
 and sets a stack size of 3MB each.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::io;
 use tokio::runtime::Builder;

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-314f264c.js";
+            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -293,7 +293,7 @@ platform-dependent. On some targets a steady stream of readers can keep the lock
 held continuously and <em>starve</em> a waiting writer, so reach for <code>RwLock</code> only when
 reads genuinely dominate; under heavy contention a plain <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> (or a
 dedicated fair lock) can be the safer choice.</p>
-<p>The example spawns several reader threads that observe the shared vector
+<p>This recipe spawns several reader threads that observe the shared vector
 simultaneously, plus one writer thread that appends to it under an exclusive
 lock.</p>
 <pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
