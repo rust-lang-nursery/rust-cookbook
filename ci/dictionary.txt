@@ -351,6 +351,7 @@ strs
 struct
 structs
 subcommands
+subcommand
 subdirectories
 subfolders
 subprocess
