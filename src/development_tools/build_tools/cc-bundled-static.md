@@ -5,7 +5,7 @@
 To accommodate scenarios where additional C, C++, or assembly is required in a project, the [**cc**][cc] crate
 offers a simple api for compiling bundled C/C++/asm code into static libraries (**.a**) that can be statically linked to by **rustc**.
 
-The following example has some bundled C code (**src/hello.c**) that will be used from rust.
+The following recipe has some bundled C code (**src/hello.c**) that will be used from rust.
 Before compiling rust source code, the "build" file (**build.rs**) specified in **Cargo.toml** runs.
 Using the [**cc**][cc] crate, a static library file will be produced (in this case, **libhello.a**, see
 [`compile` docs][cc-build-compile]) which can then be used from rust by declaring the external function signatures in an `extern` block.

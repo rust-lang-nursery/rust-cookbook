@@ -2,7 +2,7 @@
 
 [![threadpool-badge]][threadpool] [![std-badge]][std] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
 
-This example calculates the SHA256 for every file with iso extension in the
+This recipe calculates the SHA256 for every file with iso extension in the
 current directory. A threadpool generates threads equal to the number of cores
 present in the system found with [`std::thread::available_parallelism`].  [`Walkdir::new`] iterates
 the current directory and calls [`execute`] to perform the operations of reading

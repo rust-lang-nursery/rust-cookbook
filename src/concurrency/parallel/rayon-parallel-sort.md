@@ -2,7 +2,7 @@
 
 [![rayon-badge]][rayon] [![rand-badge]][rand] [![cat-concurrency-badge]][cat-concurrency]
 
-This example will sort in parallel a vector of Strings.
+This recipe will sort in parallel a vector of Strings.
 
 Allocate a vector of empty Strings. `par_iter_mut().for_each` populates random
 values in parallel.  Although [multiple options]

@@ -6,7 +6,7 @@ Sometimes you want to run a task, but also be ready to stop everything if the us
 [`tokio::select!`] lets you do exactly that. It runs multiple things at the same time and stops
 as soon as the first one finishes, cancelling everything else.
 
-In this example, the program tries to fetch some data. If the user presses Ctrl-C before the fetch
+In this recipe, the program tries to fetch some data. If the user presses Ctrl-C before the fetch
 is done, the program shuts down cleanly instead of waiting.
 
 Both branches start at the same time. Whichever one finishes first wins and the other is cancelled.

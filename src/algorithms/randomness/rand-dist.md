@@ -7,8 +7,8 @@ provides other kinds of distributions. To use them, you instantiate a distributi
 that distribution using [`Distribution::sample`] with help of a random-number generator
 [`rand::Rng`].
 
-The [distributions available are documented here][rand-distributions]. An example using the
-[`Normal`] distribution is shown below.
+The [distributions available are documented here][rand-distributions]. The recipe
+below uses the [`Normal`] distribution.
 
 ```rust
 {{#include ../../../crates/algorithms/randomness/src/bin/dist.rs }}

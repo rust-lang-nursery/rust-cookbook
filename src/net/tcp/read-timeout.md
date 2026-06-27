@@ -10,7 +10,7 @@ On timeout the read returns an [`io::Error`]. The platform decides the kind:
 [`WouldBlock`] on Unix, [`TimedOut`] on Windows. Match both or your code
 breaks on the other platform.
 
-This example stands up a listener that accepts but never sends, then connects
+This recipe stands up a listener that accepts but never sends, then connects
 and reads with a short timeout to prove the timeout fires.
 
 ```rust,edition2021

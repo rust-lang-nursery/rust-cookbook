@@ -11,7 +11,7 @@ the `*` operator performs element-wise multiplication.)
 
 In `ndarray`, 1-D arrays can be interpreted as either row or column vectors 
 depending on context. If representing the orientation of a vector is important, 
-a 2-D array with one row or one column must be used instead. In this example, 
+a 2-D array with one row or one column must be used instead. In this recipe, 
 the vector is a 1-D array on the right-hand side, so `dot` handles it as a column 
 vector.
 

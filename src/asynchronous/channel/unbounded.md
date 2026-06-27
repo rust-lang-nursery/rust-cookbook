@@ -10,7 +10,7 @@ but if messages pile up faster than they're being read, your program will use mo
 Sending on an unbounded channel will always succeed as long as the receiving end is still open.
 If the receiver is slow, messages simply queue up and wait.
 
-In this example, two people send messages through a channel. An inbox collects whatever comes 
+In this recipe, two people send messages through a channel. An inbox collects whatever comes 
 through.
 
 ```rust,edition2018

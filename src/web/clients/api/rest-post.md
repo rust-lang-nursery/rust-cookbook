@@ -58,7 +58,7 @@ fn main() -> Result<()> {
 }
 ```
 
-The example uses [HTTP Basic Auth] in order to authorize access to [GitHub API].
+This recipe uses [HTTP Basic Auth] in order to authorize access to [GitHub API].
 Typical use case would employ one of the much more complex [OAuth] authorization
 flows.
 

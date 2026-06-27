@@ -6,7 +6,7 @@ Sometimes a task takes too long and you don't want to wait forever. A [`timeout`
 on a task. If it finishes in time you get the result, if it doesn't, it is cancelled and you get
 an error back.
 
-In this example, a network request is given 5 milliseconds to complete. If it finishes in time, 
+In this recipe, a network request is given 5 milliseconds to complete. If it finishes in time, 
 the result is printed. If it runs over, the program reports a timeout.
 
 ```rust,edition2018

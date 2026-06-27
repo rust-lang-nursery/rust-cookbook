@@ -8,7 +8,7 @@ the sender has to wait until there is room before it can send another message.
 Think of it like a physical mailbox. It can only hold a fixed number of letters. If it's full, 
 the postman has to wait until someone clears it out before dropping in another letter.
 
-In this example, two book stores send books through a channel with a capacity of 5. 
+In this recipe, two book stores send books through a channel with a capacity of 5. 
 A shelf collects whatever comes through.
 
 ```rust,edition2018

@@ -18,7 +18,7 @@ Every custom future must handle three concepts:
 
 </div>
 
-The example below builds a simple `Delay` future that resolves after a
+The recipe below builds a simple `Delay` future that resolves after a
 deadline.  It has no self-referential fields, so it is `Unpin` automatically—
 pinning costs nothing.  A production timer would register with a reactor;
 here we call `wake_by_ref()` immediately so the executor re-polls us.

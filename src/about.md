@@ -52,7 +52,7 @@ All recipes in the cookbook are full, self contained programs, so
 that they may be copied directly into your own projects for
 experimentation. To do so follow the instructions below.
 
-Consider this example for "generate random numbers within a range":
+Consider this recipe for "generate random numbers within a range":
 
 [![rand-badge]][rand] [![cat-science-badge]][cat-science]
 
@@ -78,19 +78,19 @@ cargo add rand
 ```
 
 Now you can replace `src/main.rs` with the full contents of the
-example and run it:
+recipe and run it:
 
 ```sh
 cargo run
 ```
 
-The crate badges that accompany the examples link to the crates' full
+The crate badges that accompany the recipes link to the crates' full
 documentation on [docs.rs], and is often the next documentation you
 should read after deciding which crate suites your purpose.
 
 ## A note about error handling
 Rust has [`std::error::Trait`] which is implemented to handle exceptions.
-This cookbook uses [`anyhow`] for simplified error handling in examples,
+This cookbook uses [`anyhow`] for simplified error handling in recipes,
 which provides easy error propagation and context. For library authors,
 [`thiserror`] provides a more structured approach using derive macros
 to create custom error types.

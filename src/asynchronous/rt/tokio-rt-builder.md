@@ -8,7 +8,7 @@ Think of Builder as a recipe. Each method you call adds an instruction, how many
 use, what to call them, how much memory to give each one. Nothing actually happens until 
 you call [`.build()`] at the end, which is when the runtime is created and ready to run.
 
-In this example, the recipe sets up 4 worker threads, gives them the name "thread-one",
+This recipe sets up 4 worker threads, gives them the name "thread-one",
 and sets a stack size of 3MB each.
 
 ```rust,edition2018

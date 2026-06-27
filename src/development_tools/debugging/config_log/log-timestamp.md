@@ -7,7 +7,7 @@ Each log entry calls [`Local::now`] to get the current [`DateTime`] in local
 timezone and uses [`DateTime::format`] with [`strftime::specifiers`] to format
 a timestamp used in the final log.
 
-The example calls [`Builder::format`] to set a closure which formats each
+This recipe calls [`Builder::format`] to set a closure which formats each
 message text with timestamp, [`Record::level`] and body ([`Record::args`]).
 
 ```rust,edition2018

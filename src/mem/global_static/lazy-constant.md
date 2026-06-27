@@ -61,7 +61,7 @@ fn main() {
 The [`LazyCell`] type can be used to defer the initialization of a value until the first time it is accessed.
 It is useful for expensive computations that might not be needed during the entire execution of a scope.
 
-In this example, we use [`LazyCell`] to lazily compute a set of permissions based on a user ID.
+In this recipe, we use [`LazyCell`] to lazily compute a set of permissions based on a user ID.
 Unlike `static` lazy types, [`LazyCell`] can capture local variables from its surrounding scope.
 
 ```rust,edition2021
@@ -98,7 +98,7 @@ fn main() {
 The [`LazyLock`] type is a thread-safe version of [`LazyCell`] that can be used in `static` contexts.
 It is the standard library alternative to the `lazy_static` crate for global, lazily initialized data.
 
-The example shows how to use [`LazyLock`] to create a global configuration that is loaded once from 
+This recipe shows how to use [`LazyLock`] to create a global configuration that is loaded once from 
 the environment upon first access.
 
 ```rust,edition2024

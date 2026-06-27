@@ -12,7 +12,7 @@ You add tasks to it, and then you can wait for them to finish one by one. When a
 you can grab its result. If you throw away the JoinSet before all tasks are done, every
 unfinished task is cancelled automatically.
 
-In this example, five jobs are created and added to a JoinSet. Each job does some work on its own,
+In this recipe, five jobs are created and added to a JoinSet. Each job does some work on its own,
 and the program waits until all of them are done before moving on.
 
 ```rust,edition2018

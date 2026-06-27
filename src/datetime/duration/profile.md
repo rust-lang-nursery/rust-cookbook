@@ -4,7 +4,7 @@
 
 Measures [`time::Instant::elapsed`] since [`time::Instant::now`].
 
-Calling [`time::Instant::elapsed`] returns a [`time::Duration`] that we print at the end of the example.
+Calling [`time::Instant::elapsed`] returns a [`time::Duration`] that we print at the end of the recipe.
 This method will not mutate or reset the [`time::Instant`] object.
 
 ```rust,edition2018
