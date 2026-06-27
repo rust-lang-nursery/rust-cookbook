@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-2d07703a.js";
+            window.path_to_searchindex_js = "../searchindex-1ca431f2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b208ef47.js"></script>
@@ -405,6 +405,55 @@ fn main() -&gt; Result&lt;(), Error&gt; {
         let (sha, path) = t?;
         println!("{:?} {:?}", sha, path);
     }
+    Ok(())
+}</code></pre>
+<h2 id="sum-the-size-of-every-file-in-a-directory"><a class="header" href="#sum-the-size-of-every-file-in-a-directory">Sum the size of every file in a directory</a></h2>
+<p><a href="https://docs.rs/threadpool/"><img src="https://img.shields.io/crates/v/threadpool.svg?label=threadpool" alt="threadpool-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a><a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p>This recipe adds up the size of every file under the book’s <code>src</code> directory.
+Reading a file blocks while the operating system fetches its bytes, so the work
+is IO-bound: each thread spends most of its time waiting on the disk rather than
+computing. A <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html"><code>ThreadPool</code></a> sized to <a href="https://doc.rust-lang.org/std/thread/fn.available_parallelism.html"><code>std::thread::available_parallelism</code></a> keeps
+several reads in flight at once, and each worker returns its result over an
+<a href="https://doc.rust-lang.org/std/sync/mpsc/index.html"><code>std::sync::mpsc</code></a> channel.</p>
+<p><a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html"><code>WalkDir</code></a> yields every entry under <code>src</code>. Each file is handed to <a href="https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute"><code>execute</code></a>,
+which reads it with <a href="https://doc.rust-lang.org/std/fs/fn.read.html"><code>std::fs::read</code></a> and sends back the byte count, or the
+<a href="https://doc.rust-lang.org/std/io/struct.Error.html"><code>io::Error</code></a> if the read fails. The main thread sums the counts as they arrive.
+Reading the contents is what keeps the workers busy with real IO;
+<a href="https://doc.rust-lang.org/std/fs/fn.metadata.html"><code>std::fs::metadata</code></a> would be cheaper when only the length matters.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fs;
+use std::io;
+use std::path::PathBuf;
+use std::sync::mpsc::channel;
+use std::thread::available_parallelism;
+use threadpool::ThreadPool;
+use walkdir::WalkDir;
+
+fn main() -&gt; io::Result&lt;()&gt; {
+    let pool = ThreadPool::new(available_parallelism()?.get());
+    let (tx, rx) = channel();
+
+    let mut files = 0;
+    for entry in WalkDir::new("src")
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .filter(|e| e.path().is_file())
+    {
+        let path: PathBuf = entry.path().to_owned();
+        let tx = tx.clone();
+        files += 1;
+        pool.execute(move || {
+            let size = fs::read(&amp;path).map(|bytes| bytes.len());
+            tx.send(size).expect("worker could not send result");
+        });
+    }
+    drop(tx);
+
+    let mut total = 0;
+    for size in rx.iter() {
+        total += size?;
+    }
+
+    println!("{files} files, {total} bytes");
     Ok(())
 }</code></pre>
 <h2 id="draw-fractal-dispatching-work-to-a-thread-pool"><a class="header" href="#draw-fractal-dispatching-work-to-a-thread-pool">Draw fractal dispatching work to a thread pool</a></h2>
