@@ -5,7 +5,7 @@
 Compress `/var/log` directory into `archive.tar.gz`.
 
 Creates a [`File`] wrapped in [`GzEncoder`]
-and [`tar::Builder`]. </br>Adds contents of `/var/log` directory recursively into the archive
+and [`tar::Builder`]. <br/>Adds contents of `/var/log` directory recursively into the archive
 under `backup/logs` path with [`Builder::append_dir_all`].
 [`GzEncoder`] is responsible for transparently compressing the
 data prior to writing it into `archive.tar.gz`.
