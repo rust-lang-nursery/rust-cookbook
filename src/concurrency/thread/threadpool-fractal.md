@@ -2,7 +2,7 @@
 
 [![threadpool-badge]][threadpool] [![num-badge]][num] [![std-badge]][std] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
 
-This example generates an image by drawing a fractal from the [Julia set]
+This recipe generates an image by drawing a fractal from the [Julia set]
 with a thread pool for distributed computation.
 
 <a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a>

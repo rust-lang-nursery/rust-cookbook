@@ -31,7 +31,7 @@ fn main() -> Result<()> {
 A similar approach can be used by including the [`tokio`] executor
 to make the main function asynchronous, retrieving the same information.
 
-In this example, [`tokio::main`] handles all the heavy executor setup
+In this recipe, [`tokio::main`] handles all the heavy executor setup
 and allows sequential code implemented without blocking until `.await`.
 
 Uses the asynchronous versions of [reqwest], both [`reqwest::get`] and

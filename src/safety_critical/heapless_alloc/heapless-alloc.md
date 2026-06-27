@@ -22,7 +22,7 @@ letting the caller decide how to handle it.
 
 </div>
 
-The example below builds a stack-allocated event log and demonstrates
+The recipe below builds a stack-allocated event log and demonstrates
 capacity enforcement—the kind of predictable, constant-memory behavior
 required by embedded and real-time systems.
 

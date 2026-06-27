@@ -6,7 +6,7 @@
 to terminate before returning from the closure, meaning that
 you can reference data from the calling function without needing `Arc` or other ownership tricks.
 
-This example splits the array in half and performs the work in separate threads.
+This recipe splits the array in half and performs the work in separate threads.
 
 ```rust,edition2021
 fn main() {

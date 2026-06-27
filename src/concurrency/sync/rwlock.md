@@ -14,7 +14,7 @@ held continuously and *starve* a waiting writer, so reach for `RwLock` only when
 reads genuinely dominate; under heavy contention a plain [`Mutex`] (or a
 dedicated fair lock) can be the safer choice.
 
-The example spawns several reader threads that observe the shared vector
+This recipe spawns several reader threads that observe the shared vector
 simultaneously, plus one writer thread that appends to it under an exclusive
 lock.
 

@@ -7,7 +7,7 @@ picks it up if it arrives. There is no session, no handshake, no retransmit.
 Statsd, syslog, NTP, and DNS all run on UDP for the same reason — minimum
 overhead when delivery guarantees aren't worth the cost.
 
-This example wires both ends together so it runs as a single program. The
+This recipe wires both ends together so it runs as a single program. The
 collector binds to an OS-allocated port and waits with [`recv_from`]. The
 client binds to its own ephemeral port and uses [`send_to`] to deliver a
 metric. [`recv_from`] returns the byte count and the sender's address.

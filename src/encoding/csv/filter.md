@@ -34,4 +34,4 @@ West Hollywood,CA,37031,34.0900000,-118.3608333";
 }
 ```
 
-_Disclaimer: this example has been adapted from [the csv crate tutorial](https://docs.rs/csv/*/csv/tutorial/index.html#filter-by-search)_.
+_Disclaimer: this recipe has been adapted from [the csv crate tutorial](https://docs.rs/csv/*/csv/tutorial/index.html#filter-by-search)_.

@@ -8,7 +8,7 @@ and advances that slice in place, returning only the parsed value via
 [`Parser::parse_next`]. Combinators such as [`separated_pair`] and [`separated`]
 compose those functions into larger ones.
 
-The example parses a settings string like `name=ferris; age=8; lang=rust` into a
+This recipe parses a settings string like `name=ferris; age=8; lang=rust` into a
 list of key/value pairs. [`take_while`] collects identifier characters, and
 [`Parser::parse`] runs the whole parser to completion. When the input is
 malformed, the returned [`ParseError`] reports the byte offset where parsing

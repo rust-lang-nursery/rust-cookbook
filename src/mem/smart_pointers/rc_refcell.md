@@ -2,7 +2,7 @@
 [![std-badge]][std] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
 Uses [`Rc<T>`] to share ownership of one task between multiple dependents and [`RefCell<T>`] to mutate that shared task through [`RefCell::try_borrow_mut`]. 
-The example updates one shared task and reads the result through each dependent using [`RefCell::borrow`].
+This recipe updates one shared task and reads the result through each dependent using [`RefCell::borrow`].
 
 This pattern is useful when several parts of a single-threaded program need access to the same owned value, but mutations have borrows checked through `RefCell`.
 

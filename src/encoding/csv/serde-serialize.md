@@ -2,7 +2,7 @@
 
 [![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 
-The following example shows how to serialize custom structs as CSV records using
+The following recipe shows how to serialize custom structs as CSV records using
 the [serde] crate.
 
 ```rust,edition2018

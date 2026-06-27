@@ -21,7 +21,7 @@ prove it, the build fails.
 
 </div>
 
-The example below shows three panic-free functions—aggregation, lookup, and
+The recipe below shows three panic-free functions—aggregation, lookup, and
 sensor normalization—each proven at compile time by `#[no_panic]`.
 
 ```rust

@@ -8,7 +8,7 @@ the next. A parser is any function `fn(Input) -> IResult<Input, Output>`, where
 [`IResult`] carries either the parsed value together with the unconsumed tail,
 or an error.
 
-The example parses a log line like `level=warn line=42` into a struct. Tokens
+This recipe parses a log line like `level=warn line=42` into a struct. Tokens
 are matched with [`tag`] and alternatives with [`alt`]; [`value`] maps each
 matched keyword to a `Level` without a closure. A fallible conversion (string to
 `u32`) is wrapped in [`map_res`] so a bad number becomes a parse error rather

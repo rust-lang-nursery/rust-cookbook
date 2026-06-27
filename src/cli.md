@@ -6,7 +6,7 @@
 | [Clap Basic Argument Parsing][ex-argument-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 | [ANSI Terminal][ex-ansi_term-basic] | [![ansi_term-badge]][ansi_term]| [![cat-command-line-badge]][cat-command-line] |
 | [Environment Variables][ex-env] | [![std-badge]][std]| [![cat-command-line-badge]][cat-command-line] |
-| [Load Config Example][ex-load-config] | [![std-badge]][std]| [![cat-command-line-badge]][cat-command-line] |
+| [Load Config][ex-load-config] | [![std-badge]][std]| [![cat-command-line-badge]][cat-command-line] |
 
 [ex-ansi_term-basic]: cli/ansi_terminal.html#ansi-terminal
 [ex-argument-basic]: cli/arguments.html#basic-argument-parsing

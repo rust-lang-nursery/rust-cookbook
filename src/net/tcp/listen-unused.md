@@ -2,7 +2,7 @@
 
 [![std-badge]][std] [![cat-net-badge]][cat-net]
 
-In this example, the port is displayed on the console, and the program will
+In this recipe, the port is displayed on the console, and the program will
 listen until a request is made.  [`TcpListener::bind`] uses a random port
 allocated by the OS when requested to bind to port 0.
 

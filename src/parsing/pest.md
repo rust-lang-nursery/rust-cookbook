@@ -14,7 +14,7 @@ The grammar below recognises a tiny CSV of numbers:
 {{#include ../../crates/parsing/pest/src/csv.pest}}
 ```
 
-The example feeds input to the derived `CsvParser`, walks the resulting parse
+This recipe feeds input to the derived `CsvParser`, walks the resulting parse
 tree with [`Pairs::into_inner`], and sums every field. Because the grammar
 encodes what is valid, malformed input produces a [`pest::error::Error`] that
 renders a caret pointing at the exact line and column — note the `?` operator

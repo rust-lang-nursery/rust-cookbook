@@ -3,7 +3,7 @@
 [![same_file-badge]][same_file] [![cat-filesystem-badge]][cat-filesystem]
 
 Use [`same_file::Handle`] to a file that can be tested for equality with
-other handles. In this example, the handles of file to be read from and
+other handles. In this recipe, the handles of file to be read from and
 to be written to are tested for equality.
 
 ```rust,edition2021

@@ -10,7 +10,7 @@ the file from the defaults on first run.
 
 [`confy::load`] takes an application name and resolves `~/.config/<app>/<app>.toml`
 on Linux (and the platform equivalent elsewhere); [`get_configuration_file_path`]
-returns that location without writing anything. To keep the example from touching
+returns that location without writing anything. To keep the recipe from touching
 your real config directory, it round-trips through an explicit path with
 [`load_path`] and [`store_path`] instead.
 

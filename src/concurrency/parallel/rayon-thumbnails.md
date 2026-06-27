@@ -2,7 +2,7 @@
 
 [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency] [![cat-filesystem-badge]][cat-filesystem]
 
-This example generates thumbnails for all .jpg files in the current directory
+This recipe generates thumbnails for all .jpg files in the current directory
 then saves them in a new folder called `thumbnails`.
 
 [`glob::glob_with`] finds jpeg files in current directory. `rayon` resizes

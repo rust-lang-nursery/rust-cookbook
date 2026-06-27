@@ -2,8 +2,8 @@
 
 [![crossbeam-badge]][crossbeam] [![cat-concurrency-badge]][cat-concurrency]
 
-This example demonstrates the use of [crossbeam-channel] in a single producer, single
-consumer (SPSC) setting. We build off the [ex-crossbeam-spawn] example by using
+This recipe demonstrates the use of [crossbeam-channel] in a single producer, single
+consumer (SPSC) setting. We build off the [ex-crossbeam-spawn] recipe by using
 [`crossbeam::scope`] and [`Scope::spawn`] to manage the producer thread. Data is
 exchanged between the two threads using a [`crossbeam_channel::unbounded`]
 channel, meaning there is no limit to the number of storeable messages. The

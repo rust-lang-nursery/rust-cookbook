@@ -2,7 +2,7 @@
 
 [![rayon-badge]][rayon] [![cat-concurrency-badge]][cat-concurrency]
 
-This example uses [`rayon::find_any`] and [`par_iter`] to search a vector in
+This recipe uses [`rayon::find_any`] and [`par_iter`] to search a vector in
 parallel for an element satisfying the predicate in the given closure.
 
 If there are multiple elements satisfying the predicate defined in the closure

@@ -2,7 +2,7 @@
 
 [![std-badge]][std] [![cat-science-badge]][cat-science]
 
-This example calculates the standard deviation and z-score of a set of measurements.
+This recipe calculates the standard deviation and z-score of a set of measurements.
 
 The standard deviation is defined as the square root of the variance (here calculated with f32's [`sqrt`], where the variance is the [`sum`] of the squared difference between each measurement and the [`mean`], divided by the number of measurements.
 

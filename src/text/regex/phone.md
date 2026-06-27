@@ -3,7 +3,7 @@
 [![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
 
 Processes a string of text using [`Regex::captures_iter`] to capture multiple
-phone numbers.  The example here is for US convention phone numbers.
+phone numbers.  This recipe handles US convention phone numbers.
 
 ```rust,edition2018
 use anyhow::Result;

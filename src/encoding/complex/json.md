@@ -8,7 +8,7 @@ JSON.
 Unstructured JSON can be parsed into a universal [`serde_json::Value`] type that
 is able to represent any valid JSON data.
 
-The example below shows a `&str` of JSON being parsed.  The expected value is declared using the [`json!`] macro.
+The recipe below shows a `&str` of JSON being parsed.  The expected value is declared using the [`json!`] macro.
 
 ```rust,edition2018
 use serde_json::json;
