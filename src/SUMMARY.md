@@ -32,7 +32,6 @@
   - [Reload on Change](configuration/reload.md)
 - [Cryptography](cryptography.md)
   - [Hashing](cryptography/hashing.md)
-  - [Encryption](cryptography/encryption.md)
 - [Data Structures](data_structures.md)
   - [Bitfield](data_structures/bitfield.md)
   - [Collections](data_structures/collections.md)
