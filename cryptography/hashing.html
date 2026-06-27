@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-11ef6a88.js";
+            window.path_to_searchindex_js = "../searchindex-314f264c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-34fabb9b.js"></script>
+        <script src="../toc-b208ef47.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -242,6 +242,61 @@ fn main() -&gt; Result&lt;(), Unspecified&gt; {
 
     Ok(())
 }</code></pre>
+<p><a name="ex-pbkdf2"></a></p>
+<h2 id="salt-and-hash-a-password-with-pbkdf2"><a class="header" href="#salt-and-hash-a-password-with-pbkdf2">Salt and hash a password with PBKDF2</a></h2>
+<p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://img.shields.io/crates/v/ring.svg?label=ring" alt="ring-badge"></a> <a href="https://docs.rs/data-encoding/"><img src="https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding" alt="data-encoding-badge"></a> <a href="https://crates.io/categories/cryptography"><img src="https://img.shields.io/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge"></a></p>
+<p>Uses <a href="https://briansmith.org/rustdoc/ring/pbkdf2/index.html"><code>ring::pbkdf2</code></a> to hash a salted password using the PBKDF2 key derivation
+function <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.derive.html"><code>pbkdf2::derive</code></a>.  Verifies the hash is correct with
+<a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.verify.html"><code>pbkdf2::verify</code></a>. The salt is generated using
+<a href="https://briansmith.org/rustdoc/ring/rand/trait.SecureRandom.html#tymethod.fill"><code>SecureRandom::fill</code></a>, which fills the salt byte array with
+securely generated random numbers.</p>
+<pre class="playground"><code class="language-rust edition2021">use data_encoding::HEXUPPER;
+use ring::error::Unspecified;
+use ring::rand::SecureRandom;
+use ring::{digest, pbkdf2, rand};
+use std::num::NonZeroU32;
+
+fn main() -&gt; Result&lt;(), Unspecified&gt; {
+    const CREDENTIAL_LEN: usize = digest::SHA512_OUTPUT_LEN;
+    let n_iter = NonZeroU32::new(100_000).unwrap();
+    let rng = rand::SystemRandom::new();
+
+    let mut salt = [0u8; CREDENTIAL_LEN];
+    rng.fill(&amp;mut salt)?;
+
+    let password = "Guess Me If You Can!";
+    let mut pbkdf2_hash = [0u8; CREDENTIAL_LEN];
+    pbkdf2::derive(
+        pbkdf2::PBKDF2_HMAC_SHA512,
+        n_iter,
+        &amp;salt,
+        password.as_bytes(),
+        &amp;mut pbkdf2_hash,
+    );
+    println!("Salt: {}", HEXUPPER.encode(&amp;salt));
+    println!("PBKDF2 hash: {}", HEXUPPER.encode(&amp;pbkdf2_hash));
+
+    let should_succeed = pbkdf2::verify(
+        pbkdf2::PBKDF2_HMAC_SHA512,
+        n_iter,
+        &amp;salt,
+        password.as_bytes(),
+        &amp;pbkdf2_hash,
+    );
+    let wrong_password = "Definitely not the correct password";
+    let should_fail = pbkdf2::verify(
+        pbkdf2::PBKDF2_HMAC_SHA512,
+        n_iter,
+        &amp;salt,
+        wrong_password.as_bytes(),
+        &amp;pbkdf2_hash,
+    );
+
+    assert!(should_succeed.is_ok());
+    assert!(!should_fail.is_ok());
+
+    Ok(())
+}</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -257,7 +312,7 @@ Keep lines sorted.
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../cryptography/encryption.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../data_structures.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -271,7 +326,7 @@ Keep lines sorted.
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../cryptography/encryption.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../data_structures.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
