@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-1ca431f2.js";
+            window.path_to_searchindex_js = "searchindex-b86bcd99.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-b208ef47.js"></script>
+        <script src="toc-4611ab2a.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -252,6 +252,9 @@ Keep lines sorted.
 <tbody>
 <tr><td><a href="#basic-argument-parsing">Parse command line arguments</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#clap-basic">Clap Basic Argument Parsing</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#clap-derive-parser-macro">Clap Derive</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#clap-subcommands">Clap Subcommands</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#clap-argument-validation">Clap Arguments Validation</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#ansi-terminal">ANSI Terminal</a></td><td><a href="https://docs.rs/ansi_term/"><img src="https://img.shields.io/crates/v/ansi_term.svg?label=ansi_term" alt="ansi_term-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#environment-variables">Environment Variables</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#loading-config-from-the-environment">Load Config</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
@@ -1774,6 +1777,9 @@ Keep lines sorted.
 <tbody>
 <tr><td><a href="#basic-argument-parsing">Parse command line arguments</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#clap-basic">Clap Basic Argument Parsing</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#clap-derive-parser-macro">Clap Derive</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#clap-subcommands">Clap Subcommands</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
+<tr><td><a href="#clap-argument-validation">Clap Arguments Validation</a></td><td><a href="https://docs.rs/clap/"><img src="https://img.shields.io/crates/v/clap.svg?label=clap" alt="clap-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#ansi-terminal">ANSI Terminal</a></td><td><a href="https://docs.rs/ansi_term/"><img src="https://img.shields.io/crates/v/ansi_term.svg?label=ansi_term" alt="ansi_term-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#environment-variables">Environment Variables</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
 <tr><td><a href="#loading-config-from-the-environment">Load Config</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/command-line-interface"><img src="https://img.shields.io/badge/command_line--x.svg?style=social" alt="cat-command-line-badge"></a></td></tr>
@@ -2035,6 +2041,217 @@ Keep lines sorted.
 -->
 <!-- Categories -->
 <!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="clap-derive-parser-macro"><a class="header" href="#clap-derive-parser-macro">Clap Derive Parser Macro</a></h1>
+<p>Clap’s <a href="https://docs.rs/clap/*/clap/trait.Parser.html"><code>Parser</code></a> derive macro is the most common way to define a command line interface in Rust.
+Instead of manually parsing <code>std::env::args()</code>, you describe the shape of your arguments as a
+struct, and Clap generates all the parsing logic for you. This recipe defines the arguments for a
+backend server, including a required server URL and several optional settings.</p>
+<p>Whether an argument is required or optional depends on its type. Wrapping a field in <code>Option&lt;T&gt;</code>
+makes it optional, while using <code>T</code> directly makes it required. In this recipe, <code>server_address</code> is
+the only required argument, while <code>log_level</code>, <code>server_port</code>, and <code>snapshot_frequency</code> may all be
+omitted when running the program.</p>
+<p>Since command line input always arrives as plain text, custom types like <code>LogLevel</code> need a way to be
+matched against text. Deriving <a href="https://docs.rs/clap/*/clap/trait.ValueEnum.html"><code>ValueEnum</code></a> tells Clap which strings map to which variants, by
+default the lowercased variant names, so <code>--log-level warn</code> selects <code>LogLevel::Warn</code>. Any other
+value is rejected before the program runs, with an error that lists the valid choices.  Each field’s
+<code>///</code> doc comment becomes part of the generated <code>--help</code> output.</p>
+<blockquote>
+<p>This recipe requires the <a href="https://docs.rs/clap/*/clap/_features/index.html"><code>derive</code></a> feature flag to be enabled in <code>Cargo.toml</code>.</p>
+</blockquote>
+<pre class="playground"><code class="language-rust edition2024 no_run">use clap::{Parser, ValueEnum};
+use std::net::IpAddr;
+
+#[derive(ValueEnum, Clone, Debug)]
+enum LogLevel {
+    Debug,
+    Error,
+    Warn,
+    Trace,
+    Info,
+}
+
+#[derive(Parser, Clone, Debug)]
+struct CliArgs {
+    /// Logging threshold
+    #[arg(short = 'l', long = "log-level")]
+    log_level: Option&lt;LogLevel&gt;,
+
+    /// The Backend Server Address
+    #[arg(short = 'a', long = "server-address")]
+    server_address: IpAddr,
+
+    /// The Backend Server Port
+    #[arg(short = 'p', long = "server-port")]
+    server_port: Option&lt;u16&gt;,
+
+    /// Interval between database snapshots in seconds
+    #[arg(short = 's', long = "snapshot-freq")]
+    snapshot_frequency: Option&lt;usize&gt;,
+}
+
+fn main() {
+    let args = CliArgs::parse();
+    dbg!(args);
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="clap-subcommands"><a class="header" href="#clap-subcommands">Clap Subcommands</a></h1>
+<p>Many command line tools split their functionality into subcommands. Familiar tool commands include
+<code>git commit</code> and <code>cargo build</code>, where the first word selects a specific action with its own set of
+arguments. Clap supports this pattern through the <a href="https://docs.rs/clap/*/clap/trait.Subcommand.html"><code>Subcommand</code></a> trait, shown here in a small
+note-taking application with four subcommands: <code>new</code>, <code>list</code>, <code>delete</code>, and <code>update</code>.</p>
+<p>Each variant of the <code>Commands</code> enum represents one subcommand, and the fields on that variant become
+the arguments accepted by it. By default, these fields are parsed as positional arguments. Adding
+<code>#[arg(short, long)]</code> turns a field into a named flag or option instead, such as <code>--title</code> or <code>-t</code>.
+Doc comments written above each variant and field are also used by Clap to automatically generate
+the help text shown when running the program with <code>--help</code>.</p>
+<p>Some arguments are not specific to a single subcommand. The <code>color</code> field on NotesArgs is marked
+with <code>#[arg(global = true)]</code>, which makes it available before or after any subcommand, such as
+<code>notes --color new</code> or <code>notes new --color</code>. This is a convenient way to define flags or options that
+should apply across the entire application rather than to one action.</p>
+<blockquote>
+<p>This recipe requires the <a href="https://docs.rs/clap/*/clap/_features/index.html"><code>derive</code></a> feature flag to be enabled in <code>Cargo.toml</code>.</p>
+</blockquote>
+<pre class="playground"><code class="language-rust edition2024 no_run">use clap::{Parser, Subcommand};
+
+#[derive(Parser)]
+struct NotesArgs {
+    /// Enable syntax highlighting
+    #[arg(global = true, short = 'c', long = "color")]
+    color: bool,
+
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    /// Create a new note
+    New {
+        #[arg(short = 't', long = "title", help = "Title of the new note")]
+        title: String,
+        #[arg(short = 'b', long = "body", help = "Description of the note")]
+        body: Option&lt;String&gt;,
+    },
+
+    /// List all available notes
+    List,
+
+    /// Delete a note by its index. 1-based
+    Delete {
+        /// Index of the note
+        index: u64,
+    },
+
+    /// Update an existing note
+    Update {
+        /// Index of the note
+        index: u64,
+
+        #[arg(short = 't', long = "title", help = "Updated title of the note")]
+        title: Option&lt;String&gt;,
+
+        #[arg(short = 'b', long = "body", help = "Updated description of the note")]
+        body: Option&lt;String&gt;,
+    },
+}
+
+fn main() {
+    let args = NotesArgs::parse();
+    if args.color {
+        println!("Enabled syntax highlighting");
+    }
+
+    match args.command {
+        Commands::New { title, body } =&gt; {
+            // Prints:
+            //      TITLE: ...
+            //      BODY: ...
+            println!(
+                "Creating new note!\nTITLE: {}\n{}",
+                title,
+                if let Some(body) = body {
+                    format!("BODY: {}", body)
+                } else {
+                    "".into()
+                }
+            );
+        }
+        Commands::List =&gt; println!("Listing available tasks"),
+        Commands::Delete { index } =&gt; println!("Deleting note {index}"),
+        Commands::Update { index, title, body } =&gt; {
+            println!("Updating note {index}");
+            if let Some(title) = title {
+                println!("NEW TITLE: {title}");
+            }
+            if let Some(body) = body {
+                println!("NEW BODY: {body}");
+            }
+        }
+    }
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="clap-argument-validation"><a class="header" href="#clap-argument-validation">Clap Argument Validation</a></h1>
+<p>Not every argument can be trusted simply because it parses into the right type. A string might
+convert fine into a <a href="https://doc.rust-lang.org/std/path/struct.PathBuf.html"><code>PathBuf</code></a> or a number, while still being meaningless in context, such as a
+percentage over 100 or a path that does not point to an existing file. Clap addresses this through
+the <a href="https://docs.rs/clap/*/clap/macro.value_parser.html"><code>value_parser</code></a> attribute, which lets you attach custom validation logic to an argument beyond
+basic type conversion. This recipe uses a disk-cleanup tool to demonstrate three common validation
+patterns: numeric ranges, file existence checks, and custom string formats.</p>
+<p>For numeric ranges, Clap provides a built-in solution. The <code>threshold</code> field uses
+<code>value_parser!(u8).range(0..=100)</code>, which rejects any value outside that range before the program
+even runs, removing the need for manual bounds checking in your own code.</p>
+<p>For validation that goes beyond simple ranges, you can write your own parser function and pass it to
+<code>value_parser</code>. The <code>config</code> field uses <code>parse_config</code>, which checks that the given path actually
+exists as a file. Similarly, the <code>notify</code> field uses <code>parse_email</code>, which performs a basic
+structural check on the input. Refer to this <a href="https://rust-lang-nursery.github.io/rust-cookbook/text/regex.html#verify-and-extract-login-from-an-email-address"><code>recipe</code></a> for concrete email validation. Both
+functions return a <code>Result&lt;T, String&gt;</code>, where the error message becomes part of the output Clap
+shows the user when validation fails, making it clear which argument was invalid and why.</p>
+<blockquote>
+<p>This recipe requires the <a href="https://docs.rs/clap/*/clap/_features/index.html"><code>derive</code></a> feature flag to be enabled in <code>Cargo.toml</code>.</p>
+</blockquote>
+<pre class="playground"><code class="language-rust edition2024 no_run">use clap::{Parser, value_parser};
+use std::path::PathBuf;
+
+#[derive(Debug, Parser)]
+struct CliArgs {
+    /// Path to scan for cleanup
+    #[arg(short = 'p', long = "path")]
+    path: PathBuf,
+
+    /// Free space until usage falls below this percentage
+    #[arg(short = 't', long = "threshold", value_parser = value_parser!(u8).range(0..=100))]
+    threshold: u8,
+
+    /// Path to config file
+    #[arg(short = 'c', long = "config", value_parser = parse_config)]
+    config: PathBuf,
+
+    /// Email to notify on completion
+    #[arg(short = 'n', long = "notify", value_parser = parse_email)]
+    notify: String,
+}
+
+fn parse_email(s: &amp;str) -&gt; Result&lt;String, String&gt; {
+    match s.split_once('@') {
+        Some((user, domain)) if !user.is_empty() &amp;&amp; domain.contains('.') =&gt; Ok(s.to_string()),
+        _ =&gt; Err("Invalid email format".to_string()),
+    }
+}
+
+fn parse_config(s: &amp;str) -&gt; Result&lt;PathBuf, String&gt; {
+    let path = PathBuf::from(s);
+    if path.is_file() {
+        Ok(path)
+    } else {
+        Err("Provided config path is not a file".to_string())
+    }
+}
+
+fn main() {
+    let args = CliArgs::parse();
+    dbg!(args);
+}</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ansi-terminal"><a class="header" href="#ansi-terminal">ANSI Terminal</a></h1>
 <h2 id="ansi-terminal-1"><a class="header" href="#ansi-terminal-1">ANSI Terminal</a></h2>
