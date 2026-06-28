@@ -4,7 +4,7 @@ Not every argument can be trusted simply because it parses into the right type. 
 convert fine into a [`PathBuf`] or a number, while still being meaningless in context, such as a
 percentage over 100 or a path that does not point to an existing file. Clap addresses this through
 the [`value_parser`] attribute, which lets you attach custom validation logic to an argument beyond
-basic type conversion. This example uses a disk-cleanup tool to demonstrate three common validation
+basic type conversion. This recipe uses a disk-cleanup tool to demonstrate three common validation
 patterns: numeric ranges, file existence checks, and custom string formats.
 
 For numeric ranges, Clap provides a built-in solution. The `threshold` field uses
@@ -14,11 +14,11 @@ even runs, removing the need for manual bounds checking in your own code.
 For validation that goes beyond simple ranges, you can write your own parser function and pass it to
 `value_parser`. The `config` field uses `parse_config`, which checks that the given path actually
 exists as a file. Similarly, the `notify` field uses `parse_email`, which performs a basic
-structural check on the input. Both functions return a `Result<T, String>`, where the error message
-becomes part of the output Clap shows the user when validation fails, making it clear which argument
-was invalid and why.
+structural check on the input. Refer to this [`recipe`] for concrete email validation. Both
+functions return a `Result<T, String>`, where the error message becomes part of the output Clap
+shows the user when validation fails, making it clear which argument was invalid and why.
 
-> This example requires the [`derive`] feature flag to be enabled in `Cargo.toml`.
+> This recipe requires the [`derive`] feature flag to be enabled in `Cargo.toml`.
 
 ```rust,edition2024,no_run
 use clap::{Parser, value_parser};
@@ -44,7 +44,6 @@ struct CliArgs {
 }
 
 fn parse_email(s: &str) -> Result<String, String> {
-    // naive email validation. Prefer regex (https://docs.rs/regex/latest/regex/)
     match s.split_once('@') {
         Some((user, domain)) if !user.is_empty() && domain.contains('.') => Ok(s.to_string()),
         _ => Err("Invalid email format".to_string()),
@@ -68,4 +67,5 @@ fn main() {
 
 [`PathBuf`]: https://doc.rust-lang.org/std/path/struct.PathBuf.html
 [`derive`]: https://docs.rs/clap/*/clap/_features/index.html
+[`recipe`]: https://rust-lang-nursery.github.io/rust-cookbook/text/regex.html#verify-and-extract-login-from-an-email-address
 [`value_parser`]: https://docs.rs/clap/*/clap/macro.value_parser.html

@@ -1,7 +1,7 @@
 # Clap Subcommands
 
-Many command line tools split their functionality into subcommands. Familiar examples include `git
-commit` and `cargo build`, where the first word selects a specific action with its own set of
+Many command line tools split their functionality into subcommands. Familiar tool commands include
+`git commit` and `cargo build`, where the first word selects a specific action with its own set of
 arguments. Clap supports this pattern through the [`Subcommand`] trait, shown here in a small
 note-taking application with four subcommands: `new`, `list`, `delete`, and `update`.
 
@@ -16,7 +16,7 @@ with ``#[arg(global = true)]``, which makes it available before or after any sub
 `notes --color new` or `notes new --color`. This is a convenient way to define flags or options that
 should apply across the entire application rather than to one action.
 
-> This example requires the [`derive`] feature flag to be enabled in `Cargo.toml`.
+> This recipe requires the [`derive`] feature flag to be enabled in `Cargo.toml`.
 
 ```rust,edition2024,no_run
 use clap::{Parser, Subcommand};
@@ -44,7 +44,7 @@ enum Commands {
     /// List all available notes
     List,
 
-    /// Delete a note by it's index. 1-based
+    /// Delete a note by its index. 1-based
     Delete {
         /// Index of the note
         index: u64,
