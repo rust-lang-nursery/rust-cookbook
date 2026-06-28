@@ -350,6 +350,7 @@ StripPrefixError
 strs
 struct
 structs
+subcommand
 subcommands
 subdirectories
 subfolders
