@@ -6,6 +6,8 @@
 
 {{#include string/hex.md}}
 
+{{#include string/base32.md}}
+
 {{#include string/base64.md}}
 
 {{#include ../links.md}}
