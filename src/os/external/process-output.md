@@ -26,4 +26,5 @@ fn main() -> Result<()> {
 
 [`Command`]: https://doc.rust-lang.org/std/process/struct.Command.html
 [`Output`]: https://doc.rust-lang.org/std/process/struct.Output.html
-[`Regex`]: https://docs.rs/regex/*/regex/struct.Regex.html
+[`String::from_utf8`]: https://doc.rust-lang.org/std/string/struct.String.html#method.from_utf8
+[`String`]: https://doc.rust-lang.org/std/string/struct.String.html
