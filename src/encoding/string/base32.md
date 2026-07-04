@@ -1,4 +1,4 @@
-## Encode and decode base32
+## Generate OTP with a Base32 set
 
 [![data-encoding-badge]][data-encoding] [![cat-encoding-badge]][cat-encoding]
 
@@ -41,7 +41,7 @@ fn main() -> Result<(), DecodeError> {
 }
 
 fn make_password(entropy: &[u8]) -> String {
-    BASE32_NOPAD.encode(&entropy)
+    BASE32_NOPAD.encode(entropy)
 }
 
 fn read_entropy(password: &str) -> Result<Vec<u8>, DecodeError> {
