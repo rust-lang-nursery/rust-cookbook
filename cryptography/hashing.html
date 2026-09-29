@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -187,8 +187,8 @@
 <p>Writes some data to a file, then calculates the SHA-256 <a href="https://briansmith.org/rustdoc/ring/digest/struct.Digest.html"><code>digest::Digest</code></a> of
 the file’s contents using <a href="https://briansmith.org/rustdoc/ring/digest/struct.Context.html"><code>digest::Context</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
-use ring::digest::{Context, Digest, SHA256};
 use data_encoding::HEXUPPER;
+use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;
 use std::io::{BufReader, Read, Write};
 
@@ -226,9 +226,9 @@ fn main() -&gt; Result&lt;()&gt; {
 <p>The <a href="https://docs.rs/ring/*/ring/hmac/fn.sign.html"><code>hmac::sign</code></a> method is used to calculate the HMAC digest (also called a tag) of the message using the provided key.
 The resulting <a href="https://docs.rs/ring/*/ring/hmac/struct.Tag.html"><code>hmac::Tag</code></a> structure contains the raw bytes of the HMAC,
 which can later be verified with<a href="https://docs.rs/ring/*/ring/hmac/fn.verify.html"><code>hmac::verify</code></a> to ensure the message has not been tampered with and comes from a trusted source.</p>
-<pre class="playground"><code class="language-rust edition2021">use ring::{hmac, rand};
+<pre class="playground"><code class="language-rust edition2021">use ring::error::Unspecified;
 use ring::rand::SecureRandom;
-use ring::error::Unspecified;
+use ring::{hmac, rand};
 
 fn main() -&gt; Result&lt;(), Unspecified&gt; {
     let mut key_value = [0u8; 48];

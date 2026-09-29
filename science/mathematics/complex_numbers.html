@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-83955176.js"></script>
@@ -186,8 +186,7 @@
 <p><a href="https://docs.rs/num/"><img src="https://img.shields.io/crates/v/num.svg?label=num" alt="num-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Creates complex numbers of type <a href="https://autumnai.github.io/cuticula/num/complex/struct.Complex.html"><code>num::complex::Complex</code></a>. Both the real and
 imaginary part of the complex number must be of the same type.</p>
-<pre class="playground"><code class="language-rust edition2018">
-fn main() {
+<pre class="playground"><code class="language-rust edition2018">fn main() {
     let complex_integer = num::complex::Complex::new(10, 20);
     let complex_float = num::complex::Complex::new(10.1, 20.1);
 
@@ -199,8 +198,7 @@ fn main() {
 <p>Performing mathematical operations on complex numbers is the same as on
 built in types: the numbers in question must be of the same type (i.e. floats
 or integers).</p>
-<pre class="playground"><code class="language-rust edition2018">
-fn main() {
+<pre class="playground"><code class="language-rust edition2018">fn main() {
     let complex_num1 = num::complex::Complex::new(10.0, 20.0); // Must use floats
     let complex_num2 = num::complex::Complex::new(3.1, -4.2);
 
@@ -215,12 +213,11 @@ how they interact with other mathematical functions, most notibly the family
 of sine functions as well as the number e. To use these functions with
 complex numbers, the Complex type has a few built in
 functions, all of which can be found here: <a href="https://autumnai.github.io/cuticula/num/complex/struct.Complex.html"><code>num::complex::Complex</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">
+<pre class="playground"><code class="language-rust edition2018">use num::complex::Complex;
 use std::f64::consts::PI;
-use num::complex::Complex;
 
 fn main() {
-    let x = Complex::new(0.0, 2.0*PI);
+    let x = Complex::new(0.0, 2.0 * PI);
 
     println!("e^(2i * pi) = {}", x.exp()); // =~1
 }</code></pre>

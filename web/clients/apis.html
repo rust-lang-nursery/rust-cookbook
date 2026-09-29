@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-83955176.js"></script>
@@ -192,9 +192,9 @@ environment variable <code>GITHUB_TOKEN</code>. Request setup includes the [<cod
 header as required by the [GitHub API][github-api]. The program deserializes
 the response body with [<code>serde_json::from_str</code>] into a vector of <code>User</code> objects and
 processing the response into User instances.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use serde::Deserialize;
+<pre class="playground"><code class="language-rust edition2021 no_run">use reqwest::header::USER_AGENT;
 use reqwest::Error;
-use reqwest::header::USER_AGENT;
+use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 struct User {
@@ -203,11 +203,13 @@ struct User {
 }
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
-    let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
-                              owner = "rust-lang-nursery",
-                              repo = "rust-cookbook");
+    let request_url = format!(
+        "https://api.github.com/repos/{owner}/{repo}/stargazers",
+        owner = "rust-lang-nursery",
+        repo = "rust-cookbook"
+    );
     println!("{}", request_url);
-    
+
     let client = reqwest::blocking::Client::new();
     let response = client
         .get(request_url)
@@ -227,9 +229,9 @@ with <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method
 timeout.</p>
 <p>Due to both <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.build"><code>ClientBuilder::build</code></a> and [<code>ReqwestBuilder::send</code>] returning <a href="https://docs.rs/reqwest/*/reqwest/struct.Error.html"><code>reqwest::Error</code></a>
 types, the shortcut <a href="https://docs.rs/reqwest/*/reqwest/type.Result.html"><code>reqwest::Result</code></a> is used for the main function return type.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use reqwest::Result;
+<pre class="playground"><code class="language-rust edition2021 no_run">use reqwest::ClientBuilder;
+use reqwest::Result;
 use std::time::Duration;
-use reqwest::ClientBuilder;
 
 fn main() -&gt; Result&lt;()&gt; {
     let user = "ferris-the-crab";
@@ -237,7 +239,9 @@ fn main() -&gt; Result&lt;()&gt; {
     println!("{}", request_url);
 
     let timeout = Duration::new(5, 0);
-    let client = reqwest::blocking::ClientBuilder::new().timeout(timeout).build()?;
+    let client = reqwest::blocking::ClientBuilder::new()
+        .timeout(timeout)
+        .build()?;
     let response = client.head(&amp;request_url).send()?;
 
     if response.status().is_success() {
@@ -258,10 +262,10 @@ provides arbitrary JSON body. Call to <a href="https://docs.rs/reqwest/*/reqwest
 body. <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth"><code>RequestBuilder::basic_auth</code></a> handles authentication. The call to
 <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> synchronously executes the requests.</p>
 <pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+use reqwest::Client;
 use serde::Deserialize;
 use serde_json::json;
 use std::env;
-use reqwest::Client;
 
 #[derive(Deserialize, Debug)]
 struct Gist {
@@ -274,13 +278,13 @@ fn main() -&gt; Result&lt;()&gt; {
     let gh_pass = env::var("GH_PASS")?;
 
     let gist_body = json!({
-        "description": "the description for this gist",
-        "public": true,
-        "files": {
-             "main.rs": {
-             "content": r#"fn main() { println!("hello world!");}"#
-            }
-        }});
+    "description": "the description for this gist",
+    "public": true,
+    "files": {
+         "main.rs": {
+         "content": r#"fn main() { println!("hello world!");}"#
+        }
+    }});
 
     let request_url = "https://api.github.com/gists";
     let response = reqwest::blocking::Client::new()
@@ -292,13 +296,17 @@ fn main() -&gt; Result&lt;()&gt; {
     let gist: Gist = response.json()?;
     println!("Created {:?}", gist);
 
-    let request_url = format!("{}/{}",request_url, gist.id);
+    let request_url = format!("{}/{}", request_url, gist.id);
     let response = reqwest::blocking::Client::new()
         .delete(&amp;request_url)
         .basic_auth(gh_user, Some(gh_pass))
         .send()?;
 
-    println!("Gist {} deleted! Status code: {}",gist.id, response.status());
+    println!(
+        "Gist {} deleted! Status code: {}",
+        gist.id,
+        response.status()
+    );
     Ok(())
 }</code></pre>
 <p>This recipe uses <a href="https://tools.ietf.org/html/rfc2617">HTTP Basic Auth</a> in order to authorize access to <a href="https://developer.github.com/v3/auth/">GitHub API</a>.

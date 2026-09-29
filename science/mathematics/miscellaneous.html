@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-83955176.js"></script>
@@ -185,8 +185,7 @@
 <h2 id="big-integers"><a class="header" href="#big-integers">Big integers</a></h2>
 <p><a href="https://docs.rs/num/"><img src="https://img.shields.io/crates/v/num.svg?label=num" alt="num-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Calculation for integers exceeding 128 bits are possible with <a href="https://docs.rs/num/0.2.0/num/struct.BigInt.html"><code>BigInt</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">
-use num::bigint::{BigInt, ToBigInt};
+<pre class="playground"><code class="language-rust edition2018">use num::bigint::{BigInt, ToBigInt};
 
 fn factorial(x: i32) -&gt; BigInt {
     if let Some(mut factorial) = 1.to_bigint() {
@@ -194,8 +193,7 @@ fn factorial(x: i32) -&gt; BigInt {
             factorial = factorial * i;
         }
         factorial
-    }
-    else {
+    } else {
         panic!("Failed to calculate factorial!");
     }
 }

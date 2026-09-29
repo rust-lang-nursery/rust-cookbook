@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -189,7 +189,7 @@ be to use <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort
 the order of equal elements.</p>
 <pre class="playground"><code class="language-rust edition2018">fn main() {
     let mut vec = vec![1, 5, 10, 2, 15];
-    
+
     vec.sort();
 
     assert_eq!(vec, vec![1, 2, 5, 10, 15]);
@@ -215,14 +215,14 @@ You can also provide a custom comparator function using a <a href="https://doc.r
 <pre class="playground"><code class="language-rust edition2018">#[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct Person {
     name: String,
-    age: u32
+    age: u32,
 }
 
 impl Person {
     pub fn new(name: &amp;str, age: u32) -&gt; Self {
         Person {
             name: name.to_string(),
-            age
+            age,
         }
     }
 }
@@ -243,7 +243,8 @@ fn main() {
             Person::new("Al", 60),
             Person::new("John", 1),
             Person::new("Zoe", 25),
-        ]);
+        ]
+    );
 
     // Sort people by age
     people.sort_by(|a, b| b.age.cmp(&amp;a.age));
@@ -254,10 +255,9 @@ fn main() {
             Person::new("Al", 60),
             Person::new("Zoe", 25),
             Person::new("John", 1),
-        ]);
-
-}
-</code></pre>
+        ]
+    );
+}</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.

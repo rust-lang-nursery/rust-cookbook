@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -190,9 +190,8 @@
 
 fn main() {
     let name = "José Guimarães\r\n";
-    let graphemes = UnicodeSegmentation::graphemes(name, true)
-    	.collect::&lt;Vec&lt;&amp;str&gt;&gt;();
-	assert_eq!(graphemes[3], "é");
+    let graphemes = UnicodeSegmentation::graphemes(name, true).collect::&lt;Vec&lt;&amp;str&gt;&gt;();
+    assert_eq!(graphemes[3], "é");
 }</code></pre>
 <h2 id="implement-the-fromstr-trait-for-a-custom-struct"><a class="header" href="#implement-the-fromstr-trait-for-a-custom-struct">Implement the <code>FromStr</code> trait for a custom <code>struct</code></a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
@@ -212,7 +211,6 @@ impl FromStr for RGB {
     // Parses a color hex code of the form '#rRgGbB..' into an
     // instance of 'RGB'
     fn from_str(hex_code: &amp;str) -&gt; Result&lt;Self, Self::Err&gt; {
-	
         // u8::from_str_radix(src: &amp;str, radix: u32) converts a string
         // slice in a given base to u8
         let r: u8 = u8::from_str_radix(&amp;hex_code[1..3], 16)?;

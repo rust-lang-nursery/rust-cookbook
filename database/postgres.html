@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -186,46 +186,48 @@
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>Use the <a href="https://docs.rs/postgres/0.17.2/postgres/"><code>postgres</code></a> crate to create tables in a Postgres database.</p>
 <p><a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.connect"><code>Client::connect</code></a> helps in connecting to an existing database. The recipe uses a URL string format with <code>Client::connect</code>. It assumes an existing database named <code>library</code>, the username is <code>postgres</code> and the password is <code>postgres</code>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, NoTls, Error};
+<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", NoTls)?;
-    
-    client.batch_execute("
+
+    client.batch_execute(
+        "
         CREATE TABLE IF NOT EXISTS author (
             id              SERIAL PRIMARY KEY,
             name            VARCHAR NOT NULL,
             country         VARCHAR NOT NULL
             )
-    ")?;
+    ",
+    )?;
 
-    client.batch_execute("
+    client.batch_execute(
+        "
         CREATE TABLE IF NOT EXISTS book  (
             id              SERIAL PRIMARY KEY,
             title           VARCHAR NOT NULL,
             author_id       INTEGER NOT NULL REFERENCES author
             )
-    ")?;
+    ",
+    )?;
 
     Ok(())
-
 }</code></pre>
 <h2 id="insert-and-query-data"><a class="header" href="#insert-and-query-data">Insert and Query data</a></h2>
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>The recipe inserts data into the <code>author</code> table using <a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.execute"><code>execute</code></a> method of <code>Client</code>. Then, displays the data from the <code>author</code> table  using <a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.query"><code>query</code></a> method of <code>Client</code>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, NoTls, Error};
+<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
 use std::collections::HashMap;
 
 struct Author {
     _id: i32,
     name: String,
-    country: String
+    country: String,
 }
 
 fn main() -&gt; Result&lt;(), Error&gt; {
-    let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", 
-                                    NoTls)?;
-    
+    let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", NoTls)?;
+
     let mut authors = HashMap::new();
     authors.insert(String::from("Chinua Achebe"), "Nigeria");
     authors.insert(String::from("Rabindranath Tagore"), "India");
@@ -235,12 +237,12 @@ fn main() -&gt; Result&lt;(), Error&gt; {
         let author = Author {
             _id: 0,
             name: key.to_string(),
-            country: value.to_string()
+            country: value.to_string(),
         };
 
         client.execute(
-                "INSERT INTO author (name, country) VALUES ($1, $2)",
-                &amp;[&amp;author.name, &amp;author.country],
+            "INSERT INTO author (name, country) VALUES ($1, $2)",
+            &amp;[&amp;author.name, &amp;author.country],
         )?;
     }
 
@@ -254,7 +256,6 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     }
 
     Ok(())
-
 }</code></pre>
 <h2 id="aggregate-data"><a class="header" href="#aggregate-data">Aggregate data</a></h2>
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
@@ -267,26 +268,21 @@ struct Nation {
 }
 
 fn main() -&gt; Result&lt;(), Error&gt; {
-    let mut client = Client::connect(
-        "postgresql://postgres:postgres@127.0.0.1/moma",
-        NoTls,
-    )?;
+    let mut client = Client::connect("postgresql://postgres:postgres@127.0.0.1/moma", NoTls)?;
 
-    for row in client.query 
-	("SELECT nationality, COUNT(nationality) AS count 
-	FROM artists GROUP BY nationality ORDER BY count DESC", &amp;[])? {
-        
-        let (nationality, count) : (Option&lt;String&gt;, Option&lt;i64&gt;) 
-		= (row.get (0), row.get (1));
-        
-        if nationality.is_some () &amp;&amp; count.is_some () {
+    for row in client.query(
+        "SELECT nationality, COUNT(nationality) AS count 
+	FROM artists GROUP BY nationality ORDER BY count DESC",
+        &amp;[],
+    )? {
+        let (nationality, count): (Option&lt;String&gt;, Option&lt;i64&gt;) = (row.get(0), row.get(1));
 
+        if nationality.is_some() &amp;&amp; count.is_some() {
             let nation = Nation {
                 nationality: nationality.unwrap(),
                 count: count.unwrap(),
             };
             println!("{} {}", nation.nationality, nation.count);
-            
         }
     }
 

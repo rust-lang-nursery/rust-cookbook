@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-83955176.js"></script>
@@ -190,8 +190,8 @@ a file over HTTP using <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><
 <a href="https://docs.rs/tempfile/*/tempfile/struct.TempDir.html#method.path"><code>tempfile::TempDir::path</code></a> and copies downloaded data to it with <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>.
 The temporary directory is automatically removed on program exit.</p>
 <pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
-use std::io::Write;
 use std::fs::File;
+use std::io::Write;
 use tempfile::Builder;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -212,7 +212,7 @@ fn main() -&gt; Result&lt;()&gt; {
         println!("will be located under: '{:?}'", fname);
         File::create(fname)?
     };
-    let content =  response.bytes()?;
+    let content = response.bytes()?;
     dest.write_all(&amp;content)?;
     Ok(())
 }</code></pre>
@@ -236,11 +236,9 @@ fn main() -&gt; Result&lt;()&gt; {
     file.read_to_string(&amp;mut contents)?;
 
     let client = reqwest::blocking::Client::new();
-    let res = client.post(paste_api)
-        .body(contents)
-        .send()?;
+    let res = client.post(paste_api).body(contents).send()?;
     let response_text = res.text()?;
-    println!("Your paste is located at: {}",response_text );
+    println!("Your paste is located at: {}", response_text);
     Ok(())
 }</code></pre>
 <h2 id="make-a-partial-download-with-http-range-headers"><a class="header" href="#make-a-partial-download-with-http-range-headers">Make a partial download with HTTP range headers</a></h2>
@@ -252,72 +250,78 @@ in chunks of 10240 bytes, while printing progress messages. This approach is
 useful to control memory usage for large files and allows for resumable
 downloads.</p>
 <p>The Range header is defined in <a href="https://tools.ietf.org/html/rfc7233#section-3.1">RFC7233</a>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::{Result, anyhow};
+<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::{anyhow, Result};
 use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
 use reqwest::StatusCode;
 use std::fs::File;
 use std::str::FromStr;
 
 struct PartialRangeIter {
-  start: u64,
-  end: u64,
-  buffer_size: u32,
+    start: u64,
+    end: u64,
+    buffer_size: u32,
 }
 
 impl PartialRangeIter {
-  pub fn new(start: u64, end: u64, buffer_size: u32) -&gt; Result&lt;Self&gt; {
-    if buffer_size == 0 {
-      return Err(anyhow!("invalid buffer_size, give a value greater than zero."));
+    pub fn new(start: u64, end: u64, buffer_size: u32) -&gt; Result&lt;Self&gt; {
+        if buffer_size == 0 {
+            return Err(anyhow!(
+                "invalid buffer_size, give a value greater than zero."
+            ));
+        }
+        Ok(PartialRangeIter {
+            start,
+            end,
+            buffer_size,
+        })
     }
-    Ok(PartialRangeIter {
-      start,
-      end,
-      buffer_size,
-    })
-  }
 }
 
 impl Iterator for PartialRangeIter {
-  type Item = HeaderValue;
-  fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
-    if self.start &gt; self.end {
-      None
-    } else {
-      let prev_start = self.start;
-      self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
-      Some(HeaderValue::from_str(&amp;format!("bytes={}-{}", prev_start, self.start - 1)).expect("string provided by format!"))
+    type Item = HeaderValue;
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        if self.start &gt; self.end {
+            None
+        } else {
+            let prev_start = self.start;
+            self.start += std::cmp::min(self.buffer_size as u64, self.end - self.start + 1);
+            Some(
+                HeaderValue::from_str(&amp;format!("bytes={}-{}", prev_start, self.start - 1))
+                    .expect("string provided by format!"),
+            )
+        }
     }
-  }
 }
 
 fn main() -&gt; Result&lt;()&gt; {
-  let url = "https://httpbin.org/range/102400?duration=2";
-  const CHUNK_SIZE: u32 = 10240;
-    
-  let client = reqwest::blocking::Client::new();
-  let response = client.head(url).send()?;
-  let length = response
-    .headers()
-    .get(CONTENT_LENGTH)
-    .ok_or_else(|| anyhow!("response doesn't include the content length"))?;
-  let length = u64::from_str(length.to_str()?).map_err(|_| anyhow!("invalid Content-Length header"))?;
-    
-  let mut output_file = File::create("download.bin")?;
-    
-  println!("starting download...");
-  for range in PartialRangeIter::new(0, length - 1, CHUNK_SIZE)? {
-    println!("range {:?}", range);
-    let mut response = client.get(url).header(RANGE, range).send()?;
-    
-    let status = response.status();
-    if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
-      return Err(anyhow!("Unexpected server response: {}", status));
+    let url = "https://httpbin.org/range/102400?duration=2";
+    const CHUNK_SIZE: u32 = 10240;
+
+    let client = reqwest::blocking::Client::new();
+    let response = client.head(url).send()?;
+    let length = response
+        .headers()
+        .get(CONTENT_LENGTH)
+        .ok_or_else(|| anyhow!("response doesn't include the content length"))?;
+    let length =
+        u64::from_str(length.to_str()?).map_err(|_| anyhow!("invalid Content-Length header"))?;
+
+    let mut output_file = File::create("download.bin")?;
+
+    println!("starting download...");
+    for range in PartialRangeIter::new(0, length - 1, CHUNK_SIZE)? {
+        println!("range {:?}", range);
+        let mut response = client.get(url).header(RANGE, range).send()?;
+
+        let status = response.status();
+        if !(status == StatusCode::OK || status == StatusCode::PARTIAL_CONTENT) {
+            return Err(anyhow!("Unexpected server response: {}", status));
+        }
+        std::io::copy(&amp;mut response, &amp;mut output_file)?;
     }
-    std::io::copy(&amp;mut response, &amp;mut output_file)?;
-  }
-    
-  println!("Finished with success!");
-  Ok(())
+
+    println!("Finished with success!");
+    Ok(())
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.

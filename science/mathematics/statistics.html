@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-83955176.js"></script>
@@ -193,8 +193,8 @@
     let count = data.len();
 
     let mean = match count {
-       positive if positive &gt; 0 =&gt; Some(sum  / count as f32),
-       _ =&gt; None
+        positive if positive &gt; 0 =&gt; Some(sum / count as f32),
+        _ =&gt; None,
     };
 
     println!("Mean of the data is {:?}", mean);
@@ -208,18 +208,17 @@ fn partition(data: &amp;[i32]) -&gt; Option&lt;(Vec&lt;i32&gt;, i32, Vec&lt;i32&
         _ =&gt; {
             let (pivot_slice, tail) = data.split_at(1);
             let pivot = pivot_slice[0];
-            let (left, right) = tail.iter()
-                .fold((vec![], vec![]), |mut splits, next| {
-                    {
-                        let (ref mut left, ref mut right) = &amp;mut splits;
-                        if next &lt; &amp;pivot {
-                            left.push(*next);
-                        } else {
-                            right.push(*next);
-                        }
+            let (left, right) = tail.iter().fold((vec![], vec![]), |mut splits, next| {
+                {
+                    let (ref mut left, ref mut right) = &amp;mut splits;
+                    if next &lt; &amp;pivot {
+                        left.push(*next);
+                    } else {
+                        right.push(*next);
                     }
-                    splits
-                });
+                }
+                splits
+            });
 
             Some((left, pivot, right))
         }
@@ -239,7 +238,7 @@ fn select(data: &amp;[i32], k: usize) -&gt; Option&lt;i32&gt; {
                 Ordering::Greater =&gt; select(&amp;left, k),
                 Ordering::Less =&gt; select(&amp;right, k - (pivot_idx + 1)),
             }
-        },
+        }
     }
 }
 
@@ -253,10 +252,10 @@ fn median(data: &amp;[i32]) -&gt; Option&lt;f32&gt; {
 
             match (fst_med, snd_med) {
                 (Some(fst), Some(snd)) =&gt; Some((fst + snd) as f32 / 2.0),
-                _ =&gt; None
+                _ =&gt; None,
             }
-        },
-        odd =&gt; select(data, odd / 2).map(|x| x as f32)
+        }
+        odd =&gt; select(data, odd / 2).map(|x| x as f32),
     }
 }
 
@@ -308,15 +307,19 @@ fn main() {
 fn std_deviation(data: &amp;[i32]) -&gt; Option&lt;f32&gt; {
     match (mean(data), data.len()) {
         (Some(data_mean), count) if count &gt; 0 =&gt; {
-            let variance = data.iter().map(|value| {
-                let diff = data_mean - (*value as f32);
+            let variance = data
+                .iter()
+                .map(|value| {
+                    let diff = data_mean - (*value as f32);
 
-                diff * diff
-            }).sum::&lt;f32&gt;() / count as f32;
+                    diff * diff
+                })
+                .sum::&lt;f32&gt;()
+                / count as f32;
 
             Some(variance.sqrt())
-        },
-        _ =&gt; None
+        }
+        _ =&gt; None,
     }
 }
 
@@ -334,10 +337,13 @@ fn main() {
             let diff = data[4] as f32 - mean;
 
             Some(diff / std_deviation)
-        },
-        _ =&gt; None
+        }
+        _ =&gt; None,
     };
-    println!("Z-score of data at index 4 (with value {}) is {:?}", data[4], zscore);
+    println!(
+        "Z-score of data at index 4 (with value {}) is {:?}",
+        data[4], zscore
+    );
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.

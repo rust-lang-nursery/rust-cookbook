@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-83955176.js"></script>
@@ -247,15 +247,16 @@ timezone and uses <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#
 a timestamp used in the final log.</p>
 <p>This recipe calls <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.format"><code>Builder::format</code></a> to set a closure which formats each
 message text with timestamp, <a href="https://docs.rs/log/*/log/struct.Record.html#method.level"><code>Record::level</code></a> and body (<a href="https://docs.rs/log/*/log/struct.Record.html#method.args"><code>Record::args</code></a>).</p>
-<pre class="playground"><code class="language-rust edition2018">use std::io::Write;
-use chrono::Local;
+<pre class="playground"><code class="language-rust edition2018">use chrono::Local;
 use env_logger::Builder;
 use log::LevelFilter;
+use std::io::Write;
 
 fn main() {
     Builder::new()
         .format(|buf, record| {
-            writeln!(buf,
+            writeln!(
+                buf,
                 "{} [{}] - {}",
                 Local::now().format("%Y-%m-%dT%H:%M:%S"),
                 record.level(),
@@ -285,8 +286,8 @@ Assigns the configuration to <a href="https://docs.rs/log4rs/*/log4rs/config/run
 <pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
 use log::LevelFilter;
 use log4rs::append::file::FileAppender;
-use log4rs::encode::pattern::PatternEncoder;
 use log4rs::config::{Appender, Config, Root};
+use log4rs::encode::pattern::PatternEncoder;
 
 fn main() -&gt; Result&lt;()&gt; {
     let logfile = FileAppender::builder()
@@ -295,9 +296,7 @@ fn main() -&gt; Result&lt;()&gt; {
 
     let config = Config::builder()
         .appender(Appender::builder().build("logfile", Box::new(logfile)))
-        .build(Root::builder()
-                   .appender("logfile")
-                   .build(LevelFilter::Info))?;
+        .build(Root::builder().appender("logfile").build(LevelFilter::Info))?;
 
     log4rs::init_config(config)?;
 

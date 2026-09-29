@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -187,7 +187,7 @@
 <p>Encode an input string with <a href="https://en.wikipedia.org/wiki/Percent-encoding">percent-encoding</a> using the
 <a href="https://docs.rs/percent-encoding/*/percent_encoding/fn.utf8_percent_encode.html"><code>utf8_percent_encode</code></a> function from the <code>percent-encoding</code> crate. Then decode
 using the <a href="https://docs.rs/percent-encoding/*/percent_encoding/fn.percent_decode.html"><code>percent_decode</code></a> function.</p>
-<pre class="playground"><code class="language-rust edition2018">use percent_encoding::{utf8_percent_encode, percent_decode, AsciiSet, CONTROLS};
+<pre class="playground"><code class="language-rust edition2018">use percent_encoding::{percent_decode, utf8_percent_encode, AsciiSet, CONTROLS};
 use std::str::Utf8Error;
 
 /// https://url.spec.whatwg.org/#fragment-percent-encode-set
@@ -239,7 +239,7 @@ representation of the data.</p>
 returns a <code>Vec&lt;u8&gt;</code> if the input data is successfully decoded.</p>
 <p>The recipe below converts <code>&amp;[u8]</code> data to hexadecimal equivalent.  Compares this
 value to the expected value.</p>
-<pre class="playground"><code class="language-rust edition2018">use data_encoding::{HEXUPPER, DecodeError};
+<pre class="playground"><code class="language-rust edition2018">use data_encoding::{DecodeError, HEXUPPER};
 
 fn main() -&gt; Result&lt;(), DecodeError&gt; {
     let original = b"The quick brown fox jumps over the lazy dog.";
@@ -269,7 +269,7 @@ characters and understands them as their uppercase version).</p>
 random bytes to base32. It then assumes the password was entered by a human with
 some visual errors. It finally makes sure the entered password decodes back to
 the initial random bytes.</p>
-<pre class="playground"><code class="language-rust edition2018">use data_encoding::{BASE32_NOPAD, BASE32_NOPAD_VISUAL, DecodeError};
+<pre class="playground"><code class="language-rust edition2018">use data_encoding::{DecodeError, BASE32_NOPAD, BASE32_NOPAD_VISUAL};
 
 fn main() -&gt; Result&lt;(), DecodeError&gt; {
     // Generate the password from random bytes.
@@ -323,8 +323,8 @@ fn alter_visually(input: &amp;str) -&gt; String {
 <p>Encodes byte slice into <code>base64</code> String using <a href="https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.encode"><code>encode</code></a>
 and decodes it with <a href="https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.decode"><code>decode</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
-use std::str;
 use base64::prelude::{Engine as _, BASE64_STANDARD};
+use std::str;
 
 fn main() -&gt; Result&lt;()&gt; {
     let hello = b"hello rustaceans";

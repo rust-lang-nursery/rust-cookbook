@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -371,21 +371,25 @@ practice, but when it happens it is really frustrating
 without this.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::path::PathBuf;
 
-use clap::{Arg, Command, builder::PathBufValueParser};
+use clap::{builder::PathBufValueParser, Arg, Command};
 
 fn main() {
     let matches = Command::new("My Test Program")
         .version("0.1.0")
         .about("Teaches argument parsing")
-        .arg(Arg::new("file")
-                 .short('f')
-                 .long("file")
-                 .help("A cool file")
-                 .value_parser(PathBufValueParser::default()))
-        .arg(Arg::new("num")
-                 .short('n')
-                 .long("number")
-                 .help("Five less than your favorite number"))
+        .arg(
+            Arg::new("file")
+                .short('f')
+                .long("file")
+                .help("A cool file")
+                .value_parser(PathBufValueParser::default()),
+        )
+        .arg(
+            Arg::new("num")
+                .short('n')
+                .long("number")
+                .help("Five less than your favorite number"),
+        )
         .get_matches();
 
     let default_file = PathBuf::from("input.txt");

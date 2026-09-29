@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -189,7 +189,7 @@
 <code>Result&lt;Url, ParseError&gt;</code>.</p>
 <p>Once the URL has been parsed, it can be used with all of the methods in the
 <code>Url</code> type.</p>
-<pre class="playground"><code class="language-rust edition2018">use url::{Url, ParseError};
+<pre class="playground"><code class="language-rust edition2018">use url::{ParseError, Url};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&amp;state=open";
@@ -205,7 +205,7 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
 files or query strings.  Each of those items are stripped out of the given
 URL.  <a href="https://docs.rs/url/*/url/struct.PathSegmentsMut.html#method.clear"><code>PathSegmentsMut::clear</code></a> removes paths and <a href="https://docs.rs/url/*/url/struct.Url.html#method.set_query"><code>Url::set_query</code></a> removes
 query string.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{Result, anyhow};
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
 use url::Url;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -237,7 +237,7 @@ fn base_url(mut url: Url) -&gt; Result&lt;Url&gt; {
 <h2 id="create-new-urls-from-a-base-url"><a class="header" href="#create-new-urls-from-a-base-url">Create new URLs from a base URL</a></h2>
 <p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html#method.join"><code>join</code></a> method creates a new URL from a base and relative path.</p>
-<pre class="playground"><code class="language-rust edition2018">use url::{Url, ParseError};
+<pre class="playground"><code class="language-rust edition2018">use url::{ParseError, Url};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let path = "/rust-lang/cargo";
@@ -262,7 +262,7 @@ fn build_github_url(path: &amp;str) -&gt; Result&lt;Url, ParseError&gt; {
 <p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> struct exposes various methods to extract information about the URL
 it represents.</p>
-<pre class="playground"><code class="language-rust edition2021">use url::{Url, Host, ParseError};
+<pre class="playground"><code class="language-rust edition2021">use url::{Host, ParseError, Url};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let s = "ftp://rust-lang.org/examples";
@@ -278,7 +278,7 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
 }</code></pre>
 <p><a href="https://docs.rs/url/*/url/struct.Url.html#method.origin"><code>origin</code></a> produces the same result.</p>
 <pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
-use url::{Url, Origin, Host};
+use url::{Host, Origin, Url};
 
 fn main() -&gt; Result&lt;()&gt; {
     let s = "ftp://rust-lang.org/examples";
@@ -299,7 +299,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <h2 id="remove-fragment-identifiers-and-query-pairs-from-a-url"><a class="header" href="#remove-fragment-identifiers-and-query-pairs-from-a-url">Remove fragment identifiers and query pairs from a URL</a></h2>
 <p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>Parses <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> and slices it with <a href="https://docs.rs/url/*/url/enum.Position.html"><code>url::Position</code></a> to strip unneeded URL parts.</p>
-<pre class="playground"><code class="language-rust edition2018">use url::{Url, Position, ParseError};
+<pre class="playground"><code class="language-rust edition2018">use url::{ParseError, Position, Url};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&amp;state=open")?;

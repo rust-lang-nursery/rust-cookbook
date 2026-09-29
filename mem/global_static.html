@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -217,9 +217,7 @@ fn main() {
     let cell = OnceCell::new();
     assert!(cell.get().is_none());
 
-    let value: &amp;String = cell.get_or_init(|| {
-        "Hello, World!".to_string()
-    });
+    let value: &amp;String = cell.get_or_init(|| "Hello, World!".to_string());
     assert_eq!(value, "Hello, World!");
     assert!(cell.get().is_some());
 }</code></pre>
@@ -236,7 +234,10 @@ fn main() {
 
     // The closure is not executed yet.
     let permissions = LazyCell::new(|| {
-        println!("--- Fetching permissions from database for ID {} ---", user_id);
+        println!(
+            "--- Fetching permissions from database for ID {} ---",
+            user_id
+        );
         // Simulate an expensive operation
         vec!["read".to_string(), "write".to_string()]
     });
@@ -244,10 +245,11 @@ fn main() {
     println!("User {} session started.", user_id);
 
     // The initialization happens only when we dereference permissions for the first time.
-    if true { // Imagine a conditional check here
+    if true {
+        // Imagine a conditional check here
         println!("Permissions: {:?}", *permissions);
     }
-    
+
     // Subsequent accesses use the already initialized value.
     println!("First permission: {}", permissions[0]);
 }</code></pre>

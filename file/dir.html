@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -256,18 +256,22 @@ fn main() -&gt; io::Result&lt;()&gt; {
 <p><a href="https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.modified"><code>std::fs::Metadata::modified</code></a> returns the <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html#method.elapsed"><code>SystemTime::elapsed</code></a> time since the last modification.
 <a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.as_secs"><code>Duration::as_secs</code></a> converts the time to seconds and compared with 24 hours (24 * 60 * 60 seconds).
 <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.for_each"><code>Iterator::for_each</code></a> prints the file names.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
-use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
 use std::env;
+use walkdir::WalkDir;
 
 fn main() -&gt; Result&lt;()&gt; {
     let current_dir = env::current_dir()?;
-    println!("Entries modified in the last 24 hours in {:?}:", current_dir);
+    println!(
+        "Entries modified in the last 24 hours in {:?}:",
+        current_dir
+    );
 
     for entry in WalkDir::new(current_dir)
-            .into_iter()
-            .filter_map(|e| e.ok())
-            .filter(|e| e.metadata().unwrap().is_file()) {
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .filter(|e| e.metadata().unwrap().is_file())
+    {
         let path = entry.path();
         let metadata = entry.metadata()?;
         let modified = metadata.modified()?.elapsed()?.as_secs();
@@ -286,16 +290,18 @@ For example, a loop is created on a Unix system via symlinks:</p>
 ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 </code></pre>
 <p>The following would assert that a loop exists.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
-use same_file::is_same_file;
+<pre class="playground"><code class="language-rust edition2021">use same_file::is_same_file;
+use walkdir::WalkDir;
 
 fn main() {
     let mut loop_found = false;
     for entry in WalkDir::new(".")
         .follow_links(true)
         .into_iter()
-        .filter_map(|e| e.ok()) {
-        let ancestor = entry.path()
+        .filter_map(|e| e.ok())
+    {
+        let ancestor = entry
+            .path()
             .ancestors()
             .skip(1)
             .find(|ancestor| is_same_file(ancestor, entry.path()).is_ok());
@@ -311,17 +317,17 @@ fn main() {
 <p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>Find recursively in the current directory duplicate filenames,
 printing them only once.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
-use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+use walkdir::WalkDir;
 
 fn main() {
     let mut filenames = HashMap::new();
 
     for entry in WalkDir::new(".")
-                         .into_iter()
-                         .filter_map(Result::ok)
-                         .filter(|e| e.file_type().is_file()) {
-
+        .into_iter()
+        .filter_map(Result::ok)
+        .filter(|e| e.file_type().is_file())
+    {
         let f_name = String::from(entry.file_name().to_string_lossy());
         let counter = filenames.entry(f_name.clone()).or_insert(0);
         *counter += 1;
@@ -336,14 +342,15 @@ fn main() {
 <p>Find JSON files modified within the last day in the current directory.
 Using <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links"><code>follow_links</code></a> ensures symbolic links are followed like they were
 normal directories and files.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
-use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+use walkdir::WalkDir;
 
 fn main() -&gt; Result&lt;()&gt; {
     for entry in WalkDir::new(".")
         .follow_links(true)
         .into_iter()
-        .filter_map(|e| e.ok()) {
+        .filter_map(|e| e.ok())
+    {
         let f_name = entry.file_name().to_string_lossy();
         let sec = entry.metadata()?.modified()?;
 
@@ -365,10 +372,10 @@ predicate.</p>
 
 fn is_not_hidden(entry: &amp;DirEntry) -&gt; bool {
     entry
-         .file_name()
-         .to_str()
-         .map(|s| entry.depth() == 0 || !s.starts_with("."))
-         .unwrap_or(false)
+        .file_name()
+        .to_str()
+        .map(|s| entry.depth() == 0 || !s.starts_with("."))
+        .unwrap_or(false)
 }
 
 fn main() {
@@ -401,8 +408,8 @@ fn main() {
 In this case, the <code>**</code> pattern matches the current directory and all subdirectories.</p>
 <p>Use the <code>**</code> pattern in any path portion. For example, <code>/media/**/*.png</code>
 matches all PNGs in <code>media</code> and it’s subdirectories.</p>
-<pre class="playground"><code class="language-rust edition2021">use glob::glob;
-use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+use glob::glob;
 
 fn main() -&gt; Result&lt;()&gt; {
     for entry in glob("**/*.png")? {
@@ -417,9 +424,9 @@ pattern.</p>
 <p>A custom <a href="https://docs.rs/glob/*/glob/struct.MatchOptions.html"><code>MatchOptions</code></a> struct is passed to <a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob_with</code></a> instead of <a href="https://docs.rs/glob/*/glob/fn.glob.html"><code>glob</code></a>
 to make the glob pattern case insensitive while keeping the other options
 <a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
-use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
 use glob::{glob_with, MatchOptions};
+use walkdir::WalkDir;
 
 fn main() -&gt; Result&lt;()&gt; {
     let options = MatchOptions {

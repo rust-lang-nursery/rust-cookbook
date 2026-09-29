@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -201,8 +201,8 @@ already establishes a happens-before edge, so once every thread has joined the
 load is guaranteed to observe all of their increments. Using <code>SeqCst</code> for that
 load would only suggest an ordering requirement that does not exist.</p>
 <pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
-use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::Arc;
 use std::thread;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -352,7 +352,8 @@ fn main() -&gt; Result&lt;()&gt; {
             let tx = tx.clone();
             thread::spawn(move || -&gt; Result&lt;()&gt; {
                 for item in 0..3 {
-                    tx.send((id, item)).map_err(|e| anyhow!("send failed: {e}"))?;
+                    tx.send((id, item))
+                        .map_err(|e| anyhow!("send failed: {e}"))?;
                 }
                 Ok(())
             })
@@ -371,7 +372,9 @@ fn main() -&gt; Result&lt;()&gt; {
     }
 
     for producer in producers {
-        producer.join().map_err(|_| anyhow!("producer panicked"))??;
+        producer
+            .join()
+            .map_err(|_| anyhow!("producer panicked"))??;
     }
     assert_eq!(received, 9);
     Ok(())
@@ -414,7 +417,9 @@ fn main() -&gt; Result&lt;()&gt; {
         }
     }
 
-    producer.join().map_err(|_| anyhow!("producer panicked"))??;
+    producer
+        .join()
+        .map_err(|_| anyhow!("producer panicked"))??;
     println!("ran {frame} frames");
     Ok(())
 }</code></pre>

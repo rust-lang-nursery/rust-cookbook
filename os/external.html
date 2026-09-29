@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -187,7 +187,7 @@
 <p>Runs <code>git log --oneline</code> using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and inspects the <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a>
 status to determine if the command was successful. The command output is captured
 as a <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> using <a href="https://doc.rust-lang.org/std/string/struct.String.html#method.from_utf8"><code>String::from_utf8</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
+<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{anyhow, Result};
 use std::process::Command;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -206,18 +206,20 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></p>
 <p>Opens the <code>python</code> interpreter using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and passes it a
 python statement for execution. <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a> of statement is then parsed.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{Result, anyhow};
+<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{anyhow, Result};
 use std::collections::HashSet;
 use std::io::Write;
 use std::process::{Command, Stdio};
 
 fn main() -&gt; Result&lt;()&gt; {
-    let mut child = Command::new("python").stdin(Stdio::piped())
+    let mut child = Command::new("python")
+        .stdin(Stdio::piped())
         .stderr(Stdio::piped())
         .stdout(Stdio::piped())
         .spawn()?;
 
-    child.stdin
+    child
+        .stdin
         .as_mut()
         .ok_or_else(|| anyhow!("Child process stdin has not been captured!"))?
         .write_all(b"import this; copyright(); credits(); exit()")?;
@@ -226,7 +228,8 @@ fn main() -&gt; Result&lt;()&gt; {
 
     if output.status.success() {
         let raw_output = String::from_utf8(output.stdout)?;
-        let words = raw_output.split_whitespace()
+        let words = raw_output
+            .split_whitespace()
             .map(|s| s.to_lowercase())
             .collect::&lt;HashSet&lt;_&gt;&gt;();
         println!("Found {} unique words:", words.len());
@@ -318,15 +321,15 @@ The recipe below calls <a href="https://doc.rust-lang.org/std/process/struct.Std
 <code>stdout</code> continuously as soon as the <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> is updated.</p>
 <p>The below recipe is equivalent to the Unix shell command
 <code>journalctl | grep usb</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::process::{Command, Stdio};
-use std::io::{BufRead, BufReader, Error, ErrorKind};
+<pre class="playground"><code class="language-rust edition2018 no_run">use std::io::{BufRead, BufReader, Error, ErrorKind};
+use std::process::{Command, Stdio};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let stdout = Command::new("journalctl")
         .stdout(Stdio::piped())
         .spawn()?
         .stdout
-        .ok_or_else(|| Error::new(ErrorKind::Other,"Could not capture standard output."))?;
+        .ok_or_else(|| Error::new(ErrorKind::Other, "Could not capture standard output."))?;
 
     let reader = BufReader::new(stdout);
 
@@ -336,7 +339,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
         .filter(|line| line.find("usb").is_some())
         .for_each(|line| println!("{}", line));
 
-     Ok(())
+    Ok(())
 }</code></pre>
 <h2 id="read-environment-variable"><a class="header" href="#read-environment-variable">Read Environment Variable</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></p>
@@ -348,8 +351,7 @@ use std::io::Error;
 fn main() -&gt; Result&lt;(), Error&gt; {
     // read `config_path` from the environment variable `CONFIG`.
     // If `CONFIG` isn't set, fall back to a default config path.
-    let config_path = env::var("CONFIG")
-        .unwrap_or("/etc/myapp/config".to_string());
+    let config_path = env::var("CONFIG").unwrap_or("/etc/myapp/config".to_string());
 
     let config: String = fs::read_to_string(config_path)?;
     println!("Config: {}", config);

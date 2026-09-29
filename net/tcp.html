@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -187,8 +187,8 @@
 <p>In this recipe, the port is displayed on the console, and the program will
 listen until a request is made.  <a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind"><code>TcpListener::bind</code></a> uses a random port
 allocated by the OS when requested to bind to port 0.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::net::TcpListener;
-use std::io::{Read, Error};
+<pre class="playground"><code class="language-rust edition2018 no_run">use std::io::{Error, Read};
+use std::net::TcpListener;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let listener = TcpListener::bind("localhost:0")?;
@@ -317,9 +317,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
     let mut buf = [0u8; 16];
     match stream.read(&amp;mut buf) {
         Ok(n) =&gt; println!("received {n} bytes"),
-        Err(e) if e.kind() == io::ErrorKind::WouldBlock
-            || e.kind() == io::ErrorKind::TimedOut =&gt;
-        {
+        Err(e) if e.kind() == io::ErrorKind::WouldBlock || e.kind() == io::ErrorKind::TimedOut =&gt; {
             println!("read timed out ({:?})", e.kind());
         }
         Err(e) =&gt; return Err(e),

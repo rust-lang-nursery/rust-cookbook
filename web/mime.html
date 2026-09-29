@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -217,30 +217,27 @@ filename using the <a href="https://docs.rs/mime/">mime</a> crate.  The program 
 and match against a known list.  The return value is <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime:Mime</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2018">use mime::Mime;
 
-fn find_mimetype (filename : &amp;String) -&gt; Mime{
-
-    let parts : Vec&lt;&amp;str&gt; = filename.split('.').collect();
+fn find_mimetype(filename: &amp;String) -&gt; Mime {
+    let parts: Vec&lt;&amp;str&gt; = filename.split('.').collect();
 
     let res = match parts.last() {
-            Some(v) =&gt;
-                match *v {
-                    "png" =&gt; mime::IMAGE_PNG,
-                    "jpg" =&gt; mime::IMAGE_JPEG,
-                    "json" =&gt; mime::APPLICATION_JSON,
-                    &amp;_ =&gt; mime::TEXT_PLAIN,
-                },
-            None =&gt; mime::TEXT_PLAIN,
-        };
+        Some(v) =&gt; match *v {
+            "png" =&gt; mime::IMAGE_PNG,
+            "jpg" =&gt; mime::IMAGE_JPEG,
+            "json" =&gt; mime::APPLICATION_JSON,
+            &amp;_ =&gt; mime::TEXT_PLAIN,
+        },
+        None =&gt; mime::TEXT_PLAIN,
+    };
     return res;
 }
 
 fn main() {
-    let filenames = vec!("foobar.jpg", "foo.bar", "foobar.png");
+    let filenames = vec!["foobar.jpg", "foo.bar", "foobar.png"];
     for file in filenames {
-	    let mime = find_mimetype(&amp;file.to_owned());
-	 	println!("MIME for {}: {}", file, mime);
-	 }
-
+        let mime = find_mimetype(&amp;file.to_owned());
+        println!("MIME for {}: {}", file, mime);
+    }
 }</code></pre>
 <h2 id="parse-the-mime-type-of-a-http-response"><a class="header" href="#parse-the-mime-type-of-a-http-response">Parse the MIME type of a HTTP response</a></h2>
 <p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/mime/"><img src="https://img.shields.io/crates/v/mime.svg?label=mime" alt="mime-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
@@ -252,8 +249,8 @@ string. The <code>mime</code> crate can then parse that, yielding a <a href="htt
 <p>Note that the <a href="https://docs.rs/reqwest/*/reqwest/header/index.html"><code>reqwest::header</code></a> module is exported from the <a href="https://docs.rs/http/*/http/"><code>http</code></a> crate.</p>
 <pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
 use mime::Mime;
-use std::str::FromStr;
 use reqwest::header::CONTENT_TYPE;
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() -&gt; Result&lt;()&gt; {

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -234,9 +234,9 @@ for new messages or until the channel is closed. Because the channels were
 created within the <a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a>, we must manually close them via <code>drop</code>
 to prevent the entire program from blocking on the worker for-loops. You can
 think of the calls to <code>drop</code> as signaling that no more messages will be sent.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::thread;
+<pre class="playground"><code class="language-rust edition2018">use crossbeam::channel::bounded;
+use std::thread;
 use std::time::Duration;
-use crossbeam::channel::bounded;
 
 fn main() {
     let (snd1, rcv1) = bounded(1);
@@ -265,8 +265,7 @@ fn main() {
                 thread::sleep(Duration::from_millis(500));
                 // Receive until channel closes
                 for msg in recvr.iter() {
-                    println!("Worker {:?} received {}.",
-                             thread::current().id(), msg);
+                    println!("Worker {:?} received {}.", thread::current().id(), msg);
                     sendr.send(msg * 2).unwrap();
                 }
             });
@@ -279,7 +278,8 @@ fn main() {
         for msg in rcv2.iter() {
             println!("Sink received {}", msg);
         }
-    }).unwrap();
+    })
+    .unwrap();
 }</code></pre>
 <h1 id="pass-data-between-two-threads"><a class="header" href="#pass-data-between-two-threads">Pass data between two threads</a></h1>
 <p><a href="https://docs.rs/crossbeam/"><img src="https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam" alt="crossbeam-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
@@ -289,8 +289,8 @@ consumer (SPSC) setting. We build off the <a href="#spawn-a-short-lived-thread">
 exchanged between the two threads using a <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/fn.unbounded.html"><code>crossbeam_channel::unbounded</code></a>
 channel, meaning there is no limit to the number of storeable messages. The
 producer thread sleeps for half a second in between messages.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::{thread, time};
-use crossbeam::channel::unbounded;
+<pre class="playground"><code class="language-rust edition2018">use crossbeam::channel::unbounded;
+use std::{thread, time};
 
 fn main() {
     let (snd, rcv) = unbounded();
@@ -302,7 +302,8 @@ fn main() {
                 thread::sleep(time::Duration::from_millis(100));
             }
         });
-    }).unwrap();
+    })
+    .unwrap();
     for _ in 0..n_msgs {
         let msg = rcv.recv().unwrap();
         println!("Received {}", msg);
@@ -316,7 +317,7 @@ to allow mutation (also see <a href="https://doc.rust-lang.org/std/sync/struct.R
 the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A <a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a> must be acquired to read or mutate the
 value stored in a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::{Result, anyhow};
+<pre class="playground"><code class="language-rust edition2018">use anyhow::{anyhow, Result};
 use lazy_static::lazy_static;
 use std::sync::Mutex;
 
@@ -325,7 +326,9 @@ lazy_static! {
 }
 
 fn insert(fruit: &amp;str) -&gt; Result&lt;()&gt; {
-    let mut db = FRUIT.lock().map_err(|_| anyhow!("Failed to acquire MutexGuard"))?;
+    let mut db = FRUIT
+        .lock()
+        .map_err(|_| anyhow!("Failed to acquire MutexGuard"))?;
     db.push(fruit.to_string());
     Ok(())
 }
@@ -335,9 +338,13 @@ fn main() -&gt; Result&lt;()&gt; {
     insert("orange")?;
     insert("peach")?;
     {
-        let db = FRUIT.lock().map_err(|_| anyhow!("Failed to acquire MutexGuard"))?;
+        let db = FRUIT
+            .lock()
+            .map_err(|_| anyhow!("Failed to acquire MutexGuard"))?;
 
-        db.iter().enumerate().for_each(|(i, item)| println!("{}: {}", i, item));
+        db.iter()
+            .enumerate()
+            .for_each(|(i, item)| println!("{}: {}", i, item));
     }
     insert("grape")?;
     Ok(())

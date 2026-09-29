@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -231,10 +231,7 @@ fn main() -&gt; Result&lt;()&gt; {
     cat_colors.insert(String::from("Black"), vec!["Oreo", "Biscuit"]);
 
     for (color, catnames) in &amp;cat_colors {
-        conn.execute(
-            "INSERT INTO cat_colors (name) VALUES (?1)",
-            [color],
-        )?;
+        conn.execute("INSERT INTO cat_colors (name) VALUES (?1)", [color])?;
         let last_id = conn.last_insert_rowid();
 
         for cat in catnames {
@@ -260,11 +257,9 @@ fn main() -&gt; Result&lt;()&gt; {
     for cat in cats {
         if let Ok(found_cat) = cat {
             println!(
-                "Found cat {:?} {} is {}", 
-                found_cat,
-                found_cat.name,
-                found_cat.color,
-                );
+                "Found cat {:?} {} is {}",
+                found_cat, found_cat.name, found_cat.color,
+            );
         }
     }
 

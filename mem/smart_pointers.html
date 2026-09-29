@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -213,8 +213,12 @@ impl Notification for Sms {
 }
 
 fn main() {
-    let email = Email { address: "example@mail.com".to_string() };
-    let sms = Sms { phone_number: "1-800-555-0100".to_string() };
+    let email = Email {
+        address: "example@mail.com".to_string(),
+    };
+    let sms = Sms {
+        phone_number: "1-800-555-0100".to_string(),
+    };
 
     let notifications: Vec&lt;Box&lt;dyn Notification&gt;&gt; = vec![Box::new(email), Box::new(sms)];
 
@@ -249,14 +253,18 @@ fn main() -&gt; Result&lt;(), BorrowMutError&gt; {
     let generate_api_contract = new_task("Generate API contract");
     let implement_endpoint_1 = new_task("Implement endpoint 1 from API contract");
     let implement_endpoint_2 = new_task("Implement endpoint 2 from API contract");
-    
+
     {
         let mut borrowed_task_1 = implement_endpoint_1.try_borrow_mut()?;
-        borrowed_task_1.dependencies.push(Rc::clone(&amp;generate_api_contract));
+        borrowed_task_1
+            .dependencies
+            .push(Rc::clone(&amp;generate_api_contract));
 
         let mut borrowed_task_2 = implement_endpoint_2.try_borrow_mut()?;
-        borrowed_task_2.dependencies.push(Rc::clone(&amp;generate_api_contract));
-    
+        borrowed_task_2
+            .dependencies
+            .push(Rc::clone(&amp;generate_api_contract));
+
         generate_api_contract.borrow_mut().done = true;
     }
 

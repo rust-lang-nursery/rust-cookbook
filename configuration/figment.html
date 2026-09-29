@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -193,8 +193,8 @@ by earlier ones. Here <a href="https://docs.rs/figment/*/figment/providers/trait
 layers <code>APP_</code>-prefixed environment variables on top, so <code>APP_PORT=9000</code>
 overrides the file’s <code>port</code>. <a href="https://docs.rs/figment/*/figment/struct.Figment.html#method.extract"><code>extract</code></a> deserializes the merged result into the
 <code>Config</code> struct.</p>
-<pre class="playground"><code class="language-rust no_run edition2018">use figment::providers::{Env, Format, Toml};
-use figment::Figment;
+<pre class="playground"><code class="language-rust no_run edition2018">use figment::Figment;
+use figment::providers::{Env, Format, Toml};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -300,9 +300,10 @@ fn main() {
     let now = Utc::now();
     println!("{}", now);
 
-    let almost_three_weeks_from_now = now.checked_add_signed(Duration::weeks(2))
-            .and_then(|in_2weeks| in_2weeks.checked_add_signed(Duration::weeks(1)))
-            .and_then(day_earlier);
+    let almost_three_weeks_from_now = now
+        .checked_add_signed(Duration::weeks(2))
+        .and_then(|in_2weeks| in_2weeks.checked_add_signed(Duration::weeks(1)))
+        .and_then(day_earlier);
 
     match almost_three_weeks_from_now {
         Some(x) =&gt; println!("{}", x),
@@ -330,7 +331,10 @@ fn main() {
         "Time in Hong Kong now is {}",
         utc_time.with_timezone(&amp;china_timezone)
     );
-    println!("Time in Rio de Janeiro now is {}", utc_time.with_timezone(&amp;rio_timezone));
+    println!(
+        "Time in Rio de Janeiro now is {}",
+        utc_time.with_timezone(&amp;rio_timezone)
+    );
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.

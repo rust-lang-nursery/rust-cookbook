@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -265,7 +265,13 @@ fn main() -&gt; Result&lt;()&gt; {
     let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("assets/photo.jpg");
     let exif = read_exif(&amp;path)?;
 
-    for tag in [Tag::Make, Tag::Model, Tag::Software, Tag::DateTime, Tag::Orientation] {
+    for tag in [
+        Tag::Make,
+        Tag::Model,
+        Tag::Software,
+        Tag::DateTime,
+        Tag::Orientation,
+    ] {
         if let Some(field) = exif.get_field(tag, In::PRIMARY) {
             println!("{}: {}", tag, field.display_value().with_unit(&amp;exif));
         }

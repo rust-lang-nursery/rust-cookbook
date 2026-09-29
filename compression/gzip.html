@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -189,9 +189,9 @@ the current working directory. Unlike <a href="tar.html#decompress-a-tarball">de
 this reads plain (non-archive) gzip data, such as a single log or text file.</p>
 <p>Wraps a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> in a <a href="https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html"><code>GzDecoder</code></a> and copies the decompressed bytes into the
 destination file with <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2018 no_run">use flate2::read::GzDecoder;
+use std::fs::File;
 use std::io;
-use flate2::read::GzDecoder;
 
 fn main() -&gt; Result&lt;(), io::Error&gt; {
     let input = File::open("input.txt.gz")?;
@@ -207,10 +207,10 @@ fn main() -&gt; Result&lt;(), io::Error&gt; {
 then copies the contents of the source file into the encoder with
 <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>, transparently compressing the data as it is written to
 <code>input.txt.gz</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
-use std::io;
-use flate2::write::GzEncoder;
+<pre class="playground"><code class="language-rust edition2018 no_run">use flate2::write::GzEncoder;
 use flate2::Compression;
+use std::fs::File;
+use std::io;
 
 fn main() -&gt; Result&lt;(), io::Error&gt; {
     let mut input = File::open("input.txt")?;

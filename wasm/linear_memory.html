@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -191,7 +191,7 @@ return value.</p>
 <p><a href="https://docs.rs/wasmtime/*/wasmtime/struct.Instance.html#method.get_memory"><code>get_memory</code></a> retrieves the module’s exported <code>memory</code> object.
 <a href="https://docs.rs/wasmtime/*/wasmtime/struct.Memory.html#method.data_mut"><code>data_mut</code></a> gives a mutable byte slice covering the entire linear
 memory so the host can write inputs before the call.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2018">use anyhow::{Result, anyhow};
 use wasmtime::{Engine, Instance, Module, Store};
 
 fn main() -&gt; Result&lt;()&gt; {

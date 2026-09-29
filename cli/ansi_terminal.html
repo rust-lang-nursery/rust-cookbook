@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -191,10 +191,12 @@
 <pre class="playground"><code class="language-rust edition2018">use ansi_term::Colour;
 
 fn main() {
-    println!("This is {} in color, {} in color and {} in color",
-             Colour::Red.paint("red"),
-             Colour::Blue.paint("blue"),
-             Colour::Green.paint("green"));
+    println!(
+        "This is {} in color, {} in color and {} in color",
+        Colour::Red.paint("red"),
+        Colour::Blue.paint("blue"),
+        Colour::Green.paint("green")
+    );
 }</code></pre>
 <h3 id="bold-text-in-terminal"><a class="header" href="#bold-text-in-terminal">Bold text in Terminal</a></h3>
 <p>For anything more complex than plain foreground colour changes, the code
@@ -203,19 +205,23 @@ and properties chained.</p>
 <pre class="playground"><code class="language-rust edition2018">use ansi_term::Style;
 
 fn main() {
-    println!("{} and this is not",
-             Style::new().bold().paint("This is Bold"));
+    println!(
+        "{} and this is not",
+        Style::new().bold().paint("This is Bold")
+    );
 }</code></pre>
 <h3 id="bold-and-colored-text-in-terminal"><a class="header" href="#bold-and-colored-text-in-terminal">Bold and colored text in terminal</a></h3>
 <p><code>Colour</code> implements many similar functions as <code>Style</code> and can chain methods.</p>
 <pre class="playground"><code class="language-rust edition2018">use ansi_term::Colour;
 use ansi_term::Style;
 
-fn main(){
-    println!("{}, {} and {}",
-             Colour::Yellow.paint("This is colored"),
-             Style::new().bold().paint("this is bold"),
-             Colour::Yellow.bold().paint("this is bold and colored"));
+fn main() {
+    println!(
+        "{}, {} and {}",
+        Colour::Yellow.paint("This is colored"),
+        Style::new().bold().paint("this is bold"),
+        Colour::Yellow.bold().paint("this is bold and colored")
+    );
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.

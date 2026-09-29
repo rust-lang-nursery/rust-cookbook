@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -199,9 +199,7 @@ For more complex build requirements, <a href="https://docs.rs/cc/*/cc/struct.Bui
 <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.include"><code>include</code></a> paths and extra compiler <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.flag"><code>flag</code></a>s.</p>
 <p><code>build.rs</code></p>
 <pre class="playground"><code class="language-rust edition2018">fn main() {
-    cc::Build::new()
-        .file("src/hello.c")
-        .compile("hello"); // outputs `libhello.a`
+    cc::Build::new().file("src/hello.c").compile("hello"); // outputs `libhello.a`
 }</code></pre>
 <p><code>src/hello.c</code></p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
@@ -281,7 +279,10 @@ when run. Cargo sets some <a href="https://doc.rust-lang.org/cargo/reference/env
 <pre class="playground"><code class="language-rust edition2018">fn main() {
     cc::Build::new()
         .define("APP_NAME", "\"foo\"")
-        .define("VERSION", format!("\"{}\"", env!("CARGO_PKG_VERSION")).as_str())
+        .define(
+            "VERSION",
+            format!("\"{}\"", env!("CARGO_PKG_VERSION")).as_str(),
+        )
         .define("WELCOME", None)
         .file("src/foo.c")
         .compile("foo");

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -242,7 +242,7 @@ time with the <a href="https://doc.rust-lang.org/std/io/struct.Lines.html"><code
 trait.  <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.create"><code>File::create</code></a> opens a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> for writing, <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.open"><code>File::open</code></a> for
 reading.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::fs::File;
-use std::io::{Write, BufReader, BufRead, Error};
+use std::io::{BufRead, BufReader, Error, Write};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let path = "lines.txt";
@@ -349,15 +349,15 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 other handles. In this recipe, the handles of file to be read from and
 to be written to are tested for equality.</p>
 <pre class="playground"><code class="language-rust edition2021">use same_file::Handle;
-use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::fs::File;
+use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::path::Path;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     // Create a test file
     let mut file = File::create("new.txt")?;
     writeln!(file, "test content")?;
-    
+
     let path_to_read = Path::new("new.txt");
 
     let stdout_handle = Handle::stdout()?;
@@ -386,19 +386,20 @@ than dealing with <a href="https://doc.rust-lang.org/std/io/trait.Seek.html"><co
 modified at the same time by another process or else a <a href="https://en.wikipedia.org/wiki/Race_condition#File_systems">race condition</a> occurs.</p>
 <pre class="playground"><code class="language-rust edition2021">use memmap::Mmap;
 use std::fs::File;
-use std::io::{Write, Error};
+use std::io::{Error, Write};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
-    write!(File::create("content.txt")?, "My hovercraft is full of eels!")?;
+    write!(
+        File::create("content.txt")?,
+        "My hovercraft is full of eels!"
+    )?;
 
     let file = File::open("content.txt")?;
     let map = unsafe { Mmap::map(&amp;file)? };
 
     let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
     assert_eq!(&amp;map[3..13], b"hovercraft");
-    let random_bytes: Vec&lt;u8&gt; = random_indexes.iter()
-        .map(|&amp;idx| map[idx])
-        .collect();
+    let random_bytes: Vec&lt;u8&gt; = random_indexes.iter().map(|&amp;idx| map[idx]).collect();
     assert_eq!(&amp;random_bytes[..], b"My loaf!");
     Ok(())
 }</code></pre>

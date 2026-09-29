@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -218,10 +218,10 @@ fn main() {
 fn main() {
     let log_lines = vec![
         ("ERROR", "disk full"),
-        ("WARN",  "high memory usage"),
-        ("INFO",  "server started"),
+        ("WARN", "high memory usage"),
+        ("INFO", "server started"),
         ("ERROR", "connection refused"),
-        ("INFO",  "request received"),
+        ("INFO", "request received"),
     ];
 
     let mut by_level: HashMap&lt;&amp;str, Vec&lt;&amp;str&gt;&gt; = HashMap::new();
@@ -275,10 +275,7 @@ fn main() {
         .iter()
         .copied()
         .collect();
-    let monitored: HashSet&lt;&amp;str&gt; = ["web", "api", "database"]
-        .iter()
-        .copied()
-        .collect();
+    let monitored: HashSet&lt;&amp;str&gt; = ["web", "api", "database"].iter().copied().collect();
 
     // Services running but not being monitored
     let mut unmonitored: Vec&lt;&amp;str&gt; = deployed.difference(&amp;monitored).copied().collect();
@@ -356,11 +353,11 @@ fn main() {
         println!("  {r:.1}      {a:.2}");
     }
 
-    assert_eq!(averages[0], 1.0);  // window: [1.0]
-    assert_eq!(averages[1], 1.5);  // window: [1.0, 2.0]
-    assert_eq!(averages[2], 2.0);  // window: [1.0, 2.0, 3.0]
-    assert_eq!(averages[3], 3.0);  // window: [2.0, 3.0, 4.0]
-    assert_eq!(averages[4], 4.0);  // window: [3.0, 4.0, 5.0]
+    assert_eq!(averages[0], 1.0); // window: [1.0]
+    assert_eq!(averages[1], 1.5); // window: [1.0, 2.0]
+    assert_eq!(averages[2], 2.0); // window: [1.0, 2.0, 3.0]
+    assert_eq!(averages[3], 3.0); // window: [2.0, 3.0, 4.0]
+    assert_eq!(averages[4], 4.0); // window: [3.0, 4.0, 5.0]
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.

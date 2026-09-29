@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -253,15 +253,12 @@ impl DriverActor {
                 lat,
                 lng,
             } =&gt; {
-                let status = self
-                    .drivers
-                    .entry(driver_id)
-                    .or_insert(DriverStatus {
-                        driver_id,
-                        lat: 0.0,
-                        lng: 0.0,
-                        update_count: 0,
-                    });
+                let status = self.drivers.entry(driver_id).or_insert(DriverStatus {
+                    driver_id,
+                    lat: 0.0,
+                    lng: 0.0,
+                    update_count: 0,
+                });
                 status.lat = lat;
                 status.lng = lng;
                 status.update_count += 1;
@@ -293,12 +290,7 @@ impl DriverHandle {
         Self { sender }
     }
 
-    async fn update_location(
-        &amp;self,
-        driver_id: u32,
-        lat: f64,
-        lng: f64,
-    ) -&gt; Result&lt;(), ActorError&gt; {
+    async fn update_location(&amp;self, driver_id: u32, lat: f64, lng: f64) -&gt; Result&lt;(), ActorError&gt; {
         self.sender
             .send(Message::UpdateLocation {
                 driver_id,
@@ -309,10 +301,7 @@ impl DriverHandle {
         Ok(())
     }
 
-    async fn get_driver_status(
-        &amp;self,
-        driver_id: u32,
-    ) -&gt; Result&lt;Option&lt;DriverStatus&gt;, ActorError&gt; {
+    async fn get_driver_status(&amp;self, driver_id: u32) -&gt; Result&lt;Option&lt;DriverStatus&gt;, ActorError&gt; {
         let (tx, rx) = oneshot::channel();
         self.sender
             .send(Message::GetDriverStatus {
@@ -347,11 +336,17 @@ async fn main() -&gt; Result&lt;(), ActorError&gt; {
     task2.await??;
 
     if let Some(s) = handle.get_driver_status(1).await? {
-        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+        println!(
+            "Driver {}: ({}, {}), updates: {}",
+            s.driver_id, s.lat, s.lng, s.update_count
+        );
     }
 
     if let Some(s) = handle.get_driver_status(2).await? {
-        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+        println!(
+            "Driver {}: ({}, {}), updates: {}",
+            s.driver_id, s.lat, s.lng, s.update_count
+        );
     }
 
     let missing = handle.get_driver_status(99).await?;

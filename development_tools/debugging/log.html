@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-83955176.js"></script>
@@ -227,9 +227,7 @@ fn main() {
 <pre class="playground"><code class="language-rust edition2018">use env_logger::{Builder, Target};
 
 fn main() {
-    Builder::new()
-        .target(Target::Stdout)
-        .init();
+    Builder::new().target(Target::Stdout).init();
 
     log::error!("This error has been printed to Stdout");
 }</code></pre>
@@ -238,15 +236,15 @@ fn main() {
 <p>Implements a custom logger <code>ConsoleLogger</code> which prints to stdout.
 In order to use the logging macros, <code>ConsoleLogger</code> implements
 the <a href="https://docs.rs/log/*/log/trait.Log.html"><code>log::Log</code></a> trait and <a href="https://docs.rs/log/*/log/fn.set_logger.html"><code>log::set_logger</code></a> installs it.</p>
-<pre class="playground"><code class="language-rust edition2018">use log::{Record, Level, Metadata, LevelFilter, SetLoggerError};
+<pre class="playground"><code class="language-rust edition2018">use log::{Level, LevelFilter, Metadata, Record, SetLoggerError};
 
 static CONSOLE_LOGGER: ConsoleLogger = ConsoleLogger;
 
 struct ConsoleLogger;
 
 impl log::Log for ConsoleLogger {
-  fn enabled(&amp;self, metadata: &amp;Metadata) -&gt; bool {
-     metadata.level() &lt;= Level::Info
+    fn enabled(&amp;self, metadata: &amp;Metadata) -&gt; bool {
+        metadata.level() &lt;= Level::Info
     }
 
     fn log(&amp;self, record: &amp;Record) {

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-cc59e91c.js";
+            window.path_to_searchindex_js = "../searchindex-7d0c83b4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-83955176.js"></script>
@@ -201,10 +201,10 @@ error types in Rust</a> and consider <a href="https://docs.rs/thiserror/latest/t
 a maintained error aggregation option.</p>
 <pre class="playground"><code class="language-rust edition2018">use thiserror::Error;
 
-#[derive(Error,Debug)]
+#[derive(Error, Debug)]
 pub enum MultiError {
-  #[error("🦀 got {0}")]
-  ErrorClass(String),
+    #[error("🦀 got {0}")]
+    ErrorClass(String),
 }
 
 fn main() -&gt; Result&lt;(), MultiError&gt; {
@@ -216,9 +216,9 @@ type from the crate to provide auto-<code>Box</code>ing behavior</p>
 <pre class="playground"><code class="language-rust edition2018 should_panic">use anyhow::Result;
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
-   let my_string = "yellow".to_string();  
-   let _my_int = my_string.parse::&lt;i32&gt;()?;
-   Ok(())
+    let my_string = "yellow".to_string();
+    let _my_int = my_string.parse::&lt;i32&gt;()?;
+    Ok(())
 }</code></pre>
 <h1 id="error-chain-2015-2018"><a class="header" href="#error-chain-2015-2018">Error Chain (2015-2018)</a></h1>
 <p>Handles error that occur when trying to open a file that does not
