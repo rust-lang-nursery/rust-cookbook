@@ -155,6 +155,8 @@ Keep lines sorted.
 [regex]: https://docs.rs/regex/
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
+[rkyv-badge]: https://img.shields.io/crates/v/rkyv.svg?label=rkyv
+[rkyv]: https://docs.rs/rkyv/
 [ring-badge]: https://img.shields.io/crates/v/ring.svg?label=ring
 [ring]: https://briansmith.org/rustdoc/ring/
 [rodio-badge]: https://img.shields.io/crates/v/rodio.svg?label=rodio

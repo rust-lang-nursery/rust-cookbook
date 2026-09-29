@@ -17,6 +17,8 @@
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
+| [Access serialized data without deserializing it][ex-rkyv-zero-copy] | [![rkyv-badge]][rkyv] | [![cat-encoding-badge]][cat-encoding] |
+| [Read an archive from a file][ex-rkyv-file] | [![rkyv-badge]][rkyv] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-percent-encode]: encoding/strings.html#percent-encode-a-string
 [ex-urlencoded]: encoding/strings.html#encode-a-string-as-applicationx-www-form-urlencoded
@@ -33,6 +35,8 @@
 [ex-json-value]: encoding/complex.html#serialize-and-deserialize-unstructured-json
 [ex-toml-config]: encoding/complex.html#deserialize-a-toml-configuration-file
 [ex-byteorder-le]: encoding/complex.html#read-and-write-integers-in-little-endian-byte-order
+[ex-rkyv-zero-copy]: encoding/rkyv.html#access-serialized-data-without-deserializing-it
+[ex-rkyv-file]: encoding/rkyv.html#read-an-archive-from-a-file
 
 
 {{#include links.md}}
