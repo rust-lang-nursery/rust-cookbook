@@ -17,18 +17,35 @@ use std::net::IpAddr;
 use std::str::FromStr;
 
 fn classify(addr: IpAddr) -> &'static str {
-    if addr.is_loopback() { return "loopback"; }
-    if addr.is_multicast() { return "multicast"; }
-    if addr.is_unspecified() { return "unspecified"; }
+    if addr.is_loopback() {
+        return "loopback";
+    }
+    if addr.is_multicast() {
+        return "multicast";
+    }
+    if addr.is_unspecified() {
+        return "unspecified";
+    }
     if let IpAddr::V4(v4) = addr {
-        if v4.is_private() { return "private (RFC1918)"; }
-        if v4.is_link_local() { return "link-local"; }
+        if v4.is_private() {
+            return "private (RFC1918)";
+        }
+        if v4.is_link_local() {
+            return "link-local";
+        }
     }
     "public"
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let samples = ["127.0.0.1", "10.0.0.5", "169.254.1.1", "8.8.8.8", "224.0.0.1", "::1"];
+    let samples = [
+        "127.0.0.1",
+        "10.0.0.5",
+        "169.254.1.1",
+        "8.8.8.8",
+        "224.0.0.1",
+        "::1",
+    ];
     for s in samples {
         let addr = IpAddr::from_str(s)?;
         println!("{addr}: {}", classify(addr));

@@ -5,7 +5,6 @@
 Calculation for integers exceeding 128 bits are possible with [`BigInt`].
 
 ```rust,edition2018
-
 use num::bigint::{BigInt, ToBigInt};
 
 fn factorial(x: i32) -> BigInt {
@@ -14,8 +13,7 @@ fn factorial(x: i32) -> BigInt {
             factorial = factorial * i;
         }
         factorial
-    }
-    else {
+    } else {
         panic!("Failed to calculate factorial!");
     }
 }

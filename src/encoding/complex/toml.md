@@ -6,7 +6,7 @@ Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.
 
 ```rust,edition2018
-use toml::{Value, de::Error};
+use toml::{de::Error, Value};
 
 fn main() -> Result<(), Error> {
     let toml_content = r#"
@@ -22,8 +22,10 @@ fn main() -> Result<(), Error> {
     let package_info: Value = toml::from_str(toml_content)?;
 
     assert_eq!(package_info["dependencies"]["serde"].as_str(), Some("1.0"));
-    assert_eq!(package_info["package"]["name"].as_str(),
-               Some("your_package"));
+    assert_eq!(
+        package_info["package"]["name"].as_str(),
+        Some("your_package")
+    );
 
     Ok(())
 }
@@ -34,8 +36,8 @@ Parse TOML into your own structs using [Serde].
 ```rust,edition2018
 use serde::Deserialize;
 
-use toml::de::Error;
 use std::collections::HashMap;
+use toml::de::Error;
 
 #[derive(Deserialize)]
 struct Config {

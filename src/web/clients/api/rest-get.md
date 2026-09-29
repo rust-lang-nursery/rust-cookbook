@@ -13,9 +13,9 @@ the response body with [`serde_json::from_str`] into a vector of `User` objects 
 processing the response into User instances.
 
 ```rust,edition2021,no_run
-use serde::Deserialize;
-use reqwest::Error;
 use reqwest::header::USER_AGENT;
+use reqwest::Error;
+use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 struct User {
@@ -24,11 +24,13 @@ struct User {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let request_url = format!("https://api.github.com/repos/{owner}/{repo}/stargazers",
-                              owner = "rust-lang-nursery",
-                              repo = "rust-cookbook");
+    let request_url = format!(
+        "https://api.github.com/repos/{owner}/{repo}/stargazers",
+        owner = "rust-lang-nursery",
+        repo = "rust-cookbook"
+    );
     println!("{}", request_url);
-    
+
     let client = reqwest::blocking::Client::new();
     let response = client
         .get(request_url)

@@ -34,10 +34,7 @@ fn run_all_tests() -> Result<(), Box<dyn Error>> {
             eprintln!("❌ {name} failed! Re-run with the command:");
             eprintln!("   cargo xtask test {name}");
         }
-        Err(Box::new(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "test failed",
-        )))
+        Err(Box::new(std::io::Error::other("test failed")))
     } else {
         println!("\n🎉 All tests passed!");
         Ok(())
@@ -88,11 +85,7 @@ fn link_checker() -> Result<(), Box<dyn Error>> {
 
     let status = Command::new("lychee")
         .current_dir(project_root())
-        .args([
-            "./book",
-            "--config",
-            "./ci/lychee.toml"
-        ])
+        .args(["./book", "--config", "./ci/lychee.toml"])
         .status()?;
 
     if !status.success() {

@@ -35,9 +35,7 @@ fn main() -> io::Result<()> {
     let mut buf = [0u8; 16];
     match stream.read(&mut buf) {
         Ok(n) => println!("received {n} bytes"),
-        Err(e) if e.kind() == io::ErrorKind::WouldBlock
-            || e.kind() == io::ErrorKind::TimedOut =>
-        {
+        Err(e) if e.kind() == io::ErrorKind::WouldBlock || e.kind() == io::ErrorKind::TimedOut => {
             println!("read timed out ({:?})", e.kind());
         }
         Err(e) => return Err(e),

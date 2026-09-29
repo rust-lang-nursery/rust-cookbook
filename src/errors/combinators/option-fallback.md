@@ -27,11 +27,17 @@ fn main() {
 
     // `unwrap_or_else` defers the default to a closure, so the
     // fallback runs only when the value is absent.
-    println!("missing.unwrap_or_else(..) = {}", missing.unwrap_or_else(expensive_default));
+    println!(
+        "missing.unwrap_or_else(..) = {}",
+        missing.unwrap_or_else(expensive_default)
+    );
     assert_eq!(missing.unwrap_or_else(expensive_default), 42);
 
     // `unwrap_or_default` uses the type's `Default` implementation.
-    println!("missing.unwrap_or_default  = {}", missing.unwrap_or_default());
+    println!(
+        "missing.unwrap_or_default  = {}",
+        missing.unwrap_or_default()
+    );
     assert_eq!(missing.unwrap_or_default(), 0);
 }
 ```

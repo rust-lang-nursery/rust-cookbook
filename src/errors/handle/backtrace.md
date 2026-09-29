@@ -12,7 +12,7 @@ The below recipes attempts to deserialize the value `256` into a
 user code.
 
 ```rust,edition2018
-use anyhow::{Result, Context};
+use anyhow::{Context, Result};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]

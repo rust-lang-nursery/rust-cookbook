@@ -55,7 +55,7 @@ them, chosen with [`In`], here [`In::PRIMARY`] for the primary image.
 [`Field::display_value`] renders the value.
 
 ```rust,no_run
-{{#include ../../crates/multimedia/image/src/bin/exif.rs::23}}
+{{#include ../../crates/multimedia/image/src/bin/exif.rs::29}}
 ```
 
 [`Reader::read_from_container`]: https://docs.rs/kamadak-exif/*/exif/struct.Reader.html#method.read_from_container

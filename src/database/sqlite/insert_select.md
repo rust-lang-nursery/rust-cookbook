@@ -23,10 +23,7 @@ fn main() -> Result<()> {
     cat_colors.insert(String::from("Black"), vec!["Oreo", "Biscuit"]);
 
     for (color, catnames) in &cat_colors {
-        conn.execute(
-            "INSERT INTO cat_colors (name) VALUES (?1)",
-            [color],
-        )?;
+        conn.execute("INSERT INTO cat_colors (name) VALUES (?1)", [color])?;
         let last_id = conn.last_insert_rowid();
 
         for cat in catnames {
@@ -52,11 +49,9 @@ fn main() -> Result<()> {
     for cat in cats {
         if let Ok(found_cat) = cat {
             println!(
-                "Found cat {:?} {} is {}", 
-                found_cat,
-                found_cat.name,
-                found_cat.color,
-                );
+                "Found cat {:?} {} is {}",
+                found_cat, found_cat.name, found_cat.color,
+            );
         }
     }
 

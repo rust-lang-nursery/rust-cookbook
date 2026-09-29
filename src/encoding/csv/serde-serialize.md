@@ -20,9 +20,21 @@ struct Record<'a> {
 fn main() -> Result<()> {
     let mut wtr = csv::Writer::from_writer(io::stdout());
 
-    let rec1 = Record { name: "Mark", place: "Melbourne", id: 56};
-    let rec2 = Record { name: "Ashley", place: "Sydney", id: 64};
-    let rec3 = Record { name: "Akshat", place: "Delhi", id: 98};
+    let rec1 = Record {
+        name: "Mark",
+        place: "Melbourne",
+        id: 56,
+    };
+    let rec2 = Record {
+        name: "Ashley",
+        place: "Sydney",
+        id: 64,
+    };
+    let rec3 = Record {
+        name: "Akshat",
+        place: "Delhi",
+        id: 98,
+    };
 
     wtr.serialize(rec1)?;
     wtr.serialize(rec2)?;

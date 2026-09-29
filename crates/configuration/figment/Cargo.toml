@@ -9,3 +9,8 @@ publish.workspace = true
 [dependencies]
 figment = { version = "0.10", features = ["env", "json", "test", "toml"] }
 serde = { version = "1.0", features = ["derive"] }
+
+[lints.clippy]
+# `figment::Error` is 208 bytes; its size is fixed by the upstream crate and
+# boxing it would only obscure the example's error handling.
+result_large_err = "allow"

@@ -54,9 +54,11 @@ mod tests {
         let events = rx
             .recv_timeout(Duration::from_secs(5))?
             .map_err(|errors| format!("watch errors: {errors:?}"))?;
-        assert!(events
-            .iter()
-            .any(|event| event.paths.iter().any(|p| p.ends_with("log.txt"))));
+        assert!(
+            events
+                .iter()
+                .any(|event| event.paths.iter().any(|p| p.ends_with("log.txt")))
+        );
         Ok(())
     }
 }

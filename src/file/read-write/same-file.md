@@ -8,15 +8,15 @@ to be written to are tested for equality.
 
 ```rust,edition2021
 use same_file::Handle;
-use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::fs::File;
+use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::path::Path;
 
 fn main() -> Result<(), Error> {
     // Create a test file
     let mut file = File::create("new.txt")?;
     writeln!(file, "test content")?;
-    
+
     let path_to_read = Path::new("new.txt");
 
     let stdout_handle = Handle::stdout()?;

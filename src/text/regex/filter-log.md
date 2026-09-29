@@ -12,9 +12,9 @@ Since backslashes are very common in regular expressions, using
 
 ```rust,edition2018,no_run
 use anyhow::Result;
-use std::fs::File;
-use std::io::{BufReader, BufRead};
 use regex::RegexSetBuilder;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
 
 fn main() -> Result<()> {
     let log_path = "application.log";
@@ -24,8 +24,9 @@ fn main() -> Result<()> {
         r#"version "\d\.\d\.\d""#,
         r#"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:443"#,
         r#"warning.*timeout expired"#,
-    ]).case_insensitive(true)
-        .build()?;
+    ])
+    .case_insensitive(true)
+    .build()?;
 
     buffered
         .lines()

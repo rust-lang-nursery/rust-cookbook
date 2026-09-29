@@ -22,7 +22,9 @@ fn main() -> Result<(), Error> {
         Mark\tMelbourne\t46\n\
         Ashley\tZurich\t92";
 
-    let mut reader = ReaderBuilder::new().delimiter(b'\t').from_reader(data.as_bytes());
+    let mut reader = ReaderBuilder::new()
+        .delimiter(b'\t')
+        .from_reader(data.as_bytes());
     for result in reader.deserialize::<Record>() {
         println!("{:?}", result?);
     }

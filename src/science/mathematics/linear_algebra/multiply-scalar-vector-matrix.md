@@ -16,7 +16,6 @@ the vector is a 1-D array on the right-hand side, so `dot` handles it as a colum
 vector.
 
 ```rust,edition2018
-
 use ndarray::{arr1, arr2, Array1};
 
 fn main() {
@@ -24,8 +23,7 @@ fn main() {
 
     let vector = arr1(&[1, 2, 3]);
 
-    let matrix = arr2(&[[4, 5, 6],
-                        [7, 8, 9]]);
+    let matrix = arr2(&[[4, 5, 6], [7, 8, 9]]);
 
     let new_vector: Array1<_> = scalar * vector;
     println!("{}", new_vector);

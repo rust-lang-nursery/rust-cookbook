@@ -12,10 +12,7 @@ fn main() {
         .iter()
         .copied()
         .collect();
-    let monitored: HashSet<&str> = ["web", "api", "database"]
-        .iter()
-        .copied()
-        .collect();
+    let monitored: HashSet<&str> = ["web", "api", "database"].iter().copied().collect();
 
     // Services running but not being monitored
     let mut unmonitored: Vec<&str> = deployed.difference(&monitored).copied().collect();

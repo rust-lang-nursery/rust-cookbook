@@ -75,8 +75,14 @@ fn main() {
 
     let mut flags = MyFlags::FLAG_ABC;
     assert_eq!(format!("{}", flags), "00000000000000000000000000000111");
-    assert_eq!(format!("{}", flags.clear()), "00000000000000000000000000000000");
+    assert_eq!(
+        format!("{}", flags.clear()),
+        "00000000000000000000000000000000"
+    );
     assert_eq!(format!("{:?}", MyFlags::FLAG_B), "MyFlags(2)");
-    assert_eq!(format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B), "MyFlags(3)");
+    assert_eq!(
+        format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B),
+        "MyFlags(3)"
+    );
 }
 ```

@@ -13,10 +13,10 @@ body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 
 ```rust,edition2021,no_run
 use anyhow::Result;
+use reqwest::Client;
 use serde::Deserialize;
 use serde_json::json;
 use std::env;
-use reqwest::Client;
 
 #[derive(Deserialize, Debug)]
 struct Gist {
@@ -29,13 +29,13 @@ fn main() -> Result<()> {
     let gh_pass = env::var("GH_PASS")?;
 
     let gist_body = json!({
-        "description": "the description for this gist",
-        "public": true,
-        "files": {
-             "main.rs": {
-             "content": r#"fn main() { println!("hello world!");}"#
-            }
-        }});
+    "description": "the description for this gist",
+    "public": true,
+    "files": {
+         "main.rs": {
+         "content": r#"fn main() { println!("hello world!");}"#
+        }
+    }});
 
     let request_url = "https://api.github.com/gists";
     let response = reqwest::blocking::Client::new()
@@ -47,13 +47,17 @@ fn main() -> Result<()> {
     let gist: Gist = response.json()?;
     println!("Created {:?}", gist);
 
-    let request_url = format!("{}/{}",request_url, gist.id);
+    let request_url = format!("{}/{}", request_url, gist.id);
     let response = reqwest::blocking::Client::new()
         .delete(&request_url)
         .basic_auth(gh_user, Some(gh_pass))
         .send()?;
 
-    println!("Gist {} deleted! Status code: {}",gist.id, response.status());
+    println!(
+        "Gist {} deleted! Status code: {}",
+        gist.id,
+        response.status()
+    );
     Ok(())
 }
 ```

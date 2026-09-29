@@ -20,7 +20,7 @@ async fn fetch_network_request() -> u32 {
 }
 
 fn main() -> io::Result<()> {
-     let runtime = Builder::new_multi_thread()
+    let runtime = Builder::new_multi_thread()
         .worker_threads(4)
         .thread_name("thread-one")
         .thread_stack_size(3 * 1024 * 1024)

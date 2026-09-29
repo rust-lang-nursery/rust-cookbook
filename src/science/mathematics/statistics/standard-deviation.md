@@ -23,15 +23,19 @@ fn mean(data: &[i32]) -> Option<f32> {
 fn std_deviation(data: &[i32]) -> Option<f32> {
     match (mean(data), data.len()) {
         (Some(data_mean), count) if count > 0 => {
-            let variance = data.iter().map(|value| {
-                let diff = data_mean - (*value as f32);
+            let variance = data
+                .iter()
+                .map(|value| {
+                    let diff = data_mean - (*value as f32);
 
-                diff * diff
-            }).sum::<f32>() / count as f32;
+                    diff * diff
+                })
+                .sum::<f32>()
+                / count as f32;
 
             Some(variance.sqrt())
-        },
-        _ => None
+        }
+        _ => None,
     }
 }
 
@@ -49,10 +53,13 @@ fn main() {
             let diff = data[4] as f32 - mean;
 
             Some(diff / std_deviation)
-        },
-        _ => None
+        }
+        _ => None,
     };
-    println!("Z-score of data at index 4 (with value {}) is {:?}", data[4], zscore);
+    println!(
+        "Z-score of data at index 4 (with value {}) is {:?}",
+        data[4], zscore
+    );
 }
 ```
 

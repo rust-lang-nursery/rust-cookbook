@@ -10,10 +10,10 @@ use std::collections::HashMap;
 fn main() {
     let log_lines = vec![
         ("ERROR", "disk full"),
-        ("WARN",  "high memory usage"),
-        ("INFO",  "server started"),
+        ("WARN", "high memory usage"),
+        ("INFO", "server started"),
         ("ERROR", "connection refused"),
-        ("INFO",  "request received"),
+        ("INFO", "request received"),
     ];
 
     let mut by_level: HashMap<&str, Vec<&str>> = HashMap::new();

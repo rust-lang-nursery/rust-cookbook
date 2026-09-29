@@ -8,9 +8,7 @@ Creates a custom logger configuration using the [`Builder::target`] to set the t
 use env_logger::{Builder, Target};
 
 fn main() {
-    Builder::new()
-        .target(Target::Stdout)
-        .init();
+    Builder::new().target(Target::Stdout).init();
 
     log::error!("This error has been printed to Stdout");
 }

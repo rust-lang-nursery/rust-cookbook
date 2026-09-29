@@ -10,9 +10,9 @@ to make the glob pattern case insensitive while keeping the other options
 [`Default`].
 
 ```rust,edition2021
-use walkdir::WalkDir;
 use anyhow::Result;
 use glob::{glob_with, MatchOptions};
+use walkdir::WalkDir;
 
 fn main() -> Result<()> {
     let options = MatchOptions {

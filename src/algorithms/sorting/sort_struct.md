@@ -11,14 +11,14 @@ You can also provide a custom comparator function using a [`vec:sort_by`] method
 #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct Person {
     name: String,
-    age: u32
+    age: u32,
 }
 
 impl Person {
     pub fn new(name: &str, age: u32) -> Self {
         Person {
             name: name.to_string(),
-            age
+            age,
         }
     }
 }
@@ -39,7 +39,8 @@ fn main() {
             Person::new("Al", 60),
             Person::new("John", 1),
             Person::new("Zoe", 25),
-        ]);
+        ]
+    );
 
     // Sort people by age
     people.sort_by(|a, b| b.age.cmp(&a.age));
@@ -50,10 +51,9 @@ fn main() {
             Person::new("Al", 60),
             Person::new("Zoe", 25),
             Person::new("John", 1),
-        ]);
-
+        ]
+    );
 }
-
 ```
 
 [`Eq`]: https://doc.rust-lang.org/std/cmp/trait.Eq.html 

@@ -10,8 +10,8 @@ images in parallel using [`par_iter`] calling  [`DynamicImage::resize`].
 
 ```rust,edition2018,no_run
 use anyhow::Result;
-use std::path::Path;
 use std::fs::create_dir_all;
+use std::path::Path;
 
 use glob::{glob_with, MatchOptions};
 use image::imageops::FilterType;
@@ -43,7 +43,10 @@ fn main() -> Result<()> {
 
     image_failures.iter().for_each(|x| println!("{}", x));
 
-    println!("{} thumbnails saved successfully", files.len() - image_failures.len());
+    println!(
+        "{} thumbnails saved successfully",
+        files.len() - image_failures.len()
+    );
     Ok(())
 }
 
@@ -55,7 +58,8 @@ where
     let img = image::open(original.as_ref())?;
     let file_path = thumb_dir.as_ref().join(original);
 
-    Ok(img.resize(longest_edge, longest_edge, FilterType::Nearest)
+    Ok(img
+        .resize(longest_edge, longest_edge, FilterType::Nearest)
         .save(file_path)?)
 }
 ```

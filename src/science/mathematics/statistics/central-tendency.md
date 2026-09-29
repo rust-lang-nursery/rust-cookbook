@@ -14,8 +14,8 @@ fn main() {
     let count = data.len();
 
     let mean = match count {
-       positive if positive > 0 => Some(sum  / count as f32),
-       _ => None
+        positive if positive > 0 => Some(sum / count as f32),
+        _ => None,
     };
 
     println!("Mean of the data is {:?}", mean);
@@ -33,18 +33,17 @@ fn partition(data: &[i32]) -> Option<(Vec<i32>, i32, Vec<i32>)> {
         _ => {
             let (pivot_slice, tail) = data.split_at(1);
             let pivot = pivot_slice[0];
-            let (left, right) = tail.iter()
-                .fold((vec![], vec![]), |mut splits, next| {
-                    {
-                        let (ref mut left, ref mut right) = &mut splits;
-                        if next < &pivot {
-                            left.push(*next);
-                        } else {
-                            right.push(*next);
-                        }
+            let (left, right) = tail.iter().fold((vec![], vec![]), |mut splits, next| {
+                {
+                    let (ref mut left, ref mut right) = &mut splits;
+                    if next < &pivot {
+                        left.push(*next);
+                    } else {
+                        right.push(*next);
                     }
-                    splits
-                });
+                }
+                splits
+            });
 
             Some((left, pivot, right))
         }
@@ -64,7 +63,7 @@ fn select(data: &[i32], k: usize) -> Option<i32> {
                 Ordering::Greater => select(&left, k),
                 Ordering::Less => select(&right, k - (pivot_idx + 1)),
             }
-        },
+        }
     }
 }
 
@@ -78,10 +77,10 @@ fn median(data: &[i32]) -> Option<f32> {
 
             match (fst_med, snd_med) {
                 (Some(fst), Some(snd)) => Some((fst + snd) as f32 / 2.0),
-                _ => None
+                _ => None,
             }
-        },
-        odd => select(data, odd / 2).map(|x| x as f32)
+        }
+        odd => select(data, odd / 2).map(|x| x as f32),
     }
 }
 

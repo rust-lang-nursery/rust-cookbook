@@ -14,9 +14,8 @@ identifies a date and a time. For parsing dates and times without timezones use
 [`NaiveDate`], [`NaiveTime`], and [`NaiveDateTime`].
 
 ```rust,edition2018
-use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
 use chrono::format::ParseError;
-
+use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
 
 fn main() -> Result<(), ParseError> {
     let rfc2822 = DateTime::parse_from_rfc2822("Tue, 1 Jul 2003 10:52:37 +0200")?;

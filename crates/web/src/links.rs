@@ -1,6 +1,6 @@
-use thiserror::Error;
 use select::document::Document;
 use select::predicate::Name;
+use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum LinkError {
@@ -11,18 +11,13 @@ pub enum LinkError {
 }
 
 pub async fn get_links(page: &str) -> Result<Vec<Box<str>>, LinkError> {
-  let res = reqwest::get(page)
-    .await?
-    .text()
-    .await?;
+    let res = reqwest::get(page).await?.text().await?;
 
-  let links = Document::from(res.as_str())
-    .find(Name("a"))
-    .filter_map(|node| node.attr("href"))
-    .into_iter()
-    .map(|link| Box::<str>::from(link.to_string()))
-    .collect();
+    let links = Document::from(res.as_str())
+        .find(Name("a"))
+        .filter_map(|node| node.attr("href"))
+        .map(|link| Box::<str>::from(link.to_string()))
+        .collect();
 
-  Ok(links)
+    Ok(links)
 }
-

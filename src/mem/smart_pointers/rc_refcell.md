@@ -29,14 +29,18 @@ fn main() -> Result<(), BorrowMutError> {
     let generate_api_contract = new_task("Generate API contract");
     let implement_endpoint_1 = new_task("Implement endpoint 1 from API contract");
     let implement_endpoint_2 = new_task("Implement endpoint 2 from API contract");
-    
+
     {
         let mut borrowed_task_1 = implement_endpoint_1.try_borrow_mut()?;
-        borrowed_task_1.dependencies.push(Rc::clone(&generate_api_contract));
+        borrowed_task_1
+            .dependencies
+            .push(Rc::clone(&generate_api_contract));
 
         let mut borrowed_task_2 = implement_endpoint_2.try_borrow_mut()?;
-        borrowed_task_2.dependencies.push(Rc::clone(&generate_api_contract));
-    
+        borrowed_task_2
+            .dependencies
+            .push(Rc::clone(&generate_api_contract));
+
         generate_api_contract.borrow_mut().done = true;
     }
 

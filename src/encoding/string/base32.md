@@ -19,7 +19,7 @@ some visual errors. It finally makes sure the entered password decodes back to
 the initial random bytes.
 
 ```rust,edition2018
-use data_encoding::{BASE32_NOPAD, BASE32_NOPAD_VISUAL, DecodeError};
+use data_encoding::{DecodeError, BASE32_NOPAD, BASE32_NOPAD_VISUAL};
 
 fn main() -> Result<(), DecodeError> {
     // Generate the password from random bytes.

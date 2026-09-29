@@ -84,7 +84,7 @@ fn main() -> Result<(), LogError> {
     );
 
     // Stack-allocated string formatting.
-    let label = format_label(42, 3.14)?;
+    let label = format_label(42, 23.5)?;
     println!("label: {label}");
 
     // Demonstrate capacity enforcement — the 9th push returns Err.

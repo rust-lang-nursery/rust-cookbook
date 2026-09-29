@@ -14,11 +14,12 @@ use std::collections::HashSet;
 
 fn extract_hashtags(text: &str) -> HashSet<&str> {
     lazy_static! {
-        static ref HASHTAG_REGEX : Regex = Regex::new(
-                r"\#[a-zA-Z][0-9a-zA-Z_]*"
-            ).unwrap();
+        static ref HASHTAG_REGEX: Regex = Regex::new(r"\#[a-zA-Z][0-9a-zA-Z_]*").unwrap();
     }
-    HASHTAG_REGEX.find_iter(text).map(|mat| mat.as_str()).collect()
+    HASHTAG_REGEX
+        .find_iter(text)
+        .map(|mat| mat.as_str())
+        .collect()
 }
 
 fn main() {

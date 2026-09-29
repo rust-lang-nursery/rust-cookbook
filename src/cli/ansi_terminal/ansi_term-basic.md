@@ -14,10 +14,12 @@ There are two main data structures in [`ansi_term`]: [`ANSIString`] and [`Style`
 use ansi_term::Colour;
 
 fn main() {
-    println!("This is {} in color, {} in color and {} in color",
-             Colour::Red.paint("red"),
-             Colour::Blue.paint("blue"),
-             Colour::Green.paint("green"));
+    println!(
+        "This is {} in color, {} in color and {} in color",
+        Colour::Red.paint("red"),
+        Colour::Blue.paint("blue"),
+        Colour::Green.paint("green")
+    );
 }
 ```
 
@@ -31,8 +33,10 @@ and properties chained.
 use ansi_term::Style;
 
 fn main() {
-    println!("{} and this is not",
-             Style::new().bold().paint("This is Bold"));
+    println!(
+        "{} and this is not",
+        Style::new().bold().paint("This is Bold")
+    );
 }
 ```
 ### Bold and colored text in terminal
@@ -43,11 +47,13 @@ fn main() {
 use ansi_term::Colour;
 use ansi_term::Style;
 
-fn main(){
-    println!("{}, {} and {}",
-             Colour::Yellow.paint("This is colored"),
-             Style::new().bold().paint("this is bold"),
-             Colour::Yellow.bold().paint("this is bold and colored"));
+fn main() {
+    println!(
+        "{}, {} and {}",
+        Colour::Yellow.paint("This is colored"),
+        Style::new().bold().paint("this is bold"),
+        Colour::Yellow.bold().paint("this is bold and colored")
+    );
 }
 ```
 

@@ -5,7 +5,7 @@
 Given two versions, [`is_prerelease`] asserts that one is pre-release and the other is not.
 
 ```rust,edition2018
-use semver::{Version, Error};
+use semver::{Error, Version};
 
 fn main() -> Result<(), Error> {
     let version_1 = Version::parse("1.0.0-alpha")?;

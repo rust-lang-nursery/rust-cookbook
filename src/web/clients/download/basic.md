@@ -11,8 +11,8 @@ The temporary directory is automatically removed on program exit.
 
 ```rust,edition2021,no_run
 use anyhow::Result;
-use std::io::Write;
 use std::fs::File;
+use std::io::Write;
 use tempfile::Builder;
 
 fn main() -> Result<()> {
@@ -33,7 +33,7 @@ fn main() -> Result<()> {
         println!("will be located under: '{:?}'", fname);
         File::create(fname)?
     };
-    let content =  response.bytes()?;
+    let content = response.bytes()?;
     dest.write_all(&content)?;
     Ok(())
 }

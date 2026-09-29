@@ -10,7 +10,7 @@ Once the URL has been parsed, it can be used with all of the methods in the
 `Url` type.
 
 ```rust,edition2018
-use url::{Url, ParseError};
+use url::{ParseError, Url};
 
 fn main() -> Result<(), ParseError> {
     let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&state=open";

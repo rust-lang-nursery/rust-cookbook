@@ -27,7 +27,6 @@ benefit of users. For internal functions, the more concise `ArrayView1<f64>`
 may be preferable.
 
 ```rust,edition2018
-
 use ndarray::{array, Array1, ArrayView1};
 
 fn l1_norm(x: ArrayView1<f64>) -> f64 {
@@ -40,7 +39,7 @@ fn l2_norm(x: ArrayView1<f64>) -> f64 {
 
 fn normalize(mut x: Array1<f64>) -> Array1<f64> {
     let norm = l2_norm(x.view());
-    x.mapv_inplace(|e| e/norm);
+    x.mapv_inplace(|e| e / norm);
     x
 }
 

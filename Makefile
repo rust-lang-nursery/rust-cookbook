@@ -1,4 +1,4 @@
-.PHONY: help build test deploy deploy-skip-tests dev clean install-mdbook
+.PHONY: help build serve test lint fmt fmt-check deploy deploy-skip-tests dev clean install-mdbook
 
 help: ## Show this help message
 	@echo "Rust Cookbook - Available commands:"
@@ -12,6 +12,17 @@ build: install-mdbook ## Build the book locally
 	mdbook build
 	cp -r assets/ book/
 	@echo "Build complete! Open book/index.html in your browser."
+
+fmt: ## Format workspace crates and the code blocks inline in the markdown
+	cargo fmt --all
+	cargo xtask fmt-md
+
+fmt-check: ## Check formatting without writing changes
+	cargo fmt --all -- --check
+	cargo xtask fmt-md --check
+
+lint: fmt-check ## Run the formatting checks and clippy
+	cargo clippy --workspace --all-targets -- -D warnings
 
 test: ## Run all tests
 	cargo test
@@ -32,4 +43,4 @@ clean: ## Clean build artifacts
 	@echo "Clean complete!"
 
 serve: install-mdbook ## Serve the book locally with live reload
-	mdbook serve --open 
+	mdbook serve --open

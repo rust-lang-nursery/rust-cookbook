@@ -33,8 +33,12 @@ impl Notification for Sms {
 }
 
 fn main() {
-    let email = Email { address: "example@mail.com".to_string() };
-    let sms = Sms { phone_number: "1-800-555-0100".to_string() };
+    let email = Email {
+        address: "example@mail.com".to_string(),
+    };
+    let sms = Sms {
+        phone_number: "1-800-555-0100".to_string(),
+    };
 
     let notifications: Vec<Box<dyn Notification>> = vec![Box::new(email), Box::new(sms)];
 

@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+# Formatting and lints only. Tests, spellcheck, and link checking are covered
+# by mdbook-test.yml, spellcheck.yml, and check-links.yml.
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Run Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      # The skeptic-tested examples live inline in src/**/*.md, so cargo fmt
+      # never sees them. This extracts each block and runs rustfmt over it.
+      - name: Check inline markdown formatting
+        run: cargo xtask fmt-md --check

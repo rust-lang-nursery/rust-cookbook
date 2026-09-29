@@ -6,19 +6,18 @@ The recipe inserts data into the `author` table using [`execute`] method of `Cli
 
 
 ```rust,edition2021,no_run
-use postgres::{Client, NoTls, Error};
+use postgres::{Client, Error, NoTls};
 use std::collections::HashMap;
 
 struct Author {
     _id: i32,
     name: String,
-    country: String
+    country: String,
 }
 
 fn main() -> Result<(), Error> {
-    let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", 
-                                    NoTls)?;
-    
+    let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", NoTls)?;
+
     let mut authors = HashMap::new();
     authors.insert(String::from("Chinua Achebe"), "Nigeria");
     authors.insert(String::from("Rabindranath Tagore"), "India");
@@ -28,12 +27,12 @@ fn main() -> Result<(), Error> {
         let author = Author {
             _id: 0,
             name: key.to_string(),
-            country: value.to_string()
+            country: value.to_string(),
         };
 
         client.execute(
-                "INSERT INTO author (name, country) VALUES ($1, $2)",
-                &[&author.name, &author.country],
+            "INSERT INTO author (name, country) VALUES ($1, $2)",
+            &[&author.name, &author.country],
         )?;
     }
 
@@ -47,7 +46,6 @@ fn main() -> Result<(), Error> {
     }
 
     Ok(())
-
 }
 ```
 

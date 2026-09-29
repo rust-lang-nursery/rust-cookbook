@@ -27,7 +27,8 @@ fn main() -> Result<()> {
             let tx = tx.clone();
             thread::spawn(move || -> Result<()> {
                 for item in 0..3 {
-                    tx.send((id, item)).map_err(|e| anyhow!("send failed: {e}"))?;
+                    tx.send((id, item))
+                        .map_err(|e| anyhow!("send failed: {e}"))?;
                 }
                 Ok(())
             })
@@ -46,7 +47,9 @@ fn main() -> Result<()> {
     }
 
     for producer in producers {
-        producer.join().map_err(|_| anyhow!("producer panicked"))??;
+        producer
+            .join()
+            .map_err(|_| anyhow!("producer panicked"))??;
     }
     assert_eq!(received, 9);
     Ok(())
@@ -93,7 +96,9 @@ fn main() -> Result<()> {
         }
     }
 
-    producer.join().map_err(|_| anyhow!("producer panicked"))??;
+    producer
+        .join()
+        .map_err(|_| anyhow!("producer panicked"))??;
     println!("ran {frame} frames");
     Ok(())
 }

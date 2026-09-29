@@ -10,10 +10,10 @@ then copies the contents of the source file into the encoder with
 `input.txt.gz`.
 
 ```rust,edition2018,no_run
-use std::fs::File;
-use std::io;
 use flate2::write::GzEncoder;
 use flate2::Compression;
+use std::fs::File;
+use std::io;
 
 fn main() -> Result<(), io::Error> {
     let mut input = File::open("input.txt")?;

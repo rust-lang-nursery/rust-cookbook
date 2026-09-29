@@ -19,10 +19,7 @@ fn main() -> Result<(), Error> {
         let record = record?;
         println!(
             "In {}, {} built the {} model. It is a {}.",
-            &record[0],
-            &record[1],
-            &record[2],
-            &record[3]
+            &record[0], &record[1], &record[2], &record[3]
         );
     }
 
@@ -54,10 +51,7 @@ fn main() -> Result<(), csv::Error> {
         let record: Record = record?;
         println!(
             "In {}, {} built the {} model. It is a {}.",
-            record.year,
-            record.make,
-            record.model,
-            record.description
+            record.year, record.make, record.model, record.description
         );
     }
 

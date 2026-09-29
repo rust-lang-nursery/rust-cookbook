@@ -14,7 +14,7 @@ logged and the previous settings are kept, so a malformed edit never takes down
 the running program.
 
 ```rust,no_run
-{{#include ../../crates/configuration/config/src/bin/reload.rs::54}}
+{{#include ../../crates/configuration/config/src/bin/reload.rs::57}}
 ```
 
 [`new_debouncer`]: https://docs.rs/notify-debouncer-full/*/notify_debouncer_full/fn.new_debouncer.html

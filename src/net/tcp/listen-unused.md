@@ -7,8 +7,8 @@ listen until a request is made.  [`TcpListener::bind`] uses a random port
 allocated by the OS when requested to bind to port 0.
 
 ```rust,edition2018,no_run
+use std::io::{Error, Read};
 use std::net::TcpListener;
-use std::io::{Read, Error};
 
 fn main() -> Result<(), Error> {
     let listener = TcpListener::bind("localhost:0")?;

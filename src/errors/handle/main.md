@@ -26,10 +26,10 @@ a maintained error aggregation option.
 ```rust,edition2018
 use thiserror::Error;
 
-#[derive(Error,Debug)]
+#[derive(Error, Debug)]
 pub enum MultiError {
-  #[error("🦀 got {0}")]
-  ErrorClass(String),
+    #[error("🦀 got {0}")]
+    ErrorClass(String),
 }
 
 fn main() -> Result<(), MultiError> {
@@ -45,9 +45,9 @@ type from the crate to provide auto-`Box`ing behavior
 use anyhow::Result;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-   let my_string = "yellow".to_string();  
-   let _my_int = my_string.parse::<i32>()?;
-   Ok(())
+    let my_string = "yellow".to_string();
+    let _my_int = my_string.parse::<i32>()?;
+    Ok(())
 }
 ```
 

@@ -9,12 +9,11 @@ complex numbers, the Complex type has a few built in
 functions, all of which can be found here: [`num::complex::Complex`].
 
 ```rust,edition2018
-
-use std::f64::consts::PI;
 use num::complex::Complex;
+use std::f64::consts::PI;
 
 fn main() {
-    let x = Complex::new(0.0, 2.0*PI);
+    let x = Complex::new(0.0, 2.0 * PI);
 
     println!("e^(2i * pi) = {}", x.exp()); // =~1
 }

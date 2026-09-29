@@ -24,10 +24,18 @@ make serve                    # or: mdbook serve --open
 # Build + test together
 make dev
 
+# Formatting and lints (what CI's `lint` job runs)
+make lint                     # fmt checks + clippy
+make fmt                      # rewrite: cargo fmt --all && cargo xtask fmt-md
+cargo fmt --all -- --check    # workspace crates
+cargo xtask fmt-md --check    # code blocks written inline in src/**/*.md
+cargo clippy --workspace --all-targets -- -D warnings
+
 # xtask alternatives
 cargo xtask test all          # run all tests
 cargo xtask test cargo        # cargo tests only
 cargo xtask test link         # link checking (requires lychee)
+cargo xtask fmt-md            # format inline markdown code blocks
 cargo xtask book              # build book
 cargo xtask book serve        # serve book
 
@@ -107,7 +115,8 @@ When a dependency version needs to change, migrate the affected examples rather 
 - `build.rs` — discovers markdown for skeptic; `REMOVED_TESTS` and `REMOVED_PREFIXES` exclude migrated examples
 - `book.toml` — mdBook configuration
 - `.cargo/config.toml` — defines `cargo xtask` alias
-- `xtask/` — task runner for build, test, and link checking
+- `xtask/` — task runner for build, test, link checking, and inline-markdown formatting
+- `xtask/src/fmt_md.rs` — runs rustfmt over the Rust code blocks written inline in `src/**/*.md`; skips `{{#include}}` blocks (already covered by `cargo fmt --all`), `ignore` blocks, and blocks using skeptic `# ` hidden lines
 
 ## Writing Examples
 
@@ -124,6 +133,7 @@ From `.github/PULL_REQUEST_TEMPLATE.md`. Verify all of these before opening or
 updating a PR:
 
 - Tests pass locally with `cargo xtask test all`
+- Formatting and lints pass locally with `make lint`
 - Commits are squashed into one and rebased to latest `master`
 - PR body contains a correct `fixes #ISSUE_ID` clause, or the clause is removed if no issue exists
 - Non-rendered items are in sorted order (links, references, identifiers, `Cargo.toml`)

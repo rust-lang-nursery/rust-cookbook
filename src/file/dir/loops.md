@@ -13,16 +13,18 @@ ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 The following would assert that a loop exists.
 
 ```rust,edition2021
-use walkdir::WalkDir;
 use same_file::is_same_file;
+use walkdir::WalkDir;
 
 fn main() {
     let mut loop_found = false;
     for entry in WalkDir::new(".")
         .follow_links(true)
         .into_iter()
-        .filter_map(|e| e.ok()) {
-        let ancestor = entry.path()
+        .filter_map(|e| e.ok())
+    {
+        let ancestor = entry
+            .path()
             .ancestors()
             .skip(1)
             .find(|ancestor| is_same_file(ancestor, entry.path()).is_ok());

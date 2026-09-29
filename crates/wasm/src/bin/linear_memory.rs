@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use wasmtime::{Engine, Instance, Module, Store};
 
 fn main() -> Result<()> {

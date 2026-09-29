@@ -18,7 +18,10 @@ fn main() {
         "Time in Hong Kong now is {}",
         utc_time.with_timezone(&china_timezone)
     );
-    println!("Time in Rio de Janeiro now is {}", utc_time.with_timezone(&rio_timezone));
+    println!(
+        "Time in Rio de Janeiro now is {}",
+        utc_time.with_timezone(&rio_timezone)
+    );
 }
 ```
 

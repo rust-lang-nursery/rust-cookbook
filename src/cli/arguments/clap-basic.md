@@ -25,21 +25,25 @@ without this.
 ```rust,edition2018
 use std::path::PathBuf;
 
-use clap::{Arg, Command, builder::PathBufValueParser};
+use clap::{builder::PathBufValueParser, Arg, Command};
 
 fn main() {
     let matches = Command::new("My Test Program")
         .version("0.1.0")
         .about("Teaches argument parsing")
-        .arg(Arg::new("file")
-                 .short('f')
-                 .long("file")
-                 .help("A cool file")
-                 .value_parser(PathBufValueParser::default()))
-        .arg(Arg::new("num")
-                 .short('n')
-                 .long("number")
-                 .help("Five less than your favorite number"))
+        .arg(
+            Arg::new("file")
+                .short('f')
+                .long("file")
+                .help("A cool file")
+                .value_parser(PathBufValueParser::default()),
+        )
+        .arg(
+            Arg::new("num")
+                .short('n')
+                .long("number")
+                .help("Five less than your favorite number"),
+        )
         .get_matches();
 
     let default_file = PathBuf::from("input.txt");

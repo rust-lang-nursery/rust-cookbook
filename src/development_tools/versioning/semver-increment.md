@@ -11,15 +11,12 @@ incrementing the major version number resets both the minor and patch version
 numbers to 0.
 
 ```rust,edition2018
-use semver::{Version, Error as SemVerError};
+use semver::{Error as SemVerError, Version};
 
 fn main() -> Result<(), SemVerError> {
     let mut parsed_version = Version::parse("0.2.6")?;
 
-    assert_eq!(
-        parsed_version,
-        Version::new(0, 2, 6)
-    );
+    assert_eq!(parsed_version, Version::new(0, 2, 6));
 
     parsed_version.patch += 1;
     assert_eq!(parsed_version.to_string(), "0.2.7");

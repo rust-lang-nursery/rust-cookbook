@@ -12,9 +12,9 @@ Due to both [`ClientBuilder::build`] and [`ReqwestBuilder::send`] returning [`re
 types, the shortcut [`reqwest::Result`] is used for the main function return type. 
 
 ```rust,edition2021,no_run
+use reqwest::ClientBuilder;
 use reqwest::Result;
 use std::time::Duration;
-use reqwest::ClientBuilder;
 
 fn main() -> Result<()> {
     let user = "ferris-the-crab";
@@ -22,7 +22,9 @@ fn main() -> Result<()> {
     println!("{}", request_url);
 
     let timeout = Duration::new(5, 0);
-    let client = reqwest::blocking::ClientBuilder::new().timeout(timeout).build()?;
+    let client = reqwest::blocking::ClientBuilder::new()
+        .timeout(timeout)
+        .build()?;
     let response = client.head(&request_url).send()?;
 
     if response.status().is_success() {

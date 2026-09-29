@@ -9,7 +9,7 @@ Note that, in accordance with the Specification, build metadata is parsed but no
 comparing versions. In other words, two versions may be equal even if their build strings differ.
 
 ```rust,edition2018
-use semver::{Version, Prerelease, BuildMetadata, Error};
+use semver::{BuildMetadata, Error, Prerelease, Version};
 
 fn main() -> Result<(), Error> {
     let version_str = "1.0.49-125+g72ee7853";

@@ -8,9 +8,9 @@ via [`Entry::unpack`].
 
 ```rust,edition2018,no_run
 use anyhow::Result;
+use flate2::read::GzDecoder;
 use std::fs::File;
 use std::path::PathBuf;
-use flate2::read::GzDecoder;
 use tar::Archive;
 
 fn main() -> Result<()> {

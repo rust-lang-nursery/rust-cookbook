@@ -31,7 +31,10 @@ fn main() -> Result<()> {
     let mut debouncer = new_debouncer(Duration::from_secs(1), None, tx)?;
     debouncer.watch(&path, RecursiveMode::NonRecursive)?;
 
-    println!("watching {} for changes. Press Ctrl-C to stop.", path.display());
+    println!(
+        "watching {} for changes. Press Ctrl-C to stop.",
+        path.display()
+    );
 
     for result in rx {
         match result {

@@ -11,9 +11,9 @@ under `backup/logs` path with [`Builder::append_dir_all`].
 data prior to writing it into `archive.tar.gz`.
 
 ```rust,edition2018,no_run
-use std::fs::File;
-use flate2::Compression;
 use flate2::write::GzEncoder;
+use flate2::Compression;
+use std::fs::File;
 
 fn main() -> Result<(), std::io::Error> {
     let tar_gz = File::create("archive.tar.gz")?;
@@ -28,9 +28,9 @@ fn main() -> Result<(), std::io::Error> {
 To add the contents without renaming them, an empty string can be used as the first argument of [`Builder::append_dir_all`]:
 
 ```rust,edition2018,no_run
-use std::fs::File;
-use flate2::Compression;
 use flate2::write::GzEncoder;
+use flate2::Compression;
+use std::fs::File;
 
 fn main() -> Result<(), std::io::Error> {
     let tar_gz = File::create("archive.tar.gz")?;

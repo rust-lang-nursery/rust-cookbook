@@ -14,14 +14,13 @@ regex. See the [replacement string syntax] for examples and escaping detail.
 ```rust,edition2018
 use lazy_static::lazy_static;
 
-use std::borrow::Cow;
 use regex::Regex;
+use std::borrow::Cow;
 
 fn reformat_dates(before: &str) -> Cow<str> {
     lazy_static! {
-        static ref ISO8601_DATE_REGEX : Regex = Regex::new(
-            r"(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})"
-            ).unwrap();
+        static ref ISO8601_DATE_REGEX: Regex =
+            Regex::new(r"(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})").unwrap();
     }
     ISO8601_DATE_REGEX.replace_all(before, "$m/$d/$y")
 }

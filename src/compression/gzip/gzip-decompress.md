@@ -10,9 +10,9 @@ Wraps a [`File`] in a [`GzDecoder`] and copies the decompressed bytes into the
 destination file with [`io::copy`].
 
 ```rust,edition2018,no_run
+use flate2::read::GzDecoder;
 use std::fs::File;
 use std::io;
-use flate2::read::GzDecoder;
 
 fn main() -> Result<(), io::Error> {
     let input = File::open("input.txt.gz")?;

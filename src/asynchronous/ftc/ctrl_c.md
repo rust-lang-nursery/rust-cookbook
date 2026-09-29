@@ -15,7 +15,7 @@ If Ctrl-C comes in first, the program exits.
 
 ```rust,edition2018,no_run
 use tokio::signal;
-use tokio::time::{Duration, sleep};
+use tokio::time::{sleep, Duration};
 
 async fn fetch_data() -> String {
     // simulate a slow network request

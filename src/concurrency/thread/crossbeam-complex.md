@@ -25,9 +25,9 @@ think of the calls to `drop` as signaling that no more messages will be sent.
 
 
 ```rust,edition2018
+use crossbeam::channel::bounded;
 use std::thread;
 use std::time::Duration;
-use crossbeam::channel::bounded;
 
 fn main() {
     let (snd1, rcv1) = bounded(1);
@@ -56,8 +56,7 @@ fn main() {
                 thread::sleep(Duration::from_millis(500));
                 // Receive until channel closes
                 for msg in recvr.iter() {
-                    println!("Worker {:?} received {}.",
-                             thread::current().id(), msg);
+                    println!("Worker {:?} received {}.", thread::current().id(), msg);
                     sendr.send(msg * 2).unwrap();
                 }
             });
@@ -70,7 +69,8 @@ fn main() {
         for msg in rcv2.iter() {
             println!("Sink received {}", msg);
         }
-    }).unwrap();
+    })
+    .unwrap();
 }
 ```
 

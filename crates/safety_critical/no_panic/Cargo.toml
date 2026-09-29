@@ -8,3 +8,8 @@ publish.workspace = true
 
 [dependencies]
 no-panic = "0.1"
+
+[lints.clippy]
+# `safe_lookup` spells out both arms on purpose: the example is about
+# exhaustively handling every path, not about the shortest expression.
+manual_map = "allow"

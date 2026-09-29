@@ -13,7 +13,7 @@ The recipe below converts `&[u8]` data to hexadecimal equivalent.  Compares this
 value to the expected value.
 
 ```rust,edition2018
-use data_encoding::{HEXUPPER, DecodeError};
+use data_encoding::{DecodeError, HEXUPPER};
 
 fn main() -> Result<(), DecodeError> {
     let original = b"The quick brown fox jumps over the lazy dog.";

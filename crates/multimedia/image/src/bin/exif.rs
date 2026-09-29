@@ -14,7 +14,13 @@ fn main() -> Result<()> {
     let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("assets/photo.jpg");
     let exif = read_exif(&path)?;
 
-    for tag in [Tag::Make, Tag::Model, Tag::Software, Tag::DateTime, Tag::Orientation] {
+    for tag in [
+        Tag::Make,
+        Tag::Model,
+        Tag::Software,
+        Tag::DateTime,
+        Tag::Orientation,
+    ] {
         if let Some(field) = exif.get_field(tag, In::PRIMARY) {
             println!("{}: {}", tag, field.display_value().with_unit(&exif));
         }

@@ -5,7 +5,7 @@
 The [`join`] method creates a new URL from a base and relative path.
 
 ```rust,edition2018
-use url::{Url, ParseError};
+use url::{ParseError, Url};
 
 fn main() -> Result<(), ParseError> {
     let path = "/rust-lang/cargo";

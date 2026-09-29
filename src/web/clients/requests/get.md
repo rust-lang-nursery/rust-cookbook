@@ -23,7 +23,6 @@ fn main() -> Result<()> {
 
     Ok(())
 }
-
 ```
 
 ## Async

@@ -11,15 +11,17 @@ use regex::Regex;
 
 fn extract_login(input: &str) -> Option<&str> {
     lazy_static! {
-        static ref RE: Regex = Regex::new(r"(?x)
+        static ref RE: Regex = Regex::new(
+            r"(?x)
             ^(?P<login>[^@\s]+)@
             ([[:word:]]+\.)*
             [[:word:]]+$
-            ").unwrap();
+            "
+        )
+        .unwrap();
     }
-    RE.captures(input).and_then(|cap| {
-        cap.name("login").map(|login| login.as_str())
-    })
+    RE.captures(input)
+        .and_then(|cap| cap.name("login").map(|login| login.as_str()))
 }
 
 fn main() {

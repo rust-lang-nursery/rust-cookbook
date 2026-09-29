@@ -12,7 +12,7 @@ The recipe below shows a `&str` of JSON being parsed.  The expected value is dec
 
 ```rust,edition2018
 use serde_json::json;
-use serde_json::{Value, Error};
+use serde_json::{Error, Value};
 
 fn main() -> Result<(), Error> {
     let j = r#"{

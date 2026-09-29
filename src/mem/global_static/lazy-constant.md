@@ -44,9 +44,7 @@ fn main() {
     let cell = OnceCell::new();
     assert!(cell.get().is_none());
 
-    let value: &String = cell.get_or_init(|| {
-        "Hello, World!".to_string()
-    });
+    let value: &String = cell.get_or_init(|| "Hello, World!".to_string());
     assert_eq!(value, "Hello, World!");
     assert!(cell.get().is_some());
 }
@@ -72,7 +70,10 @@ fn main() {
 
     // The closure is not executed yet.
     let permissions = LazyCell::new(|| {
-        println!("--- Fetching permissions from database for ID {} ---", user_id);
+        println!(
+            "--- Fetching permissions from database for ID {} ---",
+            user_id
+        );
         // Simulate an expensive operation
         vec!["read".to_string(), "write".to_string()]
     });
@@ -80,10 +81,11 @@ fn main() {
     println!("User {} session started.", user_id);
 
     // The initialization happens only when we dereference permissions for the first time.
-    if true { // Imagine a conditional check here
+    if true {
+        // Imagine a conditional check here
         println!("Permissions: {:?}", *permissions);
     }
-    
+
     // Subsequent accesses use the already initialized value.
     println!("First permission: {}", permissions[0]);
 }

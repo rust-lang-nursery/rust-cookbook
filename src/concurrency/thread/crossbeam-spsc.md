@@ -10,8 +10,8 @@ channel, meaning there is no limit to the number of storeable messages. The
 producer thread sleeps for half a second in between messages.
 
 ```rust,edition2018
-use std::{thread, time};
 use crossbeam::channel::unbounded;
+use std::{thread, time};
 
 fn main() {
     let (snd, rcv) = unbounded();
@@ -23,7 +23,8 @@ fn main() {
                 thread::sleep(time::Duration::from_millis(100));
             }
         });
-    }).unwrap();
+    })
+    .unwrap();
     for _ in 0..n_msgs {
         let msg = rcv.recv().unwrap();
         println!("Received {}", msg);

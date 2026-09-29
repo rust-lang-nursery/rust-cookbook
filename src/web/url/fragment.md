@@ -5,7 +5,7 @@
 Parses [`Url`] and slices it with [`url::Position`] to strip unneeded URL parts.
 
 ```rust,edition2018
-use url::{Url, Position, ParseError};
+use url::{ParseError, Position, Url};
 
 fn main() -> Result<(), ParseError> {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&state=open")?;

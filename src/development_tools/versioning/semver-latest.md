@@ -16,13 +16,11 @@ where
 {
     let vreq = VersionReq::parse(version_req_str)?;
 
-    Ok(
-        iterable
-            .into_iter()
-            .filter_map(|s| Version::parse(s).ok())
-            .filter(|s| vreq.matches(s))
-            .max(),
-    )
+    Ok(iterable
+        .into_iter()
+        .filter_map(|s| Version::parse(s).ok())
+        .filter(|s| vreq.matches(s))
+        .max())
 }
 
 fn main() -> Result<()> {

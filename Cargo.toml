@@ -121,3 +121,14 @@ walkdir = "2.5"
 [dev-dependencies]
 skeptic = { git = "https://github.com/AndyGauge/rust-skeptic", branch = "rlib-patch" }
 walkdir = "2.5"
+
+[lints.clippy]
+# Warn on the default clippy groups, but let cookbook examples keep the
+# idioms they deliberately demonstrate.
+all = { level = "warn", priority = -1 }
+unwrap_used = "allow"
+expect_used = "allow"
+panic = "allow"
+todo = "allow"
+missing_panics_doc = "allow"
+missing_errors_doc = "allow"

@@ -47,7 +47,8 @@ async fn main() {
     }
 
     let mut complete = 0usize;
-    while set.join_next().await.is_some() { // wait for each job to finish
+    while set.join_next().await.is_some() {
+        // wait for each job to finish
         complete += 1;
     }
 

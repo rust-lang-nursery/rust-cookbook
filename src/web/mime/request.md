@@ -14,8 +14,8 @@ Note that the [`reqwest::header`] module is exported from the [`http`] crate.
 ```rust,edition2021,no_run
 use anyhow::Result;
 use mime::Mime;
-use std::str::FromStr;
 use reqwest::header::CONTENT_TYPE;
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() -> Result<()> {

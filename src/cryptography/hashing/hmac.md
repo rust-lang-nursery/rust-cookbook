@@ -7,9 +7,9 @@ The resulting [`hmac::Tag`] structure contains the raw bytes of the HMAC,
 which can later be verified with[`hmac::verify`] to ensure the message has not been tampered with and comes from a trusted source.
 
 ```rust,edition2021
-use ring::{hmac, rand};
-use ring::rand::SecureRandom;
 use ring::error::Unspecified;
+use ring::rand::SecureRandom;
+use ring::{hmac, rand};
 
 fn main() -> Result<(), Unspecified> {
     let mut key_value = [0u8; 48];

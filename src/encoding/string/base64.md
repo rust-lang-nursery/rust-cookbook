@@ -7,8 +7,8 @@ and decodes it with [`decode`].
 
 ```rust,edition2018
 use anyhow::Result;
-use std::str;
 use base64::prelude::{Engine as _, BASE64_STANDARD};
+use std::str;
 
 fn main() -> Result<()> {
     let hello = b"hello rustaceans";

@@ -60,15 +60,12 @@ impl DriverActor {
                 lat,
                 lng,
             } => {
-                let status = self
-                    .drivers
-                    .entry(driver_id)
-                    .or_insert(DriverStatus {
-                        driver_id,
-                        lat: 0.0,
-                        lng: 0.0,
-                        update_count: 0,
-                    });
+                let status = self.drivers.entry(driver_id).or_insert(DriverStatus {
+                    driver_id,
+                    lat: 0.0,
+                    lng: 0.0,
+                    update_count: 0,
+                });
                 status.lat = lat;
                 status.lng = lng;
                 status.update_count += 1;
@@ -100,12 +97,7 @@ impl DriverHandle {
         Self { sender }
     }
 
-    async fn update_location(
-        &self,
-        driver_id: u32,
-        lat: f64,
-        lng: f64,
-    ) -> Result<(), ActorError> {
+    async fn update_location(&self, driver_id: u32, lat: f64, lng: f64) -> Result<(), ActorError> {
         self.sender
             .send(Message::UpdateLocation {
                 driver_id,
@@ -116,10 +108,7 @@ impl DriverHandle {
         Ok(())
     }
 
-    async fn get_driver_status(
-        &self,
-        driver_id: u32,
-    ) -> Result<Option<DriverStatus>, ActorError> {
+    async fn get_driver_status(&self, driver_id: u32) -> Result<Option<DriverStatus>, ActorError> {
         let (tx, rx) = oneshot::channel();
         self.sender
             .send(Message::GetDriverStatus {
@@ -154,11 +143,17 @@ async fn main() -> Result<(), ActorError> {
     task2.await??;
 
     if let Some(s) = handle.get_driver_status(1).await? {
-        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+        println!(
+            "Driver {}: ({}, {}), updates: {}",
+            s.driver_id, s.lat, s.lng, s.update_count
+        );
     }
 
     if let Some(s) = handle.get_driver_status(2).await? {
-        println!("Driver {}: ({}, {}), updates: {}", s.driver_id, s.lat, s.lng, s.update_count);
+        println!(
+            "Driver {}: ({}, {}), updates: {}",
+            s.driver_id, s.lat, s.lng, s.update_count
+        );
     }
 
     let missing = handle.get_driver_status(99).await?;

@@ -22,11 +22,9 @@ fn main() -> Result<()> {
     file.read_to_string(&mut contents)?;
 
     let client = reqwest::blocking::Client::new();
-    let res = client.post(paste_api)
-        .body(contents)
-        .send()?;
+    let res = client.post(paste_api).body(contents).send()?;
     let response_text = res.text()?;
-    println!("Your paste is located at: {}",response_text );
+    println!("Your paste is located at: {}", response_text);
     Ok(())
 }
 ```

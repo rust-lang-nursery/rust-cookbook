@@ -11,18 +11,22 @@ Gets the current working directory and returns file names modified within the la
 [`Iterator::for_each`] prints the file names.
 
 ```rust,edition2021
-use walkdir::WalkDir;
 use anyhow::Result;
 use std::env;
+use walkdir::WalkDir;
 
 fn main() -> Result<()> {
     let current_dir = env::current_dir()?;
-    println!("Entries modified in the last 24 hours in {:?}:", current_dir);
+    println!(
+        "Entries modified in the last 24 hours in {:?}:",
+        current_dir
+    );
 
     for entry in WalkDir::new(current_dir)
-            .into_iter()
-            .filter_map(|e| e.ok())
-            .filter(|e| e.metadata().unwrap().is_file()) {
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .filter(|e| e.metadata().unwrap().is_file())
+    {
         let path = entry.path();
         let metadata = entry.metadata()?;
         let modified = metadata.modified()?.elapsed()?.as_secs();

@@ -30,11 +30,11 @@ fn main() {
         println!("  {r:.1}      {a:.2}");
     }
 
-    assert_eq!(averages[0], 1.0);  // window: [1.0]
-    assert_eq!(averages[1], 1.5);  // window: [1.0, 2.0]
-    assert_eq!(averages[2], 2.0);  // window: [1.0, 2.0, 3.0]
-    assert_eq!(averages[3], 3.0);  // window: [2.0, 3.0, 4.0]
-    assert_eq!(averages[4], 4.0);  // window: [3.0, 4.0, 5.0]
+    assert_eq!(averages[0], 1.0); // window: [1.0]
+    assert_eq!(averages[1], 1.5); // window: [1.0, 2.0]
+    assert_eq!(averages[2], 2.0); // window: [1.0, 2.0, 3.0]
+    assert_eq!(averages[3], 3.0); // window: [2.0, 3.0, 4.0]
+    assert_eq!(averages[4], 4.0); // window: [3.0, 4.0, 5.0]
 }
 ```
 
