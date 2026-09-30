@@ -59,6 +59,7 @@
   - [Character Sets](encoding/strings.md)
   - [CSV processing](encoding/csv.md)
   - [Structured Data](encoding/complex.md)
+  - [Zero-Copy Deserialization](encoding/rkyv.md)
 - [Error Handling](errors.md)
   - [Handle Error Variants](errors/handle.md)
   - [Option and Result Combinators](errors/combinators.md)

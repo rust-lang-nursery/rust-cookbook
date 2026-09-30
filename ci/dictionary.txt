@@ -104,11 +104,13 @@ deduplicated
 delhi
 deps
 Deref
+Deserialization
 deserialize
 Deserialize
 deserialized
 deserializer
 Deserializer
+deserializing
 dest
 DirEntry
 distr
@@ -315,6 +317,7 @@ resize
 resized
 RESTful
 ReverseDependencies
+rkyv
 rodio
 rusqlite
 rustaceans

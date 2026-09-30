@@ -28,6 +28,7 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/wasm/",
     "./src/database/sqlx/",
     "./src/database/sea_orm/",
+    "./src/encoding/rkyv",
 ];
 
 fn main() {

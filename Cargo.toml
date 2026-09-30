@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/algorithms/*", "crates/compression/*", "crates/concurrency/*", "crates/configuration/*", "crates/development_tools/build_tools/*", "crates/development_tools/debugging/tracing", "crates/file/*", "crates/multimedia/*", "crates/parsing/*", "crates/safety_critical/*", "crates/wasm", "crates/web", "xtask"]
+members = ["crates/algorithms/*", "crates/compression/*", "crates/concurrency/*", "crates/configuration/*", "crates/development_tools/build_tools/*", "crates/development_tools/debugging/tracing", "crates/encoding/*", "crates/file/*", "crates/multimedia/*", "crates/parsing/*", "crates/safety_critical/*", "crates/wasm", "crates/web", "xtask"]
 exclude = ["crates/database/sea_orm", "crates/database/sqlx", "crates/multimedia/playback", "crates/web_leptos", "crates/web_leptos_hydrate", "crates/wasm_component_guest", "crates/wasm_component_host"]
 
 [workspace.package]

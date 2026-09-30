@@ -1,0 +1,10 @@
+[package]
+name = "rkyv-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+rkyv = "0.8"
