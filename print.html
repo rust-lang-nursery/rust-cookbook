@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-7d0c83b4.js";
+            window.path_to_searchindex_js = "searchindex-ccff11bd.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83955176.js"></script>
+        <script src="toc-af28f5c9.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -518,6 +518,8 @@ Keep lines sorted.
 <tr><td><a href="#serialize-and-deserialize-unstructured-json">Serialize and deserialize unstructured JSON</a></td><td><a href="https://docs.rs/serde_json/*/serde_json/"><img src="https://img.shields.io/crates/v/serde_json.svg?label=serde_json" alt="serde-json-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
 <tr><td><a href="#deserialize-a-toml-configuration-file">Deserialize a TOML configuration file</a></td><td><a href="https://docs.rs/toml/"><img src="https://img.shields.io/crates/v/toml.svg?label=toml" alt="toml-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
 <tr><td><a href="#read-and-write-integers-in-little-endian-byte-order">Read and write integers in little-endian byte order</a></td><td><a href="https://docs.rs/byteorder/"><img src="https://img.shields.io/crates/v/byteorder.svg?label=byteorder" alt="byteorder-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
+<tr><td><a href="#access-serialized-data-without-deserializing-it">Access serialized data without deserializing it</a></td><td><a href="https://docs.rs/rkyv/"><img src="https://img.shields.io/crates/v/rkyv.svg?label=rkyv" alt="rkyv-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
+<tr><td><a href="#read-an-archive-from-a-file">Read an archive from a file</a></td><td><a href="https://docs.rs/rkyv/"><img src="https://img.shields.io/crates/v/rkyv.svg?label=rkyv" alt="rkyv-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -6243,6 +6245,8 @@ Keep lines sorted.
 <tr><td><a href="#serialize-and-deserialize-unstructured-json">Serialize and deserialize unstructured JSON</a></td><td><a href="https://docs.rs/serde_json/*/serde_json/"><img src="https://img.shields.io/crates/v/serde_json.svg?label=serde_json" alt="serde-json-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
 <tr><td><a href="#deserialize-a-toml-configuration-file">Deserialize a TOML configuration file</a></td><td><a href="https://docs.rs/toml/"><img src="https://img.shields.io/crates/v/toml.svg?label=toml" alt="toml-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
 <tr><td><a href="#read-and-write-integers-in-little-endian-byte-order">Read and write integers in little-endian byte order</a></td><td><a href="https://docs.rs/byteorder/"><img src="https://img.shields.io/crates/v/byteorder.svg?label=byteorder" alt="byteorder-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
+<tr><td><a href="#access-serialized-data-without-deserializing-it">Access serialized data without deserializing it</a></td><td><a href="https://docs.rs/rkyv/"><img src="https://img.shields.io/crates/v/rkyv.svg?label=rkyv" alt="rkyv-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
+<tr><td><a href="#read-an-archive-from-a-file">Read an archive from a file</a></td><td><a href="https://docs.rs/rkyv/"><img src="https://img.shields.io/crates/v/rkyv.svg?label=rkyv" alt="rkyv-badge"></a></td><td><a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></td></tr>
 </tbody>
 </table>
 </div>
@@ -6842,6 +6846,102 @@ fn decode(mut bytes: &amp;[u8]) -&gt; Result&lt;Payload, Error&gt; {
         value: bytes.read_u16::&lt;LittleEndian&gt;()?,
     };
     Ok(payload)
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="zero-copy-deserialization"><a class="header" href="#zero-copy-deserialization">Zero-Copy Deserialization</a></h1>
+<h2 id="access-serialized-data-without-deserializing-it"><a class="header" href="#access-serialized-data-without-deserializing-it">Access serialized data without deserializing it</a></h2>
+<p><a href="https://docs.rs/rkyv/"><img src="https://img.shields.io/crates/v/rkyv.svg?label=rkyv" alt="rkyv-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
+<p><a href="https://docs.rs/rkyv/"><code>rkyv</code></a> lays out serialized bytes so that the buffer itself is a valid,
+aligned in-memory representation of the data. Deriving <a href="https://docs.rs/rkyv/*/rkyv/trait.Archive.html"><code>Archive</code></a> on
+<code>Player</code> generates an <code>ArchivedPlayer</code> type whose fields are archived
+counterparts such as <a href="https://docs.rs/rkyv/*/rkyv/string/struct.ArchivedString.html"><code>ArchivedString</code></a> and <a href="https://docs.rs/rkyv/*/rkyv/vec/struct.ArchivedVec.html"><code>ArchivedVec</code></a>.</p>
+<p><a href="https://docs.rs/rkyv/*/rkyv/fn.to_bytes.html"><code>rkyv::to_bytes</code></a> serializes the value into an <a href="https://docs.rs/rkyv/*/rkyv/util/struct.AlignedVec.html"><code>AlignedVec</code></a>.
+<a href="https://docs.rs/rkyv/*/rkyv/fn.access.html"><code>rkyv::access</code></a> validates the buffer and returns a <code>&amp;ArchivedPlayer</code> that
+points straight into it, so reading fields requires no parsing, copying, or
+allocation. Archived integers are stored in a fixed byte order, so
+<a href="https://docs.rs/rend/*/rend/struct.u32_le.html#method.to_native"><code>to_native</code></a> converts them to native integers for arithmetic. When an owned
+value is needed, <a href="https://docs.rs/rkyv/*/rkyv/fn.deserialize.html"><code>rkyv::deserialize</code></a> converts the archive back into a
+<code>Player</code>.</p>
+<pre><code class="language-rust noplayground">use rkyv::rancor::Error;
+use rkyv::{Archive, Deserialize, Serialize};
+
+#[derive(Archive, Serialize, Deserialize, Debug, PartialEq)]
+struct Player {
+    name: String,
+    level: u32,
+    scores: Vec&lt;u32&gt;,
+}
+
+fn main() -&gt; Result&lt;(), Error&gt; {
+    let player = Player {
+        name: "Ferris".to_string(),
+        level: 42,
+        scores: vec![100, 250, 75],
+    };
+
+    let bytes = rkyv::to_bytes::&lt;Error&gt;(&amp;player)?;
+
+    // Validate the buffer and view it as an `ArchivedPlayer` without copying.
+    let archived = rkyv::access::&lt;ArchivedPlayer, Error&gt;(&amp;bytes)?;
+    println!("name:  {}", archived.name.as_str());
+    println!("level: {}", archived.level);
+    let total: u32 = archived.scores.iter().map(|s| s.to_native()).sum();
+    println!("total: {total}");
+
+    // Convert back into an owned `Player` only when needed.
+    let owned = rkyv::deserialize::&lt;Player, Error&gt;(archived)?;
+    assert_eq!(owned, player);
+    Ok(())
+}</code></pre>
+<h2 id="read-an-archive-from-a-file"><a class="header" href="#read-an-archive-from-a-file">Read an archive from a file</a></h2>
+<p><a href="https://docs.rs/rkyv/"><img src="https://img.shields.io/crates/v/rkyv.svg?label=rkyv" alt="rkyv-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
+<p>Writes a <code>Vec&lt;Reading&gt;</code> to <code>readings.rkyv</code> in the current working directory,
+then reads it back and iterates over the archived readings in place.</p>
+<p><a href="https://docs.rs/rkyv/*/rkyv/fn.access.html"><code>rkyv::access</code></a> requires the buffer to be suitably aligned for the archived
+types. <a href="https://doc.rust-lang.org/std/fs/fn.read.html"><code>fs::read</code></a> returns a <code>Vec&lt;u8&gt;</code> with no alignment guarantee, so the
+bytes are copied into an <a href="https://docs.rs/rkyv/*/rkyv/util/struct.AlignedVec.html"><code>AlignedVec</code></a> before access. The archived type of
+<code>Vec&lt;Reading&gt;</code> is named with <a href="https://docs.rs/rkyv/*/rkyv/type.Archived.html"><code>rkyv::Archived</code></a>.</p>
+<pre><code class="language-rust no_run noplayground">use rkyv::util::AlignedVec;
+use rkyv::{Archive, Deserialize, Serialize};
+use std::error::Error;
+use std::fs;
+
+#[derive(Archive, Serialize, Deserialize, Debug)]
+struct Reading {
+    sensor: String,
+    celsius: f32,
+}
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    let readings = vec![
+        Reading {
+            sensor: "kitchen".to_string(),
+            celsius: 21.5,
+        },
+        Reading {
+            sensor: "garage".to_string(),
+            celsius: 8.25,
+        },
+    ];
+
+    let bytes = rkyv::to_bytes::&lt;rkyv::rancor::Error&gt;(&amp;readings)?;
+    fs::write("readings.rkyv", &amp;bytes)?;
+
+    // `fs::read` gives no alignment guarantee, so copy into an `AlignedVec`.
+    let mut buffer = AlignedVec::&lt;16&gt;::new();
+    buffer.extend_from_slice(&amp;fs::read("readings.rkyv")?);
+
+    let archived = rkyv::access::&lt;rkyv::Archived&lt;Vec&lt;Reading&gt;&gt;, rkyv::rancor::Error&gt;(&amp;buffer)?;
+    for reading in archived.iter() {
+        println!("{}: {:.2} °C", reading.sensor, reading.celsius.to_native());
+    }
+    Ok(())
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
@@ -11694,6 +11794,8 @@ Keep lines sorted.
 [regex]: https://docs.rs/regex/
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
+[rkyv-badge]: https://img.shields.io/crates/v/rkyv.svg?label=rkyv
+[rkyv]: https://docs.rs/rkyv/
 [ring-badge]: https://img.shields.io/crates/v/ring.svg?label=ring
 [ring]: https://briansmith.org/rustdoc/ring/
 [rodio-badge]: https://img.shields.io/crates/v/rodio.svg?label=rodio
