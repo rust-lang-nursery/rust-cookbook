@@ -4,7 +4,7 @@
 
 A type can be a [`HashMap`] key or [`HashSet`] member when it implements [`Eq`] and [`Hash`]. When equality is plain field-by-field comparison, `#[derive(Hash, PartialEq, Eq)]` is enough, as with `Coord` below.
 
-A manual [`Hash`] implementation is needed when equality is custom. `Email` treats addresses as equal regardless of letter case, so its `Hash` must also ignore case: it feeds the lowercased bytes to the hasher. The rule is that `a == b` must imply `hash(a) == hash(b)`; if the two disagree, equal keys can land in different buckets and lookups silently miss. The assertions at the end check this property.
+A manual [`Hash`] implementation is needed when equality is custom. The [`Hash`] trait works with a generic [`Hasher`] abstraction that supplies a mutable `state` object you write hashed data into. `Email` treats addresses as equal regardless of letter case, so its [`Hash`] must also ignore case: it feeds the lowercased bytes to the hasher. The rule is that `a == b` must imply `hash(a) == hash(b)`; if the two disagree, equal keys can land in different buckets and lookups silently miss. The assertions at the end check this property.
 
 ```rust,edition2021
 use std::collections::hash_map::DefaultHasher;
@@ -67,5 +67,6 @@ fn main() {
 
 [`Eq`]: https://doc.rust-lang.org/std/cmp/trait.Eq.html
 [`Hash`]: https://doc.rust-lang.org/std/hash/trait.Hash.html
+[`Hasher`]: https://doc.rust-lang.org/std/hash/trait.Hasher.html
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
 [`HashSet`]: https://doc.rust-lang.org/std/collections/struct.HashSet.html

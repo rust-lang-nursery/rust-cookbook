@@ -4,9 +4,11 @@
 
 A `HashMap<(Email, Coord), V>` owns its keys, but [`HashMap::get`] only accepts `&Q` where the key type implements [`Borrow<Q>`]. A plain `&(Email, Coord)` would force the caller to build, and so clone, both halves just to ask a question. `(&Email, &Coord)` is a different type, and the standard library has no `Borrow` impl that connects it to `(Email, Coord)`.
 
-The workaround is a small `KeyPair` trait that both tuple shapes implement. `Borrow` turns the owned tuple into a `dyn KeyPair`, and `Hash` and `Eq` for that trait object compare the two halves. The lookup then casts `&(&email, &coord)` to `&dyn KeyPair` and no data is copied.
+The workaround is a small `KeyPair` trait that both tuple shapes implement. `Borrow` turns the owned tuple into a `dyn KeyPair`, and `Hash` and `Eq` for that trait object compare the two halves. The `get_pair` helper casts `&(a, b)` to `&dyn KeyPair` once, so callers just pass references and no data is copied.
 
 The trait object's `Hash` must feed the hasher exactly what `(Email, Coord)::hash` does: the first element, then the second. If the orders differ, the lookup hashes to the wrong bucket and misses. This is the same rule as in the previous recipe, applied across a type boundary.
+
+This technique trades complexity for fewer allocations, so it pays off mainly when key halves are heap-allocated, such as `String`, and lookups are frequent. Every hash and comparison goes through a trait object, and for cheap `Copy` keys that can be slower than cloning. Two simpler alternatives are worth trying first: nested maps, `HashMap<Email, HashMap<Coord, V>>`, which take a plain `&Email` and then a plain `&Coord` with no extra traits; and the [`Equivalent`] trait from the [`hashbrown`] crate, which lets a map be queried with any type that compares equal to the key and hashes the same way, without the `dyn` indirection.
 
 ```rust,edition2021
 use std::borrow::Borrow;
@@ -87,6 +89,14 @@ impl<A: PartialEq, B: PartialEq> PartialEq for dyn KeyPair<A, B> + '_ {
 
 impl<A: Eq, B: Eq> Eq for dyn KeyPair<A, B> + '_ {}
 
+fn get_pair<'m, A, B, V>(map: &'m HashMap<(A, B), V>, a: &A, b: &B) -> Option<&'m V>
+where
+    A: Eq + Hash,
+    B: Eq + Hash,
+{
+    map.get(&(a, b) as &dyn KeyPair<A, B>)
+}
+
 fn main() {
     let mut last_seen: HashMap<(Email, Coord), &str> = HashMap::new();
     last_seen.insert(
@@ -101,15 +111,17 @@ fn main() {
     let here = Coord { x: 3, y: -2 };
     let elsewhere = Coord { x: 0, y: 0 };
 
-    let hit = last_seen.get(&(&email, &here) as &dyn KeyPair<Email, Coord>);
+    let hit = get_pair(&last_seen, &email, &here);
     println!("{hit:?}");
     assert_eq!(hit, Some(&"harbor"));
 
-    let miss = last_seen.get(&(&email, &elsewhere) as &dyn KeyPair<Email, Coord>);
+    let miss = get_pair(&last_seen, &email, &elsewhere);
     println!("{miss:?}");
     assert_eq!(miss, None);
 }
 ```
 
 [`Borrow<Q>`]: https://doc.rust-lang.org/std/borrow/trait.Borrow.html
+[`Equivalent`]: https://docs.rs/hashbrown/*/hashbrown/trait.Equivalent.html
 [`HashMap::get`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.get
+[`hashbrown`]: https://docs.rs/hashbrown/*/hashbrown/
