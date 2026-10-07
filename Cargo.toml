@@ -115,11 +115,11 @@ syslog = "5.0"
 opt-level = 2
 
 [build-dependencies]
-skeptic = { git = "https://github.com/AndyGauge/rust-skeptic", branch = "rlib-patch" }
+skeptic = { git = "https://github.com/AndyGauge/rust-skeptic", branch = "perf-on-rlib-patch" }
 walkdir = "2.5"
 
 [dev-dependencies]
-skeptic = { git = "https://github.com/AndyGauge/rust-skeptic", branch = "rlib-patch" }
+skeptic = { git = "https://github.com/AndyGauge/rust-skeptic", branch = "perf-on-rlib-patch" }
 walkdir = "2.5"
 
 [lints.clippy]
