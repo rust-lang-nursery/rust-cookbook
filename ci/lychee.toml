@@ -35,5 +35,7 @@ include_mail = true
 exclude = [
     # Creative Commons links return 403 for automated requests
     "https://creativecommons.org/publicdomain/zero/1.0/",
-    "https://creativecommons.org/"
+    "https://creativecommons.org/",
+    # crates.io returns 403 for automated requests
+    "^https://crates\\.io/"
 ]
