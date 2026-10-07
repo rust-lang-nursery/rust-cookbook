@@ -8,6 +8,7 @@
 | [Look up records within a time range][ex-btreemap-range] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
 | [Set operations with HashSet][ex-hashset-ops] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
 | [Use a custom type as a HashMap key][ex-hashmap-custom-key] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
+| [Look up a tuple key without cloning][ex-hashmap-pair-key] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
 | [Process tasks in priority order][ex-binaryheap] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
 | [Sliding-window buffer with VecDeque][ex-vecdeque] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
 
@@ -17,6 +18,7 @@
 [ex-btreemap-range]: data_structures/collections.html#look-up-records-within-a-time-range
 [ex-hashset-ops]: data_structures/collections.html#set-operations-with-hashset
 [ex-hashmap-custom-key]: data_structures/collections.html#use-a-custom-type-as-a-hashmap-key
+[ex-hashmap-pair-key]: data_structures/collections.html#look-up-a-tuple-key-without-cloning
 [ex-binaryheap]: data_structures/collections.html#process-tasks-in-priority-order
 [ex-vecdeque]: data_structures/collections.html#sliding-window-buffer-with-vecdeque
 

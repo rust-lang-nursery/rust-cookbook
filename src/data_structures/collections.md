@@ -5,6 +5,7 @@
 {{#include collections/btreemap-range.md}}
 {{#include collections/hashset-ops.md}}
 {{#include collections/hashmap-custom-key.md}}
+{{#include collections/hashmap-pair-key.md}}
 {{#include collections/binaryheap.md}}
 {{#include collections/vecdeque.md}}
 
