@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ccff11bd.js";
+            window.path_to_searchindex_js = "../searchindex-2f3b68c4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -294,6 +294,180 @@ fn main() {
     all.sort();
     println!("All services:               {all:?}");
     assert_eq!(all.len(), 5);
+}</code></pre>
+<h2 id="use-a-custom-type-as-a-hashmap-key"><a class="header" href="#use-a-custom-type-as-a-hashmap-key">Use a Custom Type as a HashMap Key</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
+<p>A type can be a <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> key or <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html"><code>HashSet</code></a> member when it implements <a href="https://doc.rust-lang.org/std/cmp/trait.Eq.html"><code>Eq</code></a> and <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a>. When equality is plain field-by-field comparison, <code>#[derive(Hash, PartialEq, Eq)]</code> is enough, as with <code>Coord</code> below.</p>
+<p>A manual <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> implementation is needed when equality is custom. The <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> trait works with a generic <a href="https://doc.rust-lang.org/std/hash/trait.Hasher.html"><code>Hasher</code></a> abstraction that supplies a mutable <code>state</code> object you write hashed data into. <code>Email</code> treats addresses as equal regardless of letter case, so its <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> must also ignore case: it feeds the lowercased bytes to the hasher. The rule is that <code>a == b</code> must imply <code>hash(a) == hash(b)</code>; if the two disagree, equal keys can land in different buckets and lookups silently miss. The assertions at the end check this property.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::collections::hash_map::DefaultHasher;
+use std::collections::{HashMap, HashSet};
+use std::hash::{Hash, Hasher};
+
+#[derive(Debug, Hash, PartialEq, Eq)]
+struct Coord {
+    x: i32,
+    y: i32,
+}
+
+#[derive(Debug)]
+struct Email(String);
+
+impl PartialEq for Email {
+    fn eq(&amp;self, other: &amp;Self) -&gt; bool {
+        self.0.eq_ignore_ascii_case(&amp;other.0)
+    }
+}
+
+impl Eq for Email {}
+
+impl Hash for Email {
+    fn hash&lt;H: Hasher&gt;(&amp;self, state: &amp;mut H) {
+        for byte in self.0.bytes() {
+            state.write_u8(byte.to_ascii_lowercase());
+        }
+        // Mirrors what `str::hash` does, so a prefix cannot collide with a longer value.
+        state.write_u8(0xff);
+    }
+}
+
+fn hash_of&lt;T: Hash&gt;(value: &amp;T) -&gt; u64 {
+    let mut hasher = DefaultHasher::new();
+    value.hash(&amp;mut hasher);
+    hasher.finish()
+}
+
+fn main() {
+    let mut grid: HashMap&lt;Coord, &amp;str&gt; = HashMap::new();
+    grid.insert(Coord { x: 0, y: 0 }, "origin");
+    grid.insert(Coord { x: 3, y: -2 }, "treasure");
+    println!("{:?}", grid.get(&amp;Coord { x: 3, y: -2 }));
+    assert_eq!(grid.get(&amp;Coord { x: 3, y: -2 }), Some(&amp;"treasure"));
+
+    let mut seen: HashSet&lt;Email&gt; = HashSet::new();
+    seen.insert(Email("Ferris@Example.com".to_string()));
+    let is_new = seen.insert(Email("ferris@example.COM".to_string()));
+    println!("second insert was new: {is_new}");
+    assert!(!is_new);
+    assert_eq!(seen.len(), 1);
+
+    let a = Email("Ferris@Example.com".to_string());
+    let b = Email("FERRIS@example.com".to_string());
+    assert_eq!(a, b);
+    assert_eq!(hash_of(&amp;a), hash_of(&amp;b));
+}</code></pre>
+<h2 id="look-up-a-tuple-key-without-cloning"><a class="header" href="#look-up-a-tuple-key-without-cloning">Look Up a Tuple Key Without Cloning</a></h2>
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
+<p>A <code>HashMap&lt;(Email, Coord), V&gt;</code> owns its keys, but <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.get"><code>HashMap::get</code></a> only accepts <code>&amp;Q</code> where the key type implements <a href="https://doc.rust-lang.org/std/borrow/trait.Borrow.html"><code>Borrow&lt;Q&gt;</code></a>. A plain <code>&amp;(Email, Coord)</code> would force the caller to build, and so clone, both halves just to ask a question. <code>(&amp;Email, &amp;Coord)</code> is a different type, and the standard library has no <code>Borrow</code> impl that connects it to <code>(Email, Coord)</code>.</p>
+<p>The workaround is a small <code>KeyPair</code> trait that both tuple shapes implement. <code>Borrow</code> turns the owned tuple into a <code>dyn KeyPair</code>, and <code>Hash</code> and <code>Eq</code> for that trait object compare the two halves. The <code>get_pair</code> helper casts <code>&amp;(a, b)</code> to <code>&amp;dyn KeyPair</code> once, so callers just pass references and no data is copied.</p>
+<p>The trait object’s <code>Hash</code> must feed the hasher exactly what <code>(Email, Coord)::hash</code> does: the first element, then the second. If the orders differ, the lookup hashes to the wrong bucket and misses. This is the same rule as in the previous recipe, applied across a type boundary.</p>
+<p>This technique trades complexity for fewer allocations, so it pays off mainly when key halves are heap-allocated, such as <code>String</code>, and lookups are frequent. Every hash and comparison goes through a trait object, and for cheap <code>Copy</code> keys that can be slower than cloning. Two simpler alternatives are worth trying first: nested maps, <code>HashMap&lt;Email, HashMap&lt;Coord, V&gt;&gt;</code>, which take a plain <code>&amp;Email</code> and then a plain <code>&amp;Coord</code> with no extra traits; and the <a href="https://docs.rs/hashbrown/*/hashbrown/trait.Equivalent.html"><code>Equivalent</code></a> trait from the <a href="https://docs.rs/hashbrown/*/hashbrown/"><code>hashbrown</code></a> crate, which lets a map be queried with any type that compares equal to the key and hashes the same way, without the <code>dyn</code> indirection.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::borrow::Borrow;
+use std::collections::HashMap;
+use std::hash::{Hash, Hasher};
+
+#[derive(Debug, Hash, PartialEq, Eq)]
+struct Coord {
+    x: i32,
+    y: i32,
+}
+
+#[derive(Debug)]
+struct Email(String);
+
+impl PartialEq for Email {
+    fn eq(&amp;self, other: &amp;Self) -&gt; bool {
+        self.0.eq_ignore_ascii_case(&amp;other.0)
+    }
+}
+
+impl Eq for Email {}
+
+impl Hash for Email {
+    fn hash&lt;H: Hasher&gt;(&amp;self, state: &amp;mut H) {
+        for byte in self.0.bytes() {
+            state.write_u8(byte.to_ascii_lowercase());
+        }
+        state.write_u8(0xff);
+    }
+}
+
+trait KeyPair&lt;A, B&gt; {
+    fn first(&amp;self) -&gt; &amp;A;
+    fn second(&amp;self) -&gt; &amp;B;
+}
+
+impl&lt;A, B&gt; KeyPair&lt;A, B&gt; for (A, B) {
+    fn first(&amp;self) -&gt; &amp;A {
+        &amp;self.0
+    }
+    fn second(&amp;self) -&gt; &amp;B {
+        &amp;self.1
+    }
+}
+
+impl&lt;A, B&gt; KeyPair&lt;A, B&gt; for (&amp;A, &amp;B) {
+    fn first(&amp;self) -&gt; &amp;A {
+        self.0
+    }
+    fn second(&amp;self) -&gt; &amp;B {
+        self.1
+    }
+}
+
+impl&lt;'a, A, B&gt; Borrow&lt;dyn KeyPair&lt;A, B&gt; + 'a&gt; for (A, B)
+where
+    A: Eq + Hash + 'a,
+    B: Eq + Hash + 'a,
+{
+    fn borrow(&amp;self) -&gt; &amp;(dyn KeyPair&lt;A, B&gt; + 'a) {
+        self
+    }
+}
+
+impl&lt;A: Hash, B: Hash&gt; Hash for dyn KeyPair&lt;A, B&gt; + '_ {
+    fn hash&lt;H: Hasher&gt;(&amp;self, state: &amp;mut H) {
+        self.first().hash(state);
+        self.second().hash(state);
+    }
+}
+
+impl&lt;A: PartialEq, B: PartialEq&gt; PartialEq for dyn KeyPair&lt;A, B&gt; + '_ {
+    fn eq(&amp;self, other: &amp;Self) -&gt; bool {
+        self.first() == other.first() &amp;&amp; self.second() == other.second()
+    }
+}
+
+impl&lt;A: Eq, B: Eq&gt; Eq for dyn KeyPair&lt;A, B&gt; + '_ {}
+
+fn get_pair&lt;'m, A, B, V&gt;(map: &amp;'m HashMap&lt;(A, B), V&gt;, a: &amp;A, b: &amp;B) -&gt; Option&lt;&amp;'m V&gt;
+where
+    A: Eq + Hash,
+    B: Eq + Hash,
+{
+    map.get(&amp;(a, b) as &amp;dyn KeyPair&lt;A, B&gt;)
+}
+
+fn main() {
+    let mut last_seen: HashMap&lt;(Email, Coord), &amp;str&gt; = HashMap::new();
+    last_seen.insert(
+        (
+            Email("ferris@example.com".to_string()),
+            Coord { x: 3, y: -2 },
+        ),
+        "harbor",
+    );
+
+    let email = Email("FERRIS@example.com".to_string());
+    let here = Coord { x: 3, y: -2 };
+    let elsewhere = Coord { x: 0, y: 0 };
+
+    let hit = get_pair(&amp;last_seen, &amp;email, &amp;here);
+    println!("{hit:?}");
+    assert_eq!(hit, Some(&amp;"harbor"));
+
+    let miss = get_pair(&amp;last_seen, &amp;email, &amp;elsewhere);
+    println!("{miss:?}");
+    assert_eq!(miss, None);
 }</code></pre>
 <h2 id="process-tasks-in-priority-order"><a class="header" href="#process-tasks-in-priority-order">Process Tasks in Priority Order</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
