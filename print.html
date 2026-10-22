@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2f3b68c4.js";
+            window.path_to_searchindex_js = "searchindex-6aa5a356.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-af28f5c9.js"></script>
@@ -6258,6 +6258,85 @@ fn main() {
     unsafe {
         print_app_info();
     }
+}</code></pre>
+<h2 id="compile-and-link-statically-to-an-external-c-library"><a class="header" href="#compile-and-link-statically-to-an-external-c-library">Compile and link statically to an external C library</a></h2>
+<p><a href="https://docs.rs/cc/latest/cc/"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>
+<p>Often the C code you need is not yours: it is a third-party library whose source you vendor into your project,
+with its own layout of public headers (<strong>include/</strong>) and implementation files (<strong>src/</strong>).
+The <a href="https://docs.rs/cc/latest/cc/"><strong>cc</strong></a> crate can compile such a library from <strong>build.rs</strong> into a static archive (<strong>libfnv.a</strong>) that <strong>rustc</strong> links into the final binary,
+so the resulting executable has no runtime dependency on the library.</p>
+<p>The following recipe vendors a tiny hashing library (a 64-bit FNV-1a implementation) in <strong>vendor/fnv</strong>.
+<a href="https://docs.rs/cc/*/cc/struct.Build.html#method.include"><code>cc::Build::include</code></a> adds the library’s header directory to the compiler’s search path, and <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.file"><code>cc::Build::file</code></a> adds its source.
+Because third-party code is not ours to fix, <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.warnings"><code>cc::Build::warnings</code></a> is set to <code>false</code> so the library’s warnings do not clutter the build output.
+<a href="https://docs.rs/cc/*/cc/struct.Build.html#method.try_compile"><code>cc::Build::try_compile</code></a> returns a <code>Result</code> instead of panicking and also emits the <code>cargo:rustc-link-lib=static=fnv</code>
+and <code>cargo:rustc-link-search</code> directives, so no manual linking instructions are needed.
+The <code>cargo:rerun-if-changed</code> line re-runs the build script when the vendored library changes.</p>
+<p>The Rust side declares the function’s signature in an <code>extern</code> block, as in the
+<a href="#compile-and-link-statically-to-a-bundled-c-library">bundled C library recipe</a>, and wraps the <code>unsafe</code> call in a safe function.</p>
+<p>To copy this recipe, copy the whole <strong>cc_external_static</strong> crate into your project and replace <strong>vendor/fnv</strong> with your own library.</p>
+<p><code>build.rs</code></p>
+<pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    // The external library keeps its own layout: public headers in `include/`
+    // and implementation files in `src/`.
+    let lib_dir = "vendor/fnv";
+
+    cc::Build::new()
+        .include(format!("{lib_dir}/include"))
+        .file(format!("{lib_dir}/src/fnv.c"))
+        // Third-party code is not ours to fix, so don't fail on its warnings.
+        .warnings(false)
+        .try_compile("fnv")?; // outputs `libfnv.a` and emits `cargo:rustc-link-lib=static=fnv`
+
+    println!("cargo:rerun-if-changed={lib_dir}");
+    Ok(())
+}</code></pre>
+<p><code>vendor/fnv/include/fnv.h</code></p>
+<pre><code class="language-c">#ifndef FNV_H
+#define FNV_H
+
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+/* 64-bit FNV-1a hash of `len` bytes starting at `data`. */
+uint64_t fnv1a_64(const uint8_t *data, size_t len);
+
+#endif
+</code></pre>
+<p><code>vendor/fnv/src/fnv.c</code></p>
+<pre><code class="language-c">#include "fnv.h"
+
+#define FNV_OFFSET_BASIS 0xcbf29ce484222325ULL
+#define FNV_PRIME 0x100000001b3ULL
+
+uint64_t fnv1a_64(const uint8_t *data, size_t len) {
+    uint64_t hash = FNV_OFFSET_BASIS;
+    for (size_t i = 0; i &lt; len; i++) {
+        hash ^= data[i];
+        hash *= FNV_PRIME;
+    }
+    return hash;
+}
+</code></pre>
+<p><code>src/main.rs</code></p>
+<pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+
+unsafe extern "C" {
+    fn fnv1a_64(data: *const u8, len: usize) -&gt; u64;
+}
+
+/// Safe wrapper around the unsafe `fnv1a_64` C function.
+fn fnv1a(data: &amp;[u8]) -&gt; u64 {
+    unsafe { fnv1a_64(data.as_ptr(), data.len()) }
+}
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    let input = std::env::args()
+        .nth(1)
+        .unwrap_or_else(|| "hello".to_string());
+    println!("fnv1a-64({input:?}) = {:016x}", fnv1a(input.as_bytes()));
+    Ok(())
 }</code></pre>
 <h2 id="compile-and-link-dynamically-to-a-c-shared-library"><a class="header" href="#compile-and-link-dynamically-to-a-c-shared-library">Compile and link dynamically to a C++ shared library</a></h2>
 <p><a href="https://docs.rs/cc/latest/cc/"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>
