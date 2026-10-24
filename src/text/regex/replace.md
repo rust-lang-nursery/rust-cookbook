@@ -1,6 +1,6 @@
 ## Replace all occurrences of one text pattern with another pattern.
 
-[![regex-badge]][regex] [![lazy_static-badge]][lazy_static] [![cat-text-processing-badge]][cat-text-processing]
+[![regex-badge]][regex] [![std-badge]][std] [![cat-text-processing-badge]][cat-text-processing]
 
 Replaces all occurrences of the standard ISO 8601 *YYYY-MM-DD* date pattern
 with the equivalent American English date with slashes.
@@ -10,18 +10,18 @@ The method [`Regex::replace_all`] replaces all occurrences of the whole regex.
 `&str` implements the `Replacer` trait which allows variables like `$abcde` to
 refer to corresponding named capture groups `(?P<abcde>REGEX)` from the search
 regex. See the [replacement string syntax] for examples and escaping detail.
+The regex is compiled only once, on first use, by declaring it as a `static`
+[`LazyLock`].
 
-```rust,edition2018
-use lazy_static::lazy_static;
-
+```rust,edition2021
 use regex::Regex;
 use std::borrow::Cow;
+use std::sync::LazyLock;
 
 fn reformat_dates(before: &str) -> Cow<str> {
-    lazy_static! {
-        static ref ISO8601_DATE_REGEX: Regex =
-            Regex::new(r"(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})").unwrap();
-    }
+    static ISO8601_DATE_REGEX: LazyLock<Regex> = LazyLock::new(|| {
+        Regex::new(r"(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})").expect("valid regex")
+    });
     ISO8601_DATE_REGEX.replace_all(before, "$m/$d/$y")
 }
 
@@ -32,6 +32,7 @@ fn main() {
 }
 ```
 
+[`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
 [`Regex::replace_all`]: https://docs.rs/regex/*/regex/struct.Regex.html#method.replace_all
 
 [replacement string syntax]: https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax

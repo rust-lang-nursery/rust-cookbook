@@ -1,22 +1,21 @@
 ## Maintain global mutable state
 
-[![lazy_static-badge]][lazy_static] [![cat-rust-patterns-badge]][cat-rust-patterns]
+[![std-badge]][std] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
-Declare global state using [lazy_static]. [lazy_static]
-creates a globally available `static ref` which requires a [`Mutex`]
-to allow mutation (also see [`RwLock`]). The [`Mutex`] wrap ensures
+Declare global state using a `static` [`Mutex`] (also see [`RwLock`]).
+[`Mutex::new`] is a `const fn`, so no lazy initialization is needed for
+an empty collection. If the initial value cannot be computed at compile time,
+wrap it in a [`LazyLock`], as in `static X: LazyLock<Mutex<T>>`.
+The [`Mutex`] wrap ensures
 the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A [`MutexGuard`] must be acquired to read or mutate the
 value stored in a [`Mutex`].
 
-```rust,edition2018
+```rust,edition2021
 use anyhow::{anyhow, Result};
-use lazy_static::lazy_static;
 use std::sync::Mutex;
 
-lazy_static! {
-    static ref FRUIT: Mutex<Vec<String>> = Mutex::new(Vec::new());
-}
+static FRUIT: Mutex<Vec<String>> = Mutex::new(Vec::new());
 
 fn insert(fruit: &str) -> Result<()> {
     let mut db = FRUIT
@@ -44,6 +43,8 @@ fn main() -> Result<()> {
 }
 ```
 
+[`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
 [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
+[`Mutex::new`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html#method.new
 [`MutexGuard`]: https://doc.rust-lang.org/std/sync/struct.MutexGuard.html
 [`RwLock`]: https://doc.rust-lang.org/std/sync/struct.RwLock.html

@@ -1,22 +1,22 @@
 ## Declare lazily evaluated constant
 
-[![lazy_static-badge]][lazy_static] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
+[![std-badge]][std] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
 Declares a lazily evaluated constant [`HashMap`]. The [`HashMap`] will
-be evaluated once and stored behind a global static reference.
+be evaluated once, on first access, by a `static` [`LazyLock`]. Before
+`LazyLock` was stabilized in Rust 1.80, the `lazy_static` crate was used for
+this purpose.
 
-```rust,edition2018
-use lazy_static::lazy_static;
+```rust,edition2021
 use std::collections::HashMap;
+use std::sync::LazyLock;
 
-lazy_static! {
-    static ref PRIVILEGES: HashMap<&'static str, Vec<&'static str>> = {
-        let mut map = HashMap::new();
-        map.insert("James", vec!["user", "admin"]);
-        map.insert("Jim", vec!["user"]);
-        map
-    };
-}
+static PRIVILEGES: LazyLock<HashMap<&'static str, Vec<&'static str>>> = LazyLock::new(|| {
+    let mut map = HashMap::new();
+    map.insert("James", vec!["user", "admin"]);
+    map.insert("Jim", vec!["user"]);
+    map
+});
 
 fn show_access(name: &str) {
     let access = PRIVILEGES.get(name);
@@ -32,6 +32,7 @@ fn main() {
 ```
 
 [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
+[`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
 
 ## Std:cell
 
@@ -50,7 +51,7 @@ fn main() {
 }
 ```
 
-[`OnceCell`]: https://doc.rust-lang.org/beta/std/cell/struct.OnceCell.html
+[`OnceCell`]: https://doc.rust-lang.org/std/cell/struct.OnceCell.html
 
 ## std::cell::LazyCell
 
@@ -98,7 +99,7 @@ fn main() {
 [![std-badge]][std] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
 The [`LazyLock`] type is a thread-safe version of [`LazyCell`] that can be used in `static` contexts.
-It is the standard library alternative to the `lazy_static` crate for global, lazily initialized data.
+It is the standard library replacement for the `lazy_static` crate for global, lazily initialized data.
 
 This recipe shows how to use [`LazyLock`] to create a global configuration that is loaded once from 
 the environment upon first access.
