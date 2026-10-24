@@ -6,9 +6,9 @@
 | [Create a parallel data pipeline][ex-crossbeam-pipeline] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Pass data between two threads][ex-crossbeam-spsc] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Maintain global mutable state][ex-global-mut-state] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
-| [Calculate SHA256 sum of *.iso files concurrently][ex-threadpool-walk]  | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
-| [Sum the size of every file in a directory][ex-threadpool-size] | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
-| [Draw fractal dispatching work to a thread pool][ex-threadpool-fractal] | [![rayon-badge]][rayon] [![num-badge]][num] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
+| [Calculate SHA256 sum of *.iso files concurrently][ex-pool-walk]  | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+| [Sum the size of every file in a directory][ex-pool-size] | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+| [Draw fractal dispatching work to a thread pool][ex-pool-fractal] | [![rayon-badge]][rayon] [![num-badge]][num] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
 | [Lock-free counter with `AtomicUsize`][ex-sync-atomic] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Guard compound state with `Arc<Mutex<T>>`][ex-sync-arc-mutex] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Concurrent reads with `Arc<RwLock<T>>`][ex-sync-rwlock] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
@@ -29,9 +29,9 @@
 [ex-crossbeam-pipeline]: concurrency/threads.html#create-a-parallel-pipeline
 [ex-crossbeam-spsc]: concurrency/threads.html#pass-data-between-two-threads
 [ex-global-mut-state]: concurrency/threads.html#maintain-global-mutable-state
-[ex-threadpool-walk]: concurrency/threads.html#calculate-sha256-sum-of-iso-files-concurrently
-[ex-threadpool-size]: concurrency/threads.html#sum-the-size-of-every-file-in-a-directory
-[ex-threadpool-fractal]: concurrency/threads.html#draw-fractal-dispatching-work-to-a-thread-pool
+[ex-pool-walk]: concurrency/threads.html#calculate-sha256-sum-of-iso-files-concurrently
+[ex-pool-size]: concurrency/threads.html#sum-the-size-of-every-file-in-a-directory
+[ex-pool-fractal]: concurrency/threads.html#draw-fractal-dispatching-work-to-a-thread-pool
 [ex-sync-arc-mutex]: concurrency/sync.html#guard-compound-state-with-arcmutext
 [ex-sync-atomic]: concurrency/sync.html#lock-free-counter-with-atomicusize
 [ex-sync-barrier]: concurrency/sync.html#coordinate-thread-phases-with-barrier
