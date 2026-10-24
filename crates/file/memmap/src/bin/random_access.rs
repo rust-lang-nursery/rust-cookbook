@@ -18,3 +18,14 @@ fn main() -> Result<(), Error> {
     assert_eq!(&random_bytes[..], b"My loaf!");
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn maps_and_reads_random_bytes() -> Result<(), Error> {
+        main()?;
+        std::fs::remove_file("content.txt")
+    }
+}

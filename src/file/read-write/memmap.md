@@ -14,7 +14,7 @@ caller must ensure that nothing else touches the file for as long as the map
 exists, as the `SAFETY` comment in the example does.
 
 ```rust,edition2024
-{{#include ../../../crates/file/memmap/src/bin/random_access.rs }}
+{{#include ../../../crates/file/memmap/src/bin/random_access.rs::20 }}
 ```
 
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
