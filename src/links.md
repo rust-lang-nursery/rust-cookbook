@@ -163,10 +163,10 @@ Keep lines sorted.
 [rusqlite]: https://crates.io/crates/rusqlite/
 [same_file-badge]: https://img.shields.io/crates/v/same_file.svg?label=same_file
 [same_file]: https://docs.rs/same-file/
+[scraper-badge]: https://img.shields.io/crates/v/scraper.svg?label=scraper
+[scraper]: https://docs.rs/scraper/
 [sea_orm-badge]: https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm
 [sea_orm]: https://docs.rs/sea_orm/*/sea_orm
-[select-badge]: https://img.shields.io/crates/v/select.svg?label=select
-[select]: https://docs.rs/select/
 [semver-badge]: https://img.shields.io/crates/v/semver.svg?label=semver
 [semver]: https://docs.rs/semver/
 [serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde

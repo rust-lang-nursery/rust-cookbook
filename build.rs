@@ -6,6 +6,8 @@ const REMOVED_TESTS: &[&str] = &[
     "./src/file/watch/recursive.md",
     "./src/file/watch/debounce.md",
     "./src/file/which.md",
+    "./src/web/scraping/extract-links.md",
+    "./src/web/scraping/broken.md",
     "./src/file/read-write/memmap.md",
     "./src/web/clients/requests/header.md",
     "./src/web/clients/api/rate-limited.md",
