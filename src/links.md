@@ -108,8 +108,6 @@ Keep lines sorted.
 [image]: https://docs.rs/image/
 [kamadak-exif-badge]: https://img.shields.io/crates/v/kamadak-exif.svg?label=kamadak-exif
 [kamadak-exif]: https://docs.rs/kamadak-exif/
-[lazy_static-badge]: https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static
-[lazy_static]: https://docs.rs/lazy_static/
 [leptos-badge]: https://img.shields.io/crates/v/leptos.svg?label=leptos
 [leptos]: https://docs.rs/leptos/
 [leptos-axum-badge]: https://img.shields.io/crates/v/leptos_axum.svg?label=leptos_axum

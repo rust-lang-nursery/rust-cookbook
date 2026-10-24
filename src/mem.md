@@ -2,7 +2,7 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Declare lazily evaluated constant][ex-lazy-constant] | [![lazy_static-badge]][lazy_static] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Declare lazily evaluated constant][ex-lazy-constant] | [![std-badge]][std] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Std::cell][ex-std-oncecell] | [![std-badge]][std] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [`std::cell:LazyCell`][ex-std-lazycell] | [![std-badge]][std] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [`std::sync::LazyLock`][ex-std-lazylock] | [![std-badge]][std] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
