@@ -118,8 +118,8 @@ Keep lines sorted.
 [log4rs-badge]: https://img.shields.io/crates/v/log4rs.svg?label=log4rs
 [log4rs]: https://docs.rs/log4rs/
 [log]: https://docs.rs/log/
-[memmap-badge]: https://img.shields.io/crates/v/memmap.svg?label=memmap
-[memmap]: https://docs.rs/memmap/
+[memmap2-badge]: https://img.shields.io/crates/v/memmap2.svg?label=memmap2
+[memmap2]: https://docs.rs/memmap2/
 [mime-badge]: https://img.shields.io/crates/v/mime.svg?label=mime
 [mime]: https://docs.rs/mime/
 [nalgebra-badge]: https://img.shields.io/crates/v/nalgebra.svg?label=nalgebra

@@ -9,7 +9,7 @@
 | [Create a temporary file][ex-tempfile] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Atomically replace a file with a temporary file][ex-atomic-write] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Avoid writing and reading from a same file][ex-avoid-read-write] | [![same_file-badge]][same_file] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Access a file randomly using a memory map][ex-random-file-access] | [![memmap-badge]][memmap] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Access a file randomly using a memory map][ex-random-file-access] | [![memmap2-badge]][memmap2] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read a file line by line with BufReader][ex-buf-reader] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Write to a file with BufWriter][ex-buf-writer] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read a line from stdin][ex-stdin-readline] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |

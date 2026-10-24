@@ -1,37 +1,23 @@
 ## Access a file randomly using a memory map
 
-[![memmap-badge]][memmap] [![cat-filesystem-badge]][cat-filesystem]
+[![memmap2-badge]][memmap2] [![cat-filesystem-badge]][cat-filesystem]
 
-Creates a memory map of a file using [memmap] and simulates some non-sequential
+Creates a memory map of a file using [memmap2] and simulates some non-sequential
 reads from the file. Using a memory map means you just index into a slice rather
 than dealing with [`seek`]ing around in a [`File`].
 
-The [`Mmap::map`] function assumes the file behind the memory map is not being
-modified at the same time by another process or else a [race condition] occurs.
+[`Mmap::map`] is `unsafe` because the compiler cannot guarantee that the file
+behind the memory map stays unchanged. If another process modifies or truncates
+the file while it is mapped, the bytes seen through the slice can change under
+the program, which is a [race condition] and undefined behavior in Rust. The
+caller must ensure that nothing else touches the file for as long as the map
+exists, as the `SAFETY` comment in the example does.
 
-```rust,edition2021
-use memmap::Mmap;
-use std::fs::File;
-use std::io::{Error, Write};
-
-fn main() -> Result<(), Error> {
-    write!(
-        File::create("content.txt")?,
-        "My hovercraft is full of eels!"
-    )?;
-
-    let file = File::open("content.txt")?;
-    let map = unsafe { Mmap::map(&file)? };
-
-    let random_indexes = [0, 1, 2, 19, 22, 10, 11, 29];
-    assert_eq!(&map[3..13], b"hovercraft");
-    let random_bytes: Vec<u8> = random_indexes.iter().map(|&idx| map[idx]).collect();
-    assert_eq!(&random_bytes[..], b"My loaf!");
-    Ok(())
-}
+```rust,edition2024
+{{#include ../../../crates/file/memmap/src/bin/random_access.rs::20 }}
 ```
 
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html
-[`Mmap::map`]: https://docs.rs/memmap/*/memmap/struct.Mmap.html#method.map
+[`Mmap::map`]: https://docs.rs/memmap2/*/memmap2/struct.Mmap.html#method.map
 [`seek`]: https://doc.rust-lang.org/std/fs/struct.File.html#method.seek
 [race condition]: https://en.wikipedia.org/wiki/Race_condition#File_systems
