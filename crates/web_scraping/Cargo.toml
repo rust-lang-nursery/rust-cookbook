@@ -1,0 +1,18 @@
+[package]
+name = "web-scraping-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+anyhow = "1"
+reqwest = "0.12"
+scraper = "0.29"
+thiserror = "2"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+url = "2"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["io-util", "net"] }
