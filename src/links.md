@@ -60,8 +60,8 @@ Keep lines sorted.
 
 <!-- Crates -->
 
-[ansi_term-badge]: https://img.shields.io/crates/v/ansi_term.svg?label=ansi_term
-[ansi_term]: https://docs.rs/ansi_term/
+[nu-ansi-term-badge]: https://img.shields.io/crates/v/nu-ansi-term.svg?label=nu-ansi-term
+[nu-ansi-term]: https://docs.rs/nu-ansi-term/
 [anyhow-badge]: https://img.shields.io/crates/v/anyhow.svg?label=anyhow
 [anyhow]: https://docs.rs/anyhow/
 [axum-badge]: https://img.shields.io/crates/v/axum.svg?label=axum
