@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-6aa5a356.js";
+            window.path_to_searchindex_js = "../searchindex-76e68ab4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -183,23 +183,24 @@
                     <main>
                         <h1 id="regular-expressions"><a class="header" href="#regular-expressions">Regular Expressions</a></h1>
 <h2 id="verify-and-extract-login-from-an-email-address"><a class="header" href="#verify-and-extract-login-from-an-email-address">Verify and extract login from an email address</a></h2>
-<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
+<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Validates that an email address is formatted correctly, and extracts everything
-before the @ symbol.</p>
-<pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
-use regex::Regex;
+before the @ symbol. The <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> is compiled only once, on first use, by
+declaring it as a <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
+use std::sync::LazyLock;
 
 fn extract_login(input: &amp;str) -&gt; Option&lt;&amp;str&gt; {
-    lazy_static! {
-        static ref RE: Regex = Regex::new(
+    static RE: LazyLock&lt;Regex&gt; = LazyLock::new(|| {
+        Regex::new(
             r"(?x)
             ^(?P&lt;login&gt;[^@\s]+)@
             ([[:word:]]+\.)*
             [[:word:]]+$
-            "
+            ",
         )
-        .unwrap();
-    }
+        .expect("valid regex")
+    });
     RE.captures(input)
         .and_then(|cap| cap.name("login").map(|login| login.as_str()))
 }
@@ -214,18 +215,19 @@ fn main() {
     assert_eq!(extract_login(r"Not an email@email"), None);
 }</code></pre>
 <h2 id="extract-a-list-of-unique-hashtags-from-a-text"><a class="header" href="#extract-a-list-of-unique-hashtags-from-a-text">Extract a list of unique #Hashtags from a text</a></h2>
-<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
+<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Extracts, sorts, and deduplicates list of hashtags from text.</p>
 <p>The hashtag regex given here only catches Latin hashtags that start with a
 letter. The complete <a href="https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255">twitter hashtag regex</a> is much more complicated.</p>
-<pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
-use regex::Regex;
+<p>The <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> is compiled only once, on first use, by declaring it as a
+<code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
 use std::collections::HashSet;
+use std::sync::LazyLock;
 
 fn extract_hashtags(text: &amp;str) -&gt; HashSet&lt;&amp;str&gt; {
-    lazy_static! {
-        static ref HASHTAG_REGEX: Regex = Regex::new(r"\#[a-zA-Z][0-9a-zA-Z_]*").unwrap();
-    }
+    static HASHTAG_REGEX: LazyLock&lt;Regex&gt; =
+        LazyLock::new(|| Regex::new(r"\#[a-zA-Z][0-9a-zA-Z_]*").expect("valid regex"));
     HASHTAG_REGEX
         .find_iter(text)
         .map(|mat| mat.as_str())
@@ -338,24 +340,24 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="replace-all-occurrences-of-one-text-pattern-with-another-pattern"><a class="header" href="#replace-all-occurrences-of-one-text-pattern-with-another-pattern">Replace all occurrences of one text pattern with another pattern.</a></h2>
-<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
+<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Replaces all occurrences of the standard ISO 8601 <em>YYYY-MM-DD</em> date pattern
 with the equivalent American English date with slashes.
 For example <code>2013-01-15</code> becomes <code>01/15/2013</code>.</p>
 <p>The method <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.replace_all"><code>Regex::replace_all</code></a> replaces all occurrences of the whole regex.
 <code>&amp;str</code> implements the <code>Replacer</code> trait which allows variables like <code>$abcde</code> to
 refer to corresponding named capture groups <code>(?P&lt;abcde&gt;REGEX)</code> from the search
-regex. See the <a href="https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax">replacement string syntax</a> for examples and escaping detail.</p>
-<pre class="playground"><code class="language-rust edition2018">use lazy_static::lazy_static;
-
-use regex::Regex;
+regex. See the <a href="https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax">replacement string syntax</a> for examples and escaping detail.
+The regex is compiled only once, on first use, by declaring it as a <code>static</code>
+<a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
 use std::borrow::Cow;
+use std::sync::LazyLock;
 
 fn reformat_dates(before: &amp;str) -&gt; Cow&lt;str&gt; {
-    lazy_static! {
-        static ref ISO8601_DATE_REGEX: Regex =
-            Regex::new(r"(?P&lt;y&gt;\d{4})-(?P&lt;m&gt;\d{2})-(?P&lt;d&gt;\d{2})").unwrap();
-    }
+    static ISO8601_DATE_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| {
+        Regex::new(r"(?P&lt;y&gt;\d{4})-(?P&lt;m&gt;\d{2})-(?P&lt;d&gt;\d{2})").expect("valid regex")
+    });
     ISO8601_DATE_REGEX.replace_all(before, "$m/$d/$y")
 }
 

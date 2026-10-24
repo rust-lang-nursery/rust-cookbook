@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-6aa5a356.js";
+            window.path_to_searchindex_js = "../searchindex-76e68ab4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -310,20 +310,19 @@ fn main() {
     }
 }</code></pre>
 <h2 id="maintain-global-mutable-state"><a class="header" href="#maintain-global-mutable-state">Maintain global mutable state</a></h2>
-<p><a href="https://docs.rs/lazy_static/"><img src="https://img.shields.io/crates/v/lazy_static.svg?label=lazy_static" alt="lazy_static-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
-<p>Declare global state using <a href="https://docs.rs/lazy_static/">lazy_static</a>. <a href="https://docs.rs/lazy_static/">lazy_static</a>
-creates a globally available <code>static ref</code> which requires a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>
-to allow mutation (also see <a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><code>RwLock</code></a>). The <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> wrap ensures
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
+<p>Declare global state using a <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> (also see <a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html"><code>RwLock</code></a>).
+<a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html#method.new"><code>Mutex::new</code></a> is a <code>const fn</code>, so no lazy initialization is needed for
+an empty collection. If the initial value cannot be computed at compile time,
+wrap it in a <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>, as in <code>static X: LazyLock&lt;Mutex&lt;T&gt;&gt;</code>.
+The <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a> wrap ensures
 the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A <a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a> must be acquired to read or mutate the
 value stored in a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::{anyhow, Result};
-use lazy_static::lazy_static;
+<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
 use std::sync::Mutex;
 
-lazy_static! {
-    static ref FRUIT: Mutex&lt;Vec&lt;String&gt;&gt; = Mutex::new(Vec::new());
-}
+static FRUIT: Mutex&lt;Vec&lt;String&gt;&gt; = Mutex::new(Vec::new());
 
 fn insert(fruit: &amp;str) -&gt; Result&lt;()&gt; {
     let mut db = FRUIT
