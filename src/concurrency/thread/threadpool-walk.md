@@ -1,22 +1,21 @@
 ## Calculate SHA256 sum of iso files concurrently
 
-[![threadpool-badge]][threadpool] [![std-badge]][std] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
+[![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![ring-badge]][ring] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
 
 This recipe calculates the SHA256 for every file with iso extension in the
-current directory. A threadpool generates threads equal to the number of cores
-present in the system found with [`std::thread::available_parallelism`].  [`Walkdir::new`] iterates
-the current directory and calls [`execute`] to perform the operations of reading
-and computing SHA256 hash.
+current directory. [`Walkdir::new`] iterates the directory and the matching
+paths are collected into a `Vec`. [`par_iter`] then spreads the work of reading
+each file and computing its hash across rayon's global thread pool, which has
+one thread per available core by default. The digests are gathered with
+[`collect`] into a single [`Result`], so the first error stops the run.
 
-```rust,edition2018,no_run
-use walkdir::WalkDir;
-use std::fs::File;
-use std::io::{BufReader, Read, Error};
-use std::path::Path;
-use std::thread::available_parallelism;
-use threadpool::ThreadPool;
-use std::sync::mpsc::channel;
+```rust,edition2021,no_run
+use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use ring::digest::{Context, Digest, SHA256};
+use std::fs::File;
+use std::io::{BufReader, Error, Read};
+use std::path::{Path, PathBuf};
+use walkdir::WalkDir;
 
 # // Verify the iso extension
 # fn is_iso(entry: &Path) -> bool {
@@ -26,8 +25,8 @@ use ring::digest::{Context, Digest, SHA256};
 #     }
 # }
 
-fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P), Error> {
-    let mut buf_reader = BufReader::new(File::open(&filepath)?);
+fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<Digest, Error> {
+    let mut buf_reader = BufReader::new(File::open(filepath)?);
     let mut context = Context::new(&SHA256);
     let mut buffer = [0; 1024];
 
@@ -39,36 +38,31 @@ fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P), Error> {
         context.update(&buffer[..count]);
     }
 
-    Ok((context.finish(), filepath))
+    Ok(context.finish())
 }
 
 fn main() -> Result<(), Error> {
-    let pool = ThreadPool::new(available_parallelism()?.get());
-
-    let (tx, rx) = channel();
-
-    for entry in WalkDir::new("/home/user/Downloads")
+    let paths: Vec<PathBuf> = WalkDir::new("/home/user/Downloads")
         .follow_links(true)
         .into_iter()
         .filter_map(|e| e.ok())
-        .filter(|e| !e.path().is_dir() && is_iso(e.path())) {
-            let path = entry.path().to_owned();
-            let tx = tx.clone();
-            pool.execute(move || {
-                let digest = compute_digest(path);
-                tx.send(digest).expect("Could not send data!");
-            });
-        }
+        .filter(|e| !e.path().is_dir() && is_iso(e.path()))
+        .map(|e| e.into_path())
+        .collect();
 
-    drop(tx);
-    for t in rx.iter() {
-        let (sha, path) = t?;
+    let digests = paths
+        .par_iter()
+        .map(|path| compute_digest(path).map(|digest| (digest, path)))
+        .collect::<Result<Vec<_>, Error>>()?;
+
+    for (sha, path) in digests {
         println!("{:?} {:?}", sha, path);
     }
     Ok(())
 }
 ```
 
-[`execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute
-[`std::thread::available_parallelism`]: https://doc.rust-lang.org/std/thread/fn.available_parallelism.html
+[`collect`]: https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.collect
+[`par_iter`]: https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter
+[`Result`]: https://doc.rust-lang.org/std/result/enum.Result.html
 [`Walkdir::new`]: https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.new

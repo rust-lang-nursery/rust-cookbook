@@ -378,7 +378,6 @@ tempdir
 TempDir
 tempfile
 thiserror
-threadpool
 ThreadPool
 Threepwood
 Timelike

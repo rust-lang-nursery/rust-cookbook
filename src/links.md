@@ -187,8 +187,6 @@ Keep lines sorted.
 [tempfile]: https://docs.rs/tempfile/
 [thiserror-badge]: https://img.shields.io/crates/v/thiserror.svg?label=thiserror
 [thiserror]: https://docs.rs/thiserror/
-[threadpool-badge]: https://img.shields.io/crates/v/threadpool.svg?label=threadpool
-[threadpool]: https://docs.rs/threadpool/
 [tokio-badge]: https://img.shields.io/crates/v/tokio.svg?label=tokio
 [tokio]: https://docs.rs/tokio/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml

@@ -1,28 +1,25 @@
 ## Draw fractal dispatching work to a thread pool
 
-[![threadpool-badge]][threadpool] [![num-badge]][num] [![std-badge]][std] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
+[![rayon-badge]][rayon] [![num-badge]][num] [![std-badge]][std] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
 
 This recipe generates an image by drawing a fractal from the [Julia set]
-with a thread pool for distributed computation.
+with rayon's thread pool for distributed computation.
 
 <a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a>
 
 Allocate memory for output image of given width and height with [`ImageBuffer::new`].
-[`Rgb::from_channels`] calculates RGB pixel values.
-Create [`ThreadPool`] with thread count equal to the available parallelism with [`std::thread::available_parallelism`].
-[`ThreadPool::execute`] receives each pixel as a separate job.
-
-[`mpsc::channel`] receives the jobs and [`Receiver::recv`] retrieves them.
-[`ImageBuffer::put_pixel`] uses the data to set the pixel color.
+`wavelength_to_rgb` calculates RGB pixel values.
+The image's raw bytes are split into one chunk per row with [`par_chunks_mut`],
+and rayon distributes the rows over its global thread pool, which has one
+thread per available core by default. Each worker writes the pixels of its row
+directly into the buffer, so no channel is needed.
 [`ImageBuffer::save`] writes the image to `output.png`.
 
-```rust,edition2018,no_run
+```rust,edition2021,no_run
 use anyhow::Result;
-use std::sync::mpsc::channel;
-use std::thread::available_parallelism;
-use threadpool::ThreadPool;
+use image::{ImageBuffer, Rgb};
 use num::complex::Complex;
-use image::{ImageBuffer, Pixel, Rgb};
+use rayon::prelude::{IndexedParallelIterator, ParallelIterator, ParallelSliceMut};
 #
 # // Function converting intensity values to RGB
 # // Based on http://www.efg2.com/Lab/ScienceAndEngineering/Spectra.htm
@@ -78,40 +75,28 @@ use image::{ImageBuffer, Pixel, Rgb};
 
 fn main() -> Result<()> {
     let (width, height) = (1920, 1080);
-    let mut img = ImageBuffer::new(width, height);
+    let mut img: ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::new(width, height);
     let iterations = 300;
 
     let c = Complex::new(-0.8, 0.156);
 
-    let pool = ThreadPool::new(available_parallelism()?.get());
-    let (tx, rx) = channel();
+    img.par_chunks_mut(width as usize * 3)
+        .enumerate()
+        .for_each(|(y, row)| {
+            for (x, bytes) in row.chunks_exact_mut(3).enumerate() {
+                let i = julia(c, x as u32, y as u32, width, height, iterations);
+                let pixel = wavelength_to_rgb(380 + i * 400 / iterations);
+                bytes.copy_from_slice(&pixel.0);
+            }
+        });
 
-    for y in 0..height {
-        let tx = tx.clone();
-        pool.execute(move || for x in 0..width {
-                         let i = julia(c, x, y, width, height, iterations);
-                         let pixel = wavelength_to_rgb(380 + i * 400 / iterations);
-                         tx.send((x, y, pixel)).expect("Could not send data!");
-                     });
-    }
-
-    for _ in 0..(width * height) {
-        let (x, y, pixel) = rx.recv()?;
-        img.put_pixel(x, y, pixel);
-    }
     let _ = img.save("output.png")?;
     Ok(())
 }
 ```
 
 [`ImageBuffer::new`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new
-[`ImageBuffer::put_pixel`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.put_pixel
 [`ImageBuffer::save`]: https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save
-[`mpsc::channel`]: https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html
-[`Receiver::recv`]: https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html#method.recv
-[`Rgb::from_channels`]: https://docs.rs/image/*/image/struct.Rgb.html#method.from_channels
-[`std::thread::available_parallelism`]: https://doc.rust-lang.org/std/thread/fn.available_parallelism.html
-[`ThreadPool`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html
-[`ThreadPool::execute`]: https://docs.rs/threadpool/*/threadpool/struct.ThreadPool.html#method.execute
+[`par_chunks_mut`]: https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_chunks_mut
 
 [Julia set]: https://en.wikipedia.org/wiki/Julia_set
