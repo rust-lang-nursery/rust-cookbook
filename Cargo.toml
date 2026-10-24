@@ -109,11 +109,11 @@ syslog = "5.0"
 opt-level = 2
 
 [build-dependencies]
-skeptic = "0.14"
+skeptic = { version = "0.14.2", features = ["binary-cache"] }
 walkdir = "2.5"
 
 [dev-dependencies]
-skeptic = "0.14"
+skeptic = { version = "0.14.2", features = ["binary-cache"] }
 walkdir = "2.5"
 
 [lints.clippy]

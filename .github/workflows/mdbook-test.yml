@@ -19,6 +19,18 @@ jobs:
           cache: "true"
           toolchain: stable
 
+      # skeptic's `binary-cache` feature keeps compiled snippets in
+      # target/debug/.skeptic-bin. The Rust cache above prunes unknown files from
+      # target/, so restore it separately. Entries are keyed by snippet, compiler
+      # and linked libraries, so a stale entry is simply a miss.
+      - name: Restore skeptic binary cache
+        uses: actions/cache@v4
+        with:
+          path: target/debug/.skeptic-bin
+          key: skeptic-bin-${{ runner.os }}-${{ hashFiles('Cargo.toml', 'rust-toolchain*') }}-${{ github.sha }}
+          restore-keys: |
+            skeptic-bin-${{ runner.os }}-${{ hashFiles('Cargo.toml', 'rust-toolchain*') }}-
+
       - name: Run tests
         id: cargo_test
         run: |

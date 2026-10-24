@@ -50,6 +50,11 @@ To run only the skeptic tests (useful when working on examples):
 cargo test --test skeptic
 ```
 
+Skeptic keeps the compiled examples in `target/debug/.skeptic-bin`, so after the
+first run only examples you changed are recompiled (examples still run every
+time). Set `SKEPTIC_NO_BINARY_CACHE=1` to bypass the cache for a run, and
+`SKEPTIC_BINARY_CACHE_MB` to change its size limit (default 1024 MB).
+
 ### xtask
 
 To simplify common tasks like testing, building the book, and running linters.
