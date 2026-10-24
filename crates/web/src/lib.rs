@@ -1,5 +1,3 @@
-pub mod broken;
-pub mod links;
 pub mod paginated;
 pub mod wiki;
 
@@ -13,26 +11,6 @@ mod tests {
             let dependency = dep?;
             println!("{} depends on {}", dependency.id, dependency.crate_id);
         }
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_links() -> Result<(), links::LinkError> {
-        let page_links =
-            links::get_links("https://rust-lang-nursery.github.io/rust-cookbook/").await?;
-        for link in page_links {
-            println!("{}", link);
-        }
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_broken() -> Result<(), broken::BrokenError> {
-        let categorized =
-            broken::check("https://rust-lang-nursery.github.io/rust-cookbook/web/scraping.html")
-                .await?;
-        println!("OK: {:?}", categorized.ok);
-        println!("Broken: {:?}", categorized.broken);
         Ok(())
     }
 
