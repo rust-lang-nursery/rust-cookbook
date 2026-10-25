@@ -1,64 +1,37 @@
 ## ANSI Terminal
 
-[![ansi_term-badge]][ansi_term] [![cat-command-line-badge]][cat-command-line]
+[![nu-ansi-term-badge]][nu-ansi-term] [![cat-command-line-badge]][cat-command-line]
 
-This program depicts the use of [`ansi_term`] crate and how it is used for controlling colours and formatting, such as blue bold text or yellow underlined text, on ANSI terminals.
+This program depicts the use of [`nu-ansi-term`] crate and how it is used for controlling colors and formatting, such as blue bold text or yellow underlined text, on ANSI terminals. [`nu-ansi-term`] is a maintained fork of the archived `ansi_term` crate with a nearly identical API.
 
-There are two main data structures in [`ansi_term`]: [`ANSIString`] and [`Style`]. A [`Style`] holds stylistic information: colours, whether the text should be bold, or blinking, or whatever. There are also Colour variants that represent simple foreground colour styles. An [`ANSIString`] is a string paired with a [`Style`].
-
-**Note:** British English uses *Colour* instead of *Color*, don't get confused
+There are two main data structures in [`nu-ansi-term`]: [`AnsiString`] and [`Style`]. A [`Style`] holds stylistic information: colors, whether the text should be bold, or blinking, or whatever. There are also [`Color`] variants that represent simple foreground color styles. An [`AnsiString`] is a string paired with a [`Style`].
 
 ### Printing colored text to the Terminal
 
-```rust,edition2018
-use ansi_term::Colour;
-
-fn main() {
-    println!(
-        "This is {} in color, {} in color and {} in color",
-        Colour::Red.paint("red"),
-        Colour::Blue.paint("blue"),
-        Colour::Green.paint("green")
-    );
-}
+```rust,edition2024
+{{#include ../../../crates/cli/ansi_terminal/src/bin/colors.rs::10 }}
 ```
 
 ### Bold text in Terminal
 
-For anything more complex than plain foreground colour changes, the code
+For anything more complex than plain foreground color changes, the code
 needs to construct `Style` struct. [`Style::new()`] creates the struct,
 and properties chained.
 
-```rust,edition2018
-use ansi_term::Style;
-
-fn main() {
-    println!(
-        "{} and this is not",
-        Style::new().bold().paint("This is Bold")
-    );
-}
+```rust,edition2024
+{{#include ../../../crates/cli/ansi_terminal/src/bin/bold.rs::8 }}
 ```
+
 ### Bold and colored text in terminal
 
-`Colour` implements many similar functions as `Style` and can chain methods.
+`Color` implements many similar functions as `Style` and can chain methods.
 
-```rust,edition2018
-use ansi_term::Colour;
-use ansi_term::Style;
-
-fn main() {
-    println!(
-        "{}, {} and {}",
-        Colour::Yellow.paint("This is colored"),
-        Style::new().bold().paint("this is bold"),
-        Colour::Yellow.bold().paint("this is bold and colored")
-    );
-}
+```rust,edition2024
+{{#include ../../../crates/cli/ansi_terminal/src/bin/bold_colors.rs::11 }}
 ```
 
-[documentation]: https://docs.rs/ansi_term/
-[`ansi_term`]: https://crates.io/crates/ansi_term
-[`ANSIString`]: https://docs.rs/ansi_term/*/ansi_term/type.ANSIString.html
-[`Style`]: https://docs.rs/ansi_term/*/ansi_term/struct.Style.html
-[`Style::new()`]: https://docs.rs/ansi_term/0.11.0/ansi_term/struct.Style.html#method.new
+[`nu-ansi-term`]: https://docs.rs/nu-ansi-term/*/nu_ansi_term/
+[`AnsiString`]: https://docs.rs/nu-ansi-term/*/nu_ansi_term/type.AnsiString.html
+[`Color`]: https://docs.rs/nu-ansi-term/*/nu_ansi_term/enum.Color.html
+[`Style`]: https://docs.rs/nu-ansi-term/*/nu_ansi_term/struct.Style.html
+[`Style::new()`]: https://docs.rs/nu-ansi-term/*/nu_ansi_term/struct.Style.html#method.new

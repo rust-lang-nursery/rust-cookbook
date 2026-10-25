@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/algorithms/*", "crates/compression/*", "crates/concurrency/*", "crates/configuration/*", "crates/development_tools/build_tools/*", "crates/development_tools/debugging/tracing", "crates/encoding/*", "crates/file/*", "crates/multimedia/*", "crates/parsing/*", "crates/safety_critical/*", "crates/wasm", "crates/web", "crates/web_scraping", "xtask"]
+members = ["crates/algorithms/*", "crates/cli/*", "crates/compression/*", "crates/concurrency/*", "crates/configuration/*", "crates/development_tools/build_tools/*", "crates/development_tools/debugging/tracing", "crates/encoding/*", "crates/file/*", "crates/multimedia/*", "crates/parsing/*", "crates/safety_critical/*", "crates/wasm", "crates/web", "crates/web_scraping", "xtask"]
 exclude = ["crates/database/sea_orm", "crates/database/sqlx", "crates/multimedia/playback", "crates/web_leptos", "crates/web_leptos_hydrate", "crates/wasm_component_guest", "crates/wasm_component_host"]
 
 [workspace.package]
@@ -49,7 +49,6 @@ tracing-subscriber = "0.3"
 # Be wary removing or changing these without considering this fact.
 # See https://github.com/rust-lang/rust-playground/blob/f8d7de52a3c139a0df4fe116bbbff19c30668c99/top-crates/src/lib.rs#L134-L161
 [dependencies]
-ansi_term = "0.11.0"
 anyhow = "1.0"
 approx = "0.3"
 base64 = "0.22.1"
