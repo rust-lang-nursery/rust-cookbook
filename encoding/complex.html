@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-480db9cf.js";
+            window.path_to_searchindex_js = "../searchindex-30cd765f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -284,12 +284,20 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre>
 <h2 id="read-and-write-integers-in-little-endian-byte-order"><a class="header" href="#read-and-write-integers-in-little-endian-byte-order">Read and write integers in little-endian byte order</a></h2>
-<p><a href="https://docs.rs/byteorder/"><img src="https://img.shields.io/crates/v/byteorder.svg?label=byteorder" alt="byteorder-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
-<p><code>byteorder</code> can reverse the significant bytes of structured data.  This may
-be necessary when receiving information over the network, such that bytes
-received are from another system.</p>
-<pre class="playground"><code class="language-rust edition2018">use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
-use std::io::Error;
+<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
+<p>Reversing the significant bytes of structured data may be necessary when
+receiving information over the network, such that bytes received are from
+another system. The standard library covers this without any extra crate.</p>
+<p>Every integer type has methods that convert to and from a byte array in a
+chosen order: <a href="https://doc.rust-lang.org/std/primitive.u16.html#method.to_le_bytes"><code>u16::to_le_bytes</code></a> and <a href="https://doc.rust-lang.org/std/primitive.u16.html#method.from_le_bytes"><code>u16::from_le_bytes</code></a> for
+little-endian, <a href="https://doc.rust-lang.org/std/primitive.u16.html#method.to_be_bytes"><code>u16::to_be_bytes</code></a> and <a href="https://doc.rust-lang.org/std/primitive.u16.html#method.from_be_bytes"><code>u16::from_be_bytes</code></a> for big-endian,
+and <a href="https://doc.rust-lang.org/std/primitive.u16.html#method.to_ne_bytes"><code>u16::to_ne_bytes</code></a> for the endianness of the current platform. The
+arrays have a fixed size, so no allocation is needed to convert a single
+value.</p>
+<p>A byte slice implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a>, so <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_exact"><code>Read::read_exact</code></a> fills each array
+from the front of the slice and advances it. If the input is too short, it
+returns an <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.UnexpectedEof"><code>UnexpectedEof</code></a> error instead of panicking.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::io::{Error, Read};
 
 #[derive(Default, PartialEq, Debug)]
 struct Payload {
@@ -298,27 +306,39 @@ struct Payload {
 }
 
 fn main() -&gt; Result&lt;(), Error&gt; {
-    let original_payload = Payload::default();
-    let encoded_bytes = encode(&amp;original_payload)?;
+    let original_payload = Payload {
+        kind: 1,
+        value: 0x0203,
+    };
+    let encoded_bytes = encode(&amp;original_payload);
+    assert_eq!(encoded_bytes, [0x01, 0x03, 0x02]);
     let decoded_payload = decode(&amp;encoded_bytes)?;
     assert_eq!(original_payload, decoded_payload);
+    assert!(decode(&amp;encoded_bytes[..2]).is_err());
     Ok(())
 }
 
-fn encode(payload: &amp;Payload) -&gt; Result&lt;Vec&lt;u8&gt;, Error&gt; {
-    let mut bytes = vec![];
-    bytes.write_u8(payload.kind)?;
-    bytes.write_u16::&lt;LittleEndian&gt;(payload.value)?;
-    Ok(bytes)
+fn encode(payload: &amp;Payload) -&gt; Vec&lt;u8&gt; {
+    let mut bytes = vec![payload.kind];
+    bytes.extend_from_slice(&amp;payload.value.to_le_bytes());
+    bytes
 }
 
 fn decode(mut bytes: &amp;[u8]) -&gt; Result&lt;Payload, Error&gt; {
-    let payload = Payload {
-        kind: bytes.read_u8()?,
-        value: bytes.read_u16::&lt;LittleEndian&gt;()?,
-    };
-    Ok(payload)
+    let mut kind = [0; 1];
+    bytes.read_exact(&amp;mut kind)?;
+    let mut value = [0; 2];
+    bytes.read_exact(&amp;mut value)?;
+    Ok(Payload {
+        kind: kind[0],
+        value: u16::from_le_bytes(value),
+    })
 }</code></pre>
+<p>The <a href="https://docs.rs/byteorder/">byteorder</a> crate remains useful for streams. Its <code>ReadBytesExt</code> and
+<code>WriteBytesExt</code> traits read and write integers directly on any <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a> or
+<a href="https://doc.rust-lang.org/std/io/trait.Write.html"><code>Write</code></a> without a temporary array, and it can convert whole slices of
+integers at once. For a handful of fixed-size fields, the standard library
+methods above are enough.</p>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
