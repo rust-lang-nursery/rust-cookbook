@@ -70,8 +70,6 @@ Keep lines sorted.
 [base64]: https://docs.rs/base64/
 [bitflags-badge]: https://img.shields.io/crates/v/bitflags.svg?label=bitflags
 [bitflags]: https://docs.rs/bitflags/
-[byteorder-badge]: https://img.shields.io/crates/v/byteorder.svg?label=byteorder
-[byteorder]: https://docs.rs/byteorder/
 [bzip2-badge]: https://img.shields.io/crates/v/bzip2.svg?label=bzip2
 [bzip2]: https://docs.rs/bzip2/
 [cc-badge]: https://img.shields.io/crates/v/cc.svg?label=cc

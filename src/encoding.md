@@ -16,7 +16,7 @@
 | [Transform one column of a CSV file][ex-csv-transform-column] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] | [![cat-encoding-badge]][cat-encoding] |
-| [Read and write integers in little-endian byte order][ex-byteorder-le] | [![byteorder-badge]][byteorder] | [![cat-encoding-badge]][cat-encoding] |
+| [Read and write integers in little-endian byte order][ex-byteorder-le] | [![std-badge]][std] | [![cat-encoding-badge]][cat-encoding] |
 | [Access serialized data without deserializing it][ex-rkyv-zero-copy] | [![rkyv-badge]][rkyv] | [![cat-encoding-badge]][cat-encoding] |
 | [Read an archive from a file][ex-rkyv-file] | [![rkyv-badge]][rkyv] | [![cat-encoding-badge]][cat-encoding] |
 
