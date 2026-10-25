@@ -25,8 +25,8 @@ Run it and edit files under the watched directory to watch events stream in.
 [`notify`]: https://docs.rs/notify/
 [`std::sync::mpsc`]: https://doc.rust-lang.org/std/sync/mpsc/index.html
 [`recommended_watcher`]: https://docs.rs/notify/*/notify/fn.recommended_watcher.html
-[`Event`]: https://docs.rs/notify/*/notify/event/struct.Event.html
-[`EventKind`]: https://docs.rs/notify/*/notify/event/enum.EventKind.html
+[`Event`]: https://docs.rs/notify/*/notify/struct.Event.html
+[`EventKind`]: https://docs.rs/notify/*/notify/enum.EventKind.html
 [`Error`]: https://docs.rs/notify/*/notify/struct.Error.html
 [`RecursiveMode::Recursive`]: https://docs.rs/notify/*/notify/enum.RecursiveMode.html
 [`watch`]: https://docs.rs/notify/*/notify/trait.Watcher.html#tymethod.watch
