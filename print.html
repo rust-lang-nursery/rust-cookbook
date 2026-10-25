@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-30cd765f.js";
+            window.path_to_searchindex_js = "searchindex-f1ddaafe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-af28f5c9.js"></script>
@@ -540,7 +540,7 @@ Keep lines sorted.
 <tbody>
 <tr><td><a href="#thiserror">Composing errors with an enum</a></td><td><a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#anyhow">Dynamic errors with anyhow</a></td><td><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
-<tr><td><a href="#handle-errors-correctly-in-main">Handle errors correctly in main</a></td><td><a href="https://docs.rs/error-chain/"><img src="https://img.shields.io/crates/v/error-chain.svg?label=error-chain" alt="error-chain-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#handle-errors-correctly-in-main">Handle errors correctly in main</a></td><td><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a> <a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#transform-an-option-value">Transform an Option value</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#provide-fallbacks-for-missing-values">Provide fallbacks for missing values</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#convert-an-option-to-a-result">Convert an Option to a Result</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
@@ -7217,7 +7217,7 @@ Keep lines sorted.
 <tbody>
 <tr><td><a href="#thiserror">Composing errors with an enum</a></td><td><a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#anyhow">Dynamic errors with anyhow</a></td><td><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
-<tr><td><a href="#handle-errors-correctly-in-main">Handle errors correctly in main</a></td><td><a href="https://docs.rs/error-chain/"><img src="https://img.shields.io/crates/v/error-chain.svg?label=error-chain" alt="error-chain-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
+<tr><td><a href="#handle-errors-correctly-in-main">Handle errors correctly in main</a></td><td><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a> <a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#transform-an-option-value">Transform an Option value</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#provide-fallbacks-for-missing-values">Provide fallbacks for missing values</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
 <tr><td><a href="#convert-an-option-to-a-result">Convert an Option to a Result</a></td><td><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></td><td><a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></td></tr>
@@ -7235,10 +7235,7 @@ Keep lines sorted.
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="error-handling-2"><a class="header" href="#error-handling-2">Error Handling</a></h1>
 <h2 id="handle-errors-correctly-in-main"><a class="header" href="#handle-errors-correctly-in-main">Handle errors correctly in main</a></h2>
-<p><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a>
-<a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a>
-<a href="https://docs.rs/error-chain/"><img src="https://img.shields.io/crates/v/error-chain.svg?label=error-chain" alt="error-chain-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
-<h1 id="error-strategies-2024"><a class="header" href="#error-strategies-2024">Error Strategies (2024)</a></h1>
+<p><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a> <a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
 <p>As recommended in Rust by Example, <a href="https://doc.rust-lang.org/rust-by-example/error/multiple_error_types/boxing_errors.html"><code>Box</code>ing errors</a> is seen as an easy
 strategy for getting started.</p>
 <pre class="playground"><code class="language-rust edition2018">use std::error::Error;
@@ -7251,17 +7248,40 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
 <p>To understand what kind of error handling may be required study <a href="https://mmapped.blog/posts/12-rust-error-handling">Designing
 error types in Rust</a> and consider <a href="https://docs.rs/thiserror/latest/thiserror/"><code>thiserror</code></a> for libraries or <a href="https://docs.rs/anyhow/latest/anyhow/"><code>anyhow</code></a> as
 a maintained error aggregation option.</p>
-<pre class="playground"><code class="language-rust edition2018">use thiserror::Error;
+<p>Deriving <a href="https://docs.rs/thiserror/*/thiserror/derive.Error.html"><code>thiserror::Error</code></a> on an enum takes care of the boilerplate code
+needed in order to <a href="https://doc.rust-lang.org/book/second-edition/ch09-00-error-handling.html">handle errors in Rust</a>. <code>#[from]</code> on the
+<code>Io(std::io::Error)</code> and <code>ParseInt(std::num::ParseIntError)</code> variants
+generates the <code>From</code> implementations that let <code>?</code> convert a
+<a href="https://doc.rust-lang.org/std/io/struct.Error.html"><code>std::io::Error</code></a> or a <a href="https://doc.rust-lang.org/std/num/struct.ParseIntError.html"><code>ParseIntError</code></a> into <code>UptimeError</code>. The <code>#[error]</code>
+attributes provide the <code>Display</code> text, and the derive implements the
+<a href="https://doc.rust-lang.org/std/error/trait.Error.html"><code>Error</code></a> trait.</p>
+<p>The below recipe will tell how long the system has been running by
+opening the Unix file <code>/proc/uptime</code> and parse the content to get the
+first number. Returns uptime unless there is an error.</p>
+<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+use std::io::Read;
+use thiserror::Error;
 
 #[derive(Error, Debug)]
-pub enum MultiError {
-    #[error("🦀 got {0}")]
-    ErrorClass(String),
+enum UptimeError {
+    #[error("could not read uptime: {0}")]
+    Io(#[from] std::io::Error),
+    #[error("could not parse uptime: {0}")]
+    ParseInt(#[from] std::num::ParseIntError),
 }
 
-fn main() -&gt; Result&lt;(), MultiError&gt; {
-    // Example of using thiserror
-    Ok(())
+fn read_uptime() -&gt; Result&lt;u64, UptimeError&gt; {
+    let mut uptime = String::new();
+    File::open("/proc/uptime")?.read_to_string(&amp;mut uptime)?;
+
+    Ok(uptime.split('.').next().unwrap_or_default().parse()?)
+}
+
+fn main() {
+    match read_uptime() {
+        Ok(uptime) =&gt; println!("uptime: {} seconds", uptime),
+        Err(err) =&gt; eprintln!("error: {}", err),
+    };
 }</code></pre>
 <p>Application authors can compose enums using <code>anyhow</code> can import the <code>Result</code>
 type from the crate to provide auto-<code>Box</code>ing behavior</p>
@@ -7271,47 +7291,6 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let my_string = "yellow".to_string();
     let _my_int = my_string.parse::&lt;i32&gt;()?;
     Ok(())
-}</code></pre>
-<h1 id="error-chain-2015-2018"><a class="header" href="#error-chain-2015-2018">Error Chain (2015-2018)</a></h1>
-<p>Handles error that occur when trying to open a file that does not
-exist. It is achieved by using <a href="https://docs.rs/error-chain/">error-chain</a>, a library that takes
-care of a lot of boilerplate code needed in order to <a href="https://doc.rust-lang.org/book/second-edition/ch09-00-error-handling.html">handle errors in Rust</a>.</p>
-<p><code>Io(std::io::Error)</code> inside <a href="https://docs.rs/error-chain/*/error_chain/#foreign-links"><code>foreign_links</code></a> allows automatic
-conversion from <a href="https://doc.rust-lang.org/std/io/struct.Error.html"><code>std::io::Error</code></a> into <a href="https://docs.rs/error-chain/*/error_chain/macro.error_chain.html"><code>error_chain!</code></a> defined type
-implementing the <a href="https://doc.rust-lang.org/std/error/trait.Error.html"><code>Error</code></a> trait.</p>
-<p>The below recipe will tell how long the system has been running by
-opening the Unix file <code>/proc/uptime</code> and parse the content to get the
-first number. Returns uptime unless there is an error.</p>
-<p>Other recipes in this book will hide the <a href="https://docs.rs/error-chain/">error-chain</a> boilerplate, and can be
-seen by expanding the code with the ⤢ button.</p>
-<pre><code class="language-rust edition2018 ignore">use error_chain::error_chain;
-
-use std::fs::File;
-use std::io::Read;
-
-error_chain!{
-    foreign_links {
-        Io(std::io::Error);
-        ParseInt(::std::num::ParseIntError);
-    }
-}
-
-fn read_uptime() -&gt; Result&lt;u64&gt; {
-    let mut uptime = String::new();
-    File::open("/proc/uptime")?.read_to_string(&amp;mut uptime)?;
-
-    Ok(uptime
-        .split('.')
-        .next()
-        .ok_or("Cannot parse uptime data")?
-        .parse()?)
-}
-
-fn main() {
-    match read_uptime() {
-        Ok(uptime) =&gt; println!("uptime: {} seconds", uptime),
-        Err(err) =&gt; eprintln!("error: {}", err),
-    };
 }</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
@@ -12008,8 +11987,6 @@ Keep lines sorted.
 [data-encoding]: https://docs.rs/data-encoding/
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
-[error-chain-badge]: https://img.shields.io/crates/v/error-chain.svg?label=error-chain
-[error-chain]: https://docs.rs/error-chain/
 [figment-badge]: https://img.shields.io/crates/v/figment.svg?label=figment
 [figment]: https://docs.rs/figment/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
