@@ -4,7 +4,7 @@
 |--------|--------|------------|
 | [Composing errors with an enum][ex-thiserror] | [![thiserror-badge]][thiserror] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Dynamic errors with anyhow][ex-anyhow] | [![anyhow-badge]][anyhow] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
-| [Handle errors correctly in main][ex-error-chain-simple-error-handling] | [![error-chain-badge]][error-chain] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Handle errors correctly in main][ex-error-chain-simple-error-handling] | [![anyhow-badge]][anyhow] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Transform an Option value][ex-transform-option] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Provide fallbacks for missing values][ex-option-fallback] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Convert an Option to a Result][ex-option-to-result] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
