@@ -8164,11 +8164,11 @@ backend. That is inotify on Linux, FSEvents on macOS, kqueue on the BSDs and
 thread. It hands events back over a <a href="https://doc.rust-lang.org/std/sync/mpsc/index.html"><code>std::sync::mpsc</code></a> channel. That is the
 standard library’s multi-producer, single-consumer queue. <a href="https://docs.rs/notify/*/notify/fn.recommended_watcher.html"><code>recommended_watcher</code></a>
 takes the sending half and forwards each change to it as a
-<code>Result&lt;</code><a href="https://docs.rs/notify/*/notify/event/struct.Event.html"><code>Event</code></a><code>, </code><a href="https://docs.rs/notify/*/notify/struct.Error.html"><code>Error</code></a><code>&gt;</code>. Your thread keeps the receiving half and
+<code>Result&lt;</code><a href="https://docs.rs/notify/*/notify/struct.Event.html"><code>Event</code></a><code>, </code><a href="https://docs.rs/notify/*/notify/struct.Error.html"><code>Error</code></a><code>&gt;</code>. Your thread keeps the receiving half and
 reads events by iterating it.</p>
 <p>Passing <a href="https://docs.rs/notify/*/notify/enum.RecursiveMode.html"><code>RecursiveMode::Recursive</code></a> to <a href="https://docs.rs/notify/*/notify/trait.Watcher.html#tymethod.watch"><code>watch</code></a> follows the entire subtree.
-Files created in nested directories are reported too. Every <a href="https://docs.rs/notify/*/notify/event/struct.Event.html"><code>Event</code></a> carries an
-<a href="https://docs.rs/notify/*/notify/event/enum.EventKind.html"><code>EventKind</code></a> and the affected paths. Matching on the kind keeps creations, data
+Files created in nested directories are reported too. Every <a href="https://docs.rs/notify/*/notify/struct.Event.html"><code>Event</code></a> carries an
+<a href="https://docs.rs/notify/*/notify/enum.EventKind.html"><code>EventKind</code></a> and the affected paths. Matching on the kind keeps creations, data
 writes and removals. It discards metadata-only noise. The receiver blocks until
 the <a href="https://docs.rs/notify/*/notify/trait.Watcher.html"><code>Watcher</code></a> is dropped. A real tool keeps this loop running for its lifetime.
 Run it and edit files under the watched directory to watch events stream in.</p>
