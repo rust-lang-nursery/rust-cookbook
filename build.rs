@@ -22,6 +22,8 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/cli/ansi_terminal/",
     "./src/configuration/",
     "./src/development_tools/build_tools/",
+    "./src/development_tools/debugging/config_log/log-custom.md",
+    "./src/development_tools/debugging/log/log-syslog.md",
     "./src/development_tools/debugging/tracing/",
     "./src/multimedia/",
     "./src/parsing/",
