@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f1ddaafe.js";
+            window.path_to_searchindex_js = "searchindex-9fa40993.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-af28f5c9.js"></script>
@@ -4775,11 +4775,16 @@ Keep lines sorted.
 <p>Use the <code>rusqlite</code> crate to open SQLite databases. See
 <a href="https://github.com/rusqlite/rusqlite#user-content-notes-on-building-rusqlite-and-libsqlite3-sys">crate</a> for compiling on Windows.</p>
 <p><a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.open"><code>Connection::open</code></a> will create the database if it doesn’t already exist.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{Connection, Result};
+<pre class="playground"><code class="language-rust no_run edition2018">use rusqlite::{Connection, Result};
 
 fn main() -&gt; Result&lt;()&gt; {
     let conn = Connection::open("cats.db")?;
+    create_tables(&amp;conn)?;
 
+    Ok(())
+}
+
+fn create_tables(conn: &amp;Connection) -&gt; Result&lt;()&gt; {
     conn.execute(
         "create table if not exists cat_colors (
              id integer primary key,
@@ -4802,7 +4807,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://crates.io/crates/rusqlite/"><img src="https://img.shields.io/crates/v/rusqlite.svg?label=rusqlite" alt="rusqlite-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p><a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.open"><code>Connection::open</code></a> will open the database <code>cats</code> created in the earlier recipe.
 This recipe inserts data into <code>cat_colors</code> and <code>cats</code> tables using the <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.execute"><code>execute</code></a> method of <code>Connection</code>. First, the data is inserted into the <code>cat_colors</code> table. After a record for a color is inserted, <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.last_insert_rowid"><code>last_insert_rowid</code></a> method of <code>Connection</code> is used to get <code>id</code> of the last color inserted. This <code>id</code> is used while inserting data into the <code>cats</code> table. Then, the select query is prepared using the <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Connection.html#method.prepare"><code>prepare</code></a> method which gives a <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html"><code>statement</code></a> struct. Then, query is executed using <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html#method.query_map"><code>query_map</code></a> method of <a href="https://docs.rs/rusqlite/*/rusqlite/struct.Statement.html"><code>statement</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{params, Connection, Result};
+<pre class="playground"><code class="language-rust no_run edition2018">use rusqlite::{Connection, Result, params};
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -4818,7 +4823,20 @@ fn main() -&gt; Result&lt;()&gt; {
     cat_colors.insert(String::from("Blue"), vec!["Tigger", "Sammy"]);
     cat_colors.insert(String::from("Black"), vec!["Oreo", "Biscuit"]);
 
-    for (color, catnames) in &amp;cat_colors {
+    insert_cats(&amp;conn, &amp;cat_colors)?;
+
+    for found_cat in select_cats(&amp;conn)? {
+        println!(
+            "Found cat {:?} {} is {}",
+            found_cat, found_cat.name, found_cat.color,
+        );
+    }
+
+    Ok(())
+}
+
+fn insert_cats(conn: &amp;Connection, cat_colors: &amp;HashMap&lt;String, Vec&lt;&amp;str&gt;&gt;) -&gt; Result&lt;()&gt; {
+    for (color, catnames) in cat_colors {
         conn.execute("INSERT INTO cat_colors (name) VALUES (?1)", [color])?;
         let last_id = conn.last_insert_rowid();
 
@@ -4829,6 +4847,11 @@ fn main() -&gt; Result&lt;()&gt; {
             )?;
         }
     }
+
+    Ok(())
+}
+
+fn select_cats(conn: &amp;Connection) -&gt; Result&lt;Vec&lt;Cat&gt;&gt; {
     let mut stmt = conn.prepare(
         "SELECT c.name, cc.name FROM cats c
          INNER JOIN cat_colors cc
@@ -4842,16 +4865,7 @@ fn main() -&gt; Result&lt;()&gt; {
         })
     })?;
 
-    for cat in cats {
-        if let Ok(found_cat) = cat {
-            println!(
-                "Found cat {:?} {} is {}",
-                found_cat, found_cat.name, found_cat.color,
-            );
-        }
-    }
-
-    Ok(())
+    cats.collect()
 }</code></pre>
 <h2 id="using-transactions"><a class="header" href="#using-transactions">Using transactions</a></h2>
 <p><a href="https://crates.io/crates/rusqlite/"><img src="https://img.shields.io/crates/v/rusqlite.svg?label=rusqlite" alt="rusqlite-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
@@ -4861,7 +4875,7 @@ roll back unless committed explicitly with <a href="https://docs.rs/rusqlite/*/r
 <p>In the following recipe, colors add to a table having
 a unique constraint on the color name. When an attempt to insert
 a duplicate color is made, the transaction rolls back.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use rusqlite::{Connection, Result};
+<pre class="playground"><code class="language-rust no_run edition2018">use rusqlite::{Connection, Result};
 
 fn main() -&gt; Result&lt;()&gt; {
     let mut conn = Connection::open("cats.db")?;
