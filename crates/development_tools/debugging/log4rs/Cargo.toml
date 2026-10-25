@@ -1,0 +1,12 @@
+[package]
+name = "log4rs-recipes"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+anyhow = "1.0"
+log = "0.4"
+log4rs = "1.4"
