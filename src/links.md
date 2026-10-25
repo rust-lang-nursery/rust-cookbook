@@ -90,8 +90,6 @@ Keep lines sorted.
 [data-encoding]: https://docs.rs/data-encoding/
 [env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
 [env_logger]: https://docs.rs/env_logger/
-[error-chain-badge]: https://img.shields.io/crates/v/error-chain.svg?label=error-chain
-[error-chain]: https://docs.rs/error-chain/
 [figment-badge]: https://img.shields.io/crates/v/figment.svg?label=figment
 [figment]: https://docs.rs/figment/
 [flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
