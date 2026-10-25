@@ -56,6 +56,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 The [`anyhow`] library simplifies error handling in application code. This example reads the system uptime from `/proc/uptime` and adds context to errors that occur while reading or parsing the file.
 
 ```rust,edition2018
+
 use anyhow::{Context, Result};
 use std::fs;
 
