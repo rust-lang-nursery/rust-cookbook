@@ -30,6 +30,7 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/safety_critical/no_panic/",
     "./src/safety_critical/heapless_alloc/",
     "./src/wasm/",
+    "./src/database/sqlite/",
     "./src/database/sqlx/",
     "./src/database/sea_orm/",
     "./src/encoding/rkyv",

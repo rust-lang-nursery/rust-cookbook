@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/algorithms/*", "crates/cli/*", "crates/compression/*", "crates/concurrency/*", "crates/configuration/*", "crates/development_tools/build_tools/*", "crates/development_tools/debugging/tracing", "crates/encoding/*", "crates/file/*", "crates/multimedia/*", "crates/parsing/*", "crates/safety_critical/*", "crates/wasm", "crates/web", "crates/web_scraping", "xtask"]
+members = ["crates/algorithms/*", "crates/cli/*", "crates/compression/*", "crates/concurrency/*", "crates/configuration/*", "crates/database/rusqlite", "crates/development_tools/build_tools/*", "crates/development_tools/debugging/tracing", "crates/encoding/*", "crates/file/*", "crates/multimedia/*", "crates/parsing/*", "crates/safety_critical/*", "crates/wasm", "crates/web", "crates/web_scraping", "xtask"]
 exclude = ["crates/database/sea_orm", "crates/database/sqlx", "crates/multimedia/playback", "crates/web_leptos", "crates/web_leptos_hydrate", "crates/wasm_component_guest", "crates/wasm_component_host"]
 
 [workspace.package]
@@ -78,7 +78,6 @@ rayon = "1.10"
 regex = "1.11"
 reqwest = { version = "0.12", features = ["blocking", "json", "stream"] }
 ring = "0.17"
-rusqlite = { version = "0.32", features = ["chrono"] }
 same-file = "1.0"
 semver = "1.0"
 serde = { version = "1.0", features = ["derive"] }
