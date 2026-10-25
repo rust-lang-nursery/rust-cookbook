@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-9fa40993.js";
+            window.path_to_searchindex_js = "../../searchindex-4c9166bf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-af28f5c9.js"></script>
@@ -283,7 +283,7 @@ appender defines the logging destination.  The configuration continues with
 encoding using a custom pattern from <a href="https://docs.rs/log4rs/*/log4rs/encode/pattern/index.html"><code>log4rs::encode::pattern</code></a>.
 Assigns the configuration to <a href="https://docs.rs/log4rs/*/log4rs/config/runtime/struct.Config.html"><code>log4rs::config::Config</code></a> and sets the default
 <a href="https://docs.rs/log/*/log/enum.LevelFilter.html"><code>log::LevelFilter</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use log::LevelFilter;
 use log4rs::append::file::FileAppender;
 use log4rs::config::{Appender, Config, Root};

@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-9fa40993.js";
+            window.path_to_searchindex_js = "../../searchindex-4c9166bf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-af28f5c9.js"></script>
@@ -271,24 +271,31 @@ fn main() -&gt; Result&lt;(), SetLoggerError&gt; {
 with <a href="https://docs.rs/syslog/*/syslog/fn.init.html"><code>syslog::init</code></a>. <a href="https://docs.rs/syslog/*/syslog/enum.Facility.html"><code>syslog::Facility</code></a> records the program submitting
 the log entry’s classification, <a href="https://docs.rs/log/*/log/enum.LevelFilter.html"><code>log::LevelFilter</code></a> denotes allowed log verbosity
 and <code>Option&lt;&amp;str&gt;</code> holds optional application name.</p>
-<pre class="playground"><code class="language-rust edition2018"><span class="boring">#[cfg(target_os = "linux")]
-</span><span class="boring">#[cfg(target_os = "linux")]
-</span>use syslog::{Facility, Error};
+<pre class="playground"><code class="language-rust edition2018">#[cfg(target_os = "linux")]
+use syslog::{BasicLogger, Facility, Formatter3164};
 
-<span class="boring">#[cfg(target_os = "linux")]
-</span>fn main() -&gt; Result&lt;(), Error&gt; {
-    syslog::init(Facility::LOG_USER,
-                 log::LevelFilter::Debug,
-                 Some("My app name"))?;
+#[cfg(target_os = "linux")]
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    let formatter = Formatter3164 {
+        facility: Facility::LOG_USER,
+        hostname: None,
+        process: "My app name".into(),
+        pid: std::process::id(),
+    };
+
+    let logger = syslog::unix(formatter)?;
+    log::set_boxed_logger(Box::new(BasicLogger::new(logger)))?;
+    log::set_max_level(log::LevelFilter::Debug);
+
     log::debug!("this is a debug {}", "message");
     log::error!("this is an error!");
     Ok(())
 }
 
-<span class="boring">#[cfg(not(target_os = "linux"))]
-</span><span class="boring">fn main() {
-</span><span class="boring">    println!("So far, only Linux systems are supported.");
-</span><span class="boring">}</span></code></pre>
+#[cfg(not(target_os = "linux"))]
+fn main() {
+    println!("So far, only Linux systems are supported.");
+}</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
