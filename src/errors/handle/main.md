@@ -55,7 +55,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 Handles error that occur when trying to open a file that does not
 exist. It is achieved by using [error-chain], a library that takes
 care of a lot of boilerplate code needed in order to [handle errors in Rust].
-
 `Io(std::io::Error)` inside [`foreign_links`] allows automatic
 conversion from [`std::io::Error`] into [`error_chain!`] defined type
 implementing the [`Error`] trait.
