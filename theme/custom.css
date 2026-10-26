@@ -245,7 +245,7 @@ a.cat-chip:hover {
 }
 
 /* Nobody is editing a Cargo.toml on a phone, so drop the copy button there. */
-@media (max-width: 700px) {
+@media (max-width: 480px) {
   .crate-chip-copy {
     display: none;
   }
