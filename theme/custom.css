@@ -12,13 +12,37 @@ table.recipe-table thead {
   display: none;
 }
 
-table.recipe-table tr {
+table.recipe-table tr,
+table.recipe-table tr:nth-child(2n) {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 2px 0;
-  padding: 8px 4px;
-  border-bottom: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  gap: 6px 0;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 10px;
+  background: var(--bg);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+table.recipe-table tr:hover {
+  border-color: var(--links);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* the whole card opens the recipe; pills stay clickable above the overlay */
+table.recipe-table td:first-child a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+}
+
+table.recipe-table td .crate-chip {
+  position: relative;
+  z-index: 1;
 }
 
 table.recipe-table td,
@@ -34,7 +58,8 @@ table.recipe-table td:nth-child(n + 2) {
 table.recipe-table td:first-child {
   display: block;
   flex-basis: 100%;
-  margin-bottom: 4px;
+  font-size: 1.05em;
+  font-weight: 500;
 }
 
 table.recipe-table td:nth-child(3) {
