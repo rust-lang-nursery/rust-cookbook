@@ -40,4 +40,30 @@
   wrapper.addEventListener("mousedown", function (e) {
     if (e.target === wrapper && isOpen()) toggle.click();
   });
+
+  // A dimmed magnifier at the bottom of the page, centred between the previous
+  // and next links. Narrow layouts use the nav row; wide ones, which have side
+  // arrows instead, get a centred copy under the content (CSS picks which shows).
+  var nav = document.querySelector(".nav-wrapper");
+  if (nav) {
+    var make = function (className) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "bottom-search " + className;
+      b.title = "Search (" + shortcuts + ")";
+      b.setAttribute("aria-label", "Search the cookbook");
+      b.innerHTML =
+        '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>';
+      b.addEventListener("click", function () {
+        if (!isOpen()) toggle.click();
+        input.focus();
+      });
+      return b;
+    };
+    nav.insertBefore(make("in-nav"), nav.lastElementChild);
+    var wide = document.createElement("div");
+    wide.className = "bottom-search-wide";
+    wide.appendChild(make("standalone"));
+    nav.parentNode.insertBefore(wide, nav.nextSibling);
+  }
 })();

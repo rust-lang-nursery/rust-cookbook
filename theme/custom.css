@@ -687,3 +687,61 @@ h2.ri-letter {
   display: flex;
   line-height: normal;
 }
+
+/* dimmed search magnifier at the bottom of the page */
+.bottom-search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--fg);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.15s, background-color 0.15s;
+}
+
+.bottom-search:hover,
+.bottom-search:focus-visible {
+  opacity: 0.95;
+  background-color: var(--theme-hover, rgba(128, 128, 128, 0.15));
+}
+
+.nav-wrapper {
+  position: relative;
+}
+
+.bottom-search.in-nav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom-search-wide {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 40px;
+}
+
+/* where mdBook shows the bottom nav row, the in-row magnifier is used instead */
+@media (max-width: 1080px) {
+  .bottom-search-wide {
+    display: none;
+  }
+}
+
+@media (max-width: 1380px) {
+  #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .bottom-search-wide {
+    display: none;
+  }
+}
+
+/* leave room for the magnifier between the previous and next links */
+.mobile-nav-chapters {
+  max-width: calc(50% - 36px);
+}
