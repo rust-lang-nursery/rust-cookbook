@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-2b82b6fe.js";
+            window.path_to_searchindex_js = "../../searchindex-a51c543a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-af28f5c9.js"></script>
@@ -226,7 +226,7 @@ depending on context. If representing the orientation of a vector is important,
 a 2-D array with one row or one column must be used instead. In this recipe,
 the vector is a 1-D array on the right-hand side, so <code>dot</code> handles it as a column
 vector.</p>
-<pre class="playground"><code class="language-rust edition2018">use ndarray::{arr1, arr2, Array1};
+<pre class="playground"><code class="language-rust edition2018">use ndarray::{Array1, arr1, arr2};
 
 fn main() {
     let scalar = 4;
@@ -248,13 +248,17 @@ fn main() {
 <p>This recipe compares two floating-point vectors element-wise.
 For simple cases, we can use <code>assert_eq!</code> for exact equality comparison. For more
 complex floating-point comparisons that need to handle precision issues, you can use
-the <a href="https://docs.rs/approx/*/approx/index.html"><code>approx</code></a> crate with the <code>approx</code> feature enabled in the <code>ndarray</code> dependency
-in <code>Cargo.toml</code>. For example, <code>ndarray = { version = "0.13", features = ["approx"] }</code>.</p>
+the <a href="https://docs.rs/approx/*/approx/index.html"><code>approx</code></a> crate. Enabling the <code>approx</code> feature in the <code>ndarray</code> dependency
+(for example, <code>ndarray = { version = "0.17", features = ["approx"] }</code>) lets whole
+arrays be compared directly. This recipe ends with <a href="https://docs.rs/approx/*/approx/macro.assert_abs_diff_eq.html"><code>assert_abs_diff_eq!</code></a>, which
+passes when two sequences differ by less than the given <code>epsilon</code>. It compares the
+arrays’ data as slices, which only needs the <code>approx</code> crate itself.</p>
 <p>This recipe also demonstrates additional ownership behavior. Here, <code>let z = a + b</code> consumes
 <code>a</code> and <code>b</code>, updates <code>a</code> with the result, then moves ownership to <code>z</code>. Alternatively,
 <code>let w = &amp;c + &amp;d</code> creates a new vector without consuming <code>c</code> or <code>d</code>, allowing
 their modification later. See <a href="https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#binary-operators-with-two-arrays">Binary Operators With Two Arrays</a> for additional detail.</p>
-<pre class="playground"><code class="language-rust edition2018">use ndarray::Array;
+<pre class="playground"><code class="language-rust edition2018">use approx::assert_abs_diff_eq;
+use ndarray::Array;
 
 fn main() {
     let a = Array::from(vec![1., 2., 3., 4., 5.]);
@@ -272,6 +276,10 @@ fn main() {
     d[1] = 10.;
 
     assert_eq!(w, Array::from(vec![6., 6., 6., 6., 6.]));
+
+    // compare with a tolerance instead of exact equality
+    let e = Array::from(vec![0.1 + 0.2, 1.0]);
+    assert_abs_diff_eq!(e.to_vec()[..], [0.3, 1.0][..], epsilon = 1e-9);
 }</code></pre>
 <h2 id="vector-norm"><a class="header" href="#vector-norm">Vector norm</a></h2>
 <p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a></p>
@@ -299,7 +307,7 @@ because then the caller could use <code>&amp;array</code> or <code>&amp;view</co
 If the function is part of a public API, that may be a better choice for the
 benefit of users. For internal functions, the more concise <code>ArrayView1&lt;f64&gt;</code>
 may be preferable.</p>
-<pre class="playground"><code class="language-rust edition2018">use ndarray::{array, Array1, ArrayView1};
+<pre class="playground"><code class="language-rust edition2018">use ndarray::{Array1, ArrayView1, array};
 
 fn l1_norm(x: ArrayView1&lt;f64&gt;) -&gt; f64 {
     x.fold(0., |acc, elem| acc + elem.abs())
@@ -339,11 +347,14 @@ fn main() {
     }
 }</code></pre>
 <h2 id="de-serialize-a-matrix"><a class="header" href="#de-serialize-a-matrix">(De)-Serialize a Matrix</a></h2>
-<p><a href="https://docs.rs/crate/ndarray/*"><img src="https://img.shields.io/crates/v/ndarray.svg?label=ndarray" alt="ndarray-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><a href="https://docs.rs/nalgebra"><img src="https://img.shields.io/crates/v/nalgebra.svg?label=nalgebra" alt="nalgebra-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Serialize and deserialize a matrix to and from JSON. Serialization is taken care of
 by <a href="https://docs.rs/serde_json/*/serde_json/fn.to_string.html"><code>serde_json::to_string</code></a> and <a href="https://docs.rs/serde_json/*/serde_json/fn.from_str.html"><code>serde_json::from_str</code></a> performs deserialization.</p>
 <p>Note that serialization followed by deserialization gives back the original matrix.</p>
-<pre class="playground"><code class="language-rust edition2018">use nalgebra::DMatrix;
+<p>This recipe needs the <code>serde-serialize</code> feature of <code>nalgebra</code>, for example
+<code>nalgebra = { version = "0.35", features = ["serde-serialize"] }</code>. The Rust
+Playground does not enable it, so the recipe has no Run button.</p>
+<pre><code class="language-rust noplayground">use nalgebra::DMatrix;
 
 fn main() -&gt; Result&lt;(), std::io::Error&gt; {
     let row_slice: Vec&lt;i32&gt; = (1..5001).collect();
