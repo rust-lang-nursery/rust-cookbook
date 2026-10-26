@@ -356,14 +356,3 @@ a.cat-chip:hover {
   order: -1;
   align-items: flex-end;
 }
-
-/* small screens: only the forward link */
-@media (max-width: 640px) {
-  .mobile-nav-chapters.previous {
-    display: none;
-  }
-
-  .mobile-nav-chapters.next {
-    max-width: 100%;
-  }
-}
