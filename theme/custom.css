@@ -16,6 +16,47 @@ table.recipe-table td .crate-chip {
   width: fit-content;
 }
 
+/* Phones: each row becomes a card, recipe title on top, pills wrapping below. */
+@media (max-width: 700px) {
+  table.recipe-table,
+  table.recipe-table tbody {
+    display: block;
+  }
+
+  table.recipe-table thead {
+    display: none;
+  }
+
+  table.recipe-table tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 0;
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  }
+
+  table.recipe-table td,
+  table.recipe-table td:nth-child(n + 2) {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    padding: 0 4px;
+    border: 0;
+    white-space: normal;
+  }
+
+  table.recipe-table td:first-child {
+    display: block;
+    flex-basis: 100%;
+    margin-bottom: 4px;
+  }
+
+  table.recipe-table td .crate-chip {
+    display: inline-flex;
+  }
+}
+
 table.recipe-table th {
   text-align: left;
 }
