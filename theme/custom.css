@@ -310,7 +310,8 @@ h4:target::before,
 h5:target::before,
 h6:target::before {
   content: "🍳";
-  margin-inline-start: -36px;
-  width: 36px;
-  font-size: 0.8em;
+  margin-inline-start: -48px;
+  width: 48px;
+  font-size: 1.3em;
+  line-height: 1;
 }
