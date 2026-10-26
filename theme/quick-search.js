@@ -108,11 +108,18 @@
   // entries: ["c12", "s3", "r45", ...] in rank order
   function render(entries) {
     var crates = [], topics = [], recipes = [];
+    // Recipes already listed under a matching crate are not repeated below.
+    var covered = {};
+    entries.forEach(function (e) {
+      if (e[0] === "c" && crates.length < LIMITS.c) {
+        crates.push(crateEntry(+e.slice(1)));
+        recipesByCrate()[+e.slice(1)].forEach(function (r) { covered[r] = true; });
+      }
+    });
     entries.forEach(function (e) {
       var id = +e.slice(1);
-      if (e[0] === "c" && crates.length < LIMITS.c) crates.push(crateEntry(id));
-      else if (e[0] === "s" && topics.length < LIMITS.s) topics.push(topicEntry(id));
-      else if (e[0] === "r" && recipes.length < LIMITS.r) {
+      if (e[0] === "s" && topics.length < LIMITS.s) topics.push(topicEntry(id));
+      else if (e[0] === "r" && recipes.length < LIMITS.r && !covered[id]) {
         var ul = el("ul");
         ul.appendChild(recipeItem(id));
         recipes.push(ul);
