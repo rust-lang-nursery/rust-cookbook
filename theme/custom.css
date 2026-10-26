@@ -93,7 +93,23 @@ a.cat-chip {
   font-family: inherit;
   font-size: 0.8em;
   padding: 1px 10px;
+}
+
+/* mdBook colors links via `.content a:link` / `a:visited`, which would make
+   visited and unvisited pills differ; match its specificity for both states. */
+.content a.cat-chip:link,
+.content a.cat-chip:visited {
   color: var(--fg);
+}
+
+.content .crate-chip a.crate-chip-repo:link,
+.content .crate-chip a.crate-chip-repo:visited {
+  color: var(--icons, #747474);
+}
+
+.content .crate-chip a.crate-chip-repo:link:hover,
+.content .crate-chip a.crate-chip-repo:visited:hover {
+  color: var(--icons-hover, #000);
 }
 
 a.cat-chip:hover {
