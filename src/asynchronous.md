@@ -15,6 +15,8 @@
 | [First-to-complete][ex-ftc] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Task Timeouts][ex-timeout] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Join Sets][ex-join-set] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Ctrl-C][ex-ctrl-c] | [![tokio-badge]][tokio] | [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Macro][ex-macro] | [![tokio-badge]][tokio] | [![cat-asynchronous-badge]][cat-asynchronous] |
 
 [ex-tokio-macro]: asynchronous/rt.html#async-runtime
 [ex-tokio-builder]: asynchronous/rt.html#builder-approach
@@ -30,5 +32,7 @@
 [ex-ftc]: asynchronous/ftc.html
 [ex-timeout]: asynchronous/timeout.html
 [ex-join-set]: asynchronous/join.html#join-sets
+[ex-ctrl-c]: asynchronous/ftc.html#ctrl-c
+[ex-macro]: asynchronous/rt.html#macro
 
 {{#include links.md}}

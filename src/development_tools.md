@@ -42,6 +42,8 @@
 | [Compile and link statically to a bundled C++ library][ex-cc-static-bundled-cpp] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 | [Compile a C library while setting custom defines][ex-cc-custom-defines]         | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 | [Compile and link dynamically to a C++ shared library][ex-cc-shared-library]     | [![std-badge]][std] | [![cat-development-tools-badge]][cat-development-tools] |
+| [Compile and link statically to an external C library][ex-compile-and-link-statically-to-an-extern] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
+| [Log messages to the console][ex-log-messages-to-the-console] | [![tracing-badge]][tracing] [![tracing-subscriber-badge]][tracing-subscriber] | [![cat-debugging-badge]][cat-debugging] |
 
 [ex-semver-increment]: development_tools/versioning.html#parse-and-increment-a-version-string
 [ex-semver-complex]: development_tools/versioning.html#parse-a-complex-version-string
@@ -52,5 +54,7 @@
 [ex-cc-static-bundled-cpp]: development_tools/build_tools.html#compile-and-link-statically-to-a-bundled-c-library-1
 [ex-cc-custom-defines]: development_tools/build_tools.html#compile-a-c-library-while-setting-custom-defines
 [ex-cc-shared-library]: development_tools/build_tools.html#compile-and-link-dynamically-to-a-c-shared-library
+[ex-compile-and-link-statically-to-an-extern]: development_tools/build_tools.html#compile-and-link-statically-to-an-external-c-library
+[ex-log-messages-to-the-console]: development_tools/debugging/tracing.html#log-messages-to-the-console
 
 {{#include links.md}}
