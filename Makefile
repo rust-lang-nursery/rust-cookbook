@@ -9,6 +9,7 @@ install-mdbook: ## Install mdbook with the correct version
 	cargo install mdbook --vers "0.5.3"
 
 build: install-mdbook ## Build the book locally
+	cargo xtask search-index
 	mdbook build
 	cp -r assets/ book/
 	@echo "Build complete! Open book/index.html in your browser."
@@ -20,6 +21,7 @@ fmt: ## Format workspace crates and the code blocks inline in the markdown
 fmt-check: ## Check formatting without writing changes
 	cargo fmt --all -- --check
 	cargo xtask fmt-md --check
+	cargo xtask search-index --check
 
 lint: fmt-check ## Run the formatting checks and clippy
 	cargo clippy --workspace --all-targets -- -D warnings

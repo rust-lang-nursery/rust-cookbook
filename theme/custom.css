@@ -55,3 +55,129 @@ a:hover > .hljs {
 .light a > .hljs {
   color: #4183c4;
 }
+
+/* crate chips: crate name (links to docs.rs) plus a copy button */
+.crate-chip {
+  display: inline-flex;
+  align-items: stretch;
+  vertical-align: middle;
+  margin: 1px 2px;
+  border: 1px solid var(--quote-border, #ccc);
+  border-radius: 6px;
+  background: var(--quote-bg, #f5f5f5);
+  font-family: "Source Code Pro", Consolas, monospace;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.crate-chip .crate-chip-name {
+  padding: 1px 8px;
+  color: var(--links);
+  text-decoration: none;
+}
+
+.crate-chip a.crate-chip-name:hover {
+  text-decoration: underline;
+}
+
+.crate-chip-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 7px;
+  border: 0;
+  border-left: 1px solid var(--quote-border, #ccc);
+  background: transparent;
+  color: var(--icons, #747474);
+  font: inherit;
+  cursor: pointer;
+}
+
+.crate-chip-copy:hover,
+.crate-chip-copy:focus-visible {
+  color: var(--icons-hover, #000);
+  background: var(--theme-hover, rgba(128, 128, 128, 0.15));
+}
+
+.crate-chip.copied {
+  border-color: #2e9b57;
+}
+
+.crate-chip.copied .crate-chip-copy {
+  color: #2e9b57;
+}
+
+.crate-chip .crate-chip-repo {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 7px;
+  border-left: 1px solid var(--quote-border, #ccc);
+  color: var(--icons, #747474);
+}
+
+.crate-chip .crate-chip-repo:hover {
+  color: var(--icons-hover, #000);
+  background: var(--theme-hover, rgba(128, 128, 128, 0.15));
+}
+
+/* quick search: crate and topic matches above mdBook's full-text results */
+#cookbook-quicksearch {
+  margin: 0.5em 0 1em;
+  padding: 0.5em 0.9em;
+  border: 1px solid var(--quote-border, #ccc);
+  border-radius: 8px;
+  background: var(--quote-bg, #f5f5f5);
+}
+
+#cookbook-quicksearch[hidden] {
+  display: none;
+}
+
+#cookbook-quicksearch .qs-group + .qs-group {
+  margin-top: 0.6em;
+}
+
+#cookbook-quicksearch .qs-title {
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--icons, #747474);
+}
+
+#cookbook-quicksearch .qs-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  margin-top: 0.3em;
+}
+
+#cookbook-quicksearch ul {
+  margin: 0.2em 0 0.4em;
+  padding-left: 1.2em;
+}
+
+#cookbook-quicksearch li[hidden] {
+  display: none;
+}
+
+#cookbook-quicksearch .qs-muted {
+  font-size: 0.85em;
+  color: var(--icons, #747474);
+}
+
+#cookbook-quicksearch .qs-topic {
+  margin-top: 0.2em;
+}
+
+#cookbook-quicksearch .qs-more {
+  margin: 0 0 0.4em 1.2em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--links);
+  font: inherit;
+  font-size: 0.85em;
+  cursor: pointer;
+}

@@ -27,3 +27,7 @@ jobs:
       # never sees them. This extracts each block and runs rustfmt over it.
       - name: Check inline markdown formatting
         run: cargo xtask fmt-md --check
+
+      # theme/search-index.js is generated from the section tables in src/*.md.
+      - name: Check search index is up to date
+        run: cargo xtask search-index --check

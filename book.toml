@@ -13,6 +13,7 @@ edition = "2018"
 mathjax-support = false
 # theme = "theme"
 additional-css = ["theme/custom.css"]
+additional-js = ["theme/crate-chips.js", "theme/search-index.js", "theme/quick-search.js"]
 git-repository-url = "https://github.com/rust-lang-nursery/rust-cookbook"
 edit-url-template = "https://github.com/rust-lang-nursery/rust-cookbook/edit/master/{path}"
 

@@ -1,5 +1,6 @@
 mod fmt_md;
 mod mdbook;
+mod search_index;
 mod tests;
 
 use std::path::{Path, PathBuf};
@@ -22,6 +23,10 @@ fn try_main() -> Result<(), Box<dyn Error>> {
         Some("fmt-md") => {
             let check = env::args().any(|a| a == "--check");
             fmt_md::run_fmt_md(check)?
+        }
+        Some("search-index") => {
+            let check = env::args().any(|a| a == "--check");
+            search_index::run_search_index(check)?
         }
         Some("book") => {
             let sub_task = env::args().nth(2).unwrap_or_else(|| "build".to_string());
@@ -51,6 +56,9 @@ fn print_help() {
     eprintln!("  book serve    - Serve the book using mdbook and open it in a browser.");
     eprintln!(
         "  fmt-md [--check]                    - Format the Rust code blocks written inline in the book's markdown."
+    );
+    eprintln!(
+        "  search-index [--check]              - Regenerate theme/search-index.js, the crate/topic index behind the search box."
     );
     eprintln!();
     eprintln!("Usage:");
