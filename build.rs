@@ -31,6 +31,7 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/concurrency/custom_future/",
     "./src/safety_critical/no_panic/",
     "./src/safety_critical/heapless_alloc/",
+    "./src/science/mathematics/linear_algebra/",
     "./src/wasm/",
     "./src/database/sqlite/",
     "./src/database/sqlx/",
