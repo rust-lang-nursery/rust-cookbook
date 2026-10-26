@@ -1,0 +1,12 @@
+{
+  "name": "cookbook-a11y",
+  "private": true,
+  "description": "axe-core checks of the built book in every mdBook theme",
+  "scripts": {
+    "test": "node run.js"
+  },
+  "dependencies": {
+    "axe-core": "4.14.0",
+    "puppeteer-core": "25.16.0"
+  }
+}
