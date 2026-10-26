@@ -301,17 +301,3 @@ a.cat-chip:hover {
 .content h2 {
   font-size: 1.5em;
 }
-
-/* mdBook marks the heading you jumped to with "»"; use a pan instead */
-h1:target::before,
-h2:target::before,
-h3:target::before,
-h4:target::before,
-h5:target::before,
-h6:target::before {
-  content: "🍳";
-  margin-inline-start: -48px;
-  width: 48px;
-  font-size: 1.3em;
-  line-height: 1;
-}
