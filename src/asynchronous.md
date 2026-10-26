@@ -5,13 +5,13 @@
 |-------|-------|----------|
 | [Tokio Runtime][ex-tokio-macro] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Tokio Runtime Builder][ex-tokio-builder] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
-| [Create Files Operations][ex-fs-create] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
-| [Read Files Operations][ex-fs-read] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
-| [Write Files Operations][ex-fs-write] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
-| [Remove Files Operations][ex-fs-remove] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
-| [AsyncRead and AsyncWrite traits][ex-fs-rw-traits] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
-| [Bounded channels][ex-channel-bounded] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
-| [Unbounded channels][ex-channel-unbounded] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Create Files Operations][ex-fs-create] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Read Files Operations][ex-fs-read] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Write Files Operations][ex-fs-write] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Remove Files Operations][ex-fs-remove] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [AsyncRead and AsyncWrite traits][ex-fs-rw-traits] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Bounded channels][ex-channel-bounded] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Unbounded channels][ex-channel-unbounded] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [First-to-complete][ex-ftc] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Task Timeouts][ex-timeout] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Join Sets][ex-join-set] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
