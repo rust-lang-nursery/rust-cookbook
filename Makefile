@@ -23,7 +23,6 @@ fmt: ## Format workspace crates and the code blocks inline in the markdown
 fmt-check: ## Check formatting without writing changes
 	cargo fmt --all -- --check
 	cargo xtask fmt-md --check
-	cargo xtask search-index --check
 
 lint: fmt-check ## Run the formatting checks and clippy
 	cargo clippy --workspace --all-targets -- -D warnings

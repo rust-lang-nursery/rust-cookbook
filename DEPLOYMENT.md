@@ -21,6 +21,7 @@ For convenience, a Makefile provides easy commands:
 
 ```bash
 make help      # Show all available commands
+make index     # Regenerate the search index (make build and make deploy do this too)
 make build     # Build the book locally
 make test      # Run all tests
 make dev       # Build and test (development workflow)
