@@ -1,6 +1,6 @@
 ## Remove Files and Directories
 
-[![tokio-badge]][tokio] [![std-badge]][std]
+[![tokio-badge]][tokio]
 
 Deleting from disk takes time. Tokio provides non-blocking versions of these operations so your
 program does not have to stop and wait while the work is done.

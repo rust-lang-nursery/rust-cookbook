@@ -1,6 +1,6 @@
 ## AsyncRead and AsyncWrite
 
-[![tokio-badge]][tokio] [![std-badge]][std]
+[![tokio-badge]][tokio]
 
 [`AsyncRead`] and [`AsyncWrite`] are the building blocks for all non-blocking I/O in Tokio. 
 Any type that can be read from or written to non-blocking i.e [`file`], a [`network stream`], or 

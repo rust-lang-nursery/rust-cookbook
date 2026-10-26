@@ -4,7 +4,7 @@
 | Recipe | Crates | Categories|
 |-------|-------|----------|
 | [Tokio Runtime][ex-tokio-macro] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
-| [Tokio Runtime Builder][ex-tokio-builder] |[![tokio-badge]][tokio] [![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
+| [Tokio Runtime Builder][ex-tokio-builder] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Create Files Operations][ex-fs-create] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Read Files Operations][ex-fs-read] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Write Files Operations][ex-fs-write] |[![tokio-badge]][tokio][![std-badge]][std]| [![cat-asynchronous-badge]][cat-asynchronous] |

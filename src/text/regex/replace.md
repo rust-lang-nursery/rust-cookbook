@@ -1,6 +1,6 @@
 ## Replace all occurrences of one text pattern with another pattern.
 
-[![regex-badge]][regex] [![std-badge]][std] [![cat-text-processing-badge]][cat-text-processing]
+[![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
 
 Replaces all occurrences of the standard ISO 8601 *YYYY-MM-DD* date pattern
 with the equivalent American English date with slashes.

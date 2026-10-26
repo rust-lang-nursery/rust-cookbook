@@ -1,6 +1,6 @@
 ## Read a whole file into a string
 
-[![std-badge]][std] [![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
+[![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
 
 [`fs::read_to_string`] opens the file, reads it to end, closes it, and returns
 a [`String`] — one call for the common case of loading a small text file in

@@ -7,7 +7,7 @@
 | [Pass data between two threads][ex-crossbeam-spsc] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Maintain global mutable state][ex-global-mut-state] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Calculate SHA256 sum of *.iso files concurrently][ex-pool-walk]  | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
-| [Sum the size of every file in a directory][ex-pool-size] | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+| [Sum the size of every file in a directory][ex-pool-size] | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Draw fractal dispatching work to a thread pool][ex-pool-fractal] | [![rayon-badge]][rayon] [![num-badge]][num] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
 | [Lock-free counter with `AtomicUsize`][ex-sync-atomic] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Guard compound state with `Arc<Mutex<T>>`][ex-sync-arc-mutex] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
@@ -22,7 +22,7 @@
 | [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Actor Pattern with Tokio][ex-actor-pattern] | [![tokio-badge]][tokio] [![thiserror-badge]][thiserror] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
-| [Custom Future (Pin, Waker, Poll)][ex-custom-future] | [![std-badge]][std] [![tokio-badge]][tokio] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Custom Future (Pin, Waker, Poll)][ex-custom-future] | [![tokio-badge]][tokio] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 
 [ex-crossbeam-spawn]: concurrency/threads.html#spawn-a-short-lived-thread

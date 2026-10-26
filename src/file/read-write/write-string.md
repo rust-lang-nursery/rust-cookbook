@@ -1,6 +1,6 @@
 ## Write a string to a file
 
-[![std-badge]][std] [![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
+[![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
 
 [`fs::write`] is the mirror of [`fs::read_to_string`]: it opens the path,
 writes the bytes, and closes the file in one call. The semantics are

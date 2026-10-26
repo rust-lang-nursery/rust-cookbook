@@ -1,6 +1,6 @@
 ## Extract a list of unique #Hashtags from a text
 
-[![regex-badge]][regex] [![std-badge]][std] [![cat-text-processing-badge]][cat-text-processing]
+[![regex-badge]][regex] [![cat-text-processing-badge]][cat-text-processing]
 
 Extracts, sorts, and deduplicates list of hashtags from text.
 

@@ -1,6 +1,6 @@
 ## Create a nested directory tree
 
-[![std-badge]][std] [![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
+[![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
 
 [`fs::create_dir_all`] is `mkdir -p`: it walks the requested path and creates
 every missing intermediate directory. It's idempotent — calling it on a path
