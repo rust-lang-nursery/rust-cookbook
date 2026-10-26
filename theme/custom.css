@@ -403,7 +403,9 @@ a.cat-chip:hover {
 }
 
 .sg-count {
-  font-size: 0.8em;
+  display: block;
+  padding-inline-start: 0.9em;
+  font-size: 0.72em;
   font-weight: 400;
   color: var(--ck-muted);
 }
@@ -678,4 +680,10 @@ h2.ri-letter {
   display: inline-block;
   min-height: 24px;
   line-height: 24px;
+}
+
+/* the list-link sizing above must not turn the topic cards into inline boxes */
+.content .section-grid li > a {
+  display: flex;
+  line-height: normal;
 }
