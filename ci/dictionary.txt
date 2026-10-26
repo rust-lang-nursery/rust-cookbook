@@ -257,7 +257,8 @@ nalgebra
 ndarray
 nFun
 nodelay
-noscriptNotFound
+noscript
+NotFound
 NulError
 OAuth
 oncecell
