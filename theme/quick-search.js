@@ -69,15 +69,17 @@
     head.appendChild(el("span", "qs-muted", plural(recipes.length)));
     box.appendChild(head);
 
+    // A "show 1 more" button costs as much space as the recipe itself, so just show it.
+    var shown = recipes.length - RECIPES_SHOWN === 1 ? recipes.length : RECIPES_SHOWN;
     var list = el("ul");
     recipes.forEach(function (r, n) {
       var li = recipeItem(r);
-      if (n >= RECIPES_SHOWN) li.hidden = true;
+      if (n >= shown) li.hidden = true;
       list.appendChild(li);
     });
     box.appendChild(list);
-    if (recipes.length > RECIPES_SHOWN) {
-      var more = el("button", "qs-more", "Show " + (recipes.length - RECIPES_SHOWN) + " more");
+    if (recipes.length > shown) {
+      var more = el("button", "qs-more", "Show " + (recipes.length - shown) + " more");
       more.type = "button";
       more.addEventListener("click", function () {
         Array.prototype.forEach.call(list.children, function (li) { li.hidden = false; });
