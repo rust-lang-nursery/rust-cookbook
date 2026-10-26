@@ -2,6 +2,7 @@
 
 [Table of Contents](intro.md)
 [About](about.md)
+[Crates](crates.md)
 
 - [Algorithms](algorithms.md)
   - [Generate Random Values](algorithms/randomness.md)
