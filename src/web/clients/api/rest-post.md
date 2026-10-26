@@ -11,55 +11,8 @@ provides arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request
 body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 [`RequestBuilder::send`] synchronously executes the requests.
 
-```rust,edition2021,no_run
-use anyhow::Result;
-use reqwest::Client;
-use serde::Deserialize;
-use serde_json::json;
-use std::env;
-
-#[derive(Deserialize, Debug)]
-struct Gist {
-    id: String,
-    html_url: String,
-}
-
-fn main() -> Result<()> {
-    let gh_user = env::var("GH_USER")?;
-    let gh_pass = env::var("GH_PASS")?;
-
-    let gist_body = json!({
-    "description": "the description for this gist",
-    "public": true,
-    "files": {
-         "main.rs": {
-         "content": r#"fn main() { println!("hello world!");}"#
-        }
-    }});
-
-    let request_url = "https://api.github.com/gists";
-    let response = reqwest::blocking::Client::new()
-        .post(request_url)
-        .basic_auth(gh_user.clone(), Some(gh_pass.clone()))
-        .json(&gist_body)
-        .send()?;
-
-    let gist: Gist = response.json()?;
-    println!("Created {:?}", gist);
-
-    let request_url = format!("{}/{}", request_url, gist.id);
-    let response = reqwest::blocking::Client::new()
-        .delete(&request_url)
-        .basic_auth(gh_user, Some(gh_pass))
-        .send()?;
-
-    println!(
-        "Gist {} deleted! Status code: {}",
-        gist.id,
-        response.status()
-    );
-    Ok(())
-}
+```rust,no_run
+{{#include ../../../../crates/web/src/bin/rest_post.rs }}
 ```
 
 This recipe uses [HTTP Basic Auth] in order to authorize access to [GitHub API].
@@ -77,3 +30,4 @@ flows.
 [GitHub API]: https://developer.github.com/v3/auth/
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [OAuth]: https://oauth.net/getting-started/
+[gists-api]: https://docs.github.com/en/rest/gists/gists

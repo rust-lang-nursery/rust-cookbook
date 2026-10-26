@@ -9,24 +9,8 @@ by reading the file, and [`RequestBuilder::send`] blocks until the file uploads
 and the response returns. [`read_to_string`] returns the message from the server
 response and displays in the console.
 
-```rust,edition2021,no_run
-use anyhow::Result;
-use std::fs::File;
-use std::io::Read;
-
-fn main() -> Result<()> {
-    let paste_api = "https://paste.rs";
-    let mut file = File::open("message")?;
-
-    let mut contents = String::new();
-    file.read_to_string(&mut contents)?;
-
-    let client = reqwest::blocking::Client::new();
-    let res = client.post(paste_api).body(contents).send()?;
-    let response_text = res.text()?;
-    println!("Your paste is located at: {}", response_text);
-    Ok(())
-}
+```rust,no_run
+{{#include ../../../../crates/web/src/bin/post_file.rs }}
 ```
 
 [`Client::post`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post

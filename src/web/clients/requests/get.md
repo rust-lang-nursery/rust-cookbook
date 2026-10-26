@@ -8,21 +8,8 @@ status and headers. Reads HTTP response body into an allocated [`String`]
 using [`read_to_string`].
 
 
-```rust,edition2024,no_run
-use anyhow::Result;
-use std::io::Read;
-
-fn main() -> Result<()> {
-    let mut res = reqwest::blocking::get("http://httpbin.org/get")?;
-    let mut body = String::new();
-    res.read_to_string(&mut body)?;
-
-    println!("Status: {}", res.status());
-    println!("Headers:\n{:#?}", res.headers());
-    println!("Body:\n{}", body);
-
-    Ok(())
-}
+```rust,no_run
+{{#include ../../../../crates/web/src/bin/get.rs }}
 ```
 
 ## Async
@@ -37,18 +24,7 @@ Uses the asynchronous versions of [reqwest], both [`reqwest::get`] and
 [`reqwest::Response`].
 
 ```rust,no_run
-use anyhow::Result;
-
-#[tokio::main]
-async fn main() -> Result<()> {
-    let res = reqwest::get("http://httpbin.org/get").await?;
-    println!("Status: {}", res.status());
-    println!("Headers:\n{:#?}", res.headers());
-
-    let body = res.text().await?;
-    println!("Body:\n{}", body);
-    Ok(())
-}
+{{#include ../../../../crates/web/src/bin/get_async.rs }}
 ```
 
 [`read_to_string`]: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
