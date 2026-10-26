@@ -236,8 +236,17 @@ a.cat-chip:hover {
 }
 
 #cookbook-quicksearch li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
   margin: 0.15em 0;
   padding-left: 0.25em;
+}
+
+#cookbook-quicksearch li .qs-muted {
+  flex-shrink: 0;
+  text-align: end;
 }
 
 #cookbook-quicksearch a.qs-recipe {
