@@ -1,6 +1,6 @@
 ## Read CSV records
 
-[![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
+[![csv-badge]][csv] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 
 Reads standard CSV records into [`csv::StringRecord`] — a weakly typed
 data representation which expects valid UTF-8 rows. Alternatively,

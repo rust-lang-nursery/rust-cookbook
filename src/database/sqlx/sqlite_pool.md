@@ -1,6 +1,6 @@
 ## Connect to SQLite and query data
 
-[![sqlx-badge]][sqlx] [![cat-database-badge]][cat-database]
+[![sqlx-badge]][sqlx] [![tokio-badge]][tokio] [![cat-database-badge]][cat-database]
 
 Use [`SqlitePoolOptions::connect`] to open an in-memory SQLite database backed by a connection pool that only allows a maximum of 1 concurrent connections.
 Create a table and insert rows with [`sqlx::query`] and [`Executor::execute`], then load the results with [`Query::fetch_all`].

@@ -1,6 +1,6 @@
 ## Store per-user configuration with confy
 
-[![confy-badge]][confy] [![cat-config-badge]][cat-config]
+[![confy-badge]][confy] [![serde-badge]][serde] [![cat-config-badge]][cat-config]
 
 A desktop or CLI program that remembers a user's preferences should write them
 to the platform's standard config location, not next to the binary.

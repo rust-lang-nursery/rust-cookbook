@@ -26,7 +26,7 @@ Keep lines sorted.
 [cat-date-and-time-badge]: https://img.shields.io/badge/date_and_time--x.svg?style=social
 [cat-date-and-time]: https://crates.io/categories/date-and-time
 [cat-debugging-badge]: https://img.shields.io/badge/debugging--x.svg?style=social
-[cat-debugging]: https://crates.io/categories/debugging
+[cat-debugging]: https://crates.io/categories/development-tools::debugging
 [cat-development-tools-badge]: https://img.shields.io/badge/development_tools--x.svg?style=social
 [cat-development-tools]: https://crates.io/categories/development-tools
 [cat-encoding-badge]: https://img.shields.io/badge/encoding--x.svg?style=social
@@ -60,6 +60,8 @@ Keep lines sorted.
 
 <!-- Crates -->
 
+[console-error-panic-hook-badge]: https://img.shields.io/crates/v/console_error_panic_hook.svg?label=console_error_panic_hook
+[console-error-panic-hook]: https://docs.rs/console_error_panic_hook/
 [nu-ansi-term-badge]: https://img.shields.io/crates/v/nu-ansi-term.svg?label=nu-ansi-term
 [nu-ansi-term]: https://docs.rs/nu-ansi-term/
 [anyhow-badge]: https://img.shields.io/crates/v/anyhow.svg?label=anyhow
@@ -137,6 +139,8 @@ Keep lines sorted.
 [percent-encoding-badge]: https://img.shields.io/crates/v/percent-encoding.svg?label=percent-encoding
 [pest-badge]: https://img.shields.io/crates/v/pest.svg?label=pest
 [pest]: https://docs.rs/pest/
+[pest-derive-badge]: https://img.shields.io/crates/v/pest_derive.svg?label=pest_derive
+[pest-derive]: https://docs.rs/pest_derive/
 [postgres-badge]: https://img.shields.io/crates/v/postgres.svg?label=postgres
 [postgres]: https://docs.rs/postgres/0.15.2/postgres/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
@@ -187,6 +191,8 @@ Keep lines sorted.
 [tokio]: https://docs.rs/tokio/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
+[tower-http-badge]: https://img.shields.io/crates/v/tower-http.svg?label=tower-http
+[tower-http]: https://docs.rs/tower-http/
 [tracing-badge]: https://img.shields.io/crates/v/tracing.svg?label=tracing
 [tracing]: https://docs.rs/tracing/
 [tracing-subscriber-badge]: https://img.shields.io/crates/v/tracing-subscriber.svg?label=tracing-subscriber

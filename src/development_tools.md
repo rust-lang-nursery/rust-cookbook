@@ -41,7 +41,7 @@
 | [Compile and link statically to a bundled C library][ex-cc-static-bundled]       | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 | [Compile and link statically to a bundled C++ library][ex-cc-static-bundled-cpp] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 | [Compile a C library while setting custom defines][ex-cc-custom-defines]         | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
-| [Compile and link dynamically to a C++ shared library][ex-cc-shared-library]     | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
+| [Compile and link dynamically to a C++ shared library][ex-cc-shared-library]     | [![std-badge]][std] | [![cat-development-tools-badge]][cat-development-tools] |
 
 [ex-semver-increment]: development_tools/versioning.html#parse-and-increment-a-version-string
 [ex-semver-complex]: development_tools/versioning.html#parse-a-complex-version-string

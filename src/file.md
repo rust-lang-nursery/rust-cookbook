@@ -17,16 +17,16 @@
 | [Format text into a String with write!][ex-write-fmt] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Construct and inspect a path][ex-path-inspect] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Create a nested directory tree][ex-create-dir-all] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
-| [File names that have been modified in the last 24 hours][ex-file-24-hours-modified] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
-| [Find loops for a given path][ex-find-file-loops] | [![same_file-badge]][same_file] | [![cat-filesystem-badge]][cat-filesystem] |
+| [File names that have been modified in the last 24 hours][ex-file-24-hours-modified] | [![std-badge]][std] [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
+| [Find loops for a given path][ex-find-file-loops] | [![same_file-badge]][same_file] [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Watch a directory for changes][ex-notify-watch] | [![notify-badge]][notify] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Debounce a burst of file events][ex-notify-debounce] | [![notify-debouncer-full-badge]][notify-debouncer-full] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Debounce a burst of file events][ex-notify-debounce] | [![notify-debouncer-full-badge]][notify-debouncer-full] [![notify-badge]][notify] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find a binary on the PATH][ex-which] | [![which-badge]][which] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-atomic-write]: file/read-write.html#atomically-replace-a-file-with-a-temporary-file

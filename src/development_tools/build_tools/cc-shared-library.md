@@ -1,6 +1,6 @@
 ## Compile and link dynamically to a C++ shared library
 
-[![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
+[![std-badge]][std] [![cat-development-tools-badge]][cat-development-tools]
 
 For more complex scenarios, a rust project may need to integrate with a shared
 library that is dynamically linked at runtime instead of bundled into the

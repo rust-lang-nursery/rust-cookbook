@@ -1,6 +1,6 @@
 ## Generate random numbers within a range
 
-[![rand-badge]][rand] [![cat-science-badge]][cat-science]
+[![rand-badge]][rand] [![rand_distr-badge]][rand_distr] [![cat-science-badge]][cat-science]
 
 Generates a random value within half-open `[0, 10)` range (not including `10`) with [`Rng::random_range`].
 

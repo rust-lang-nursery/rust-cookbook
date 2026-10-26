@@ -1,6 +1,6 @@
 ## Deserialize a TOML configuration file
 
-[![toml-badge]][toml] [![cat-encoding-badge]][cat-encoding]
+[![toml-badge]][toml] [![serde-badge]][serde] [![cat-encoding-badge]][cat-encoding]
 
 Parse some TOML into a universal `toml::Value` that is able to represent any
 valid TOML data.

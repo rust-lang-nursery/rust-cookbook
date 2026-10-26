@@ -1,6 +1,6 @@
 ## Extract all links from a webpage HTML
 
-[![reqwest-badge]][reqwest] [![scraper-badge]][scraper] [![cat-net-badge]][cat-net]
+[![reqwest-badge]][reqwest] [![scraper-badge]][scraper] [![tokio-badge]][tokio] [![thiserror-badge]][thiserror] [![cat-net-badge]][cat-net]
 
 Use [`reqwest::get`] to perform a HTTP GET request and then use
 [`Html::parse_document`] to parse the response into a HTML document.

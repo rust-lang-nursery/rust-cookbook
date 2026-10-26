@@ -1,6 +1,6 @@
 ## Extract all unique links from a MediaWiki markup
 
-[![reqwest-badge]][reqwest] [![regex-badge]][regex] [![cat-net-badge]][cat-net]
+[![reqwest-badge]][reqwest] [![regex-badge]][regex] [![tokio-badge]][tokio] [![cat-net-badge]][cat-net]
 
 Pull the source of a MediaWiki page using [`reqwest::get`] and then
 look for all entries of internal and external links with

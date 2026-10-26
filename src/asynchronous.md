@@ -16,7 +16,7 @@
 | [Task Timeouts][ex-timeout] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 | [Join Sets][ex-join-set] |[![tokio-badge]][tokio]| [![cat-asynchronous-badge]][cat-asynchronous] |
 
-[ex-tokio-macro]: asynchronous/rt.html#tokio-runtime
+[ex-tokio-macro]: asynchronous/rt.html#async-runtime
 [ex-tokio-builder]: asynchronous/rt.html#builder-approach
 [ex-fs]: asynchronous/fs.html
 [ex-fs-create]: asynchronous/fs.html#create-files-and-directories

@@ -1,6 +1,6 @@
 ## Compile-time checked queries
 
-[![sqlx-badge]][sqlx] [![cat-database-badge]][cat-database]
+[![sqlx-badge]][sqlx] [![tokio-badge]][tokio] [![cat-database-badge]][cat-database]
 
 Use [`Connection::connect`] to open a Postgres connection and
 [`sqlx::query_as!`] to validate the SQL query against the database schema at

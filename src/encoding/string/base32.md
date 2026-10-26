@@ -1,6 +1,6 @@
 ## Generate OTP with a Base32 set
 
-[![data-encoding-badge]][data-encoding] [![cat-encoding-badge]][cat-encoding]
+[![data-encoding-badge]][data-encoding] [![rand-badge]][rand] [![cat-encoding-badge]][cat-encoding]
 
 The [`data_encoding`] crate provides a `BASE32_NOPAD::encode` method which takes
 a `&[u8]` and returns a `String` containing the base32 representation of the

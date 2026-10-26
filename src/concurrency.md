@@ -2,7 +2,7 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Spawn a short-lived thread][ex-crossbeam-spawn] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
+| [Spawn a short-lived thread][ex-crossbeam-spawn] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Create a parallel data pipeline][ex-crossbeam-pipeline] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Pass data between two threads][ex-crossbeam-spsc] | [![crossbeam-badge]][crossbeam] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Maintain global mutable state][ex-global-mut-state] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
@@ -21,8 +21,8 @@
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
-| [Actor Pattern with Tokio][ex-actor-pattern] | [![tokio-badge]][tokio] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
-| [Custom Future (Pin, Waker, Poll)][ex-custom-future] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Actor Pattern with Tokio][ex-actor-pattern] | [![tokio-badge]][tokio] [![thiserror-badge]][thiserror] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
+| [Custom Future (Pin, Waker, Poll)][ex-custom-future] | [![std-badge]][std] [![tokio-badge]][tokio] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 
 
 [ex-crossbeam-spawn]: concurrency/threads.html#spawn-a-short-lived-thread

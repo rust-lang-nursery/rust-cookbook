@@ -1,6 +1,6 @@
 ## Layer defaults, a file, and environment variables
 
-[![config-badge]][config] [![cat-config-badge]][cat-config]
+[![config-badge]][config] [![serde-badge]][serde] [![cat-config-badge]][cat-config]
 
 Most applications resolve their configuration from several places: defaults that
 ship with the binary, a config file an operator edits, and environment variables
