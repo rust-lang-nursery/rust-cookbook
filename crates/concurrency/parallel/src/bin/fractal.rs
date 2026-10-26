@@ -1,7 +1,7 @@
 use anyhow::Result;
 use image::{ImageBuffer, Rgb};
 use num::complex::Complex;
-use rayon::prelude::{IndexedParallelIterator, ParallelIterator, ParallelSliceMut};
+use rayon::prelude::ParallelIterator;
 
 fn main() -> Result<()> {
     let (width, height) = (1920, 1080);
@@ -10,15 +10,10 @@ fn main() -> Result<()> {
 
     let c = Complex::new(-0.8, 0.156);
 
-    img.par_chunks_mut(width as usize * 3)
-        .enumerate()
-        .for_each(|(y, row)| {
-            for (x, bytes) in row.chunks_exact_mut(3).enumerate() {
-                let i = julia(c, x as u32, y as u32, width, height, iterations);
-                let pixel = wavelength_to_rgb(380 + i * 400 / iterations);
-                bytes.copy_from_slice(&pixel.0);
-            }
-        });
+    img.par_enumerate_pixels_mut().for_each(|(x, y, pixel)| {
+        let i = julia(c, x, y, width, height, iterations);
+        *pixel = wavelength_to_rgb(380 + i * 400 / iterations);
+    });
 
     img.save("output.png")?;
     Ok(())
