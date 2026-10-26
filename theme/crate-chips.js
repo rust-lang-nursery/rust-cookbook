@@ -1,5 +1,7 @@
-// Replaces crates.io version badge images with text chips whose copy button
-// copies the crate name. Falls back to the original images without JS.
+// Replaces the shields.io badge images with pills: crates get a copy button
+// (a Cargo.toml line) and a repository link, categories are plain link pills.
+// Also exposes window.CookbookChips for other scripts. Without JS the original
+// images stay.
 (function () {
   var BADGE = /img\.shields\.io\/crates\/v\/([A-Za-z0-9_-]+)/;
   // `std` has no crates.io page; its badge is a static shields.io image.
@@ -80,36 +82,31 @@
     chip.appendChild(a);
   }
 
-  function makeChip(img) {
-    var src = img.getAttribute("src") || "";
-    var match = BADGE.exec(src);
-    var name = match ? match[1] : STD_BADGE.test(src) ? "std" : null;
-    if (!name) return;
-    var link = img.closest("a");
+  var CATEGORY_BADGE = /img\.shields\.io\/badge\/([A-Za-z0-9_]+)--x/;
+  var CATEGORY_NAMES = { os: "OS", wasm: "WebAssembly", no_std: "no_std" };
+
+  function docsUrl(name) {
+    return name === "std" ? "https://doc.rust-lang.org/std" : "https://docs.rs/" + name;
+  }
+
+  // A pill for a crate: name (links to `href`), copy button, repository link.
+  function crateChip(name, href) {
     var chip = document.createElement("span");
     chip.className = "crate-chip";
 
-    if (link) {
-      link.classList.add("crate-chip-name");
-      link.textContent = name;
-      link.title = name === "std" ? "Open the std documentation" : "Open " + name + " on docs.rs";
-      link.parentNode.insertBefore(chip, link);
-      chip.appendChild(link);
-    } else {
-      var label = document.createElement("span");
-      label.className = "crate-chip-name";
-      label.textContent = name;
-      img.parentNode.insertBefore(chip, img);
-      chip.appendChild(label);
-      img.remove();
-    }
+    var link = document.createElement("a");
+    link.className = "crate-chip-name";
+    link.href = href || docsUrl(name);
+    link.textContent = name;
+    link.title = name === "std" ? "Open the std documentation" : "Open " + name + " on docs.rs";
+    chip.appendChild(link);
 
-    var button = document.createElement("button");
-    button.type = "button";
-    button.className = "crate-chip-copy";
     // Ready to paste under [dependencies]; just the name until the version is known.
     var snippet = name;
     function labelFor(prefix) { return prefix + " " + snippet; }
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "crate-chip-copy";
     button.title = labelFor("Copy");
     button.setAttribute("aria-label", labelFor("Copy"));
     button.innerHTML = COPY_ICON;
@@ -131,6 +128,7 @@
     });
     // std ships with Rust, so there is nothing to add to Cargo.toml.
     if (name !== "std") chip.appendChild(button);
+
     crateInfo(name).then(function (info) {
       if (info.version) {
         snippet = name + ' = "' + info.version + '"';
@@ -139,14 +137,53 @@
       }
       if (info.repo) addRepoLink(chip, name, info.repo);
     });
+    return chip;
+  }
+
+  // A pill for a crates.io category, e.g. "Science".
+  function categoryChip(label, href) {
+    var a = document.createElement("a");
+    a.className = "crate-chip cat-chip";
+    a.href = href;
+    a.textContent = label;
+    return a;
+  }
+
+  function categoryLabel(slug) {
+    var key = slug.toLowerCase();
+    if (CATEGORY_NAMES[key]) return CATEGORY_NAMES[key];
+    var text = slug.replace(/_/g, " ");
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  function replaceBadge(img) {
+    var src = img.getAttribute("src") || "";
+    var link = img.closest("a");
+    var crate = BADGE.exec(src);
+    var std = STD_BADGE.test(src);
+    var category = CATEGORY_BADGE.exec(src);
+    var chip;
+    if (crate || std) {
+      chip = crateChip(crate ? crate[1] : "std", link && link.href);
+    } else if (category && link) {
+      chip = categoryChip(categoryLabel(category[1]), link.href);
+    } else {
+      return;
+    }
+    var table = (link || img).closest("table");
+    if (table) table.classList.add("recipe-table");
+    (link || img).replaceWith(chip);
   }
 
   function init() {
     var imgs = document.querySelectorAll(
-      ".content img[src*='img.shields.io/crates/v/'], .content img[src*='img.shields.io/badge/std-']"
+      ".content img[src*='img.shields.io/crates/v/'], " +
+        ".content img[src*='img.shields.io/badge/']"
     );
-    for (var i = 0; i < imgs.length; i++) makeChip(imgs[i]);
+    for (var i = 0; i < imgs.length; i++) replaceBadge(imgs[i]);
   }
+
+  window.CookbookChips = { crate: crateChip, category: categoryChip };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

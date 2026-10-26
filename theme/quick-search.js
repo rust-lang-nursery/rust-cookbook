@@ -8,6 +8,9 @@
   var anchor = document.getElementById("mdbook-searchresults-outer");
   if (!index || !input || !anchor) return;
 
+  var chips = window.CookbookChips;
+  if (!chips) return;
+
   var root = typeof path_to_root === "string" ? path_to_root : "";
   var PREFIX_LEN = 3;
   var LIMITS = { c: 4, s: 3, r: 6 };
@@ -31,10 +34,6 @@
     return crateRecipes;
   }
 
-  function docsUrl(name) {
-    return name === "std" ? "https://doc.rust-lang.org/std" : "https://docs.rs/" + name;
-  }
-
   function el(tag, className, text) {
     var node = document.createElement(tag);
     if (className) node.className = className;
@@ -55,7 +54,7 @@
   function recipeItem(i) {
     var r = index.recipes[i];
     var li = el("li");
-    li.appendChild(link(root + r[1], "qs-recipe", r[0]));
+    li.appendChild(link(root + r[1], "qs-recipe", r[0].replace(/`/g, "")));
     li.appendChild(el("span", "qs-muted", " " + index.sections[r[2]][0]));
     return li;
   }
@@ -65,8 +64,7 @@
     var recipes = recipesByCrate()[c];
     var box = el("div", "qs-crate");
     var head = el("div", "qs-head");
-    var chip = el("span", "crate-chip");
-    chip.appendChild(link(docsUrl(name), "crate-chip-name", name));
+    var chip = chips.crate(name);
     head.appendChild(chip);
     head.appendChild(el("span", "qs-muted", plural(recipes.length)));
     box.appendChild(head);
@@ -94,8 +92,8 @@
     var section = index.sections[s];
     var count = index.recipes.filter(function (r) { return r[2] === s; }).length;
     var div = el("div", "qs-topic");
-    div.appendChild(link(root + section[1], "qs-recipe", section[0]));
-    div.appendChild(el("span", "qs-muted", " " + plural(count)));
+    div.appendChild(chips.category(section[0], root + section[1]));
+    div.appendChild(el("span", "qs-muted", plural(count)));
     return div;
   }
 

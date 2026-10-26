@@ -2,17 +2,22 @@ table {
   width: 100%;
 }
 
-table td:first-child {
-  width: 65%;
+/* Recipe tables: the recipe column takes the remaining space, the crate and
+   category columns shrink to fit their pills. */
+table.recipe-table td:nth-child(n + 2) {
+  width: 1%;
+  padding: 4px 8px;
+  white-space: nowrap;
 }
 
-table td:nth-child(2) {
-  width: 20%;
-  padding: 3px;
+/* one pill per line */
+table.recipe-table td .crate-chip {
+  display: flex;
+  width: fit-content;
 }
 
-table td:nth-child(3) {
-  padding: 3px;
+table.recipe-table th {
+  text-align: left;
 }
 
 /* Auto-sized comparison tables (not TOC tables) */
@@ -56,38 +61,53 @@ a:hover > .hljs {
   color: #4183c4;
 }
 
-/* crate chips: crate name (links to docs.rs) plus a copy button */
+/* pills: crate (name, copy, repository) and category */
 .crate-chip {
   display: inline-flex;
   align-items: stretch;
   vertical-align: middle;
-  margin: 1px 2px;
-  border: 1px solid var(--quote-border, #ccc);
-  border-radius: 6px;
+  margin: 2px 3px 2px 0;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 999px;
   background: var(--quote-bg, #f5f5f5);
   font-family: "Source Code Pro", Consolas, monospace;
   font-size: 0.85em;
-  line-height: 1.4;
+  line-height: 1.5;
   overflow: hidden;
+  white-space: nowrap;
 }
 
-.crate-chip .crate-chip-name {
-  padding: 1px 8px;
+.crate-chip .crate-chip-name,
+a.cat-chip {
+  padding: 0 10px;
   color: var(--links);
   text-decoration: none;
 }
 
-.crate-chip a.crate-chip-name:hover {
+.crate-chip a.crate-chip-name:hover,
+a.cat-chip:hover {
   text-decoration: underline;
 }
 
-.crate-chip-copy {
+a.cat-chip {
+  font-family: inherit;
+  font-size: 0.8em;
+  padding: 1px 10px;
+  color: var(--fg);
+}
+
+a.cat-chip:hover {
+  background: var(--theme-hover, rgba(128, 128, 128, 0.15));
+}
+
+.crate-chip-copy,
+.crate-chip .crate-chip-repo {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 0 7px;
+  padding: 0 8px;
   border: 0;
-  border-left: 1px solid var(--quote-border, #ccc);
+  border-left: 1px solid var(--table-border-color, var(--quote-border, #ccc));
   background: transparent;
   color: var(--icons, #747474);
   font: inherit;
@@ -95,7 +115,8 @@ a:hover > .hljs {
 }
 
 .crate-chip-copy:hover,
-.crate-chip-copy:focus-visible {
+.crate-chip-copy:focus-visible,
+.crate-chip .crate-chip-repo:hover {
   color: var(--icons-hover, #000);
   background: var(--theme-hover, rgba(128, 128, 128, 0.15));
 }
@@ -108,34 +129,21 @@ a:hover > .hljs {
   color: #2e9b57;
 }
 
-.crate-chip .crate-chip-repo {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 7px;
-  border-left: 1px solid var(--quote-border, #ccc);
-  color: var(--icons, #747474);
-}
-
-.crate-chip .crate-chip-repo:hover {
-  color: var(--icons-hover, #000);
-  background: var(--theme-hover, rgba(128, 128, 128, 0.15));
-}
-
 /* quick search: crate and topic matches above mdBook's full-text results */
 #cookbook-quicksearch {
-  margin: 0.5em 0 1em;
-  padding: 0.5em 0.9em;
-  border: 1px solid var(--quote-border, #ccc);
-  border-radius: 8px;
-  background: var(--quote-bg, #f5f5f5);
+  margin: 0.75em auto 1em;
+  padding: 0.25em 1em 0.75em;
+  max-width: var(--content-max-width, 750px);
+  border-bottom: 1px solid var(--table-border-color, var(--quote-border, #ccc));
 }
 
-#cookbook-quicksearch[hidden] {
+#cookbook-quicksearch[hidden],
+#cookbook-quicksearch li[hidden] {
   display: none;
 }
 
-#cookbook-quicksearch .qs-group + .qs-group {
-  margin-top: 0.6em;
+#cookbook-quicksearch .qs-group {
+  margin-top: 0.75em;
 }
 
 #cookbook-quicksearch .qs-title {
@@ -146,20 +154,33 @@ a:hover > .hljs {
   color: var(--icons, #747474);
 }
 
-#cookbook-quicksearch .qs-head {
+#cookbook-quicksearch .qs-head,
+#cookbook-quicksearch .qs-topic {
   display: flex;
   align-items: center;
-  gap: 0.6em;
-  margin-top: 0.3em;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 0.35em;
 }
 
 #cookbook-quicksearch ul {
-  margin: 0.2em 0 0.4em;
-  padding-left: 1.2em;
+  margin: 0.1em 0 0.3em;
+  padding: 0;
+  list-style: none;
 }
 
-#cookbook-quicksearch li[hidden] {
-  display: none;
+#cookbook-quicksearch li {
+  margin: 0.15em 0;
+  padding-left: 0.25em;
+}
+
+#cookbook-quicksearch a.qs-recipe {
+  color: var(--links);
+  text-decoration: none;
+}
+
+#cookbook-quicksearch a.qs-recipe:hover {
+  text-decoration: underline;
 }
 
 #cookbook-quicksearch .qs-muted {
@@ -167,12 +188,8 @@ a:hover > .hljs {
   color: var(--icons, #747474);
 }
 
-#cookbook-quicksearch .qs-topic {
-  margin-top: 0.2em;
-}
-
 #cookbook-quicksearch .qs-more {
-  margin: 0 0 0.4em 1.2em;
+  margin: 0 0 0.4em 0.25em;
   padding: 0;
   border: 0;
   background: none;
@@ -180,4 +197,8 @@ a:hover > .hljs {
   font: inherit;
   font-size: 0.85em;
   cursor: pointer;
+}
+
+#cookbook-quicksearch .qs-more:hover {
+  text-decoration: underline;
 }
