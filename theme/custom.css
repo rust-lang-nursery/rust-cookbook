@@ -275,3 +275,29 @@ a.cat-chip:hover {
     display: none;
   }
 }
+
+/* friendlier headings: lighter weight, a short accent underline on sections */
+.content h1,
+.content h2 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.content h1 {
+  font-size: 2em;
+  margin-top: 1.6em;
+}
+
+.content h1::after {
+  content: "";
+  display: block;
+  width: 2.2em;
+  height: 3px;
+  margin-top: 0.3em;
+  border-radius: 2px;
+  background: var(--links);
+}
+
+.content h2 {
+  font-size: 1.5em;
+}
