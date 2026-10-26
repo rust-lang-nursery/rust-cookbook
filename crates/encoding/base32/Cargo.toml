@@ -1,0 +1,11 @@
+[package]
+name = "base32-recipes"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+data-encoding = "2.1"
+rand = "0.10"

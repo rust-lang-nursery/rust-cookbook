@@ -9,3 +9,7 @@ publish.workspace = true
 [dependencies]
 rand = "0.10"
 rayon = "1.10"
+anyhow = "1.0"
+glob = "0.3"
+image = "0.25"
+num = "0.4"
