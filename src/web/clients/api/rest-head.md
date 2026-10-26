@@ -6,35 +6,14 @@ Query the GitHub Users Endpoint using a HEAD request ([`Client::head`]) and then
 inspect the response code to determine success. This is a quick way to query a
 rest resource without needing to receive a body. [`reqwest::Client`] configured
 with [`ClientBuilder::timeout`] ensures a request will not last longer than a
-timeout.
+timeout. The client also sets a [`ClientBuilder::user_agent`], which the GitHub API
+requires on every request.
 
-Due to both [`ClientBuilder::build`] and [`ReqwestBuilder::send`] returning [`reqwest::Error`]
+Due to both [`ClientBuilder::build`] and [`RequestBuilder::send`] returning [`reqwest::Error`]
 types, the shortcut [`reqwest::Result`] is used for the main function return type. 
 
-```rust,edition2021,no_run
-use reqwest::ClientBuilder;
-use reqwest::Result;
-use std::time::Duration;
-
-fn main() -> Result<()> {
-    let user = "ferris-the-crab";
-    let request_url = format!("https://api.github.com/users/{}", user);
-    println!("{}", request_url);
-
-    let timeout = Duration::new(5, 0);
-    let client = reqwest::blocking::ClientBuilder::new()
-        .timeout(timeout)
-        .build()?;
-    let response = client.head(&request_url).send()?;
-
-    if response.status().is_success() {
-        println!("{} is a user!", user);
-    } else {
-        println!("{} is not a user!", user);
-    }
-
-    Ok(())
-}
+```rust,no_run
+{{#include ../../../../crates/web/src/bin/rest_head.rs }}
 ```
 
 [`ClientBuilder::build`]: https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.build
@@ -44,3 +23,4 @@ fn main() -> Result<()> {
 [`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
 [`reqwest::Error`]: https://docs.rs/reqwest/*/reqwest/struct.Error.html
 [`reqwest::Result`]:https://docs.rs/reqwest/*/reqwest/type.Result.html
+[`ClientBuilder::user_agent`]: https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.user_agent

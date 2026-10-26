@@ -9,34 +9,8 @@ Creates a target [`File`] with name obtained from [`Response::url`] within
 [`tempfile::TempDir::path`] and copies downloaded data to it with [`io::copy`].
 The temporary directory is automatically removed on program exit.
 
-```rust,edition2021,no_run
-use anyhow::Result;
-use std::fs::File;
-use std::io::Write;
-use tempfile::Builder;
-
-fn main() -> Result<()> {
-    let tmp_dir = Builder::new().prefix("example").tempdir()?;
-    let target = "https://www.rust-lang.org/logos/rust-logo-512x512.png";
-    let response = reqwest::blocking::get(target)?;
-
-    let mut dest = {
-        let fname = response
-            .url()
-            .path_segments()
-            .and_then(|segments| segments.last())
-            .and_then(|name| if name.is_empty() { None } else { Some(name) })
-            .unwrap_or("tmp.bin");
-
-        println!("file to download: '{}'", fname);
-        let fname = tmp_dir.path().join(fname);
-        println!("will be located under: '{:?}'", fname);
-        File::create(fname)?
-    };
-    let content = response.bytes()?;
-    dest.write_all(&content)?;
-    Ok(())
-}
+```rust,no_run
+{{#include ../../../../crates/web/src/bin/download_basic.rs }}
 ```
 
 [`File`]: https://doc.rust-lang.org/std/fs/struct.File.html

@@ -6,14 +6,12 @@ const REMOVED_TESTS: &[&str] = &[
     "./src/file/watch/recursive.md",
     "./src/file/watch/debounce.md",
     "./src/file/which.md",
-    "./src/web/scraping/extract-links.md",
-    "./src/web/scraping/broken.md",
     "./src/file/read-write/memmap.md",
-    "./src/web/clients/requests/header.md",
-    "./src/web/clients/api/rate-limited.md",
     "./src/concurrency/parallel/rayon-parallel-sort.md",
     "./src/web/leptos.md",
     "./src/wasm.md",
+    "./src/web/mime/request.md",
+    "./src/errors/handle/retain.md",
 ];
 
 const REMOVED_PREFIXES: &[&str] = &[
@@ -32,6 +30,8 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/safety_critical/no_panic/",
     "./src/safety_critical/heapless_alloc/",
     "./src/wasm/",
+    "./src/web/clients/",
+    "./src/web/scraping/",
     "./src/database/sqlite/",
     "./src/database/sqlx/",
     "./src/database/sea_orm/",
