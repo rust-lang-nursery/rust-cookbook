@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a51c543a.js";
+            window.path_to_searchindex_js = "searchindex-f04b6253.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-af28f5c9.js"></script>
@@ -1044,8 +1044,8 @@ Keep lines sorted.
 <h1 id="generate-random-values"><a class="header" href="#generate-random-values">Generate Random Values</a></h1>
 <h2 id="generate-random-numbers"><a class="header" href="#generate-random-numbers">Generate random numbers</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
-<p>Generates random numbers with help of random-number generator <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html"><code>rand::Rng</code></a> obtained via
-<a href="https://docs.rs/rand/0.9/rand/fn.rng.html"><code>rand::rng()</code></a>. Each thread has an initialized generator. Integers are uniformly distributed over the
+<p>Generates random numbers with help of random-number generator <a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::Rng</code></a> obtained via
+<a href="https://docs.rs/rand/*/rand/fn.rng.html"><code>rand::rng()</code></a>. Each thread has an initialized generator. Integers are uniformly distributed over the
 range of the type, and floating point numbers are uniformly distributed from 0 up to but not
 including 1.</p>
 <pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
@@ -1057,7 +1057,7 @@ fn main() {
 }</code></pre>
 <h2 id="generate-random-numbers-within-a-range"><a class="header" href="#generate-random-numbers-within-a-range">Generate random numbers within a range</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
-<p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html#method.random_range"><code>Rng::random_range</code></a>.</p>
+<p>Generates a random value within half-open <code>[0, 10)</code> range (not including <code>10</code>) with <a href="https://docs.rs/rand/*/rand/trait.Rng.html#method.random_range"><code>Rng::random_range</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 
 fn main() {
@@ -1086,8 +1086,8 @@ fn main() {
 <p><a href="https://docs.rs/rand_distr/"><img src="https://img.shields.io/crates/v/rand_distr.svg?label=rand_distr" alt="rand_distr-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>By default, random numbers in the <code>rand</code> crate have <a href="https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">uniform distribution</a>. The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html"><code>rand_distr</code></a> crate
 provides other kinds of distributions. To use them, you instantiate a distribution, then sample from
-that distribution using <a href="https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html#tymethod.sample"><code>Distribution::sample</code></a> with help of a random-number generator
-<a href="https://docs.rs/rand/0.9/rand/trait.Rng.html"><code>rand::Rng</code></a>.</p>
+that distribution using <a href="https://docs.rs/rand/*/rand/distr/trait.Distribution.html#tymethod.sample"><code>Distribution::sample</code></a> with help of a random-number generator
+<a href="https://docs.rs/rand/*/rand/trait.Rng.html"><code>rand::Rng</code></a>.</p>
 <p>The <a href="https://docs.rs/rand_distr/*/rand_distr/index.html">distributions available are documented here</a>. The recipe
 below uses the <a href="https://docs.rs/rand_distr/*/rand_distr/struct.Normal.html"><code>Normal</code></a> distribution.</p>
 <pre class="playground"><code class="language-rust edition2018">use rand_distr::{Distribution, LogNormal, Normal};
@@ -1105,7 +1105,7 @@ fn main() {
 <h2 id="generate-random-values-of-a-custom-type"><a class="header" href="#generate-random-values-of-a-custom-type">Generate random values of a custom type</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Randomly generates a tuple <code>(i32, bool, f64)</code> and variable of user defined type <code>Point</code>. Implements
-the <a href="https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html"><code>Distribution</code></a> trait on type Point for <a href="https://docs.rs/rand/0.9/rand/distr/struct.StandardUniform.html"><code>StandardUniform</code></a> in order to allow random generation.</p>
+the <a href="https://docs.rs/rand/*/rand/distr/trait.Distribution.html"><code>Distribution</code></a> trait on type Point for <a href="https://docs.rs/rand/*/rand/distr/struct.StandardUniform.html"><code>StandardUniform</code></a> in order to allow random generation.</p>
 <pre class="playground"><code class="language-rust edition2018">#![allow(dead_code)]
 use rand::{Rng, RngExt};
 
@@ -1134,7 +1134,7 @@ fn main() {
 <h2 id="create-random-passwords-from-a-set-of-alphanumeric-characters"><a class="header" href="#create-random-passwords-from-a-set-of-alphanumeric-characters">Create random passwords from a set of alphanumeric characters</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></p>
 <p>Randomly generates a string of given length ASCII characters in the range <code>A-Z, a-z, 0-9</code>, with
-<a href="https://docs.rs/rand/0.9/rand/distr/struct.Alphanumeric.html"><code>Alphanumeric</code></a> sample.</p>
+<a href="https://docs.rs/rand/*/rand/distr/struct.Alphanumeric.html"><code>Alphanumeric</code></a> sample.</p>
 <pre class="playground"><code class="language-rust edition2018">use rand::{RngExt, distr::Alphanumeric};
 
 fn main() {
@@ -1153,7 +1153,7 @@ fn generate_password() -&gt; String {
 <h2 id="create-random-passwords-from-a-set-of-user-defined-characters"><a class="header" href="#create-random-passwords-from-a-set-of-user-defined-characters">Create random passwords from a set of user-defined characters</a></h2>
 <p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></p>
 <p>Randomly generates a string of given length ASCII characters with custom user-defined bytestring,
-with <a href="https://docs.rs/rand/0.9/rand/trait.Rng.html#method.random_range"><code>random_range</code></a>.</p>
+with <a href="https://docs.rs/rand/*/rand/trait.Rng.html#method.random_range"><code>random_range</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 
 const CHARSET: &amp;[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
@@ -2974,15 +2974,31 @@ with rayon’s thread pool for distributed computation.</p>
 <p><a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a></p>
 <p>Allocate memory for output image of given width and height with <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new"><code>ImageBuffer::new</code></a>.
 <code>wavelength_to_rgb</code> calculates RGB pixel values.
-The image’s raw bytes are split into one chunk per row with <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_chunks_mut"><code>par_chunks_mut</code></a>,
-and rayon distributes the rows over its global thread pool, which has one
-thread per available core by default. Each worker writes the pixels of its row
+<a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.par_enumerate_pixels_mut"><code>par_enumerate_pixels_mut</code></a> hands rayon every pixel of the image along with
+its coordinates, and rayon distributes them over its global thread pool, which
+has one thread per available core by default. Each worker writes its pixels
 directly into the buffer, so no channel is needed.
 <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save"><code>ImageBuffer::save</code></a> writes the image to <code>output.png</code>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use image::{ImageBuffer, Rgb};
 use num::complex::Complex;
-use rayon::prelude::{IndexedParallelIterator, ParallelIterator, ParallelSliceMut};
+use rayon::prelude::ParallelIterator;
+
+fn main() -&gt; Result&lt;()&gt; {
+    let (width, height) = (1920, 1080);
+    let mut img: ImageBuffer&lt;Rgb&lt;u8&gt;, Vec&lt;u8&gt;&gt; = ImageBuffer::new(width, height);
+    let iterations = 300;
+
+    let c = Complex::new(-0.8, 0.156);
+
+    img.par_enumerate_pixels_mut().for_each(|(x, y, pixel)| {
+        let i = julia(c, x, y, width, height, iterations);
+        *pixel = wavelength_to_rgb(380 + i * 400 / iterations);
+    });
+
+    img.save("output.png")?;
+    Ok(())
+}
 <span class="boring">
 </span><span class="boring">// Function converting intensity values to RGB
 </span><span class="boring">// Based on http://www.efg2.com/Lab/ScienceAndEngineering/Spectra.htm
@@ -3005,7 +3021,11 @@ use rayon::prelude::{IndexedParallelIterator, ParallelIterator, ParallelSliceMut
 </span><span class="boring">        _ =&gt; 1.0,
 </span><span class="boring">    };
 </span><span class="boring">
-</span><span class="boring">    let (r, g, b) = (normalize(r, factor), normalize(g, factor), normalize(b, factor));
+</span><span class="boring">    let (r, g, b) = (
+</span><span class="boring">        normalize(r, factor),
+</span><span class="boring">        normalize(g, factor),
+</span><span class="boring">        normalize(b, factor),
+</span><span class="boring">    );
 </span><span class="boring">    Rgb([r, g, b])
 </span><span class="boring">}
 </span><span class="boring">
@@ -3035,27 +3055,22 @@ use rayon::prelude::{IndexedParallelIterator, ParallelIterator, ParallelSliceMut
 </span><span class="boring">fn normalize(color: f32, factor: f32) -&gt; u8 {
 </span><span class="boring">    ((color * factor).powf(0.8) * 255.) as u8
 </span><span class="boring">}
-</span>
-fn main() -&gt; Result&lt;()&gt; {
-    let (width, height) = (1920, 1080);
-    let mut img: ImageBuffer&lt;Rgb&lt;u8&gt;, Vec&lt;u8&gt;&gt; = ImageBuffer::new(width, height);
-    let iterations = 300;
-
-    let c = Complex::new(-0.8, 0.156);
-
-    img.par_chunks_mut(width as usize * 3)
-        .enumerate()
-        .for_each(|(y, row)| {
-            for (x, bytes) in row.chunks_exact_mut(3).enumerate() {
-                let i = julia(c, x as u32, y as u32, width, height, iterations);
-                let pixel = wavelength_to_rgb(380 + i * 400 / iterations);
-                bytes.copy_from_slice(&amp;pixel.0);
-            }
-        });
-
-    let _ = img.save("output.png")?;
-    Ok(())
-}</code></pre>
+</span><span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn out_of_visible_range_is_black() {
+</span><span class="boring">        assert_eq!(wavelength_to_rgb(100), Rgb([0, 0, 0]));
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn julia_iteration_is_bounded() {
+</span><span class="boring">        let c = Complex::new(-0.8, 0.156);
+</span><span class="boring">        assert!(julia(c, 960, 540, 1920, 1080, 300) &lt; 300);
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -3509,11 +3524,11 @@ fn main() {
 then saves them in a new folder called <code>thumbnails</code>.</p>
 <p><a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob::glob_with</code></a> finds jpeg files in current directory. <code>rayon</code> resizes
 images in parallel using <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefIterator.html#tymethod.par_iter"><code>par_iter</code></a> calling  <a href="https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize"><code>DynamicImage::resize</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use std::fs::create_dir_all;
 use std::path::Path;
 
-use glob::{glob_with, MatchOptions};
+use glob::{MatchOptions, glob_with};
 use image::imageops::FilterType;
 use rayon::prelude::*;
 
@@ -3523,7 +3538,7 @@ fn main() -&gt; Result&lt;()&gt; {
         .filter_map(|x| x.ok())
         .collect();
 
-    if files.len() == 0 {
+    if files.is_empty() {
         anyhow::bail!("No .jpg files found in current directory");
     }
 
@@ -6604,7 +6619,7 @@ characters and understands them as their uppercase version).</p>
 random bytes to base32. It then assumes the password was entered by a human with
 some visual errors. It finally makes sure the entered password decodes back to
 the initial random bytes.</p>
-<pre class="playground"><code class="language-rust edition2018">use data_encoding::{DecodeError, BASE32_NOPAD, BASE32_NOPAD_VISUAL};
+<pre class="playground"><code class="language-rust edition2018">use data_encoding::{BASE32_NOPAD, BASE32_NOPAD_VISUAL, DecodeError};
 
 fn main() -&gt; Result&lt;(), DecodeError&gt; {
     // Generate the password from random bytes.
@@ -6658,7 +6673,7 @@ fn alter_visually(input: &amp;str) -&gt; String {
 <p>Encodes byte slice into <code>base64</code> String using <a href="https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.encode"><code>encode</code></a>
 and decodes it with <a href="https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.decode"><code>decode</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
-use base64::prelude::{Engine as _, BASE64_STANDARD};
+use base64::prelude::{BASE64_STANDARD, Engine as _};
 use std::str;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -7008,7 +7023,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <p><a href="https://docs.rs/toml/"><img src="https://img.shields.io/crates/v/toml.svg?label=toml" alt="toml-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>Parse some TOML into a universal <code>toml::Value</code> that is able to represent any
 valid TOML data.</p>
-<pre class="playground"><code class="language-rust edition2018">use toml::{de::Error, Value};
+<pre class="playground"><code class="language-rust edition2018">use toml::{Value, de::Error};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let toml_content = r#"

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a51c543a.js";
+            window.path_to_searchindex_js = "../searchindex-f04b6253.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -269,7 +269,7 @@ characters and understands them as their uppercase version).</p>
 random bytes to base32. It then assumes the password was entered by a human with
 some visual errors. It finally makes sure the entered password decodes back to
 the initial random bytes.</p>
-<pre class="playground"><code class="language-rust edition2018">use data_encoding::{DecodeError, BASE32_NOPAD, BASE32_NOPAD_VISUAL};
+<pre class="playground"><code class="language-rust edition2018">use data_encoding::{BASE32_NOPAD, BASE32_NOPAD_VISUAL, DecodeError};
 
 fn main() -&gt; Result&lt;(), DecodeError&gt; {
     // Generate the password from random bytes.
@@ -323,7 +323,7 @@ fn alter_visually(input: &amp;str) -&gt; String {
 <p>Encodes byte slice into <code>base64</code> String using <a href="https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.encode"><code>encode</code></a>
 and decodes it with <a href="https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.decode"><code>decode</code></a>.</p>
 <pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
-use base64::prelude::{Engine as _, BASE64_STANDARD};
+use base64::prelude::{BASE64_STANDARD, Engine as _};
 use std::str;
 
 fn main() -&gt; Result&lt;()&gt; {

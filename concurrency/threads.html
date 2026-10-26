@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a51c543a.js";
+            window.path_to_searchindex_js = "../searchindex-f04b6253.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -460,15 +460,31 @@ with rayon’s thread pool for distributed computation.</p>
 <p><a href="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png"><img src="https://cloud.githubusercontent.com/assets/221000/26546700/9be34e80-446b-11e7-81dc-dd9871614ea1.png" width="150" /></a></p>
 <p>Allocate memory for output image of given width and height with <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.new"><code>ImageBuffer::new</code></a>.
 <code>wavelength_to_rgb</code> calculates RGB pixel values.
-The image’s raw bytes are split into one chunk per row with <a href="https://docs.rs/rayon/*/rayon/slice/trait.ParallelSliceMut.html#method.par_chunks_mut"><code>par_chunks_mut</code></a>,
-and rayon distributes the rows over its global thread pool, which has one
-thread per available core by default. Each worker writes the pixels of its row
+<a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.par_enumerate_pixels_mut"><code>par_enumerate_pixels_mut</code></a> hands rayon every pixel of the image along with
+its coordinates, and rayon distributes them over its global thread pool, which
+has one thread per available core by default. Each worker writes its pixels
 directly into the buffer, so no channel is needed.
 <a href="https://docs.rs/image/*/image/struct.ImageBuffer.html#method.save"><code>ImageBuffer::save</code></a> writes the image to <code>output.png</code>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use image::{ImageBuffer, Rgb};
 use num::complex::Complex;
-use rayon::prelude::{IndexedParallelIterator, ParallelIterator, ParallelSliceMut};
+use rayon::prelude::ParallelIterator;
+
+fn main() -&gt; Result&lt;()&gt; {
+    let (width, height) = (1920, 1080);
+    let mut img: ImageBuffer&lt;Rgb&lt;u8&gt;, Vec&lt;u8&gt;&gt; = ImageBuffer::new(width, height);
+    let iterations = 300;
+
+    let c = Complex::new(-0.8, 0.156);
+
+    img.par_enumerate_pixels_mut().for_each(|(x, y, pixel)| {
+        let i = julia(c, x, y, width, height, iterations);
+        *pixel = wavelength_to_rgb(380 + i * 400 / iterations);
+    });
+
+    img.save("output.png")?;
+    Ok(())
+}
 <span class="boring">
 </span><span class="boring">// Function converting intensity values to RGB
 </span><span class="boring">// Based on http://www.efg2.com/Lab/ScienceAndEngineering/Spectra.htm
@@ -491,7 +507,11 @@ use rayon::prelude::{IndexedParallelIterator, ParallelIterator, ParallelSliceMut
 </span><span class="boring">        _ =&gt; 1.0,
 </span><span class="boring">    };
 </span><span class="boring">
-</span><span class="boring">    let (r, g, b) = (normalize(r, factor), normalize(g, factor), normalize(b, factor));
+</span><span class="boring">    let (r, g, b) = (
+</span><span class="boring">        normalize(r, factor),
+</span><span class="boring">        normalize(g, factor),
+</span><span class="boring">        normalize(b, factor),
+</span><span class="boring">    );
 </span><span class="boring">    Rgb([r, g, b])
 </span><span class="boring">}
 </span><span class="boring">
@@ -521,27 +541,22 @@ use rayon::prelude::{IndexedParallelIterator, ParallelIterator, ParallelSliceMut
 </span><span class="boring">fn normalize(color: f32, factor: f32) -&gt; u8 {
 </span><span class="boring">    ((color * factor).powf(0.8) * 255.) as u8
 </span><span class="boring">}
-</span>
-fn main() -&gt; Result&lt;()&gt; {
-    let (width, height) = (1920, 1080);
-    let mut img: ImageBuffer&lt;Rgb&lt;u8&gt;, Vec&lt;u8&gt;&gt; = ImageBuffer::new(width, height);
-    let iterations = 300;
-
-    let c = Complex::new(-0.8, 0.156);
-
-    img.par_chunks_mut(width as usize * 3)
-        .enumerate()
-        .for_each(|(y, row)| {
-            for (x, bytes) in row.chunks_exact_mut(3).enumerate() {
-                let i = julia(c, x as u32, y as u32, width, height, iterations);
-                let pixel = wavelength_to_rgb(380 + i * 400 / iterations);
-                bytes.copy_from_slice(&amp;pixel.0);
-            }
-        });
-
-    let _ = img.save("output.png")?;
-    Ok(())
-}</code></pre>
+</span><span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn out_of_visible_range_is_black() {
+</span><span class="boring">        assert_eq!(wavelength_to_rgb(100), Rgb([0, 0, 0]));
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn julia_iteration_is_bounded() {
+</span><span class="boring">        let c = Complex::new(-0.8, 0.156);
+</span><span class="boring">        assert!(julia(c, 960, 540, 1920, 1080, 300) &lt; 300);
+</span><span class="boring">    }
+</span><span class="boring">}</span></code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.

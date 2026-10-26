@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a51c543a.js";
+            window.path_to_searchindex_js = "../searchindex-f04b6253.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -221,7 +221,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <p><a href="https://docs.rs/toml/"><img src="https://img.shields.io/crates/v/toml.svg?label=toml" alt="toml-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>Parse some TOML into a universal <code>toml::Value</code> that is able to represent any
 valid TOML data.</p>
-<pre class="playground"><code class="language-rust edition2018">use toml::{de::Error, Value};
+<pre class="playground"><code class="language-rust edition2018">use toml::{Value, de::Error};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let toml_content = r#"
