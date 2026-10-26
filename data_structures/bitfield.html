@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f04b6253.js";
+            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -184,9 +184,63 @@
                         <h1 id="bitfield"><a class="header" href="#bitfield">Bitfield</a></h1>
 <h2 id="define-and-operate-on-a-type-represented-as-a-bitfield"><a class="header" href="#define-and-operate-on-a-type-represented-as-a-bitfield">Define and operate on a type represented as a bitfield</a></h2>
 <p><a href="https://docs.rs/bitflags/"><img src="https://img.shields.io/crates/v/bitflags.svg?label=bitflags" alt="bitflags-badge"></a> <a href="https://crates.io/categories/no-std"><img src="https://img.shields.io/badge/no_std--x.svg?style=social" alt="cat-no-std-badge"></a></p>
-<p>Creates type safe bitfield type <code>MyFlags</code> with elementary <code>clear</code> operation as well as [<code>Display</code>] trait for it.
-Subsequently, shows basic bitwise operations and formatting.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fmt;
+<p>Creates a type safe bitfield type <code>MyFlags</code> with the <a href="https://docs.rs/bitflags/*/bitflags/macro.bitflags.html"><code>bitflags!</code></a> macro. The
+macro generates the bitwise operators (<code>|</code>, <code>&amp;</code>, <code>-</code> and <code>!</code>) along with
+methods such as <a href="https://docs.rs/bitflags/*/bitflags/trait.Flags.html#method.contains"><code>contains</code></a>, <a href="https://docs.rs/bitflags/*/bitflags/trait.Flags.html#tymethod.bits"><code>bits</code></a> and <a href="https://docs.rs/bitflags/*/bitflags/trait.Flags.html#method.from_bits_truncate"><code>from_bits_truncate</code></a>. <a href="https://docs.rs/bitflags/*/bitflags/trait.Flags.html#method.clear"><code>clear</code></a>
+comes from the <a href="https://docs.rs/bitflags/*/bitflags/trait.Flags.html"><code>Flags</code></a> trait, which must be in scope. Deriving <code>Debug</code> prints
+the names of the set flags.</p>
+<pre class="playground"><code class="language-rust edition2018">use bitflags::{Flags, bitflags};
+
+bitflags! {
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    struct MyFlags: u32 {
+        const FLAG_A = 0b00000001;
+        const FLAG_B = 0b00000010;
+        const FLAG_C = 0b00000100;
+        const FLAG_ABC = Self::FLAG_A.bits() | Self::FLAG_B.bits() | Self::FLAG_C.bits();
+    }
+}
+
+fn main() {
+    let e1 = MyFlags::FLAG_A | MyFlags::FLAG_C;
+    let e2 = MyFlags::FLAG_B | MyFlags::FLAG_C;
+    assert_eq!((e1 | e2), MyFlags::FLAG_ABC);
+    assert_eq!((e1 &amp; e2), MyFlags::FLAG_C);
+    assert_eq!((e1 - e2), MyFlags::FLAG_A);
+    assert_eq!(!e2, MyFlags::FLAG_A);
+
+    assert!(e1.contains(MyFlags::FLAG_A));
+    assert!(!e1.contains(MyFlags::FLAG_B));
+
+    let mut flags = MyFlags::FLAG_ABC;
+    assert_eq!(
+        format!("{:032b}", flags.bits()),
+        "00000000000000000000000000000111"
+    );
+    flags.clear();
+    assert_eq!(
+        format!("{:032b}", flags.bits()),
+        "00000000000000000000000000000000"
+    );
+
+    assert_eq!(
+        format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B),
+        "MyFlags(FLAG_A | FLAG_B)"
+    );
+
+    // Bits that do not match a defined flag are dropped by `from_bits_truncate`.
+    assert_eq!(
+        MyFlags::from_bits_truncate(0b1000_0011),
+        MyFlags::FLAG_A | MyFlags::FLAG_B
+    );
+    assert_eq!(MyFlags::from_bits(0b1000_0011), None);
+}</code></pre>
+<h3 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h3>
+<p>The same type can be written by hand with only the standard library. <code>MyFlags</code>
+wraps a <code>u32</code>, each flag is a constant with a single bit set, and the bitwise
+operators are implemented with the matching <a href="https://doc.rust-lang.org/std/ops/index.html"><code>std::ops</code></a> traits. This version
+also implements <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html"><code>Display</code></a> to print the bits in binary.</p>
+<pre class="playground"><code class="language-rust edition2018">use std::fmt;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 struct MyFlags(u32);
