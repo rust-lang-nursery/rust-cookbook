@@ -1,7 +1,6 @@
 // Enhances the book's search box with crate and topic matches from
-// window.COOKBOOK_INDEX (see `cargo xtask search-index`). A precomputed menu per
-// 3-character prefix is shown immediately, then refined asynchronously as the
-// query grows. mdBook's own full-text results are left untouched below it.
+// window.COOKBOOK_INDEX (see `cargo xtask search-index`), from the first
+// character typed. mdBook's own full-text results are left untouched below it.
 (function () {
   var index = window.COOKBOOK_INDEX;
   var input = document.getElementById("mdbook-searchbar");
@@ -12,7 +11,6 @@
   if (!chips) return;
 
   var root = typeof path_to_root === "string" ? path_to_root : "";
-  var PREFIX_LEN = 3;
   var LIMITS = { c: 4, s: 3, r: 6 };
   var RECIPES_SHOWN = 3;
 
@@ -134,55 +132,57 @@
     panel.hidden = !panel.firstChild;
   }
 
-  function scoreText(text, q) {
-    var t = text.toLowerCase();
-    if (t === q) return 3;
-    if (t.indexOf(q) === 0) return 2;
-    return t.indexOf(q) > 0 ? 1 : 0;
+  // 3 = exact, 2 = starts with the query, 1 = contains it (for one or two
+  // characters: a word in it starts with the query), 0 = no match.
+  function matcher(q) {
+    var short = q.length < 3;
+    var wordStart = short
+      ? new RegExp("(^|[^a-z0-9])" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      : null;
+    function contains(t) {
+      return short ? wordStart.test(t) : t.indexOf(q) !== -1;
+    }
+    return {
+      score: function (text) {
+        var t = text.toLowerCase();
+        if (t === q) return 3;
+        if (t.indexOf(q) === 0) return 2;
+        return contains(t) ? 1 : 0;
+      },
+      contains: contains,
+    };
   }
 
-  // Full scan over the whole index.
+  // The whole index is a few hundred entries, so scan all of it on every keystroke.
   function search(q) {
     var tokens = q.split(/\s+/);
+    var m = matcher(q);
+    var tokenMatchers = tokens.map(matcher);
     var hits = [];
     index.crates.forEach(function (name, c) {
-      var s = scoreText(name, q);
+      var s = m.score(name);
       if (s) hits.push([0, -s, -recipesByCrate()[c].length, "c" + c]);
     });
     index.sections.forEach(function (section, i) {
-      var s = Math.max(scoreText(section[0], q), Math.max.apply(null, section[2].map(function (a) { return scoreText(a, q); }).concat(0)));
+      var s = Math.max.apply(null, [m.score(section[0])].concat(section[2].map(m.score)));
       if (s) hits.push([1, -s, i, "s" + i]);
     });
     index.recipes.forEach(function (r, i) {
       var hay = (r[0] + " " + r[3].map(function (c) { return index.crates[c]; }).join(" ")).toLowerCase();
-      var ok = tokens.every(function (t) { return hay.indexOf(t) !== -1; });
-      if (ok) hits.push([2, -scoreText(r[0], q), i, "r" + i]);
+      var ok = tokenMatchers.every(function (t) { return t.contains(hay); });
+      if (ok) hits.push([2, -m.score(r[0]), i, "r" + i]);
     });
     hits.sort(function (a, b) { return a[0] - b[0] || a[1] - b[1] || a[2] - b[2]; });
     return hits.map(function (h) { return h[3]; });
   }
 
-  var generation = 0;
-  var pending = null;
-
   function onInput() {
     var q = input.value.trim().toLowerCase();
-    var mine = ++generation;
-    clearTimeout(pending);
-    if (q.length < PREFIX_LEN) {
+    if (!q) {
       panel.hidden = true;
       return;
     }
-    if (q.length === PREFIX_LEN) {
-      // Precomputed: no scan needed.
-      render(index.prefixes[q] || []);
-      return;
-    }
-    // Show the prefix menu right away, then refine without blocking typing.
-    if (panel.hidden) render(index.prefixes[q.slice(0, PREFIX_LEN)] || []);
-    pending = setTimeout(function () {
-      if (mine === generation) render(search(q));
-    }, 60);
+    render(search(q));
   }
 
   input.addEventListener("input", onInput);
