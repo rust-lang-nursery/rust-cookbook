@@ -1,5 +1,5 @@
 // Turns mdBook's search into a Cmd/Ctrl+K overlay: the search wrapper becomes
-// a centred modal over a dimmed backdrop. mdBook keeps doing the searching,
+// a centred modal over a dimmed backdrop. Cmd/Ctrl+K, / and S all open it. mdBook keeps doing the searching,
 // highlighting and keyboard handling (S, /, Esc); this only adds the shortcut,
 // a click-outside to close, and the layout hooks used by custom.css.
 (function () {
@@ -15,9 +15,9 @@
   wrapper.appendChild(box);
 
   var mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
-  var hint = mac ? "⌘K" : "Ctrl K";
-  input.placeholder = "Search recipes, crates, topics… (" + hint + ")";
-  toggle.title = "Search (" + hint + " or /)";
+  var shortcuts = (mac ? "⌘K" : "Ctrl K") + ", / or S";
+  input.placeholder = "Search recipes, crates, topics… (" + shortcuts + ")";
+  toggle.title = "Search (" + shortcuts + ")";
 
   function isOpen() {
     return !wrapper.classList.contains("hidden");

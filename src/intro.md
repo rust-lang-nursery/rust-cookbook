@@ -36,8 +36,9 @@ New here? See [how to use the recipes](about.md#how-to-use-the-recipes).
 
 </div>
 
-Looking for a specific crate? Try the [crate index](crates.md), or press
-<kbd>Ctrl</kbd>+<kbd>K</kbd> to search.
+Looking for a specific crate? Try the [crate index](crates.md). To search
+everything, press <kbd>Ctrl</kbd>+<kbd>K</kbd> (<kbd>⌘</kbd>+<kbd>K</kbd> on a Mac),
+<kbd>/</kbd> or <kbd>S</kbd>.
 
 ## Contributing
 
