@@ -5,22 +5,8 @@
 Encodes byte slice into `base64` String using [`encode`]
 and decodes it with [`decode`].
 
-```rust,edition2018
-use anyhow::Result;
-use base64::prelude::{Engine as _, BASE64_STANDARD};
-use std::str;
-
-fn main() -> Result<()> {
-    let hello = b"hello rustaceans";
-    let encoded = BASE64_STANDARD.encode(hello);
-    let decoded = BASE64_STANDARD.decode(&encoded)?;
-
-    println!("origin: {}", str::from_utf8(hello)?);
-    println!("base64 encoded: {}", encoded);
-    println!("back to origin: {}", str::from_utf8(&decoded)?);
-
-    Ok(())
-}
+```rust
+{{#include ../../../crates/encoding/base64/src/bin/base64.rs }}
 ```
 
 [`decode`]: https://docs.rs/base64/latest/base64/engine/trait.Engine.html#method.decode

@@ -9,5 +9,5 @@ the [`Distribution`] trait on type Point for [`StandardUniform`] in order to all
 {{#include ../../../crates/algorithms/randomness/src/bin/custom.rs }}
 ```
 
-[`Distribution`]: https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html
-[`StandardUniform`]: https://docs.rs/rand/0.9/rand/distr/struct.StandardUniform.html
+[`Distribution`]: https://docs.rs/rand/*/rand/distr/trait.Distribution.html
+[`StandardUniform`]: https://docs.rs/rand/*/rand/distr/struct.StandardUniform.html
