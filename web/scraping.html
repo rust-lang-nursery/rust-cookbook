@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4c9166bf.js";
+            window.path_to_searchindex_js = "../searchindex-2b82b6fe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -342,47 +342,51 @@ look for all entries of internal and external links with
 <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter"><code>Regex::captures_iter</code></a>. Using <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html"><code>Cow</code></a> avoids excessive <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> allocations.</p>
 <p>MediaWiki link syntax is described <a href="https://www.mediawiki.org/wiki/Help:Links">here</a>.  The calling
 function will retain the whole document, and links will be returned as slice
-references to the original document.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">// cargo-deps: tokio="1", reqwest="0.11", regex="1", anyhow="1"
-mod wiki {
-    use regex::Regex;
-    use std::borrow::Cow;
-    use std::collections::HashSet;
-    use std::sync::LazyLock;
+references to the original document. The request sets a user agent, since
+Wikipedia rejects requests without one.</p>
+<pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use regex::Regex;
+use std::borrow::Cow;
+use std::collections::HashSet;
+use std::sync::LazyLock;
 
-    pub fn extract_links(content: &amp;str) -&gt; HashSet&lt;Cow&lt;str&gt;&gt; {
-        static WIKI_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| {
-            Regex::new(
-                r"(?x)
-                  \[\[(?P&lt;internal&gt;[^\[\]|]*)[^\[\]]*\]\]    # internal links
-                  |
-                  (url=|URL\||\[)(?P&lt;external&gt;http.*?)[ \|}] # external links
-              ",
-            )
-            .unwrap()
-        });
+pub fn extract_links(content: &amp;str) -&gt; HashSet&lt;Cow&lt;'_, str&gt;&gt; {
+    static WIKI_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| {
+        Regex::new(
+            r"(?x)
+                \[\[(?P&lt;internal&gt;[^\[\]|]*)[^\[\]]*\]\]    # internal links
+                |
+                (url=|URL\||\[)(?P&lt;external&gt;http.*?)[ \|}] # external links
+            ",
+        )
+        .unwrap()
+    });
 
-        let links: HashSet&lt;_&gt; = WIKI_REGEX
-            .captures_iter(content)
-            .map(|c| match (c.name("internal"), c.name("external")) {
-                (Some(val), None) =&gt; Cow::from(val.as_str()),
-                (None, Some(val)) =&gt; Cow::from(val.as_str()),
-                _ =&gt; unreachable!(),
-            })
-            .collect::&lt;HashSet&lt;_&gt;&gt;();
+    let links: HashSet&lt;_&gt; = WIKI_REGEX
+        .captures_iter(content)
+        .map(|c| match (c.name("internal"), c.name("external")) {
+            (Some(val), None) =&gt; Cow::from(val.as_str()),
+            (None, Some(val)) =&gt; Cow::from(val.as_str()),
+            _ =&gt; unreachable!(),
+        })
+        .collect::&lt;HashSet&lt;_&gt;&gt;();
 
-        links
-    }
+    links
 }
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust no_run edition2018">use web::wiki;
 
 #[tokio::main]
 async fn main() -&gt; anyhow::Result&lt;()&gt; {
-    let content = reqwest::get(
-        "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&amp;action=raw",
-    )
-    .await?
-    .text()
-    .await?;
+    let content = reqwest::Client::builder()
+        .user_agent("rust-cookbook")
+        .build()?
+        .get("https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&amp;action=raw")
+        .send()
+        .await?
+        .text()
+        .await?;
 
     println!("{:#?}", wiki::extract_links(content.as_str()));
 

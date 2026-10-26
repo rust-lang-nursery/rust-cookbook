@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-4c9166bf.js";
+            window.path_to_searchindex_js = "../../searchindex-2b82b6fe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-af28f5c9.js"></script>
@@ -185,8 +185,8 @@
 <h2 id="basic-authentication"><a class="header" href="#basic-authentication">Basic Authentication</a></h2>
 <p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>Uses <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth"><code>reqwest::RequestBuilder::basic_auth</code></a> to perform a basic HTTP authentication.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use reqwest::blocking::Client;
-use reqwest::Error;
+<pre class="playground"><code class="language-rust no_run edition2018">use reqwest::Error;
+use reqwest::blocking::Client;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let client = Client::new();

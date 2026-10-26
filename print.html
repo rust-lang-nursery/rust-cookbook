@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-4c9166bf.js";
+            window.path_to_searchindex_js = "searchindex-2b82b6fe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-af28f5c9.js"></script>
@@ -11280,47 +11280,51 @@ look for all entries of internal and external links with
 <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter"><code>Regex::captures_iter</code></a>. Using <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html"><code>Cow</code></a> avoids excessive <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> allocations.</p>
 <p>MediaWiki link syntax is described <a href="https://www.mediawiki.org/wiki/Help:Links">here</a>.  The calling
 function will retain the whole document, and links will be returned as slice
-references to the original document.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">// cargo-deps: tokio="1", reqwest="0.11", regex="1", anyhow="1"
-mod wiki {
-    use regex::Regex;
-    use std::borrow::Cow;
-    use std::collections::HashSet;
-    use std::sync::LazyLock;
+references to the original document. The request sets a user agent, since
+Wikipedia rejects requests without one.</p>
+<pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use regex::Regex;
+use std::borrow::Cow;
+use std::collections::HashSet;
+use std::sync::LazyLock;
 
-    pub fn extract_links(content: &amp;str) -&gt; HashSet&lt;Cow&lt;str&gt;&gt; {
-        static WIKI_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| {
-            Regex::new(
-                r"(?x)
-                  \[\[(?P&lt;internal&gt;[^\[\]|]*)[^\[\]]*\]\]    # internal links
-                  |
-                  (url=|URL\||\[)(?P&lt;external&gt;http.*?)[ \|}] # external links
-              ",
-            )
-            .unwrap()
-        });
+pub fn extract_links(content: &amp;str) -&gt; HashSet&lt;Cow&lt;'_, str&gt;&gt; {
+    static WIKI_REGEX: LazyLock&lt;Regex&gt; = LazyLock::new(|| {
+        Regex::new(
+            r"(?x)
+                \[\[(?P&lt;internal&gt;[^\[\]|]*)[^\[\]]*\]\]    # internal links
+                |
+                (url=|URL\||\[)(?P&lt;external&gt;http.*?)[ \|}] # external links
+            ",
+        )
+        .unwrap()
+    });
 
-        let links: HashSet&lt;_&gt; = WIKI_REGEX
-            .captures_iter(content)
-            .map(|c| match (c.name("internal"), c.name("external")) {
-                (Some(val), None) =&gt; Cow::from(val.as_str()),
-                (None, Some(val)) =&gt; Cow::from(val.as_str()),
-                _ =&gt; unreachable!(),
-            })
-            .collect::&lt;HashSet&lt;_&gt;&gt;();
+    let links: HashSet&lt;_&gt; = WIKI_REGEX
+        .captures_iter(content)
+        .map(|c| match (c.name("internal"), c.name("external")) {
+            (Some(val), None) =&gt; Cow::from(val.as_str()),
+            (None, Some(val)) =&gt; Cow::from(val.as_str()),
+            _ =&gt; unreachable!(),
+        })
+        .collect::&lt;HashSet&lt;_&gt;&gt;();
 
-        links
-    }
+    links
 }
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust no_run edition2018">use web::wiki;
 
 #[tokio::main]
 async fn main() -&gt; anyhow::Result&lt;()&gt; {
-    let content = reqwest::get(
-        "https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&amp;action=raw",
-    )
-    .await?
-    .text()
-    .await?;
+    let content = reqwest::Client::builder()
+        .user_agent("rust-cookbook")
+        .build()?
+        .get("https://en.wikipedia.org/w/index.php?title=Rust_(programming_language)&amp;action=raw")
+        .send()
+        .await?
+        .text()
+        .await?;
 
     println!("{:#?}", wiki::extract_links(content.as_str()));
 
@@ -11532,7 +11536,7 @@ the header as a <a href="https://docs.rs/reqwest/*/reqwest/header/struct.HeaderV
 string. The <code>mime</code> crate can then parse that, yielding a <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime::Mime</code></a> value.</p>
 <p>The <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime</code></a> crate also defines some commonly used MIME types.</p>
 <p>Note that the <a href="https://docs.rs/reqwest/*/reqwest/header/index.html"><code>reqwest::header</code></a> module is exported from the <a href="https://docs.rs/http/*/http/"><code>http</code></a> crate.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use mime::Mime;
 use reqwest::header::CONTENT_TYPE;
 use std::str::FromStr;
@@ -11603,7 +11607,7 @@ Keep lines sorted.
 with <a href="https://docs.rs/reqwest/latest/reqwest/blocking/fn.get.html"><code>reqwest::blocking::get</code></a>. Prints obtained <a href="https://docs.rs/reqwest/latest/reqwest/blocking/struct.Response.html"><code>reqwest::blocking::Response</code></a>
 status and headers. Reads HTTP response body into an allocated <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>
 using <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use std::io::Read;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -11646,7 +11650,7 @@ headers <a href="https://docs.rs/reqwest/latest/reqwest/header/constant.USER_AGE
 with <a href="https://docs.rs/reqwest/latest/reqwest/blocking/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a>.</p>
 <p>The request target <a href="http://httpbin.org/headers">http://httpbin.org/headers</a> responds with
 a JSON dict containing all request headers for easy verification.</p>
-<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use reqwest::Url;
 use reqwest::blocking::Client;
 use reqwest::header::{AUTHORIZATION, USER_AGENT};
@@ -11692,20 +11696,20 @@ Keep lines sorted.
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="calling-a-web-api"><a class="header" href="#calling-a-web-api">Calling a Web API</a></h1>
 <h2 id="query-the-github-api"><a class="header" href="#query-the-github-api">Query the GitHub API</a></h2>
-<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
-<p>Queries [GitHub stargazers API v3][github-api-stargazers] with <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><code>reqwest::get</code></a>
-to get list of all users who have marked a GitHub repository with a star.
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
+<p>Queries <a href="https://docs.github.com/en/rest/activity/starring#list-stargazers">GitHub stargazers API v3</a> with a
+<a href="https://docs.rs/reqwest/*/reqwest/blocking/struct.Client.html"><code>reqwest::blocking::Client</code></a> to get list of all users who have marked a GitHub repository with a star.
 <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html"><code>reqwest::Response</code></a> is deserialized into <code>User</code> objects implementing <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html"><code>serde::Deserialize</code></a>.</p>
 <p>The program expects the GitHub personal access token to be specified in the
-environment variable <code>GITHUB_TOKEN</code>. Request setup includes the [<code>reqwest::header::USER_AGENT</code>]
-header as required by the [GitHub API][github-api]. The program deserializes
-the response body with [<code>serde_json::from_str</code>] into a vector of <code>User</code> objects and
-processing the response into User instances.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use reqwest::header::USER_AGENT;
-use reqwest::Error;
+environment variable <code>GITHUB_TOKEN</code> and sends it with
+<a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.bearer_auth"><code>RequestBuilder::bearer_auth</code></a>. Request setup includes the <a href="https://docs.rs/reqwest/*/reqwest/header/constant.USER_AGENT.html"><code>reqwest::header::USER_AGENT</code></a>
+header as required by the <a href="https://docs.github.com/en/rest">GitHub API</a>. The program deserializes
+the response body with <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.json"><code>Response::json</code></a> into a vector of <code>User</code> objects.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use reqwest::header::USER_AGENT;
 use serde::Deserialize;
+use std::env;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize)]
 struct User {
     login: String,
     id: u32,
@@ -11719,27 +11723,32 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     );
     println!("{}", request_url);
 
+    let token = env::var("GITHUB_TOKEN")?;
+
     let client = reqwest::blocking::Client::new();
     let response = client
         .get(request_url)
         .header(USER_AGENT, "rust-web-api-client") // gh api requires a user-agent header
+        .bearer_auth(token)
         .send()?;
 
     let users: Vec&lt;User&gt; = response.json()?;
-    println!("{:?}", users);
+    for user in users {
+        println!("{} ({})", user.login, user.id);
+    }
     Ok(())
 }</code></pre>
 <h2 id="check-if-an-api-resource-exists"><a class="header" href="#check-if-an-api-resource-exists">Check if an API resource exists</a></h2>
-<p>[![reqwest-badge]][reqwest] [![cat-net-badge]][cat-net]</p>
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>Query the GitHub Users Endpoint using a HEAD request (<a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.head"><code>Client::head</code></a>) and then
 inspect the response code to determine success. This is a quick way to query a
 rest resource without needing to receive a body. <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> configured
 with <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.timeout"><code>ClientBuilder::timeout</code></a> ensures a request will not last longer than a
-timeout.</p>
-<p>Due to both <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.build"><code>ClientBuilder::build</code></a> and [<code>ReqwestBuilder::send</code>] returning <a href="https://docs.rs/reqwest/*/reqwest/struct.Error.html"><code>reqwest::Error</code></a>
+timeout. The client also sets a <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.user_agent"><code>ClientBuilder::user_agent</code></a>, which the GitHub API
+requires on every request.</p>
+<p>Due to both <a href="https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.build"><code>ClientBuilder::build</code></a> and <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> returning <a href="https://docs.rs/reqwest/*/reqwest/struct.Error.html"><code>reqwest::Error</code></a>
 types, the shortcut <a href="https://docs.rs/reqwest/*/reqwest/type.Result.html"><code>reqwest::Result</code></a> is used for the main function return type.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use reqwest::ClientBuilder;
-use reqwest::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use reqwest::Result;
 use std::time::Duration;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -11750,6 +11759,7 @@ fn main() -&gt; Result&lt;()&gt; {
     let timeout = Duration::new(5, 0);
     let client = reqwest::blocking::ClientBuilder::new()
         .timeout(timeout)
+        .user_agent("rust-web-api-client") // gh api requires a user-agent header
         .build()?;
     let response = client.head(&amp;request_url).send()?;
 
@@ -11762,21 +11772,20 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="create-and-delete-gist-with-github-api"><a class="header" href="#create-and-delete-gist-with-github-api">Create and delete Gist with GitHub API</a></h2>
-<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
-<p>Creates a gist with POST request to GitHub [gists API v3][gists-api] using
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
+<p>Creates a gist with POST request to GitHub <a href="https://docs.github.com/en/rest/gists/gists">gists API v3</a> using
 <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a> and removes it with DELETE request using <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete"><code>Client::delete</code></a>.</p>
 <p>The <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> is responsible for details of both requests including
 URL, body and authentication. The POST body from <a href="https://docs.rs/serde_json/*/serde_json/macro.json.html"><code>serde_json::json!</code></a> macro
 provides arbitrary JSON body. Call to <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.json"><code>RequestBuilder::json</code></a> sets the request
 body. <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth"><code>RequestBuilder::basic_auth</code></a> handles authentication. The call to
 <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> synchronously executes the requests.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
-use reqwest::Client;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use serde::Deserialize;
 use serde_json::json;
 use std::env;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize)]
 struct Gist {
     id: String,
     html_url: String,
@@ -11803,7 +11812,7 @@ fn main() -&gt; Result&lt;()&gt; {
         .send()?;
 
     let gist: Gist = response.json()?;
-    println!("Created {:?}", gist);
+    println!("Created {}", gist.html_url);
 
     let request_url = format!("{}/{}", request_url, gist.id);
     let response = reqwest::blocking::Client::new()
@@ -11822,91 +11831,94 @@ fn main() -&gt; Result&lt;()&gt; {
 Typical use case would employ one of the much more complex <a href="https://oauth.net/getting-started/">OAuth</a> authorization
 flows.</p>
 <h2 id="consume-a-paginated-restful-api"><a class="header" href="#consume-a-paginated-restful-api">Consume a paginated RESTful API</a></h2>
-<p>[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]</p>
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>Wraps a paginated web API in a convenient Rust iterator. The iterator lazily
 fetches the next page of results from the remote server as it arrives at the end of each page.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">// cargo-deps: reqwest="0.11", serde="1"
-mod paginated {
-  use reqwest::Result;
-  use reqwest::header::USER_AGENT;
-  use serde::Deserialize;
+<pre class="playground"><code class="language-rust no_run edition2018"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use reqwest::Result;
+use reqwest::header::USER_AGENT;
+use serde::Deserialize;
 
-  #[derive(Deserialize)]
-  struct ApiResponse {
-      dependencies: Vec&lt;Dependency&gt;,
-      meta: Meta,
-  }
-
-  #[derive(Deserialize)]
-  pub struct Dependency {
-      pub crate_id: String,
-      pub id: u32,
-  }
-
-  #[derive(Deserialize)]
-  struct Meta {
-      total: u32,
-  }
-
-  pub struct ReverseDependencies {
-      crate_id: String,
-      dependencies: &lt;Vec&lt;Dependency&gt; as IntoIterator&gt;::IntoIter,
-      client: reqwest::blocking::Client,
-      page: u32,
-      per_page: u32,
-      total: u32,
-  }
-
-  impl ReverseDependencies {
-      pub fn of(crate_id: &amp;str) -&gt; Result&lt;Self&gt; {
-          Ok(ReverseDependencies {
-                 crate_id: crate_id.to_owned(),
-                 dependencies: vec![].into_iter(),
-                 client: reqwest::blocking::Client::new(),
-                 page: 0,
-                 per_page: 100,
-                 total: 0,
-             })
-      }
-
-      fn try_next(&amp;mut self) -&gt; Result&lt;Option&lt;Dependency&gt;&gt; {
-          if let Some(dep) = self.dependencies.next() {
-              return Ok(Some(dep));
-          }
-
-          if self.page &gt; 0 &amp;&amp; self.page * self.per_page &gt;= self.total {
-              return Ok(None);
-          }
-
-          self.page += 1;
-          let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&amp;per_page={}",
-                            self.crate_id,
-                            self.page,
-                            self.per_page);
-          println!("{}", url);
-
-          let response = self.client.get(&amp;url).header(
-                     USER_AGENT,
-                     "cookbook agent",
-                 ).send()?.json::&lt;ApiResponse&gt;()?;
-          self.dependencies = response.dependencies.into_iter();
-          self.total = response.meta.total;
-          Ok(self.dependencies.next())
-      }
-  }
-
-  impl Iterator for ReverseDependencies {
-      type Item = Result&lt;Dependency&gt;;
-
-      fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
-          match self.try_next() {
-              Ok(Some(dep)) =&gt; Some(Ok(dep)),
-              Ok(None) =&gt; None,
-              Err(err) =&gt; Some(Err(err)),
-          }
-      }
-  }
+#[derive(Deserialize)]
+struct ApiResponse {
+    dependencies: Vec&lt;Dependency&gt;,
+    meta: Meta,
 }
+
+#[derive(Deserialize)]
+pub struct Dependency {
+    pub crate_id: String,
+    pub id: u32,
+}
+
+#[derive(Deserialize)]
+struct Meta {
+    total: u32,
+}
+
+pub struct ReverseDependencies {
+    crate_id: String,
+    dependencies: &lt;Vec&lt;Dependency&gt; as IntoIterator&gt;::IntoIter,
+    client: reqwest::blocking::Client,
+    page: u32,
+    per_page: u32,
+    total: u32,
+}
+
+impl ReverseDependencies {
+    pub fn of(crate_id: &amp;str) -&gt; Result&lt;Self&gt; {
+        Ok(ReverseDependencies {
+            crate_id: crate_id.to_owned(),
+            dependencies: vec![].into_iter(),
+            client: reqwest::blocking::Client::new(),
+            page: 0,
+            per_page: 100,
+            total: 0,
+        })
+    }
+
+    fn try_next(&amp;mut self) -&gt; Result&lt;Option&lt;Dependency&gt;&gt; {
+        if let Some(dep) = self.dependencies.next() {
+            return Ok(Some(dep));
+        }
+
+        if self.page &gt; 0 &amp;&amp; self.page * self.per_page &gt;= self.total {
+            return Ok(None);
+        }
+
+        self.page += 1;
+        let url = format!(
+            "https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&amp;per_page={}",
+            self.crate_id, self.page, self.per_page
+        );
+        println!("{}", url);
+
+        let response = self
+            .client
+            .get(&amp;url)
+            .header(USER_AGENT, "cookbook agent")
+            .send()?
+            .json::&lt;ApiResponse&gt;()?;
+        self.dependencies = response.dependencies.into_iter();
+        self.total = response.meta.total;
+        Ok(self.dependencies.next())
+    }
+}
+
+impl Iterator for ReverseDependencies {
+    type Item = Result&lt;Dependency&gt;;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        match self.try_next() {
+            Ok(Some(dep)) =&gt; Some(Ok(dep)),
+            Ok(None) =&gt; None,
+            Err(err) =&gt; Some(Err(err)),
+        }
+    }
+}
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust no_run edition2018">use web::paginated;
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     for dep in paginated::ReverseDependencies::of("serde")? {
@@ -11914,219 +11926,13 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
         println!("{} depends on {}", dependency.id, dependency.crate_id);
     }
     Ok(())
-}
-
-&lt;!--
+}</code></pre>
+<!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
---&gt;
-
-&lt;!-- Categories --&gt;
-
-[cat-asynchronous-badge]: https://img.shields.io/badge/asynchronous--x.svg?style=social
-[cat-asynchronous]: https://crates.io/categories/asynchronous
-[cat-caching-badge]: https://img.shields.io/badge/caching--x.svg?style=social
-[cat-caching]: https://crates.io/categories/caching
-[cat-command-line-badge]: https://img.shields.io/badge/command_line--x.svg?style=social
-[cat-command-line]: https://crates.io/categories/command-line-interface
-[cat-compression-badge]: https://img.shields.io/badge/compression--x.svg?style=social
-[cat-compression]: https://crates.io/categories/compression
-[cat-concurrency-badge]: https://img.shields.io/badge/concurrency--x.svg?style=social
-[cat-concurrency]: https://crates.io/categories/concurrency
-[cat-config-badge]: https://img.shields.io/badge/config--x.svg?style=social
-[cat-config]: https://crates.io/categories/config
-[cat-cryptography-badge]: https://img.shields.io/badge/cryptography--x.svg?style=social
-[cat-cryptography]: https://crates.io/categories/cryptography
-[cat-database-badge]: https://img.shields.io/badge/database--x.svg?style=social
-[cat-database]: https://crates.io/categories/database
-[cat-data-structures-badge]: https://img.shields.io/badge/data_structures--x.svg?style=social
-[cat-data-structures]: https://crates.io/categories/data-structures
-[cat-date-and-time-badge]: https://img.shields.io/badge/date_and_time--x.svg?style=social
-[cat-date-and-time]: https://crates.io/categories/date-and-time
-[cat-debugging-badge]: https://img.shields.io/badge/debugging--x.svg?style=social
-[cat-debugging]: https://crates.io/categories/debugging
-[cat-development-tools-badge]: https://img.shields.io/badge/development_tools--x.svg?style=social
-[cat-development-tools]: https://crates.io/categories/development-tools
-[cat-encoding-badge]: https://img.shields.io/badge/encoding--x.svg?style=social
-[cat-encoding]: https://crates.io/categories/encoding
-[cat-filesystem-badge]: https://img.shields.io/badge/filesystem--x.svg?style=social
-[cat-filesystem]: https://crates.io/categories/filesystem
-[cat-hardware-support-badge]: https://img.shields.io/badge/hardware_support--x.svg?style=social
-[cat-hardware-support]: https://crates.io/categories/hardware-support
-[cat-multimedia-badge]: https://img.shields.io/badge/multimedia--x.svg?style=social
-[cat-multimedia]: https://crates.io/categories/multimedia
-[cat-net-badge]: https://img.shields.io/badge/net--x.svg?style=social
-[cat-net]: https://crates.io/categories/network-programming
-[cat-no-std-badge]: https://img.shields.io/badge/no_std--x.svg?style=social
-[cat-no-std]: https://crates.io/categories/no-std
-[cat-os-badge]: https://img.shields.io/badge/OS--x.svg?style=social
-[cat-os]: https://crates.io/categories/os
-[cat-parser-implementations-badge]: https://img.shields.io/badge/parser_implementations--x.svg?style=social
-[cat-parser-implementations]: https://crates.io/categories/parser-implementations
-[cat-rendering-badge]: https://img.shields.io/badge/rendering--x.svg?style=social
-[cat-rendering]: https://crates.io/categories/rendering
-[cat-rust-patterns-badge]: https://img.shields.io/badge/rust_patterns--x.svg?style=social
-[cat-rust-patterns]: https://crates.io/categories/rust-patterns
-[cat-science-badge]: https://img.shields.io/badge/science--x.svg?style=social
-[cat-science]: https://crates.io/categories/science
-[cat-text-processing-badge]: https://img.shields.io/badge/text_processing--x.svg?style=social
-[cat-text-processing]: https://crates.io/categories/text-processing
-[cat-time-badge]: https://img.shields.io/badge/time--x.svg?style=social
-[cat-time]: https://crates.io/categories/date-and-time
-[cat-wasm-badge]: https://img.shields.io/badge/wasm--x.svg?style=social
-[cat-wasm]: https://crates.io/categories/wasm
-
-&lt;!-- Crates --&gt;
-
-[nu-ansi-term-badge]: https://img.shields.io/crates/v/nu-ansi-term.svg?label=nu-ansi-term
-[nu-ansi-term]: https://docs.rs/nu-ansi-term/
-[anyhow-badge]: https://img.shields.io/crates/v/anyhow.svg?label=anyhow
-[anyhow]: https://docs.rs/anyhow/
-[axum-badge]: https://img.shields.io/crates/v/axum.svg?label=axum
-[axum]: https://docs.rs/axum/
-[base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
-[base64]: https://docs.rs/base64/
-[bitflags-badge]: https://img.shields.io/crates/v/bitflags.svg?label=bitflags
-[bitflags]: https://docs.rs/bitflags/
-[bzip2-badge]: https://img.shields.io/crates/v/bzip2.svg?label=bzip2
-[bzip2]: https://docs.rs/bzip2/
-[cc-badge]: https://img.shields.io/crates/v/cc.svg?label=cc
-[cc]: https://docs.rs/cc
-[chrono-badge]: https://img.shields.io/crates/v/chrono.svg?label=chrono
-[chrono]: https://docs.rs/chrono/
-[clap-badge]: https://img.shields.io/crates/v/clap.svg?label=clap
-[clap]: https://docs.rs/clap/
-[config-badge]: https://img.shields.io/crates/v/config.svg?label=config
-[config]: https://docs.rs/config/
-[confy-badge]: https://img.shields.io/crates/v/confy.svg?label=confy
-[confy]: https://docs.rs/confy/
-[crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
-[crossbeam]: https://docs.rs/crossbeam/
-[csv-badge]: https://img.shields.io/crates/v/csv.svg?label=csv
-[csv]: https://docs.rs/csv/
-[data-encoding-badge]: https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding
-[data-encoding]: https://docs.rs/data-encoding/
-[env_logger-badge]: https://img.shields.io/crates/v/env_logger.svg?label=env_logger
-[env_logger]: https://docs.rs/env_logger/
-[figment-badge]: https://img.shields.io/crates/v/figment.svg?label=figment
-[figment]: https://docs.rs/figment/
-[flate2-badge]: https://img.shields.io/crates/v/flate2.svg?label=flate2
-[flate2]: https://docs.rs/flate2/
-[glob-badge]:https://img.shields.io/crates/v/glob.svg?label=glob
-[glob]: https://docs.rs/glob/
-[heapless-badge]: https://img.shields.io/crates/v/heapless.svg?label=heapless
-[heapless]: https://docs.rs/heapless/
-[hyper-badge]: https://img.shields.io/crates/v/hyper.svg?label=hyper
-[hyper]: https://docs.rs/hyper/
-[image-badge]: https://img.shields.io/crates/v/image.svg?label=image
-[image]: https://docs.rs/image/
-[kamadak-exif-badge]: https://img.shields.io/crates/v/kamadak-exif.svg?label=kamadak-exif
-[kamadak-exif]: https://docs.rs/kamadak-exif/
-[leptos-badge]: https://img.shields.io/crates/v/leptos.svg?label=leptos
-[leptos]: https://docs.rs/leptos/
-[leptos-axum-badge]: https://img.shields.io/crates/v/leptos_axum.svg?label=leptos_axum
-[leptos-axum]: https://docs.rs/leptos_axum/
-[leptos-router-badge]: https://img.shields.io/crates/v/leptos_router.svg?label=leptos_router
-[leptos-router]: https://docs.rs/leptos_router/
-[log-badge]: https://img.shields.io/crates/v/log.svg?label=log
-[log4rs-badge]: https://img.shields.io/crates/v/log4rs.svg?label=log4rs
-[log4rs]: https://docs.rs/log4rs/
-[log]: https://docs.rs/log/
-[memmap2-badge]: https://img.shields.io/crates/v/memmap2.svg?label=memmap2
-[memmap2]: https://docs.rs/memmap2/
-[mime-badge]: https://img.shields.io/crates/v/mime.svg?label=mime
-[mime]: https://docs.rs/mime/
-[nalgebra-badge]: https://img.shields.io/crates/v/nalgebra.svg?label=nalgebra
-[nalgebra]: https://docs.rs/nalgebra
-[ndarray-badge]: https://img.shields.io/crates/v/ndarray.svg?label=ndarray
-[ndarray]: https://docs.rs/ndarray
-[no-panic-badge]: https://img.shields.io/crates/v/no-panic.svg?label=no-panic
-[no-panic]: https://docs.rs/no-panic/
-[nom-badge]: https://img.shields.io/crates/v/nom.svg?label=nom
-[nom]: https://docs.rs/nom/
-[notify-badge]: https://img.shields.io/crates/v/notify.svg?label=notify
-[notify]: https://docs.rs/notify/
-[notify-debouncer-full-badge]: https://img.shields.io/crates/v/notify-debouncer-full.svg?label=notify-debouncer-full
-[notify-debouncer-full]: https://docs.rs/notify-debouncer-full/
-[num-badge]: https://img.shields.io/crates/v/num.svg?label=num
-[num]: https://docs.rs/num/
-[num_cpus-badge]: https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus
-[num_cpus]: https://docs.rs/num_cpus/
-[percent-encoding-badge]: https://img.shields.io/crates/v/percent-encoding.svg?label=percent-encoding
-[pest-badge]: https://img.shields.io/crates/v/pest.svg?label=pest
-[pest]: https://docs.rs/pest/
-[postgres-badge]: https://img.shields.io/crates/v/postgres.svg?label=postgres
-[postgres]: https://docs.rs/postgres/0.15.2/postgres/
-[rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
-[rand]: https://docs.rs/rand/
-[rand_distr-badge]: https://img.shields.io/crates/v/rand_distr.svg?label=rand_distr
-[rand_distr]: https://docs.rs/rand_distr/
-[rayon-badge]: https://img.shields.io/crates/v/rayon.svg?label=rayon
-[rayon]: https://docs.rs/rayon/
-[regex-badge]: https://img.shields.io/crates/v/regex.svg?label=regex
-[regex]: https://docs.rs/regex/
-[reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
-[reqwest]: https://docs.rs/reqwest/
-[rkyv-badge]: https://img.shields.io/crates/v/rkyv.svg?label=rkyv
-[rkyv]: https://docs.rs/rkyv/
-[ring-badge]: https://img.shields.io/crates/v/ring.svg?label=ring
-[ring]: https://briansmith.org/rustdoc/ring/
-[rodio-badge]: https://img.shields.io/crates/v/rodio.svg?label=rodio
-[rodio]: https://docs.rs/rodio/
-[rusqlite-badge]: https://img.shields.io/crates/v/rusqlite.svg?label=rusqlite
-[rusqlite]: https://crates.io/crates/rusqlite/
-[same_file-badge]: https://img.shields.io/crates/v/same_file.svg?label=same_file
-[same_file]: https://docs.rs/same-file/
-[scraper-badge]: https://img.shields.io/crates/v/scraper.svg?label=scraper
-[scraper]: https://docs.rs/scraper/
-[sea_orm-badge]: https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm
-[sea_orm]: https://docs.rs/sea_orm/*/sea_orm
-[semver-badge]: https://img.shields.io/crates/v/semver.svg?label=semver
-[semver]: https://docs.rs/semver/
-[serde-badge]: https://img.shields.io/crates/v/serde.svg?label=serde
-[serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
-[serde-json]: https://docs.rs/serde_json/*/serde_json/
-[serde]: https://docs.rs/serde/
-[sqlx-badge]: https://img.shields.io/crates/v/sqlx.svg?label=sqlx
-[sqlx]: https://docs.rs/sqlx/*/sqlx
-[std-badge]: https://img.shields.io/badge/std-1.29.1-blue.svg
-[std]: https://doc.rust-lang.org/std
-[symphonia-badge]: https://img.shields.io/crates/v/symphonia.svg?label=symphonia
-[symphonia]: https://docs.rs/symphonia/
-[syslog-badge]: https://img.shields.io/crates/v/syslog.svg?label=syslog
-[syslog]: https://docs.rs/syslog/
-[tar-badge]: https://img.shields.io/crates/v/tar.svg?label=tar
-[tar]: https://docs.rs/tar/
-[tempfile-badge]: https://img.shields.io/crates/v/tempfile.svg?label=tempfile
-[tempfile]: https://docs.rs/tempfile/
-[thiserror-badge]: https://img.shields.io/crates/v/thiserror.svg?label=thiserror
-[thiserror]: https://docs.rs/thiserror/
-[tokio-badge]: https://img.shields.io/crates/v/tokio.svg?label=tokio
-[tokio]: https://docs.rs/tokio/
-[toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
-[toml]: https://docs.rs/toml/
-[tracing-badge]: https://img.shields.io/crates/v/tracing.svg?label=tracing
-[tracing]: https://docs.rs/tracing/
-[tracing-subscriber-badge]: https://img.shields.io/crates/v/tracing-subscriber.svg?label=tracing-subscriber
-[tracing-subscriber]: https://docs.rs/tracing-subscriber/
-[url-badge]: https://img.shields.io/crates/v/url.svg?label=url
-[url]: https://docs.rs/url/
-[unicode-segmentation-badge]: https://img.shields.io/crates/v/unicode-segmentation.svg?label=unicode-segmentation
-[unicode-segmentation]: https://docs.rs/unicode-segmentation/
-[walkdir-badge]: https://img.shields.io/crates/v/walkdir.svg?label=walkdir
-[walkdir]: https://docs.rs/walkdir/
-[wasm-bindgen-badge]: https://img.shields.io/crates/v/wasm-bindgen.svg?label=wasm-bindgen
-[wasm-bindgen]: https://docs.rs/wasm-bindgen/
-[wasmtime-badge]: https://img.shields.io/crates/v/wasmtime.svg?label=wasmtime
-[wasmtime]: https://docs.rs/wasmtime/
-[wasmtime-wasi-badge]: https://img.shields.io/crates/v/wasmtime-wasi.svg?label=wasmtime-wasi
-[wasmtime-wasi]: https://docs.rs/wasmtime-wasi/
-[which-badge]: https://img.shields.io/crates/v/which.svg?label=which
-[which]: https://docs.rs/which/
-[winnow-badge]: https://img.shields.io/crates/v/winnow.svg?label=winnow
-[winnow]: https://docs.rs/winnow/
-[wit-bindgen-badge]: https://img.shields.io/crates/v/wit-bindgen.svg?label=wit-bindgen
-[wit-bindgen]: https://docs.rs/wit-bindgen/</code></pre>
+-->
+<!-- Categories -->
+<!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="downloads"><a class="header" href="#downloads">Downloads</a></h1>
 <h2 id="download-a-file-to-a-temporary-directory"><a class="header" href="#download-a-file-to-a-temporary-directory">Download a file to a temporary directory</a></h2>
@@ -12136,7 +11942,7 @@ a file over HTTP using <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><
 <p>Creates a target <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> with name obtained from <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url"><code>Response::url</code></a> within
 <a href="https://docs.rs/tempfile/*/tempfile/struct.TempDir.html#method.path"><code>tempfile::TempDir::path</code></a> and copies downloaded data to it with <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>.
 The temporary directory is automatically removed on program exit.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use std::fs::File;
 use std::io::Write;
 use tempfile::Builder;
@@ -12150,8 +11956,8 @@ fn main() -&gt; Result&lt;()&gt; {
         let fname = response
             .url()
             .path_segments()
-            .and_then(|segments| segments.last())
-            .and_then(|name| if name.is_empty() { None } else { Some(name) })
+            .and_then(|mut segments| segments.next_back())
+            .filter(|name| !name.is_empty())
             .unwrap_or("tmp.bin");
 
         println!("file to download: '{}'", fname);
@@ -12171,7 +11977,7 @@ establishes the destination, <a href="https://docs.rs/reqwest/*/reqwest/struct.R
 by reading the file, and <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> blocks until the file uploads
 and the response returns. <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a> returns the message from the server
 response and displays in the console.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use std::fs::File;
 use std::io::Read;
 
@@ -12197,9 +12003,9 @@ in chunks of 10240 bytes, while printing progress messages. This approach is
 useful to control memory usage for large files and allows for resumable
 downloads.</p>
 <p>The Range header is defined in <a href="https://tools.ietf.org/html/rfc7233#section-3.1">RFC7233</a>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::{anyhow, Result};
-use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::{Result, anyhow};
 use reqwest::StatusCode;
+use reqwest::header::{CONTENT_LENGTH, HeaderValue, RANGE};
 use std::fs::File;
 use std::str::FromStr;
 
@@ -12281,8 +12087,8 @@ Keep lines sorted.
 <h2 id="basic-authentication"><a class="header" href="#basic-authentication">Basic Authentication</a></h2>
 <p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>Uses <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth"><code>reqwest::RequestBuilder::basic_auth</code></a> to perform a basic HTTP authentication.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use reqwest::blocking::Client;
-use reqwest::Error;
+<pre class="playground"><code class="language-rust no_run edition2018">use reqwest::Error;
+use reqwest::blocking::Client;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let client = Client::new();

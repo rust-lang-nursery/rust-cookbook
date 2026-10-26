@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-4c9166bf.js";
+            window.path_to_searchindex_js = "../../searchindex-2b82b6fe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-af28f5c9.js"></script>
@@ -188,7 +188,7 @@
 with <a href="https://docs.rs/reqwest/latest/reqwest/blocking/fn.get.html"><code>reqwest::blocking::get</code></a>. Prints obtained <a href="https://docs.rs/reqwest/latest/reqwest/blocking/struct.Response.html"><code>reqwest::blocking::Response</code></a>
 status and headers. Reads HTTP response body into an allocated <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>
 using <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use std::io::Read;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -231,7 +231,7 @@ headers <a href="https://docs.rs/reqwest/latest/reqwest/header/constant.USER_AGE
 with <a href="https://docs.rs/reqwest/latest/reqwest/blocking/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a>.</p>
 <p>The request target <a href="http://httpbin.org/headers">http://httpbin.org/headers</a> responds with
 a JSON dict containing all request headers for easy verification.</p>
-<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use reqwest::Url;
 use reqwest::blocking::Client;
 use reqwest::header::{AUTHORIZATION, USER_AGENT};

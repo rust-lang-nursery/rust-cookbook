@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-4c9166bf.js";
+            window.path_to_searchindex_js = "../../searchindex-2b82b6fe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-af28f5c9.js"></script>
@@ -189,7 +189,7 @@ a file over HTTP using <a href="https://docs.rs/reqwest/*/reqwest/fn.get.html"><
 <p>Creates a target <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> with name obtained from <a href="https://docs.rs/reqwest/*/reqwest/struct.Response.html#method.url"><code>Response::url</code></a> within
 <a href="https://docs.rs/tempfile/*/tempfile/struct.TempDir.html#method.path"><code>tempfile::TempDir::path</code></a> and copies downloaded data to it with <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>.
 The temporary directory is automatically removed on program exit.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use std::fs::File;
 use std::io::Write;
 use tempfile::Builder;
@@ -203,8 +203,8 @@ fn main() -&gt; Result&lt;()&gt; {
         let fname = response
             .url()
             .path_segments()
-            .and_then(|segments| segments.last())
-            .and_then(|name| if name.is_empty() { None } else { Some(name) })
+            .and_then(|mut segments| segments.next_back())
+            .filter(|name| !name.is_empty())
             .unwrap_or("tmp.bin");
 
         println!("file to download: '{}'", fname);
@@ -224,7 +224,7 @@ establishes the destination, <a href="https://docs.rs/reqwest/*/reqwest/struct.R
 by reading the file, and <a href="https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send"><code>RequestBuilder::send</code></a> blocks until the file uploads
 and the response returns. <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string"><code>read_to_string</code></a> returns the message from the server
 response and displays in the console.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
 use std::fs::File;
 use std::io::Read;
 
@@ -250,9 +250,9 @@ in chunks of 10240 bytes, while printing progress messages. This approach is
 useful to control memory usage for large files and allows for resumable
 downloads.</p>
 <p>The Range header is defined in <a href="https://tools.ietf.org/html/rfc7233#section-3.1">RFC7233</a>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use anyhow::{anyhow, Result};
-use reqwest::header::{HeaderValue, CONTENT_LENGTH, RANGE};
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::{Result, anyhow};
 use reqwest::StatusCode;
+use reqwest::header::{CONTENT_LENGTH, HeaderValue, RANGE};
 use std::fs::File;
 use std::str::FromStr;
 
