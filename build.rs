@@ -10,6 +10,7 @@ const REMOVED_TESTS: &[&str] = &[
     "./src/concurrency/parallel/rayon-parallel-sort.md",
     "./src/web/leptos.md",
     "./src/wasm.md",
+    "./src/data_structures/bitfield/bitfield.md",
     "./src/concurrency/parallel/rayon-thumbnails.md",
     "./src/concurrency/thread/threadpool-fractal.md",
     "./src/encoding/complex/toml.md",
