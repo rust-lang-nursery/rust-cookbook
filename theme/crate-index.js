@@ -1,5 +1,6 @@
-// Builds the crate index page (src/crates.md) and adds recipe counts to the
-// topic list on the home page, both from window.COOKBOOK_INDEX.
+// Builds the crate index page (src/crates.md), the alphabetical recipe index
+// (src/recipe-index.md) and the recipe counts on the home page topic grid, all
+// from window.COOKBOOK_INDEX.
 (function () {
   var index = window.COOKBOOK_INDEX;
   if (!index) return;
@@ -79,6 +80,52 @@
     });
   }
 
+  function recipeIndex(host) {
+    var entries = index.recipes
+      .map(function (r) {
+        return { title: r[0].replace(/`/g, ""), url: r[1], section: index.sections[r[2]][0] };
+      })
+      .sort(function (a, b) {
+        return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+      });
+
+    var groups = {};
+    var letters = [];
+    entries.forEach(function (e) {
+      var first = e.title.charAt(0).toUpperCase();
+      var letter = /[A-Z]/.test(first) ? first : "#";
+      if (!groups[letter]) {
+        groups[letter] = [];
+        letters.push(letter);
+      }
+      groups[letter].push(e);
+    });
+
+    var nav = el("nav", "ri-letters");
+    nav.setAttribute("aria-label", "Jump to letter");
+    host.appendChild(nav);
+
+    letters.forEach(function (letter) {
+      var a = el("a", null, letter);
+      a.href = "#index-" + (letter === "#" ? "other" : letter);
+      nav.appendChild(a);
+
+      var heading = el("h2", "ri-letter", letter);
+      heading.id = "index-" + (letter === "#" ? "other" : letter);
+      host.appendChild(heading);
+      var list = el("ul", "ri-list");
+      groups[letter].forEach(function (e) {
+        var li = el("li");
+        var link = el("a", null, e.title);
+        link.href = root + e.url;
+        li.appendChild(link);
+        li.appendChild(el("span", "ri-section", e.section));
+        list.appendChild(li);
+      });
+      host.appendChild(list);
+    });
+  }
+
   function topicCounts(grid) {
     var counts = {};
     index.recipes.forEach(function (r) {
@@ -94,6 +141,8 @@
   function init() {
     var host = document.getElementById("crate-index");
     if (host) crateIndex(host);
+    var recipes = document.getElementById("recipe-index");
+    if (recipes) recipeIndex(recipes);
     var grid = document.querySelector(".section-grid");
     if (grid) topicCounts(grid);
   }

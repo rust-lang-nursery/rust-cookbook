@@ -24,8 +24,11 @@
     name.className = "nav-title";
     name.textContent = title;
     span.appendChild(kicker);
+    span.appendChild(document.createTextNode(" "));
     span.appendChild(name);
     link.appendChild(span);
+    // The accessible name must contain the visible text (WCAG 2.5.3).
+    link.setAttribute("aria-label", kicker.textContent + " " + title);
   }
 
   function init(retry) {

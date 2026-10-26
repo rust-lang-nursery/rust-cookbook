@@ -17,6 +17,7 @@
   var mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
   var shortcuts = (mac ? "⌘K" : "Ctrl K") + ", / or S";
   input.placeholder = "Search recipes, crates, topics… (" + shortcuts + ")";
+  input.setAttribute("aria-label", "Search the cookbook");
   toggle.title = "Search (" + shortcuts + ")";
 
   function isOpen() {

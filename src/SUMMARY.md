@@ -115,3 +115,7 @@
   - [Exchange data via linear memory](wasm/linear_memory.md)
   - [Define host functions](wasm/host_fn.md)
   - [Component Model](wasm/component.md)
+
+---
+
+[Index](recipe-index.md)
