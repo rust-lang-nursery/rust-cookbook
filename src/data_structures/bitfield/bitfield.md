@@ -2,87 +2,32 @@
 
 [![bitflags-badge]][bitflags] [![cat-no-std-badge]][cat-no-std]
 
-Creates type safe bitfield type `MyFlags` with elementary `clear` operation as well as [`Display`] trait for it.
-Subsequently, shows basic bitwise operations and formatting.
+Creates a type safe bitfield type `MyFlags` with the [`bitflags!`] macro. The
+macro generates the bitwise operators (`|`, `&`, `-` and `!`) along with
+methods such as [`contains`], [`bits`] and [`from_bits_truncate`]. [`clear`]
+comes from the [`Flags`] trait, which must be in scope. Deriving `Debug` prints
+the names of the set flags.
 
-```rust,edition2021
-use std::fmt;
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-struct MyFlags(u32);
-
-impl MyFlags {
-    const FLAG_A: MyFlags = MyFlags(0b00000001);
-    const FLAG_B: MyFlags = MyFlags(0b00000010);
-    const FLAG_C: MyFlags = MyFlags(0b00000100);
-    const FLAG_ABC: MyFlags = MyFlags(Self::FLAG_A.0 | Self::FLAG_B.0 | Self::FLAG_C.0);
-
-    fn empty() -> Self {
-        MyFlags(0)
-    }
-
-    fn bits(&self) -> u32 {
-        self.0
-    }
-
-    pub fn clear(&mut self) -> &mut MyFlags {
-        *self = MyFlags::empty();
-        self
-    }
-}
-
-impl std::ops::BitOr for MyFlags {
-    type Output = Self;
-    fn bitor(self, rhs: Self) -> Self {
-        MyFlags(self.0 | rhs.0)
-    }
-}
-
-impl std::ops::BitAnd for MyFlags {
-    type Output = Self;
-    fn bitand(self, rhs: Self) -> Self {
-        MyFlags(self.0 & rhs.0)
-    }
-}
-
-impl std::ops::Sub for MyFlags {
-    type Output = Self;
-    fn sub(self, rhs: Self) -> Self {
-        MyFlags(self.0 & !rhs.0)
-    }
-}
-
-impl std::ops::Not for MyFlags {
-    type Output = Self;
-    fn not(self) -> Self {
-        MyFlags(!self.0 & 0b00000111) // Only consider defined flags
-    }
-}
-
-impl fmt::Display for MyFlags {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:032b}", self.bits())
-    }
-}
-
-fn main() {
-    let e1 = MyFlags::FLAG_A | MyFlags::FLAG_C;
-    let e2 = MyFlags::FLAG_B | MyFlags::FLAG_C;
-    assert_eq!((e1 | e2), MyFlags::FLAG_ABC);
-    assert_eq!((e1 & e2), MyFlags::FLAG_C);
-    assert_eq!((e1 - e2), MyFlags::FLAG_A);
-    assert_eq!(!e2, MyFlags::FLAG_A);
-
-    let mut flags = MyFlags::FLAG_ABC;
-    assert_eq!(format!("{}", flags), "00000000000000000000000000000111");
-    assert_eq!(
-        format!("{}", flags.clear()),
-        "00000000000000000000000000000000"
-    );
-    assert_eq!(format!("{:?}", MyFlags::FLAG_B), "MyFlags(2)");
-    assert_eq!(
-        format!("{:?}", MyFlags::FLAG_A | MyFlags::FLAG_B),
-        "MyFlags(3)"
-    );
-}
+```rust
+{{#include ../../../crates/data_structures/bitfield/src/bin/bitflags.rs }}
 ```
+
+### How it works
+
+The same type can be written by hand with only the standard library. `MyFlags`
+wraps a `u32`, each flag is a constant with a single bit set, and the bitwise
+operators are implemented with the matching [`std::ops`] traits. This version
+also implements [`Display`] to print the bits in binary.
+
+```rust
+{{#include ../../../crates/data_structures/bitfield/src/bin/handrolled.rs }}
+```
+
+[`bitflags!`]: https://docs.rs/bitflags/*/bitflags/macro.bitflags.html
+[`bits`]: https://docs.rs/bitflags/*/bitflags/trait.Flags.html#tymethod.bits
+[`clear`]: https://docs.rs/bitflags/*/bitflags/trait.Flags.html#method.clear
+[`contains`]: https://docs.rs/bitflags/*/bitflags/trait.Flags.html#method.contains
+[`Display`]: https://doc.rust-lang.org/std/fmt/trait.Display.html
+[`Flags`]: https://docs.rs/bitflags/*/bitflags/trait.Flags.html
+[`from_bits_truncate`]: https://docs.rs/bitflags/*/bitflags/trait.Flags.html#method.from_bits_truncate
+[`std::ops`]: https://doc.rust-lang.org/std/ops/index.html
