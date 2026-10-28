@@ -28,7 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../theme/custom-255ce28f.css">
+        <link rel="stylesheet" href="../theme/custom-f4c5d6ea.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
+            window.path_to_searchindex_js = "../searchindex-b1502c3a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -187,7 +187,7 @@ fixed UTC offsets. Formats are written as compile-time checked format
 descriptions. These recipes show where <code>time</code> differs from <code>chrono</code> and <code>jiff</code>; see
 <a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a> for how they compare.</p>
 <h2 id="examine-the-current-time-with-a-utc-offset"><a class="header" href="#examine-the-current-time-with-a-utc-offset">Examine the current time with a UTC offset</a></h2>
-<p><a href="https://docs.rs/time/"><img src="https://img.shields.io/crates/v/time.svg?label=time" alt="time-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/time/" title="Open time on docs.rs">time</a><button type="button" class="crate-chip-copy" data-copy="time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }" title="Copy time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }" aria-label="Copy time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/time-rs/time" title="Open time source repository" aria-label="time source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
 <p>Use <code>time</code> when fixed UTC offsets are enough and you want a small API; see
 <a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a>. Gets the current <a href="https://docs.rs/time/*/time/struct.OffsetDateTime.html"><code>OffsetDateTime</code></a> in UTC and converts it to a fixed
 offset with <a href="https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.to_offset"><code>OffsetDateTime::to_offset</code></a>. <code>time</code> has no time zone database, so
@@ -219,7 +219,7 @@ fn main() -&gt; Result&lt;(), time::error::ComponentRange&gt; {
     Ok(())
 }</code></pre>
 <h2 id="parse-and-format-a-datetime-with-format-descriptions"><a class="header" href="#parse-and-format-a-datetime-with-format-descriptions">Parse and format a datetime with format descriptions</a></h2>
-<p><a href="https://docs.rs/time/"><img src="https://img.shields.io/crates/v/time.svg?label=time" alt="time-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/time/" title="Open time on docs.rs">time</a><button type="button" class="crate-chip-copy" data-copy="time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }" title="Copy time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }" aria-label="Copy time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/time-rs/time" title="Open time source repository" aria-label="time source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
 <p>Use <code>time</code> when you want format strings checked at compile time; see
 <a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a>. Parses an RFC 3339 string with <a href="https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.parse"><code>OffsetDateTime::parse</code></a> and <a href="https://docs.rs/time/*/time/format_description/well_known/struct.Rfc3339.html"><code>Rfc3339</code></a>.
 Custom patterns are written with the <a href="https://docs.rs/time/*/time/macros/macro.format_description.html"><code>format_description!</code></a> macro, so a typo
@@ -249,7 +249,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     Ok(())
 }</code></pre>
 <h2 id="perform-checked-date-and-time-calculations-with-duration"><a class="header" href="#perform-checked-date-and-time-calculations-with-duration">Perform checked date and time calculations with Duration</a></h2>
-<p><a href="https://docs.rs/time/"><img src="https://img.shields.io/crates/v/time.svg?label=time" alt="time-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/time/" title="Open time on docs.rs">time</a><button type="button" class="crate-chip-copy" data-copy="time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }" title="Copy time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }" aria-label="Copy time = { version = &quot;0.3&quot;, features = [&quot;formatting&quot;, &quot;macros&quot;, &quot;parsing&quot;] }"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/time-rs/time" title="Open time source repository" aria-label="time source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
 <p>Use <code>time</code> when exact elapsed time is what you want; see <a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a>. Adds a
 <a href="https://docs.rs/time/*/time/struct.SignedDuration.html"><code>Duration</code></a> with <a href="https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.checked_add"><code>OffsetDateTime::checked_add</code></a>, which returns <code>None</code> on
 overflow. A <a href="https://docs.rs/time/*/time/struct.SignedDuration.html"><code>Duration</code></a> is an exact length of time, so a day is always 24
@@ -342,6 +342,7 @@ Keep lines sorted.
         <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="../theme/crate-chips-b6c5458f.js"></script>
 
 
 

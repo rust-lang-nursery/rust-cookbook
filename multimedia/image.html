@@ -28,7 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../theme/custom-255ce28f.css">
+        <link rel="stylesheet" href="../theme/custom-f4c5d6ea.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
+            window.path_to_searchindex_js = "../searchindex-b1502c3a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -182,7 +182,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h2 id="resize-and-re-encode-an-image"><a class="header" href="#resize-and-re-encode-an-image">Resize and re-encode an image</a></h2>
-<p><a href="https://docs.rs/image/"><img src="https://img.shields.io/crates/v/image.svg?label=image" alt="image-badge"></a> <a href="https://crates.io/categories/multimedia"><img src="https://img.shields.io/badge/multimedia--x.svg?style=social" alt="cat-multimedia-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/image/" title="Open image on docs.rs">image</a><button type="button" class="crate-chip-copy" data-copy="image = &quot;0.25&quot;" title="Copy image = &quot;0.25&quot;" aria-label="Copy image = &quot;0.25&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/image-rs/image" title="Open image source repository" aria-label="image source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/multimedia">Multimedia</a></p>
 <p>Serving a small preview of a large upload means decoding the original, shrinking
 it, and writing it back in a web-friendly format. <a href="https://docs.rs/image/*/image/fn.open.html"><code>image::open</code></a> reads the file
 and infers the format from its contents. <a href="https://docs.rs/image/*/image/enum.DynamicImage.html#method.resize"><code>DynamicImage::resize</code></a> scales the
@@ -218,7 +218,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="detect-an-image-format-from-its-bytes"><a class="header" href="#detect-an-image-format-from-its-bytes">Detect an image format from its bytes</a></h2>
-<p><a href="https://docs.rs/image/"><img src="https://img.shields.io/crates/v/image.svg?label=image" alt="image-badge"></a> <a href="https://crates.io/categories/multimedia"><img src="https://img.shields.io/badge/multimedia--x.svg?style=social" alt="cat-multimedia-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/image/" title="Open image on docs.rs">image</a><button type="button" class="crate-chip-copy" data-copy="image = &quot;0.25&quot;" title="Copy image = &quot;0.25&quot;" aria-label="Copy image = &quot;0.25&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/image-rs/image" title="Open image source repository" aria-label="image source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/multimedia">Multimedia</a></p>
 <p>An upload may arrive with a misleading extension or none at all. <a href="https://docs.rs/image/*/image/fn.guess_format.html"><code>guess_format</code></a>
 reads the leading magic bytes and returns the matching <a href="https://docs.rs/image/*/image/enum.ImageFormat.html"><code>ImageFormat</code></a>, which in
 turn gives the MIME type through <a href="https://docs.rs/image/*/image/enum.ImageFormat.html#method.to_mime_type"><code>ImageFormat::to_mime_type</code></a>. Only the header is
@@ -241,7 +241,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="inspect-image-exif-metadata"><a class="header" href="#inspect-image-exif-metadata">Inspect image EXIF metadata</a></h2>
-<p><a href="https://docs.rs/kamadak-exif/"><img src="https://img.shields.io/crates/v/kamadak-exif.svg?label=kamadak-exif" alt="kamadak-exif-badge"></a> <a href="https://crates.io/categories/multimedia"><img src="https://img.shields.io/badge/multimedia--x.svg?style=social" alt="cat-multimedia-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/kamadak-exif/" title="Open kamadak-exif on docs.rs">kamadak-exif</a><button type="button" class="crate-chip-copy" data-copy="kamadak-exif = &quot;0.6&quot;" title="Copy kamadak-exif = &quot;0.6&quot;" aria-label="Copy kamadak-exif = &quot;0.6&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/kamadak/exif-rs" title="Open kamadak-exif source repository" aria-label="kamadak-exif source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/multimedia">Multimedia</a></p>
 <p>A photograph carries EXIF metadata describing the camera and the capture. The
 <a href="https://docs.rs/kamadak-exif/"><code>kamadak-exif</code></a> crate, imported as <code>exif</code>, reads it without
 decoding the pixels. <a href="https://docs.rs/kamadak-exif/*/exif/struct.Reader.html#method.read_from_container"><code>Reader::read_from_container</code></a> parses the EXIF block from a
@@ -336,6 +336,7 @@ Keep lines sorted.
         <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="../theme/crate-chips-b6c5458f.js"></script>
 
 
 

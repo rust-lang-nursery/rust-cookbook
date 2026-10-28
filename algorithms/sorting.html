@@ -28,7 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../theme/custom-255ce28f.css">
+        <link rel="stylesheet" href="../theme/custom-f4c5d6ea.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
+            window.path_to_searchindex_js = "../searchindex-b1502c3a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -183,7 +183,7 @@
                     <main>
                         <h1 id="sorting-vectors"><a class="header" href="#sorting-vectors">Sorting Vectors</a></h1>
 <h2 id="sort-a-vector-of-integers"><a class="header" href="#sort-a-vector-of-integers">Sort a Vector of Integers</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://doc.rust-lang.org/std" title="Open the std documentation">std</a><a class="crate-chip-repo" href="https://github.com/rust-lang/rust" title="Open std source repository" aria-label="std source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/science">Science</a></p>
 <p>This recipe sorts a Vector of integers via <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort"><code>vec::sort</code></a>. Alternative would
 be to use <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_unstable"><code>vec::sort_unstable</code></a> which can be faster, but does not preserve
 the order of equal elements.</p>
@@ -195,7 +195,7 @@ the order of equal elements.</p>
     assert_eq!(vec, vec![1, 2, 5, 10, 15]);
 }</code></pre>
 <h2 id="sort-a-vector-of-floats"><a class="header" href="#sort-a-vector-of-floats">Sort a Vector of Floats</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://doc.rust-lang.org/std" title="Open the std documentation">std</a><a class="crate-chip-repo" href="https://github.com/rust-lang/rust" title="Open std source repository" aria-label="std source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/science">Science</a></p>
 <p>A Vector of f32 or f64 can be sorted with <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by"><code>vec::sort_by</code></a> and <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp"><code>f64::total_cmp</code></a>.
 Unlike <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#tymethod.partial_cmp"><code>PartialOrd::partial_cmp</code></a>, <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp"><code>total_cmp</code></a> handles NaN values without panicking
 by placing them at the end of the sort order.</p>
@@ -207,7 +207,7 @@ by placing them at the end of the sort order.</p>
     assert_eq!(vec, vec![1.1, 1.123, 1.15, 2.0, 5.5]);
 }</code></pre>
 <h2 id="sort-a-vector-of-structs"><a class="header" href="#sort-a-vector-of-structs">Sort a Vector of Structs</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://doc.rust-lang.org/std" title="Open the std documentation">std</a><a class="crate-chip-repo" href="https://github.com/rust-lang/rust" title="Open std source repository" aria-label="std source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/science">Science</a></p>
 <p>Sorts a Vector of Person structs with properties <code>name</code> and <code>age</code> by its natural
 order (By name and age). In order to make Person sortable you need four traits <a href="https://doc.rust-lang.org/std/cmp/trait.Eq.html"><code>Eq</code></a>,
 <a href="https://doc.rust-lang.org/std/cmp/trait.PartialEq.html"><code>PartialEq</code></a>, <a href="https://doc.rust-lang.org/std/cmp/trait.Ord.html"><code>Ord</code></a> and <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html"><code>PartialOrd</code></a>. These traits can be simply derived.
@@ -316,6 +316,7 @@ Keep lines sorted.
         <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="../theme/crate-chips-b6c5458f.js"></script>
 
 
 

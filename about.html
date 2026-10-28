@@ -28,7 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/custom-255ce28f.css">
+        <link rel="stylesheet" href="theme/custom-f4c5d6ea.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f1f82002.js";
+            window.path_to_searchindex_js = "searchindex-b1502c3a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-971608bb.js"></script>
@@ -205,9 +205,9 @@ concepts from earlier sections.</p>
 <p>Within the index, each section contains a list of recipes. The recipes
 are simple statements of a task to accomplish, like “generate random
 numbers in a range”; and each recipe is tagged with badges indicating
-which <em>crates</em> they use, like <a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a>, and which
+which <em>crates</em> they use, like <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/rand/" title="Open rand on docs.rs">rand</a><button type="button" class="crate-chip-copy" data-copy="rand = &quot;0.10&quot;" title="Copy rand = &quot;0.10&quot;" aria-label="Copy rand = &quot;0.10&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/rust-random/rand" title="Open rand source repository" aria-label="rand source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span>, and which
 categories on <a href="https://crates.io">crates.io</a> those crates belong to, like
-<a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a>.</p>
+<a class="crate-chip cat-chip" href="https://crates.io/categories/science">Science</a>.</p>
 <p>New Rust programmers should be comfortable reading from the first
 section to the last, and doing so should give one a strong overview of
 the crate ecosystem. Click on the section header in the index, or in
@@ -225,7 +225,7 @@ further information.</p>
 that they may be copied directly into your own projects for
 experimentation. To do so follow the instructions below.</p>
 <p>Consider this recipe for “generate random numbers within a range”:</p>
-<p><a href="https://docs.rs/rand/"><img src="https://img.shields.io/crates/v/rand.svg?label=rand" alt="rand-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/rand/" title="Open rand on docs.rs">rand</a><button type="button" class="crate-chip-copy" data-copy="rand = &quot;0.10&quot;" title="Copy rand = &quot;0.10&quot;" aria-label="Copy rand = &quot;0.10&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/rust-random/rand" title="Open rand source repository" aria-label="rand source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/science">Science</a></p>
 <pre class="playground"><code class="language-rust edition2018">use rand::RngExt;
 
 fn main() {
@@ -342,6 +342,7 @@ Keep lines sorted.
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="theme/crate-chips-b6c5458f.js"></script>
 
 
 
