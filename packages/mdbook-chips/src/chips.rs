@@ -44,12 +44,30 @@ impl Meta {
     /// Reads every manifest in the repo through `cargo metadata`. The root package comes first so
     /// its requirements (the ones the inline, skeptic-tested snippets compile against) win over a
     /// standalone crate that pins something else.
+    ///
+    /// The result is cached in `target/mdbook-chips.json` and reused while no `Cargo.toml` or
+    /// `Cargo.lock` in the repo has changed, which saves the several `cargo metadata` calls.
     pub fn load() -> Result<Meta, Box<dyn Error>> {
         let root = project_root();
+        let cache = root.join("target").join("mdbook-chips.json");
+        let key = fingerprint(&root);
+        if let Some(meta) = read_cache(&cache, &key) {
+            return Ok(meta);
+        }
+        let (meta, complete) = Meta::resolve(&root)?;
+        if complete {
+            write_cache(&cache, &key, &meta);
+        }
+        Ok(meta)
+    }
+
+    fn resolve(root: &Path) -> Result<(Meta, bool), Box<dyn Error>> {
+        let mut complete = true;
         // Run one at a time: parallel `cargo metadata` calls fight over cargo's package-cache lock
         // and end up several times slower.
         let mut stray = Vec::new();
-        find_manifests(&root.join("crates"), &mut stray);
+        find_manifests(root, &mut stray);
+        stray.retain(|p| p.starts_with(root.join("crates")) && p.ends_with("Cargo.toml"));
         stray.sort();
         let main = cargo_metadata(&root.join("Cargo.toml"));
         let main = main?;
@@ -63,7 +81,10 @@ impl Meta {
             }
             match cargo_metadata(&path) {
                 Ok(m) => manifests.push(m),
-                Err(e) => eprintln!("warning: skipping {}: {e}", path.display()),
+                Err(e) => {
+                    eprintln!("warning: skipping {}: {e}", path.display());
+                    complete = false;
+                }
             }
         }
 
@@ -101,7 +122,7 @@ impl Meta {
         for (name, meta) in &mut out {
             meta.repo = repos.get(name).cloned();
         }
-        Ok(Meta(out))
+        Ok((Meta(out), complete))
     }
 }
 
@@ -165,6 +186,59 @@ fn cargo_metadata(manifest: &Path) -> Result<Value, String> {
     serde_json::from_slice(&output.stdout).map_err(|e| e.to_string())
 }
 
+/// Size and modification time of every manifest and lockfile; changes whenever one is edited.
+fn fingerprint(root: &Path) -> String {
+    let mut files = Vec::new();
+    find_manifests(root, &mut files);
+    files.sort();
+    let mut key = String::new();
+    for path in files {
+        if let Ok(m) = fs::metadata(&path) {
+            let nanos = m
+                .modified()
+                .ok()
+                .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
+                .map_or(0, |d| d.as_nanos());
+            key.push_str(&format!("{}:{}:{nanos}\n", path.display(), m.len()));
+        }
+    }
+    key
+}
+
+fn read_cache(path: &Path, key: &str) -> Option<Meta> {
+    let cached: Value = serde_json::from_str(&fs::read_to_string(path).ok()?).ok()?;
+    if cached["key"].as_str()? != key {
+        return None;
+    }
+    let crates = cached["crates"].as_object()?;
+    Some(Meta(
+        crates
+            .iter()
+            .map(|(name, v)| {
+                let field = |i: usize| v[i].as_str().map(str::to_string);
+                (
+                    name.clone(),
+                    CrateMeta {
+                        snippet: field(0),
+                        repo: field(1),
+                    },
+                )
+            })
+            .collect(),
+    ))
+}
+
+fn write_cache(path: &Path, key: &str, meta: &Meta) {
+    let crates: serde_json::Map<String, Value> = meta
+        .0
+        .iter()
+        .map(|(name, m)| (name.clone(), serde_json::json!([m.snippet, m.repo])))
+        .collect();
+    let body = serde_json::json!({ "key": key, "crates": crates });
+    // A missing cache only costs time, so ignore write failures.
+    let _ = fs::write(path, body.to_string());
+}
+
 fn find_manifests(dir: &Path, found: &mut Vec<PathBuf>) {
     let Ok(entries) = fs::read_dir(dir) else {
         return;
@@ -172,11 +246,17 @@ fn find_manifests(dir: &Path, found: &mut Vec<PathBuf>) {
     for entry in entries.flatten() {
         let path = entry.path();
         if path.is_dir() {
-            if path.file_name().is_some_and(|n| n == "target") {
-                continue;
+            let skip = path
+                .file_name()
+                .and_then(|n| n.to_str())
+                .is_some_and(|n| matches!(n, "target" | "node_modules" | "book" | ".git"));
+            if !skip {
+                find_manifests(&path, found);
             }
-            find_manifests(&path, found);
-        } else if path.file_name().is_some_and(|n| n == "Cargo.toml") {
+        } else if path
+            .file_name()
+            .is_some_and(|n| n == "Cargo.toml" || n == "Cargo.lock")
+        {
             found.push(path);
         }
     }
