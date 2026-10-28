@@ -124,6 +124,8 @@ Keep lines sorted.
 [ndarray]: https://docs.rs/ndarray
 [no-panic-badge]: https://img.shields.io/crates/v/no-panic.svg?label=no-panic
 [no-panic]: https://docs.rs/no-panic/
+[jiff-badge]: https://img.shields.io/crates/v/jiff.svg?label=jiff
+[jiff]: https://docs.rs/jiff/
 [nom-badge]: https://img.shields.io/crates/v/nom.svg?label=nom
 [nom]: https://docs.rs/nom/
 [notify-badge]: https://img.shields.io/crates/v/notify.svg?label=notify

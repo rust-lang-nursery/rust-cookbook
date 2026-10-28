@@ -12,6 +12,10 @@
 | [Convert date to UNIX timestamp and vice versa][ex-convert-datetime-timestamp] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine the current time with a time zone][ex-jiff-now] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Parse and format a datetime with a time zone][ex-jiff-parse-format] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Perform calendar arithmetic with Span][ex-jiff-span] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Convert a datetime to a UNIX timestamp and vice versa][ex-jiff-timestamp] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-measure-elapsed-time]: datetime/duration.html#measure-the-elapsed-time-between-two-code-sections
 [ex-deadline-arithmetic-std]: datetime/duration.html#deadline-arithmetic-with-instant
@@ -23,5 +27,9 @@
 [ex-convert-datetime-timestamp]: datetime/parse.html#convert-date-to-unix-timestamp-and-vice-versa
 [ex-format-datetime]: datetime/parse.html#display-formatted-date-and-time
 [ex-parse-datetime]: datetime/parse.html#parse-string-into-datetime-struct
+[ex-jiff-now]: datetime/jiff.html#examine-the-current-time-with-a-time-zone
+[ex-jiff-parse-format]: datetime/jiff.html#parse-and-format-a-datetime-with-a-time-zone
+[ex-jiff-span]: datetime/jiff.html#perform-calendar-arithmetic-with-span
+[ex-jiff-timestamp]: datetime/jiff.html#convert-a-datetime-to-a-unix-timestamp-and-vice-versa
 
 {{#include links.md}}
