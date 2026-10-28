@@ -1,4 +1,4 @@
-# Date and Time with jiff
+# Time Zones
 
 [`jiff`] is a newer date and time crate. Its time zone support is built in
 rather than an add-on, and [`Span`] represents calendar durations. These
