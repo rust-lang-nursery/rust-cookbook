@@ -2,9 +2,12 @@
 
 [![jiff-badge]][jiff] [![cat-date-and-time-badge]][cat-date-and-time]
 
-Parses an RFC 9557 string, which includes an IANA time zone name, into a
-[`Zoned`] using [`FromStr`]. Output is formatted with [`Zoned::strftime`], and
-[`strtime::parse`] handles custom patterns. Invalid input returns an `Err`.
+Use `jiff` when the time zone name must survive a round trip through text;
+see [Choosing between chrono, time and jiff]. Parses an RFC 9557 string, which includes an IANA time zone name
+(`[America/New_York]`) as well as the offset, into a [`Zoned`] using
+[`FromStr`]. Output is formatted with [`Zoned::strftime`], which can print the
+zone abbreviation (`EDT`), and [`strtime::parse`] handles custom patterns.
+Invalid input returns an `Err`.
 
 ```rust
 {{#include ../../../crates/datetime/jiff/src/bin/parse_format.rs::22 }}

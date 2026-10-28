@@ -2,10 +2,12 @@
 
 [![time-badge]][time] [![cat-date-and-time-badge]][cat-date-and-time]
 
-Parses an RFC 3339 string with [`OffsetDateTime::parse`] and
-[`Rfc3339`]. Custom patterns are written with the [`format_description!`] macro,
-which is checked at compile time, and used with [`OffsetDateTime::format`] and
-[`Date::parse`]. Invalid input returns an `Err`.
+Use `time` when you want format strings checked at compile time; see
+[Choosing between chrono, time and jiff]. Parses an RFC 3339 string with [`OffsetDateTime::parse`] and [`Rfc3339`].
+Custom patterns are written with the [`format_description!`] macro, so a typo
+in `"[hour repr:12]"` is a build error rather than a runtime one, and used with
+[`OffsetDateTime::format`] and [`Date::parse`]. Invalid input returns an
+`Err`.
 
 ```rust
 {{#include ../../../crates/datetime/time/src/bin/parse_format.rs::22 }}
