@@ -33,7 +33,9 @@ fn main() {
 
     match now.checked_add_signed(Duration::max_value()) {
         Some(x) => println!("{}", x),
-        None => eprintln!("We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."),
+        None => eprintln!(
+            "We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."
+        ),
     }
 }
 ```

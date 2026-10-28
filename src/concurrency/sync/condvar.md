@@ -19,7 +19,7 @@ it proceed straight away. The result is correct either way — only the hand-off
 tidier.
 
 ```rust,edition2024
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use std::sync::{Arc, Condvar, Mutex};
 use std::thread;
 

@@ -8,7 +8,7 @@ URL.  [`PathSegmentsMut::clear`] removes paths and [`Url::set_query`] removes
 query string.
 
 ```rust,edition2024
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use url::Url;
 
 fn main() -> Result<()> {

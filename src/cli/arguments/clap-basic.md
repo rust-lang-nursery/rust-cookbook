@@ -25,7 +25,7 @@ without this.
 ```rust,edition2024
 use std::path::PathBuf;
 
-use clap::{builder::PathBufValueParser, Arg, Command};
+use clap::{Arg, Command, builder::PathBufValueParser};
 
 fn main() {
     let matches = Command::new("My Test Program")

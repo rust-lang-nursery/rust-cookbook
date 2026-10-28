@@ -11,7 +11,7 @@ The barrier is constructed for three threads, so each of the three workers block
 in [`Barrier::wait`] until its peers catch up.
 
 ```rust,edition2024
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use std::sync::{Arc, Barrier};
 use std::thread;
 

@@ -14,7 +14,7 @@ clones) has been dropped. That drop is the channel's natural shutdown signal, so
 the original [`Sender`] is dropped explicitly after the producers are spawned.
 
 ```rust,edition2024
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use std::sync::mpsc;
 use std::thread;
 
@@ -66,7 +66,7 @@ means "nothing queued, carry on"; [`TryRecvError::Disconnected`] means every
 [`Sender`] is gone.
 
 ```rust,edition2024
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use std::sync::mpsc::{self, TryRecvError};
 use std::thread;
 use std::time::Duration;

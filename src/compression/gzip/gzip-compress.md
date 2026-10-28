@@ -10,8 +10,8 @@ then copies the contents of the source file into the encoder with
 `input.txt.gz`.
 
 ```rust,edition2024,no_run
-use flate2::write::GzEncoder;
 use flate2::Compression;
+use flate2::write::GzEncoder;
 use std::fs::File;
 use std::io;
 

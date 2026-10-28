@@ -19,8 +19,8 @@ Reading the contents is what keeps the workers busy with real IO;
 
 ```rust,edition2024
 use anyhow::Result;
-use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use rayon::ThreadPoolBuilder;
+use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use std::fs;
 use std::io;
 use std::path::PathBuf;

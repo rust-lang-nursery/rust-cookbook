@@ -12,7 +12,7 @@ race conditions. A [`MutexGuard`] must be acquired to read or mutate the
 value stored in a [`Mutex`].
 
 ```rust,edition2024
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use std::sync::Mutex;
 
 static FRUIT: Mutex<Vec<String>> = Mutex::new(Vec::new());
