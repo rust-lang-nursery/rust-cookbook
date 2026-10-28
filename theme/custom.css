@@ -196,6 +196,18 @@ a.cat-chip:hover {
   color: #2e9b57;
 }
 
+/* After "Copied", the button shows the Cargo.toml line that was copied. */
+.crate-chip-copy code {
+  max-width: 34ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9em;
+}
+
 /* quick search: crate and topic matches above mdBook's full-text results */
 #cookbook-quicksearch {
   margin: 0.75em auto 1em;
@@ -757,4 +769,17 @@ h2.ri-letter {
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+/* A small 📦 after every link that goes to crates.io (category pills and links in the text). */
+.content a[href^="https://crates.io"]::after,
+.content a[href^="http://crates.io"]::after {
+  content: "📦";
+  content: "📦" / "";
+  margin-left: calc(0.3em + 6px);
+  position: relative;
+  top: 2px;
+  font-size: 0.8em;
+  text-decoration: none;
+  display: inline-block;
 }

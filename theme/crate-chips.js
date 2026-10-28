@@ -63,15 +63,24 @@
     var chip = button.closest(".crate-chip");
     var text = button.getAttribute("data-copy");
     copyText(text).then(function () {
+      var timer = timers.get(button);
+      if (timer) timer.forEach(clearTimeout);
+      // "Copied" first, then the line that went to the clipboard.
       chip.classList.add("copied");
       button.innerHTML = CHECK_ICON + "<span>Copied</span>";
       button.setAttribute("aria-label", "Copied " + text);
-      clearTimeout(timers.get(button));
-      timers.set(button, setTimeout(function () {
+      var showValue = setTimeout(function () {
+        var code = document.createElement("code");
+        code.textContent = text;
+        button.innerHTML = CHECK_ICON;
+        button.appendChild(code);
+      }, 900);
+      var reset = setTimeout(function () {
         chip.classList.remove("copied");
         button.innerHTML = COPY_ICON;
         button.setAttribute("aria-label", "Copy " + text);
-      }, 1500));
+      }, 3500);
+      timers.set(button, [showValue, reset]);
     }, function () {});
   });
 
