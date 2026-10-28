@@ -136,7 +136,7 @@ the repository for how to add a recipe and run the tests.
 
 You are reading a copy of the book built with mdBook {{mdbook-version}}.
 Build it with that version, which the repository records in
-[`.mdbook-version`][mdbook-version-file], to get the same result.
+`.mdbook-version`, to get the same result.
 
 {{#include links.md}}
 
@@ -152,4 +152,3 @@ Build it with that version, which the repository records in
 [`std::error::Trait`]: https://doc.rust-lang.org/std/error/trait.Error.html
 [`thiserror`]: https://docs.rs/thiserror/latest/thiserror/
 [contributing]: https://github.com/rust-lang-nursery/rust-cookbook/blob/master/CONTRIBUTING.md
-[mdbook-version-file]: https://github.com/rust-lang-nursery/rust-cookbook/blob/master/.mdbook-version
