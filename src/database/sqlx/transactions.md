@@ -1,6 +1,6 @@
 ## Transactions with SQLx
 
-[![sqlx-badge]][sqlx] [![cat-database-badge]][cat-database]
+[![sqlx-badge]][sqlx] [![tokio-badge]][tokio] [![cat-database-badge]][cat-database]
 
 Use [`PgPoolOptions::connect`] to open a connection pool for an existing
 `locations` Postgres database. Start a transaction with [`Pool::begin`], run

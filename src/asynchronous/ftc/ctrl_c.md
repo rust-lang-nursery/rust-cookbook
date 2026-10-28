@@ -1,6 +1,6 @@
 ## Ctrl-C
 
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 Sometimes you want to run a task, but also be ready to stop everything if the user presses Ctrl-C.
 [`tokio::select!`] lets you do exactly that. It runs multiple things at the same time and stops

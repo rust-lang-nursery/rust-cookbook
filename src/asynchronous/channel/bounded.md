@@ -1,6 +1,6 @@
 ## Bounded Channels
 
-[![tokio-badge]][tokio] [![std-badge]][std]
+[![tokio-badge]][tokio]
 
 A [`bounded channel`] has a limit on how many messages it can hold at once. If the channel is full,
 the sender has to wait until there is room before it can send another message.

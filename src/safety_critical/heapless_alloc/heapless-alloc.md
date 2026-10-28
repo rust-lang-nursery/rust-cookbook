@@ -1,6 +1,6 @@
 ## Deterministic Memory with Heapless Collections
 
-[![heapless-badge]][heapless] [![cat-no-std-badge]][cat-no-std] [![cat-data-structures-badge]][cat-data-structures]
+[![heapless-badge]][heapless] [![thiserror-badge]][thiserror] [![cat-no-std-badge]][cat-no-std] [![cat-data-structures-badge]][cat-data-structures]
 
 Safety-critical and real-time systems often **forbid the heap** entirely.  The
 global allocator is non-deterministic—allocation time varies, and long-running

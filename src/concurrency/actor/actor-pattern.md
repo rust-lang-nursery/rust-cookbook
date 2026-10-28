@@ -1,6 +1,6 @@
 ## Actor Pattern with Tokio (Handle/Actor/Message)
 
-[![tokio-badge]][tokio] [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns]
+[![tokio-badge]][tokio] [![thiserror-badge]][thiserror] [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
 A common pattern for managing shared mutable state without `Arc<Mutex<T>>` is the
 actor pattern, popularized by [Alice Ryhl]. An **actor** is a struct that owns its

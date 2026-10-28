@@ -1,6 +1,6 @@
 ## Merge multiple providers with figment
 
-[![figment-badge]][figment] [![cat-config-badge]][cat-config]
+[![figment-badge]][figment] [![serde-badge]][serde] [![cat-config-badge]][cat-config]
 
 [`figment`][figment] assembles configuration from independent *providers*. A
 provider can be a TOML, JSON, or YAML file, or a set of environment variables.

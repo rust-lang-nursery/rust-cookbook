@@ -1,5 +1,5 @@
 ## Create, query, and update rows with SeaORM
-[![sea_orm-badge]][sea_orm] [![cat-database-badge]][cat-database]
+[![sea_orm-badge]][sea_orm] [![tokio-badge]][tokio] [![cat-database-badge]][cat-database]
 
 Use [`Database::connect`] to open an in-memory SQLite database and
 [`Schema::create_table_from_entity`] to create a table from a SeaORM entity.

@@ -1,6 +1,6 @@
 # Timeouts
 
-[![tokio-badge]][tokio] [![std-badge]][std]
+[![tokio-badge]][tokio]
 
 Sometimes a task takes too long and you don't want to wait forever. A [`timeout`] puts a time limit
 on a task. If it finishes in time you get the result, if it doesn't, it is cancelled and you get

@@ -116,7 +116,7 @@ cargo run --manifest-path crates/web_leptos/Cargo.toml
 
 ## Synchronize component state with the server
 
-[![leptos-badge]][leptos] [![leptos-axum-badge]][leptos-axum] [![axum-badge]][axum] [![tokio-badge]][tokio] [![wasm-bindgen-badge]][wasm-bindgen] [![cat-net-badge]][cat-net]
+[![leptos-badge]][leptos] [![leptos-axum-badge]][leptos-axum] [![axum-badge]][axum] [![tokio-badge]][tokio] [![wasm-bindgen-badge]][wasm-bindgen] [![tower-http-badge]][tower-http] [![console-error-panic-hook-badge]][console-error-panic-hook] [![cat-net-badge]][cat-net]
 
 Same `data/crates.txt` as the first recipe, but the user types in a text
 box and results update as they type — no page reload. The file stays on

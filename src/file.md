@@ -2,31 +2,31 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Read a whole file into a string][ex-read-to-string] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Write a string to a file][ex-write-string] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Read a whole file into a string][ex-read-to-string] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Write a string to a file][ex-write-string] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read lines of strings from a file][ex-std-read-lines] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Rename or atomically replace a file][ex-rename] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Rename or atomically replace a file][ex-rename] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Create a temporary file][ex-tempfile] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Atomically replace a file with a temporary file][ex-atomic-write] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Avoid writing and reading from a same file][ex-avoid-read-write] | [![same_file-badge]][same_file] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Access a file randomly using a memory map][ex-random-file-access] | [![memmap2-badge]][memmap2] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Read a file line by line with BufReader][ex-buf-reader] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Write to a file with BufWriter][ex-buf-writer] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Read a file line by line with BufReader][ex-buf-reader] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Write to a file with BufWriter][ex-buf-writer] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Read a line from stdin][ex-stdin-readline] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Use Cursor as an in-memory buffer][ex-cursor] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Format text into a String with write!][ex-write-fmt] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Construct and inspect a path][ex-path-inspect] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Create a nested directory tree][ex-create-dir-all] | [![std-badge]][std] [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
-| [File names that have been modified in the last 24 hours][ex-file-24-hours-modified] | [![std-badge]][std] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
-| [Find loops for a given path][ex-find-file-loops] | [![same_file-badge]][same_file] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Create a nested directory tree][ex-create-dir-all] | [![tempfile-badge]][tempfile] | [![cat-filesystem-badge]][cat-filesystem] |
+| [File names that have been modified in the last 24 hours][ex-file-24-hours-modified] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os] |
+| [Find loops for a given path][ex-find-file-loops] | [![same_file-badge]][same_file] [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find duplicate file names][ex-dedup-filenames] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively find all files with given predicate][ex-file-predicate] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Traverse directories while skipping dotfiles][ex-file-skip-dot] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Recursively calculate file sizes at given depth][ex-file-sizes] | [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find all png files recursively][ex-glob-recursive] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Find all files with given pattern ignoring filename case][ex-glob-with] | [![glob-badge]][glob] [![walkdir-badge]][walkdir] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Watch a directory for changes][ex-notify-watch] | [![notify-badge]][notify] | [![cat-filesystem-badge]][cat-filesystem] |
-| [Debounce a burst of file events][ex-notify-debounce] | [![notify-debouncer-full-badge]][notify-debouncer-full] | [![cat-filesystem-badge]][cat-filesystem] |
+| [Debounce a burst of file events][ex-notify-debounce] | [![notify-debouncer-full-badge]][notify-debouncer-full] [![notify-badge]][notify] | [![cat-filesystem-badge]][cat-filesystem] |
 | [Find a binary on the PATH][ex-which] | [![which-badge]][which] | [![cat-filesystem-badge]][cat-filesystem] |
 
 [ex-atomic-write]: file/read-write.html#atomically-replace-a-file-with-a-temporary-file

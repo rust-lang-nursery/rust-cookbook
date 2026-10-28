@@ -1,6 +1,6 @@
 ## Debounce a burst of file events
 
-[![notify-debouncer-full-badge]][notify-debouncer-full] [![cat-filesystem-badge]][cat-filesystem]
+[![notify-debouncer-full-badge]][notify-debouncer-full] [![notify-badge]][notify] [![cat-filesystem-badge]][cat-filesystem]
 
 A single logical change often surfaces as several raw events. Editors save by
 writing a temporary file and renaming it. Some backends emit separate create,

@@ -18,6 +18,8 @@
 | [Measures of central tendency][ex-central-tendency]                            | [![std-badge]][std]           | [![cat-science-badge]][cat-science] |
 | [Computing standard deviation][ex-standard-deviation]                          | [![std-badge]][std]           | [![cat-science-badge]][cat-science] |
 | [Big integers][big-integers]                                                   | [![num-badge]][num]           | [![cat-science-badge]][cat-science] |
+| [(De)-Serialize a Matrix][ex-de-serialize-a-matrix] | [![nalgebra-badge]][nalgebra] [![serde-json-badge]][serde-json] | [![cat-science-badge]][cat-science] |
+| [Vector comparison][ex-vector-comparison] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 
 [vector-norm]: science/mathematics/linear_algebra.html#vector-norm
 [add-matrices]: science/mathematics/linear_algebra.html#adding-matrices
@@ -32,6 +34,8 @@
 [mathematical-functions]: science/mathematics/complex_numbers.html#mathematical-functions
 [ex-central-tendency]: science/mathematics/statistics.html#measures-of-central-tendency
 [ex-standard-deviation]: science/mathematics/statistics.html#standard-deviation
+[ex-de-serialize-a-matrix]: science/mathematics/linear_algebra.html#de-serialize-a-matrix
+[ex-vector-comparison]: science/mathematics/linear_algebra.html#vector-comparison
 [big-integers]: science/mathematics/miscellaneous.html#big-integers
 
 {{#include links.md}}

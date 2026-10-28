@@ -1,6 +1,6 @@
 ## Draw fractal dispatching work to a thread pool
 
-[![rayon-badge]][rayon] [![num-badge]][num] [![std-badge]][std] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
+[![rayon-badge]][rayon] [![num-badge]][num] [![image-badge]][image] [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering]
 
 This recipe generates an image by drawing a fractal from the [Julia set]
 with rayon's thread pool for distributed computation.
