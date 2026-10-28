@@ -9,8 +9,8 @@
   algorithms `ring` lacks such as Argon2, or a build without C.
 - Both are pre-1.0, so their APIs may still change.
 
-The RustCrypto versions of the recipes below are on the
-[RustCrypto](rustcrypto.html) page.
+The RustCrypto versions of the recipes follow the `ring` ones. For patterns that
+use the shared traits, see [Extensible RustCrypto](extensible.html).
 
 [`argon2`]: https://docs.rs/argon2/
 [`digest`]: https://docs.rs/digest/
