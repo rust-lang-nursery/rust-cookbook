@@ -21,6 +21,7 @@ For convenience, a Makefile provides easy commands:
 
 ```bash
 make help      # Show all available commands
+make a11y      # Accessibility checks (axe) over the built book in every theme
 make build     # Build the book locally
 make test      # Run all tests
 make dev       # Build and test (development workflow)
