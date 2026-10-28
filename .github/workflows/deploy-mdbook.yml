@@ -14,18 +14,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # The version is in .mdbook-version; set the MDBOOK_VERSION repository variable to override.
+      - name: Read the mdBook version
+        id: mdbook-version
+        env:
+          OVERRIDE: ${{ vars.MDBOOK_VERSION }}
+        run: echo "version=${OVERRIDE:-$(cat .mdbook-version)}" >> "$GITHUB_OUTPUT"
+
       - name: Set up cache for mdbook
         id: cache-mdbook
         uses: actions/cache@v3
         with:
           path: |
             ~/.cargo/bin/mdbook
-          key: mdbook-v0.5.3
+          key: mdbook-v${{ steps.mdbook-version.outputs.version }}
 
       - name: Install mdBook (if not cached)
         if: steps.cache-mdbook.outputs.cache-hit != 'true'
+        env:
+          MDBOOK_VERSION: ${{ steps.mdbook-version.outputs.version }}
         run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.5.3/mdbook-v0.5.3-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C ~/.cargo/bin
+          curl -sSL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar -xz -C ~/.cargo/bin
           chmod +x ~/.cargo/bin/mdbook
 
       - name: Build mdBook

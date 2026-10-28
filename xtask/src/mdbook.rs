@@ -30,7 +30,12 @@ fn execute_mdbook_command(command: &str, additional_args: &[&str]) -> Result<(),
 }
 
 fn check_mdbook_version() -> Result<(), Box<dyn Error>> {
-    let required_version = "0.5.3";
+    // The version is kept in .mdbook-version at the repo root; MDBOOK_VERSION overrides it.
+    let from_env = std::env::var("MDBOOK_VERSION").ok();
+    let required_version = from_env
+        .as_deref()
+        .unwrap_or(include_str!("../../.mdbook-version"))
+        .trim();
 
     let output = Command::new("mdbook").arg("--version").output()?;
 
