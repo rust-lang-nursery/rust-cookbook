@@ -8,3 +8,4 @@ lines.txt
 .skeptic-cache
 .lycheecache
 .deploy.sh
+src/cookbook-index.js
