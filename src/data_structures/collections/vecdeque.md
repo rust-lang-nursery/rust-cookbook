@@ -4,7 +4,7 @@
 
 Maintains a fixed-size window over a stream of values using [`VecDeque`]. [`push_back`] appends new values and [`pop_front`] discards the oldest, keeping memory bounded regardless of input length. [`with_capacity`] is optional — `VecDeque::new()` works fine — but pre-allocating the window size avoids reallocations as the buffer fills up for the first time. [`zip`] pairs each original reading with its computed average for display.
 
-```rust,edition2021
+```rust,edition2024
 use std::collections::VecDeque;
 
 fn sliding_average(values: &[f64], window: usize) -> Vec<f64> {

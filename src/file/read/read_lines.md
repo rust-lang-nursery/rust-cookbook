@@ -1,4 +1,4 @@
-```rust,edition2021
+```rust,edition2024
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, Write};
 use tempfile::NamedTempFile;

@@ -6,7 +6,7 @@ Use [`same_file::Handle`] to a file that can be tested for equality with
 other handles. In this recipe, the handles of file to be read from and
 to be written to are tested for equality.
 
-```rust,edition2021
+```rust,edition2024
 use same_file::Handle;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Error, ErrorKind, Write};

@@ -9,7 +9,7 @@ take a minute or more. [`TcpStream::connect_timeout`] caps the wait.
 The timeout variant takes a [`SocketAddr`], not a string, so resolve the
 hostname first.
 
-```rust,edition2021,no_run
+```rust,edition2024,no_run
 use std::io;
 use std::net::{TcpStream, ToSocketAddrs};
 use std::time::Duration;

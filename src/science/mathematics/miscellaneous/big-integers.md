@@ -4,7 +4,7 @@
 
 Calculation for integers exceeding 128 bits are possible with [`BigInt`].
 
-```rust,edition2018
+```rust,edition2024
 use num::bigint::{BigInt, ToBigInt};
 
 fn factorial(x: i32) -> BigInt {

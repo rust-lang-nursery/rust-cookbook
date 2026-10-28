@@ -13,7 +13,7 @@ If the receiver is slow, messages simply queue up and wait.
 In this recipe, two people send messages through a channel. An inbox collects whatever comes 
 through.
 
-```rust,edition2018
+```rust,edition2024
 use std::io;
 use tokio::sync::mpsc::unbounded_channel;
 

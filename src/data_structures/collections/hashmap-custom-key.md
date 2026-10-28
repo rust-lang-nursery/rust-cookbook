@@ -6,7 +6,7 @@ A type can be a [`HashMap`] key or [`HashSet`] member when it implements [`Eq`] 
 
 A manual [`Hash`] implementation is needed when equality is custom. The [`Hash`] trait works with a generic [`Hasher`] abstraction that supplies a mutable `state` object you write hashed data into. `Email` treats addresses as equal regardless of letter case, so its [`Hash`] must also ignore case: it feeds the lowercased bytes to the hasher. The rule is that `a == b` must imply `hash(a) == hash(b)`; if the two disagree, equal keys can land in different buckets and lookups silently miss. The assertions at the end check this property.
 
-```rust,edition2021
+```rust,edition2024
 use std::collections::hash_map::DefaultHasher;
 use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};

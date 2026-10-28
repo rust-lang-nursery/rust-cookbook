@@ -6,7 +6,7 @@ main function and it handles everything for you, starting the runtime, running y
 shutting it down when done. It also lets `main` be non-blocking, so you can use `.await` directly
 inside it.
 
-```rust,edition2018
+```rust,edition2024
 async fn fetch_network_request() -> u32 {
     89
 }

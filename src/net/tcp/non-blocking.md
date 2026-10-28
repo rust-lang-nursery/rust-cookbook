@@ -12,7 +12,7 @@ This readiness pattern is the primitive every async runtime uses underneath.
 For production code, reach for [`mio`] or an async runtime — what follows is
 the manual version of what they automate.
 
-```rust,edition2021
+```rust,edition2024
 use std::io::{self, ErrorKind};
 use std::net::{TcpListener, TcpStream};
 use std::thread;

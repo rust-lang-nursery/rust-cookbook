@@ -4,7 +4,7 @@
 
 Uses [`BinaryHeap`] as a max-priority queue: [`push`] inserts an item and [`pop`] always removes the highest-priority one first. Wrapping items in [`Reverse`] turns it into a min-priority queue without a custom comparator.
 
-```rust,edition2021
+```rust,edition2024
 use std::cmp::Reverse;
 use std::collections::BinaryHeap;
 

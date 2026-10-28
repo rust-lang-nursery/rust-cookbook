@@ -126,6 +126,8 @@ Keep lines sorted.
 [ndarray]: https://docs.rs/ndarray
 [no-panic-badge]: https://img.shields.io/crates/v/no-panic.svg?label=no-panic
 [no-panic]: https://docs.rs/no-panic/
+[jiff-badge]: https://img.shields.io/crates/v/jiff.svg?label=jiff
+[jiff]: https://docs.rs/jiff/
 [nom-badge]: https://img.shields.io/crates/v/nom.svg?label=nom
 [nom]: https://docs.rs/nom/
 [notify-badge]: https://img.shields.io/crates/v/notify.svg?label=notify
@@ -189,6 +191,8 @@ Keep lines sorted.
 [thiserror]: https://docs.rs/thiserror/
 [tokio-badge]: https://img.shields.io/crates/v/tokio.svg?label=tokio
 [tokio]: https://docs.rs/tokio/
+[time-badge]: https://img.shields.io/crates/v/time.svg?label=time
+[time]: https://docs.rs/time/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
 [tower-http-badge]: https://img.shields.io/crates/v/tower-http.svg?label=tower-http

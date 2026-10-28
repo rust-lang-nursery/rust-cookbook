@@ -10,7 +10,7 @@ letter. The complete [twitter hashtag regex] is much more complicated.
 The [`Regex`] is compiled only once, on first use, by declaring it as a
 `static` [`LazyLock`].
 
-```rust,edition2021
+```rust,edition2024
 use regex::Regex;
 use std::collections::HashSet;
 use std::sync::LazyLock;

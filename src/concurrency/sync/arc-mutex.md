@@ -17,8 +17,8 @@ guarantee. A poisoned lock (a thread panicked while holding it) surfaces as an
 error rather than a panic. When the shared state grows into its own long-lived
 component, the [Actor Pattern] is the usual scale-up path.
 
-```rust,edition2021
-use anyhow::{anyhow, Result};
+```rust,edition2024
+use anyhow::{Result, anyhow};
 use std::sync::{Arc, Mutex};
 use std::thread;
 

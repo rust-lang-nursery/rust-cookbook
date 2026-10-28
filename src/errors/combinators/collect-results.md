@@ -14,7 +14,7 @@ below show the interchangeable ways to tell it: a turbofish on `collect`
 (`let result: Result<Vec<i32>, _>`). Pick whichever reads better at the call
 site; the result is identical.
 
-```rust,edition2021
+```rust,edition2024
 fn main() -> Result<(), std::num::ParseIntError> {
     let raw = ["1", "2", "3"];
 

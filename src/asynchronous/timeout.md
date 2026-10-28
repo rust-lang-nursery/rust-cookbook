@@ -9,7 +9,7 @@ an error back.
 In this recipe, a network request is given 5 milliseconds to complete. If it finishes in time, 
 the result is printed. If it runs over, the program reports a timeout.
 
-```rust,edition2018
+```rust,edition2024
 use std::time::Duration;
 use tokio::time::timeout;
 

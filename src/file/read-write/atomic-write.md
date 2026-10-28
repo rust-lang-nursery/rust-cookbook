@@ -14,7 +14,7 @@ A reader of the target path sees either the old contents or the complete new
 ones. It never sees a half-written file. If the process dies before `persist`,
 only the temporary file is left behind. The original is untouched.
 
-```rust,edition2021
+```rust,edition2024
 use std::fs;
 use std::io::Write;
 use tempfile::NamedTempFile;

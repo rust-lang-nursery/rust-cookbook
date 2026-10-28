@@ -5,7 +5,7 @@
 Calculates a one second [`Duration`]. Computes `deadline` one second from [`Instant::now`].
 Sleeps for one second and compares `deadline` with [`Instant::now`] to check if the deadline has passed.
 
-```rust,edition2021
+```rust,edition2024
 # use std::thread;
 use std::time::{Duration, Instant};
 # fn sleep(duration: Duration) {

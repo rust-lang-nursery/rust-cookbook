@@ -6,7 +6,7 @@ This recipe updates one shared task and reads the result through each dependent 
 
 This pattern is useful when several parts of a single-threaded program need access to the same owned value, but mutations have borrows checked through `RefCell`.
 
-```rust,edition2021
+```rust,edition2024
 use std::cell::{BorrowMutError, RefCell};
 use std::rc::Rc;
 

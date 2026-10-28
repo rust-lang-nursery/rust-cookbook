@@ -6,8 +6,8 @@ The following recipe shows how to parse a [`MIME`] type from a string using the
 [mime] crate. [`FromStrError`] produces a default [`MIME`] type in an
 `unwrap_or` clause.
 
-```rust,edition2018
-use mime::{Mime, APPLICATION_OCTET_STREAM};
+```rust,edition2024
+use mime::{APPLICATION_OCTET_STREAM, Mime};
 
 fn main() {
     let invalid_mime_type = "i n v a l i d";

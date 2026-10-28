@@ -5,7 +5,7 @@
 As recommended in Rust by Example, [`Box`ing errors] is seen as an easy
 strategy for getting started.
 
-```rust,edition2018
+```rust,edition2024
 use std::error::Error;
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -31,7 +31,7 @@ The below recipe will tell how long the system has been running by
 opening the Unix file `/proc/uptime` and parse the content to get the
 first number. Returns uptime unless there is an error.
 
-```rust,edition2021
+```rust,edition2024
 use std::fs::File;
 use std::io::Read;
 use thiserror::Error;
@@ -62,7 +62,7 @@ fn main() {
 Application authors can compose enums using `anyhow` can import the `Result`
 type from the crate to provide auto-`Box`ing behavior
 
-```rust,edition2018,should_panic
+```rust,edition2024,should_panic
 use anyhow::Result;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {

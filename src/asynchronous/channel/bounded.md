@@ -11,7 +11,7 @@ the postman has to wait until someone clears it out before dropping in another l
 In this recipe, two book stores send books through a channel with a capacity of 5. 
 A shelf collects whatever comes through.
 
-```rust,edition2018
+```rust,edition2024
 use std::io;
 use tokio::sync::mpsc::channel;
 

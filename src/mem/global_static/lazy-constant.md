@@ -7,7 +7,7 @@ be evaluated once, on first access, by a `static` [`LazyLock`]. Before
 `LazyLock` was stabilized in Rust 1.80, the `lazy_static` crate was used for
 this purpose.
 
-```rust,edition2021
+```rust,edition2024
 use std::collections::HashMap;
 use std::sync::LazyLock;
 
@@ -38,7 +38,7 @@ fn main() {
 
 [`OnceCell`] is included in the standard library as an alternative.
 
-```rust,edition2021
+```rust,edition2024
 use std::cell::OnceCell;
 
 fn main() {
@@ -63,7 +63,7 @@ It is useful for expensive computations that might not be needed during the enti
 In this recipe, we use [`LazyCell`] to lazily compute a set of permissions based on a user ID.
 Unlike `static` lazy types, [`LazyCell`] can capture local variables from its surrounding scope.
 
-```rust,edition2021
+```rust,edition2024
 use std::cell::LazyCell;
 
 fn main() {

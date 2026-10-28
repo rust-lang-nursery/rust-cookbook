@@ -11,7 +11,7 @@ code while the handle keeps it alive.
 The handle implements [`Read`], [`Write`] and [`Seek`] just like any other
 [`File`]. Seeking back to the start reads back what was just written.
 
-```rust,edition2021
+```rust,edition2024
 use std::io::{Read, Seek, SeekFrom, Write};
 use tempfile::NamedTempFile;
 

@@ -10,7 +10,7 @@ classifies an uploaded file by extension: [`Option::and_then`] chains
 rejects anything that is not a supported image. `None` falls straight through
 the chain, so no intermediate value needs to be unwrapped.
 
-```rust,edition2021
+```rust,edition2024
 use std::path::Path;
 
 /// Return the lowercase extension of `filename`, but only when it names an

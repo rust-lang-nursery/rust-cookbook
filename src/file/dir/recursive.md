@@ -1,4 +1,4 @@
-```rust,edition2021
+```rust,edition2024
 use walkdir::WalkDir;
 
 fn main() {

@@ -5,7 +5,7 @@
 The [`Url`] struct exposes various methods to extract information about the URL
 it represents.
 
-```rust,edition2021
+```rust,edition2024
 use url::{Host, ParseError, Url};
 
 fn main() -> Result<(), ParseError> {
@@ -24,7 +24,7 @@ fn main() -> Result<(), ParseError> {
 
 [`origin`] produces the same result.
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::Result;
 use url::{Host, Origin, Url};
 

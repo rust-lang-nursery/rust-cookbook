@@ -14,7 +14,7 @@ mid-write. The staging file and the final path must live on the same
 filesystem; across devices the kernel has no atomic move, and `rename` fails
 instead of silently degrading to a copy.
 
-```rust,edition2021
+```rust,edition2024
 use std::fs;
 use std::io;
 use tempfile::tempdir;

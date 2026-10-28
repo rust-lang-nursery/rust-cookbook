@@ -8,7 +8,7 @@ in the current working directory.
 Wraps a [`File`] in a [`BzDecoder`] and copies the decompressed bytes into the
 destination file with [`io::copy`].
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 {{#include ../../../crates/compression/bzip2/src/bin/decompress.rs::11 }}
 ```
 

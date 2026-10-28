@@ -9,7 +9,7 @@ operations so your program does not have to stop and wait while the work is done
 [`create_dir`] creates a single directory. If it already exists, it fails.
 [`create_dir_all`] creates a directory and any missing parent directories along the path.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use std::io;
 use tokio::fs::File;
 

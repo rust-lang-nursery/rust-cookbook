@@ -1,0 +1,10 @@
+[package]
+name = "jiff-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+jiff = "0.2"

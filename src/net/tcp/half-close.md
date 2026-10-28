@@ -11,7 +11,7 @@ After the half-close the peer sees EOF on its read, can do its work, and
 writes a response that you read normally. [`read_to_end`] keeps reading until
 the peer closes its own write half.
 
-```rust,edition2021,no_run
+```rust,edition2024,no_run
 use std::io::{self, Read, Write};
 use std::net::{Shutdown, TcpStream};
 

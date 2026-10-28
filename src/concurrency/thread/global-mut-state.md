@@ -11,8 +11,8 @@ the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A [`MutexGuard`] must be acquired to read or mutate the
 value stored in a [`Mutex`].
 
-```rust,edition2021
-use anyhow::{anyhow, Result};
+```rust,edition2024
+use anyhow::{Result, anyhow};
 use std::sync::Mutex;
 
 static FRUIT: Mutex<Vec<String>> = Mutex::new(Vec::new());

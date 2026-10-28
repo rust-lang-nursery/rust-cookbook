@@ -10,8 +10,8 @@ finishes phase 1 before any thread begins phase 2.
 The barrier is constructed for three threads, so each of the three workers blocks
 in [`Barrier::wait`] until its peers catch up.
 
-```rust,edition2021
-use anyhow::{anyhow, Result};
+```rust,edition2024
+use anyhow::{Result, anyhow};
 use std::sync::{Arc, Barrier};
 use std::thread;
 

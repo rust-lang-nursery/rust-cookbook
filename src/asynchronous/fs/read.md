@@ -9,7 +9,7 @@ program can keep doing other work while waiting for the data to come back.
 - [`read_to_string`] loads the file into plain text. Useful when you know the file contains readable
 characters.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use std::io;
 
 fn process_data(data: &[u8]) {

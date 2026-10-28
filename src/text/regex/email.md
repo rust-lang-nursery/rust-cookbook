@@ -6,7 +6,7 @@ Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol. The [`Regex`] is compiled only once, on first use, by
 declaring it as a `static` [`LazyLock`].
 
-```rust,edition2021
+```rust,edition2024
 use regex::Regex;
 use std::sync::LazyLock;
 

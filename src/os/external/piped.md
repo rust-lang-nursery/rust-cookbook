@@ -9,7 +9,7 @@ sort -hr | head -n 10`.
 [`Command`]s represent a process. Output of a child process is captured with a
 [`Stdio::piped`] between parent and child.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use anyhow::Result;
 use std::process::{Command, Stdio};
 
