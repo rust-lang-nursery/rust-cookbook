@@ -20,12 +20,59 @@
   input.setAttribute("aria-label", "Search the cookbook");
   toggle.title = "Search (" + shortcuts + ")";
 
+  // The overlay is a modal dialog: announce it as one, keep Tab inside it and hand focus back
+  // to wherever it came from when it closes.
+  wrapper.setAttribute("role", "dialog");
+  wrapper.setAttribute("aria-modal", "true");
+  wrapper.setAttribute("aria-label", "Search");
+
   function isOpen() {
     return !wrapper.classList.contains("hidden");
   }
 
+  var returnTo = null;
+  document.addEventListener("focusin", function (e) {
+    if (!wrapper.contains(e.target)) returnTo = e.target;
+  });
+  var wasOpen = isOpen();
+  new MutationObserver(function () {
+    var open = isOpen();
+    if (wasOpen && !open && returnTo && document.contains(returnTo)) returnTo.focus();
+    wasOpen = open;
+  }).observe(wrapper, { attributes: true, attributeFilter: ["class"] });
+
+  function focusable() {
+    return Array.prototype.filter.call(
+      wrapper.querySelectorAll("a[href], button, input, [tabindex]:not([tabindex='-1'])"),
+      function (n) { return !n.disabled && n.getClientRects().length > 0; }
+    );
+  }
+
+  function editable(node) {
+    return node && (node.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(node.tagName));
+  }
+
   document.addEventListener("keydown", function (e) {
+    if (e.key === "Tab" && isOpen()) {
+      var nodes = focusable();
+      if (!nodes.length) return;
+      var first = nodes[0];
+      var last = nodes[nodes.length - 1];
+      if (!wrapper.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+      return;
+    }
     if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === "k") {
+      // Leave the shortcut alone while typing in another field or if the page already handled it.
+      if (e.defaultPrevented || (editable(e.target) && e.target !== input)) return;
       e.preventDefault();
       if (isOpen()) {
         input.focus();
@@ -36,8 +83,8 @@
     }
   });
 
-  // Click on the backdrop closes the overlay, like Esc does.
-  wrapper.addEventListener("mousedown", function (e) {
+  // Click or tap on the backdrop closes the overlay, like Esc does.
+  wrapper.addEventListener("click", function (e) {
     if (e.target === wrapper && isOpen()) toggle.click();
   });
 

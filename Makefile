@@ -1,4 +1,4 @@
-.PHONY: help build index a11y serve test lint fmt fmt-check deploy deploy-skip-tests dev clean install-mdbook
+.PHONY: help build a11y serve test lint fmt fmt-check deploy deploy-skip-tests dev clean install-mdbook
 
 help: ## Show this help message
 	@echo "Rust Cookbook - Available commands:"
@@ -6,12 +6,9 @@ help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 install-mdbook: ## Install mdbook with the correct version
-	cargo install mdbook --vers "0.5.3"
+	cargo install mdbook --version "=0.5.3" --locked
 
-index: ## Regenerate the search index (theme/search-index.js) from src/*.md
-	cargo xtask search-index
-
-build: install-mdbook index ## Build the book locally
+build: install-mdbook ## Build the book locally
 	mdbook build
 	cp -r assets/ book/
 	@echo "Build complete! Open book/index.html in your browser."

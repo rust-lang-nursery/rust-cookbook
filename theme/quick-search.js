@@ -1,11 +1,11 @@
 // Enhances the book's search box with crate and topic matches from
-// window.COOKBOOK_INDEX (see `cargo xtask search-index`), from the first
-// character typed. mdBook's own full-text results are left untouched below it.
+// window.COOKBOOK_INDEX (written by `mdbook-chips`, loaded when the search box is first
+// used), from the first character typed. mdBook's own full-text results are left untouched below it.
 (function () {
-  var index = window.COOKBOOK_INDEX;
+  var index = null;
   var input = document.getElementById("mdbook-searchbar");
   var anchor = document.getElementById("mdbook-searchresults-outer");
-  if (!index || !input || !anchor) return;
+  if (!input || !anchor || !window.CookbookIndex) return;
 
   var chips = window.CookbookChips;
   if (!chips) return;
@@ -20,6 +20,11 @@
   panel.setAttribute("aria-label", "Crate and topic matches");
   panel.hidden = true;
   anchor.parentNode.insertBefore(panel, anchor);
+
+  // Announces what the panel now holds; the panel itself is rebuilt on every keystroke.
+  var status = el("div", "sr-only");
+  status.setAttribute("role", "status");
+  panel.parentNode.insertBefore(status, panel);
 
   var crateRecipes = null;
   function recipesByCrate() {
@@ -130,6 +135,14 @@
       function (g) { if (g) panel.appendChild(g); }
     );
     panel.hidden = !panel.firstChild;
+    var parts = [
+      [crates.length, "crate"],
+      [topics.length, "topic"],
+      [recipes.length, "other recipe"],
+    ]
+      .filter(function (p) { return p[0]; })
+      .map(function (p) { return p[0] + " " + p[1] + (p[0] === 1 ? "" : "s"); });
+    status.textContent = parts.length ? parts.join(", ") + " found" : "";
   }
 
   // 3 = exact, 2 = starts with the query, 1 = contains it (for one or two
@@ -180,11 +193,23 @@
     var q = input.value.trim().toLowerCase();
     if (!q) {
       panel.hidden = true;
+      status.textContent = "";
+      return;
+    }
+    if (!index) {
+      window.CookbookIndex.load().then(function (loaded) {
+        index = loaded;
+        onInput();
+      }, function () {});
       return;
     }
     render(search(q));
   }
 
+  // Start fetching the index as soon as the box is focused.
+  input.addEventListener("focus", function () {
+    window.CookbookIndex.load().catch(function () {});
+  });
   input.addEventListener("input", onInput);
   if (input.value) onInput();
 })();

@@ -2,8 +2,7 @@
 // (src/recipe-index.md) and the recipe counts on the home page topic grid, all
 // from window.COOKBOOK_INDEX.
 (function () {
-  var index = window.COOKBOOK_INDEX;
-  if (!index) return;
+  var index;
   var SHOWN = 5;
   var root = typeof path_to_root === "string" ? path_to_root : "";
 
@@ -140,11 +139,15 @@
 
   function init() {
     var host = document.getElementById("crate-index");
-    if (host) crateIndex(host);
     var recipes = document.getElementById("recipe-index");
-    if (recipes) recipeIndex(recipes);
     var grid = document.querySelector(".section-grid");
-    if (grid) topicCounts(grid);
+    if (!host && !recipes && !grid) return;
+    window.CookbookIndex.load().then(function (loaded) {
+      index = loaded;
+      if (host) crateIndex(host);
+      if (recipes) recipeIndex(recipes);
+      if (grid) topicCounts(grid);
+    }, function () {});
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

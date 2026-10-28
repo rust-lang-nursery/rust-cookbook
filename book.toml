@@ -9,11 +9,15 @@ src = "src"
 [rust]
 edition = "2018"
 
+[preprocessor.chips]
+command = "cargo run --quiet --manifest-path packages/mdbook-chips/Cargo.toml --"
+after = ["links"]
+
 [output.html]
 mathjax-support = false
 # theme = "theme"
 additional-css = ["theme/custom.css"]
-additional-js = ["theme/crate-chips.js", "theme/search-index.js", "theme/command-k.js", "theme/quick-search.js", "theme/crate-index.js", "theme/nav-labels.js"]
+additional-js = ["theme/crate-chips.js", "theme/command-k.js", "theme/quick-search.js", "theme/crate-index.js", "theme/nav-labels.js"]
 git-repository-url = "https://github.com/rust-lang-nursery/rust-cookbook"
 edit-url-template = "https://github.com/rust-lang-nursery/rust-cookbook/edit/master/{path}"
 
@@ -21,7 +25,7 @@ edit-url-template = "https://github.com/rust-lang-nursery/rust-cookbook/edit/mas
 enable = true
 level = 1
 
-[output.html.playpen]
+[output.html.playground]
 editable = false
 
 [output.html.search]

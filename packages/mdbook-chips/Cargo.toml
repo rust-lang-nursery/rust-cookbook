@@ -1,0 +1,9 @@
+[package]
+name = "mdbook-chips"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "mdBook preprocessor: renders the crate pills and the search index at build time"
+
+[dependencies]
+serde_json = "1"

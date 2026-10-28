@@ -3,17 +3,17 @@ table {
 }
 
 /* Recipe tables: each row is a card, recipe title on top, pills wrapping below. */
-table.recipe-table,
-table.recipe-table tbody {
+table:has(.crate-chip),
+table:has(.crate-chip) tbody {
   display: block;
 }
 
-table.recipe-table thead {
+table:has(.crate-chip) thead {
   display: none;
 }
 
-table.recipe-table tr,
-table.recipe-table tr:nth-child(2n) {
+table:has(.crate-chip) tr,
+table:has(.crate-chip) tr:nth-child(2n) {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -27,26 +27,26 @@ table.recipe-table tr:nth-child(2n) {
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-table.recipe-table tr:hover {
+table:has(.crate-chip) tr:hover {
   border-color: var(--links);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
 /* the whole card opens the recipe; pills stay clickable above the overlay */
-table.recipe-table td:first-child a::after {
+table:has(.crate-chip) td:first-child a::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 10px;
 }
 
-table.recipe-table td .crate-chip {
+table:has(.crate-chip) td .crate-chip {
   position: relative;
   z-index: 1;
 }
 
-table.recipe-table td,
-table.recipe-table td:nth-child(n + 2) {
+table:has(.crate-chip) td,
+table:has(.crate-chip) td:nth-child(n + 2) {
   display: flex;
   flex-wrap: wrap;
   width: auto;
@@ -55,18 +55,18 @@ table.recipe-table td:nth-child(n + 2) {
   white-space: normal;
 }
 
-table.recipe-table td:first-child {
+table:has(.crate-chip) td:first-child {
   display: block;
   flex-basis: 100%;
   font-size: 1.05em;
   font-weight: 500;
 }
 
-table.recipe-table td:nth-child(3) {
+table:has(.crate-chip) td:nth-child(3) {
   margin-left: 8px;
 }
 
-table.recipe-table td .crate-chip {
+table:has(.crate-chip) td .crate-chip {
   display: inline-flex;
 }
 
@@ -587,7 +587,7 @@ pre > .buttons:focus-within {
 .content .ri-letters a,
 .content .crate-chip a,
 .content a.cat-chip,
-.content table.recipe-table td:first-child a,
+.content table:has(.crate-chip) td:first-child a,
 .content a.nav-chapters,
 .content a.mobile-nav-chapters,
 #cookbook-quicksearch a {
@@ -597,7 +597,7 @@ pre > .buttons:focus-within {
 .content .section-grid a:hover,
 .content .ci-card a:hover,
 .content .crate-chip a:hover,
-.content table.recipe-table td:first-child a:hover,
+.content table:has(.crate-chip) td:first-child a:hover,
 #cookbook-quicksearch a:hover {
   text-decoration: underline;
 }
@@ -744,4 +744,17 @@ h2.ri-letter {
 /* leave room for the magnifier between the previous and next links */
 .mobile-nav-chapters {
   max-width: calc(50% - 36px);
+}
+
+/* Visible to screen readers only (live-region announcements). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

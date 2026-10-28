@@ -39,8 +39,6 @@ const KNOWN = [
   ["region", "#mdbook-sidebar-toggle"],
   ["region", ".menu-title"],
   ["region", ".right-buttons"],
-  ["region", "#mdbook-searchbar"],
-  ["region", "#mdbook-searchresults-outer"],
   ["aria-allowed-attr", "#mdbook-sidebar-toggle"],
   ["aria-prohibited-attr", "#mdbook-sidebar-toggle"],
   ["aria-prohibited-attr", /^#mdbook-teaser_\d+$/],
@@ -103,7 +101,33 @@ function serve() {
       await page.setViewport({ width: 1200, height: 900 });
       await page.evaluateOnNewDocument((t) => localStorage.setItem("mdbook-theme", t), theme);
       await page.goto(base + url, { waitUntil: "networkidle2", timeout: 30000 });
-      await new Promise((r) => setTimeout(r, 1200)); // chips and the repo lookup settle
+      await new Promise((r) => setTimeout(r, 1200)); // scripts and the lazily loaded index settle
+      // The theme scripts bail out silently when mdBook's markup changes, so assert the
+      // elements they hook into (and what they build) are really there.
+      const missing = await page.evaluate(
+        (name) => {
+          const need = [
+            "#mdbook-search-wrapper",
+            "#mdbook-search-toggle",
+            "#mdbook-searchbar",
+            "#mdbook-searchresults-outer",
+            "mdbook-sidebar-scrollbox",
+            ".nav-wrapper",
+            "#mdbook-search-wrapper[role=dialog][aria-modal=true]",
+          ];
+          if (name === "recipe page") need.push("a.nav-chapters", "a.mobile-nav-chapters");
+          if (name === "recipe table") need.push("table .crate-chip .crate-chip-copy[data-copy]");
+          if (name === "crates") need.push(".ci-card .crate-chip");
+          const gone = need.filter((sel) => !document.querySelector(sel));
+          if (typeof path_to_root !== "string") gone.push("path_to_root");
+          if (document.querySelector("img[src*='img.shields.io']")) gone.push("no shields.io images");
+          return gone;
+        },
+        name
+      );
+      for (const sel of missing) {
+        failures.push({ theme, name, rule: "theme-hooks", target: sel, why: "expected by theme/*.js" });
+      }
       await page.evaluate(AXE);
       const violations = await page.evaluate(async () => {
         const res = await axe.run(document, {
