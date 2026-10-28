@@ -5,8 +5,11 @@ help: ## Show this help message
 	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
+# The mdBook version lives in .mdbook-version; override it with `make MDBOOK_VERSION=x.y.z ...`.
+MDBOOK_VERSION ?= $(shell cat .mdbook-version)
+
 install-mdbook: ## Install mdbook with the correct version
-	cargo install mdbook --version "=0.5.3" --locked
+	cargo install mdbook --version "=$(MDBOOK_VERSION)" --locked
 
 build: install-mdbook ## Build the book locally
 	mdbook build

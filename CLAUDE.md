@@ -46,7 +46,7 @@ cargo xtask test link         # or: lychee --base . --config ./ci/lychee.toml .
 ./ci/spellcheck.sh            # interactive; add words to ci/dictionary.txt
 ```
 
-Required tools: `cargo install mdbook@0.5.3 lychee@0.17.0`
+Required tools: `cargo install mdbook@$(cat .mdbook-version) lychee@0.17.0` (the mdBook version lives in `.mdbook-version`; `make` targets, `scripts/*.sh`, `xtask` and the deploy workflow all read it, and `MDBOOK_VERSION` overrides it)
 
 ## Architecture
 

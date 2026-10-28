@@ -372,17 +372,17 @@ pub fn render_chapter(content: &str, meta: &Meta) -> String {
     out
 }
 
-fn walk(value: &mut Value, meta: &Meta) {
+fn walk(value: &mut Value, meta: &Meta, version: &str) {
     match value {
         Value::Object(map) => {
             if let Some(Value::String(content)) = map.get_mut("content") {
-                *content = render_chapter(content, meta);
+                *content = render_chapter(content, meta).replace("{{mdbook-version}}", version);
             }
             for child in map.values_mut() {
-                walk(child, meta);
+                walk(child, meta, version);
             }
         }
-        Value::Array(items) => items.iter_mut().for_each(|v| walk(v, meta)),
+        Value::Array(items) => items.iter_mut().for_each(|v| walk(v, meta, version)),
         _ => {}
     }
 }
@@ -402,9 +402,15 @@ pub fn run_preprocess(args: &[String]) -> Result<(), Box<dyn Error>> {
         .and_then(|a| a.pop())
         .ok_or("expected [context, book] on stdin")?;
 
+    // The version of mdBook that is running this build, for `{{mdbook-version}}` in the text.
+    let version = data[0]["mdbook_version"]
+        .as_str()
+        .unwrap_or("unknown")
+        .to_string();
+
     let meta = Meta::load()?;
     search_index::write_index(&meta)?;
-    walk(&mut book, &meta);
+    walk(&mut book, &meta, &version);
 
     let mut stdout = std::io::stdout();
     serde_json::to_writer(&mut stdout, &book)?;

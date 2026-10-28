@@ -42,7 +42,7 @@ make dev
 ./scripts/dev.sh
 
 # Or manually:
-cargo install mdbook --vers "0.4.43"
+cargo install mdbook --version "=$(cat .mdbook-version)" --locked
 mdbook build
 cp -r assets/ book/
 cargo test
@@ -71,7 +71,7 @@ The site is deployed to GitHub Pages from the `gh-pages` branch. The GitHub Acti
 
 ### Local Build Issues
 - Make sure you have Rust and Cargo installed
-- Install mdbook with the exact version: `cargo install mdbook --vers "0.4.43"`
+- Install mdbook with the exact version: `cargo install mdbook --version "=$(cat .mdbook-version)" --locked`
 - Run `cargo clean` if you encounter dependency issues
 
 ## Migration from Travis CI

@@ -7,6 +7,7 @@
 - [How to use the recipes](#how-to-use-the-recipes)
 - [A note about error handling](#a-note-about-error-handling)
 - [A note about crate representation](#a-note-about-crate-representation)
+- [Contributing](#contributing)
 
 ## Who this book is for
 
@@ -128,6 +129,15 @@ Either way, the crate should also be actively maintained (a release or
 commit within the last year), have [docs.rs] documentation, and use a
 standard OSI license.
 
+## Contributing
+
+Recipes, fixes and ideas are welcome; see [CONTRIBUTING.md][contributing] in
+the repository for how to add a recipe and run the tests.
+
+You are reading a copy of the book built with mdBook {{mdbook-version}}.
+Build it with that version, which the repository records in
+[`.mdbook-version`][mdbook-version-file], to get the same result.
+
 {{#include links.md}}
 
 [index]: intro.html
@@ -141,3 +151,5 @@ standard OSI license.
 [`anyhow`]: https://docs.rs/anyhow/latest/anyhow/
 [`std::error::Trait`]: https://doc.rust-lang.org/std/error/trait.Error.html
 [`thiserror`]: https://docs.rs/thiserror/latest/thiserror/
+[contributing]: https://github.com/rust-lang-nursery/rust-cookbook/blob/master/CONTRIBUTING.md
+[mdbook-version-file]: https://github.com/rust-lang-nursery/rust-cookbook/blob/master/.mdbook-version
