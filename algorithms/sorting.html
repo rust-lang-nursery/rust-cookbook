@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>This recipe sorts a Vector of integers via <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort"><code>vec::sort</code></a>. Alternative would
 be to use <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_unstable"><code>vec::sort_unstable</code></a> which can be faster, but does not preserve
 the order of equal elements.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let mut vec = vec![1, 5, 10, 2, 15];
 
     vec.sort();
@@ -199,7 +199,7 @@ the order of equal elements.</p>
 <p>A Vector of f32 or f64 can be sorted with <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by"><code>vec::sort_by</code></a> and <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp"><code>f64::total_cmp</code></a>.
 Unlike <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#tymethod.partial_cmp"><code>PartialOrd::partial_cmp</code></a>, <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp"><code>total_cmp</code></a> handles NaN values without panicking
 by placing them at the end of the sort order.</p>
-<pre class="playground"><code class="language-rust edition2021">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let mut vec = vec![1.1_f64, 1.15, 5.5, 1.123, 2.0];
 
     vec.sort_by(|a, b| a.total_cmp(b));
@@ -212,7 +212,7 @@ by placing them at the end of the sort order.</p>
 order (By name and age). In order to make Person sortable you need four traits <a href="https://doc.rust-lang.org/std/cmp/trait.Eq.html"><code>Eq</code></a>,
 <a href="https://doc.rust-lang.org/std/cmp/trait.PartialEq.html"><code>PartialEq</code></a>, <a href="https://doc.rust-lang.org/std/cmp/trait.Ord.html"><code>Ord</code></a> and <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html"><code>PartialOrd</code></a>. These traits can be simply derived.
 You can also provide a custom comparator function using a <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by"><code>vec:sort_by</code></a> method and sort only by age.</p>
-<pre class="playground"><code class="language-rust edition2018">#[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
+<pre class="playground"><code class="language-rust edition2024">#[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct Person {
     name: String,
     age: u32,

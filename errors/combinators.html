@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -191,7 +191,7 @@ classifies an uploaded file by extension: <a href="https://doc.rust-lang.org/std
 <code>None</code>; <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map"><code>Option::map</code></a> normalizes the matched value; and <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.filter"><code>Option::filter</code></a>
 rejects anything that is not a supported image. <code>None</code> falls straight through
 the chain, so no intermediate value needs to be unwrapped.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::path::Path;
+<pre class="playground"><code class="language-rust edition2024">use std::path::Path;
 
 /// Return the lowercase extension of `filename`, but only when it names an
 /// image we are willing to accept.
@@ -220,7 +220,7 @@ is <em>always</em> evaluated, so it suits cheap constants. <a href="https://doc.
 defers to a closure, computing the fallback only when the value is <code>None</code> —
 prefer it when the default is costly or has side effects.
 <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_default"><code>Option::unwrap_or_default</code></a> returns the type’s <a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a> value.</p>
-<pre class="playground"><code class="language-rust edition2021">fn expensive_default() -&gt; i32 {
+<pre class="playground"><code class="language-rust edition2024">fn expensive_default() -&gt; i32 {
     // Pretend this performs costly work we want to avoid when possible.
     42
 }
@@ -257,7 +257,7 @@ propagated with <code>?</code>. <a href="https://doc.rust-lang.org/std/option/en
 into <code>Err(e)</code> using a supplied error value. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else"><code>Option::ok_or_else</code></a> builds that
 error lazily from a closure, which is preferable when constructing the error
 allocates or is otherwise expensive.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 
 #[derive(Debug, PartialEq)]
 struct MissingKey(String);
@@ -295,7 +295,7 @@ rewrites an error into a domain-specific type so it can cross an API boundary.
 <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.and_then"><code>Result::and_then</code></a> sequences another fallible step, short-circuiting at the
 first error. <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.map"><code>Result::map</code></a> transforms a successful value while leaving any
 error untouched.</p>
-<pre class="playground"><code class="language-rust edition2021">#[derive(Debug)]
+<pre class="playground"><code class="language-rust edition2024">#[derive(Debug)]
 enum ConfigError {
     NotANumber(String),
     OutOfRange(u32),
@@ -341,7 +341,7 @@ below show the interchangeable ways to tell it: a turbofish on <code>collect</co
 (<code>collect::&lt;Result&lt;Vec&lt;_&gt;, _&gt;&gt;()</code>) or a type annotation on the binding
 (<code>let result: Result&lt;Vec&lt;i32&gt;, _&gt;</code>). Pick whichever reads better at the call
 site; the result is identical.</p>
-<pre class="playground"><code class="language-rust edition2021">fn main() -&gt; Result&lt;(), std::num::ParseIntError&gt; {
+<pre class="playground"><code class="language-rust edition2024">fn main() -&gt; Result&lt;(), std::num::ParseIntError&gt; {
     let raw = ["1", "2", "3"];
 
     // Collecting into `Result&lt;Vec&lt;_&gt;, _&gt;` yields the whole vector only

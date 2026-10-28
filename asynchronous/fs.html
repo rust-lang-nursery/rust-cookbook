@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -189,7 +189,7 @@ operations so your program does not have to stop and wait while the work is done
 <p><a href="https://docs.rs/tokio/*/tokio/fs/struct.File.html#method.create"><code>File::create</code></a> creates a new file. If the file already exists, it is overwritten.
 <a href="https://docs.rs/tokio/*/tokio/fs/fn.create_dir.html"><code>create_dir</code></a> creates a single directory. If it already exists, it fails.
 <a href="https://docs.rs/tokio/*/tokio/fs/fn.create_dir_all.html"><code>create_dir_all</code></a> creates a directory and any missing parent directories along the path.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 use tokio::fs::File;
 
 #[tokio::main]
@@ -218,7 +218,7 @@ program can keep doing other work while waiting for the data to come back.</p>
 <li><a href="https://docs.rs/tokio/*/tokio/fs/fn.read_to_string.html"><code>read_to_string</code></a> loads the file into plain text. Useful when you know the file contains readable
 characters.</li>
 </ul>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 
 fn process_data(data: &amp;[u8]) {
     println!("Data Length: {}", data.len());
@@ -244,7 +244,7 @@ tokio = { version = "*", features = ["macros", "fs"] }
 <p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
 <p>Writing to disk takes time. <a href="https://docs.rs/tokio/*/tokio/fs/fn.write.html"><code>tokio::fs::write</code></a> is a non-blocking way to write bytes to a file.
 It creates the file if it does not exist, or overwrites it if it does.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 
 #[tokio::main]
 async fn main() -&gt; io::Result&lt;()&gt; {
@@ -266,7 +266,7 @@ program does not have to stop and wait while the work is done.</p>
 <li><a href="https://docs.rs/tokio/*/tokio/fs/fn.remove_dir.html"><code>remove_dir</code></a> deletes a single directory. Only works if the directory is empty.</li>
 <li><a href="https://docs.rs/tokio/*/tokio/fs/fn.remove_dir_all.html"><code>remove_dir_all</code></a> deletes a directory and everything inside it.</li>
 </ul>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 
 #[tokio::main]
 async fn main() -&gt; io::Result&lt;()&gt; {
@@ -296,7 +296,7 @@ a <a href="https://docs.rs/tokio/*/tokio/io/struct.BufReader.html"><code>buffer<
 <li><a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncReadExt.html#method.read_to_end"><code>read_to_end</code></a> reads everything from a reader into a buffer.</li>
 <li><a href="https://docs.rs/tokio/*/tokio/io/fn.copy.html"><code>copy</code></a> streams data from a reader directly into a writer.</li>
 </ul>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 use tokio::fs::File;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 

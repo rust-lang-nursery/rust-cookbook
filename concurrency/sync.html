@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -200,9 +200,9 @@ their atomicity matters, and the final read is <code>Relaxed</code> too: <a href
 already establishes a happens-before edge, so once every thread has joined the
 load is guaranteed to observe all of their increments. Using <code>SeqCst</code> for that
 load would only suggest an ordering requirement that does not exist.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
-use std::sync::atomic::{AtomicUsize, Ordering};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::thread;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -244,7 +244,7 @@ ever being observed out of sync — something separate atomics could not
 guarantee. A poisoned lock (a thread panicked while holding it) surfaces as an
 error rather than a panic. When the shared state grows into its own long-lived
 component, the <a href="actor.html">Actor Pattern</a> is the usual scale-up path.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::{Arc, Mutex};
 use std::thread;
 
@@ -296,7 +296,7 @@ dedicated fair lock) can be the safer choice.</p>
 <p>This recipe spawns several reader threads that observe the shared vector
 simultaneously, plus one writer thread that appends to it under an exclusive
 lock.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::{Arc, RwLock};
 use std::thread;
 
@@ -339,7 +339,7 @@ producer” half comes from cloning the <a href="https://doc.rust-lang.org/std/s
 loop blocks for each value and ends cleanly once every <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> (including
 clones) has been dropped. That drop is the channel’s natural shutdown signal, so
 the original <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> is dropped explicitly after the producers are spawned.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::mpsc;
 use std::thread;
 
@@ -387,7 +387,7 @@ channel. The loop below models that — each iteration does a unit of its own wo
 and then drains any messages that happen to be ready. <a href="https://doc.rust-lang.org/std/sync/mpsc/enum.TryRecvError.html#variant.Empty"><code>TryRecvError::Empty</code></a>
 means “nothing queued, carry on”; <a href="https://doc.rust-lang.org/std/sync/mpsc/enum.TryRecvError.html#variant.Disconnected"><code>TryRecvError::Disconnected</code></a> means every
 <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> is gone.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::mpsc::{self, TryRecvError};
 use std::thread;
 use std::time::Duration;
@@ -431,7 +431,7 @@ have reached it, then releases them all together. This guarantees every thread
 finishes phase 1 before any thread begins phase 2.</p>
 <p>The barrier is constructed for three threads, so each of the three workers blocks
 in <a href="https://doc.rust-lang.org/std/sync/struct.Barrier.html#method.wait"><code>Barrier::wait</code></a> until its peers catch up.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::{Arc, Barrier};
 use std::thread;
 
@@ -469,7 +469,7 @@ lock is still held when <a href="https://doc.rust-lang.org/std/sync/struct.Condv
 only to block again immediately on re-acquiring the mutex. Releasing first lets
 it proceed straight away. The result is correct either way — only the hand-off is
 tidier.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::{Arc, Condvar, Mutex};
 use std::thread;
 

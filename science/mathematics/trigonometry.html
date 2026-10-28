@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-af28f5c9.js"></script>
@@ -185,7 +185,7 @@
 <h2 id="calculating-the-side-length-of-a-triangle"><a class="header" href="#calculating-the-side-length-of-a-triangle">Calculating the side length of a triangle</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Calculates the length of the hypotenuse of a right-angle triangle with an angle of 1 radian and opposite side length of 80.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let angle: f64 = 1.0;
     let side_length = 80.0;
 
@@ -196,7 +196,7 @@
 <h2 id="verifying-tan-is-equal-to-sin-divided-by-cos"><a class="header" href="#verifying-tan-is-equal-to-sin-divided-by-cos">Verifying tan is equal to sin divided by cos</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Verifies tan(x) is equal to sin(x)/cos(x) for x = 6.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let x: f64 = 6.0;
 
     let a = x.tan();
@@ -215,7 +215,7 @@ as pairs of latitude and longitude in degrees. Then, <a href="https://doc.rust-l
 converts them in radian. <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.sin"><code>sin</code></a>, <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.cos"><code>cos</code></a>, <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.powi"><code>powi</code></a> and <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.sqrt"><code>sqrt</code></a>
 compute the central angle. Finally, it’s possible to calculate the
 distance.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let earth_radius_kilometer = 6371.0_f64;
     let (paris_latitude_degrees, paris_longitude_degrees) = (48.85341_f64, -2.34880_f64);
     let (london_latitude_degrees, london_longitude_degrees) = (51.50853_f64, -0.12574_f64);

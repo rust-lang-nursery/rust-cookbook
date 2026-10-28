@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -207,7 +207,7 @@ call back, the coordinator keeps everyone busy by assigning new work while other
 main function and it handles everything for you, starting the runtime, running your code, and
 shutting it down when done. It also lets <code>main</code> be non-blocking, so you can use <code>.await</code> directly
 inside it.</p>
-<pre class="playground"><code class="language-rust edition2018">async fn fetch_network_request() -&gt; u32 {
+<pre class="playground"><code class="language-rust edition2024">async fn fetch_network_request() -&gt; u32 {
     89
 }
 
@@ -229,7 +229,7 @@ use, what to call them, how much memory to give each one. Nothing actually happe
 you call <a href="https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html#method.build"><code>.build()</code></a> at the end, which is when the runtime is created and ready to run.</p>
 <p>This recipe sets up 4 worker threads, gives them the name “thread-one”,
 and sets a stack size of 3MB each.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use tokio::runtime::Builder;
 
 async fn fetch_network_request() -&gt; u32 {

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -186,7 +186,7 @@
 <p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://img.shields.io/crates/v/ring.svg?label=ring" alt="ring-badge"></a> <a href="https://docs.rs/data-encoding/"><img src="https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding" alt="data-encoding-badge"></a> <a href="https://crates.io/categories/cryptography"><img src="https://img.shields.io/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge"></a></p>
 <p>Writes some data to a file, then calculates the SHA-256 <a href="https://briansmith.org/rustdoc/ring/digest/struct.Digest.html"><code>digest::Digest</code></a> of
 the file’s contents using <a href="https://briansmith.org/rustdoc/ring/digest/struct.Context.html"><code>digest::Context</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use data_encoding::HEXUPPER;
 use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;
@@ -226,7 +226,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p>The <a href="https://docs.rs/ring/*/ring/hmac/fn.sign.html"><code>hmac::sign</code></a> method is used to calculate the HMAC digest (also called a tag) of the message using the provided key.
 The resulting <a href="https://docs.rs/ring/*/ring/hmac/struct.Tag.html"><code>hmac::Tag</code></a> structure contains the raw bytes of the HMAC,
 which can later be verified with<a href="https://docs.rs/ring/*/ring/hmac/fn.verify.html"><code>hmac::verify</code></a> to ensure the message has not been tampered with and comes from a trusted source.</p>
-<pre class="playground"><code class="language-rust edition2021">use ring::error::Unspecified;
+<pre class="playground"><code class="language-rust edition2024">use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{hmac, rand};
 
@@ -250,7 +250,7 @@ function <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.derive.html"><co
 <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.verify.html"><code>pbkdf2::verify</code></a>. The salt is generated using
 <a href="https://briansmith.org/rustdoc/ring/rand/trait.SecureRandom.html#tymethod.fill"><code>SecureRandom::fill</code></a>, which fills the salt byte array with
 securely generated random numbers.</p>
-<pre class="playground"><code class="language-rust edition2021">use data_encoding::HEXUPPER;
+<pre class="playground"><code class="language-rust edition2024">use data_encoding::HEXUPPER;
 use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{digest, pbkdf2, rand};

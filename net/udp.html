@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -192,7 +192,7 @@ overhead when delivery guarantees aren’t worth the cost.</p>
 collector binds to an OS-allocated port and waits with <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.recv_from"><code>recv_from</code></a>. The
 client binds to its own ephemeral port and uses <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.send_to"><code>send_to</code></a> to deliver a
 metric. <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.recv_from"><code>recv_from</code></a> returns the byte count and the sender’s address.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use std::net::UdpSocket;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -218,7 +218,7 @@ to every receiver that joined.</p>
 <p>Multicast group addresses live in <code>224.0.0.0/4</code>. Anything from <code>239.0.0.0</code> to
 <code>239.255.255.255</code> is reserved for private use — pick from there for in-house
 apps.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 use std::net::{Ipv4Addr, SocketAddr, UdpSocket};
 
 fn main() -&gt; io::Result&lt;()&gt; {

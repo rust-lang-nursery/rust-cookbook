@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>The following recipe shows how to parse a <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>MIME</code></a> type from a string using the
 <a href="https://docs.rs/mime/">mime</a> crate. <a href="https://docs.rs/mime/*/mime/struct.FromStrError.html"><code>FromStrError</code></a> produces a default <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>MIME</code></a> type in an
 <code>unwrap_or</code> clause.</p>
-<pre class="playground"><code class="language-rust edition2018">use mime::{Mime, APPLICATION_OCTET_STREAM};
+<pre class="playground"><code class="language-rust edition2024">use mime::{APPLICATION_OCTET_STREAM, Mime};
 
 fn main() {
     let invalid_mime_type = "i n v a l i d";
@@ -215,7 +215,7 @@ fn main() {
 <p>The following recipe shows how to return the correct MIME type from a given
 filename using the <a href="https://docs.rs/mime/">mime</a> crate.  The program will check for file extensions
 and match against a known list.  The return value is <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime:Mime</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use mime::Mime;
+<pre class="playground"><code class="language-rust edition2024">use mime::Mime;
 
 fn find_mimetype(filename: &amp;String) -&gt; Mime {
     let parts: Vec&lt;&amp;str&gt; = filename.split('.').collect();

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>In this recipe, the port is displayed on the console, and the program will
 listen until a request is made.  <a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind"><code>TcpListener::bind</code></a> uses a random port
 allocated by the OS when requested to bind to port 0.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io::{Error, Read};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{Error, Read};
 use std::net::TcpListener;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -210,7 +210,7 @@ your client at it to check framing, disconnect handling, or timeouts.</p>
 new connection. Spawning a thread per connection keeps the accept loop free for
 the next client. Inside the handler, <a href="https://doc.rust-lang.org/std/io/trait.Read.html#tymethod.read"><code>read</code></a> returning <code>0</code> means the peer
 closed the connection — that’s the cue to drop out of the loop.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 
@@ -246,7 +246,7 @@ client can connect, send a message, and read the reply.</p>
 reader and a writer. <a href="https://doc.rust-lang.org/std/io/trait.Write.html#method.write_all"><code>write_all</code></a> sends the request; <a href="https://doc.rust-lang.org/std/io/trait.Read.html#tymethod.read"><code>read</code></a> fills a buffer
 with whatever the server returns. Echo guarantees the bytes round-trip
 unchanged, so the client can assert on what came back.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, Read, Write};
 use std::net::TcpStream;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -267,7 +267,7 @@ When the peer is down or a firewall is silently dropping packets, that can
 take a minute or more. <a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html#method.connect_timeout"><code>TcpStream::connect_timeout</code></a> caps the wait.</p>
 <p>The timeout variant takes a <a href="https://doc.rust-lang.org/std/net/enum.SocketAddr.html"><code>SocketAddr</code></a>, not a string, so resolve the
 hostname first.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 use std::net::{TcpStream, ToSocketAddrs};
 use std::time::Duration;
 
@@ -296,7 +296,7 @@ the read hangs with it. <a href="https://doc.rust-lang.org/std/net/struct.TcpStr
 breaks on the other platform.</p>
 <p>This recipe stands up a listener that accepts but never sends, then connects
 and reads with a short timeout to prove the timeout fires.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{self, Read};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{self, Read};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 use std::time::Duration;
@@ -333,7 +333,7 @@ buffer for tens of milliseconds waiting for company. <a href="https://doc.rust-l
 Nagle off so each write goes out as its own segment.</p>
 <p>Use it for chat, games, REPL-style protocols, and RPCs where round-trip
 latency matters more than packet count. Leave it on for bulk transfer.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Write};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, Write};
 use std::net::TcpStream;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -353,7 +353,7 @@ ability to read, shut down only the write side with <a href="https://doc.rust-la
 <p>After the half-close the peer sees EOF on its read, can do its work, and
 writes a response that you read normally. <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_end"><code>read_to_end</code></a> keeps reading until
 the peer closes its own write half.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, Read, Write};
 use std::net::{Shutdown, TcpStream};
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -376,7 +376,7 @@ descriptor — flip the listener into non-blocking mode with
 <p>This readiness pattern is the primitive every async runtime uses underneath.
 For production code, reach for <a href="https://docs.rs/mio"><code>mio</code></a> or an async runtime — what follows is
 the manual version of what they automate.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{self, ErrorKind};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{self, ErrorKind};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 use std::time::Duration;

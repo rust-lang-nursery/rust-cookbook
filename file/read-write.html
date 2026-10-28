@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -192,7 +192,7 @@ single allocation plus a single syscall loop.</p>
 <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> over <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.open"><code>File::open</code></a> and stream lines or bytes. The cutoff is
 workload-specific; past a few megabytes, the streaming form is usually the
 right choice.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io;
 use tempfile::tempdir;
 
@@ -216,7 +216,7 @@ if it doesn’t, it’s created with default permissions.</p>
 <p>To append instead of replacing, build a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> through <a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html"><code>OpenOptions</code></a> with
 <a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html#method.append"><code>append</code></a> set. To refuse to overwrite an existing file — useful when a stale
 file would be a bug — use <a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html#method.create_new"><code>create_new</code></a> instead of <code>create</code>.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io;
 use tempfile::tempdir;
 
@@ -241,7 +241,7 @@ time with the <a href="https://doc.rust-lang.org/std/io/struct.Lines.html"><code
 <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines"><code>BufRead::lines</code></a>. <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a> which provides <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a>
 trait.  <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.create"><code>File::create</code></a> opens a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> for writing, <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.open"><code>File::open</code></a> for
 reading.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024">use std::fs::File;
 use std::io::{BufRead, BufReader, Error, Write};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -271,7 +271,7 @@ and config writers avoid leaving a torn file behind if the process dies
 mid-write. The staging file and the final path must live on the same
 filesystem; across devices the kernel has no atomic move, and <code>rename</code> fails
 instead of silently degrading to a copy.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io;
 use tempfile::tempdir;
 
@@ -300,7 +300,7 @@ unlike a path assembled from a guessed name. Its <a href="https://docs.rs/tempfi
 code while the handle keeps it alive.</p>
 <p>The handle implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a>, <a href="https://doc.rust-lang.org/std/io/trait.Write.html"><code>Write</code></a> and <a href="https://doc.rust-lang.org/std/io/trait.Seek.html"><code>Seek</code></a> just like any other
 <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>. Seeking back to the start reads back what was just written.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{Read, Seek, SeekFrom, Write};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{Read, Seek, SeekFrom, Write};
 use tempfile::NamedTempFile;
 
 fn main() -&gt; std::io::Result&lt;()&gt; {
@@ -326,7 +326,7 @@ now-permanent <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>
 <p>A reader of the target path sees either the old contents or the complete new
 ones. It never sees a half-written file. If the process dies before <code>persist</code>,
 only the temporary file is left behind. The original is untouched.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io::Write;
 use tempfile::NamedTempFile;
 
@@ -348,7 +348,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <p>Use <a href="https://docs.rs/same-file/*/same_file/struct.Handle.html"><code>same_file::Handle</code></a> to a file that can be tested for equality with
 other handles. In this recipe, the handles of file to be read from and
 to be written to are tested for equality.</p>
-<pre class="playground"><code class="language-rust edition2021">use same_file::Handle;
+<pre class="playground"><code class="language-rust edition2024">use same_file::Handle;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::path::Path;
@@ -414,7 +414,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> and iterate with <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines"><code>BufRead::lines</code></a>. Unlike
 <a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>fs::read_to_string</code></a>, this streams one kernel-buffered chunk at a time —
 typically 8 KB — so memory usage stays flat regardless of file size.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024">use std::fs::File;
 use std::io::{self, BufRead, BufReader, Write};
 use tempfile::tempdir;
 
@@ -442,7 +442,7 @@ in-memory buffer — typically 8 KB — before flushing to the OS. This reduces
 syscall overhead when making many small writes. Always call <a href="https://doc.rust-lang.org/std/io/trait.Write.html#tymethod.flush"><code>Write::flush</code></a>
 explicitly when you are done; the buffer is also flushed when the <code>BufWriter</code>
 is dropped, but any error from that implicit flush is silently discarded.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024">use std::fs::File;
 use std::io::{self, BufWriter, Write};
 use tempfile::tempdir;
 
@@ -469,7 +469,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
 <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.read_line"><code>BufRead::read_line</code></a>, which appends characters — including the trailing
 newline — into the supplied <code>String</code> buffer. The lock is released when it
 goes out of scope.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, BufRead};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, BufRead};
 
 fn main() -&gt; io::Result&lt;()&gt; {
     let stdin = io::stdin();
@@ -489,7 +489,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
 <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> in tests or whenever bytes need to be assembled before deciding
 where to send them. The internal position advances with each read or write,
 so call <a href="https://doc.rust-lang.org/std/io/struct.Cursor.html#method.set_position"><code>Cursor::set_position</code></a> to rewind before reading back what you wrote.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{self, Cursor, Read, Write};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{self, Cursor, Read, Write};
 
 fn main() -&gt; io::Result&lt;()&gt; {
     let mut buf = Cursor::new(Vec::&lt;u8&gt;::new());
@@ -515,7 +515,7 @@ formatted text into it with no I/O and no file handle. Import
 the two traits share the macro name but operate on different targets.
 The <code>String</code> implementation never actually errors, but the signature uses
 <code>?</code> for consistency with other writers.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fmt::Write;
+<pre class="playground"><code class="language-rust edition2024">use std::fmt::Write;
 
 fn main() -&gt; std::fmt::Result {
     let mut s = String::new();

@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-af28f5c9.js"></script>
@@ -1186,7 +1186,7 @@ Keep lines sorted.
 <p>This recipe sorts a Vector of integers via <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort"><code>vec::sort</code></a>. Alternative would
 be to use <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_unstable"><code>vec::sort_unstable</code></a> which can be faster, but does not preserve
 the order of equal elements.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let mut vec = vec![1, 5, 10, 2, 15];
 
     vec.sort();
@@ -1198,7 +1198,7 @@ the order of equal elements.</p>
 <p>A Vector of f32 or f64 can be sorted with <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by"><code>vec::sort_by</code></a> and <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp"><code>f64::total_cmp</code></a>.
 Unlike <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#tymethod.partial_cmp"><code>PartialOrd::partial_cmp</code></a>, <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp"><code>total_cmp</code></a> handles NaN values without panicking
 by placing them at the end of the sort order.</p>
-<pre class="playground"><code class="language-rust edition2021">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let mut vec = vec![1.1_f64, 1.15, 5.5, 1.123, 2.0];
 
     vec.sort_by(|a, b| a.total_cmp(b));
@@ -1211,7 +1211,7 @@ by placing them at the end of the sort order.</p>
 order (By name and age). In order to make Person sortable you need four traits <a href="https://doc.rust-lang.org/std/cmp/trait.Eq.html"><code>Eq</code></a>,
 <a href="https://doc.rust-lang.org/std/cmp/trait.PartialEq.html"><code>PartialEq</code></a>, <a href="https://doc.rust-lang.org/std/cmp/trait.Ord.html"><code>Ord</code></a> and <a href="https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html"><code>PartialOrd</code></a>. These traits can be simply derived.
 You can also provide a custom comparator function using a <a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by"><code>vec:sort_by</code></a> method and sort only by age.</p>
-<pre class="playground"><code class="language-rust edition2018">#[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
+<pre class="playground"><code class="language-rust edition2024">#[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct Person {
     name: String,
     age: u32,
@@ -1319,7 +1319,7 @@ call back, the coordinator keeps everyone busy by assigning new work while other
 main function and it handles everything for you, starting the runtime, running your code, and
 shutting it down when done. It also lets <code>main</code> be non-blocking, so you can use <code>.await</code> directly
 inside it.</p>
-<pre class="playground"><code class="language-rust edition2018">async fn fetch_network_request() -&gt; u32 {
+<pre class="playground"><code class="language-rust edition2024">async fn fetch_network_request() -&gt; u32 {
     89
 }
 
@@ -1341,7 +1341,7 @@ use, what to call them, how much memory to give each one. Nothing actually happe
 you call <a href="https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html#method.build"><code>.build()</code></a> at the end, which is when the runtime is created and ready to run.</p>
 <p>This recipe sets up 4 worker threads, gives them the name “thread-one”,
 and sets a stack size of 3MB each.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use tokio::runtime::Builder;
 
 async fn fetch_network_request() -&gt; u32 {
@@ -1381,7 +1381,7 @@ operations so your program does not have to stop and wait while the work is done
 <p><a href="https://docs.rs/tokio/*/tokio/fs/struct.File.html#method.create"><code>File::create</code></a> creates a new file. If the file already exists, it is overwritten.
 <a href="https://docs.rs/tokio/*/tokio/fs/fn.create_dir.html"><code>create_dir</code></a> creates a single directory. If it already exists, it fails.
 <a href="https://docs.rs/tokio/*/tokio/fs/fn.create_dir_all.html"><code>create_dir_all</code></a> creates a directory and any missing parent directories along the path.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 use tokio::fs::File;
 
 #[tokio::main]
@@ -1410,7 +1410,7 @@ program can keep doing other work while waiting for the data to come back.</p>
 <li><a href="https://docs.rs/tokio/*/tokio/fs/fn.read_to_string.html"><code>read_to_string</code></a> loads the file into plain text. Useful when you know the file contains readable
 characters.</li>
 </ul>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 
 fn process_data(data: &amp;[u8]) {
     println!("Data Length: {}", data.len());
@@ -1436,7 +1436,7 @@ tokio = { version = "*", features = ["macros", "fs"] }
 <p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
 <p>Writing to disk takes time. <a href="https://docs.rs/tokio/*/tokio/fs/fn.write.html"><code>tokio::fs::write</code></a> is a non-blocking way to write bytes to a file.
 It creates the file if it does not exist, or overwrites it if it does.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 
 #[tokio::main]
 async fn main() -&gt; io::Result&lt;()&gt; {
@@ -1458,7 +1458,7 @@ program does not have to stop and wait while the work is done.</p>
 <li><a href="https://docs.rs/tokio/*/tokio/fs/fn.remove_dir.html"><code>remove_dir</code></a> deletes a single directory. Only works if the directory is empty.</li>
 <li><a href="https://docs.rs/tokio/*/tokio/fs/fn.remove_dir_all.html"><code>remove_dir_all</code></a> deletes a directory and everything inside it.</li>
 </ul>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 
 #[tokio::main]
 async fn main() -&gt; io::Result&lt;()&gt; {
@@ -1488,7 +1488,7 @@ a <a href="https://docs.rs/tokio/*/tokio/io/struct.BufReader.html"><code>buffer<
 <li><a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncReadExt.html#method.read_to_end"><code>read_to_end</code></a> reads everything from a reader into a buffer.</li>
 <li><a href="https://docs.rs/tokio/*/tokio/io/fn.copy.html"><code>copy</code></a> streams data from a reader directly into a writer.</li>
 </ul>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 use tokio::fs::File;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
@@ -1529,7 +1529,7 @@ on a task. If it finishes in time you get the result, if it doesn’t, it is can
 an error back.</p>
 <p>In this recipe, a network request is given 5 milliseconds to complete. If it finishes in time,
 the result is printed. If it runs over, the program reports a timeout.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::time::Duration;
+<pre class="playground"><code class="language-rust edition2024">use std::time::Duration;
 use tokio::time::timeout;
 
 async fn fetch_network_request() -&gt; u32 {
@@ -1566,7 +1566,7 @@ the sender has to wait until there is room before it can send another message.</
 the postman has to wait until someone clears it out before dropping in another letter.</p>
 <p>In this recipe, two book stores send books through a channel with a capacity of 5.
 A shelf collects whatever comes through.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use tokio::sync::mpsc::channel;
 
 struct Book {
@@ -1629,7 +1629,7 @@ Sending on an unbounded channel will always succeed as long as the receiving end
 If the receiver is slow, messages simply queue up and wait.</p>
 <p>In this recipe, two people send messages through a channel. An inbox collects whatever comes
 through.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use tokio::sync::mpsc::unbounded_channel;
 
 struct Message {
@@ -1696,8 +1696,8 @@ is done, the program shuts down cleanly instead of waiting.</p>
 <p>Both branches start at the same time. Whichever one finishes first wins and the other is cancelled.
 If fetch_data completes first, the result is printed and the loop runs again.
 If Ctrl-C comes in first, the program exits.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use tokio::signal;
-use tokio::time::{sleep, Duration};
+<pre class="playground"><code class="language-rust edition2024 no_run">use tokio::signal;
+use tokio::time::{Duration, sleep};
 
 async fn fetch_data() -&gt; String {
     // simulate a slow network request
@@ -1742,7 +1742,7 @@ you can grab its result. If you throw away the JoinSet before all tasks are done
 unfinished task is cancelled automatically.</p>
 <p>In this recipe, five jobs are created and added to a JoinSet. Each job does some work on its own,
 and the program waits until all of them are done before moving on.</p>
-<pre class="playground"><code class="language-rust edition2018">use tokio::task::JoinSet;
+<pre class="playground"><code class="language-rust edition2024">use tokio::task::JoinSet;
 
 struct Job {
     id: usize,
@@ -2004,9 +2004,9 @@ in Linux and MacOS, but not in Rust UTF-8 strings. This is
 best practice: one encounters such paths quite rarely in
 practice, but when it happens it is really frustrating
 without this.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::path::PathBuf;
+<pre class="playground"><code class="language-rust edition2024">use std::path::PathBuf;
 
-use clap::{builder::PathBufValueParser, Arg, Command};
+use clap::{Arg, Command, builder::PathBufValueParser};
 
 fn main() {
     let matches = Command::new("My Test Program")
@@ -2480,7 +2480,7 @@ Keep lines sorted.
 extract (<a href="https://docs.rs/tar/*/tar/struct.Archive.html#method.unpack"><code>Archive::unpack</code></a>) all files from a compressed tarball
 named <code>archive.tar.gz</code> located in the current working directory
 to the same location.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use flate2::read::GzDecoder;
+<pre class="playground"><code class="language-rust edition2024 no_run">use flate2::read::GzDecoder;
 use std::fs::File;
 use tar::Archive;
 
@@ -2502,8 +2502,8 @@ and <a href="https://docs.rs/tar/*/tar/struct.Builder.html"><code>tar::Builder</
 under <code>backup/logs</code> path with <a href="https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all"><code>Builder::append_dir_all</code></a>.
 <a href="https://docs.rs/flate2/*/flate2/write/struct.GzEncoder.html"><code>GzEncoder</code></a> is responsible for transparently compressing the
 data prior to writing it into <code>archive.tar.gz</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use flate2::write::GzEncoder;
-use flate2::Compression;
+<pre class="playground"><code class="language-rust edition2024 no_run">use flate2::Compression;
+use flate2::write::GzEncoder;
 use std::fs::File;
 
 fn main() -&gt; Result&lt;(), std::io::Error&gt; {
@@ -2515,8 +2515,8 @@ fn main() -&gt; Result&lt;(), std::io::Error&gt; {
     Ok(())
 }</code></pre>
 <p>To add the contents without renaming them, an empty string can be used as the first argument of <a href="https://docs.rs/tar/*/tar/struct.Builder.html#method.append_dir_all"><code>Builder::append_dir_all</code></a>:</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use flate2::write::GzEncoder;
-use flate2::Compression;
+<pre class="playground"><code class="language-rust edition2024 no_run">use flate2::Compression;
+use flate2::write::GzEncoder;
 use std::fs::File;
 
 fn main() -&gt; Result&lt;(), std::io::Error&gt; {
@@ -2534,7 +2534,7 @@ notably <a href="https://docs.rs/tar/latest/tar/struct.Builder.html#method.follo
 <p>Iterate over the <a href="https://docs.rs/tar/*/tar/struct.Archive.html#method.entries"><code>Archive::entries</code></a>.  Use <a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.strip_prefix"><code>Path::strip_prefix</code></a> to remove
 the specified path prefix (<code>bundle/logs</code>).  Finally, extract the <a href="https://docs.rs/tar/*/tar/struct.Entry.html"><code>tar::Entry</code></a>
 via <a href="https://docs.rs/tar/*/tar/struct.Entry.html#method.unpack"><code>Entry::unpack</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
 use flate2::read::GzDecoder;
 use std::fs::File;
 use std::path::PathBuf;
@@ -2574,7 +2574,7 @@ the current working directory. Unlike <a href="#decompress-a-tarball">decompress
 this reads plain (non-archive) gzip data, such as a single log or text file.</p>
 <p>Wraps a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> in a <a href="https://docs.rs/flate2/*/flate2/read/struct.GzDecoder.html"><code>GzDecoder</code></a> and copies the decompressed bytes into the
 destination file with <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use flate2::read::GzDecoder;
+<pre class="playground"><code class="language-rust edition2024 no_run">use flate2::read::GzDecoder;
 use std::fs::File;
 use std::io;
 
@@ -2592,8 +2592,8 @@ fn main() -&gt; Result&lt;(), io::Error&gt; {
 then copies the contents of the source file into the encoder with
 <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>, transparently compressing the data as it is written to
 <code>input.txt.gz</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use flate2::write::GzEncoder;
-use flate2::Compression;
+<pre class="playground"><code class="language-rust edition2024 no_run">use flate2::Compression;
+use flate2::write::GzEncoder;
 use std::fs::File;
 use std::io;
 
@@ -2619,7 +2619,7 @@ Keep lines sorted.
 in the current working directory.</p>
 <p>Wraps a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> in a <a href="https://docs.rs/bzip2/*/bzip2/read/struct.BzDecoder.html"><code>BzDecoder</code></a> and copies the decompressed bytes into the
 destination file with <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use bzip2::read::BzDecoder;
+<pre class="playground"><code class="language-rust edition2024 no_run">use bzip2::read::BzDecoder;
 use std::fs::File;
 use std::io;
 
@@ -2637,7 +2637,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
 then copies the contents of the source file into the encoder with
 <a href="https://doc.rust-lang.org/std/io/fn.copy.html"><code>io::copy</code></a>, transparently compressing the data as it is written to
 <code>input.txt.bz2</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use bzip2::Compression;
+<pre class="playground"><code class="language-rust edition2024 no_run">use bzip2::Compression;
 use bzip2::write::BzEncoder;
 use std::fs::File;
 use std::io;
@@ -2702,7 +2702,7 @@ Keep lines sorted.
 to terminate before returning from the closure, meaning that
 you can reference data from the calling function without needing <code>Arc</code> or other ownership tricks.</p>
 <p>This recipe splits the array in half and performs the work in separate threads.</p>
-<pre class="playground"><code class="language-rust edition2021">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let arr = &amp;[1, 25, -4, 10];
     let max = find_max(arr);
     assert_eq!(max, Some(25));
@@ -2748,7 +2748,7 @@ for new messages or until the channel is closed. Because the channels were
 created within the <a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a>, we must manually close them via <code>drop</code>
 to prevent the entire program from blocking on the worker for-loops. You can
 think of the calls to <code>drop</code> as signaling that no more messages will be sent.</p>
-<pre class="playground"><code class="language-rust edition2018">use crossbeam::channel::bounded;
+<pre class="playground"><code class="language-rust edition2024">use crossbeam::channel::bounded;
 use std::thread;
 use std::time::Duration;
 
@@ -2803,7 +2803,7 @@ consumer (SPSC) setting. We build off the <a href="#spawn-a-short-lived-thread">
 exchanged between the two threads using a <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/fn.unbounded.html"><code>crossbeam_channel::unbounded</code></a>
 channel, meaning there is no limit to the number of storeable messages. The
 producer thread sleeps for half a second in between messages.</p>
-<pre class="playground"><code class="language-rust edition2018">use crossbeam::channel::unbounded;
+<pre class="playground"><code class="language-rust edition2024">use crossbeam::channel::unbounded;
 use std::{thread, time};
 
 fn main() {
@@ -2833,7 +2833,7 @@ The <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</
 the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A <a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a> must be acquired to read or mutate the
 value stored in a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::Mutex;
 
 static FRUIT: Mutex&lt;Vec&lt;String&gt;&gt; = Mutex::new(Vec::new());
@@ -2870,7 +2870,7 @@ paths are collected into a <code>Vec</code>. <a href="https://docs.rs/rayon/*/ra
 each file and computing its hash across rayon’s global thread pool, which has
 one thread per available core by default. The digests are gathered with
 <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.collect"><code>collect</code></a> into a single <a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a>, so the first error stops the run.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
+<pre class="playground"><code class="language-rust edition2024 no_run">use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;
 use std::io::{BufReader, Error, Read};
@@ -2935,9 +2935,9 @@ rayon’s global pool. Each file is read with <a href="https://doc.rust-lang.org
 <a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a>.
 Reading the contents is what keeps the workers busy with real IO;
 <a href="https://doc.rust-lang.org/std/fs/fn.metadata.html"><code>std::fs::metadata</code></a> would be cheaper when only the length matters.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
-use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use rayon::ThreadPoolBuilder;
+use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use std::fs;
 use std::io;
 use std::path::PathBuf;
@@ -3097,9 +3097,9 @@ their atomicity matters, and the final read is <code>Relaxed</code> too: <a href
 already establishes a happens-before edge, so once every thread has joined the
 load is guaranteed to observe all of their increments. Using <code>SeqCst</code> for that
 load would only suggest an ordering requirement that does not exist.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
-use std::sync::atomic::{AtomicUsize, Ordering};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::thread;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -3141,7 +3141,7 @@ ever being observed out of sync — something separate atomics could not
 guarantee. A poisoned lock (a thread panicked while holding it) surfaces as an
 error rather than a panic. When the shared state grows into its own long-lived
 component, the <a href="#actor-pattern">Actor Pattern</a> is the usual scale-up path.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::{Arc, Mutex};
 use std::thread;
 
@@ -3193,7 +3193,7 @@ dedicated fair lock) can be the safer choice.</p>
 <p>This recipe spawns several reader threads that observe the shared vector
 simultaneously, plus one writer thread that appends to it under an exclusive
 lock.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::{Arc, RwLock};
 use std::thread;
 
@@ -3236,7 +3236,7 @@ producer” half comes from cloning the <a href="https://doc.rust-lang.org/std/s
 loop blocks for each value and ends cleanly once every <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> (including
 clones) has been dropped. That drop is the channel’s natural shutdown signal, so
 the original <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> is dropped explicitly after the producers are spawned.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::mpsc;
 use std::thread;
 
@@ -3284,7 +3284,7 @@ channel. The loop below models that — each iteration does a unit of its own wo
 and then drains any messages that happen to be ready. <a href="https://doc.rust-lang.org/std/sync/mpsc/enum.TryRecvError.html#variant.Empty"><code>TryRecvError::Empty</code></a>
 means “nothing queued, carry on”; <a href="https://doc.rust-lang.org/std/sync/mpsc/enum.TryRecvError.html#variant.Disconnected"><code>TryRecvError::Disconnected</code></a> means every
 <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Sender.html"><code>Sender</code></a> is gone.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::mpsc::{self, TryRecvError};
 use std::thread;
 use std::time::Duration;
@@ -3328,7 +3328,7 @@ have reached it, then releases them all together. This guarantees every thread
 finishes phase 1 before any thread begins phase 2.</p>
 <p>The barrier is constructed for three threads, so each of the three workers blocks
 in <a href="https://doc.rust-lang.org/std/sync/struct.Barrier.html#method.wait"><code>Barrier::wait</code></a> until its peers catch up.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::{Arc, Barrier};
 use std::thread;
 
@@ -3366,7 +3366,7 @@ lock is still held when <a href="https://doc.rust-lang.org/std/sync/struct.Condv
 only to block again immediately on re-acquiring the mutex. Releasing first lets
 it proceed straight away. The result is correct either way — only the hand-off is
 tidier.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::{Arc, Condvar, Mutex};
 use std::thread;
 
@@ -3408,7 +3408,7 @@ Keep lines sorted.
 <p>This recipe uses the <code>rayon</code> crate, which is a data parallelism library for Rust.
 <code>rayon</code> provides the <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut"><code>par_iter_mut</code></a> method for any parallel iterable data type.
 This is an iterator-like chain that potentially executes in parallel.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+<pre class="playground"><code class="language-rust edition2024">use rayon::prelude::*;
 
 fn main() {
     let mut arr = [0, 7, 9, 11];
@@ -3418,7 +3418,7 @@ fn main() {
 <h2 id="test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate"><a class="header" href="#test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate">Test in parallel if any or all elements of a collection match a given predicate</a></h2>
 <p><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
 <p>This recipe demonstrates using the <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any"><code>rayon::any</code></a> and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all"><code>rayon::all</code></a> methods, which are parallelized counterparts to <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.any"><code>std::any</code></a> and <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.all"><code>std::all</code></a>. <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any"><code>rayon::any</code></a> checks in parallel whether any element of the iterator matches the predicate, and returns as soon as one is found. <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all"><code>rayon::all</code></a> checks in parallel whether all elements of the iterator match the predicate, and returns as soon as a non-matching element is found.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+<pre class="playground"><code class="language-rust edition2024">use rayon::prelude::*;
 
 fn main() {
     let mut vec = vec![2, 4, 6, 8];
@@ -3444,7 +3444,7 @@ argument of <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.h
 necessarily the first one.</p>
 <p>Also note that the argument to the closure is a reference to a reference
 (<code>&amp;&amp;x</code>). See the discussion on <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.find"><code>std::find</code></a> for additional details.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+<pre class="playground"><code class="language-rust edition2024">use rayon::prelude::*;
 
 fn main() {
     let v = vec![6, 2, 1, 9, 3, 8, 11];
@@ -3486,7 +3486,7 @@ predicate.  <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.h
 new iteration, and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.reduce"><code>rayon::reduce</code></a> performs an operation given the previous
 reduction and the current element.  Also shows use of <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.sum"><code>rayon::sum</code></a>,
 which has the same result as the reduce operation in this recipe.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+<pre class="playground"><code class="language-rust edition2024">use rayon::prelude::*;
 
 struct Person {
     age: u32,
@@ -3594,7 +3594,7 @@ data and runs inside a single spawned task. A clonable <strong>handle</strong> h
 command the actor can process.</p>
 <p>Because only one task ever accesses the data, there is no locking. Request–response
 pairs use a <a href="https://docs.rs/tokio/latest/tokio/sync/oneshot/index.html"><code>oneshot</code></a> channel embedded in the message variant.</p>
-<pre class="playground"><code class="language-rust edition2021">use thiserror::Error;
+<pre class="playground"><code class="language-rust edition2024">use thiserror::Error;
 use tokio::sync::{mpsc, oneshot};
 
 #[derive(Debug, Error)]
@@ -4163,7 +4163,7 @@ Keep lines sorted.
 <p><a href="https://briansmith.org/rustdoc/ring/"><img src="https://img.shields.io/crates/v/ring.svg?label=ring" alt="ring-badge"></a> <a href="https://docs.rs/data-encoding/"><img src="https://img.shields.io/crates/v/data-encoding.svg?label=data-encoding" alt="data-encoding-badge"></a> <a href="https://crates.io/categories/cryptography"><img src="https://img.shields.io/badge/cryptography--x.svg?style=social" alt="cat-cryptography-badge"></a></p>
 <p>Writes some data to a file, then calculates the SHA-256 <a href="https://briansmith.org/rustdoc/ring/digest/struct.Digest.html"><code>digest::Digest</code></a> of
 the file’s contents using <a href="https://briansmith.org/rustdoc/ring/digest/struct.Context.html"><code>digest::Context</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use data_encoding::HEXUPPER;
 use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;
@@ -4203,7 +4203,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p>The <a href="https://docs.rs/ring/*/ring/hmac/fn.sign.html"><code>hmac::sign</code></a> method is used to calculate the HMAC digest (also called a tag) of the message using the provided key.
 The resulting <a href="https://docs.rs/ring/*/ring/hmac/struct.Tag.html"><code>hmac::Tag</code></a> structure contains the raw bytes of the HMAC,
 which can later be verified with<a href="https://docs.rs/ring/*/ring/hmac/fn.verify.html"><code>hmac::verify</code></a> to ensure the message has not been tampered with and comes from a trusted source.</p>
-<pre class="playground"><code class="language-rust edition2021">use ring::error::Unspecified;
+<pre class="playground"><code class="language-rust edition2024">use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{hmac, rand};
 
@@ -4227,7 +4227,7 @@ function <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.derive.html"><co
 <a href="https://briansmith.org/rustdoc/ring/pbkdf2/fn.verify.html"><code>pbkdf2::verify</code></a>. The salt is generated using
 <a href="https://briansmith.org/rustdoc/ring/rand/trait.SecureRandom.html#tymethod.fill"><code>SecureRandom::fill</code></a>, which fills the salt byte array with
 securely generated random numbers.</p>
-<pre class="playground"><code class="language-rust edition2021">use data_encoding::HEXUPPER;
+<pre class="playground"><code class="language-rust edition2024">use data_encoding::HEXUPPER;
 use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{digest, pbkdf2, rand};
@@ -4456,7 +4456,7 @@ Keep lines sorted.
 <h2 id="count-word-frequency-in-a-document"><a class="header" href="#count-word-frequency-in-a-document">Count Word Frequency in a Document</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Splits a string into words with <a href="https://doc.rust-lang.org/std/primitive.str.html#method.split_whitespace"><code>split_whitespace</code></a> and counts each word’s occurrences. <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.entry"><code>HashMap::entry</code></a> with <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html#method.or_insert"><code>or_insert</code></a> initializes a missing key to zero and returns a mutable reference, so the increment requires no separate lookup. <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by_key"><code>sort_by_key</code></a> with <a href="https://doc.rust-lang.org/std/cmp/struct.Reverse.html"><code>Reverse</code></a> sorts the results descending by count; wrapping the count in <code>Reverse</code> flips the natural ascending order without a manual comparator.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cmp::Reverse;
+<pre class="playground"><code class="language-rust edition2024">use std::cmp::Reverse;
 use std::collections::HashMap;
 
 fn word_count(text: &amp;str) -&gt; HashMap&lt;&amp;str, usize&gt; {
@@ -4484,7 +4484,7 @@ fn main() {
 <h2 id="group-records-by-key"><a class="header" href="#group-records-by-key">Group Records by Key</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Groups a flat list of records into a <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> of vectors using <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.entry"><code>entry</code></a> with <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html#method.or_default"><code>or_default</code></a>, which inserts an empty <code>Vec</code> the first time a key is seen and returns a mutable reference to it on every call. <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.keys"><code>keys</code></a> with <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.copied"><code>copied</code></a> produces an owned <code>Vec&lt;&amp;str&gt;</code> for sorting — <code>copied</code> turns the <code>&amp;&amp;str</code> references that <code>keys</code> yields into <code>&amp;str</code> values.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 
 fn main() {
     let log_lines = vec![
@@ -4516,7 +4516,7 @@ fn main() {
 <h2 id="look-up-records-within-a-time-range"><a class="header" href="#look-up-records-within-a-time-range">Look Up Records Within a Time Range</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Stores timestamped sensor readings in a <a href="https://doc.rust-lang.org/std/collections/struct.BTreeMap.html"><code>BTreeMap</code></a>, which keeps keys in sorted order using a B-tree structure. <a href="https://doc.rust-lang.org/std/collections/struct.BTreeMap.html#method.range"><code>BTreeMap::range</code></a> locates the start of the range with binary search in O(log n) time and then iterates forward — so the cost scales with the result size, not the total number of entries. A <code>HashMap</code> cannot do this at all; it has no ordering to exploit.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::BTreeMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::BTreeMap;
 
 fn main() {
     let mut readings: BTreeMap&lt;u32, f64&gt; = BTreeMap::new();
@@ -4539,7 +4539,7 @@ fn main() {
 <h2 id="set-operations-with-hashset"><a class="header" href="#set-operations-with-hashset">Set Operations with HashSet</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Computes the <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.difference"><code>difference</code></a>, <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.intersection"><code>intersection</code></a>, and <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.union"><code>union</code></a> of two <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html"><code>HashSet</code></a>s. Each operation returns an iterator of references; <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.copied"><code>copied</code></a> converts <code>&amp;&amp;str</code> to <code>&amp;str</code> for easier collection.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashSet;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashSet;
 
 fn main() {
     let deployed: HashSet&lt;&amp;str&gt; = ["web", "api", "worker", "scheduler"]
@@ -4570,7 +4570,7 @@ fn main() {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>A type can be a <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> key or <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html"><code>HashSet</code></a> member when it implements <a href="https://doc.rust-lang.org/std/cmp/trait.Eq.html"><code>Eq</code></a> and <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a>. When equality is plain field-by-field comparison, <code>#[derive(Hash, PartialEq, Eq)]</code> is enough, as with <code>Coord</code> below.</p>
 <p>A manual <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> implementation is needed when equality is custom. The <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> trait works with a generic <a href="https://doc.rust-lang.org/std/hash/trait.Hasher.html"><code>Hasher</code></a> abstraction that supplies a mutable <code>state</code> object you write hashed data into. <code>Email</code> treats addresses as equal regardless of letter case, so its <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> must also ignore case: it feeds the lowercased bytes to the hasher. The rule is that <code>a == b</code> must imply <code>hash(a) == hash(b)</code>; if the two disagree, equal keys can land in different buckets and lookups silently miss. The assertions at the end check this property.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::hash_map::DefaultHasher;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::hash_map::DefaultHasher;
 use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};
 
@@ -4632,7 +4632,7 @@ fn main() {
 <p>The workaround is a small <code>KeyPair</code> trait that both tuple shapes implement. <code>Borrow</code> turns the owned tuple into a <code>dyn KeyPair</code>, and <code>Hash</code> and <code>Eq</code> for that trait object compare the two halves. The <code>get_pair</code> helper casts <code>&amp;(a, b)</code> to <code>&amp;dyn KeyPair</code> once, so callers just pass references and no data is copied.</p>
 <p>The trait object’s <code>Hash</code> must feed the hasher exactly what <code>(Email, Coord)::hash</code> does: the first element, then the second. If the orders differ, the lookup hashes to the wrong bucket and misses. This is the same rule as in the previous recipe, applied across a type boundary.</p>
 <p>This technique trades complexity for fewer allocations, so it pays off mainly when key halves are heap-allocated, such as <code>String</code>, and lookups are frequent. Every hash and comparison goes through a trait object, and for cheap <code>Copy</code> keys that can be slower than cloning. Two simpler alternatives are worth trying first: nested maps, <code>HashMap&lt;Email, HashMap&lt;Coord, V&gt;&gt;</code>, which take a plain <code>&amp;Email</code> and then a plain <code>&amp;Coord</code> with no extra traits; and the <a href="https://docs.rs/hashbrown/*/hashbrown/trait.Equivalent.html"><code>Equivalent</code></a> trait from the <a href="https://docs.rs/hashbrown/*/hashbrown/"><code>hashbrown</code></a> crate, which lets a map be queried with any type that compares equal to the key and hashes the same way, without the <code>dyn</code> indirection.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::borrow::Borrow;
+<pre class="playground"><code class="language-rust edition2024">use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
 
@@ -4743,7 +4743,7 @@ fn main() {
 <h2 id="process-tasks-in-priority-order"><a class="header" href="#process-tasks-in-priority-order">Process Tasks in Priority Order</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Uses <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html"><code>BinaryHeap</code></a> as a max-priority queue: <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html#method.push"><code>push</code></a> inserts an item and <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html#method.pop"><code>pop</code></a> always removes the highest-priority one first. Wrapping items in <a href="https://doc.rust-lang.org/std/cmp/struct.Reverse.html"><code>Reverse</code></a> turns it into a min-priority queue without a custom comparator.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cmp::Reverse;
+<pre class="playground"><code class="language-rust edition2024">use std::cmp::Reverse;
 use std::collections::BinaryHeap;
 
 fn main() {
@@ -4773,7 +4773,7 @@ fn main() {
 <h2 id="sliding-window-buffer-with-vecdeque"><a class="header" href="#sliding-window-buffer-with-vecdeque">Sliding-Window Buffer with VecDeque</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Maintains a fixed-size window over a stream of values using <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html"><code>VecDeque</code></a>. <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.push_back"><code>push_back</code></a> appends new values and <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.pop_front"><code>pop_front</code></a> discards the oldest, keeping memory bounded regardless of input length. <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.with_capacity"><code>with_capacity</code></a> is optional — <code>VecDeque::new()</code> works fine — but pre-allocating the window size avoids reallocations as the buffer fills up for the first time. <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.zip"><code>zip</code></a> pairs each original reading with its computed average for display.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::VecDeque;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::VecDeque;
 
 fn sliding_average(values: &amp;[f64], window: usize) -&gt; Vec&lt;f64&gt; {
     let mut buf: VecDeque&lt;f64&gt; = VecDeque::with_capacity(window);
@@ -4989,7 +4989,7 @@ Keep lines sorted.
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>Use the <a href="https://docs.rs/postgres/0.17.2/postgres/"><code>postgres</code></a> crate to create tables in a Postgres database.</p>
 <p><a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.connect"><code>Client::connect</code></a> helps in connecting to an existing database. The recipe uses a URL string format with <code>Client::connect</code>. It assumes an existing database named <code>library</code>, the username is <code>postgres</code> and the password is <code>postgres</code>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
+<pre class="playground"><code class="language-rust edition2024 no_run">use postgres::{Client, Error, NoTls};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", NoTls)?;
@@ -5019,7 +5019,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="insert-and-query-data"><a class="header" href="#insert-and-query-data">Insert and Query data</a></h2>
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>The recipe inserts data into the <code>author</code> table using <a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.execute"><code>execute</code></a> method of <code>Client</code>. Then, displays the data from the <code>author</code> table  using <a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.query"><code>query</code></a> method of <code>Client</code>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
+<pre class="playground"><code class="language-rust edition2024 no_run">use postgres::{Client, Error, NoTls};
 use std::collections::HashMap;
 
 struct Author {
@@ -5063,7 +5063,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="aggregate-data"><a class="header" href="#aggregate-data">Aggregate data</a></h2>
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>This recipe lists the nationalities of the first 7999 artists in the database of the <a href="https://github.com/MuseumofModernArt/collection/blob/main/Artists.csv">Museum of Modern Art</a> in descending order.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
+<pre class="playground"><code class="language-rust edition2024 no_run">use postgres::{Client, Error, NoTls};
 
 struct Nation {
     nationality: String,
@@ -5380,7 +5380,7 @@ Keep lines sorted.
 <p>Measures <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>time::Instant::elapsed</code></a> since <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>time::Instant::now</code></a>.</p>
 <p>Calling <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>time::Instant::elapsed</code></a> returns a <a href="https://doc.rust-lang.org/std/time/struct.Duration.html"><code>time::Duration</code></a> that we print at the end of the recipe.
 This method will not mutate or reset the <a href="https://doc.rust-lang.org/std/time/struct.Instant.html"><code>time::Instant</code></a> object.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::time::{Duration, Instant};
+<pre class="playground"><code class="language-rust edition2024">use std::time::{Duration, Instant};
 <span class="boring">use std::thread;
 </span><span class="boring">
 </span><span class="boring">fn expensive_function() {
@@ -5398,7 +5398,7 @@ fn main() {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/time--x.svg?style=social" alt="cat-time-badge"></a></p>
 <p>Calculates a one second <a href="https://doc.rust-lang.org/std/time/struct.Duration.html"><code>Duration</code></a>. Computes <code>deadline</code> one second from <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>Instant::now</code></a>.
 Sleeps for one second and compares <code>deadline</code> with <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>Instant::now</code></a> to check if the deadline has passed.</p>
-<pre class="playground"><code class="language-rust edition2021"><span class="boring">use std::thread;
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">use std::thread;
 </span>use std::time::{Duration, Instant};
 <span class="boring">fn sleep(duration: Duration) {
 </span><span class="boring">   thread::sleep(duration);
@@ -5417,7 +5417,7 @@ fn main() {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/time--x.svg?style=social" alt="cat-time-badge"></a></p>
 <p>Converts the current <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html"><code>SystemTime</code></a> to seconds since the Unix epoch, then computes the original time
 by adding the unix timestamp to <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html#associatedconstant.UNIX_EPOCH"><code>SystemTime::UNIX_EPOCH</code></a> constant.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::time::{SystemTime, SystemTimeError};
+<pre class="playground"><code class="language-rust edition2024">use std::time::{SystemTime, SystemTimeError};
 
 fn main() -&gt; Result&lt;(), SystemTimeError&gt; {
     let now = SystemTime::now();
@@ -5435,7 +5435,7 @@ fn main() -&gt; Result&lt;(), SystemTimeError&gt; {
 and uses <code>benchmark</code> to measure the performance of <code>subset_sum</code> which takes a slice of weights and a target value and finds a subset whose weights sum to the target.</p>
 <p><code>benchmark</code> measures the average time required to call a closure a specified number of times using <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>Instant::now</code></a> and <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>Instant::elapsed</code></a>.
 It uses <a href="https://doc.rust-lang.org/std/hint/fn.black_box.html"><code>black_box</code></a> to prevent the compiler from optimizing away the closure’s computation since its return value is ignored.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::time::{Duration, Instant};
+<pre class="playground"><code class="language-rust edition2024">use std::time::{Duration, Instant};
 
 fn subset_sum(weights: &amp;[u64], target: u64) -&gt; Option&lt;u32&gt; {
     for mask in 0..1u32 &lt;&lt; weights.len() {
@@ -5483,7 +5483,7 @@ fn main() {
 cannot be calculated.</p>
 <p>Escape sequences that are available for the
 <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format"><code>DateTime::format</code></a> can be found at <a href="https://docs.rs/chrono/*/chrono/format/strftime/index.html"><code>chrono::format::strftime</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, Duration, Utc};
+<pre class="playground"><code class="language-rust edition2024">use chrono::{DateTime, Duration, Utc};
 
 fn day_earlier(date_time: DateTime&lt;Utc&gt;) -&gt; Option&lt;DateTime&lt;Utc&gt;&gt; {
     date_time.checked_sub_signed(Duration::days(1))
@@ -5505,13 +5505,15 @@ fn main() {
 
     match now.checked_add_signed(Duration::max_value()) {
         Some(x) =&gt; println!("{}", x),
-        None =&gt; eprintln!("We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."),
+        None =&gt; eprintln!(
+            "We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."
+        ),
     }
 }</code></pre>
 <h2 id="convert-a-local-time-to-another-timezone"><a class="header" href="#convert-a-local-time-to-another-timezone">Convert a local time to another timezone</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge"></a></p>
 <p>Gets the local time and displays it using <a href="https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now"><code>offset::Local::now</code></a> and then converts it to the UTC standard using the <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc"><code>DateTime::from_utc</code></a> struct method. A time is then converted using the <a href="https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html"><code>offset::FixedOffset</code></a> struct and the UTC time is then converted to UTC+8 and UTC-2.</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, FixedOffset, Local, Utc};
+<pre class="playground"><code class="language-rust edition2024">use chrono::{DateTime, FixedOffset, Local, Utc};
 
 fn main() {
     let local_time = Local::now();
@@ -5541,7 +5543,7 @@ Keep lines sorted.
 <p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge"></a></p>
 <p>Gets the current UTC <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html"><code>DateTime</code></a> and its hour/minute/second via <a href="https://docs.rs/chrono/*/chrono/trait.Timelike.html"><code>Timelike</code></a>
 and its year/month/day/weekday via <a href="https://docs.rs/chrono/*/chrono/trait.Datelike.html"><code>Datelike</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::{Datelike, Timelike, Utc};
+<pre class="playground"><code class="language-rust edition2024">use chrono::{Datelike, Timelike, Utc};
 
 fn main() {
     let now = Utc::now();
@@ -5579,7 +5581,7 @@ fn main() {
 to <a href="https://en.wikipedia.org/wiki/Unix_time">UNIX timestamp</a> using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.timestamp"><code>NaiveDateTime::timestamp</code></a>.
 Then it calculates what was the date after one billion seconds
 since January 1, 1970 0:00:00 UTC, using <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html#method.from_timestamp"><code>NaiveDateTime::from_timestamp</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::{NaiveDate, NaiveDateTime};
+<pre class="playground"><code class="language-rust edition2024">use chrono::{NaiveDate, NaiveDateTime};
 
 fn main() {
     let date_time: NaiveDateTime = NaiveDate::from_ymd(2017, 11, 12).and_hms(17, 33, 44);
@@ -5601,7 +5603,7 @@ fn main() {
 current time in the well-known formats <a href="https://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> using <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc2822"><code>DateTime::to_rfc2822</code></a>
 and <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a> using <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.to_rfc3339"><code>DateTime::to_rfc3339</code></a>, and in a custom format using
 <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format"><code>DateTime::format</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, Utc};
+<pre class="playground"><code class="language-rust edition2024">use chrono::{DateTime, Utc};
 
 fn main() {
     let now: DateTime&lt;Utc&gt; = Utc::now();
@@ -5625,7 +5627,7 @@ found at <a href="https://docs.rs/chrono/*/chrono/format/strftime/index.html"><c
 requires that such a DateTime struct must be creatable that it uniquely
 identifies a date and a time. For parsing dates and times without timezones use
 <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDate.html"><code>NaiveDate</code></a>, <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveTime.html"><code>NaiveTime</code></a>, and <a href="https://docs.rs/chrono/*/chrono/naive/struct.NaiveDateTime.html"><code>NaiveDateTime</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::format::ParseError;
+<pre class="playground"><code class="language-rust edition2024">use chrono::format::ParseError;
 use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
@@ -5745,7 +5747,7 @@ Keep lines sorted.
 <p>The <code>log</code> crate provides logging utilities. The <code>env_logger</code> crate configures
 logging via an environment variable.  The <a href="https://docs.rs/log/*/log/macro.debug.html"><code>log::debug!</code></a> macro works like other
 <a href="https://doc.rust-lang.org/std/fmt/"><code>std::fmt</code></a> formatted strings.</p>
-<pre class="playground"><code class="language-rust edition2018">fn execute_query(query: &amp;str) {
+<pre class="playground"><code class="language-rust edition2024">fn execute_query(query: &amp;str) {
     log::debug!("Executing query: {}", query);
 }
 
@@ -5767,7 +5769,7 @@ following line at the very end of the output:</p>
 <p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge"></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge"></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge"></a></p>
 <p>Proper error handling considers exceptions exceptional.  Here, an error logs
 to stderr with <code>log</code>’s convenience macro <a href="https://docs.rs/log/*/log/macro.error.html"><code>log::error!</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">fn execute_query(_query: &amp;str) -&gt; Result&lt;(), &amp;'static str&gt; {
+<pre class="playground"><code class="language-rust edition2024">fn execute_query(_query: &amp;str) -&gt; Result&lt;(), &amp;'static str&gt; {
     Err("I'm afraid I can't do that")
 }
 
@@ -5782,7 +5784,7 @@ fn main() {
 <h2 id="log-to-stdout-instead-of-stderr"><a class="header" href="#log-to-stdout-instead-of-stderr">Log to stdout instead of stderr</a></h2>
 <p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge"></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge"></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge"></a></p>
 <p>Creates a custom logger configuration using the <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.target"><code>Builder::target</code></a> to set the target of the log output to <a href="https://docs.rs/env_logger/*/env_logger/fmt/enum.Target.html"><code>Target::Stdout</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use env_logger::{Builder, Target};
+<pre class="playground"><code class="language-rust edition2024">use env_logger::{Builder, Target};
 
 fn main() {
     Builder::new().target(Target::Stdout).init();
@@ -5794,7 +5796,7 @@ fn main() {
 <p>Implements a custom logger <code>ConsoleLogger</code> which prints to stdout.
 In order to use the logging macros, <code>ConsoleLogger</code> implements
 the <a href="https://docs.rs/log/*/log/trait.Log.html"><code>log::Log</code></a> trait and <a href="https://docs.rs/log/*/log/fn.set_logger.html"><code>log::set_logger</code></a> installs it.</p>
-<pre class="playground"><code class="language-rust edition2018">use log::{Level, LevelFilter, Metadata, Record, SetLoggerError};
+<pre class="playground"><code class="language-rust edition2024">use log::{Level, LevelFilter, Metadata, Record, SetLoggerError};
 
 static CONSOLE_LOGGER: ConsoleLogger = ConsoleLogger;
 
@@ -5866,7 +5868,7 @@ Keep lines sorted.
 <p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge"></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge"></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge"></a></p>
 <p>Creates two modules <code>foo</code> and nested <code>foo::bar</code> with logging directives
 controlled separately with <a href="https://docs.rs/env_logger/*/env_logger/#enabling-logging"><code>RUST_LOG</code></a> environmental variable.</p>
-<pre class="playground"><code class="language-rust edition2018">mod foo {
+<pre class="playground"><code class="language-rust edition2024">mod foo {
     mod bar {
         pub fn run() {
             log::warn!("[bar] warn");
@@ -5910,7 +5912,7 @@ DEBUG:test::foo::bar: [bar] debug
 <p><a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.from_env"><code>Builder::from_env</code></a> parses <code>MY_APP_LOG</code>
 environment variable contents in the form of <a href="https://docs.rs/env_logger/*/env_logger/#enabling-logging"><code>RUST_LOG</code></a> syntax.
 Then, <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.init"><code>Builder::init</code></a> initializes the logger.</p>
-<pre class="playground"><code class="language-rust edition2018">use env_logger::Builder;
+<pre class="playground"><code class="language-rust edition2024">use env_logger::Builder;
 
 fn main() {
     Builder::from_env("MY_APP_LOG").init();
@@ -5927,7 +5929,7 @@ timezone and uses <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#
 a timestamp used in the final log.</p>
 <p>This recipe calls <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.format"><code>Builder::format</code></a> to set a closure which formats each
 message text with timestamp, <a href="https://docs.rs/log/*/log/struct.Record.html#method.level"><code>Record::level</code></a> and body (<a href="https://docs.rs/log/*/log/struct.Record.html#method.args"><code>Record::args</code></a>).</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::Local;
+<pre class="playground"><code class="language-rust edition2024">use chrono::Local;
 use env_logger::Builder;
 use log::LevelFilter;
 use std::io::Write;
@@ -6057,7 +6059,7 @@ then increments it by patch, minor, and major version number one by one.</p>
 incrementing the minor version number resets the patch version number to 0 and
 incrementing the major version number resets both the minor and patch version
 numbers to 0.</p>
-<pre class="playground"><code class="language-rust edition2018">use semver::{Error as SemVerError, Version};
+<pre class="playground"><code class="language-rust edition2024">use semver::{Error as SemVerError, Version};
 
 fn main() -&gt; Result&lt;(), SemVerError&gt; {
     let mut parsed_version = Version::parse("0.2.6")?;
@@ -6087,7 +6089,7 @@ fn main() -&gt; Result&lt;(), SemVerError&gt; {
 contains pre-release and build metadata as defined in the <a href="http://semver.org/">Semantic Versioning Specification</a>.</p>
 <p>Note that, in accordance with the Specification, build metadata is parsed but not considered when
 comparing versions. In other words, two versions may be equal even if their build strings differ.</p>
-<pre class="playground"><code class="language-rust edition2018">use semver::{BuildMetadata, Error, Prerelease, Version};
+<pre class="playground"><code class="language-rust edition2024">use semver::{BuildMetadata, Error, Prerelease, Version};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let version_str = "1.0.49-125+g72ee7853";
@@ -6107,7 +6109,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="check-if-given-version-is-pre-release"><a class="header" href="#check-if-given-version-is-pre-release">Check if given version is pre-release.</a></h2>
 <p><a href="https://docs.rs/semver/"><img src="https://img.shields.io/crates/v/semver.svg?label=semver" alt="semver-badge"></a> <a href="https://crates.io/categories/config"><img src="https://img.shields.io/badge/config--x.svg?style=social" alt="cat-config-badge"></a></p>
 <p>Given two versions, [<code>is_prerelease</code>] asserts that one is pre-release and the other is not.</p>
-<pre class="playground"><code class="language-rust edition2018">use semver::{Error, Version};
+<pre class="playground"><code class="language-rust edition2024">use semver::{Error, Version};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let version_1 = Version::parse("1.0.0-alpha")?;
@@ -6123,7 +6125,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <p>Given a list of version &amp;strs, finds the latest <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a>.
 <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html"><code>semver::VersionReq</code></a> filters the list with <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches"><code>VersionReq::matches</code></a>.
 Also demonstrates <code>semver</code> pre-release preferences.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use semver::{Version, VersionReq};
 
 fn find_max_matching_version&lt;'a, I&gt;(version_req_str: &amp;str, iterable: I) -&gt; Result&lt;Option&lt;Version&gt;&gt;
@@ -6167,7 +6169,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <a href="https://docs.rs/semver/*/semver/struct.Version.html"><code>semver::Version</code></a> using <a href="https://docs.rs/semver/*/semver/struct.Version.html#method.parse"><code>Version::parse</code></a>. <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html#method.matches"><code>VersionReq::matches</code></a> compares
 <a href="https://docs.rs/semver/*/semver/struct.VersionReq.html"><code>semver::VersionReq</code></a> to the parsed version.  The command output resembles
 “git version x.y.z”.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::{Result, anyhow};
 use semver::{Version, VersionReq};
 use std::process::Command;
 
@@ -6591,7 +6593,7 @@ Keep lines sorted.
 <p>Encode an input string with <a href="https://en.wikipedia.org/wiki/Percent-encoding">percent-encoding</a> using the
 <a href="https://docs.rs/percent-encoding/*/percent_encoding/fn.utf8_percent_encode.html"><code>utf8_percent_encode</code></a> function from the <code>percent-encoding</code> crate. Then decode
 using the <a href="https://docs.rs/percent-encoding/*/percent_encoding/fn.percent_decode.html"><code>percent_decode</code></a> function.</p>
-<pre class="playground"><code class="language-rust edition2018">use percent_encoding::{percent_decode, utf8_percent_encode, AsciiSet, CONTROLS};
+<pre class="playground"><code class="language-rust edition2024">use percent_encoding::{AsciiSet, CONTROLS, percent_decode, utf8_percent_encode};
 use std::str::Utf8Error;
 
 /// https://url.spec.whatwg.org/#fragment-percent-encode-set
@@ -6621,7 +6623,7 @@ a <code>String</code>.</p>
 using the <a href="https://docs.rs/form_urlencoded/*/form_urlencoded/fn.byte_serialize.html"><code>form_urlencoded::byte_serialize</code></a> and subsequently
 decodes it with <a href="https://docs.rs/form_urlencoded/*/form_urlencoded/fn.parse.html"><code>form_urlencoded::parse</code></a>. Both functions return iterators
 that collect into a <code>String</code>.</p>
-<pre class="playground"><code class="language-rust edition2018">use url::form_urlencoded::{byte_serialize, parse};
+<pre class="playground"><code class="language-rust edition2024">use url::form_urlencoded::{byte_serialize, parse};
 
 fn main() {
     let urlencoded: String = byte_serialize("What is ❤?".as_bytes()).collect();
@@ -6643,7 +6645,7 @@ representation of the data.</p>
 returns a <code>Vec&lt;u8&gt;</code> if the input data is successfully decoded.</p>
 <p>The recipe below converts <code>&amp;[u8]</code> data to hexadecimal equivalent.  Compares this
 value to the expected value.</p>
-<pre class="playground"><code class="language-rust edition2018">use data_encoding::{DecodeError, HEXUPPER};
+<pre class="playground"><code class="language-rust edition2024">use data_encoding::{DecodeError, HEXUPPER};
 
 fn main() -&gt; Result&lt;(), DecodeError&gt; {
     let original = b"The quick brown fox jumps over the lazy dog.";
@@ -6754,7 +6756,7 @@ Keep lines sorted.
 <p>Reads standard CSV records into <a href="https://docs.rs/csv/*/csv/struct.StringRecord.html"><code>csv::StringRecord</code></a> — a weakly typed
 data representation which expects valid UTF-8 rows. Alternatively,
 <a href="https://docs.rs/csv/*/csv/struct.ByteRecord.html"><code>csv::ByteRecord</code></a> makes no assumptions about UTF-8.</p>
-<pre class="playground"><code class="language-rust edition2018">use csv::Error;
+<pre class="playground"><code class="language-rust edition2024">use csv::Error;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let csv = "year,make,model,description
@@ -6774,7 +6776,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 }</code></pre>
 <p>Serde deserializes data into strongly type structures. See the
 <a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize"><code>csv::Reader::deserialize</code></a> method.</p>
-<pre class="playground"><code class="language-rust edition2018">use serde::Deserialize;
+<pre class="playground"><code class="language-rust edition2024">use serde::Deserialize;
 #[derive(Deserialize)]
 struct Record {
     year: u16,
@@ -6803,7 +6805,7 @@ fn main() -&gt; Result&lt;(), csv::Error&gt; {
 <h2 id="read-csv-records-with-different-delimiter"><a class="header" href="#read-csv-records-with-different-delimiter">Read CSV records with different delimiter</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>Reads CSV records with a tab [<code>delimiter</code>].</p>
-<pre class="playground"><code class="language-rust edition2018">use csv::Error;
+<pre class="playground"><code class="language-rust edition2024">use csv::Error;
 use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 struct Record {
@@ -6832,7 +6834,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="filter-csv-records-matching-a-predicate"><a class="header" href="#filter-csv-records-matching-a-predicate">Filter CSV records matching a predicate</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>Returns <em>only</em> the rows from <code>data</code> with a field that matches <code>query</code>.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use std::io;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -6865,7 +6867,7 @@ West Hollywood,CA,37031,34.0900000,-118.3608333";
 <p>CSV files often contain invalid data. For these cases, the <code>csv</code> crate
 provides a custom deserializer, <a href="https://docs.rs/csv/*/csv/fn.invalid_option.html"><code>csv::invalid_option</code></a>, which automatically
 converts invalid data to None values.</p>
-<pre class="playground"><code class="language-rust edition2018">use csv::Error;
+<pre class="playground"><code class="language-rust edition2024">use csv::Error;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -6898,7 +6900,7 @@ serialization from Rust types into CSV records. <a href="https://docs.rs/csv/*/c
 a simple record containing string data only. Data with more complex values
 such as numbers, floats, and options use <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize"><code>serialize</code></a>. Since CSV
 writer uses internal buffer, always explicitly <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.flush"><code>flush</code></a> when done.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use std::io;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -6917,7 +6919,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>The following recipe shows how to serialize custom structs as CSV records using
 the <a href="https://docs.rs/serde/">serde</a> crate.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use serde::Serialize;
 use std::io;
 
@@ -6961,9 +6963,9 @@ fn main() -&gt; Result&lt;()&gt; {
 color name and an rgb color.  Utilizes the <a href="https://docs.rs/csv/">csv</a> crate to read and write the
 csv file, and <a href="https://docs.rs/serde/">serde</a> to deserialize and serialize the rows to and from bytes.</p>
 <p>See <a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize">csv::Reader::deserialize</a>, <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html">serde::Deserialize</a>, and <a href="https://doc.rust-lang.org/std/str/trait.FromStr.html">std::str::FromStr</a></p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use csv::{Reader, Writer};
-use serde::{de, Deserialize, Deserializer};
+use serde::{Deserialize, Deserializer, de};
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -7045,7 +7047,7 @@ JSON.</p>
 <p>Unstructured JSON can be parsed into a universal <a href="https://docs.serde.rs/serde_json/enum.Value.html"><code>serde_json::Value</code></a> type that
 is able to represent any valid JSON data.</p>
 <p>The recipe below shows a <code>&amp;str</code> of JSON being parsed.  The expected value is declared using the <a href="https://docs.serde.rs/serde_json/macro.json.html"><code>json!</code></a> macro.</p>
-<pre class="playground"><code class="language-rust edition2018">use serde_json::json;
+<pre class="playground"><code class="language-rust edition2024">use serde_json::json;
 use serde_json::{Error, Value};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -7153,7 +7155,7 @@ value.</p>
 <p>A byte slice implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a>, so <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_exact"><code>Read::read_exact</code></a> fills each array
 from the front of the slice and advances it. If the input is too short, it
 returns an <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.UnexpectedEof"><code>UnexpectedEof</code></a> error instead of panicking.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{Error, Read};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{Error, Read};
 
 #[derive(Default, PartialEq, Debug)]
 struct Payload {
@@ -7328,7 +7330,7 @@ Keep lines sorted.
 <p><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a> <a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
 <p>As recommended in Rust by Example, <a href="https://doc.rust-lang.org/rust-by-example/error/multiple_error_types/boxing_errors.html"><code>Box</code>ing errors</a> is seen as an easy
 strategy for getting started.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+<pre class="playground"><code class="language-rust edition2024">use std::error::Error;
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
     // Example of boxing errors
@@ -7348,7 +7350,7 @@ attributes provide the <code>Display</code> text, and the derive implements the
 <p>The below recipe will tell how long the system has been running by
 opening the Unix file <code>/proc/uptime</code> and parse the content to get the
 first number. Returns uptime unless there is an error.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024">use std::fs::File;
 use std::io::Read;
 use thiserror::Error;
 
@@ -7375,7 +7377,7 @@ fn main() {
 }</code></pre>
 <p>Application authors can compose enums using <code>anyhow</code> can import the <code>Result</code>
 type from the crate to provide auto-<code>Box</code>ing behavior</p>
-<pre class="playground"><code class="language-rust edition2018 should_panic">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024 should_panic">use anyhow::Result;
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let my_string = "yellow".to_string();
@@ -7399,7 +7401,7 @@ classifies an uploaded file by extension: <a href="https://doc.rust-lang.org/std
 <code>None</code>; <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.map"><code>Option::map</code></a> normalizes the matched value; and <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.filter"><code>Option::filter</code></a>
 rejects anything that is not a supported image. <code>None</code> falls straight through
 the chain, so no intermediate value needs to be unwrapped.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::path::Path;
+<pre class="playground"><code class="language-rust edition2024">use std::path::Path;
 
 /// Return the lowercase extension of `filename`, but only when it names an
 /// image we are willing to accept.
@@ -7428,7 +7430,7 @@ is <em>always</em> evaluated, so it suits cheap constants. <a href="https://doc.
 defers to a closure, computing the fallback only when the value is <code>None</code> —
 prefer it when the default is costly or has side effects.
 <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.unwrap_or_default"><code>Option::unwrap_or_default</code></a> returns the type’s <a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a> value.</p>
-<pre class="playground"><code class="language-rust edition2021">fn expensive_default() -&gt; i32 {
+<pre class="playground"><code class="language-rust edition2024">fn expensive_default() -&gt; i32 {
     // Pretend this performs costly work we want to avoid when possible.
     42
 }
@@ -7465,7 +7467,7 @@ propagated with <code>?</code>. <a href="https://doc.rust-lang.org/std/option/en
 into <code>Err(e)</code> using a supplied error value. <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.ok_or_else"><code>Option::ok_or_else</code></a> builds that
 error lazily from a closure, which is preferable when constructing the error
 allocates or is otherwise expensive.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 
 #[derive(Debug, PartialEq)]
 struct MissingKey(String);
@@ -7503,7 +7505,7 @@ rewrites an error into a domain-specific type so it can cross an API boundary.
 <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.and_then"><code>Result::and_then</code></a> sequences another fallible step, short-circuiting at the
 first error. <a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.map"><code>Result::map</code></a> transforms a successful value while leaving any
 error untouched.</p>
-<pre class="playground"><code class="language-rust edition2021">#[derive(Debug)]
+<pre class="playground"><code class="language-rust edition2024">#[derive(Debug)]
 enum ConfigError {
     NotANumber(String),
     OutOfRange(u32),
@@ -7549,7 +7551,7 @@ below show the interchangeable ways to tell it: a turbofish on <code>collect</co
 (<code>collect::&lt;Result&lt;Vec&lt;_&gt;, _&gt;&gt;()</code>) or a type annotation on the binding
 (<code>let result: Result&lt;Vec&lt;i32&gt;, _&gt;</code>). Pick whichever reads better at the call
 site; the result is identical.</p>
-<pre class="playground"><code class="language-rust edition2021">fn main() -&gt; Result&lt;(), std::num::ParseIntError&gt; {
+<pre class="playground"><code class="language-rust edition2024">fn main() -&gt; Result&lt;(), std::num::ParseIntError&gt; {
     let raw = ["1", "2", "3"];
 
     // Collecting into `Result&lt;Vec&lt;_&gt;, _&gt;` yields the whole vector only
@@ -7635,7 +7637,7 @@ single allocation plus a single syscall loop.</p>
 <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> over <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.open"><code>File::open</code></a> and stream lines or bytes. The cutoff is
 workload-specific; past a few megabytes, the streaming form is usually the
 right choice.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io;
 use tempfile::tempdir;
 
@@ -7659,7 +7661,7 @@ if it doesn’t, it’s created with default permissions.</p>
 <p>To append instead of replacing, build a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> through <a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html"><code>OpenOptions</code></a> with
 <a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html#method.append"><code>append</code></a> set. To refuse to overwrite an existing file — useful when a stale
 file would be a bug — use <a href="https://doc.rust-lang.org/std/fs/struct.OpenOptions.html#method.create_new"><code>create_new</code></a> instead of <code>create</code>.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io;
 use tempfile::tempdir;
 
@@ -7684,7 +7686,7 @@ time with the <a href="https://doc.rust-lang.org/std/io/struct.Lines.html"><code
 <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines"><code>BufRead::lines</code></a>. <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a> which provides <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a>
 trait.  <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.create"><code>File::create</code></a> opens a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> for writing, <a href="https://doc.rust-lang.org/std/fs/struct.File.html#method.open"><code>File::open</code></a> for
 reading.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024">use std::fs::File;
 use std::io::{BufRead, BufReader, Error, Write};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -7714,7 +7716,7 @@ and config writers avoid leaving a torn file behind if the process dies
 mid-write. The staging file and the final path must live on the same
 filesystem; across devices the kernel has no atomic move, and <code>rename</code> fails
 instead of silently degrading to a copy.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io;
 use tempfile::tempdir;
 
@@ -7743,7 +7745,7 @@ unlike a path assembled from a guessed name. Its <a href="https://docs.rs/tempfi
 code while the handle keeps it alive.</p>
 <p>The handle implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a>, <a href="https://doc.rust-lang.org/std/io/trait.Write.html"><code>Write</code></a> and <a href="https://doc.rust-lang.org/std/io/trait.Seek.html"><code>Seek</code></a> just like any other
 <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a>. Seeking back to the start reads back what was just written.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{Read, Seek, SeekFrom, Write};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{Read, Seek, SeekFrom, Write};
 use tempfile::NamedTempFile;
 
 fn main() -&gt; std::io::Result&lt;()&gt; {
@@ -7769,7 +7771,7 @@ now-permanent <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>
 <p>A reader of the target path sees either the old contents or the complete new
 ones. It never sees a half-written file. If the process dies before <code>persist</code>,
 only the temporary file is left behind. The original is untouched.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io::Write;
 use tempfile::NamedTempFile;
 
@@ -7791,7 +7793,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <p>Use <a href="https://docs.rs/same-file/*/same_file/struct.Handle.html"><code>same_file::Handle</code></a> to a file that can be tested for equality with
 other handles. In this recipe, the handles of file to be read from and
 to be written to are tested for equality.</p>
-<pre class="playground"><code class="language-rust edition2021">use same_file::Handle;
+<pre class="playground"><code class="language-rust edition2024">use same_file::Handle;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Error, ErrorKind, Write};
 use std::path::Path;
@@ -7857,7 +7859,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> and iterate with <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines"><code>BufRead::lines</code></a>. Unlike
 <a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>fs::read_to_string</code></a>, this streams one kernel-buffered chunk at a time —
 typically 8 KB — so memory usage stays flat regardless of file size.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024">use std::fs::File;
 use std::io::{self, BufRead, BufReader, Write};
 use tempfile::tempdir;
 
@@ -7885,7 +7887,7 @@ in-memory buffer — typically 8 KB — before flushing to the OS. This reduces
 syscall overhead when making many small writes. Always call <a href="https://doc.rust-lang.org/std/io/trait.Write.html#tymethod.flush"><code>Write::flush</code></a>
 explicitly when you are done; the buffer is also flushed when the <code>BufWriter</code>
 is dropped, but any error from that implicit flush is silently discarded.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024">use std::fs::File;
 use std::io::{self, BufWriter, Write};
 use tempfile::tempdir;
 
@@ -7912,7 +7914,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
 <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.read_line"><code>BufRead::read_line</code></a>, which appends characters — including the trailing
 newline — into the supplied <code>String</code> buffer. The lock is released when it
 goes out of scope.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, BufRead};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, BufRead};
 
 fn main() -&gt; io::Result&lt;()&gt; {
     let stdin = io::stdin();
@@ -7932,7 +7934,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
 <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> in tests or whenever bytes need to be assembled before deciding
 where to send them. The internal position advances with each read or write,
 so call <a href="https://doc.rust-lang.org/std/io/struct.Cursor.html#method.set_position"><code>Cursor::set_position</code></a> to rewind before reading back what you wrote.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{self, Cursor, Read, Write};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{self, Cursor, Read, Write};
 
 fn main() -&gt; io::Result&lt;()&gt; {
     let mut buf = Cursor::new(Vec::&lt;u8&gt;::new());
@@ -7958,7 +7960,7 @@ formatted text into it with no I/O and no file handle. Import
 the two traits share the macro name but operate on different targets.
 The <code>String</code> implementation never actually errors, but the signature uses
 <code>?</code> for consistency with other writers.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fmt::Write;
+<pre class="playground"><code class="language-rust edition2024">use std::fmt::Write;
 
 fn main() -&gt; std::fmt::Result {
     let mut s = String::new();
@@ -7989,7 +7991,7 @@ because a path might not have the component you ask for.</p>
 and <a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.with_file_name"><code>with_file_name</code></a> derive sibling or backup paths in one call without
 mutating the original. Conversion to <code>&amp;str</code> goes through <a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.to_str"><code>Path::to_str</code></a>,
 which returns <code>None</code> on non-UTF-8 paths.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::ffi::OsStr;
+<pre class="playground"><code class="language-rust edition2024">use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 
 fn main() {
@@ -8023,7 +8025,7 @@ when seeding cache directories or log roots on startup.</p>
 is missing it fails with <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.NotFound"><code>io::ErrorKind::NotFound</code></a>. Reach for <code>create_dir</code>
 when the parent is known to exist and you want the operation to fail loudly
 if your assumption is wrong.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io;
 use tempfile::tempdir;
 
@@ -8053,7 +8055,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
 <p><a href="https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.modified"><code>std::fs::Metadata::modified</code></a> returns the <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html#method.elapsed"><code>SystemTime::elapsed</code></a> time since the last modification.
 <a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.as_secs"><code>Duration::as_secs</code></a> converts the time to seconds and compared with 24 hours (24 * 60 * 60 seconds).
 <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.for_each"><code>Iterator::for_each</code></a> prints the file names.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use std::env;
 use walkdir::WalkDir;
 
@@ -8087,7 +8089,7 @@ For example, a loop is created on a Unix system via symlinks:</p>
 ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 </code></pre>
 <p>The following would assert that a loop exists.</p>
-<pre class="playground"><code class="language-rust edition2021">use same_file::is_same_file;
+<pre class="playground"><code class="language-rust edition2024">use same_file::is_same_file;
 use walkdir::WalkDir;
 
 fn main() {
@@ -8114,7 +8116,7 @@ fn main() {
 <p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>Find recursively in the current directory duplicate filenames,
 printing them only once.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 use walkdir::WalkDir;
 
 fn main() {
@@ -8139,7 +8141,7 @@ fn main() {
 <p>Find JSON files modified within the last day in the current directory.
 Using <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links"><code>follow_links</code></a> ensures symbolic links are followed like they were
 normal directories and files.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use walkdir::WalkDir;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -8165,7 +8167,7 @@ fn main() -&gt; Result&lt;()&gt; {
 even if the parent is a hidden directory.</p>
 <p>Root dir <code>"."</code> yields through <a href="https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth"><code>WalkDir::depth</code></a> usage in <code>is_not_hidden</code>
 predicate.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::{DirEntry, WalkDir};
+<pre class="playground"><code class="language-rust edition2024">use walkdir::{DirEntry, WalkDir};
 
 fn is_not_hidden(entry: &amp;DirEntry) -&gt; bool {
     entry
@@ -8186,7 +8188,7 @@ fn main() {
 <p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>Recursion depth can be flexibly set by <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth"><code>WalkDir::max_depth</code></a>. Calculates
 sum of all file sizes to 3 subdir levels, ignoring files in the root directory.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
+<pre class="playground"><code class="language-rust edition2024">use walkdir::WalkDir;
 
 fn main() {
     let total_size = WalkDir::new(".")
@@ -8205,7 +8207,7 @@ fn main() {
 In this case, the <code>**</code> pattern matches the current directory and all subdirectories.</p>
 <p>Use the <code>**</code> pattern in any path portion. For example, <code>/media/**/*.png</code>
 matches all PNGs in <code>media</code> and it’s subdirectories.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use glob::glob;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -8221,8 +8223,8 @@ pattern.</p>
 <p>A custom <a href="https://docs.rs/glob/*/glob/struct.MatchOptions.html"><code>MatchOptions</code></a> struct is passed to <a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob_with</code></a> instead of <a href="https://docs.rs/glob/*/glob/fn.glob.html"><code>glob</code></a>
 to make the glob pattern case insensitive while keeping the other options
 <a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
-use glob::{glob_with, MatchOptions};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
+use glob::{MatchOptions, glob_with};
 use walkdir::WalkDir;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -8410,7 +8412,7 @@ Linux cgroup quotas. The result is a <a href="https://doc.rust-lang.org/std/num/
 at least <code>1</code>, and it is wrapped in an <a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a> because the value cannot
 always be determined. This has been available in the standard library since Rust
 1.59, making it a good default for sizing thread pools.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::thread::available_parallelism;
+<pre class="playground"><code class="language-rust edition2024">use std::thread::available_parallelism;
 
 fn main() -&gt; std::io::Result&lt;()&gt; {
     let count = available_parallelism()?.get();
@@ -8428,7 +8430,7 @@ cgroup quotas. <code>num_cpus::get</code> also returns a plain <code>usize</code
 <a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a>, so it needs no error handling, and <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get_physical.html"><code>num_cpus::get_physical</code></a>
 additionally exposes the count of <em>physical</em> cores, which the standard library
 does not provide.</p>
-<pre class="playground"><code class="language-rust edition2021">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     println!("Number of logical cores is {}", num_cpus::get());
 }</code></pre>
 <!--
@@ -8470,7 +8472,7 @@ Keep lines sorted.
 be evaluated once, on first access, by a <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>. Before
 <code>LazyLock</code> was stabilized in Rust 1.80, the <code>lazy_static</code> crate was used for
 this purpose.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 use std::sync::LazyLock;
 
 static PRIVILEGES: LazyLock&lt;HashMap&lt;&amp;'static str, Vec&lt;&amp;'static str&gt;&gt;&gt; = LazyLock::new(|| {
@@ -8493,7 +8495,7 @@ fn main() {
 }</code></pre>
 <h2 id="stdcell"><a class="header" href="#stdcell">Std:cell</a></h2>
 <p><a href="https://doc.rust-lang.org/std/cell/struct.OnceCell.html"><code>OnceCell</code></a> is included in the standard library as an alternative.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cell::OnceCell;
+<pre class="playground"><code class="language-rust edition2024">use std::cell::OnceCell;
 
 fn main() {
     let cell = OnceCell::new();
@@ -8509,7 +8511,7 @@ fn main() {
 It is useful for expensive computations that might not be needed during the entire execution of a scope.</p>
 <p>In this recipe, we use <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> to lazily compute a set of permissions based on a user ID.
 Unlike <code>static</code> lazy types, <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> can capture local variables from its surrounding scope.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cell::LazyCell;
+<pre class="playground"><code class="language-rust edition2024">use std::cell::LazyCell;
 
 fn main() {
     let user_id = 42;
@@ -8580,7 +8582,7 @@ Keep lines sorted.
 Creates a vector that holds different types that implement the same trait <code>Notification</code> and <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html"><code>Box&lt;T&gt;</code></a>. Iterate over that vector calling the method <code>send(&amp;self)</code>.</p>
 <p>Trait objects such as <code>dyn Notification</code> do not have a size known at compile time, so they cannot be stored directly by value. <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html"><code>Box&lt;T&gt;</code></a> stores the value behind
 a pointer with a known size, making it possible to use different <code>Notification</code> implementations.</p>
-<pre class="playground"><code class="language-rust edition2021">trait Notification {
+<pre class="playground"><code class="language-rust edition2024">trait Notification {
     fn send(&amp;self);
 }
 
@@ -8623,7 +8625,7 @@ fn main() {
 <p>Uses <a href="https://doc.rust-lang.org/std/rc/struct.Rc.html"><code>Rc&lt;T&gt;</code></a> to share ownership of one task between multiple dependents and <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html"><code>RefCell&lt;T&gt;</code></a> to mutate that shared task through <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.try_borrow_mut"><code>RefCell::try_borrow_mut</code></a>.
 This recipe updates one shared task and reads the result through each dependent using <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.borrow"><code>RefCell::borrow</code></a>.</p>
 <p>This pattern is useful when several parts of a single-threaded program need access to the same owned value, but mutations have borrows checked through <code>RefCell</code>.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cell::{BorrowMutError, RefCell};
+<pre class="playground"><code class="language-rust edition2024">use std::cell::{BorrowMutError, RefCell};
 use std::rc::Rc;
 
 #[derive(Debug)]
@@ -8672,7 +8674,7 @@ fn main() -&gt; Result&lt;(), BorrowMutError&gt; {
 <p>Uses <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html"><code>borrow::Cow</code></a> to avoid allocating when the input string already has the desired form. The function returns <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html#variant.Borrowed"><code>Cow::Borrowed</code></a> for unchanged input and <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html#variant.Owned"><code>Cow::Owned</code></a>
 only when normalization requires a new <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>, such as converting uppercase text with <a href="https://doc.rust-lang.org/std/primitive.str.html#method.to_lowercase"><code>str::to_lowercase</code></a>.
 This keeps the fast path allocation-free while still allowing transformed output.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::borrow::Cow;
+<pre class="playground"><code class="language-rust edition2024">use std::borrow::Cow;
 
 fn normalize(input: &amp;str) -&gt; Cow&lt;'_, str&gt; {
     if input.chars().any(|c| c.is_uppercase()) {
@@ -8697,7 +8699,7 @@ fn main() {
 <p>Uses <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"><code>mem::swap</code></a>, <a href="https://doc.rust-lang.org/std/mem/fn.take.html"><code>mem::take</code></a>, and <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"><code>mem::replace</code></a> to move owned String values between document fields without cloning.
 <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"><code>mem::swap</code></a> exchanges the drafts of two documents, <a href="https://doc.rust-lang.org/std/mem/fn.take.html"><code>mem::take</code></a> moves a draft out for publishing while leaving an empty String behind,
 and <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"><code>mem::replace</code></a> installs the new published text while returning the previous version.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::mem::{replace, swap, take};
+<pre class="playground"><code class="language-rust edition2024">use std::mem::{replace, swap, take};
 
 struct Document {
     name: &amp;'static str,
@@ -9023,7 +9025,7 @@ Keep lines sorted.
 <p>In this recipe, the port is displayed on the console, and the program will
 listen until a request is made.  <a href="https://doc.rust-lang.org/std/net/struct.TcpListener.html#method.bind"><code>TcpListener::bind</code></a> uses a random port
 allocated by the OS when requested to bind to port 0.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io::{Error, Read};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{Error, Read};
 use std::net::TcpListener;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -9046,7 +9048,7 @@ your client at it to check framing, disconnect handling, or timeouts.</p>
 new connection. Spawning a thread per connection keeps the accept loop free for
 the next client. Inside the handler, <a href="https://doc.rust-lang.org/std/io/trait.Read.html#tymethod.read"><code>read</code></a> returning <code>0</code> means the peer
 closed the connection — that’s the cue to drop out of the loop.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 
@@ -9082,7 +9084,7 @@ client can connect, send a message, and read the reply.</p>
 reader and a writer. <a href="https://doc.rust-lang.org/std/io/trait.Write.html#method.write_all"><code>write_all</code></a> sends the request; <a href="https://doc.rust-lang.org/std/io/trait.Read.html#tymethod.read"><code>read</code></a> fills a buffer
 with whatever the server returns. Echo guarantees the bytes round-trip
 unchanged, so the client can assert on what came back.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, Read, Write};
 use std::net::TcpStream;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -9103,7 +9105,7 @@ When the peer is down or a firewall is silently dropping packets, that can
 take a minute or more. <a href="https://doc.rust-lang.org/std/net/struct.TcpStream.html#method.connect_timeout"><code>TcpStream::connect_timeout</code></a> caps the wait.</p>
 <p>The timeout variant takes a <a href="https://doc.rust-lang.org/std/net/enum.SocketAddr.html"><code>SocketAddr</code></a>, not a string, so resolve the
 hostname first.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 use std::net::{TcpStream, ToSocketAddrs};
 use std::time::Duration;
 
@@ -9132,7 +9134,7 @@ the read hangs with it. <a href="https://doc.rust-lang.org/std/net/struct.TcpStr
 breaks on the other platform.</p>
 <p>This recipe stands up a listener that accepts but never sends, then connects
 and reads with a short timeout to prove the timeout fires.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{self, Read};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{self, Read};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 use std::time::Duration;
@@ -9169,7 +9171,7 @@ buffer for tens of milliseconds waiting for company. <a href="https://doc.rust-l
 Nagle off so each write goes out as its own segment.</p>
 <p>Use it for chat, games, REPL-style protocols, and RPCs where round-trip
 latency matters more than packet count. Leave it on for bulk transfer.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Write};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, Write};
 use std::net::TcpStream;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -9189,7 +9191,7 @@ ability to read, shut down only the write side with <a href="https://doc.rust-la
 <p>After the half-close the peer sees EOF on its read, can do its work, and
 writes a response that you read normally. <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_end"><code>read_to_end</code></a> keeps reading until
 the peer closes its own write half.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io::{self, Read, Write};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{self, Read, Write};
 use std::net::{Shutdown, TcpStream};
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -9212,7 +9214,7 @@ descriptor — flip the listener into non-blocking mode with
 <p>This readiness pattern is the primitive every async runtime uses underneath.
 For production code, reach for <a href="https://docs.rs/mio"><code>mio</code></a> or an async runtime — what follows is
 the manual version of what they automate.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{self, ErrorKind};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{self, ErrorKind};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 use std::time::Duration;
@@ -9258,7 +9260,7 @@ overhead when delivery guarantees aren’t worth the cost.</p>
 collector binds to an OS-allocated port and waits with <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.recv_from"><code>recv_from</code></a>. The
 client binds to its own ephemeral port and uses <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.send_to"><code>send_to</code></a> to deliver a
 metric. <a href="https://doc.rust-lang.org/std/net/struct.UdpSocket.html#method.recv_from"><code>recv_from</code></a> returns the byte count and the sender’s address.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use std::net::UdpSocket;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -9284,7 +9286,7 @@ to every receiver that joined.</p>
 <p>Multicast group addresses live in <code>224.0.0.0/4</code>. Anything from <code>239.0.0.0</code> to
 <code>239.255.255.255</code> is reserved for private use — pick from there for in-house
 apps.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use std::io;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
 use std::net::{Ipv4Addr, SocketAddr, UdpSocket};
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -9321,7 +9323,7 @@ of <a href="https://doc.rust-lang.org/std/net/enum.SocketAddr.html"><code>Socket
 <p>A hostname can resolve to multiple addresses — at least one IPv4 and one
 IPv6 on any modern host. Walk all of them when you want to display every
 option, or take the first when one working address is enough.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use std::net::ToSocketAddrs;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -9340,7 +9342,7 @@ vector.</p>
 <p><a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html"><code>IpAddr</code></a> exposes <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html#method.is_loopback"><code>is_loopback</code></a>, <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html#method.is_multicast"><code>is_multicast</code></a>, and <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html#method.is_unspecified"><code>is_unspecified</code></a>
 on both v4 and v6. <a href="https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html#method.is_private"><code>is_private</code></a> and <a href="https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html#method.is_link_local"><code>is_link_local</code></a> are on <a href="https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html"><code>Ipv4Addr</code></a>
 only — match the variant to reach them.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::net::IpAddr;
+<pre class="playground"><code class="language-rust edition2024">use std::net::IpAddr;
 use std::str::FromStr;
 
 fn classify(addr: IpAddr) -&gt; &amp;'static str {
@@ -9388,7 +9390,7 @@ addresses (<code>::ffff:1.2.3.4</code>).</p>
 <p>On Windows and FreeBSD the <code>IPV6_V6ONLY</code> socket option defaults to true, so
 the same bind accepts IPv6 only. <a href="https://doc.rust-lang.org/std/net/index.html"><code>std::net</code></a> doesn’t expose <code>IPV6_V6ONLY</code>;
 the <a href="https://docs.rs/socket2"><code>socket2</code></a> crate does, or you can open two listeners.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use std::net::TcpListener;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -9433,7 +9435,7 @@ Keep lines sorted.
 <p>Runs <code>git log --oneline</code> using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and inspects the <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a>
 status to determine if the command was successful. The command output is captured
 as a <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> using <a href="https://doc.rust-lang.org/std/string/struct.String.html#method.from_utf8"><code>String::from_utf8</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::{Result, anyhow};
 use std::process::Command;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -9452,7 +9454,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></p>
 <p>Opens the <code>python</code> interpreter using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and passes it a
 python statement for execution. <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a> of statement is then parsed.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::{Result, anyhow};
 use std::collections::HashSet;
 use std::io::Write;
 use std::process::{Command, Stdio};
@@ -9492,7 +9494,7 @@ fn main() -&gt; Result&lt;()&gt; {
 the current working directory. It is equivalent to running: <code>du -ah . | sort -hr | head -n 10</code>.</p>
 <p><a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a>s represent a process. Output of a child process is captured with a
 <a href="https://doc.rust-lang.org/std/process/struct.Stdio.html"><code>Stdio::piped</code></a> between parent and child.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
 use std::process::{Command, Stdio};
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -9542,7 +9544,7 @@ writes to a specified file.  <a href="https://doc.rust-lang.org/std/fs/struct.Fi
 for <code>stdout</code> and <code>stderr</code>. It will ensure that both handles write with the same
 cursor position.</p>
 <p>The below recipe is equivalent to run the Unix shell command <code>ls . oops &gt;out.txt 2&gt;&amp;1</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::fs::File;
 use std::io::Error;
 use std::process::{Command, Stdio};
 
@@ -9567,7 +9569,7 @@ The recipe below calls <a href="https://doc.rust-lang.org/std/process/struct.Std
 <code>stdout</code> continuously as soon as the <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> is updated.</p>
 <p>The below recipe is equivalent to the Unix shell command
 <code>journalctl | grep usb</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io::{BufRead, BufReader, Error, ErrorKind};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{BufRead, BufReader, Error, ErrorKind};
 use std::process::{Command, Stdio};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -9590,7 +9592,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="read-environment-variable"><a class="header" href="#read-environment-variable">Read Environment Variable</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></p>
 <p>Reads an environment variable via <a href="https://doc.rust-lang.org/std/env/fn.var.html">std::env::var</a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::env;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::env;
 use std::fs;
 use std::io::Error;
 
@@ -10211,7 +10213,7 @@ Keep lines sorted.
 <h2 id="calculating-the-side-length-of-a-triangle"><a class="header" href="#calculating-the-side-length-of-a-triangle">Calculating the side length of a triangle</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Calculates the length of the hypotenuse of a right-angle triangle with an angle of 1 radian and opposite side length of 80.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let angle: f64 = 1.0;
     let side_length = 80.0;
 
@@ -10222,7 +10224,7 @@ Keep lines sorted.
 <h2 id="verifying-tan-is-equal-to-sin-divided-by-cos"><a class="header" href="#verifying-tan-is-equal-to-sin-divided-by-cos">Verifying tan is equal to sin divided by cos</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Verifies tan(x) is equal to sin(x)/cos(x) for x = 6.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let x: f64 = 6.0;
 
     let a = x.tan();
@@ -10241,7 +10243,7 @@ as pairs of latitude and longitude in degrees. Then, <a href="https://doc.rust-l
 converts them in radian. <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.sin"><code>sin</code></a>, <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.cos"><code>cos</code></a>, <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.powi"><code>powi</code></a> and <a href="https://doc.rust-lang.org/std/primitive.f64.html#method.sqrt"><code>sqrt</code></a>
 compute the central angle. Finally, it’s possible to calculate the
 distance.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let earth_radius_kilometer = 6371.0_f64;
     let (paris_latitude_degrees, paris_longitude_degrees) = (48.85341_f64, -2.34880_f64);
     let (london_latitude_degrees, london_longitude_degrees) = (51.50853_f64, -0.12574_f64);
@@ -10275,7 +10277,7 @@ Keep lines sorted.
 <p><a href="https://docs.rs/num/"><img src="https://img.shields.io/crates/v/num.svg?label=num" alt="num-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Creates complex numbers of type <a href="https://autumnai.github.io/cuticula/num/complex/struct.Complex.html"><code>num::complex::Complex</code></a>. Both the real and
 imaginary part of the complex number must be of the same type.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let complex_integer = num::complex::Complex::new(10, 20);
     let complex_float = num::complex::Complex::new(10.1, 20.1);
 
@@ -10287,7 +10289,7 @@ imaginary part of the complex number must be of the same type.</p>
 <p>Performing mathematical operations on complex numbers is the same as on
 built in types: the numbers in question must be of the same type (i.e. floats
 or integers).</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let complex_num1 = num::complex::Complex::new(10.0, 20.0); // Must use floats
     let complex_num2 = num::complex::Complex::new(3.1, -4.2);
 
@@ -10302,7 +10304,7 @@ how they interact with other mathematical functions, most notibly the family
 of sine functions as well as the number e. To use these functions with
 complex numbers, the Complex type has a few built in
 functions, all of which can be found here: <a href="https://autumnai.github.io/cuticula/num/complex/struct.Complex.html"><code>num::complex::Complex</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use num::complex::Complex;
+<pre class="playground"><code class="language-rust edition2024">use num::complex::Complex;
 use std::f64::consts::PI;
 
 fn main() {
@@ -10322,7 +10324,7 @@ Keep lines sorted.
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>This recipe calculates measures of central tendency for a data set contained within a Rust array. There may be no mean, median or mode to calculate for an empty set of data, so each function returns an <a href="https://doc.rust-lang.org/std/option/enum.Option.html"><code>Option</code></a> to be handled by the caller.</p>
 <p>The first function calculates the mean (the sum of all measurements divided by the number of measurements in the set) by producing an iterator of references over the data, and using <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum"><code>sum</code></a> and <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.len"><code>len</code></a> to determine the total value and count of values respectively.</p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let data = [3, 1, 6, 1, 5, 8, 1, 8, 10, 11];
 
     let sum = data.iter().sum::&lt;i32&gt;() as f32;
@@ -10336,7 +10338,7 @@ Keep lines sorted.
     println!("Mean of the data is {:?}", mean);
 }</code></pre>
 <p>The second function calculates the median using the quickselect algorithm, which avoids a full <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort"><code>sort</code></a> by sorting only partitions of the data set known to possibly contain the median. This uses <a href="https://doc.rust-lang.org/std/cmp/trait.Ord.html#tymethod.cmp"><code>cmp</code></a> and <a href="https://doc.rust-lang.org/std/cmp/enum.Ordering.html"><code>Ordering</code></a> to succinctly decide the next partition to examine, and <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.split_at"><code>split_at</code></a> to choose an arbitrary pivot for the next partition at each step.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::cmp::Ordering;
+<pre class="playground"><code class="language-rust edition2024">use std::cmp::Ordering;
 
 fn partition(data: &amp;[i32]) -&gt; Option&lt;(Vec&lt;i32&gt;, i32, Vec&lt;i32&gt;)&gt; {
     match data.len() {
@@ -10408,7 +10410,7 @@ fn main() {
     println!("Median is {:?}", med);
 }</code></pre>
 <p>The final function calculates the  mode using a mutable <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> to collect counts of each distinct integer from the set, using a <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.fold"><code>fold</code></a> and the <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html"><code>entry</code></a> API. The most frequent value in the <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> surfaces with <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.max_by_key"><code>max_by_key</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 
 fn main() {
     let data = [3, 1, 6, 1, 5, 8, 1, 8, 10, 11];
@@ -10430,7 +10432,7 @@ fn main() {
 <p>This recipe calculates the standard deviation and z-score of a set of measurements.</p>
 <p>The standard deviation is defined as the square root of the variance (here calculated with f32’s [<code>sqrt</code>], where the variance is the <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.sum"><code>sum</code></a> of the squared difference between each measurement and the [<code>mean</code>], divided by the number of measurements.</p>
 <p>The z-score is the number of standard deviations a single measurement spans away from the [<code>mean</code>] of the data set.</p>
-<pre class="playground"><code class="language-rust edition2018">fn mean(data: &amp;[i32]) -&gt; Option&lt;f32&gt; {
+<pre class="playground"><code class="language-rust edition2024">fn mean(data: &amp;[i32]) -&gt; Option&lt;f32&gt; {
     let sum = data.iter().sum::&lt;i32&gt;() as f32;
     let count = data.len();
 
@@ -10492,7 +10494,7 @@ Keep lines sorted.
 <h2 id="big-integers"><a class="header" href="#big-integers">Big integers</a></h2>
 <p><a href="https://docs.rs/num/"><img src="https://img.shields.io/crates/v/num.svg?label=num" alt="num-badge"></a> <a href="https://crates.io/categories/science"><img src="https://img.shields.io/badge/science--x.svg?style=social" alt="cat-science-badge"></a></p>
 <p>Calculation for integers exceeding 128 bits are possible with <a href="https://docs.rs/num/0.2.0/num/struct.BigInt.html"><code>BigInt</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use num::bigint::{BigInt, ToBigInt};
+<pre class="playground"><code class="language-rust edition2024">use num::bigint::{BigInt, ToBigInt};
 
 fn factorial(x: i32) -&gt; BigInt {
     if let Some(mut factorial) = 1.to_bigint() {
@@ -10797,7 +10799,7 @@ Keep lines sorted.
 <p>Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol. The <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> is compiled only once, on first use, by
 declaring it as a <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
+<pre class="playground"><code class="language-rust edition2024">use regex::Regex;
 use std::sync::LazyLock;
 
 fn extract_login(input: &amp;str) -&gt; Option&lt;&amp;str&gt; {
@@ -10831,7 +10833,7 @@ fn main() {
 letter. The complete <a href="https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255">twitter hashtag regex</a> is much more complicated.</p>
 <p>The <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> is compiled only once, on first use, by declaring it as a
 <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
+<pre class="playground"><code class="language-rust edition2024">use regex::Regex;
 use std::collections::HashSet;
 use std::sync::LazyLock;
 
@@ -10854,7 +10856,7 @@ fn main() {
 <p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Processes a string of text using <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter"><code>Regex::captures_iter</code></a> to capture multiple
 phone numbers.  This recipe handles US convention phone numbers.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use regex::Regex;
 use std::fmt;
 
@@ -10924,7 +10926,7 @@ containing “version X.X.X”, some IP address followed by port 443
 <p>A <a href="https://docs.rs/regex/*/regex/struct.RegexSetBuilder.html"><code>regex::RegexSetBuilder</code></a> composes a <a href="https://docs.rs/regex/*/regex/struct.RegexSet.html"><code>regex::RegexSet</code></a>.
 Since backslashes are very common in regular expressions, using
 <a href="https://doc.rust-lang.org/reference/tokens.html#raw-string-literals">raw string literals</a> makes them more readable.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
 use regex::RegexSetBuilder;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -10960,7 +10962,7 @@ refer to corresponding named capture groups <code>(?P&lt;abcde&gt;REGEX)</code> 
 regex. See the <a href="https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax">replacement string syntax</a> for examples and escaping detail.
 The regex is compiled only once, on first use, by declaring it as a <code>static</code>
 <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
+<pre class="playground"><code class="language-rust edition2024">use regex::Regex;
 use std::borrow::Cow;
 use std::sync::LazyLock;
 
@@ -10988,7 +10990,7 @@ Keep lines sorted.
 <p><a href="https://docs.rs/unicode-segmentation/1.2.1/unicode_segmentation/"><img src="https://img.shields.io/crates/v/unicode-segmentation.svg?label=unicode-segmentation" alt="unicode-segmentation-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Collect individual Unicode graphemes from UTF-8 string using the
 <a href="https://docs.rs/unicode-segmentation/*/unicode_segmentation/trait.UnicodeSegmentation.html#tymethod.graphemes"><code>UnicodeSegmentation::graphemes</code></a> function from the <a href="https://docs.rs/unicode-segmentation/1.2.1/unicode_segmentation/"><code>unicode-segmentation</code></a> crate.</p>
-<pre class="playground"><code class="language-rust edition2018">use unicode_segmentation::UnicodeSegmentation;
+<pre class="playground"><code class="language-rust edition2024">use unicode_segmentation::UnicodeSegmentation;
 
 fn main() {
     let name = "José Guimarães\r\n";
@@ -10998,7 +11000,7 @@ fn main() {
 <h2 id="implement-the-fromstr-trait-for-a-custom-struct"><a class="header" href="#implement-the-fromstr-trait-for-a-custom-struct">Implement the <code>FromStr</code> trait for a custom <code>struct</code></a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Creates a custom struct <code>RGB</code> and implements the <code>FromStr</code> trait to convert a provided color hex code into its RGB color code.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::str::FromStr;
+<pre class="playground"><code class="language-rust edition2024">use std::str::FromStr;
 
 #[derive(Debug, PartialEq)]
 struct RGB {
@@ -11055,7 +11057,7 @@ struct with mixed field types, and derives <a href="https://doc.rust-lang.org/st
 <code>#[derive(Debug)]</code> isn’t quite what’s needed; <a href="https://doc.rust-lang.org/std/fmt/struct.Formatter.html#method.debug_struct"><code>Formatter::debug_struct</code></a>
 builds output in that same <code>Field { .. }</code> style without having to format
 the fields by hand.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::collections::hash_map::DefaultHasher;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::hash_map::DefaultHasher;
 use std::fmt;
 use std::hash::{Hash, Hasher};
 
@@ -11425,7 +11427,7 @@ Keep lines sorted.
 <code>Result&lt;Url, ParseError&gt;</code>.</p>
 <p>Once the URL has been parsed, it can be used with all of the methods in the
 <code>Url</code> type.</p>
-<pre class="playground"><code class="language-rust edition2018">use url::{ParseError, Url};
+<pre class="playground"><code class="language-rust edition2024">use url::{ParseError, Url};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let s = "https://github.com/rust-lang/rust/issues?labels=E-easy&amp;state=open";
@@ -11441,7 +11443,7 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
 files or query strings.  Each of those items are stripped out of the given
 URL.  <a href="https://docs.rs/url/*/url/struct.PathSegmentsMut.html#method.clear"><code>PathSegmentsMut::clear</code></a> removes paths and <a href="https://docs.rs/url/*/url/struct.Url.html#method.set_query"><code>Url::set_query</code></a> removes
 query string.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use url::Url;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -11473,7 +11475,7 @@ fn base_url(mut url: Url) -&gt; Result&lt;Url&gt; {
 <h2 id="create-new-urls-from-a-base-url"><a class="header" href="#create-new-urls-from-a-base-url">Create new URLs from a base URL</a></h2>
 <p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html#method.join"><code>join</code></a> method creates a new URL from a base and relative path.</p>
-<pre class="playground"><code class="language-rust edition2018">use url::{ParseError, Url};
+<pre class="playground"><code class="language-rust edition2024">use url::{ParseError, Url};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let path = "/rust-lang/cargo";
@@ -11498,7 +11500,7 @@ fn build_github_url(path: &amp;str) -&gt; Result&lt;Url, ParseError&gt; {
 <p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>The <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> struct exposes various methods to extract information about the URL
 it represents.</p>
-<pre class="playground"><code class="language-rust edition2021">use url::{Host, ParseError, Url};
+<pre class="playground"><code class="language-rust edition2024">use url::{Host, ParseError, Url};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let s = "ftp://rust-lang.org/examples";
@@ -11513,7 +11515,7 @@ fn main() -&gt; Result&lt;(), ParseError&gt; {
     Ok(())
 }</code></pre>
 <p><a href="https://docs.rs/url/*/url/struct.Url.html#method.origin"><code>origin</code></a> produces the same result.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use url::{Host, Origin, Url};
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -11535,7 +11537,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <h2 id="remove-fragment-identifiers-and-query-pairs-from-a-url"><a class="header" href="#remove-fragment-identifiers-and-query-pairs-from-a-url">Remove fragment identifiers and query pairs from a URL</a></h2>
 <p><a href="https://docs.rs/url/"><img src="https://img.shields.io/crates/v/url.svg?label=url" alt="url-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a></p>
 <p>Parses <a href="https://docs.rs/url/*/url/struct.Url.html"><code>Url</code></a> and slices it with <a href="https://docs.rs/url/*/url/enum.Position.html"><code>url::Position</code></a> to strip unneeded URL parts.</p>
-<pre class="playground"><code class="language-rust edition2018">use url::{ParseError, Position, Url};
+<pre class="playground"><code class="language-rust edition2024">use url::{ParseError, Position, Url};
 
 fn main() -&gt; Result&lt;(), ParseError&gt; {
     let parsed = Url::parse("https://github.com/rust-lang/rust/issues?labels=E-easy&amp;state=open")?;
@@ -11556,7 +11558,7 @@ Keep lines sorted.
 <p>The following recipe shows how to parse a <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>MIME</code></a> type from a string using the
 <a href="https://docs.rs/mime/">mime</a> crate. <a href="https://docs.rs/mime/*/mime/struct.FromStrError.html"><code>FromStrError</code></a> produces a default <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>MIME</code></a> type in an
 <code>unwrap_or</code> clause.</p>
-<pre class="playground"><code class="language-rust edition2018">use mime::{Mime, APPLICATION_OCTET_STREAM};
+<pre class="playground"><code class="language-rust edition2024">use mime::{APPLICATION_OCTET_STREAM, Mime};
 
 fn main() {
     let invalid_mime_type = "i n v a l i d";
@@ -11584,7 +11586,7 @@ fn main() {
 <p>The following recipe shows how to return the correct MIME type from a given
 filename using the <a href="https://docs.rs/mime/">mime</a> crate.  The program will check for file extensions
 and match against a known list.  The return value is <a href="https://docs.rs/mime/*/mime/struct.Mime.html"><code>mime:Mime</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use mime::Mime;
+<pre class="playground"><code class="language-rust edition2024">use mime::Mime;
 
 fn find_mimetype(filename: &amp;String) -&gt; Mime {
     let parts: Vec&lt;&amp;str&gt; = filename.split('.').collect();

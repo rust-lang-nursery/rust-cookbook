@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -191,7 +191,7 @@ data and runs inside a single spawned task. A clonable <strong>handle</strong> h
 command the actor can process.</p>
 <p>Because only one task ever accesses the data, there is no locking. Request–response
 pairs use a <a href="https://docs.rs/tokio/latest/tokio/sync/oneshot/index.html"><code>oneshot</code></a> channel embedded in the message variant.</p>
-<pre class="playground"><code class="language-rust edition2021">use thiserror::Error;
+<pre class="playground"><code class="language-rust edition2024">use thiserror::Error;
 use tokio::sync::{mpsc, oneshot};
 
 #[derive(Debug, Error)]

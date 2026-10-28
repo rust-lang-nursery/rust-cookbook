@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -188,7 +188,7 @@ on a task. If it finishes in time you get the result, if it doesn’t, it is can
 an error back.</p>
 <p>In this recipe, a network request is given 5 milliseconds to complete. If it finishes in time,
 the result is printed. If it runs over, the program reports a timeout.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::time::Duration;
+<pre class="playground"><code class="language-rust edition2024">use std::time::Duration;
 use tokio::time::timeout;
 
 async fn fetch_network_request() -&gt; u32 {

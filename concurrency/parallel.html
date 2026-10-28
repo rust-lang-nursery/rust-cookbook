@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>This recipe uses the <code>rayon</code> crate, which is a data parallelism library for Rust.
 <code>rayon</code> provides the <a href="https://docs.rs/rayon/*/rayon/iter/trait.IntoParallelRefMutIterator.html#tymethod.par_iter_mut"><code>par_iter_mut</code></a> method for any parallel iterable data type.
 This is an iterator-like chain that potentially executes in parallel.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+<pre class="playground"><code class="language-rust edition2024">use rayon::prelude::*;
 
 fn main() {
     let mut arr = [0, 7, 9, 11];
@@ -197,7 +197,7 @@ fn main() {
 <h2 id="test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate"><a class="header" href="#test-in-parallel-if-any-or-all-elements-of-a-collection-match-a-given-predicate">Test in parallel if any or all elements of a collection match a given predicate</a></h2>
 <p><a href="https://docs.rs/rayon/"><img src="https://img.shields.io/crates/v/rayon.svg?label=rayon" alt="rayon-badge"></a> <a href="https://crates.io/categories/concurrency"><img src="https://img.shields.io/badge/concurrency--x.svg?style=social" alt="cat-concurrency-badge"></a></p>
 <p>This recipe demonstrates using the <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any"><code>rayon::any</code></a> and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all"><code>rayon::all</code></a> methods, which are parallelized counterparts to <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.any"><code>std::any</code></a> and <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.all"><code>std::all</code></a>. <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.any"><code>rayon::any</code></a> checks in parallel whether any element of the iterator matches the predicate, and returns as soon as one is found. <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.all"><code>rayon::all</code></a> checks in parallel whether all elements of the iterator match the predicate, and returns as soon as a non-matching element is found.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+<pre class="playground"><code class="language-rust edition2024">use rayon::prelude::*;
 
 fn main() {
     let mut vec = vec![2, 4, 6, 8];
@@ -223,7 +223,7 @@ argument of <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.h
 necessarily the first one.</p>
 <p>Also note that the argument to the closure is a reference to a reference
 (<code>&amp;&amp;x</code>). See the discussion on <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.find"><code>std::find</code></a> for additional details.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+<pre class="playground"><code class="language-rust edition2024">use rayon::prelude::*;
 
 fn main() {
     let v = vec![6, 2, 1, 9, 3, 8, 11];
@@ -265,7 +265,7 @@ predicate.  <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.h
 new iteration, and <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.reduce"><code>rayon::reduce</code></a> performs an operation given the previous
 reduction and the current element.  Also shows use of <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.sum"><code>rayon::sum</code></a>,
 which has the same result as the reduce operation in this recipe.</p>
-<pre class="playground"><code class="language-rust edition2018">use rayon::prelude::*;
+<pre class="playground"><code class="language-rust edition2024">use rayon::prelude::*;
 
 struct Person {
     age: u32,

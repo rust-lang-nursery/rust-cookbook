@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>Runs <code>git log --oneline</code> using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and inspects the <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a>
 status to determine if the command was successful. The command output is captured
 as a <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> using <a href="https://doc.rust-lang.org/std/string/struct.String.html#method.from_utf8"><code>String::from_utf8</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::{Result, anyhow};
 use std::process::Command;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -206,7 +206,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></p>
 <p>Opens the <code>python</code> interpreter using an external <a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a> and passes it a
 python statement for execution. <a href="https://doc.rust-lang.org/std/process/struct.Output.html"><code>Output</code></a> of statement is then parsed.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::{Result, anyhow};
 use std::collections::HashSet;
 use std::io::Write;
 use std::process::{Command, Stdio};
@@ -246,7 +246,7 @@ fn main() -&gt; Result&lt;()&gt; {
 the current working directory. It is equivalent to running: <code>du -ah . | sort -hr | head -n 10</code>.</p>
 <p><a href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>Command</code></a>s represent a process. Output of a child process is captured with a
 <a href="https://doc.rust-lang.org/std/process/struct.Stdio.html"><code>Stdio::piped</code></a> between parent and child.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
 use std::process::{Command, Stdio};
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -296,7 +296,7 @@ writes to a specified file.  <a href="https://doc.rust-lang.org/std/fs/struct.Fi
 for <code>stdout</code> and <code>stderr</code>. It will ensure that both handles write with the same
 cursor position.</p>
 <p>The below recipe is equivalent to run the Unix shell command <code>ls . oops &gt;out.txt 2&gt;&amp;1</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::fs::File;
 use std::io::Error;
 use std::process::{Command, Stdio};
 
@@ -321,7 +321,7 @@ The recipe below calls <a href="https://doc.rust-lang.org/std/process/struct.Std
 <code>stdout</code> continuously as soon as the <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> is updated.</p>
 <p>The below recipe is equivalent to the Unix shell command
 <code>journalctl | grep usb</code>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::io::{BufRead, BufReader, Error, ErrorKind};
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::io::{BufRead, BufReader, Error, ErrorKind};
 use std::process::{Command, Stdio};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -344,7 +344,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="read-environment-variable"><a class="header" href="#read-environment-variable">Read Environment Variable</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/os"><img src="https://img.shields.io/badge/OS--x.svg?style=social" alt="cat-os-badge"></a></p>
 <p>Reads an environment variable via <a href="https://doc.rust-lang.org/std/env/fn.var.html">std::env::var</a>.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use std::env;
+<pre class="playground"><code class="language-rust edition2024 no_run">use std::env;
 use std::fs;
 use std::io::Error;
 

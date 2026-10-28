@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -188,7 +188,7 @@
 be evaluated once, on first access, by a <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>. Before
 <code>LazyLock</code> was stabilized in Rust 1.80, the <code>lazy_static</code> crate was used for
 this purpose.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 use std::sync::LazyLock;
 
 static PRIVILEGES: LazyLock&lt;HashMap&lt;&amp;'static str, Vec&lt;&amp;'static str&gt;&gt;&gt; = LazyLock::new(|| {
@@ -211,7 +211,7 @@ fn main() {
 }</code></pre>
 <h2 id="stdcell"><a class="header" href="#stdcell">Std:cell</a></h2>
 <p><a href="https://doc.rust-lang.org/std/cell/struct.OnceCell.html"><code>OnceCell</code></a> is included in the standard library as an alternative.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cell::OnceCell;
+<pre class="playground"><code class="language-rust edition2024">use std::cell::OnceCell;
 
 fn main() {
     let cell = OnceCell::new();
@@ -227,7 +227,7 @@ fn main() {
 It is useful for expensive computations that might not be needed during the entire execution of a scope.</p>
 <p>In this recipe, we use <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> to lazily compute a set of permissions based on a user ID.
 Unlike <code>static</code> lazy types, <a href="https://doc.rust-lang.org/std/cell/struct.LazyCell.html"><code>LazyCell</code></a> can capture local variables from its surrounding scope.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cell::LazyCell;
+<pre class="playground"><code class="language-rust edition2024">use std::cell::LazyCell;
 
 fn main() {
     let user_id = 42;

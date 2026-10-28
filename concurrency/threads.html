@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -188,7 +188,7 @@
 to terminate before returning from the closure, meaning that
 you can reference data from the calling function without needing <code>Arc</code> or other ownership tricks.</p>
 <p>This recipe splits the array in half and performs the work in separate threads.</p>
-<pre class="playground"><code class="language-rust edition2021">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     let arr = &amp;[1, 25, -4, 10];
     let max = find_max(arr);
     assert_eq!(max, Some(25));
@@ -234,7 +234,7 @@ for new messages or until the channel is closed. Because the channels were
 created within the <a href="https://docs.rs/crossbeam/*/crossbeam/fn.scope.html"><code>crossbeam::scope</code></a>, we must manually close them via <code>drop</code>
 to prevent the entire program from blocking on the worker for-loops. You can
 think of the calls to <code>drop</code> as signaling that no more messages will be sent.</p>
-<pre class="playground"><code class="language-rust edition2018">use crossbeam::channel::bounded;
+<pre class="playground"><code class="language-rust edition2024">use crossbeam::channel::bounded;
 use std::thread;
 use std::time::Duration;
 
@@ -289,7 +289,7 @@ consumer (SPSC) setting. We build off the <a href="#spawn-a-short-lived-thread">
 exchanged between the two threads using a <a href="https://docs.rs/crossbeam-channel/*/crossbeam_channel/fn.unbounded.html"><code>crossbeam_channel::unbounded</code></a>
 channel, meaning there is no limit to the number of storeable messages. The
 producer thread sleeps for half a second in between messages.</p>
-<pre class="playground"><code class="language-rust edition2018">use crossbeam::channel::unbounded;
+<pre class="playground"><code class="language-rust edition2024">use crossbeam::channel::unbounded;
 use std::{thread, time};
 
 fn main() {
@@ -319,7 +319,7 @@ The <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</
 the state cannot be simultaneously accessed by multiple threads, preventing
 race conditions. A <a href="https://doc.rust-lang.org/std/sync/struct.MutexGuard.html"><code>MutexGuard</code></a> must be acquired to read or mutate the
 value stored in a <a href="https://doc.rust-lang.org/std/sync/struct.Mutex.html"><code>Mutex</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use std::sync::Mutex;
 
 static FRUIT: Mutex&lt;Vec&lt;String&gt;&gt; = Mutex::new(Vec::new());
@@ -356,7 +356,7 @@ paths are collected into a <code>Vec</code>. <a href="https://docs.rs/rayon/*/ra
 each file and computing its hash across rayon’s global thread pool, which has
 one thread per available core by default. The digests are gathered with
 <a href="https://docs.rs/rayon/*/rayon/iter/trait.ParallelIterator.html#method.collect"><code>collect</code></a> into a single <a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a>, so the first error stops the run.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
+<pre class="playground"><code class="language-rust edition2024 no_run">use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;
 use std::io::{BufReader, Error, Read};
@@ -421,9 +421,9 @@ rayon’s global pool. Each file is read with <a href="https://doc.rust-lang.org
 <a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a>.
 Reading the contents is what keeps the workers busy with real IO;
 <a href="https://doc.rust-lang.org/std/fs/fn.metadata.html"><code>std::fs::metadata</code></a> would be cheaper when only the length matters.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
-use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use rayon::ThreadPoolBuilder;
+use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use std::fs;
 use std::io;
 use std::path::PathBuf;

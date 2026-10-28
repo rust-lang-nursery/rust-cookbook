@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -193,7 +193,7 @@ the sender has to wait until there is room before it can send another message.</
 the postman has to wait until someone clears it out before dropping in another letter.</p>
 <p>In this recipe, two book stores send books through a channel with a capacity of 5.
 A shelf collects whatever comes through.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use tokio::sync::mpsc::channel;
 
 struct Book {
@@ -256,7 +256,7 @@ Sending on an unbounded channel will always succeed as long as the receiving end
 If the receiver is slow, messages simply queue up and wait.</p>
 <p>In this recipe, two people send messages through a channel. An inbox collects whatever comes
 through.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use tokio::sync::mpsc::unbounded_channel;
 
 struct Message {

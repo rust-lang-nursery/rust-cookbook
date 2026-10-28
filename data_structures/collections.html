@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -185,7 +185,7 @@
 <h2 id="count-word-frequency-in-a-document"><a class="header" href="#count-word-frequency-in-a-document">Count Word Frequency in a Document</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Splits a string into words with <a href="https://doc.rust-lang.org/std/primitive.str.html#method.split_whitespace"><code>split_whitespace</code></a> and counts each word’s occurrences. <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.entry"><code>HashMap::entry</code></a> with <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html#method.or_insert"><code>or_insert</code></a> initializes a missing key to zero and returns a mutable reference, so the increment requires no separate lookup. <a href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_by_key"><code>sort_by_key</code></a> with <a href="https://doc.rust-lang.org/std/cmp/struct.Reverse.html"><code>Reverse</code></a> sorts the results descending by count; wrapping the count in <code>Reverse</code> flips the natural ascending order without a manual comparator.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cmp::Reverse;
+<pre class="playground"><code class="language-rust edition2024">use std::cmp::Reverse;
 use std::collections::HashMap;
 
 fn word_count(text: &amp;str) -&gt; HashMap&lt;&amp;str, usize&gt; {
@@ -213,7 +213,7 @@ fn main() {
 <h2 id="group-records-by-key"><a class="header" href="#group-records-by-key">Group Records by Key</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Groups a flat list of records into a <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> of vectors using <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.entry"><code>entry</code></a> with <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html#method.or_default"><code>or_default</code></a>, which inserts an empty <code>Vec</code> the first time a key is seen and returns a mutable reference to it on every call. <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.keys"><code>keys</code></a> with <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.copied"><code>copied</code></a> produces an owned <code>Vec&lt;&amp;str&gt;</code> for sorting — <code>copied</code> turns the <code>&amp;&amp;str</code> references that <code>keys</code> yields into <code>&amp;str</code> values.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 
 fn main() {
     let log_lines = vec![
@@ -245,7 +245,7 @@ fn main() {
 <h2 id="look-up-records-within-a-time-range"><a class="header" href="#look-up-records-within-a-time-range">Look Up Records Within a Time Range</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Stores timestamped sensor readings in a <a href="https://doc.rust-lang.org/std/collections/struct.BTreeMap.html"><code>BTreeMap</code></a>, which keeps keys in sorted order using a B-tree structure. <a href="https://doc.rust-lang.org/std/collections/struct.BTreeMap.html#method.range"><code>BTreeMap::range</code></a> locates the start of the range with binary search in O(log n) time and then iterates forward — so the cost scales with the result size, not the total number of entries. A <code>HashMap</code> cannot do this at all; it has no ordering to exploit.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::BTreeMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::BTreeMap;
 
 fn main() {
     let mut readings: BTreeMap&lt;u32, f64&gt; = BTreeMap::new();
@@ -268,7 +268,7 @@ fn main() {
 <h2 id="set-operations-with-hashset"><a class="header" href="#set-operations-with-hashset">Set Operations with HashSet</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Computes the <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.difference"><code>difference</code></a>, <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.intersection"><code>intersection</code></a>, and <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html#method.union"><code>union</code></a> of two <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html"><code>HashSet</code></a>s. Each operation returns an iterator of references; <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.copied"><code>copied</code></a> converts <code>&amp;&amp;str</code> to <code>&amp;str</code> for easier collection.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashSet;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashSet;
 
 fn main() {
     let deployed: HashSet&lt;&amp;str&gt; = ["web", "api", "worker", "scheduler"]
@@ -299,7 +299,7 @@ fn main() {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>A type can be a <a href="https://doc.rust-lang.org/std/collections/struct.HashMap.html"><code>HashMap</code></a> key or <a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html"><code>HashSet</code></a> member when it implements <a href="https://doc.rust-lang.org/std/cmp/trait.Eq.html"><code>Eq</code></a> and <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a>. When equality is plain field-by-field comparison, <code>#[derive(Hash, PartialEq, Eq)]</code> is enough, as with <code>Coord</code> below.</p>
 <p>A manual <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> implementation is needed when equality is custom. The <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> trait works with a generic <a href="https://doc.rust-lang.org/std/hash/trait.Hasher.html"><code>Hasher</code></a> abstraction that supplies a mutable <code>state</code> object you write hashed data into. <code>Email</code> treats addresses as equal regardless of letter case, so its <a href="https://doc.rust-lang.org/std/hash/trait.Hash.html"><code>Hash</code></a> must also ignore case: it feeds the lowercased bytes to the hasher. The rule is that <code>a == b</code> must imply <code>hash(a) == hash(b)</code>; if the two disagree, equal keys can land in different buckets and lookups silently miss. The assertions at the end check this property.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::hash_map::DefaultHasher;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::hash_map::DefaultHasher;
 use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};
 
@@ -361,7 +361,7 @@ fn main() {
 <p>The workaround is a small <code>KeyPair</code> trait that both tuple shapes implement. <code>Borrow</code> turns the owned tuple into a <code>dyn KeyPair</code>, and <code>Hash</code> and <code>Eq</code> for that trait object compare the two halves. The <code>get_pair</code> helper casts <code>&amp;(a, b)</code> to <code>&amp;dyn KeyPair</code> once, so callers just pass references and no data is copied.</p>
 <p>The trait object’s <code>Hash</code> must feed the hasher exactly what <code>(Email, Coord)::hash</code> does: the first element, then the second. If the orders differ, the lookup hashes to the wrong bucket and misses. This is the same rule as in the previous recipe, applied across a type boundary.</p>
 <p>This technique trades complexity for fewer allocations, so it pays off mainly when key halves are heap-allocated, such as <code>String</code>, and lookups are frequent. Every hash and comparison goes through a trait object, and for cheap <code>Copy</code> keys that can be slower than cloning. Two simpler alternatives are worth trying first: nested maps, <code>HashMap&lt;Email, HashMap&lt;Coord, V&gt;&gt;</code>, which take a plain <code>&amp;Email</code> and then a plain <code>&amp;Coord</code> with no extra traits; and the <a href="https://docs.rs/hashbrown/*/hashbrown/trait.Equivalent.html"><code>Equivalent</code></a> trait from the <a href="https://docs.rs/hashbrown/*/hashbrown/"><code>hashbrown</code></a> crate, which lets a map be queried with any type that compares equal to the key and hashes the same way, without the <code>dyn</code> indirection.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::borrow::Borrow;
+<pre class="playground"><code class="language-rust edition2024">use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
 
@@ -472,7 +472,7 @@ fn main() {
 <h2 id="process-tasks-in-priority-order"><a class="header" href="#process-tasks-in-priority-order">Process Tasks in Priority Order</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Uses <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html"><code>BinaryHeap</code></a> as a max-priority queue: <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html#method.push"><code>push</code></a> inserts an item and <a href="https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html#method.pop"><code>pop</code></a> always removes the highest-priority one first. Wrapping items in <a href="https://doc.rust-lang.org/std/cmp/struct.Reverse.html"><code>Reverse</code></a> turns it into a min-priority queue without a custom comparator.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cmp::Reverse;
+<pre class="playground"><code class="language-rust edition2024">use std::cmp::Reverse;
 use std::collections::BinaryHeap;
 
 fn main() {
@@ -502,7 +502,7 @@ fn main() {
 <h2 id="sliding-window-buffer-with-vecdeque"><a class="header" href="#sliding-window-buffer-with-vecdeque">Sliding-Window Buffer with VecDeque</a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/data-structures"><img src="https://img.shields.io/badge/data_structures--x.svg?style=social" alt="cat-data-structures-badge"></a></p>
 <p>Maintains a fixed-size window over a stream of values using <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html"><code>VecDeque</code></a>. <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.push_back"><code>push_back</code></a> appends new values and <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.pop_front"><code>pop_front</code></a> discards the oldest, keeping memory bounded regardless of input length. <a href="https://doc.rust-lang.org/std/collections/struct.VecDeque.html#method.with_capacity"><code>with_capacity</code></a> is optional — <code>VecDeque::new()</code> works fine — but pre-allocating the window size avoids reallocations as the buffer fills up for the first time. <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.zip"><code>zip</code></a> pairs each original reading with its computed average for display.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::VecDeque;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::VecDeque;
 
 fn sliding_average(values: &amp;[f64], window: usize) -&gt; Vec&lt;f64&gt; {
     let mut buf: VecDeque&lt;f64&gt; = VecDeque::with_capacity(window);

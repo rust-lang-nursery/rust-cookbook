@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>Measures <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>time::Instant::elapsed</code></a> since <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>time::Instant::now</code></a>.</p>
 <p>Calling <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>time::Instant::elapsed</code></a> returns a <a href="https://doc.rust-lang.org/std/time/struct.Duration.html"><code>time::Duration</code></a> that we print at the end of the recipe.
 This method will not mutate or reset the <a href="https://doc.rust-lang.org/std/time/struct.Instant.html"><code>time::Instant</code></a> object.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::time::{Duration, Instant};
+<pre class="playground"><code class="language-rust edition2024">use std::time::{Duration, Instant};
 <span class="boring">use std::thread;
 </span><span class="boring">
 </span><span class="boring">fn expensive_function() {
@@ -205,7 +205,7 @@ fn main() {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/time--x.svg?style=social" alt="cat-time-badge"></a></p>
 <p>Calculates a one second <a href="https://doc.rust-lang.org/std/time/struct.Duration.html"><code>Duration</code></a>. Computes <code>deadline</code> one second from <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>Instant::now</code></a>.
 Sleeps for one second and compares <code>deadline</code> with <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>Instant::now</code></a> to check if the deadline has passed.</p>
-<pre class="playground"><code class="language-rust edition2021"><span class="boring">use std::thread;
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">use std::thread;
 </span>use std::time::{Duration, Instant};
 <span class="boring">fn sleep(duration: Duration) {
 </span><span class="boring">   thread::sleep(duration);
@@ -224,7 +224,7 @@ fn main() {
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/time--x.svg?style=social" alt="cat-time-badge"></a></p>
 <p>Converts the current <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html"><code>SystemTime</code></a> to seconds since the Unix epoch, then computes the original time
 by adding the unix timestamp to <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html#associatedconstant.UNIX_EPOCH"><code>SystemTime::UNIX_EPOCH</code></a> constant.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::time::{SystemTime, SystemTimeError};
+<pre class="playground"><code class="language-rust edition2024">use std::time::{SystemTime, SystemTimeError};
 
 fn main() -&gt; Result&lt;(), SystemTimeError&gt; {
     let now = SystemTime::now();
@@ -242,7 +242,7 @@ fn main() -&gt; Result&lt;(), SystemTimeError&gt; {
 and uses <code>benchmark</code> to measure the performance of <code>subset_sum</code> which takes a slice of weights and a target value and finds a subset whose weights sum to the target.</p>
 <p><code>benchmark</code> measures the average time required to call a closure a specified number of times using <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.now"><code>Instant::now</code></a> and <a href="https://doc.rust-lang.org/std/time/struct.Instant.html#method.elapsed"><code>Instant::elapsed</code></a>.
 It uses <a href="https://doc.rust-lang.org/std/hint/fn.black_box.html"><code>black_box</code></a> to prevent the compiler from optimizing away the closure’s computation since its return value is ignored.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::time::{Duration, Instant};
+<pre class="playground"><code class="language-rust edition2024">use std::time::{Duration, Instant};
 
 fn subset_sum(weights: &amp;[u64], target: u64) -&gt; Option&lt;u32&gt; {
     for mask in 0..1u32 &lt;&lt; weights.len() {
@@ -290,7 +290,7 @@ fn main() {
 cannot be calculated.</p>
 <p>Escape sequences that are available for the
 <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.format"><code>DateTime::format</code></a> can be found at <a href="https://docs.rs/chrono/*/chrono/format/strftime/index.html"><code>chrono::format::strftime</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, Duration, Utc};
+<pre class="playground"><code class="language-rust edition2024">use chrono::{DateTime, Duration, Utc};
 
 fn day_earlier(date_time: DateTime&lt;Utc&gt;) -&gt; Option&lt;DateTime&lt;Utc&gt;&gt; {
     date_time.checked_sub_signed(Duration::days(1))
@@ -312,13 +312,15 @@ fn main() {
 
     match now.checked_add_signed(Duration::max_value()) {
         Some(x) =&gt; println!("{}", x),
-        None =&gt; eprintln!("We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."),
+        None =&gt; eprintln!(
+            "We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."
+        ),
     }
 }</code></pre>
 <h2 id="convert-a-local-time-to-another-timezone"><a class="header" href="#convert-a-local-time-to-another-timezone">Convert a local time to another timezone</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge"></a></p>
 <p>Gets the local time and displays it using <a href="https://docs.rs/chrono/*/chrono/offset/struct.Local.html#method.now"><code>offset::Local::now</code></a> and then converts it to the UTC standard using the <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#method.from_utc"><code>DateTime::from_utc</code></a> struct method. A time is then converted using the <a href="https://docs.rs/chrono/*/chrono/offset/struct.FixedOffset.html"><code>offset::FixedOffset</code></a> struct and the UTC time is then converted to UTC+8 and UTC-2.</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::{DateTime, FixedOffset, Local, Utc};
+<pre class="playground"><code class="language-rust edition2024">use chrono::{DateTime, FixedOffset, Local, Utc};
 
 fn main() {
     let local_time = Local::now();

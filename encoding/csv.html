@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>Reads standard CSV records into <a href="https://docs.rs/csv/*/csv/struct.StringRecord.html"><code>csv::StringRecord</code></a> — a weakly typed
 data representation which expects valid UTF-8 rows. Alternatively,
 <a href="https://docs.rs/csv/*/csv/struct.ByteRecord.html"><code>csv::ByteRecord</code></a> makes no assumptions about UTF-8.</p>
-<pre class="playground"><code class="language-rust edition2018">use csv::Error;
+<pre class="playground"><code class="language-rust edition2024">use csv::Error;
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let csv = "year,make,model,description
@@ -207,7 +207,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 }</code></pre>
 <p>Serde deserializes data into strongly type structures. See the
 <a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize"><code>csv::Reader::deserialize</code></a> method.</p>
-<pre class="playground"><code class="language-rust edition2018">use serde::Deserialize;
+<pre class="playground"><code class="language-rust edition2024">use serde::Deserialize;
 #[derive(Deserialize)]
 struct Record {
     year: u16,
@@ -236,7 +236,7 @@ fn main() -&gt; Result&lt;(), csv::Error&gt; {
 <h2 id="read-csv-records-with-different-delimiter"><a class="header" href="#read-csv-records-with-different-delimiter">Read CSV records with different delimiter</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>Reads CSV records with a tab [<code>delimiter</code>].</p>
-<pre class="playground"><code class="language-rust edition2018">use csv::Error;
+<pre class="playground"><code class="language-rust edition2024">use csv::Error;
 use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 struct Record {
@@ -265,7 +265,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="filter-csv-records-matching-a-predicate"><a class="header" href="#filter-csv-records-matching-a-predicate">Filter CSV records matching a predicate</a></h2>
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>Returns <em>only</em> the rows from <code>data</code> with a field that matches <code>query</code>.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use std::io;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -298,7 +298,7 @@ West Hollywood,CA,37031,34.0900000,-118.3608333";
 <p>CSV files often contain invalid data. For these cases, the <code>csv</code> crate
 provides a custom deserializer, <a href="https://docs.rs/csv/*/csv/fn.invalid_option.html"><code>csv::invalid_option</code></a>, which automatically
 converts invalid data to None values.</p>
-<pre class="playground"><code class="language-rust edition2018">use csv::Error;
+<pre class="playground"><code class="language-rust edition2024">use csv::Error;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -331,7 +331,7 @@ serialization from Rust types into CSV records. <a href="https://docs.rs/csv/*/c
 a simple record containing string data only. Data with more complex values
 such as numbers, floats, and options use <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.serialize"><code>serialize</code></a>. Since CSV
 writer uses internal buffer, always explicitly <a href="https://docs.rs/csv/*/csv/struct.Writer.html#method.flush"><code>flush</code></a> when done.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use std::io;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -350,7 +350,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <p><a href="https://docs.rs/csv/"><img src="https://img.shields.io/crates/v/csv.svg?label=csv" alt="csv-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>The following recipe shows how to serialize custom structs as CSV records using
 the <a href="https://docs.rs/serde/">serde</a> crate.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use serde::Serialize;
 use std::io;
 
@@ -394,9 +394,9 @@ fn main() -&gt; Result&lt;()&gt; {
 color name and an rgb color.  Utilizes the <a href="https://docs.rs/csv/">csv</a> crate to read and write the
 csv file, and <a href="https://docs.rs/serde/">serde</a> to deserialize and serialize the rows to and from bytes.</p>
 <p>See <a href="https://docs.rs/csv/*/csv/struct.Reader.html#method.deserialize">csv::Reader::deserialize</a>, <a href="https://docs.rs/serde/*/serde/trait.Deserialize.html">serde::Deserialize</a>, and <a href="https://doc.rust-lang.org/std/str/trait.FromStr.html">std::str::FromStr</a></p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::{anyhow, Result};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::{Result, anyhow};
 use csv::{Reader, Writer};
-use serde::{de, Deserialize, Deserializer};
+use serde::{Deserialize, Deserializer, de};
 use std::str::FromStr;
 
 #[derive(Debug)]

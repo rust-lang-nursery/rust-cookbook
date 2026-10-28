@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -191,7 +191,7 @@ of <a href="https://doc.rust-lang.org/std/net/enum.SocketAddr.html"><code>Socket
 <p>A hostname can resolve to multiple addresses — at least one IPv4 and one
 IPv6 on any modern host. Walk all of them when you want to display every
 option, or take the first when one working address is enough.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use std::net::ToSocketAddrs;
 
 fn main() -&gt; io::Result&lt;()&gt; {
@@ -210,7 +210,7 @@ vector.</p>
 <p><a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html"><code>IpAddr</code></a> exposes <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html#method.is_loopback"><code>is_loopback</code></a>, <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html#method.is_multicast"><code>is_multicast</code></a>, and <a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html#method.is_unspecified"><code>is_unspecified</code></a>
 on both v4 and v6. <a href="https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html#method.is_private"><code>is_private</code></a> and <a href="https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html#method.is_link_local"><code>is_link_local</code></a> are on <a href="https://doc.rust-lang.org/std/net/struct.Ipv4Addr.html"><code>Ipv4Addr</code></a>
 only — match the variant to reach them.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::net::IpAddr;
+<pre class="playground"><code class="language-rust edition2024">use std::net::IpAddr;
 use std::str::FromStr;
 
 fn classify(addr: IpAddr) -&gt; &amp;'static str {
@@ -258,7 +258,7 @@ addresses (<code>::ffff:1.2.3.4</code>).</p>
 <p>On Windows and FreeBSD the <code>IPV6_V6ONLY</code> socket option defaults to true, so
 the same bind accepts IPv6 only. <a href="https://doc.rust-lang.org/std/net/index.html"><code>std::net</code></a> doesn’t expose <code>IPV6_V6ONLY</code>;
 the <a href="https://docs.rs/socket2"><code>socket2</code></a> crate does, or you can open two listeners.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io;
+<pre class="playground"><code class="language-rust edition2024">use std::io;
 use std::net::TcpListener;
 
 fn main() -&gt; io::Result&lt;()&gt; {

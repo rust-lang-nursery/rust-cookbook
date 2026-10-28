@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -188,7 +188,7 @@
 Creates a vector that holds different types that implement the same trait <code>Notification</code> and <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html"><code>Box&lt;T&gt;</code></a>. Iterate over that vector calling the method <code>send(&amp;self)</code>.</p>
 <p>Trait objects such as <code>dyn Notification</code> do not have a size known at compile time, so they cannot be stored directly by value. <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html"><code>Box&lt;T&gt;</code></a> stores the value behind
 a pointer with a known size, making it possible to use different <code>Notification</code> implementations.</p>
-<pre class="playground"><code class="language-rust edition2021">trait Notification {
+<pre class="playground"><code class="language-rust edition2024">trait Notification {
     fn send(&amp;self);
 }
 
@@ -231,7 +231,7 @@ fn main() {
 <p>Uses <a href="https://doc.rust-lang.org/std/rc/struct.Rc.html"><code>Rc&lt;T&gt;</code></a> to share ownership of one task between multiple dependents and <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html"><code>RefCell&lt;T&gt;</code></a> to mutate that shared task through <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.try_borrow_mut"><code>RefCell::try_borrow_mut</code></a>.
 This recipe updates one shared task and reads the result through each dependent using <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html#method.borrow"><code>RefCell::borrow</code></a>.</p>
 <p>This pattern is useful when several parts of a single-threaded program need access to the same owned value, but mutations have borrows checked through <code>RefCell</code>.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::cell::{BorrowMutError, RefCell};
+<pre class="playground"><code class="language-rust edition2024">use std::cell::{BorrowMutError, RefCell};
 use std::rc::Rc;
 
 #[derive(Debug)]
@@ -280,7 +280,7 @@ fn main() -&gt; Result&lt;(), BorrowMutError&gt; {
 <p>Uses <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html"><code>borrow::Cow</code></a> to avoid allocating when the input string already has the desired form. The function returns <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html#variant.Borrowed"><code>Cow::Borrowed</code></a> for unchanged input and <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html#variant.Owned"><code>Cow::Owned</code></a>
 only when normalization requires a new <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>, such as converting uppercase text with <a href="https://doc.rust-lang.org/std/primitive.str.html#method.to_lowercase"><code>str::to_lowercase</code></a>.
 This keeps the fast path allocation-free while still allowing transformed output.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::borrow::Cow;
+<pre class="playground"><code class="language-rust edition2024">use std::borrow::Cow;
 
 fn normalize(input: &amp;str) -&gt; Cow&lt;'_, str&gt; {
     if input.chars().any(|c| c.is_uppercase()) {
@@ -305,7 +305,7 @@ fn main() {
 <p>Uses <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"><code>mem::swap</code></a>, <a href="https://doc.rust-lang.org/std/mem/fn.take.html"><code>mem::take</code></a>, and <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"><code>mem::replace</code></a> to move owned String values between document fields without cloning.
 <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"><code>mem::swap</code></a> exchanges the drafts of two documents, <a href="https://doc.rust-lang.org/std/mem/fn.take.html"><code>mem::take</code></a> moves a draft out for publishing while leaving an empty String behind,
 and <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"><code>mem::replace</code></a> installs the new published text while returning the previous version.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::mem::{replace, swap, take};
+<pre class="playground"><code class="language-rust edition2024">use std::mem::{replace, swap, take};
 
 struct Document {
     name: &amp;'static str,

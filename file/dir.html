@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -192,7 +192,7 @@ because a path might not have the component you ask for.</p>
 and <a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.with_file_name"><code>with_file_name</code></a> derive sibling or backup paths in one call without
 mutating the original. Conversion to <code>&amp;str</code> goes through <a href="https://doc.rust-lang.org/std/path/struct.Path.html#method.to_str"><code>Path::to_str</code></a>,
 which returns <code>None</code> on non-UTF-8 paths.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::ffi::OsStr;
+<pre class="playground"><code class="language-rust edition2024">use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 
 fn main() {
@@ -226,7 +226,7 @@ when seeding cache directories or log roots on startup.</p>
 is missing it fails with <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.NotFound"><code>io::ErrorKind::NotFound</code></a>. Reach for <code>create_dir</code>
 when the parent is known to exist and you want the operation to fail loudly
 if your assumption is wrong.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs;
+<pre class="playground"><code class="language-rust edition2024">use std::fs;
 use std::io;
 use tempfile::tempdir;
 
@@ -256,7 +256,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
 <p><a href="https://doc.rust-lang.org/std/fs/struct.Metadata.html#method.modified"><code>std::fs::Metadata::modified</code></a> returns the <a href="https://doc.rust-lang.org/std/time/struct.SystemTime.html#method.elapsed"><code>SystemTime::elapsed</code></a> time since the last modification.
 <a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.as_secs"><code>Duration::as_secs</code></a> converts the time to seconds and compared with 24 hours (24 * 60 * 60 seconds).
 <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.for_each"><code>Iterator::for_each</code></a> prints the file names.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use std::env;
 use walkdir::WalkDir;
 
@@ -290,7 +290,7 @@ For example, a loop is created on a Unix system via symlinks:</p>
 ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 </code></pre>
 <p>The following would assert that a loop exists.</p>
-<pre class="playground"><code class="language-rust edition2021">use same_file::is_same_file;
+<pre class="playground"><code class="language-rust edition2024">use same_file::is_same_file;
 use walkdir::WalkDir;
 
 fn main() {
@@ -317,7 +317,7 @@ fn main() {
 <p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>Find recursively in the current directory duplicate filenames,
 printing them only once.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::collections::HashMap;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::HashMap;
 use walkdir::WalkDir;
 
 fn main() {
@@ -342,7 +342,7 @@ fn main() {
 <p>Find JSON files modified within the last day in the current directory.
 Using <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.follow_links"><code>follow_links</code></a> ensures symbolic links are followed like they were
 normal directories and files.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use walkdir::WalkDir;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -368,7 +368,7 @@ fn main() -&gt; Result&lt;()&gt; {
 even if the parent is a hidden directory.</p>
 <p>Root dir <code>"."</code> yields through <a href="https://docs.rs/walkdir/*/walkdir/struct.DirEntry.html#method.depth"><code>WalkDir::depth</code></a> usage in <code>is_not_hidden</code>
 predicate.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::{DirEntry, WalkDir};
+<pre class="playground"><code class="language-rust edition2024">use walkdir::{DirEntry, WalkDir};
 
 fn is_not_hidden(entry: &amp;DirEntry) -&gt; bool {
     entry
@@ -389,7 +389,7 @@ fn main() {
 <p><a href="https://docs.rs/walkdir/"><img src="https://img.shields.io/crates/v/walkdir.svg?label=walkdir" alt="walkdir-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>Recursion depth can be flexibly set by <a href="https://docs.rs/walkdir/*/walkdir/struct.WalkDir.html#method.max_depth"><code>WalkDir::max_depth</code></a>. Calculates
 sum of all file sizes to 3 subdir levels, ignoring files in the root directory.</p>
-<pre class="playground"><code class="language-rust edition2021">use walkdir::WalkDir;
+<pre class="playground"><code class="language-rust edition2024">use walkdir::WalkDir;
 
 fn main() {
     let total_size = WalkDir::new(".")
@@ -408,7 +408,7 @@ fn main() {
 In this case, the <code>**</code> pattern matches the current directory and all subdirectories.</p>
 <p>Use the <code>**</code> pattern in any path portion. For example, <code>/media/**/*.png</code>
 matches all PNGs in <code>media</code> and it’s subdirectories.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use glob::glob;
 
 fn main() -&gt; Result&lt;()&gt; {
@@ -424,8 +424,8 @@ pattern.</p>
 <p>A custom <a href="https://docs.rs/glob/*/glob/struct.MatchOptions.html"><code>MatchOptions</code></a> struct is passed to <a href="https://docs.rs/glob/*/glob/fn.glob_with.html"><code>glob_with</code></a> instead of <a href="https://docs.rs/glob/*/glob/fn.glob.html"><code>glob</code></a>
 to make the glob pattern case insensitive while keeping the other options
 <a href="https://doc.rust-lang.org/std/default/trait.Default.html"><code>Default</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use anyhow::Result;
-use glob::{glob_with, MatchOptions};
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
+use glob::{MatchOptions, glob_with};
 use walkdir::WalkDir;
 
 fn main() -&gt; Result&lt;()&gt; {

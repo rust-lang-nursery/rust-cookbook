@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -192,8 +192,8 @@ is done, the program shuts down cleanly instead of waiting.</p>
 <p>Both branches start at the same time. Whichever one finishes first wins and the other is cancelled.
 If fetch_data completes first, the result is printed and the loop runs again.
 If Ctrl-C comes in first, the program exits.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use tokio::signal;
-use tokio::time::{sleep, Duration};
+<pre class="playground"><code class="language-rust edition2024 no_run">use tokio::signal;
+use tokio::time::{Duration, sleep};
 
 async fn fetch_data() -&gt; String {
     // simulate a slow network request

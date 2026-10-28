@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -191,7 +191,7 @@ Linux cgroup quotas. The result is a <a href="https://doc.rust-lang.org/std/num/
 at least <code>1</code>, and it is wrapped in an <a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a> because the value cannot
 always be determined. This has been available in the standard library since Rust
 1.59, making it a good default for sizing thread pools.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::thread::available_parallelism;
+<pre class="playground"><code class="language-rust edition2024">use std::thread::available_parallelism;
 
 fn main() -&gt; std::io::Result&lt;()&gt; {
     let count = available_parallelism()?.get();
@@ -209,7 +209,7 @@ cgroup quotas. <code>num_cpus::get</code> also returns a plain <code>usize</code
 <a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a>, so it needs no error handling, and <a href="https://docs.rs/num_cpus/*/num_cpus/fn.get_physical.html"><code>num_cpus::get_physical</code></a>
 additionally exposes the count of <em>physical</em> cores, which the standard library
 does not provide.</p>
-<pre class="playground"><code class="language-rust edition2021">fn main() {
+<pre class="playground"><code class="language-rust edition2024">fn main() {
     println!("Number of logical cores is {}", num_cpus::get());
 }</code></pre>
 <!--

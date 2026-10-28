@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-af28f5c9.js"></script>
@@ -186,7 +186,7 @@
 <p><a href="https://docs.rs/log/"><img src="https://img.shields.io/crates/v/log.svg?label=log" alt="log-badge"></a> <a href="https://docs.rs/env_logger/"><img src="https://img.shields.io/crates/v/env_logger.svg?label=env_logger" alt="env_logger-badge"></a> <a href="https://crates.io/categories/debugging"><img src="https://img.shields.io/badge/debugging--x.svg?style=social" alt="cat-debugging-badge"></a></p>
 <p>Creates two modules <code>foo</code> and nested <code>foo::bar</code> with logging directives
 controlled separately with <a href="https://docs.rs/env_logger/*/env_logger/#enabling-logging"><code>RUST_LOG</code></a> environmental variable.</p>
-<pre class="playground"><code class="language-rust edition2018">mod foo {
+<pre class="playground"><code class="language-rust edition2024">mod foo {
     mod bar {
         pub fn run() {
             log::warn!("[bar] warn");
@@ -230,7 +230,7 @@ DEBUG:test::foo::bar: [bar] debug
 <p><a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.from_env"><code>Builder::from_env</code></a> parses <code>MY_APP_LOG</code>
 environment variable contents in the form of <a href="https://docs.rs/env_logger/*/env_logger/#enabling-logging"><code>RUST_LOG</code></a> syntax.
 Then, <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.init"><code>Builder::init</code></a> initializes the logger.</p>
-<pre class="playground"><code class="language-rust edition2018">use env_logger::Builder;
+<pre class="playground"><code class="language-rust edition2024">use env_logger::Builder;
 
 fn main() {
     Builder::from_env("MY_APP_LOG").init();
@@ -247,7 +247,7 @@ timezone and uses <a href="https://docs.rs/chrono/*/chrono/struct.DateTime.html#
 a timestamp used in the final log.</p>
 <p>This recipe calls <a href="https://docs.rs/env_logger/*/env_logger/struct.Builder.html#method.format"><code>Builder::format</code></a> to set a closure which formats each
 message text with timestamp, <a href="https://docs.rs/log/*/log/struct.Record.html#method.level"><code>Record::level</code></a> and body (<a href="https://docs.rs/log/*/log/struct.Record.html#method.args"><code>Record::args</code></a>).</p>
-<pre class="playground"><code class="language-rust edition2018">use chrono::Local;
+<pre class="playground"><code class="language-rust edition2024">use chrono::Local;
 use env_logger::Builder;
 use log::LevelFilter;
 use std::io::Write;

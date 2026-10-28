@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -186,7 +186,7 @@
 <p><a href="https://docs.rs/anyhow/"><img src="https://img.shields.io/crates/v/anyhow.svg?label=anyhow" alt="anyhow-badge"></a> <a href="https://docs.rs/thiserror/"><img src="https://img.shields.io/crates/v/thiserror.svg?label=thiserror" alt="thiserror-badge"></a> <a href="https://crates.io/categories/rust-patterns"><img src="https://img.shields.io/badge/rust_patterns--x.svg?style=social" alt="cat-rust-patterns-badge"></a></p>
 <p>As recommended in Rust by Example, <a href="https://doc.rust-lang.org/rust-by-example/error/multiple_error_types/boxing_errors.html"><code>Box</code>ing errors</a> is seen as an easy
 strategy for getting started.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::error::Error;
+<pre class="playground"><code class="language-rust edition2024">use std::error::Error;
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
     // Example of boxing errors
@@ -206,7 +206,7 @@ attributes provide the <code>Display</code> text, and the derive implements the
 <p>The below recipe will tell how long the system has been running by
 opening the Unix file <code>/proc/uptime</code> and parse the content to get the
 first number. Returns uptime unless there is an error.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::fs::File;
+<pre class="playground"><code class="language-rust edition2024">use std::fs::File;
 use std::io::Read;
 use thiserror::Error;
 
@@ -233,7 +233,7 @@ fn main() {
 }</code></pre>
 <p>Application authors can compose enums using <code>anyhow</code> can import the <code>Result</code>
 type from the crate to provide auto-<code>Box</code>ing behavior</p>
-<pre class="playground"><code class="language-rust edition2018 should_panic">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024 should_panic">use anyhow::Result;
 
 fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     let my_string = "yellow".to_string();

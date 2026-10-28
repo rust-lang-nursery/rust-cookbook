@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -186,7 +186,7 @@
 <p><a href="https://docs.rs/unicode-segmentation/1.2.1/unicode_segmentation/"><img src="https://img.shields.io/crates/v/unicode-segmentation.svg?label=unicode-segmentation" alt="unicode-segmentation-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Collect individual Unicode graphemes from UTF-8 string using the
 <a href="https://docs.rs/unicode-segmentation/*/unicode_segmentation/trait.UnicodeSegmentation.html#tymethod.graphemes"><code>UnicodeSegmentation::graphemes</code></a> function from the <a href="https://docs.rs/unicode-segmentation/1.2.1/unicode_segmentation/"><code>unicode-segmentation</code></a> crate.</p>
-<pre class="playground"><code class="language-rust edition2018">use unicode_segmentation::UnicodeSegmentation;
+<pre class="playground"><code class="language-rust edition2024">use unicode_segmentation::UnicodeSegmentation;
 
 fn main() {
     let name = "José Guimarães\r\n";
@@ -196,7 +196,7 @@ fn main() {
 <h2 id="implement-the-fromstr-trait-for-a-custom-struct"><a class="header" href="#implement-the-fromstr-trait-for-a-custom-struct">Implement the <code>FromStr</code> trait for a custom <code>struct</code></a></h2>
 <p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Creates a custom struct <code>RGB</code> and implements the <code>FromStr</code> trait to convert a provided color hex code into its RGB color code.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::str::FromStr;
+<pre class="playground"><code class="language-rust edition2024">use std::str::FromStr;
 
 #[derive(Debug, PartialEq)]
 struct RGB {
@@ -253,7 +253,7 @@ struct with mixed field types, and derives <a href="https://doc.rust-lang.org/st
 <code>#[derive(Debug)]</code> isn’t quite what’s needed; <a href="https://doc.rust-lang.org/std/fmt/struct.Formatter.html#method.debug_struct"><code>Formatter::debug_struct</code></a>
 builds output in that same <code>Field { .. }</code> style without having to format
 the fields by hand.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::collections::hash_map::DefaultHasher;
+<pre class="playground"><code class="language-rust edition2024">use std::collections::hash_map::DefaultHasher;
 use std::fmt;
 use std::hash::{Hash, Hasher};
 

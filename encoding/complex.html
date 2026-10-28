@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -189,7 +189,7 @@ JSON.</p>
 <p>Unstructured JSON can be parsed into a universal <a href="https://docs.serde.rs/serde_json/enum.Value.html"><code>serde_json::Value</code></a> type that
 is able to represent any valid JSON data.</p>
 <p>The recipe below shows a <code>&amp;str</code> of JSON being parsed.  The expected value is declared using the <a href="https://docs.serde.rs/serde_json/macro.json.html"><code>json!</code></a> macro.</p>
-<pre class="playground"><code class="language-rust edition2018">use serde_json::json;
+<pre class="playground"><code class="language-rust edition2024">use serde_json::json;
 use serde_json::{Error, Value};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
@@ -297,7 +297,7 @@ value.</p>
 <p>A byte slice implements <a href="https://doc.rust-lang.org/std/io/trait.Read.html"><code>Read</code></a>, so <a href="https://doc.rust-lang.org/std/io/trait.Read.html#method.read_exact"><code>Read::read_exact</code></a> fills each array
 from the front of the slice and advances it. If the input is too short, it
 returns an <a href="https://doc.rust-lang.org/std/io/enum.ErrorKind.html#variant.UnexpectedEof"><code>UnexpectedEof</code></a> error instead of panicking.</p>
-<pre class="playground"><code class="language-rust edition2021">use std::io::{Error, Read};
+<pre class="playground"><code class="language-rust edition2024">use std::io::{Error, Read};
 
 #[derive(Default, PartialEq, Debug)]
 struct Payload {

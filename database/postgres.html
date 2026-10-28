@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -186,7 +186,7 @@
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>Use the <a href="https://docs.rs/postgres/0.17.2/postgres/"><code>postgres</code></a> crate to create tables in a Postgres database.</p>
 <p><a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.connect"><code>Client::connect</code></a> helps in connecting to an existing database. The recipe uses a URL string format with <code>Client::connect</code>. It assumes an existing database named <code>library</code>, the username is <code>postgres</code> and the password is <code>postgres</code>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
+<pre class="playground"><code class="language-rust edition2024 no_run">use postgres::{Client, Error, NoTls};
 
 fn main() -&gt; Result&lt;(), Error&gt; {
     let mut client = Client::connect("postgresql://postgres:postgres@localhost/library", NoTls)?;
@@ -216,7 +216,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="insert-and-query-data"><a class="header" href="#insert-and-query-data">Insert and Query data</a></h2>
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>The recipe inserts data into the <code>author</code> table using <a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.execute"><code>execute</code></a> method of <code>Client</code>. Then, displays the data from the <code>author</code> table  using <a href="https://docs.rs/postgres/0.17.2/postgres/struct.Client.html#method.query"><code>query</code></a> method of <code>Client</code>.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
+<pre class="playground"><code class="language-rust edition2024 no_run">use postgres::{Client, Error, NoTls};
 use std::collections::HashMap;
 
 struct Author {
@@ -260,7 +260,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
 <h2 id="aggregate-data"><a class="header" href="#aggregate-data">Aggregate data</a></h2>
 <p><a href="https://docs.rs/postgres/0.15.2/postgres/"><img src="https://img.shields.io/crates/v/postgres.svg?label=postgres" alt="postgres-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>This recipe lists the nationalities of the first 7999 artists in the database of the <a href="https://github.com/MuseumofModernArt/collection/blob/main/Artists.csv">Museum of Modern Art</a> in descending order.</p>
-<pre class="playground"><code class="language-rust edition2021 no_run">use postgres::{Client, Error, NoTls};
+<pre class="playground"><code class="language-rust edition2024 no_run">use postgres::{Client, Error, NoTls};
 
 struct Nation {
     nationality: String,

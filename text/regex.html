@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol. The <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> is compiled only once, on first use, by
 declaring it as a <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
+<pre class="playground"><code class="language-rust edition2024">use regex::Regex;
 use std::sync::LazyLock;
 
 fn extract_login(input: &amp;str) -&gt; Option&lt;&amp;str&gt; {
@@ -221,7 +221,7 @@ fn main() {
 letter. The complete <a href="https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255">twitter hashtag regex</a> is much more complicated.</p>
 <p>The <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> is compiled only once, on first use, by declaring it as a
 <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
+<pre class="playground"><code class="language-rust edition2024">use regex::Regex;
 use std::collections::HashSet;
 use std::sync::LazyLock;
 
@@ -244,7 +244,7 @@ fn main() {
 <p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Processes a string of text using <a href="https://docs.rs/regex/*/regex/struct.Regex.html#method.captures_iter"><code>Regex::captures_iter</code></a> to capture multiple
 phone numbers.  This recipe handles US convention phone numbers.</p>
-<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024">use anyhow::Result;
 use regex::Regex;
 use std::fmt;
 
@@ -314,7 +314,7 @@ containing “version X.X.X”, some IP address followed by port 443
 <p>A <a href="https://docs.rs/regex/*/regex/struct.RegexSetBuilder.html"><code>regex::RegexSetBuilder</code></a> composes a <a href="https://docs.rs/regex/*/regex/struct.RegexSet.html"><code>regex::RegexSet</code></a>.
 Since backslashes are very common in regular expressions, using
 <a href="https://doc.rust-lang.org/reference/tokens.html#raw-string-literals">raw string literals</a> makes them more readable.</p>
-<pre class="playground"><code class="language-rust edition2018 no_run">use anyhow::Result;
+<pre class="playground"><code class="language-rust edition2024 no_run">use anyhow::Result;
 use regex::RegexSetBuilder;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -350,7 +350,7 @@ refer to corresponding named capture groups <code>(?P&lt;abcde&gt;REGEX)</code> 
 regex. See the <a href="https://docs.rs/regex/*/regex/struct.Regex.html#replacement-string-syntax">replacement string syntax</a> for examples and escaping detail.
 The regex is compiled only once, on first use, by declaring it as a <code>static</code>
 <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
-<pre class="playground"><code class="language-rust edition2021">use regex::Regex;
+<pre class="playground"><code class="language-rust edition2024">use regex::Regex;
 use std::borrow::Cow;
 use std::sync::LazyLock;
 

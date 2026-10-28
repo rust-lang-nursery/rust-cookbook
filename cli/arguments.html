@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -369,9 +369,9 @@ in Linux and MacOS, but not in Rust UTF-8 strings. This is
 best practice: one encounters such paths quite rarely in
 practice, but when it happens it is really frustrating
 without this.</p>
-<pre class="playground"><code class="language-rust edition2018">use std::path::PathBuf;
+<pre class="playground"><code class="language-rust edition2024">use std::path::PathBuf;
 
-use clap::{builder::PathBufValueParser, Arg, Command};
+use clap::{Arg, Command, builder::PathBufValueParser};
 
 fn main() {
     let matches = Command::new("My Test Program")

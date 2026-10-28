@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -193,7 +193,7 @@ you can grab its result. If you throw away the JoinSet before all tasks are done
 unfinished task is cancelled automatically.</p>
 <p>In this recipe, five jobs are created and added to a JoinSet. Each job does some work on its own,
 and the program waits until all of them are done before moving on.</p>
-<pre class="playground"><code class="language-rust edition2018">use tokio::task::JoinSet;
+<pre class="playground"><code class="language-rust edition2024">use tokio::task::JoinSet;
 
 struct Job {
     id: usize,

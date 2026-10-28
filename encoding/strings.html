@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d42b5304.js";
+            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-af28f5c9.js"></script>
@@ -187,7 +187,7 @@
 <p>Encode an input string with <a href="https://en.wikipedia.org/wiki/Percent-encoding">percent-encoding</a> using the
 <a href="https://docs.rs/percent-encoding/*/percent_encoding/fn.utf8_percent_encode.html"><code>utf8_percent_encode</code></a> function from the <code>percent-encoding</code> crate. Then decode
 using the <a href="https://docs.rs/percent-encoding/*/percent_encoding/fn.percent_decode.html"><code>percent_decode</code></a> function.</p>
-<pre class="playground"><code class="language-rust edition2018">use percent_encoding::{percent_decode, utf8_percent_encode, AsciiSet, CONTROLS};
+<pre class="playground"><code class="language-rust edition2024">use percent_encoding::{AsciiSet, CONTROLS, percent_decode, utf8_percent_encode};
 use std::str::Utf8Error;
 
 /// https://url.spec.whatwg.org/#fragment-percent-encode-set
@@ -217,7 +217,7 @@ a <code>String</code>.</p>
 using the <a href="https://docs.rs/form_urlencoded/*/form_urlencoded/fn.byte_serialize.html"><code>form_urlencoded::byte_serialize</code></a> and subsequently
 decodes it with <a href="https://docs.rs/form_urlencoded/*/form_urlencoded/fn.parse.html"><code>form_urlencoded::parse</code></a>. Both functions return iterators
 that collect into a <code>String</code>.</p>
-<pre class="playground"><code class="language-rust edition2018">use url::form_urlencoded::{byte_serialize, parse};
+<pre class="playground"><code class="language-rust edition2024">use url::form_urlencoded::{byte_serialize, parse};
 
 fn main() {
     let urlencoded: String = byte_serialize("What is ❤?".as_bytes()).collect();
@@ -239,7 +239,7 @@ representation of the data.</p>
 returns a <code>Vec&lt;u8&gt;</code> if the input data is successfully decoded.</p>
 <p>The recipe below converts <code>&amp;[u8]</code> data to hexadecimal equivalent.  Compares this
 value to the expected value.</p>
-<pre class="playground"><code class="language-rust edition2018">use data_encoding::{DecodeError, HEXUPPER};
+<pre class="playground"><code class="language-rust edition2024">use data_encoding::{DecodeError, HEXUPPER};
 
 fn main() -&gt; Result&lt;(), DecodeError&gt; {
     let original = b"The quick brown fox jumps over the lazy dog.";
