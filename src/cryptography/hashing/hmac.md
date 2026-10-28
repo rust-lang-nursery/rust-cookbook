@@ -6,7 +6,7 @@ The [`hmac::sign`] method is used to calculate the HMAC digest (also called a ta
 The resulting [`hmac::Tag`] structure contains the raw bytes of the HMAC,
 which can later be verified with[`hmac::verify`] to ensure the message has not been tampered with and comes from a trusted source.
 
-```rust,edition2021
+```rust,edition2024
 use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{hmac, rand};

@@ -13,7 +13,7 @@ loop blocks for each value and ends cleanly once every [`Sender`] (including
 clones) has been dropped. That drop is the channel's natural shutdown signal, so
 the original [`Sender`] is dropped explicitly after the producers are spawned.
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::{anyhow, Result};
 use std::sync::mpsc;
 use std::thread;
@@ -65,7 +65,7 @@ and then drains any messages that happen to be ready. [`TryRecvError::Empty`]
 means "nothing queued, carry on"; [`TryRecvError::Disconnected`] means every
 [`Sender`] is gone.
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::{anyhow, Result};
 use std::sync::mpsc::{self, TryRecvError};
 use std::thread;

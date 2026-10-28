@@ -17,7 +17,7 @@ rayon's global pool. Each file is read with [`std::fs::read`], and the byte coun
 Reading the contents is what keeps the workers busy with real IO;
 [`std::fs::metadata`] would be cheaper when only the length matters.
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::Result;
 use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use rayon::ThreadPoolBuilder;

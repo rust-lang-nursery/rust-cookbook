@@ -13,7 +13,7 @@ cgroup quotas. `num_cpus::get` also returns a plain `usize` rather than a
 additionally exposes the count of *physical* cores, which the standard library
 does not provide.
 
-```rust,edition2021
+```rust,edition2024
 fn main() {
     println!("Number of logical cores is {}", num_cpus::get());
 }

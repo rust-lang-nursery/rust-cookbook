@@ -5,7 +5,7 @@
 Opens the `python` interpreter using an external [`Command`] and passes it a
 python statement for execution. [`Output`] of statement is then parsed.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use anyhow::{anyhow, Result};
 use std::collections::HashSet;
 use std::io::Write;

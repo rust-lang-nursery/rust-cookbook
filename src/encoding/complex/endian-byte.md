@@ -17,7 +17,7 @@ A byte slice implements [`Read`], so [`Read::read_exact`] fills each array
 from the front of the slice and advances it. If the input is too short, it
 returns an [`UnexpectedEof`] error instead of panicking.
 
-```rust,edition2021
+```rust,edition2024
 use std::io::{Error, Read};
 
 #[derive(Default, PartialEq, Debug)]

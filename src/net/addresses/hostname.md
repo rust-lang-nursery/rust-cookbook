@@ -11,7 +11,7 @@ A hostname can resolve to multiple addresses — at least one IPv4 and one
 IPv6 on any modern host. Walk all of them when you want to display every
 option, or take the first when one working address is enough.
 
-```rust,edition2021
+```rust,edition2024
 use std::io;
 use std::net::ToSocketAddrs;
 

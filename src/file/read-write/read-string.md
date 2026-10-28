@@ -12,7 +12,7 @@ For files large enough that loading them whole would waste memory, switch to a
 workload-specific; past a few megabytes, the streaming form is usually the
 right choice.
 
-```rust,edition2021
+```rust,edition2024
 use std::fs;
 use std::io;
 use tempfile::tempdir;

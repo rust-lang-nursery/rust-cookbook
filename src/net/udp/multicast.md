@@ -12,7 +12,7 @@ Multicast group addresses live in `224.0.0.0/4`. Anything from `239.0.0.0` to
 `239.255.255.255` is reserved for private use — pick from there for in-house
 apps.
 
-```rust,edition2021,no_run
+```rust,edition2024,no_run
 use std::io;
 use std::net::{Ipv4Addr, SocketAddr, UdpSocket};
 

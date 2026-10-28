@@ -13,7 +13,7 @@ regex. See the [replacement string syntax] for examples and escaping detail.
 The regex is compiled only once, on first use, by declaring it as a `static`
 [`LazyLock`].
 
-```rust,edition2021
+```rust,edition2024
 use regex::Regex;
 use std::borrow::Cow;
 use std::sync::LazyLock;

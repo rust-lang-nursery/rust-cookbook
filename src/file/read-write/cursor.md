@@ -8,7 +8,7 @@
 where to send them. The internal position advances with each read or write,
 so call [`Cursor::set_position`] to rewind before reading back what you wrote.
 
-```rust,edition2021
+```rust,edition2024
 use std::io::{self, Cursor, Read, Write};
 
 fn main() -> io::Result<()> {

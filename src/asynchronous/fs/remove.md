@@ -9,7 +9,7 @@ program does not have to stop and wait while the work is done.
 - [`remove_dir`] deletes a single directory. Only works if the directory is empty.
 - [`remove_dir_all`] deletes a directory and everything inside it.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use std::io;
 
 #[tokio::main]

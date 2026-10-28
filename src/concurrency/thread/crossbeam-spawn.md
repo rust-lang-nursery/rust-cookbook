@@ -8,7 +8,7 @@ you can reference data from the calling function without needing `Arc` or other 
 
 This recipe splits the array in half and performs the work in separate threads.
 
-```rust,edition2021
+```rust,edition2024
 fn main() {
     let arr = &[1, 25, -4, 10];
     let max = find_max(arr);

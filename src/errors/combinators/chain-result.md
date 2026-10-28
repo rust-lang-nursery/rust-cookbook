@@ -9,7 +9,7 @@ rewrites an error into a domain-specific type so it can cross an API boundary.
 first error. [`Result::map`] transforms a successful value while leaving any
 error untouched.
 
-```rust,edition2021
+```rust,edition2024
 #[derive(Debug)]
 enum ConfigError {
     NotANumber(String),

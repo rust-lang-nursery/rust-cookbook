@@ -12,7 +12,7 @@ Their extensions [`AsyncReadExt`] and [`AsyncWriteExt`] add convenient methods o
 - [`read_to_end`] reads everything from a reader into a buffer.
 - [`copy`] streams data from a reader directly into a writer.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use std::io;
 use tokio::fs::File;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};

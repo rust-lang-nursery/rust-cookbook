@@ -21,7 +21,7 @@ already establishes a happens-before edge, so once every thread has joined the
 load is guaranteed to observe all of their increments. Using `SeqCst` for that
 load would only suggest an ordering requirement that does not exist.
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::{anyhow, Result};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;

@@ -18,7 +18,7 @@ This recipe spawns several reader threads that observe the shared vector
 simultaneously, plus one writer thread that appends to it under an exclusive
 lock.
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::{anyhow, Result};
 use std::sync::{Arc, RwLock};
 use std::thread;

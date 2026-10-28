@@ -11,7 +11,7 @@ Nagle off so each write goes out as its own segment.
 Use it for chat, games, REPL-style protocols, and RPCs where round-trip
 latency matters more than packet count. Leave it on for bulk transfer.
 
-```rust,edition2021,no_run
+```rust,edition2024,no_run
 use std::io::{self, Write};
 use std::net::TcpStream;
 

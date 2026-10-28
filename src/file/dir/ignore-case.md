@@ -9,7 +9,7 @@ A custom [`MatchOptions`] struct is passed to [`glob_with`] instead of [`glob`]
 to make the glob pattern case insensitive while keeping the other options
 [`Default`].
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::Result;
 use glob::{glob_with, MatchOptions};
 use walkdir::WalkDir;

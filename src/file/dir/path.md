@@ -12,7 +12,7 @@ and [`with_file_name`] derive sibling or backup paths in one call without
 mutating the original. Conversion to `&str` goes through [`Path::to_str`],
 which returns `None` on non-UTF-8 paths.
 
-```rust,edition2021
+```rust,edition2024
 use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 

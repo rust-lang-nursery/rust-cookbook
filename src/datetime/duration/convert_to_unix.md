@@ -5,7 +5,7 @@
 Converts the current [`SystemTime`] to seconds since the Unix epoch, then computes the original time
 by adding the unix timestamp to [`SystemTime::UNIX_EPOCH`] constant.
 
-```rust,edition2021
+```rust,edition2024
 use std::time::{SystemTime, SystemTimeError};
 
 fn main() -> Result<(), SystemTimeError> {

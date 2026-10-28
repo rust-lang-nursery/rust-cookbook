@@ -12,7 +12,7 @@ vector.
 on both v4 and v6. [`is_private`] and [`is_link_local`] are on [`Ipv4Addr`]
 only — match the variant to reach them.
 
-```rust,edition2021
+```rust,edition2024
 use std::net::IpAddr;
 use std::str::FromStr;
 

@@ -10,7 +10,7 @@ at least `1`, and it is wrapped in an [`io::Result`] because the value cannot
 always be determined. This has been available in the standard library since Rust
 1.59, making it a good default for sizing thread pools.
 
-```rust,edition2021
+```rust,edition2024
 use std::thread::available_parallelism;
 
 fn main() -> std::io::Result<()> {

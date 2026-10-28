@@ -12,7 +12,7 @@ collector binds to an OS-allocated port and waits with [`recv_from`]. The
 client binds to its own ephemeral port and uses [`send_to`] to deliver a
 metric. [`recv_from`] returns the byte count and the sender's address.
 
-```rust,edition2021
+```rust,edition2024
 use std::io;
 use std::net::UdpSocket;
 

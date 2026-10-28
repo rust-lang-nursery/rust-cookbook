@@ -7,7 +7,7 @@ files or query strings.  Each of those items are stripped out of the given
 URL.  [`PathSegmentsMut::clear`] removes paths and [`Url::set_query`] removes
 query string.
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::{anyhow, Result};
 use url::Url;
 

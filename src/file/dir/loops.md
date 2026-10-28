@@ -12,7 +12,7 @@ ln -s /tmp/foo/  /tmp/foo/bar/baz/qux
 
 The following would assert that a loop exists.
 
-```rust,edition2021
+```rust,edition2024
 use same_file::is_same_file;
 use walkdir::WalkDir;
 

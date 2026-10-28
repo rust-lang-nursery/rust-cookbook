@@ -11,7 +11,7 @@ command the actor can process.
 Because only one task ever accesses the data, there is no locking. Request–response
 pairs use a [`oneshot`] channel embedded in the message variant.
 
-```rust,edition2021
+```rust,edition2024
 {{#include ../../../crates/concurrency/actor/src/bin/actor_pattern.rs::163 }}
 ```
 

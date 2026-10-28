@@ -8,7 +8,7 @@ syscall overhead when making many small writes. Always call [`Write::flush`]
 explicitly when you are done; the buffer is also flushed when the `BufWriter`
 is dropped, but any error from that implicit flush is silently discarded.
 
-```rust,edition2021
+```rust,edition2024
 use std::fs::File;
 use std::io::{self, BufWriter, Write};
 use tempfile::tempdir;

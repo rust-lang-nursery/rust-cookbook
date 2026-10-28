@@ -6,7 +6,7 @@ CSV files often contain invalid data. For these cases, the `csv` crate
 provides a custom deserializer, [`csv::invalid_option`], which automatically
 converts invalid data to None values.
 
-```rust,edition2018
+```rust,edition2024
 use csv::Error;
 use serde::Deserialize;
 

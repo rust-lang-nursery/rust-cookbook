@@ -8,7 +8,7 @@ into `Err(e)` using a supplied error value. [`Option::ok_or_else`] builds that
 error lazily from a closure, which is preferable when constructing the error
 allocates or is otherwise expensive.
 
-```rust,edition2021
+```rust,edition2024
 use std::collections::HashMap;
 
 #[derive(Debug, PartialEq)]
