@@ -21,6 +21,7 @@ members = [
   "crates/wasm",
   "crates/web",
   "crates/web_scraping",
+  "packages/mdbook-chips",
   "xtask",
 ]
 exclude = [

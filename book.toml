@@ -9,10 +9,15 @@ src = "src"
 [rust]
 edition = "2018"
 
+[preprocessor.chips]
+command = "cargo run --quiet --manifest-path packages/mdbook-chips/Cargo.toml --"
+after = ["links"]
+
 [output.html]
 mathjax-support = false
 # theme = "theme"
 additional-css = ["theme/custom.css"]
+additional-js = ["theme/crate-chips.js"]
 git-repository-url = "https://github.com/rust-lang-nursery/rust-cookbook"
 edit-url-template = "https://github.com/rust-lang-nursery/rust-cookbook/edit/master/{path}"
 
