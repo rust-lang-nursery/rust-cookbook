@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
+            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-af28f5c9.js"></script>
+        <script src="../toc-971608bb.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -186,6 +186,7 @@
 Conventionally, build-time code lives in a <strong>build.rs</strong> file and is commonly referred to as a “build script”.
 Common use cases include rust code generation and compilation of bundled C/C++/asm code.
 See crates.io’s <a href="http://doc.crates.io/build-script.html">documentation on the matter</a> for more information.</p>
+<h3 id="c"><a class="header" href="#c">C</a></h3>
 <h2 id="compile-and-link-statically-to-a-bundled-c-library"><a class="header" href="#compile-and-link-statically-to-a-bundled-c-library">Compile and link statically to a bundled C library</a></h2>
 <p><a href="https://docs.rs/cc/latest/cc/"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>
 <p>To accommodate scenarios where additional C, C++, or assembly is required in a project, the <a href="https://docs.rs/cc/latest/cc/"><strong>cc</strong></a> crate
@@ -238,35 +239,6 @@ fn main() -&gt; Result&lt;()&gt; {
     let c_name = CString::new(name)?;
     unsafe { greet(c_name.as_ptr()) }
     Ok(())
-}</code></pre>
-<h2 id="compile-and-link-statically-to-a-bundled-c-library-1"><a class="header" href="#compile-and-link-statically-to-a-bundled-c-library-1">Compile and link statically to a bundled C++ library</a></h2>
-<p><a href="https://docs.rs/cc/latest/cc/"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>
-<p>Linking a bundled C++ library is very similar to linking a bundled C library. The two core differences when compiling and statically linking a bundled C++ library are specifying a C++ compiler via the builder method <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.cpp"><code>cpp(true)</code></a> and preventing name mangling by the C++ compiler by adding the <code>extern "C"</code> section at the top of our C++ source file.</p>
-<p><code>build.rs</code></p>
-<pre class="playground"><code class="language-rust edition2018">fn main() {
-    cc::Build::new()
-        .cpp(true)
-        .file("src/foo.cpp")
-        .compile("foo");
-}</code></pre>
-<p><code>src/foo.cpp</code></p>
-<pre><code class="language-cpp">extern "C" {
-    int multiply(int x, int y);
-}
-
-int multiply(int x, int y) {
-    return x*y;
-}
-</code></pre>
-<p><code>src/main.rs</code></p>
-<pre class="playground"><code class="language-rust edition2018">unsafe extern "C" {
-    fn multiply(x: i32, y: i32) -&gt; i32;
-}
-
-fn main() {
-    unsafe {
-        println!("{}", multiply(5, 7));
-    }
 }</code></pre>
 <h2 id="compile-a-c-library-while-setting-custom-defines"><a class="header" href="#compile-a-c-library-while-setting-custom-defines">Compile a C library while setting custom defines</a></h2>
 <p><a href="https://docs.rs/cc/latest/cc/"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>
@@ -385,6 +357,36 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
         .unwrap_or_else(|| "hello".to_string());
     println!("fnv1a-64({input:?}) = {:016x}", fnv1a(input.as_bytes()));
     Ok(())
+}</code></pre>
+<h3 id="c-1"><a class="header" href="#c-1">C++</a></h3>
+<h2 id="compile-and-link-statically-to-a-bundled-c-library-1"><a class="header" href="#compile-and-link-statically-to-a-bundled-c-library-1">Compile and link statically to a bundled C++ library</a></h2>
+<p><a href="https://docs.rs/cc/latest/cc/"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>
+<p>Linking a bundled C++ library is very similar to linking a bundled C library. The two core differences when compiling and statically linking a bundled C++ library are specifying a C++ compiler via the builder method <a href="https://docs.rs/cc/*/cc/struct.Build.html#method.cpp"><code>cpp(true)</code></a> and preventing name mangling by the C++ compiler by adding the <code>extern "C"</code> section at the top of our C++ source file.</p>
+<p><code>build.rs</code></p>
+<pre class="playground"><code class="language-rust edition2018">fn main() {
+    cc::Build::new()
+        .cpp(true)
+        .file("src/foo.cpp")
+        .compile("foo");
+}</code></pre>
+<p><code>src/foo.cpp</code></p>
+<pre><code class="language-cpp">extern "C" {
+    int multiply(int x, int y);
+}
+
+int multiply(int x, int y) {
+    return x*y;
+}
+</code></pre>
+<p><code>src/main.rs</code></p>
+<pre class="playground"><code class="language-rust edition2018">unsafe extern "C" {
+    fn multiply(x: i32, y: i32) -&gt; i32;
+}
+
+fn main() {
+    unsafe {
+        println!("{}", multiply(5, 7));
+    }
 }</code></pre>
 <h2 id="compile-and-link-dynamically-to-a-c-shared-library"><a class="header" href="#compile-and-link-dynamically-to-a-c-shared-library">Compile and link dynamically to a C++ shared library</a></h2>
 <p><a href="https://docs.rs/cc/latest/cc/"><img src="https://img.shields.io/crates/v/cc.svg?label=cc" alt="cc-badge"></a> <a href="https://crates.io/categories/development-tools"><img src="https://img.shields.io/badge/development_tools--x.svg?style=social" alt="cat-development-tools-badge"></a></p>

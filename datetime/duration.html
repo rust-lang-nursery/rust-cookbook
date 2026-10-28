@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-828ce8ba.js";
+            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-af28f5c9.js"></script>
+        <script src="../toc-971608bb.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -282,6 +282,21 @@ fn main() {
         println!("{:2} parcels: {:&gt;10.2?}", parcels, mean);
     }
 }</code></pre>
+<h2 id="choosing-between-chrono-time-and-jiff"><a class="header" href="#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a></h2>
+<ul>
+<li><a href="https://docs.rs/chrono/"><code>chrono</code></a> and <a href="https://docs.rs/time/"><code>time</code></a> are both very widely used, and both are supported by
+crates such as <code>serde</code>, <code>diesel</code> and <code>sqlx</code>. <code>chrono</code> has a larger API, but
+needs the separate <a href="https://docs.rs/chrono-tz/"><code>chrono-tz</code></a> crate for IANA time zones. <code>time</code> is smaller
+and only knows fixed UTC offsets, with no time zone database.</li>
+<li><a href="https://docs.rs/jiff/"><code>jiff</code></a> has IANA time zone support built in, using the system’s time zone
+database, or a bundled copy on platforms without one. Its <a href="https://docs.rs/jiff/*/jiff/struct.Span.html"><code>Span</code></a> and
+<a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html"><code>Zoned</code></a> types make DST-aware arithmetic the default. It has fewer
+third-party integrations so far.</li>
+<li>All three are pre-1.0, so their APIs may still change.</li>
+</ul>
+<p>If your code works with time zones and has no existing <code>chrono</code> or <code>time</code>
+dependency, <code>jiff</code> is worth considering. Otherwise stay with whatever your
+dependencies already use.</p>
 <h2 id="perform-checked-date-and-time-calculations"><a class="header" href="#perform-checked-date-and-time-calculations">Perform checked date and time calculations</a></h2>
 <p><a href="https://docs.rs/chrono/"><img src="https://img.shields.io/crates/v/chrono.svg?label=chrono" alt="chrono-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge"></a></p>
 <p>Calculates and displays the date and time two weeks from now using
