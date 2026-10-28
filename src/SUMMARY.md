@@ -48,6 +48,8 @@
 - [Date and Time](datetime.md)
   - [Duration and Calculation](datetime/duration.md)
   - [Parsing and Displaying](datetime/parse.md)
+  - [Time Zones](datetime/jiff.md)
+  - [Date and Time with time](datetime/time.md)
 - [Development Tools](development_tools.md)
   - [Debugging](development_tools/debugging.md)
     - [Log Messages](development_tools/debugging/log.md)

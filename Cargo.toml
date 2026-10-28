@@ -7,6 +7,7 @@ members = [
   "crates/configuration/*",
   "crates/database/rusqlite",
   "crates/data_structures/bitfield",
+  "crates/datetime/*",
   "crates/development_tools/build_tools/*",
   "crates/development_tools/debugging/log4rs",
   "crates/development_tools/debugging/syslog",
