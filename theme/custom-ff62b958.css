@@ -208,6 +208,89 @@ a.cat-chip:hover {
   font-size: 0.9em;
 }
 
+/* quick search: crate and topic matches above mdBook's full-text results */
+#cookbook-quicksearch {
+  margin: 0.75em auto 1em;
+  padding: 0.25em 1em 0.75em;
+  max-width: var(--content-max-width, 750px);
+  border-bottom: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+}
+
+#cookbook-quicksearch[hidden],
+#cookbook-quicksearch li[hidden] {
+  display: none;
+}
+
+#cookbook-quicksearch .qs-group {
+  margin-top: 0.75em;
+}
+
+#cookbook-quicksearch .qs-title {
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+#cookbook-quicksearch .qs-head,
+#cookbook-quicksearch .qs-topic {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 0.35em;
+}
+
+#cookbook-quicksearch ul {
+  margin: 0.1em 0 0.3em;
+  padding: 0;
+  list-style: none;
+}
+
+#cookbook-quicksearch li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+  margin: 0.15em 0;
+  padding-left: 0.25em;
+}
+
+#cookbook-quicksearch li .qs-muted {
+  flex-shrink: 0;
+  text-align: end;
+}
+
+#cookbook-quicksearch a.qs-recipe {
+  color: var(--links);
+  text-decoration: none;
+}
+
+#cookbook-quicksearch a.qs-recipe:hover {
+  text-decoration: underline;
+}
+
+#cookbook-quicksearch .qs-muted {
+  font-size: 0.85em;
+  color: var(--ck-muted);
+}
+
+#cookbook-quicksearch .qs-more {
+  margin: 0 0 0.4em 0.25em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--links);
+  font: inherit;
+  font-size: 0.85em;
+  cursor: pointer;
+}
+
+#cookbook-quicksearch .qs-more:hover {
+  text-decoration: underline;
+}
+
 /* Nobody is editing a Cargo.toml on a phone, so drop the copy button there. */
 @media (max-width: 480px) {
   .crate-chip-copy {
@@ -321,6 +404,51 @@ pre > .buttons:focus-within {
   }
 }
 
+/* search as a Cmd/Ctrl+K overlay */
+#mdbook-search-wrapper:not(.hidden) {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 8vh 12px 0;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.cmdk-box {
+  box-sizing: border-box;
+  width: min(720px, 100%);
+  max-height: 84vh;
+  overflow-y: auto;
+  padding: 4px 18px 16px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 14px;
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.ci-card li[hidden] {
+  display: none;
+}
+
+.ci-more {
+  margin: 0.4em 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--links);
+  font: inherit;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.ci-more:hover {
+  text-decoration: underline;
+}
+
 /* ---- accessibility (WCAG 2.2 AA) ---- */
 
 /* Text that is quieter than body text but still readable. */
@@ -413,6 +541,77 @@ pre > .buttons:focus-within {
   display: inline-block;
   min-height: 24px;
   line-height: 24px;
+}
+
+/* dimmed search magnifier at the bottom of the page */
+.bottom-search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--fg);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.15s, background-color 0.15s;
+}
+
+.bottom-search:hover,
+.bottom-search:focus-visible {
+  opacity: 0.95;
+  background-color: var(--theme-hover, rgba(128, 128, 128, 0.15));
+}
+
+.nav-wrapper {
+  position: relative;
+}
+
+.bottom-search.in-nav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom-search-wide {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 40px;
+}
+
+/* where mdBook shows the bottom nav row, the in-row magnifier is used instead */
+@media (max-width: 1080px) {
+  .bottom-search-wide {
+    display: none;
+  }
+}
+
+@media (max-width: 1380px) {
+  #mdbook-sidebar-toggle-anchor:checked ~ .page-wrapper .bottom-search-wide {
+    display: none;
+  }
+}
+
+/* leave room for the magnifier between the previous and next links */
+.mobile-nav-chapters {
+  max-width: calc(50% - 36px);
+}
+
+/* Visible to screen readers only (live-region announcements). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* A small 📦 after every link that goes to crates.io (category pills and links in the text). */
