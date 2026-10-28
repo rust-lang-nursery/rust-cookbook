@@ -409,6 +409,7 @@ pub fn run_preprocess(args: &[String]) -> Result<(), Box<dyn Error>> {
         .to_string();
 
     let meta = Meta::load()?;
+    search_index::write_index(&meta)?;
     walk(&mut book, &meta, &version);
 
     let mut stdout = std::io::stdout();
