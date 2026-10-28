@@ -3,7 +3,7 @@
 **Rust Dependencies**:
    - Make sure you have the required tools installed:
      ```bash
-     cargo install mdbook@0.4.43 lychee@0.17.0
+     cargo install mdbook@$(cat .mdbook-version) lychee@0.17.0
      ```
 
 ## Available Tasks

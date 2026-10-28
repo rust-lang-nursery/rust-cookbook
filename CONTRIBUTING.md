@@ -20,7 +20,7 @@ cd rust-cookbook
 Cookbook is built with [mdBook], so install that first with Cargo:
 
 ```
-cargo install --version 0.4.43 mdbook
+cargo install --version "=$(cat .mdbook-version)" --locked mdbook
 ```
 
 To build and view the cookbook locally, run:
@@ -62,7 +62,7 @@ To simplify common tasks like testing, building the book, and running linters.
 First, ensure you have the required tools installed:
 
 ```bash
-cargo install mdbook@0.4.43 lychee@0.17.0
+cargo install mdbook@$(cat .mdbook-version) lychee@0.17.0
 ```
 
 - To run all tests:
