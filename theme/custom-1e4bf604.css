@@ -1,0 +1,429 @@
+table {
+  width: 100%;
+}
+
+/* Recipe tables: each row is a card, recipe title on top, pills wrapping below. */
+table:has(.crate-chip),
+table:has(.crate-chip) tbody {
+  display: block;
+}
+
+table:has(.crate-chip) thead {
+  display: none;
+}
+
+table:has(.crate-chip) tr,
+table:has(.crate-chip) tr:nth-child(2n) {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 0;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 10px;
+  background: var(--bg);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+table:has(.crate-chip) tr:hover {
+  border-color: var(--links);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* the whole card opens the recipe; pills stay clickable above the overlay */
+table:has(.crate-chip) td:first-child a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+}
+
+table:has(.crate-chip) td .crate-chip {
+  position: relative;
+  z-index: 1;
+}
+
+table:has(.crate-chip) td,
+table:has(.crate-chip) td:nth-child(n + 2) {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  padding: 0 4px;
+  border: 0;
+  white-space: normal;
+}
+
+table:has(.crate-chip) td:first-child {
+  display: block;
+  flex-basis: 100%;
+  font-size: 1.05em;
+  font-weight: 500;
+}
+
+table:has(.crate-chip) td:nth-child(3) {
+  margin-left: 8px;
+}
+
+table:has(.crate-chip) td .crate-chip {
+  display: inline-flex;
+}
+
+/* Auto-sized comparison tables (not TOC tables) */
+.comparison table {
+  table-layout: auto;
+}
+
+.comparison table td:first-child {
+  width: auto;
+}
+
+.comparison table td:nth-child(2) {
+  width: auto;
+}
+
+.comparison table td,
+.comparison table th {
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+/* section sub-category labels (bold-only paragraphs in summary tables) */
+p > strong:only-child {
+  font-size: 1.1em;
+}
+
+/* underline hyperlinked inline code items */
+a:hover > .hljs {
+  text-decoration: underline;
+}
+
+/* color hyperlinked inline code items
+   identically to normal links */
+.rust a > .hljs,
+.navy a > .hljs,
+.coal a > .hljs,
+.ayu a > .hljs {
+  color: var(--links);
+}
+
+.light a > .hljs {
+  color: var(--links);
+}
+
+/* pills: crate (name, copy, repository) and category */
+.crate-chip {
+  display: inline-flex;
+  align-items: stretch;
+  vertical-align: middle;
+  margin: 2px 3px 2px 0;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 999px;
+  background: var(--quote-bg, #f5f5f5);
+  font-family: "Source Code Pro", Consolas, monospace;
+  font-size: 0.85em;
+  line-height: 1.5;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.crate-chip .crate-chip-name,
+a.cat-chip {
+  padding: 0 10px;
+  color: var(--links);
+  text-decoration: none;
+}
+
+.crate-chip a.crate-chip-name:hover,
+a.cat-chip:hover {
+  text-decoration: underline;
+}
+
+a.cat-chip {
+  font-family: inherit;
+  font-size: 0.8em;
+  padding: 1px 10px;
+}
+
+/* mdBook colors links via `.content a:link` / `a:visited`, which would make
+   visited and unvisited pills differ; match its specificity for both states. */
+.content a.cat-chip:link,
+.content a.cat-chip:visited {
+  color: var(--fg);
+}
+
+.content .crate-chip a.crate-chip-repo:link,
+.content .crate-chip a.crate-chip-repo:visited {
+  color: var(--icons, #747474);
+}
+
+.content .crate-chip a.crate-chip-repo:link:hover,
+.content .crate-chip a.crate-chip-repo:visited:hover {
+  color: var(--icons-hover, #000);
+}
+
+a.cat-chip:hover {
+  background: var(--theme-hover, rgba(128, 128, 128, 0.15));
+}
+
+.crate-chip-copy,
+.crate-chip .crate-chip-repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border: 0;
+  border-left: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  background: transparent;
+  color: var(--icons, #747474);
+  font: inherit;
+  cursor: pointer;
+}
+
+.crate-chip-copy:hover,
+.crate-chip-copy:focus-visible,
+.crate-chip .crate-chip-repo:hover {
+  color: var(--icons-hover, #000);
+  background: var(--theme-hover, rgba(128, 128, 128, 0.15));
+}
+
+.crate-chip.copied {
+  border-color: #2e9b57;
+}
+
+.crate-chip.copied .crate-chip-copy {
+  color: #2e9b57;
+}
+
+/* After "Copied", the button shows the Cargo.toml line that was copied. */
+.crate-chip-copy code {
+  max-width: 34ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9em;
+}
+
+/* Nobody is editing a Cargo.toml on a phone, so drop the copy button there. */
+@media (max-width: 480px) {
+  .crate-chip-copy {
+    display: none;
+  }
+}
+
+/* friendlier headings: lighter weight, a short accent underline on sections */
+.content h1,
+.content h2 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.content h1 {
+  font-size: 2em;
+  margin-top: 1.6em;
+}
+
+.content h1::after {
+  content: "";
+  display: block;
+  width: 2.2em;
+  height: 3px;
+  margin-top: 0.3em;
+  border-radius: 2px;
+  background: var(--links);
+}
+
+.content h2 {
+  font-size: 1.5em;
+}
+
+/* previous/next links say where they go */
+.nav-label {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 0.34em;
+  line-height: 1.3;
+}
+
+.nav-kicker {
+  font-size: 0.85em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+.nav-title {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* wide screens: the side strips get the label under the chevron */
+.nav-chapters .nav-label {
+  padding: 0 10px;
+  margin-top: 0.4em;
+  text-align: center;
+}
+
+/* narrower screens: bottom buttons with the title next to the arrow */
+.mobile-nav-chapters {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: auto;
+  max-width: 48%;
+  padding: 8px 14px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 10px;
+  background-color: var(--bg);
+  font-size: 1.4em;
+  text-align: start;
+}
+
+.mobile-nav-chapters .nav-label {
+  font-size: 0.6em;
+}
+
+.mobile-nav-chapters.next {
+  text-align: end;
+}
+
+.mobile-nav-chapters.next .nav-label {
+  order: -1;
+  align-items: flex-end;
+}
+
+/* snippet buttons (run, copy, ...): visible without hovering, easy to tap */
+pre > .buttons {
+  visibility: visible;
+  opacity: 0.6;
+  top: 6px;
+  right: 6px;
+}
+
+pre:hover > .buttons,
+pre > .buttons:focus-within {
+  opacity: 1;
+}
+
+@media (pointer: coarse) {
+  pre > .buttons {
+    opacity: 0.9;
+  }
+
+  pre > .buttons button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* ---- accessibility (WCAG 2.2 AA) ---- */
+
+/* Text that is quieter than body text but still readable. */
+:root {
+  --ck-muted: color-mix(in srgb, var(--fg) 80%, var(--bg));
+}
+
+/* mdBook's stock link and icon colors fall below 4.5:1 / 3:1 in these themes. */
+.coal {
+  --links: #3a99cb;
+  --icons: #8a929a;
+  --sidebar-active: #5f99cf;
+}
+
+.navy {
+  --links: #3a99cb;
+  --icons: #90919b;
+  --sidebar-active: #469fce;
+}
+
+.ayu {
+  --links: #009dd9;
+  --icons: #90919b;
+}
+
+.rust {
+  --links: #1d526e;
+  --icons: #4c4d55;
+}
+
+.light {
+  --icons: #6f6f6f;
+}
+
+/* Links inside running text must not rely on color alone. */
+.content p a,
+.content li a,
+.content td a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.content .section-grid a,
+.content .ci-card a,
+.content .ri-letters a,
+.content .crate-chip a,
+.content a.cat-chip,
+.content table:has(.crate-chip) td:first-child a,
+.content a.nav-chapters,
+.content a.mobile-nav-chapters,
+#cookbook-quicksearch a {
+  text-decoration: none;
+}
+
+.content .section-grid a:hover,
+.content .ci-card a:hover,
+.content .crate-chip a:hover,
+.content table:has(.crate-chip) td:first-child a:hover,
+#cookbook-quicksearch a:hover {
+  text-decoration: underline;
+}
+
+/* Header icons and sidebar links are too small to hit comfortably. */
+.menu-bar .icon-button,
+.right-buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.sidebar .chapter li a {
+  display: inline-block;
+  min-height: 24px;
+  line-height: 24px;
+}
+
+/* stock colors below 4.5:1: search result count, and comments in Ayu code blocks */
+#mdbook-searchresults-header {
+  color: var(--ck-muted);
+}
+
+.ayu .hljs-comment {
+  color: #8a95a1;
+}
+
+/* single links in lists are hit targets: give them 24px of height */
+.content ul li > a {
+  display: inline-block;
+  min-height: 24px;
+  line-height: 24px;
+}
+
+/* A small 📦 after every link that goes to crates.io (category pills and links in the text). */
+.content a[href^="https://crates.io"]::after,
+.content a[href^="http://crates.io"]::after {
+  content: "📦";
+  content: "📦" / "";
+  margin-left: calc(0.3em + 6px);
+  position: relative;
+  top: 2px;
+  font-size: 0.8em;
+  text-decoration: none;
+  display: inline-block;
+}
