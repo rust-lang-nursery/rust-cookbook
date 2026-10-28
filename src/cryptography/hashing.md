@@ -1,5 +1,7 @@
 # Hashing
 
+{{#include hashing/choosing.md}}
+
 {{#include hashing/sha-digest.md}}
 
 {{#include hashing/hmac.md}}

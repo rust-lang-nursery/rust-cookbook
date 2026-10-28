@@ -1,0 +1,17 @@
+[package]
+name = "rustcrypto-example"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+anyhow = "1.0"
+argon2 = "0.6"
+data-encoding = "2.1.0"
+getrandom = { version = "0.3", features = ["std"] }
+hmac = "0.13"
+pbkdf2 = { version = "0.13", features = ["getrandom", "phc"] }
+sha2 = "0.11"
+tempfile = "3.14"
