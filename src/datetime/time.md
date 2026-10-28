@@ -13,7 +13,7 @@ this chapter; see [Choosing between chrono, time and jiff] for how they compare.
 
 {{#include time/timestamp.md}}
 
-[Choosing between chrono, time and jiff]: jiff.html#choosing-between-chrono-time-and-jiff
+[Choosing between chrono, time and jiff]: duration.html#choosing-between-chrono-time-and-jiff
 [`time`]: https://docs.rs/time/
 
 {{#include ../links.md}}

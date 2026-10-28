@@ -8,6 +8,8 @@
 
 {{#include duration/benchmark.md}}
 
+{{#include duration/choosing.md}}
+
 {{#include duration/checked.md}}
 
 {{#include duration/timezone.md}}

@@ -1,5 +1,7 @@
 # Date and Time
 
+Not sure which crate to use? See [Choosing between chrono, time and jiff][ex-choosing-datetime-crate].
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
@@ -39,5 +41,6 @@
 [ex-time-parse-format]: datetime/time.html#parse-and-format-a-datetime-with-format-descriptions
 [ex-time-duration]: datetime/time.html#perform-checked-date-and-time-calculations-with-duration
 [ex-time-timestamp]: datetime/time.html#convert-a-datetime-to-a-unix-timestamp-and-vice-versa
+[ex-choosing-datetime-crate]: datetime/duration.html#choosing-between-chrono-time-and-jiff
 
 {{#include links.md}}
