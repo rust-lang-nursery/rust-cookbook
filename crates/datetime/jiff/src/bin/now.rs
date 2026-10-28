@@ -26,3 +26,17 @@ fn main() -> Result<(), jiff::Error> {
     );
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn converts_zone_without_changing_the_instant() -> Result<(), jiff::Error> {
+        let now = Zoned::now();
+        let tokyo = now.in_tz("Asia/Tokyo")?;
+        assert_eq!(tokyo.timestamp(), now.timestamp());
+        assert_eq!(tokyo.offset().seconds(), 9 * 3600);
+        Ok(())
+    }
+}

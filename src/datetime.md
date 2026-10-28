@@ -16,6 +16,10 @@
 | [Parse and format a datetime with a time zone][ex-jiff-parse-format] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform calendar arithmetic with Span][ex-jiff-span] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Convert a datetime to a UNIX timestamp and vice versa][ex-jiff-timestamp] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Examine the current time with a UTC offset][ex-time-now] | [![time-badge]][time] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Parse and format a datetime with format descriptions][ex-time-parse-format] | [![time-badge]][time] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Perform checked date and time calculations with Duration][ex-time-duration] | [![time-badge]][time] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Convert a datetime to a UNIX timestamp and vice versa][ex-time-timestamp] | [![time-badge]][time] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
 [ex-measure-elapsed-time]: datetime/duration.html#measure-the-elapsed-time-between-two-code-sections
 [ex-deadline-arithmetic-std]: datetime/duration.html#deadline-arithmetic-with-instant
@@ -31,5 +35,9 @@
 [ex-jiff-parse-format]: datetime/jiff.html#parse-and-format-a-datetime-with-a-time-zone
 [ex-jiff-span]: datetime/jiff.html#perform-calendar-arithmetic-with-span
 [ex-jiff-timestamp]: datetime/jiff.html#convert-a-datetime-to-a-unix-timestamp-and-vice-versa
+[ex-time-now]: datetime/time.html#examine-the-current-time-with-a-utc-offset
+[ex-time-parse-format]: datetime/time.html#parse-and-format-a-datetime-with-format-descriptions
+[ex-time-duration]: datetime/time.html#perform-checked-date-and-time-calculations-with-duration
+[ex-time-timestamp]: datetime/time.html#convert-a-datetime-to-a-unix-timestamp-and-vice-versa
 
 {{#include links.md}}

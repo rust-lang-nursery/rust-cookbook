@@ -40,6 +40,7 @@ const REMOVED_PREFIXES: &[&str] = &[
     "./src/web/clients/",
     "./src/web/scraping/",
     "./src/datetime/jiff/",
+    "./src/datetime/time/",
     "./src/database/sqlite/",
     "./src/database/sqlx/",
     "./src/database/sea_orm/",

@@ -8,7 +8,7 @@ taken into account, and returns an `Err` rather than panicking on overflow.
 [`Zoned::until`] computes the difference between two datetimes.
 
 ```rust
-{{#include ../../../crates/datetime/jiff/src/bin/span.rs }}
+{{#include ../../../crates/datetime/jiff/src/bin/span.rs::37 }}
 ```
 
 [`Span`]: https://docs.rs/jiff/*/jiff/struct.Span.html

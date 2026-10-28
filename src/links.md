@@ -187,6 +187,8 @@ Keep lines sorted.
 [thiserror]: https://docs.rs/thiserror/
 [tokio-badge]: https://img.shields.io/crates/v/tokio.svg?label=tokio
 [tokio]: https://docs.rs/tokio/
+[time-badge]: https://img.shields.io/crates/v/time.svg?label=time
+[time]: https://docs.rs/time/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
 [tracing-badge]: https://img.shields.io/crates/v/tracing.svg?label=tracing

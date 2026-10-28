@@ -7,7 +7,7 @@ another IANA time zone with [`Zoned::in_tz`], and reads its parts. A [`Zoned`]
 carries its time zone, so the UTC offset is always correct for that instant.
 
 ```rust
-{{#include ../../../crates/datetime/jiff/src/bin/now.rs }}
+{{#include ../../../crates/datetime/jiff/src/bin/now.rs::28 }}
 ```
 
 [`Zoned`]: https://docs.rs/jiff/*/jiff/struct.Zoned.html

@@ -18,3 +18,19 @@ fn main() -> Result<(), jiff::Error> {
     );
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn converts_to_and_from_timestamps() -> Result<(), jiff::Error> {
+        let zoned = civil::date(2017, 11, 12).at(17, 33, 44, 0).in_tz("UTC")?;
+        assert_eq!(zoned.timestamp().as_second(), 1_510_508_024);
+        assert_eq!(
+            Timestamp::from_second(1_000_000_000)?.to_string(),
+            "2001-09-09T01:46:40Z"
+        );
+        Ok(())
+    }
+}

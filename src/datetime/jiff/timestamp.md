@@ -7,7 +7,7 @@ UNIX epoch with [`Timestamp::as_second`]. [`Timestamp::from_second`] goes the
 other way, and [`Timestamp::in_tz`] shows the instant in any time zone.
 
 ```rust
-{{#include ../../../crates/datetime/jiff/src/bin/timestamp.rs }}
+{{#include ../../../crates/datetime/jiff/src/bin/timestamp.rs::20 }}
 ```
 
 [`Timestamp`]: https://docs.rs/jiff/*/jiff/struct.Timestamp.html

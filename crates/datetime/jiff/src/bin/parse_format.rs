@@ -20,3 +20,21 @@ fn main() -> Result<(), jiff::Error> {
     println!("Invalid:   {}", bad.is_err());
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parses_and_formats() -> Result<(), jiff::Error> {
+        let zoned: Zoned = "2024-07-11T01:14:00-04:00[America/New_York]".parse()?;
+        assert_eq!(
+            zoned.strftime("%A, %B %-d, %Y at %-I:%M %p %Z").to_string(),
+            "Thursday, July 11, 2024 at 1:14 AM EDT"
+        );
+        let date: Date = strtime::parse("%d/%m/%Y", "11/07/2024")?.to_date()?;
+        assert_eq!(date, jiff::civil::date(2024, 7, 11));
+        assert!("not a date".parse::<Zoned>().is_err());
+        Ok(())
+    }
+}

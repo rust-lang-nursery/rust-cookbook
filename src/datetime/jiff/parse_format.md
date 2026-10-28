@@ -7,7 +7,7 @@ Parses an RFC 9557 string, which includes an IANA time zone name, into a
 [`strtime::parse`] handles custom patterns. Invalid input returns an `Err`.
 
 ```rust
-{{#include ../../../crates/datetime/jiff/src/bin/parse_format.rs }}
+{{#include ../../../crates/datetime/jiff/src/bin/parse_format.rs::22 }}
 ```
 
 [`FromStr`]: https://doc.rust-lang.org/std/str/trait.FromStr.html

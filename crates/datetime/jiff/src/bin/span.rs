@@ -35,3 +35,25 @@ fn main() -> Result<(), jiff::Error> {
     println!("Rounded: {rounded:#}");
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn spans_respect_dst() -> Result<(), jiff::Error> {
+        let start = civil::date(2024, 3, 9)
+            .at(12, 0, 0, 0)
+            .in_tz("America/New_York")?;
+        let next_day = start.checked_add(Span::new().days(1))?;
+        assert_eq!(next_day.hour(), 12);
+        let in_24_hours = start.checked_add(Span::new().hours(24))?;
+        assert_eq!(in_24_hours.hour(), 13);
+        assert!(start.checked_add(Span::new().years(10_000)).is_err());
+
+        let end: Zoned = "2024-03-12T09:30:00-04:00[America/New_York]".parse()?;
+        let diff = start.until((Unit::Hour, &end))?;
+        assert_eq!((diff.get_hours(), diff.get_minutes()), (68, 30));
+        Ok(())
+    }
+}
