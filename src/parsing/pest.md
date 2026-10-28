@@ -1,6 +1,6 @@
 # Read CSV data with a parsing expression grammar
 
-[![pest-badge]][pest] [![cat-parser-implementations-badge]][cat-parser-implementations]
+[![pest-badge]][pest] [![pest-derive-badge]][pest-derive] [![cat-parser-implementations-badge]][cat-parser-implementations]
 
 [`pest`][pest] takes a different approach from the combinator libraries: instead
 of writing parser code, you describe the language in a [Parsing Expression

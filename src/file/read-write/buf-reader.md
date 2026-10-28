@@ -1,6 +1,6 @@
 ## Read a file line by line with BufReader
 
-[![std-badge]][std] [![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
+[![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
 
 For files too large to load into memory at once, wrap a [`File`] in a
 [`BufReader`] and iterate with [`BufRead::lines`]. Unlike

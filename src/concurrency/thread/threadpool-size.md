@@ -1,6 +1,6 @@
 ## Sum the size of every file in a directory
 
-[![rayon-badge]][rayon] [![std-badge]][std] [![walkdir-badge]][walkdir] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
+[![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem]
 
 This recipe adds up the size of every file under the book's `src` directory.
 Reading a file blocks while the operating system fetches its bytes, so the work

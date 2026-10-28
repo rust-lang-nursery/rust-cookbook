@@ -1,6 +1,6 @@
 ## Check a webpage for broken links
 
-[![reqwest-badge]][reqwest] [![scraper-badge]][scraper] [![url-badge]][url] [![cat-net-badge]][cat-net]
+[![reqwest-badge]][reqwest] [![scraper-badge]][scraper] [![url-badge]][url] [![tokio-badge]][tokio] [![thiserror-badge]][thiserror] [![cat-net-badge]][cat-net]
 
 `get_links` parses the page with [`Html::parse_document`] and calls
 `get_base_url` to retrieve the base URL. If the document has a base tag,

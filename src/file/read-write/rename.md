@@ -1,6 +1,6 @@
 ## Rename or atomically replace a file
 
-[![std-badge]][std] [![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
+[![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
 
 [`fs::rename`] is the atomic-replace primitive when source and destination
 live on the same filesystem: on Unix it's a single `rename(2)` syscall, on

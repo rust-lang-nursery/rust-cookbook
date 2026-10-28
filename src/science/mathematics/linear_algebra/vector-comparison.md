@@ -1,5 +1,5 @@
 ## Vector comparison
-[![ndarray-badge]][ndarray]
+[![ndarray-badge]][ndarray] [![cat-science-badge]][cat-science]
 
 The [ndarray] crate supports a number of ways to create arrays -- this recipe creates 
 [`ndarray::Array`]s from `std::Vec` using `from`. Then, it sums the arrays element-wise.

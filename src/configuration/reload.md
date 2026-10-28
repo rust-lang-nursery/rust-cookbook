@@ -1,6 +1,6 @@
 ## Reload configuration when the file changes
 
-[![config-badge]][config] [![notify-badge]][notify] [![cat-config-badge]][cat-config] [![cat-filesystem-badge]][cat-filesystem]
+[![config-badge]][config] [![notify-badge]][notify] [![serde-badge]][serde] [![notify-debouncer-full-badge]][notify-debouncer-full] [![cat-config-badge]][cat-config] [![cat-filesystem-badge]][cat-filesystem]
 
 A long-running service can pick up edits to its config file without a restart by
 watching the file and rebuilding its settings when it changes. This combines

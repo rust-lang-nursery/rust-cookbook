@@ -1,6 +1,6 @@
 ## Connect to Postgres and query typed rows
 
-[![sqlx-badge]][sqlx] [![cat-database-badge]][cat-database]
+[![sqlx-badge]][sqlx] [![tokio-badge]][tokio] [![cat-database-badge]][cat-database]
 
 Use [`PgPool::connect`] to open a connection pool for an existing `locations` Postgres
 database. Query values in the database and map query results into a typed `Location` struct with

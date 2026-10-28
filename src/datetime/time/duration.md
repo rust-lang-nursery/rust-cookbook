@@ -13,5 +13,5 @@ datetimes gives the [`Duration`] between them.
 {{#include ../../../crates/datetime/time/src/bin/duration.rs::28 }}
 ```
 
-[`Duration`]: https://docs.rs/time/*/time/struct.Duration.html
+[`Duration`]: https://docs.rs/time/*/time/struct.SignedDuration.html
 [`OffsetDateTime::checked_add`]: https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.checked_add

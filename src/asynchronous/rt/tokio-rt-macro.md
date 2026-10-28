@@ -1,5 +1,5 @@
 ## Macro
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 The easiest way to start the Tokio runtime is with the [`tokio::main`] macro. Put it above your
 main function and it handles everything for you, starting the runtime, running your code, and 

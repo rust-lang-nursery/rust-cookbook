@@ -1,6 +1,6 @@
 ## Implement a Custom `Future` (Pin, Waker, Poll)
 
-[![std-badge]][std] [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns]
+[![tokio-badge]][tokio] [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
 When you need low-level control: a custom hardware driver, a specialized timer,
 or a zero-allocation protocol parser—you can implement [`Future`] by hand

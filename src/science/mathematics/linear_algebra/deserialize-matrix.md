@@ -1,5 +1,5 @@
 ## (De)-Serialize a Matrix
-[![nalgebra-badge]][nalgebra] [![cat-science-badge]][cat-science]
+[![nalgebra-badge]][nalgebra] [![serde-json-badge]][serde-json] [![cat-science-badge]][cat-science]
 
 Serialize and deserialize a matrix to and from JSON. Serialization is taken care of
 by [`serde_json::to_string`] and [`serde_json::from_str`] performs deserialization.

@@ -1,6 +1,6 @@
 ## Create and delete Gist with GitHub API
 
-[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
+[![reqwest-badge]][reqwest] [![serde-badge]][serde] [![serde-json-badge]][serde-json] [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding]
 
 Creates a gist with POST request to GitHub [gists API v3][gists-api] using
 [`Client::post`] and removes it with DELETE request using [`Client::delete`].

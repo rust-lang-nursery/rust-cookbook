@@ -1,6 +1,6 @@
 ## Write to a file with BufWriter
 
-[![std-badge]][std] [![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
+[![tempfile-badge]][tempfile] [![cat-filesystem-badge]][cat-filesystem]
 
 [`BufWriter`] wraps any [`io::Write`] and batches small writes into a single
 in-memory buffer — typically 8 KB — before flushing to the OS. This reduces
