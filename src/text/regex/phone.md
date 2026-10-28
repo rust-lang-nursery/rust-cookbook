@@ -5,7 +5,7 @@
 Processes a string of text using [`Regex::captures_iter`] to capture multiple
 phone numbers.  This recipe handles US convention phone numbers.
 
-```rust,edition2018
+```rust,edition2024
 use anyhow::Result;
 use regex::Regex;
 use std::fmt;
