@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
+            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -188,7 +188,7 @@ checked queries for supported databases. To use <a href="https://docs.rs/sqlx/*/
 cargo add sqlx --features sqlite,postgres,runtime-tokio
 </code></pre>
 <h2 id="connect-to-sqlite-and-query-data"><a class="header" href="#connect-to-sqlite-and-query-data">Connect to SQLite and query data</a></h2>
-<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>Use <a href="https://docs.rs/sqlx/*/sqlx/sqlite/type.SqlitePoolOptions.html#method.connect"><code>SqlitePoolOptions::connect</code></a> to open an in-memory SQLite database backed by a connection pool that only allows a maximum of 1 concurrent connections.
 Create a table and insert rows with <a href="https://docs.rs/sqlx/*/sqlx/fn.query.html"><code>sqlx::query</code></a> and <a href="https://docs.rs/sqlx/*/sqlx/trait.Executor.html#method.execute"><code>Executor::execute</code></a>, then load the results with <a href="https://docs.rs/sqlx/*/sqlx/query/struct.Query.html#method.fetch_all"><code>Query::fetch_all</code></a>.
 Each row is read by calling <a href="https://docs.rs/sqlx/*/sqlx/trait.Row.html#method.try_get"><code>Row::try_get</code></a> for the selected columns.</p>
@@ -240,7 +240,7 @@ async fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre>
 <h2 id="connect-to-postgres-and-query-typed-rows"><a class="header" href="#connect-to-postgres-and-query-typed-rows">Connect to Postgres and query typed rows</a></h2>
-<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>Use <a href="https://docs.rs/sqlx/*/sqlx/struct.Pool.html#method.connect"><code>PgPool::connect</code></a> to open a connection pool for an existing <code>locations</code> Postgres
 database. Query values in the database and map query results into a typed <code>Location</code> struct with
 <a href="https://docs.rs/sqlx/*/sqlx/fn.query_as.html"><code>sqlx::query_as</code></a> and <a href="https://docs.rs/sqlx/*/sqlx/trait.FromRow.html"><code>FromRow</code></a>, then load all rows with
@@ -273,7 +273,7 @@ async fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre>
 <h2 id="compile-time-checked-queries"><a class="header" href="#compile-time-checked-queries">Compile-time checked queries</a></h2>
-<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>Use <a href="https://docs.rs/sqlx/*/sqlx/trait.Connection.html#tymethod.connect"><code>Connection::connect</code></a> to open a Postgres connection and
 <a href="https://docs.rs/sqlx/*/sqlx/macro.query_as.html"><code>sqlx::query_as!</code></a> to validate the SQL query against the database schema at
 compile time. The macro maps the selected columns into a <code>Location</code> struct
@@ -312,7 +312,7 @@ to a <code>.env</code> file or running:</p>
 <pre><code class="language-shell">export DATABASE_URL=&lt;your_database_url&gt;
 </code></pre>
 <h2 id="transactions-with-sqlx"><a class="header" href="#transactions-with-sqlx">Transactions with SQLx</a></h2>
-<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p><a href="https://docs.rs/sqlx/*/sqlx"><img src="https://img.shields.io/crates/v/sqlx.svg?label=sqlx" alt="sqlx-badge"></a> <a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>Use <a href="https://docs.rs/sqlx/*/sqlx/postgres/type.PgPoolOptions.html#method.connect"><code>PgPoolOptions::connect</code></a> to open a connection pool for an existing
 <code>locations</code> Postgres database. Start a transaction with <a href="https://docs.rs/sqlx/*/sqlx/struct.Pool.html#method.begin"><code>Pool::begin</code></a>, run
 two <code>INSERT</code> statements with <a href="https://docs.rs/sqlx/*/sqlx/fn.query.html"><code>sqlx::query</code></a>, and save both rows together with

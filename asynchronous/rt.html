@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
+            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -202,7 +202,7 @@ when they run, and what to do while they are waiting. That manager is called a r
 call back, the coordinator keeps everyone busy by assigning new work while others wait.</p>
 <p>Tokio is that runtime for Rust. Without it, <code>async</code> functions and <code>.await</code> do nothing on their own.</p>
 <h2 id="macro"><a class="header" href="#macro">Macro</a></h2>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a></p>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://crates.io/categories/asynchronous"><img src="https://img.shields.io/badge/asynchronous--x.svg?style=social" alt="cat-asynchronous-badge"></a></p>
 <p>The easiest way to start the Tokio runtime is with the <a href="https://docs.rs/tokio/*/tokio/attr.main.html"><code>tokio::main</code></a> macro. Put it above your
 main function and it handles everything for you, starting the runtime, running your code, and
 shutting it down when done. It also lets <code>main</code> be non-blocking, so you can use <code>.await</code> directly
@@ -221,7 +221,7 @@ async fn main() {
 tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
 </code></pre>
 <h2 id="builder-approach"><a class="header" href="#builder-approach">Builder Approach</a></h2>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a></p>
 <p><a href="https://docs.rs/tokio/*/tokio/attr.main.html"><code>tokio::main</code></a> works well for most programs, but it makes all the decisions for you.
 If you need control over how the runtime is set up, use the <a href="https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html"><code>Builder</code></a> instead.</p>
 <p>Think of Builder as a recipe. Each method you call adds an instruction, how many threads to

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
+            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -251,11 +251,11 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <h2 id="perform-checked-date-and-time-calculations-with-duration"><a class="header" href="#perform-checked-date-and-time-calculations-with-duration">Perform checked date and time calculations with Duration</a></h2>
 <p><a href="https://docs.rs/time/"><img src="https://img.shields.io/crates/v/time.svg?label=time" alt="time-badge"></a> <a href="https://crates.io/categories/date-and-time"><img src="https://img.shields.io/badge/date_and_time--x.svg?style=social" alt="cat-date-and-time-badge"></a></p>
 <p>Use <code>time</code> when exact elapsed time is what you want; see <a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a>. Adds a
-<a href="https://docs.rs/time/*/time/struct.Duration.html"><code>Duration</code></a> with <a href="https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.checked_add"><code>OffsetDateTime::checked_add</code></a>, which returns <code>None</code> on
-overflow. A <a href="https://docs.rs/time/*/time/struct.Duration.html"><code>Duration</code></a> is an exact length of time, so a day is always 24
+<a href="https://docs.rs/time/*/time/struct.SignedDuration.html"><code>Duration</code></a> with <a href="https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.checked_add"><code>OffsetDateTime::checked_add</code></a>, which returns <code>None</code> on
+overflow. A <a href="https://docs.rs/time/*/time/struct.SignedDuration.html"><code>Duration</code></a> is an exact length of time, so a day is always 24
 hours and daylight saving time is not applied: this is the opposite of the
 <code>jiff</code> <code>Span</code> recipe, where adding a day can be 23 or 25 hours. Subtracting two
-datetimes gives the <a href="https://docs.rs/time/*/time/struct.Duration.html"><code>Duration</code></a> between them.</p>
+datetimes gives the <a href="https://docs.rs/time/*/time/struct.SignedDuration.html"><code>Duration</code></a> between them.</p>
 <pre class="playground"><code class="language-rust edition2018">use time::macros::datetime;
 use time::{Duration, OffsetDateTime};
 

@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
+            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -183,7 +183,7 @@
                     <main>
                         <h1 id="file-io"><a class="header" href="#file-io">File IO</a></h1>
 <h2 id="create-files-and-directories"><a class="header" href="#create-files-and-directories">Create Files and Directories</a></h2>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a></p>
 <p>Creating files and directories on disk takes time. Tokio provides non-blocking versions of these
 operations so your program does not have to stop and wait while the work is done.</p>
 <p><a href="https://docs.rs/tokio/*/tokio/fs/struct.File.html#method.create"><code>File::create</code></a> creates a new file. If the file already exists, it is overwritten.
@@ -210,7 +210,7 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 tokio = { version = "*", features = ["macros", "fs"] }
 </code></pre>
 <h2 id="read-files"><a class="header" href="#read-files">Read files</a></h2>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a></p>
 <p>Reading a file from disk takes time. Tokio provides non-blocking versions of file reads so your
 program can keep doing other work while waiting for the data to come back.</p>
 <ul>
@@ -241,7 +241,7 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 tokio = { version = "*", features = ["macros", "fs"] }
 </code></pre>
 <h2 id="write-files"><a class="header" href="#write-files">Write Files</a></h2>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a></p>
 <p>Writing to disk takes time. <a href="https://docs.rs/tokio/*/tokio/fs/fn.write.html"><code>tokio::fs::write</code></a> is a non-blocking way to write bytes to a file.
 It creates the file if it does not exist, or overwrites it if it does.</p>
 <pre class="playground"><code class="language-rust edition2024 no_run">use std::io;
@@ -258,7 +258,7 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 tokio = { version = "*", features = ["macros", "fs"] }
 </code></pre>
 <h2 id="remove-files-and-directories"><a class="header" href="#remove-files-and-directories">Remove Files and Directories</a></h2>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a></p>
 <p>Deleting from disk takes time. Tokio provides non-blocking versions of these operations so your
 program does not have to stop and wait while the work is done.</p>
 <ul>
@@ -286,7 +286,7 @@ async fn main() -&gt; io::Result&lt;()&gt; {
 tokio = { version = "*", features = ["macros", "fs"] }
 </code></pre>
 <h2 id="asyncread-and-asyncwrite"><a class="header" href="#asyncread-and-asyncwrite">AsyncRead and AsyncWrite</a></h2>
-<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a></p>
+<p><a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a></p>
 <p><a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncRead.html"><code>AsyncRead</code></a> and <a href="https://docs.rs/tokio/*/tokio/io/trait.AsyncWrite.html"><code>AsyncWrite</code></a> are the building blocks for all non-blocking I/O in Tokio.
 Any type that can be read from or written to non-blocking i.e <a href="https://docs.rs/tokio/*/tokio/fs/struct.File.html"><code>file</code></a>, a <a href="https://docs.rs/tokio/*/tokio/net/struct.TcpStream.html"><code>network stream</code></a>, or
 a <a href="https://docs.rs/tokio/*/tokio/io/struct.BufReader.html"><code>buffer</code></a>, implements one or both of these.</p>

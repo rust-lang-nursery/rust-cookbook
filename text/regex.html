@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
+            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -183,7 +183,7 @@
                     <main>
                         <h1 id="regular-expressions"><a class="header" href="#regular-expressions">Regular Expressions</a></h1>
 <h2 id="verify-and-extract-login-from-an-email-address"><a class="header" href="#verify-and-extract-login-from-an-email-address">Verify and extract login from an email address</a></h2>
-<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
+<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Validates that an email address is formatted correctly, and extracts everything
 before the @ symbol. The <a href="https://docs.rs/regex/*/regex/struct.Regex.html"><code>Regex</code></a> is compiled only once, on first use, by
 declaring it as a <code>static</code> <a href="https://doc.rust-lang.org/std/sync/struct.LazyLock.html"><code>LazyLock</code></a>.</p>
@@ -215,7 +215,7 @@ fn main() {
     assert_eq!(extract_login(r"Not an email@email"), None);
 }</code></pre>
 <h2 id="extract-a-list-of-unique-hashtags-from-a-text"><a class="header" href="#extract-a-list-of-unique-hashtags-from-a-text">Extract a list of unique #Hashtags from a text</a></h2>
-<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
+<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Extracts, sorts, and deduplicates list of hashtags from text.</p>
 <p>The hashtag regex given here only catches Latin hashtags that start with a
 letter. The complete <a href="https://github.com/twitter/twitter-text/blob/c9fc09782efe59af4ee82855768cfaf36273e170/java/src/com/twitter/Regex.java#L255">twitter hashtag regex</a> is much more complicated.</p>
@@ -340,7 +340,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="replace-all-occurrences-of-one-text-pattern-with-another-pattern"><a class="header" href="#replace-all-occurrences-of-one-text-pattern-with-another-pattern">Replace all occurrences of one text pattern with another pattern.</a></h2>
-<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
+<p><a href="https://docs.rs/regex/"><img src="https://img.shields.io/crates/v/regex.svg?label=regex" alt="regex-badge"></a> <a href="https://crates.io/categories/text-processing"><img src="https://img.shields.io/badge/text_processing--x.svg?style=social" alt="cat-text-processing-badge"></a></p>
 <p>Replaces all occurrences of the standard ISO 8601 <em>YYYY-MM-DD</em> date pattern
 with the equivalent American English date with slashes.
 For example <code>2013-01-15</code> becomes <code>01/15/2013</code>.</p>

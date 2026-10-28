@@ -36,7 +36,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-dbb2f77f.js";
+            window.path_to_searchindex_js = "../../searchindex-f1f82002.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-971608bb.js"></script>
@@ -259,7 +259,7 @@ fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="create-and-delete-gist-with-github-api"><a class="header" href="#create-and-delete-gist-with-github-api">Create and delete Gist with GitHub API</a></h2>
-<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
+<p><a href="https://docs.rs/reqwest/"><img src="https://img.shields.io/crates/v/reqwest.svg?label=reqwest" alt="reqwest-badge"></a> <a href="https://docs.rs/serde/"><img src="https://img.shields.io/crates/v/serde.svg?label=serde" alt="serde-badge"></a> <a href="https://docs.rs/serde_json/*/serde_json/"><img src="https://img.shields.io/crates/v/serde_json.svg?label=serde_json" alt="serde-json-badge"></a> <a href="https://crates.io/categories/network-programming"><img src="https://img.shields.io/badge/net--x.svg?style=social" alt="cat-net-badge"></a> <a href="https://crates.io/categories/encoding"><img src="https://img.shields.io/badge/encoding--x.svg?style=social" alt="cat-encoding-badge"></a></p>
 <p>Creates a gist with POST request to GitHub <a href="https://docs.github.com/en/rest/gists/gists">gists API v3</a> using
 <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.post"><code>Client::post</code></a> and removes it with DELETE request using <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html#method.delete"><code>Client::delete</code></a>.</p>
 <p>The <a href="https://docs.rs/reqwest/*/reqwest/struct.Client.html"><code>reqwest::Client</code></a> is responsible for details of both requests including

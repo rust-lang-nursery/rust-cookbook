@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
+            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -183,7 +183,7 @@
                     <main>
                         <h1 id="read--write"><a class="header" href="#read--write">Read &amp; Write</a></h1>
 <h2 id="read-a-whole-file-into-a-string"><a class="header" href="#read-a-whole-file-into-a-string">Read a whole file into a string</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p><a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>fs::read_to_string</code></a> opens the file, reads it to end, closes it, and returns
 a <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a> — one call for the common case of loading a small text file in
 full. It sizes the buffer from the file’s length up front, so the read is a
@@ -208,7 +208,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="write-a-string-to-a-file"><a class="header" href="#write-a-string-to-a-file">Write a string to a file</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p><a href="https://doc.rust-lang.org/std/fs/fn.write.html"><code>fs::write</code></a> is the mirror of <a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>fs::read_to_string</code></a>: it opens the path,
 writes the bytes, and closes the file in one call. The semantics are
 create-or-truncate — if the file exists, its previous contents are discarded;
@@ -260,7 +260,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre>
 <h2 id="rename-or-atomically-replace-a-file"><a class="header" href="#rename-or-atomically-replace-a-file">Rename or atomically replace a file</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p><a href="https://doc.rust-lang.org/std/fs/fn.rename.html"><code>fs::rename</code></a> is the atomic-replace primitive when source and destination
 live on the same filesystem: on Unix it’s a single <code>rename(2)</code> syscall, on
 Windows it’s <code>MoveFileExW</code> with <code>MOVEFILE_REPLACE_EXISTING</code>. A concurrent
@@ -409,7 +409,7 @@ fn main() -&gt; Result&lt;(), Error&gt; {
     Ok(())
 }</code></pre>
 <h2 id="read-a-file-line-by-line-with-bufreader"><a class="header" href="#read-a-file-line-by-line-with-bufreader">Read a file line by line with BufReader</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p>For files too large to load into memory at once, wrap a <a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>File</code></a> in a
 <a href="https://doc.rust-lang.org/std/io/struct.BufReader.html"><code>BufReader</code></a> and iterate with <a href="https://doc.rust-lang.org/std/io/trait.BufRead.html#method.lines"><code>BufRead::lines</code></a>. Unlike
 <a href="https://doc.rust-lang.org/std/fs/fn.read_to_string.html"><code>fs::read_to_string</code></a>, this streams one kernel-buffered chunk at a time —
@@ -436,7 +436,7 @@ fn main() -&gt; io::Result&lt;()&gt; {
     Ok(())
 }</code></pre>
 <h2 id="write-to-a-file-with-bufwriter"><a class="header" href="#write-to-a-file-with-bufwriter">Write to a file with BufWriter</a></h2>
-<p><a href="https://doc.rust-lang.org/std"><img src="https://img.shields.io/badge/std-1.29.1-blue.svg" alt="std-badge"></a> <a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
+<p><a href="https://docs.rs/tempfile/"><img src="https://img.shields.io/crates/v/tempfile.svg?label=tempfile" alt="tempfile-badge"></a> <a href="https://crates.io/categories/filesystem"><img src="https://img.shields.io/badge/filesystem--x.svg?style=social" alt="cat-filesystem-badge"></a></p>
 <p><a href="https://doc.rust-lang.org/std/io/struct.BufWriter.html"><code>BufWriter</code></a> wraps any <a href="https://doc.rust-lang.org/std/io/trait.Write.html"><code>io::Write</code></a> and batches small writes into a single
 in-memory buffer — typically 8 KB — before flushing to the OS. This reduces
 syscall overhead when making many small writes. Always call <a href="https://doc.rust-lang.org/std/io/trait.Write.html#tymethod.flush"><code>Write::flush</code></a>

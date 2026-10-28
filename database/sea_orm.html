@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-dbb2f77f.js";
+            window.path_to_searchindex_js = "../searchindex-f1f82002.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-971608bb.js"></script>
@@ -189,7 +189,7 @@ types clearly, but you do not need to write all of that code by hand when you
 already have a database schema. Use <a href="https://www.sea-ql.org/SeaORM/docs/generate-entity/sea-orm-cli/"><code>sea-orm-cli</code></a> to generate entities from
 an existing database.</p>
 <h2 id="create-query-and-update-rows-with-seaorm"><a class="header" href="#create-query-and-update-rows-with-seaorm">Create, query, and update rows with SeaORM</a></h2>
-<p><a href="https://docs.rs/sea_orm/*/sea_orm"><img src="https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm" alt="sea_orm-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
+<p><a href="https://docs.rs/sea_orm/*/sea_orm"><img src="https://img.shields.io/crates/v/sea_orm.svg?label=sea_orm" alt="sea_orm-badge"></a> <a href="https://docs.rs/tokio/"><img src="https://img.shields.io/crates/v/tokio.svg?label=tokio" alt="tokio-badge"></a> <a href="https://crates.io/categories/database"><img src="https://img.shields.io/badge/database--x.svg?style=social" alt="cat-database-badge"></a></p>
 <p>Use <a href="https://docs.rs/sea_orm/*/sea_orm/struct.Database.html#method.connect"><code>Database::connect</code></a> to open an in-memory SQLite database and
 <a href="https://docs.rs/sea_orm/*/sea_orm/schema/struct.Schema.html#method.create_table_from_entity"><code>Schema::create_table_from_entity</code></a> to create a table from a SeaORM entity.
 Create a row with <a href="https://docs.rs/sea_orm/*/sea_orm/entity/trait.ActiveModelTrait.html#method.save"><code>ActiveModelTrait::save</code></a>, load it with <a href="https://docs.rs/sea_orm/*/sea_orm/entity/trait.EntityTrait.html#tymethod.find"><code>EntityTrait::find</code></a>,
