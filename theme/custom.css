@@ -380,6 +380,109 @@ a.cat-chip:hover {
   align-items: flex-end;
 }
 
+/* home page: topic grid */
+.section-grid ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.section-grid li {
+  margin: 0;
+}
+
+.section-grid a {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 10px;
+  background: var(--bg);
+  font-weight: 500;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.section-grid a:hover {
+  border-color: var(--links);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+}
+
+.sg-count {
+  display: block;
+  padding-inline-start: 0.9em;
+  font-size: 0.72em;
+  font-weight: 400;
+  color: var(--ck-muted);
+}
+
+kbd {
+  padding: 0 5px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 4px;
+  background: var(--quote-bg, #f5f5f5);
+  font-family: inherit;
+  font-size: 0.85em;
+}
+
+/* crate index page */
+.ci-filter {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0.5em 0 1em;
+  padding: 10px 14px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+}
+
+.ci-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.ci-card {
+  padding: 12px 14px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 10px;
+}
+
+.ci-card[hidden] {
+  display: none;
+}
+
+.ci-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.ci-head .qs-muted {
+  font-size: 0.85em;
+  color: var(--ck-muted);
+}
+
+.ci-card ul {
+  margin: 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95em;
+}
+
+.ci-card li {
+  margin: 0.2em 0;
+}
+
 /* snippet buttons (run, copy, ...): visible without hovering, easy to tap */
 pre > .buttons {
   visibility: visible;
@@ -527,6 +630,54 @@ pre > .buttons:focus-within {
   line-height: 24px;
 }
 
+/* recipe index page */
+.ri-letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0.5em 0 1.5em;
+}
+
+.ri-letters a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.ri-letters a:hover {
+  border-color: var(--links);
+}
+
+h2.ri-letter {
+  margin-block: 1.2em 0.3em;
+  font-size: 1.3em;
+}
+
+.ri-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ri-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+  margin: 0.2em 0;
+}
+
+.ri-section {
+  flex-shrink: 0;
+  font-size: 0.85em;
+  color: var(--ck-muted);
+}
+
 /* stock colors below 4.5:1: search result count, and comments in Ayu code blocks */
 #mdbook-searchresults-header {
   color: var(--ck-muted);
@@ -541,6 +692,12 @@ pre > .buttons:focus-within {
   display: inline-block;
   min-height: 24px;
   line-height: 24px;
+}
+
+/* the list-link sizing above must not turn the topic cards into inline boxes */
+.content .section-grid li > a {
+  display: flex;
+  line-height: normal;
 }
 
 /* dimmed search magnifier at the bottom of the page */

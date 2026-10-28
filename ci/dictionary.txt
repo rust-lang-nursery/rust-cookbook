@@ -257,6 +257,7 @@ nalgebra
 ndarray
 nFun
 nodelay
+noscript
 NotFound
 NulError
 OAuth

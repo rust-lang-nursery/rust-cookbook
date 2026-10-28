@@ -1,11 +1,44 @@
 # Cookin' with Rust
 
-This _Rust Cookbook_ is a collection of
-simple recipes that demonstrate good practices to accomplish common
-programming tasks, using the crates of the Rust ecosystem.
+Simple, working recipes for common programming tasks, using the crates of the
+Rust ecosystem. Copy a recipe, run it, and follow the links.
+New here? See [how to use the recipes](about.md#how-to-use-the-recipes).
 
-[Read more about _Rust Cookbook_](about.md), including tips for
-how to read the book, how to use the recipes, and notes on conventions.
+## Browse by topic
+
+<div class="section-grid">
+
+- [Algorithms](algorithms.md)
+- [Asynchronous](asynchronous.md)
+- [Command Line](cli.md)
+- [Compression](compression.md)
+- [Concurrency](concurrency.md)
+- [Configuration](configuration.md)
+- [Cryptography](cryptography.md)
+- [Data Structures](data_structures.md)
+- [Database](database.md)
+- [Date and Time](datetime.md)
+- [Development Tools](development_tools.md)
+- [Encoding](encoding.md)
+- [Error Handling](errors.md)
+- [File System](file.md)
+- [Hardware Support](hardware.md)
+- [Memory Management](mem.md)
+- [Multimedia](multimedia.md)
+- [Network](net.md)
+- [Operating System](os.md)
+- [Parsing](parsing.md)
+- [Science](science.md)
+- [Safety-Critical Rust](safety_critical.md)
+- [Text Processing](text.md)
+- [Web Programming](web.md)
+- [WebAssembly](wasm.md)
+
+</div>
+
+Looking for a specific crate? Try the [crate index](crates.md). To search
+everything, press <kbd>Ctrl</kbd>+<kbd>K</kbd> (<kbd>⌘</kbd>+<kbd>K</kbd> on a Mac),
+<kbd>/</kbd> or <kbd>S</kbd>.
 
 ## Contributing
 
@@ -15,53 +48,3 @@ community. It needs and welcomes help. For details see
 [CONTRIBUTING.md].
 
 [CONTRIBUTING.md]: https://github.com/rust-lang-nursery/rust-cookbook/blob/master/CONTRIBUTING.md
-
-{{#include algorithms.md}}
-
-{{#include asynchronous.md}}
-
-{{#include cli.md}}
-
-{{#include compression.md}}
-
-{{#include concurrency.md}}
-
-{{#include configuration.md}}
-
-{{#include cryptography.md}}
-
-{{#include data_structures.md}}
-
-{{#include database.md}}
-
-{{#include datetime.md}}
-
-{{#include development_tools.md}}
-
-{{#include encoding.md}}
-
-{{#include errors.md}}
-
-{{#include file.md}}
-
-{{#include hardware.md}}
-
-{{#include mem.md}}
-
-{{#include multimedia.md}}
-
-{{#include net.md}}
-
-{{#include os.md}}
-
-{{#include parsing.md}}
-
-{{#include science.md}}
-
-{{#include text.md}}
-
-{{#include wasm.md}}
-
-{{#include web.md}}
-
-
