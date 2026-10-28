@@ -4,7 +4,7 @@
 
 Computes the [`difference`], [`intersection`], and [`union`] of two [`HashSet`]s. Each operation returns an iterator of references; [`copied`] converts `&&str` to `&str` for easier collection.
 
-```rust,edition2021
+```rust,edition2024
 use std::collections::HashSet;
 
 fn main() {

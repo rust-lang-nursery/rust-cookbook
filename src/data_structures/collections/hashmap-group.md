@@ -4,7 +4,7 @@
 
 Groups a flat list of records into a [`HashMap`] of vectors using [`entry`] with [`or_default`], which inserts an empty `Vec` the first time a key is seen and returns a mutable reference to it on every call. [`keys`] with [`copied`] produces an owned `Vec<&str>` for sorting — `copied` turns the `&&str` references that `keys` yields into `&str` values.
 
-```rust,edition2021
+```rust,edition2024
 use std::collections::HashMap;
 
 fn main() {

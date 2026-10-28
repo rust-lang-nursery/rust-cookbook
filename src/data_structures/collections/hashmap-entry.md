@@ -4,7 +4,7 @@
 
 Splits a string into words with [`split_whitespace`] and counts each word's occurrences. [`HashMap::entry`] with [`or_insert`] initializes a missing key to zero and returns a mutable reference, so the increment requires no separate lookup. [`sort_by_key`] with [`Reverse`] sorts the results descending by count; wrapping the count in `Reverse` flips the natural ascending order without a manual comparator.
 
-```rust,edition2021
+```rust,edition2024
 use std::cmp::Reverse;
 use std::collections::HashMap;
 

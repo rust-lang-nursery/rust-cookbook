@@ -4,7 +4,7 @@
 
 Stores timestamped sensor readings in a [`BTreeMap`], which keeps keys in sorted order using a B-tree structure. [`BTreeMap::range`] locates the start of the range with binary search in O(log n) time and then iterates forward — so the cost scales with the result size, not the total number of entries. A `HashMap` cannot do this at all; it has no ordering to exploit.
 
-```rust,edition2021
+```rust,edition2024
 use std::collections::BTreeMap;
 
 fn main() {

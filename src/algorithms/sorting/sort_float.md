@@ -6,7 +6,7 @@ A Vector of f32 or f64 can be sorted with [`vec::sort_by`] and [`f64::total_cmp`
 Unlike [`PartialOrd::partial_cmp`], [`total_cmp`] handles NaN values without panicking
 by placing them at the end of the sort order.
 
-```rust,edition2021
+```rust,edition2024
 fn main() {
     let mut vec = vec![1.1_f64, 1.15, 5.5, 1.123, 2.0];
 

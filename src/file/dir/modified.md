@@ -10,7 +10,7 @@ Gets the current working directory and returns file names modified within the la
 [`Duration::as_secs`] converts the time to seconds and compared with 24 hours (24 * 60 * 60 seconds).
 [`Iterator::for_each`] prints the file names.
 
-```rust,edition2021
+```rust,edition2024
 use anyhow::Result;
 use std::env;
 use walkdir::WalkDir;

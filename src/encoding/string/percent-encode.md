@@ -6,8 +6,8 @@ Encode an input string with [percent-encoding][percent-encoding-wiki] using the
 [`utf8_percent_encode`] function from the `percent-encoding` crate. Then decode
 using the [`percent_decode`] function.
 
-```rust,edition2018
-use percent_encoding::{percent_decode, utf8_percent_encode, AsciiSet, CONTROLS};
+```rust,edition2024
+use percent_encoding::{AsciiSet, CONTROLS, percent_decode, utf8_percent_encode};
 use std::str::Utf8Error;
 
 /// https://url.spec.whatwg.org/#fragment-percent-encode-set

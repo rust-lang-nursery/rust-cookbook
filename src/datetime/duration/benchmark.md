@@ -8,7 +8,7 @@ and uses `benchmark` to measure the performance of `subset_sum` which takes a sl
 `benchmark` measures the average time required to call a closure a specified number of times using [`Instant::now`] and [`Instant::elapsed`].
 It uses [`black_box`] to prevent the compiler from optimizing away the closure's computation since its return value is ignored.
 
-```rust,edition2021
+```rust,edition2024
 use std::time::{Duration, Instant};
 
 fn subset_sum(weights: &[u64], target: u64) -> Option<u32> {

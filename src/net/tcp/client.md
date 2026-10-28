@@ -10,7 +10,7 @@ reader and a writer. [`write_all`] sends the request; [`read`] fills a buffer
 with whatever the server returns. Echo guarantees the bytes round-trip
 unchanged, so the client can assert on what came back.
 
-```rust,edition2021,no_run
+```rust,edition2024,no_run
 use std::io::{self, Read, Write};
 use std::net::TcpStream;
 

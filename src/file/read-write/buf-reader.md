@@ -7,7 +7,7 @@ For files too large to load into memory at once, wrap a [`File`] in a
 [`fs::read_to_string`], this streams one kernel-buffered chunk at a time —
 typically 8 KB — so memory usage stays flat regardless of file size.
 
-```rust,edition2021
+```rust,edition2024
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, Write};
 use tempfile::tempdir;

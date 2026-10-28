@@ -10,7 +10,7 @@ A [`regex::RegexSetBuilder`] composes a [`regex::RegexSet`].
 Since backslashes are very common in regular expressions, using
 [raw string literals] makes them more readable.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 use anyhow::Result;
 use regex::RegexSetBuilder;
 use std::fs::File;

@@ -11,7 +11,7 @@ new connection. Spawning a thread per connection keeps the accept loop free for
 the next client. Inside the handler, [`read`] returning `0` means the peer
 closed the connection — that's the cue to drop out of the loop.
 
-```rust,edition2021,no_run
+```rust,edition2024,no_run
 use std::io::{self, Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::thread;

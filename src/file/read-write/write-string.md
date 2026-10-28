@@ -11,7 +11,7 @@ To append instead of replacing, build a [`File`] through [`OpenOptions`] with
 [`append`] set. To refuse to overwrite an existing file — useful when a stale
 file would be a bug — use [`create_new`] instead of `create`.
 
-```rust,edition2021
+```rust,edition2024
 use std::fs;
 use std::io;
 use tempfile::tempdir;

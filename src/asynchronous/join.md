@@ -15,7 +15,7 @@ unfinished task is cancelled automatically.
 In this recipe, five jobs are created and added to a JoinSet. Each job does some work on its own,
 and the program waits until all of them are done before moving on.
 
-```rust,edition2018
+```rust,edition2024
 use tokio::task::JoinSet;
 
 struct Job {

@@ -9,7 +9,7 @@ struct with mixed field types, and derives [`Hash`] for it. A manual
 builds output in that same `Field { .. }` style without having to format
 the fields by hand.
 
-```rust,edition2018
+```rust,edition2024
 use std::collections::hash_map::DefaultHasher;
 use std::fmt;
 use std::hash::{Hash, Hasher};

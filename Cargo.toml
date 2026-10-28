@@ -1,16 +1,46 @@
 [workspace]
-members = ["crates/algorithms/*", "crates/cli/*", "crates/compression/*", "crates/concurrency/*", "crates/configuration/*", "crates/database/rusqlite", "crates/data_structures/bitfield", "crates/development_tools/build_tools/*", "crates/development_tools/debugging/log4rs", "crates/development_tools/debugging/syslog", "crates/development_tools/debugging/tracing", "crates/encoding/*", "crates/file/*", "crates/multimedia/*", "crates/parsing/*", "crates/safety_critical/*", "crates/science/linear_algebra", "crates/wasm", "crates/web", "crates/web_scraping", "xtask"]
-exclude = ["crates/database/sea_orm", "crates/database/sqlx", "crates/multimedia/playback", "crates/web_leptos", "crates/web_leptos_hydrate", "crates/wasm_component_guest", "crates/wasm_component_host"]
+members = [
+  "crates/algorithms/*",
+  "crates/cli/*",
+  "crates/compression/*",
+  "crates/concurrency/*",
+  "crates/configuration/*",
+  "crates/database/rusqlite",
+  "crates/data_structures/bitfield",
+  "crates/development_tools/build_tools/*",
+  "crates/development_tools/debugging/log4rs",
+  "crates/development_tools/debugging/syslog",
+  "crates/development_tools/debugging/tracing",
+  "crates/encoding/*",
+  "crates/file/*",
+  "crates/multimedia/*",
+  "crates/parsing/*",
+  "crates/safety_critical/*",
+  "crates/science/linear_algebra",
+  "crates/wasm",
+  "crates/web",
+  "crates/web_scraping",
+  "xtask",
+]
+exclude = [
+  "crates/database/sea_orm",
+  "crates/database/sqlx",
+  "crates/multimedia/playback",
+  "crates/web_leptos",
+  "crates/web_leptos_hydrate",
+  "crates/wasm_component_guest",
+  "crates/wasm_component_host",
+]
 
 [workspace.package]
 edition = "2024"
 version = "1.1.0"
 authors = [
-    "Brian Anderson <banderson@mozilla.com>",
-    "David Tolnay <dtolnay@gmail.com>",
-    "Michał Budzyński <budziq@gmail.com>",
-    "Brad Anderson <brad.anderson1995@gmail.com>",
-    "David Harris <dhharris9@gmail.com>",
+  "Brian Anderson <banderson@mozilla.com>",
+  "David Tolnay <dtolnay@gmail.com>",
+  "Michał Budzyński <budziq@gmail.com>",
+  "Brad Anderson <brad.anderson1995@gmail.com>",
+  "David Harris <dhharris9@gmail.com>",
 ]
 license = "MIT OR Apache-2.0"
 publish = false
@@ -22,11 +52,11 @@ curator = "Andrew Gauger <andygauge@gmail.com>"
 name = "rust-cookbook"
 version = "1.1.0"
 authors = [
-    "Brian Anderson <banderson@mozilla.com>",
-    "David Tolnay <dtolnay@gmail.com>",
-    "Michał Budzyński <budziq@gmail.com>",
-    "Brad Anderson <brad.anderson1995@gmail.com>",
-    "David Harris <dhharris9@gmail.com>",
+  "Brian Anderson <banderson@mozilla.com>",
+  "David Tolnay <dtolnay@gmail.com>",
+  "Michał Budzyński <budziq@gmail.com>",
+  "Brad Anderson <brad.anderson1995@gmail.com>",
+  "David Harris <dhharris9@gmail.com>",
 ]
 edition = "2018"
 license = "MIT OR Apache-2.0"
@@ -89,11 +119,11 @@ walkdir = "2.5"
 opt-level = 2
 
 [build-dependencies]
-skeptic = { version = "0.14.2", features = ["binary-cache"] }
+skeptic = "0.14.2"
 walkdir = "2.5"
 
 [dev-dependencies]
-skeptic = { version = "0.14.2", features = ["binary-cache"] }
+skeptic = "0.14.2"
 walkdir = "2.5"
 
 [lints.clippy]

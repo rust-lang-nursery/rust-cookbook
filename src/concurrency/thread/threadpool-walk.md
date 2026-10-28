@@ -9,7 +9,7 @@ each file and computing its hash across rayon's global thread pool, which has
 one thread per available core by default. The digests are gathered with
 [`collect`] into a single [`Result`], so the first error stops the run.
 
-```rust,edition2021,no_run
+```rust,edition2024,no_run
 use rayon::prelude::{IntoParallelRefIterator, ParallelIterator};
 use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;

@@ -13,7 +13,7 @@ breaks on the other platform.
 This recipe stands up a listener that accepts but never sends, then connects
 and reads with a short timeout to prove the timeout fires.
 
-```rust,edition2021
+```rust,edition2024
 use std::io::{self, Read};
 use std::net::{TcpListener, TcpStream};
 use std::thread;

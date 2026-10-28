@@ -8,7 +8,7 @@
 newline — into the supplied `String` buffer. The lock is released when it
 goes out of scope.
 
-```rust,edition2021,no_run
+```rust,edition2024,no_run
 use std::io::{self, BufRead};
 
 fn main() -> io::Result<()> {

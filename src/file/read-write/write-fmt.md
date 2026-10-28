@@ -9,7 +9,7 @@ the two traits share the macro name but operate on different targets.
 The `String` implementation never actually errors, but the signature uses
 `?` for consistency with other writers.
 
-```rust,edition2021
+```rust,edition2024
 use std::fmt::Write;
 
 fn main() -> std::fmt::Result {

@@ -6,7 +6,7 @@ Uses [`mem::swap`], [`mem::take`], and [`mem::replace`] to move owned String val
 [`mem::swap`] exchanges the drafts of two documents, [`mem::take`] moves a draft out for publishing while leaving an empty String behind,
 and [`mem::replace`] installs the new published text while returning the previous version.
 
-```rust,edition2021
+```rust,edition2024
 use std::mem::{replace, swap, take};
 
 struct Document {

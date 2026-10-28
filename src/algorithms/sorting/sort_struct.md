@@ -7,7 +7,7 @@ order (By name and age). In order to make Person sortable you need four traits [
 [`PartialEq`], [`Ord`] and [`PartialOrd`]. These traits can be simply derived.
 You can also provide a custom comparator function using a [`vec:sort_by`] method and sort only by age.
 
-```rust,edition2018
+```rust,edition2024
 #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct Person {
     name: String,

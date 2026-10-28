@@ -7,7 +7,7 @@ Creates a vector that holds different types that implement the same trait `Notif
 Trait objects such as `dyn Notification` do not have a size known at compile time, so they cannot be stored directly by value. [`Box<T>`] stores the value behind
 a pointer with a known size, making it possible to use different `Notification` implementations.
 
-```rust,edition2021
+```rust,edition2024
 trait Notification {
     fn send(&self);
 }

@@ -5,7 +5,7 @@ Uses [`borrow::Cow`] to avoid allocating when the input string already has the d
 only when normalization requires a new [`String`], such as converting uppercase text with [`str::to_lowercase`]. 
 This keeps the fast path allocation-free while still allowing transformed output.
 
-```rust,edition2021
+```rust,edition2024
 use std::borrow::Cow;
 
 fn normalize(input: &str) -> Cow<'_, str> {

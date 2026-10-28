@@ -12,7 +12,7 @@ is missing it fails with [`io::ErrorKind::NotFound`]. Reach for `create_dir`
 when the parent is known to exist and you want the operation to fail loudly
 if your assumption is wrong.
 
-```rust,edition2021
+```rust,edition2024
 use std::fs;
 use std::io;
 use tempfile::tempdir;

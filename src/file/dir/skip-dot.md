@@ -10,7 +10,7 @@ even if the parent is a hidden directory.
 Root dir `"."` yields through [`WalkDir::depth`] usage in `is_not_hidden`
 predicate.
 
-```rust,edition2021
+```rust,edition2024
 use walkdir::{DirEntry, WalkDir};
 
 fn is_not_hidden(entry: &DirEntry) -> bool {

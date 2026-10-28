@@ -10,7 +10,7 @@ cannot be calculated.
 Escape sequences that are available for the
 [`DateTime::format`] can be found at [`chrono::format::strftime`].
 
-```rust,edition2018
+```rust,edition2024
 use chrono::{DateTime, Duration, Utc};
 
 fn day_earlier(date_time: DateTime<Utc>) -> Option<DateTime<Utc>> {
@@ -33,7 +33,9 @@ fn main() {
 
     match now.checked_add_signed(Duration::max_value()) {
         Some(x) => println!("{}", x),
-        None => eprintln!("We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."),
+        None => eprintln!(
+            "We can't use chrono to tell the time for the Solar System to complete more than one full orbit around the galactic center."
+        ),
     }
 }
 ```

@@ -10,7 +10,7 @@ The trait object's `Hash` must feed the hasher exactly what `(Email, Coord)::has
 
 This technique trades complexity for fewer allocations, so it pays off mainly when key halves are heap-allocated, such as `String`, and lookups are frequent. Every hash and comparison goes through a trait object, and for cheap `Copy` keys that can be slower than cloning. Two simpler alternatives are worth trying first: nested maps, `HashMap<Email, HashMap<Coord, V>>`, which take a plain `&Email` and then a plain `&Coord` with no extra traits; and the [`Equivalent`] trait from the [`hashbrown`] crate, which lets a map be queried with any type that compares equal to the key and hashes the same way, without the `dyn` indirection.
 
-```rust,edition2021
+```rust,edition2024
 use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::hash::{Hash, Hasher};

@@ -5,7 +5,7 @@
 Recursion depth can be flexibly set by [`WalkDir::max_depth`]. Calculates
 sum of all file sizes to 3 subdir levels, ignoring files in the root directory.
 
-```rust,edition2021
+```rust,edition2024
 use walkdir::WalkDir;
 
 fn main() {

@@ -18,8 +18,8 @@ only to block again immediately on re-acquiring the mutex. Releasing first lets
 it proceed straight away. The result is correct either way — only the hand-off is
 tidier.
 
-```rust,edition2021
-use anyhow::{anyhow, Result};
+```rust,edition2024
+use anyhow::{Result, anyhow};
 use std::sync::{Arc, Condvar, Mutex};
 use std::thread;
 

@@ -9,9 +9,9 @@ then copies the contents of the source file into the encoder with
 [`io::copy`], transparently compressing the data as it is written to
 `input.txt.gz`.
 
-```rust,edition2018,no_run
-use flate2::write::GzEncoder;
+```rust,edition2024,no_run
 use flate2::Compression;
+use flate2::write::GzEncoder;
 use std::fs::File;
 use std::io;
 

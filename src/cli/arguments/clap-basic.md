@@ -22,10 +22,10 @@ best practice: one encounters such paths quite rarely in
 practice, but when it happens it is really frustrating
 without this.
 
-```rust,edition2018
+```rust,edition2024
 use std::path::PathBuf;
 
-use clap::{builder::PathBufValueParser, Arg, Command};
+use clap::{Arg, Command, builder::PathBufValueParser};
 
 fn main() {
     let matches = Command::new("My Test Program")

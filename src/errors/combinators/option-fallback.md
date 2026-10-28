@@ -9,7 +9,7 @@ defers to a closure, computing the fallback only when the value is `None` —
 prefer it when the default is costly or has side effects.
 [`Option::unwrap_or_default`] returns the type's [`Default`] value.
 
-```rust,edition2021
+```rust,edition2024
 fn expensive_default() -> i32 {
     // Pretend this performs costly work we want to avoid when possible.
     42

@@ -9,7 +9,7 @@ then copies the contents of the source file into the encoder with
 [`io::copy`], transparently compressing the data as it is written to
 `input.txt.bz2`.
 
-```rust,edition2018,no_run
+```rust,edition2024,no_run
 {{#include ../../../crates/compression/bzip2/src/bin/compress.rs::13 }}
 ```
 

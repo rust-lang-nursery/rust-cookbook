@@ -11,7 +11,7 @@ you call [`.build()`] at the end, which is when the runtime is created and ready
 This recipe sets up 4 worker threads, gives them the name "thread-one",
 and sets a stack size of 3MB each.
 
-```rust,edition2018
+```rust,edition2024
 use std::io;
 use tokio::runtime::Builder;
 

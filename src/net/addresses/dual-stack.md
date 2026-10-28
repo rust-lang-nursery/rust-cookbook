@@ -11,7 +11,7 @@ On Windows and FreeBSD the `IPV6_V6ONLY` socket option defaults to true, so
 the same bind accepts IPv6 only. [`std::net`] doesn't expose `IPV6_V6ONLY`;
 the [`socket2`] crate does, or you can open two listeners.
 
-```rust,edition2021
+```rust,edition2024
 use std::io;
 use std::net::TcpListener;
 
