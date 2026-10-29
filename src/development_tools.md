@@ -13,6 +13,7 @@
 | [Use a custom environment variable to set up logging][ex-log-env-variable] | [![log-badge]][log] [![env_logger-badge]][env_logger]                           | [![cat-debugging-badge]][cat-debugging] |
 | [Include timestamp in log messages][ex-log-timestamp]                      | [![log-badge]][log] [![env_logger-badge]][env_logger] [![chrono-badge]][chrono] | [![cat-debugging-badge]][cat-debugging] |
 | [Log messages to a custom location][ex-log-custom]                         | [![log-badge]][log] [![log4rs-badge]][log4rs]                                   | [![cat-debugging-badge]][cat-debugging] |
+| [Log messages to the console][ex-log-messages-to-the-console] | [![tracing-badge]][tracing] [![tracing-subscriber-badge]][tracing-subscriber] | [![cat-debugging-badge]][cat-debugging] |
 
 [ex-log-debug]: development_tools/debugging/log.html#log-a-debug-message-to-the-console
 [ex-log-error]: development_tools/debugging/log.html#log-an-error-message-to-the-console
@@ -39,11 +40,10 @@
 | Recipe                                                                           | Crates            | Categories                                              |
 | -------------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------- |
 | [Compile and link statically to a bundled C library][ex-cc-static-bundled]       | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
-| [Compile and link statically to a bundled C++ library][ex-cc-static-bundled-cpp] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
 | [Compile a C library while setting custom defines][ex-cc-custom-defines]         | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
-| [Compile and link dynamically to a C++ shared library][ex-cc-shared-library]     | [![std-badge]][std] | [![cat-development-tools-badge]][cat-development-tools] |
 | [Compile and link statically to an external C library][ex-compile-and-link-statically-to-an-extern] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
-| [Log messages to the console][ex-log-messages-to-the-console] | [![tracing-badge]][tracing] [![tracing-subscriber-badge]][tracing-subscriber] | [![cat-debugging-badge]][cat-debugging] |
+| [Compile and link statically to a bundled C++ library][ex-cc-static-bundled-cpp] | [![cc-badge]][cc] | [![cat-development-tools-badge]][cat-development-tools] |
+| [Compile and link dynamically to a C++ shared library][ex-cc-shared-library]     | [![std-badge]][std] | [![cat-development-tools-badge]][cat-development-tools] |
 
 [ex-semver-increment]: development_tools/versioning.html#parse-and-increment-a-version-string
 [ex-semver-complex]: development_tools/versioning.html#parse-a-complex-version-string

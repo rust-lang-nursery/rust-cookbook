@@ -1,25 +1,41 @@
 # Science
 
-**science/mathematics**
+
+**Linear Algebra**
 
 | Recipe                                                                         | Crates                        | Categories                          |
 | ------------------------------------------------------------------------------ | ----------------------------- | ----------------------------------- |
-| [Vector Norm][vector-norm]                                                     | [![ndarray-badge]][ndarray]   | [![cat-science-badge]][cat-science] |
 | [Adding matrices][add-matrices]                                                | [![ndarray-badge]][ndarray]   | [![cat-science-badge]][cat-science] |
 | [Multiplying matrices][multiply-matrices]                                      | [![ndarray-badge]][ndarray]   | [![cat-science-badge]][cat-science] |
 | [Multiply a scalar with a vector with a matrix][multiply-scalar-vector-matrix] | [![ndarray-badge]][ndarray]   | [![cat-science-badge]][cat-science] |
+| [Vector comparison][ex-vector-comparison] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
+| [Vector Norm][vector-norm]                                                     | [![ndarray-badge]][ndarray]   | [![cat-science-badge]][cat-science] |
 | [Invert matrix][invert-matrix]                                                 | [![nalgebra-badge]][nalgebra] | [![cat-science-badge]][cat-science] |
+| [(De)-Serialize a Matrix][ex-de-serialize-a-matrix] | [![nalgebra-badge]][nalgebra] [![serde-json-badge]][serde-json] | [![cat-science-badge]][cat-science] |
+
+**Trigonometry**
+
+| Recipe                                                                         | Crates                        | Categories                          |
+| ------------------------------------------------------------------------------ | ----------------------------- | ----------------------------------- |
 | [Calculating the side length of a triangle][side-length]                       | [![std-badge]][std]           | [![cat-science-badge]][cat-science] |
 | [Verifying tan is equal to sin divided by cos][tan-sin-cos]                    | [![std-badge]][std]           | [![cat-science-badge]][cat-science] |
 | [Distance between two points on the Earth][latitude-longitude]                 | [![std-badge]][std]           | [![cat-science-badge]][cat-science] |
+
+**Complex Numbers**
+
+| Recipe                                                                         | Crates                        | Categories                          |
+| ------------------------------------------------------------------------------ | ----------------------------- | ----------------------------------- |
 | [Creating complex numbers][create-complex]                                     | [![num-badge]][num]           | [![cat-science-badge]][cat-science] |
 | [Adding complex numbers][add-complex]                                          | [![num-badge]][num]           | [![cat-science-badge]][cat-science] |
 | [Mathematical functions on complex numbers][mathematical-functions]            | [![num-badge]][num]           | [![cat-science-badge]][cat-science] |
+
+**Statistics and Miscellaneous**
+
+| Recipe                                                                         | Crates                        | Categories                          |
+| ------------------------------------------------------------------------------ | ----------------------------- | ----------------------------------- |
 | [Measures of central tendency][ex-central-tendency]                            | [![std-badge]][std]           | [![cat-science-badge]][cat-science] |
 | [Computing standard deviation][ex-standard-deviation]                          | [![std-badge]][std]           | [![cat-science-badge]][cat-science] |
 | [Big integers][big-integers]                                                   | [![num-badge]][num]           | [![cat-science-badge]][cat-science] |
-| [(De)-Serialize a Matrix][ex-de-serialize-a-matrix] | [![nalgebra-badge]][nalgebra] [![serde-json-badge]][serde-json] | [![cat-science-badge]][cat-science] |
-| [Vector comparison][ex-vector-comparison] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 
 [vector-norm]: science/mathematics/linear_algebra.html#vector-norm
 [add-matrices]: science/mathematics/linear_algebra.html#adding-matrices

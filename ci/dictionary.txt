@@ -329,6 +329,7 @@ rustup
 RwLock
 rwlock
 seaorm
+SeaORM
 SecureRandom
 semver
 Semver

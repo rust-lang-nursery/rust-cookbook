@@ -335,7 +335,32 @@ fn chip_for(badge_url: &str, href: &str, meta: &Meta) -> Option<String> {
     ))
 }
 
+/// A bold group label directly above a recipe table becomes a paragraph with an id, so the search
+/// results can link to the group.
+fn anchor_group_labels(content: &str) -> String {
+    let lines: Vec<&str> = content.lines().collect();
+    let mut out = String::with_capacity(content.len());
+    for (i, line) in lines.iter().enumerate() {
+        let before_table = lines[i + 1..]
+            .iter()
+            .find(|l| !l.trim().is_empty())
+            .is_some_and(|l| l.starts_with("| Recipe"));
+        match search_index::group_label(line) {
+            Some(label) if before_table => out.push_str(&format!(
+                "<p id=\"{}\"><strong>{}</strong></p>",
+                search_index::group_anchor(label),
+                escape(label)
+            )),
+            _ => out.push_str(line),
+        }
+        out.push('\n');
+    }
+    out
+}
+
 pub fn render_chapter(content: &str, meta: &Meta) -> String {
+    let anchored = anchor_group_labels(content);
+    let content = anchored.as_str();
     let mut links = HashMap::new();
     for line in content.lines() {
         if let Some((label, url)) = search_index::parse_link_definition(line) {

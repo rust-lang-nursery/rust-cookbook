@@ -2,6 +2,8 @@
 
 Not sure which crate to use? See [Choosing between chrono, time and jiff][ex-choosing-datetime-crate].
 
+**Duration and Calculation**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
@@ -10,13 +12,28 @@ Not sure which crate to use? See [Choosing between chrono, time and jiff][ex-cho
 | [Benchmark a closure with Instant][ex-benchmark-closure] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Convert a local time to another timezone][ex-convert-datetime-timezone] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+
+**Parsing and Displaying**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Examine the date and time][ex-examine-date-and-time] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Convert date to UNIX timestamp and vice versa][ex-convert-datetime-timestamp] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Display formatted date and time][ex-format-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse string into DateTime struct][ex-parse-datetime] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
+
+**Time Zones**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Examine the current time with a time zone][ex-jiff-now] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse and format a datetime with a time zone][ex-jiff-parse-format] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform calendar arithmetic with Span][ex-jiff-span] | [![jiff-badge]][jiff] | [![cat-date-and-time-badge]][cat-date-and-time] |
+
+**Date and Time with time**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Examine the current time with a UTC offset][ex-time-now] | [![time-badge]][time] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Parse and format a datetime with format descriptions][ex-time-parse-format] | [![time-badge]][time] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations with Duration][ex-time-duration] | [![time-badge]][time] | [![cat-date-and-time-badge]][cat-date-and-time] |

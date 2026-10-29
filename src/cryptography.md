@@ -1,5 +1,7 @@
 # Cryptography
 
+**Hashing**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Calculate the SHA-256 digest of a file][ex-sha-digest] | [![ring-badge]][ring] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
@@ -9,6 +11,11 @@
 | [Sign and verify a message with HMAC using hmac and sha2][ex-hmac-rustcrypto] | [![hmac-badge]][hmac] [![sha2-badge]][sha2] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Salt and hash a password with PBKDF2 using pbkdf2][ex-pbkdf2-rustcrypto] | [![pbkdf2-badge]][pbkdf2] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Salt and hash a password with Argon2][ex-argon2] | [![argon2-badge]][argon2] | [![cat-cryptography-badge]][cat-cryptography] |
+
+**Extensible RustCrypto**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Choose a hash algorithm at runtime][ex-dyn-digest] | [![sha2-badge]][sha2] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Hash data while writing it][ex-tee-hash] | [![sha2-badge]][sha2] [![data-encoding-badge]][data-encoding] | [![cat-cryptography-badge]][cat-cryptography] |
 | [Upgrade stored password hashes on login][ex-rehash] | [![argon2-badge]][argon2] | [![cat-cryptography-badge]][cat-cryptography] |

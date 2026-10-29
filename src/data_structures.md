@@ -1,8 +1,15 @@
 # Data Structures
 
+**Bitfield**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Define and operate on a type represented as a bitfield][ex-bitflags] | [![bitflags-badge]][bitflags] | [![cat-no-std-badge]][cat-no-std] |
+
+**Collections**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Count word frequency in a document][ex-hashmap-entry] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
 | [Group records by key][ex-hashmap-group] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
 | [Look up records within a time range][ex-btreemap-range] | [![std-badge]][std] | [![cat-data-structures-badge]][cat-data-structures] |
