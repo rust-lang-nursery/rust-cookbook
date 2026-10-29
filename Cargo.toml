@@ -5,6 +5,7 @@ members = [
   "crates/compression/*",
   "crates/concurrency/*",
   "crates/configuration/*",
+  "crates/cryptography/*",
   "crates/database/rusqlite",
   "crates/data_structures/bitfield",
   "crates/datetime/*",

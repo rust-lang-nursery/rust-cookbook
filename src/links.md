@@ -66,6 +66,8 @@ Keep lines sorted.
 [nu-ansi-term]: https://docs.rs/nu-ansi-term/
 [anyhow-badge]: https://img.shields.io/crates/v/anyhow.svg?label=anyhow
 [anyhow]: https://docs.rs/anyhow/
+[argon2-badge]: https://img.shields.io/crates/v/argon2.svg?label=argon2
+[argon2]: https://docs.rs/argon2/
 [axum-badge]: https://img.shields.io/crates/v/axum.svg?label=axum
 [axum]: https://docs.rs/axum/
 [base64-badge]: https://img.shields.io/crates/v/base64.svg?label=base64
@@ -98,6 +100,8 @@ Keep lines sorted.
 [flate2]: https://docs.rs/flate2/
 [glob-badge]:https://img.shields.io/crates/v/glob.svg?label=glob
 [glob]: https://docs.rs/glob/
+[hmac-badge]: https://img.shields.io/crates/v/hmac.svg?label=hmac
+[hmac]: https://docs.rs/hmac/
 [heapless-badge]: https://img.shields.io/crates/v/heapless.svg?label=heapless
 [heapless]: https://docs.rs/heapless/
 [hyper-badge]: https://img.shields.io/crates/v/hyper.svg?label=hyper
@@ -145,6 +149,8 @@ Keep lines sorted.
 [pest-derive]: https://docs.rs/pest_derive/
 [postgres-badge]: https://img.shields.io/crates/v/postgres.svg?label=postgres
 [postgres]: https://docs.rs/postgres/0.15.2/postgres/
+[pbkdf2-badge]: https://img.shields.io/crates/v/pbkdf2.svg?label=pbkdf2
+[pbkdf2]: https://docs.rs/pbkdf2/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [rand_distr-badge]: https://img.shields.io/crates/v/rand_distr.svg?label=rand_distr
@@ -175,6 +181,8 @@ Keep lines sorted.
 [serde-json-badge]: https://img.shields.io/crates/v/serde_json.svg?label=serde_json
 [serde-json]: https://docs.rs/serde_json/*/serde_json/
 [serde]: https://docs.rs/serde/
+[sha2-badge]: https://img.shields.io/crates/v/sha2.svg?label=sha2
+[sha2]: https://docs.rs/sha2/
 [sqlx-badge]: https://img.shields.io/crates/v/sqlx.svg?label=sqlx
 [sqlx]: https://docs.rs/sqlx/*/sqlx
 [std-badge]: https://img.shields.io/badge/std-1.29.1-blue.svg
