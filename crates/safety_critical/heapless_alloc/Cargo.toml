@@ -7,5 +7,5 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
-heapless = "0.8"
+heapless = "0.9"
 thiserror = "2"
