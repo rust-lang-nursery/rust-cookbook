@@ -12,7 +12,7 @@ macros = ["sqlx/macros"]
 
 [dependencies]
 tokio = { version = "1", features = ["full"]}
-sqlx = { version = "0.8", features = ["sqlite", "postgres", "runtime-tokio"] }
+sqlx = { version = "0.9", features = ["sqlite", "postgres", "runtime-tokio"] }
 
 [[bin]]
 name = "query_macros"
