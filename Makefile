@@ -1,4 +1,4 @@
-.PHONY: help build serve test lint fmt fmt-check deploy deploy-skip-tests dev clean install-mdbook
+.PHONY: help build a11y serve test lint fmt fmt-check deploy deploy-skip-tests dev clean install-mdbook
 
 help: ## Show this help message
 	@echo "Rust Cookbook - Available commands:"
@@ -26,6 +26,9 @@ fmt-check: ## Check formatting without writing changes
 
 lint: fmt-check ## Run the formatting checks and clippy
 	cargo clippy --workspace --all-targets -- -D warnings
+
+a11y: build ## Run accessibility checks (axe) over the built book in every theme
+	cd scripts/a11y && npm ci && node run.js
 
 test: ## Run all tests
 	cargo test
