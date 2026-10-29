@@ -127,6 +127,7 @@ When a bump of a root dependency (usually a Dependabot PR) fails to build or bre
 - Always create new examples as standalone crates; do not add dependencies to root `Cargo.toml` for new recipes
 - When adding a new crate under `crates/` or `packages/`, also add its directory to `.github/dependabot.yml` so it gets automated update PRs
 - List every new recipe in its section's table (`src/<section>.md`), in the order it appears in the sidebar and on its page; `cargo test -p mdbook-chips` fails when a recipe is missing from the tables or the rows are out of order
+- Crates listed in the root `Cargo.toml` `[dependencies]` get a play icon on their chips; each needs a starter at `crates/playground/src/bin/<crate>.rs` (with `-` as `_`) plus its dependency in `crates/playground/Cargo.toml`. `mdbook-chips` opens the Playground with that file's code, and `cargo test -p mdbook-chips` fails when one is missing
 - When adding a **new top-level section** (`src/<section>.md`), also add a link to it in the topic list in `src/intro.md` (the book's landing page) in the correct alphabetical position
 
 ## Pull Request Checklist

@@ -15,13 +15,29 @@ use std::{error::Error, fs};
 const STD_REPO: &str = "https://github.com/rust-lang/rust";
 
 const COPY_ICON: &str = r#"<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z"/></svg>"#;
+const PLAYGROUND_ICON: &str = r#"<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z"/></svg>"#;
+const PLAYGROUND_URL: &str = "https://play.rust-lang.org/";
+/// Where the per-crate Playground starters live: `<crate name, `-` as `_`>.rs`, one per crate.
+const STARTER_DIR: &str = "crates/playground/src/bin";
+const STARTER_QUERY: &str = "?version=stable&mode=debug&edition=2024&code=";
 const GITHUB_ICON: &str = r#"<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>"#;
 
-/// What the pill for one crate offers: a `Cargo.toml` line to copy and a repository link.
+/// What the pill for one crate offers: a `Cargo.toml` line to copy, a repository link and whether
+/// the cookbook's root `[dependencies]` put the crate on the Rust Playground.
 #[derive(Default, Clone)]
 pub struct CrateMeta {
     pub snippet: Option<String>,
     pub repo: Option<String>,
+    pub playground: bool,
+    /// The Playground link with the crate's starter code filled in; `None` if it has no starter.
+    pub starter: Option<String>,
+}
+
+impl CrateMeta {
+    /// Where the play icon points: the crate's starter, or the blank Playground.
+    pub fn playground_href(&self) -> &str {
+        self.starter.as_deref().unwrap_or(PLAYGROUND_URL)
+    }
 }
 
 pub struct Meta(HashMap<String, CrateMeta>);
@@ -36,6 +52,8 @@ impl Meta {
             return CrateMeta {
                 snippet: None,
                 repo: Some(STD_REPO.to_string()),
+                playground: false,
+                starter: None,
             };
         }
         self.0.get(&normalize(name)).cloned().unwrap_or_default()
@@ -51,14 +69,29 @@ impl Meta {
         let root = project_root();
         let cache = root.join("target").join("mdbook-chips.json");
         let key = fingerprint(&root);
-        if let Some(meta) = read_cache(&cache, &key) {
+        if let Some(mut meta) = read_cache(&cache, &key) {
+            meta.attach_starters(&root);
             return Ok(meta);
         }
-        let (meta, complete) = Meta::resolve(&root)?;
+        let (mut meta, complete) = Meta::resolve(&root)?;
         if complete {
             write_cache(&cache, &key, &meta);
         }
+        meta.attach_starters(&root);
         Ok(meta)
+    }
+
+    /// Points each Playground crate's icon at its starter. The starters are read on every build
+    /// instead of being cached, so editing one is picked up without touching a `Cargo.toml`.
+    fn attach_starters(&mut self, root: &Path) {
+        for (name, meta) in self.0.iter_mut().filter(|(_, m)| m.playground) {
+            match fs::read_to_string(root.join(STARTER_DIR).join(format!("{name}.rs"))) {
+                Ok(code) => meta.starter = Some(starter_url(&code)),
+                Err(_) => eprintln!(
+                    "warning: no Playground starter for `{name}` ({STARTER_DIR}/{name}.rs)"
+                ),
+            }
+        }
     }
 
     fn resolve(root: &Path) -> Result<(Meta, bool), Box<dyn Error>> {
@@ -88,6 +121,15 @@ impl Meta {
             }
         }
 
+        // The playground reads the keys of the root package's `[dependencies]`, so those are the
+        // crates the cookbook adds to it (optional ones included; dev and build dependencies are not).
+        let playground: Vec<String> = members(&main)
+            .filter(|p| str_of(p, "name") == "rust-cookbook")
+            .flat_map(|p| p["dependencies"].as_array().into_iter().flatten())
+            .filter(|dep| dep["kind"].is_null())
+            .map(|dep| normalize(&str_of(dep, "name")))
+            .collect();
+
         let mut repos: HashMap<String, String> = HashMap::new();
         let mut out: HashMap<String, CrateMeta> = HashMap::new();
         for metadata in &manifests {
@@ -115,15 +157,32 @@ impl Meta {
                     out.entry(normalize(&name)).or_insert_with(|| CrateMeta {
                         snippet: Some(snippet(&name, dep)),
                         repo: None,
+                        playground: false,
+                        starter: None,
                     });
                 }
             }
         }
         for (name, meta) in &mut out {
             meta.repo = repos.get(name).cloned();
+            meta.playground = playground.contains(name);
         }
         Ok((Meta(out), complete))
     }
+}
+
+/// A Playground link that opens with `code` loaded (`?code=` is read by the Playground's frontend).
+fn starter_url(code: &str) -> String {
+    let mut url = format!("{PLAYGROUND_URL}{STARTER_QUERY}");
+    for byte in code.bytes() {
+        match byte {
+            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'-' | b'.' | b'_' | b'~' => {
+                url.push(byte as char)
+            }
+            _ => url.push_str(&format!("%{byte:02X}")),
+        }
+    }
+    url
 }
 
 fn str_of(v: &Value, key: &str) -> String {
@@ -191,7 +250,8 @@ fn fingerprint(root: &Path) -> String {
     let mut files = Vec::new();
     find_manifests(root, &mut files);
     files.sort();
-    let mut key = String::new();
+    // Bumped when the cached fields change, so an old cache is not read as the new shape.
+    let mut key = String::from("v2\n");
     for path in files {
         if let Ok(m) = fs::metadata(&path) {
             let nanos = m
@@ -221,6 +281,8 @@ fn read_cache(path: &Path, key: &str) -> Option<Meta> {
                     CrateMeta {
                         snippet: field(0),
                         repo: field(1),
+                        playground: v[2].as_bool().unwrap_or(false),
+                        starter: None,
                     },
                 )
             })
@@ -232,7 +294,12 @@ fn write_cache(path: &Path, key: &str, meta: &Meta) {
     let crates: serde_json::Map<String, Value> = meta
         .0
         .iter()
-        .map(|(name, m)| (name.clone(), serde_json::json!([m.snippet, m.repo])))
+        .map(|(name, m)| {
+            (
+                name.clone(),
+                serde_json::json!([m.snippet, m.repo, m.playground]),
+            )
+        })
         .collect();
     let body = serde_json::json!({ "key": key, "crates": crates });
     // A missing cache only costs time, so ignore write failures.
@@ -289,6 +356,13 @@ fn crate_chip(name: &str, href: &str, meta: &CrateMeta) -> String {
         html.push_str(&format!(
             "<button type=\"button\" class=\"crate-chip-copy\" data-copy=\"{0}\" title=\"Copy {0}\" aria-label=\"Copy {0}\">{COPY_ICON}</button>",
             escape(line)
+        ));
+    }
+    if meta.playground {
+        html.push_str(&format!(
+            "<a class=\"crate-chip-playground\" href=\"{1}\" title=\"Try {0} in the Rust Playground\" aria-label=\"Try {0} in the Rust Playground\">{PLAYGROUND_ICON}</a>",
+            escape(name),
+            escape(meta.playground_href())
         ));
     }
     if let Some(repo) = &meta.repo {
@@ -441,4 +515,45 @@ pub fn run_preprocess(args: &[String]) -> Result<(), Box<dyn Error>> {
     serde_json::to_writer(&mut stdout, &book)?;
     stdout.flush()?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn playground_icon_only_for_crates_in_the_root_dependencies() {
+        let on = CrateMeta {
+            playground: true,
+            ..CrateMeta::default()
+        };
+        assert!(crate_chip("nalgebra", "https://docs.rs/nalgebra", &on)
+            .contains("crate-chip-playground"));
+        let off = CrateMeta::default();
+        assert!(!crate_chip("nalgebra", "https://docs.rs/nalgebra", &off)
+            .contains("crate-chip-playground"));
+    }
+
+    /// Every crate the root manifest lists for the Playground has a starter next to the others.
+    #[test]
+    fn every_root_dependency_has_a_starter() {
+        let root = project_root();
+        let manifest = fs::read_to_string(root.join("Cargo.toml")).expect("root Cargo.toml");
+        let names = manifest
+            .lines()
+            .skip_while(|l| l.trim() != "[dependencies]")
+            .skip(1)
+            .take_while(|l| !l.starts_with('['))
+            .filter_map(|l| {
+                l.split_once(" = ")
+                    .map(|(name, _)| name.trim().replace('-', "_"))
+            });
+        let missing: Vec<String> = names
+            .filter(|name| !root.join(STARTER_DIR).join(format!("{name}.rs")).exists())
+            .collect();
+        assert!(
+            missing.is_empty(),
+            "no starter in {STARTER_DIR} for {missing:?}"
+        );
+    }
 }
