@@ -1,3 +1,5 @@
+#[cfg(test)]
+mod book_check;
 mod chips;
 mod search_index;
 

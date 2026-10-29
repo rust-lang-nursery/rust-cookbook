@@ -251,7 +251,7 @@ pub fn parse_link_definition(line: &str) -> Option<(String, String)> {
 }
 
 /// `[text][label]`
-fn parse_link(cell: &str) -> Option<(String, String)> {
+pub fn parse_link(cell: &str) -> Option<(String, String)> {
     let rest = cell.strip_prefix('[')?;
     let (text, rest) = rest.split_once("][")?;
     let label = rest.strip_suffix(']')?;

@@ -5,6 +5,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-argument-basic] | [![std-badge]][std] | [![cat-command-line-badge]][cat-command-line] |
+| [Calculate file stats from command line arguments][ex-argument-file-stats] | [![std-badge]][std] | [![cat-command-line-badge]][cat-command-line] |
 | [Clap Basic Argument Parsing][ex-argument-clap-basic] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 | [Clap Derive][ex-argument-clap-derive] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 | [Clap Subcommands][ex-clap-subcommands] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
@@ -20,6 +21,7 @@
 
 [ex-ansi-term-basic]: cli/ansi_terminal.html#ansi-terminal
 [ex-argument-basic]: cli/arguments.html#basic-argument-parsing
+[ex-argument-file-stats]: cli/arguments.html#calculate-file-stats
 [ex-argument-clap-basic]: cli/arguments.html#clap-basic
 [ex-argument-clap-derive]: cli/clap-derive.html
 [ex-clap-subcommands]: cli/clap-subcommand.html
