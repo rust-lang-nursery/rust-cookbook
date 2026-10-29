@@ -8,3 +8,4 @@ Creates a 3x3 matrix with [`nalgebra::Matrix3`] and inverts it, if possible.
 ```
 
 [`nalgebra::Matrix3`]: https://docs.rs/nalgebra/*/nalgebra/base/type.Matrix3.html
+<!-- needs-no-features: nalgebra -->

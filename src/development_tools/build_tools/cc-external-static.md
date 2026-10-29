@@ -1,4 +1,4 @@
-## Compile and link statically to an external C library
+### Compile and link statically to an external C library
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 

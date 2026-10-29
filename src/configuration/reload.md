@@ -13,6 +13,8 @@ than several times. Each notification triggers a fresh `load`; a parse error is
 logged and the previous settings are kept, so a malformed edit never takes down
 the running program.
 
+> This recipe requires the [`derive`] feature flag of `serde` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../crates/configuration/config/src/bin/reload.rs::57}}
 ```
@@ -20,3 +22,4 @@ the running program.
 [`new_debouncer`]: https://docs.rs/notify-debouncer-full/*/notify_debouncer_full/fn.new_debouncer.html
 
 {{#include ../links.md}}
+[`derive`]: https://docs.rs/crate/serde/*/features#derive

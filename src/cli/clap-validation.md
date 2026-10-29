@@ -19,7 +19,7 @@ structural check on the input. Refer to this [`recipe`] for concrete email valid
 functions return a `Result<T, String>`, where the error message becomes part of the output Clap
 shows the user when validation fails, making it clear which argument was invalid and why.
 
-> This recipe requires the [`derive`] feature flag to be enabled in `Cargo.toml`.
+> This recipe requires the [`derive`] feature flag of `clap` to be enabled in `Cargo.toml`.
 
 ```rust,edition2024,no_run
 use clap::{Parser, value_parser};

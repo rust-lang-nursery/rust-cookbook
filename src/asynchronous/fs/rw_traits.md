@@ -12,6 +12,8 @@ Their extensions [`AsyncReadExt`] and [`AsyncWriteExt`] add convenient methods o
 - [`read_to_end`] reads everything from a reader into a buffer.
 - [`copy`] streams data from a reader directly into a writer.
 
+> This recipe requires the [`macros`], [`fs`] and [`io-util`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024,no_run
 use std::io;
 use tokio::fs::File;
@@ -36,13 +38,6 @@ async fn main() -> io::Result<()> {
 
     Ok(())
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`], [`io-util`] and [`fs`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "fs", "io-util"] }
 ```
 
 [`AsyncReadExt`]: https://docs.rs/tokio/*/tokio/io/trait.AsyncReadExt.html

@@ -4,8 +4,11 @@
 
 Uses [`reqwest::RequestBuilder::basic_auth`] to perform a basic HTTP authentication.
 
+> This recipe requires the [`blocking`] feature flag of `reqwest` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/auth_basic.rs }}
 ```
 
 [`reqwest::RequestBuilder::basic_auth`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.basic_auth
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking

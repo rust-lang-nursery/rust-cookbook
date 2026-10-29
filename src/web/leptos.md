@@ -10,10 +10,11 @@ same components as WebAssembly for interactivity.
 
 [![leptos-badge]][leptos] [![leptos-router-badge]][leptos-router] [![leptos-axum-badge]][leptos-axum] [![axum-badge]][axum] [![tokio-badge]][tokio] [![cat-net-badge]][cat-net]
 
-The crate uses [`leptos`][leptos] with the `ssr` feature, plus
-[`leptos_router`][leptos-router], [`leptos_axum`][leptos-axum],
-[`axum`][axum], and [`tokio`][tokio]. It lives outside the main workspace
-because `leptos` needs [`resolver = "3"`][resolver-3].
+The crate uses [`leptos`][leptos], [`leptos_router`][leptos-router],
+[`leptos_axum`][leptos-axum], [`axum`][axum], and [`tokio`][tokio]. It lives
+outside the main workspace because `leptos` needs [`resolver = "3"`][resolver-3].
+
+> This recipe requires the [`ssr`][feat-ssr] feature flag of `leptos`, the [`ssr`][feat-ssr] feature flag of `leptos_router` and the [`macros`] and [`rt-multi-thread`] feature flags of `tokio` to be enabled in `Cargo.toml`.
 
 [resolver-3]: https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
 
@@ -229,3 +230,5 @@ More in the Leptos book: [Server Functions][book-server-fn] and
 [book-cargo-leptos-2]: https://book.leptos.dev/ssr/21_cargo_leptos.html
 
 {{#include ../links.md}}
+[`macros`]: https://docs.rs/crate/tokio/*/features#macros
+[`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread

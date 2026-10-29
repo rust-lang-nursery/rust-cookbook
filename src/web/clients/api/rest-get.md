@@ -12,6 +12,8 @@ environment variable `GITHUB_TOKEN` and sends it with
 header as required by the [GitHub API][github-api]. The program deserializes
 the response body with [`Response::json`] into a vector of `User` objects.
 
+> This recipe requires the [`blocking`] and [`json`] feature flags of `reqwest` and the [`derive`] feature flag of `serde` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/rest_get.rs }}
 ```
@@ -24,3 +26,6 @@ the response body with [`Response::json`] into a vector of `User` objects.
 [`serde::Deserialize`]: https://docs.rs/serde/*/serde/trait.Deserialize.html
 [github-api]: https://docs.github.com/en/rest
 [github-api-stargazers]: https://docs.github.com/en/rest/activity/starring#list-stargazers
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking
+[`json`]: https://docs.rs/crate/reqwest/*/features#json
+[`derive`]: https://docs.rs/crate/serde/*/features#derive

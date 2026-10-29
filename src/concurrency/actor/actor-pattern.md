@@ -11,6 +11,8 @@ command the actor can process.
 Because only one task ever accesses the data, there is no locking. Request–response
 pairs use a [`oneshot`] channel embedded in the message variant.
 
+> This recipe requires the [`macros`], [`rt-multi-thread`] and [`sync`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024
 {{#include ../../../crates/concurrency/actor/src/bin/actor_pattern.rs::163 }}
 ```
@@ -18,3 +20,6 @@ pairs use a [`oneshot`] channel embedded in the message variant.
 [Alice Ryhl]: https://ryhl.io/blog/actors-with-tokio/
 [`mpsc::Sender`]: https://docs.rs/tokio/latest/tokio/sync/mpsc/struct.Sender.html
 [`oneshot`]: https://docs.rs/tokio/latest/tokio/sync/oneshot/index.html
+[`macros`]: https://docs.rs/crate/tokio/*/features#macros
+[`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread
+[`sync`]: https://docs.rs/crate/tokio/*/features#sync

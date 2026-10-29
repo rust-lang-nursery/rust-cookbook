@@ -1,4 +1,4 @@
-## Compile and link dynamically to a C++ shared library
+### Compile and link dynamically to a C++ shared library
 
 [![std-badge]][std] [![cat-development-tools-badge]][cat-development-tools]
 

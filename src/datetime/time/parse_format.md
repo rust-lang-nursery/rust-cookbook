@@ -9,6 +9,8 @@ in `"[hour repr:12]"` is a build error rather than a runtime one, and used with
 [`OffsetDateTime::format`] and [`Date::parse`]. Invalid input returns an
 `Err`.
 
+> This recipe requires the [`formatting`], [`macros`] and [`parsing`] feature flags of `time` to be enabled in `Cargo.toml`.
+
 ```rust
 {{#include ../../../crates/datetime/time/src/bin/parse_format.rs::22 }}
 ```
@@ -18,3 +20,6 @@ in `"[hour repr:12]"` is a build error rather than a runtime one, and used with
 [`OffsetDateTime::format`]: https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.format
 [`OffsetDateTime::parse`]: https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.parse
 [`Rfc3339`]: https://docs.rs/time/*/time/format_description/well_known/struct.Rfc3339.html
+[`formatting`]: https://docs.rs/crate/time/*/features#formatting
+[`macros`]: https://docs.rs/crate/time/*/features#macros
+[`parsing`]: https://docs.rs/crate/time/*/features#parsing

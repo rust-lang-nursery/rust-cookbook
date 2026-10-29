@@ -11,6 +11,8 @@ the postman has to wait until someone clears it out before dropping in another l
 In this recipe, two book stores send books through a channel with a capacity of 5. 
 A shelf collects whatever comes through.
 
+> This recipe requires the [`macros`] and [`sync`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024
 use std::io;
 use tokio::sync::mpsc::channel;
@@ -61,13 +63,6 @@ async fn main() -> io::Result<()> {
 
     Ok(())
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`sync`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "sync"] }
 ```
 
 [`bounded channel`]: https://docs.rs/tokio/*/tokio/sync/mpsc/fn.channel.html

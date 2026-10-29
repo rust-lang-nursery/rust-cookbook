@@ -6,6 +6,8 @@ main function and it handles everything for you, starting the runtime, running y
 shutting it down when done. It also lets `main` be non-blocking, so you can use `.await` directly
 inside it.
 
+> This recipe requires the [`macros`] and [`rt-multi-thread`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024
 async fn fetch_network_request() -> u32 {
     89
@@ -16,13 +18,6 @@ async fn main() {
     let result = fetch_network_request().await;
     assert_eq!(result, 89);
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`rt-multi-thread`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "rt-multi-thread"] }
 ```
 
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros

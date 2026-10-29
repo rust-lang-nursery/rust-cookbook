@@ -11,6 +11,8 @@ function will retain the whole document, and links will be returned as slice
 references to the original document. The request sets a user agent, since
 Wikipedia rejects requests without one.
 
+> This recipe requires the [`macros`] and [`rt-multi-thread`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust
 {{#include ../../../crates/web/src/wiki.rs }}
 ```
@@ -26,3 +28,6 @@ Wikipedia rejects requests without one.
 [`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
 
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
+[`macros`]: https://docs.rs/crate/tokio/*/features#macros
+[`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread
+<!-- needs-no-features: reqwest -->

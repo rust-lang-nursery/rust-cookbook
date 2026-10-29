@@ -8,8 +8,10 @@ packets into audio buffers. [`get_probe`] identifies the container from a
 [`Hint`] and a [`MediaSourceStream`], returning a [`FormatReader`].
 [`default_track`] picks the audio track and [`get_codecs`] builds a decoder for
 its [`CodecParameters`]. Each packet from [`next_packet`] goes to [`Decoder::decode`],
-whose buffer reports its frame count. The `wav` feature compiles in only the WAV
-reader; enable the features matching the formats you need.
+whose buffer reports its frame count. Each format sits behind its own feature, so
+enable the ones matching the formats you need.
+
+> This recipe requires the [`wav`] feature flag of `symphonia` to be enabled in `Cargo.toml`.
 
 ```rust,no_run
 {{#include ../../crates/multimedia/audio/src/bin/decode.rs::71}}
@@ -48,3 +50,4 @@ stops anything still playing, so rodio warns about it on drop;
 [`Player::sleep_until_end`]: https://docs.rs/rodio/*/rodio/player/struct.Player.html#method.sleep_until_end
 
 {{#include ../links.md}}
+[`wav`]: https://docs.rs/crate/symphonia/*/features#wav

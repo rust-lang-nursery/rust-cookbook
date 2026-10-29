@@ -15,6 +15,8 @@ unfinished task is cancelled automatically.
 In this recipe, five jobs are created and added to a JoinSet. Each job does some work on its own,
 and the program waits until all of them are done before moving on.
 
+> This recipe requires the [`macros`] and [`rt`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024
 use tokio::task::JoinSet;
 
@@ -54,13 +56,6 @@ async fn main() {
 
     assert_eq!(complete, JOB_COUNT);
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`rt`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "rt"] }
 ```
 
 {{#include ../links.md}}

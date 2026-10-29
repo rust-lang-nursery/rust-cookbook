@@ -11,6 +11,8 @@ The [`mime`] crate also defines some commonly used MIME types.
 
 Note that the [`reqwest::header`] module is exported from the [`http`] crate.
 
+> This recipe requires the [`macros`] and [`rt-multi-thread`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../crates/web/src/bin/mime_request.rs }}
 ```
@@ -24,3 +26,6 @@ Note that the [`reqwest::header`] module is exported from the [`http`] crate.
 [Content-Type]: https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Type
 [MIME type]: https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 [`mime`]: https://docs.rs/mime/*/mime/
+[`macros`]: https://docs.rs/crate/tokio/*/features#macros
+[`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread
+<!-- needs-no-features: reqwest -->

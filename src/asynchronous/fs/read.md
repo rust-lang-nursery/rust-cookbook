@@ -9,6 +9,8 @@ program can keep doing other work while waiting for the data to come back.
 - [`read_to_string`] loads the file into plain text. Useful when you know the file contains readable
 characters.
 
+> This recipe requires the [`macros`] and [`fs`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024,no_run
 use std::io;
 
@@ -28,13 +30,6 @@ async fn main() -> io::Result<()> {
 
     Ok(())
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`fs`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "fs"] }
 ```
 
 [`fs`]: https://docs.rs/crate/tokio/*/features#fs

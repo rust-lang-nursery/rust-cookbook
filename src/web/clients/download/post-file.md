@@ -9,6 +9,8 @@ by reading the file, and [`RequestBuilder::send`] blocks until the file uploads
 and the response returns. [`read_to_string`] returns the message from the server
 response and displays in the console.
 
+> This recipe requires the [`blocking`] feature flag of `reqwest` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/post_file.rs }}
 ```
@@ -19,3 +21,4 @@ response and displays in the console.
 [`RequestBuilder::send`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html#method.send
 [`reqwest::Client`]: https://docs.rs/reqwest/*/reqwest/struct.Client.html
 [`reqwest::RequestBuilder`]: https://docs.rs/reqwest/*/reqwest/struct.RequestBuilder.html
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking

@@ -9,6 +9,8 @@ Creates a target [`File`] with name obtained from [`Response::url`] within
 [`tempfile::TempDir::path`] and copies downloaded data to it with [`io::copy`].
 The temporary directory is automatically removed on program exit.
 
+> This recipe requires the [`blocking`] feature flag of `reqwest` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/download_basic.rs }}
 ```
@@ -19,3 +21,4 @@ The temporary directory is automatically removed on program exit.
 [`tempfile::Builder`]: https://docs.rs/tempfile/*/tempfile/struct.Builder.html
 [`tempfile::TempDir::path`]: https://docs.rs/tempfile/*/tempfile/struct.TempDir.html#method.path
 [`io::copy`]: https://doc.rust-lang.org/std/io/fn.copy.html
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking

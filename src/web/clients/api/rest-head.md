@@ -12,6 +12,8 @@ requires on every request.
 Due to both [`ClientBuilder::build`] and [`RequestBuilder::send`] returning [`reqwest::Error`]
 types, the shortcut [`reqwest::Result`] is used for the main function return type. 
 
+> This recipe requires the [`blocking`] feature flag of `reqwest` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/rest_head.rs }}
 ```
@@ -24,3 +26,4 @@ types, the shortcut [`reqwest::Result`] is used for the main function return typ
 [`reqwest::Error`]: https://docs.rs/reqwest/*/reqwest/struct.Error.html
 [`reqwest::Result`]:https://docs.rs/reqwest/*/reqwest/type.Result.html
 [`ClientBuilder::user_agent`]: https://docs.rs/reqwest/*/reqwest/struct.ClientBuilder.html#method.user_agent
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking

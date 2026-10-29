@@ -13,6 +13,8 @@ parse an individual link with [`url::ParseOptions`] and [`Url::parse`]).
 The task makes a request to the links with [reqwest] and verifies
 [`StatusCode`].  Then the tasks `await` completion before ending the program.
 
+> This recipe requires the [`macros`] and [`rt-multi-thread`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024
 {{#include ../../../crates/web_scraping/src/broken.rs::84 }}
 ```
@@ -30,3 +32,5 @@ The task makes a request to the links with [reqwest] and verifies
 [`tokio::task::spawn`]: https://docs.rs/tokio/*/tokio/task/fn.spawn.html
 [`url::Parse`]: https://docs.rs/url/*/url/struct.Url.html#method.parse
 [`url::ParseOptions`]: https://docs.rs/url/*/url/struct.ParseOptions.html
+[`macros`]: https://docs.rs/crate/tokio/*/features#macros
+[`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread

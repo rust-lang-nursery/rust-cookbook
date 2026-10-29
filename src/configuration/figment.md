@@ -14,6 +14,8 @@ layers `APP_`-prefixed environment variables on top, so `APP_PORT=9000`
 overrides the file's `port`. [`extract`] deserializes the merged result into the
 `Config` struct.
 
+> This recipe requires the [`env`], [`test`] and [`toml`] feature flags of `figment` and the [`derive`] feature flag of `serde` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../crates/configuration/figment/src/bin/multi_provider.rs::25}}
 ```
@@ -37,3 +39,7 @@ disappear when the closure returns:
 [`Jail::expect_with`]: https://docs.rs/figment/*/figment/struct.Jail.html#method.expect_with
 
 {{#include ../links.md}}
+[`env`]: https://docs.rs/crate/figment/*/features#env
+[`test`]: https://docs.rs/crate/figment/*/features#test
+[`toml`]: https://docs.rs/crate/figment/*/features#toml
+[`derive`]: https://docs.rs/crate/serde/*/features#derive

@@ -13,6 +13,8 @@ If the receiver is slow, messages simply queue up and wait.
 In this recipe, two people send messages through a channel. An inbox collects whatever comes 
 through.
 
+> This recipe requires the [`macros`] and [`sync`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024
 use std::io;
 use tokio::sync::mpsc::unbounded_channel;
@@ -59,13 +61,6 @@ async fn main() -> io::Result<()> {
 
     Ok(())
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`sync`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "sync"] }
 ```
 
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros

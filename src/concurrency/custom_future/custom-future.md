@@ -23,6 +23,8 @@ deadline.  It has no self-referential fields, so it is `Unpin` automatically—
 pinning costs nothing.  A production timer would register with a reactor;
 here we call `wake_by_ref()` immediately so the executor re-polls us.
 
+> This recipe requires the [`macros`] and [`rt-multi-thread`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust
 {{#include ../../../crates/concurrency/custom_future/src/bin/custom_future.rs::71}}
 ```
@@ -32,3 +34,5 @@ here we call `wake_by_ref()` immediately so the executor re-polls us.
 [`Poll::Pending`]: https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Pending
 [`Poll::Ready`]: https://doc.rust-lang.org/std/task/enum.Poll.html#variant.Ready
 [`cx.waker()`]: https://doc.rust-lang.org/std/task/struct.Context.html#method.waker
+[`macros`]: https://docs.rs/crate/tokio/*/features#macros
+[`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread
