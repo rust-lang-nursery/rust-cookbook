@@ -172,7 +172,9 @@ async function keyboardChecks(browser, base, theme, failures) {
   }
   const server = await serve();
   const base = `http://127.0.0.1:${server.address().port}`;
-  const browser = await puppeteer.launch({ executablePath: chromePath(), headless: "new" });
+  // Chrome's sandbox does not start on stock CI runners (user namespaces are restricted).
+  const args = process.env.CI ? ["--no-sandbox"] : [];
+  const browser = await puppeteer.launch({ executablePath: chromePath(), headless: "new", args });
 
   const failures = [];
   let checked = 0;

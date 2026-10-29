@@ -1,0 +1,68 @@
+name: Accessibility
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+# Builds the book and runs axe-core over it in every mdBook theme (see scripts/a11y/run.js and
+# `make a11y`).
+jobs:
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # The version is in .mdbook-version; set the MDBOOK_VERSION repository variable to override.
+      - name: Read the mdBook version
+        id: mdbook-version
+        env:
+          OVERRIDE: ${{ vars.MDBOOK_VERSION }}
+        run: echo "version=${OVERRIDE:-$(cat .mdbook-version)}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up cache for mdbook
+        id: cache-mdbook
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/mdbook
+          key: mdbook-v${{ steps.mdbook-version.outputs.version }}
+
+      - name: Install mdBook (if not cached)
+        if: steps.cache-mdbook.outputs.cache-hit != 'true'
+        env:
+          MDBOOK_VERSION: ${{ steps.mdbook-version.outputs.version }}
+        run: |
+          mkdir -p ~/.cargo/bin
+          curl -sSL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar -xz -C ~/.cargo/bin
+          chmod +x ~/.cargo/bin/mdbook
+
+      # The mdbook-chips preprocessor is built by `mdbook build`.
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache: "true"
+          toolchain: stable
+
+      - name: Build the book
+        run: |
+          mdbook build
+          cp -r assets/ book/
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: scripts/a11y/package-lock.json
+
+      - name: Install the accessibility runner
+        working-directory: scripts/a11y
+        run: npm ci
+
+      - name: Run axe in every theme
+        working-directory: scripts/a11y
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node run.js
