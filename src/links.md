@@ -19,10 +19,10 @@ Keep lines sorted.
 [cat-config]: https://crates.io/categories/config
 [cat-cryptography-badge]: https://img.shields.io/badge/cryptography--x.svg?style=social
 [cat-cryptography]: https://crates.io/categories/cryptography
-[cat-database-badge]: https://img.shields.io/badge/database--x.svg?style=social
-[cat-database]: https://crates.io/categories/database
 [cat-data-structures-badge]: https://img.shields.io/badge/data_structures--x.svg?style=social
 [cat-data-structures]: https://crates.io/categories/data-structures
+[cat-database-badge]: https://img.shields.io/badge/database--x.svg?style=social
+[cat-database]: https://crates.io/categories/database
 [cat-date-and-time-badge]: https://img.shields.io/badge/date_and_time--x.svg?style=social
 [cat-date-and-time]: https://crates.io/categories/date-and-time
 [cat-debugging-badge]: https://img.shields.io/badge/debugging--x.svg?style=social
@@ -60,10 +60,6 @@ Keep lines sorted.
 
 <!-- Crates -->
 
-[console-error-panic-hook-badge]: https://img.shields.io/crates/v/console_error_panic_hook.svg?label=console_error_panic_hook
-[console-error-panic-hook]: https://docs.rs/console_error_panic_hook/
-[nu-ansi-term-badge]: https://img.shields.io/crates/v/nu-ansi-term.svg?label=nu-ansi-term
-[nu-ansi-term]: https://docs.rs/nu-ansi-term/
 [anyhow-badge]: https://img.shields.io/crates/v/anyhow.svg?label=anyhow
 [anyhow]: https://docs.rs/anyhow/
 [argon2-badge]: https://img.shields.io/crates/v/argon2.svg?label=argon2
@@ -86,6 +82,8 @@ Keep lines sorted.
 [config]: https://docs.rs/config/
 [confy-badge]: https://img.shields.io/crates/v/confy.svg?label=confy
 [confy]: https://docs.rs/confy/
+[console-error-panic-hook-badge]: https://img.shields.io/crates/v/console_error_panic_hook.svg?label=console_error_panic_hook
+[console-error-panic-hook]: https://docs.rs/console_error_panic_hook/
 [crossbeam-badge]: https://img.shields.io/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam/
 [csv-badge]: https://img.shields.io/crates/v/csv.svg?label=csv
@@ -100,14 +98,16 @@ Keep lines sorted.
 [flate2]: https://docs.rs/flate2/
 [glob-badge]:https://img.shields.io/crates/v/glob.svg?label=glob
 [glob]: https://docs.rs/glob/
-[hmac-badge]: https://img.shields.io/crates/v/hmac.svg?label=hmac
-[hmac]: https://docs.rs/hmac/
 [heapless-badge]: https://img.shields.io/crates/v/heapless.svg?label=heapless
 [heapless]: https://docs.rs/heapless/
+[hmac-badge]: https://img.shields.io/crates/v/hmac.svg?label=hmac
+[hmac]: https://docs.rs/hmac/
 [hyper-badge]: https://img.shields.io/crates/v/hyper.svg?label=hyper
 [hyper]: https://docs.rs/hyper/
 [image-badge]: https://img.shields.io/crates/v/image.svg?label=image
 [image]: https://docs.rs/image/
+[jiff-badge]: https://img.shields.io/crates/v/jiff.svg?label=jiff
+[jiff]: https://docs.rs/jiff/
 [kamadak-exif-badge]: https://img.shields.io/crates/v/kamadak-exif.svg?label=kamadak-exif
 [kamadak-exif]: https://docs.rs/kamadak-exif/
 [leptos-badge]: https://img.shields.io/crates/v/leptos.svg?label=leptos
@@ -130,18 +130,20 @@ Keep lines sorted.
 [ndarray]: https://docs.rs/ndarray
 [no-panic-badge]: https://img.shields.io/crates/v/no-panic.svg?label=no-panic
 [no-panic]: https://docs.rs/no-panic/
-[jiff-badge]: https://img.shields.io/crates/v/jiff.svg?label=jiff
-[jiff]: https://docs.rs/jiff/
 [nom-badge]: https://img.shields.io/crates/v/nom.svg?label=nom
 [nom]: https://docs.rs/nom/
 [notify-badge]: https://img.shields.io/crates/v/notify.svg?label=notify
 [notify]: https://docs.rs/notify/
 [notify-debouncer-full-badge]: https://img.shields.io/crates/v/notify-debouncer-full.svg?label=notify-debouncer-full
 [notify-debouncer-full]: https://docs.rs/notify-debouncer-full/
+[nu-ansi-term-badge]: https://img.shields.io/crates/v/nu-ansi-term.svg?label=nu-ansi-term
+[nu-ansi-term]: https://docs.rs/nu-ansi-term/
 [num-badge]: https://img.shields.io/crates/v/num.svg?label=num
 [num]: https://docs.rs/num/
 [num_cpus-badge]: https://img.shields.io/crates/v/num_cpus.svg?label=num_cpus
 [num_cpus]: https://docs.rs/num_cpus/
+[pbkdf2-badge]: https://img.shields.io/crates/v/pbkdf2.svg?label=pbkdf2
+[pbkdf2]: https://docs.rs/pbkdf2/
 [percent-encoding-badge]: https://img.shields.io/crates/v/percent-encoding.svg?label=percent-encoding
 [pest-badge]: https://img.shields.io/crates/v/pest.svg?label=pest
 [pest]: https://docs.rs/pest/
@@ -149,8 +151,6 @@ Keep lines sorted.
 [pest-derive]: https://docs.rs/pest_derive/
 [postgres-badge]: https://img.shields.io/crates/v/postgres.svg?label=postgres
 [postgres]: https://docs.rs/postgres/0.15.2/postgres/
-[pbkdf2-badge]: https://img.shields.io/crates/v/pbkdf2.svg?label=pbkdf2
-[pbkdf2]: https://docs.rs/pbkdf2/
 [rand-badge]: https://img.shields.io/crates/v/rand.svg?label=rand
 [rand]: https://docs.rs/rand/
 [rand_distr-badge]: https://img.shields.io/crates/v/rand_distr.svg?label=rand_distr
@@ -161,10 +161,10 @@ Keep lines sorted.
 [regex]: https://docs.rs/regex/
 [reqwest-badge]: https://img.shields.io/crates/v/reqwest.svg?label=reqwest
 [reqwest]: https://docs.rs/reqwest/
-[rkyv-badge]: https://img.shields.io/crates/v/rkyv.svg?label=rkyv
-[rkyv]: https://docs.rs/rkyv/
 [ring-badge]: https://img.shields.io/crates/v/ring.svg?label=ring
 [ring]: https://briansmith.org/rustdoc/ring/
+[rkyv-badge]: https://img.shields.io/crates/v/rkyv.svg?label=rkyv
+[rkyv]: https://docs.rs/rkyv/
 [rodio-badge]: https://img.shields.io/crates/v/rodio.svg?label=rodio
 [rodio]: https://docs.rs/rodio/
 [rusqlite-badge]: https://img.shields.io/crates/v/rusqlite.svg?label=rusqlite
@@ -197,10 +197,10 @@ Keep lines sorted.
 [tempfile]: https://docs.rs/tempfile/
 [thiserror-badge]: https://img.shields.io/crates/v/thiserror.svg?label=thiserror
 [thiserror]: https://docs.rs/thiserror/
-[tokio-badge]: https://img.shields.io/crates/v/tokio.svg?label=tokio
-[tokio]: https://docs.rs/tokio/
 [time-badge]: https://img.shields.io/crates/v/time.svg?label=time
 [time]: https://docs.rs/time/
+[tokio-badge]: https://img.shields.io/crates/v/tokio.svg?label=tokio
+[tokio]: https://docs.rs/tokio/
 [toml-badge]: https://img.shields.io/crates/v/toml.svg?label=toml
 [toml]: https://docs.rs/toml/
 [tower-http-badge]: https://img.shields.io/crates/v/tower-http.svg?label=tower-http
@@ -209,10 +209,10 @@ Keep lines sorted.
 [tracing]: https://docs.rs/tracing/
 [tracing-subscriber-badge]: https://img.shields.io/crates/v/tracing-subscriber.svg?label=tracing-subscriber
 [tracing-subscriber]: https://docs.rs/tracing-subscriber/
-[url-badge]: https://img.shields.io/crates/v/url.svg?label=url
-[url]: https://docs.rs/url/
 [unicode-segmentation-badge]: https://img.shields.io/crates/v/unicode-segmentation.svg?label=unicode-segmentation
 [unicode-segmentation]: https://docs.rs/unicode-segmentation/
+[url-badge]: https://img.shields.io/crates/v/url.svg?label=url
+[url]: https://docs.rs/url/
 [walkdir-badge]: https://img.shields.io/crates/v/walkdir.svg?label=walkdir
 [walkdir]: https://docs.rs/walkdir/
 [wasm-bindgen-badge]: https://img.shields.io/crates/v/wasm-bindgen.svg?label=wasm-bindgen

@@ -47,7 +47,19 @@ fn generate(meta: &Meta) -> Result<String, Box<dyn Error>> {
             link_sources.push(text);
         }
     }
-    pages.sort();
+    // Sections follow the sidebar (SUMMARY.md); sorting by file name would put `wasm` before `web`.
+    let sidebar = fs::read_to_string(src.join("SUMMARY.md"))?;
+    let order: Vec<&str> = sidebar
+        .lines()
+        .filter_map(|l| l.strip_prefix("- ["))
+        .filter_map(|l| l.split_once("](")?.1.strip_suffix(".md)"))
+        .collect();
+    pages.sort_by_key(|(stem, _)| {
+        (
+            order.iter().position(|o| o == stem).unwrap_or(usize::MAX),
+            stem.clone(),
+        )
+    });
 
     let mut links = HashMap::new();
     for text in &link_sources {
