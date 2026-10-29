@@ -7,6 +7,7 @@ by [`serde_json::to_string`] and [`serde_json::from_str`] performs deserializati
 Note that serialization followed by deserialization gives back the original matrix.
 
 > This recipe requires the [`serde-serialize`] feature flag of `nalgebra` to be enabled in `Cargo.toml`.
+
 The Rust Playground does not enable this feature, so the recipe has no Run button.
 
 ```rust,noplayground
