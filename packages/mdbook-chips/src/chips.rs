@@ -26,7 +26,11 @@ const GITHUB_ICON: &str = r#"<svg viewBox="0 0 16 16" width="12" height="12" ari
 /// the cookbook's root `[dependencies]` put the crate on the Rust Playground.
 #[derive(Default, Clone)]
 pub struct CrateMeta {
+    /// The line to copy without any features: `name = "1.2"`.
     pub snippet: Option<String>,
+    /// The crate's name in `Cargo.toml` and its version requirement, to write a line with features.
+    pub dep: Option<String>,
+    pub req: Option<String>,
     pub repo: Option<String>,
     pub playground: bool,
     /// The Playground link with the crate's starter code filled in; `None` if it has no starter.
@@ -34,6 +38,19 @@ pub struct CrateMeta {
 }
 
 impl CrateMeta {
+    /// The line to copy for a recipe whose banner enables `features`; the plain line when none.
+    pub fn line(&self, features: &[String]) -> Option<String> {
+        if features.is_empty() {
+            return self.snippet.clone();
+        }
+        let (dep, req) = (self.dep.as_ref()?, self.req.as_ref()?);
+        let list: Vec<String> = features.iter().map(|f| format!("\"{f}\"")).collect();
+        Some(format!(
+            "{dep} = {{ version = \"{req}\", features = [{}] }}",
+            list.join(", ")
+        ))
+    }
+
     /// Where the play icon points: the crate's starter, or the blank Playground.
     pub fn playground_href(&self) -> &str {
         self.starter.as_deref().unwrap_or(PLAYGROUND_URL)
@@ -41,6 +58,28 @@ impl CrateMeta {
 }
 
 pub struct Meta(HashMap<String, CrateMeta>);
+
+#[cfg(test)]
+impl Meta {
+    /// A `Meta` that knows these crates at version 1, so a test can render pages without running
+    /// `cargo metadata`.
+    pub fn for_crates<'a>(names: impl IntoIterator<Item = &'a str>) -> Meta {
+        Meta(
+            names
+                .into_iter()
+                .map(|name| {
+                    let meta = CrateMeta {
+                        snippet: Some(format!("{name} = \"1\"")),
+                        dep: Some(name.to_string()),
+                        req: Some("1".to_string()),
+                        ..CrateMeta::default()
+                    };
+                    (normalize(name), meta)
+                })
+                .collect(),
+        )
+    }
+}
 
 fn normalize(name: &str) -> String {
     name.to_lowercase().replace('-', "_")
@@ -50,10 +89,8 @@ impl Meta {
     pub fn get(&self, name: &str) -> CrateMeta {
         if name == "std" {
             return CrateMeta {
-                snippet: None,
                 repo: Some(STD_REPO.to_string()),
-                playground: false,
-                starter: None,
+                ..CrateMeta::default()
             };
         }
         self.0.get(&normalize(name)).cloned().unwrap_or_default()
@@ -154,11 +191,13 @@ impl Meta {
                         continue;
                     }
                     let name = str_of(dep, "name");
+                    let req = str_of(dep, "req");
+                    let req = req.strip_prefix('^').unwrap_or(&req).to_string();
                     out.entry(normalize(&name)).or_insert_with(|| CrateMeta {
-                        snippet: Some(snippet(&name, dep)),
-                        repo: None,
-                        playground: false,
-                        starter: None,
+                        snippet: Some(format!("{name} = \"{req}\"")),
+                        dep: Some(name),
+                        req: Some(req),
+                        ..CrateMeta::default()
                     });
                 }
             }
@@ -209,30 +248,6 @@ fn clean_repo(url: &str) -> Option<String> {
 }
 
 /// `name = "1"` or `name = { version = "1", features = ["full"] }`, as written in `Cargo.toml`.
-fn snippet(name: &str, dep: &Value) -> String {
-    let req = str_of(dep, "req");
-    let req = req.strip_prefix('^').unwrap_or(&req);
-    let features: Vec<String> = dep["features"]
-        .as_array()
-        .into_iter()
-        .flatten()
-        .filter_map(Value::as_str)
-        .map(|f| format!("\"{f}\""))
-        .collect();
-    let default_features = dep["uses_default_features"].as_bool().unwrap_or(true);
-    if features.is_empty() && default_features {
-        return format!("{name} = \"{req}\"");
-    }
-    let mut fields = vec![format!("version = \"{req}\"")];
-    if !default_features {
-        fields.push("default-features = false".to_string());
-    }
-    if !features.is_empty() {
-        fields.push(format!("features = [{}]", features.join(", ")));
-    }
-    format!("{name} = {{ {} }}", fields.join(", "))
-}
-
 fn cargo_metadata(manifest: &Path) -> Result<Value, String> {
     let output = Command::new("cargo")
         .args(["metadata", "--format-version", "1", "--manifest-path"])
@@ -251,7 +266,7 @@ fn fingerprint(root: &Path) -> String {
     find_manifests(root, &mut files);
     files.sort();
     // Bumped when the cached fields change, so an old cache is not read as the new shape.
-    let mut key = String::from("v2\n");
+    let mut key = String::from("v3\n");
     for path in files {
         if let Ok(m) = fs::metadata(&path) {
             let nanos = m
@@ -282,6 +297,8 @@ fn read_cache(path: &Path, key: &str) -> Option<Meta> {
                         snippet: field(0),
                         repo: field(1),
                         playground: v[2].as_bool().unwrap_or(false),
+                        dep: field(3),
+                        req: field(4),
                         starter: None,
                     },
                 )
@@ -297,7 +314,7 @@ fn write_cache(path: &Path, key: &str, meta: &Meta) {
         .map(|(name, m)| {
             (
                 name.clone(),
-                serde_json::json!([m.snippet, m.repo, m.playground]),
+                serde_json::json!([m.snippet, m.repo, m.playground, m.dep, m.req]),
             )
         })
         .collect();
@@ -338,7 +355,7 @@ fn escape(s: &str) -> String {
         .replace('"', "&quot;")
 }
 
-fn crate_chip(name: &str, href: &str, meta: &CrateMeta) -> String {
+fn crate_chip(name: &str, href: &str, meta: &CrateMeta, features: &[String]) -> String {
     let title = if name == "std" {
         "Open the std documentation".to_string()
     } else {
@@ -352,10 +369,10 @@ fn crate_chip(name: &str, href: &str, meta: &CrateMeta) -> String {
     );
     // std ships with Rust, so there is nothing to add to Cargo.toml.
     if name != "std" {
-        let line = meta.snippet.as_deref().unwrap_or(name);
+        let line = meta.line(features).unwrap_or_else(|| name.to_string());
         html.push_str(&format!(
             "<button type=\"button\" class=\"crate-chip-copy\" data-copy=\"{0}\" title=\"Copy {0}\" aria-label=\"Copy {0}\">{COPY_ICON}</button>",
-            escape(line)
+            escape(&line)
         ));
     }
     if meta.playground {
@@ -392,14 +409,19 @@ fn category_label(slug: &str) -> String {
 }
 
 /// The pill for a `[![x-badge]][x]` reference, or `None` if it is not one we know.
-fn chip_for(badge_url: &str, href: &str, meta: &Meta) -> Option<String> {
+fn chip_for(
+    badge_url: &str,
+    href: &str,
+    meta: &Meta,
+    features: &dyn Fn(&str) -> Vec<String>,
+) -> Option<String> {
     if let Some((_, rest)) = badge_url.split_once("img.shields.io/crates/v/") {
         let name = rest.split(".svg").next()?;
-        return Some(crate_chip(name, href, &meta.get(name)));
+        return Some(crate_chip(name, href, &meta.get(name), &features(name)));
     }
     let rest = badge_url.split_once("img.shields.io/badge/")?.1;
     if rest.starts_with("std-") {
-        return Some(crate_chip("std", href, &meta.get("std")));
+        return Some(crate_chip("std", href, &meta.get("std"), &[]));
     }
     let slug = rest.split_once("--x")?.0;
     Some(format!(
@@ -432,6 +454,93 @@ fn anchor_group_labels(content: &str) -> String {
     out
 }
 
+/// The features a recipe's banner names, by crate, in the order written. A banner reads
+/// "> This recipe requires the [`macros`] and [`time`] feature flags of `tokio` to be enabled in
+/// `Cargo.toml`." and may name more crates ("... and the [`full`] feature flag of `tokio`").
+pub fn banner_features(markdown: &str) -> HashMap<String, Vec<String>> {
+    let mut out: HashMap<String, Vec<String>> = HashMap::new();
+    for line in markdown
+        .lines()
+        .filter(|l| l.starts_with("> This recipe requires the "))
+    {
+        let mut rest = line;
+        while let Some(at) = rest.find(" feature flag") {
+            let (before, after) = rest.split_at(at);
+            let Some(of) = after.find(" of `") else { break };
+            let tail = &after[of + " of `".len()..];
+            let Some(end) = tail.find('`') else { break };
+            let named = out.entry(tail[..end].to_string()).or_default();
+            for part in before.split("[`").skip(1) {
+                if let Some((feature, _)) = part.split_once("`]") {
+                    if !named.iter().any(|f| f == feature) {
+                        named.push(feature.to_string());
+                    }
+                }
+            }
+            rest = &tail[end + 1..];
+        }
+    }
+    out
+}
+
+/// A heading of a chapter and the banners in the text below it, up to the next heading.
+struct Section {
+    start: usize,
+    level: usize,
+    banners: HashMap<String, Vec<String>>,
+}
+
+fn sections(content: &str) -> Vec<Section> {
+    let mut out = vec![Section {
+        start: 0,
+        level: 0,
+        banners: HashMap::new(),
+    }];
+    let (mut offset, mut fenced) = (0, false);
+    let mut texts = vec![String::new()];
+    for line in content.split_inclusive('\n') {
+        if line.starts_with("```") {
+            fenced = !fenced;
+        }
+        let level = line.bytes().take_while(|&b| b == b'#').count();
+        if !fenced && (1..=6).contains(&level) && line[level..].starts_with(' ') {
+            out.push(Section {
+                start: offset,
+                level,
+                banners: HashMap::new(),
+            });
+            texts.push(String::new());
+        }
+        texts.last_mut().unwrap().push_str(line);
+        offset += line.len();
+    }
+    for (section, text) in out.iter_mut().zip(texts) {
+        section.banners = banner_features(&text);
+    }
+    out
+}
+
+/// The features the banner for `krate` names at `offset`: the one in the section the chip is in, or
+/// failing that in the nearest section above it (the shared banner at the top of a page).
+fn features_at(sections: &[Section], offset: usize, krate: &str) -> Vec<String> {
+    let mut at = sections.partition_point(|s| s.start <= offset);
+    let mut level = usize::MAX;
+    while at > 0 {
+        at -= 1;
+        if sections[at].level < level {
+            level = sections[at].level;
+            let named = sections[at]
+                .banners
+                .iter()
+                .find(|(name, _)| normalize(name) == normalize(krate));
+            if let Some((_, features)) = named {
+                return features.clone();
+            }
+        }
+    }
+    Vec::new()
+}
+
 pub fn render_chapter(content: &str, meta: &Meta) -> String {
     let anchored = anchor_group_labels(content);
     let content = anchored.as_str();
@@ -442,10 +551,13 @@ pub fn render_chapter(content: &str, meta: &Meta) -> String {
         }
     }
 
+    let sections = sections(content);
     let mut out = String::with_capacity(content.len());
     let mut rest = content;
     while let Some(start) = rest.find("[![") {
         out.push_str(&rest[..start]);
+        let offset = content.len() - rest.len() + start;
+        let features = |krate: &str| features_at(&sections, offset, krate);
         let after = &rest[start + 3..];
         let parsed = after.split_once("]][").and_then(|(badge, tail)| {
             let (label, tail) = tail.split_once(']')?;
@@ -453,7 +565,7 @@ pub fn render_chapter(content: &str, meta: &Meta) -> String {
             if bad(badge) || bad(label) || !badge.ends_with("-badge") {
                 return None;
             }
-            let chip = chip_for(links.get(badge)?, links.get(label)?, meta)?;
+            let chip = chip_for(links.get(badge)?, links.get(label)?, meta, &features)?;
             Some((chip, tail))
         });
         match parsed {
@@ -527,11 +639,13 @@ mod tests {
             playground: true,
             ..CrateMeta::default()
         };
-        assert!(crate_chip("nalgebra", "https://docs.rs/nalgebra", &on)
+        assert!(crate_chip("nalgebra", "https://docs.rs/nalgebra", &on, &[])
             .contains("crate-chip-playground"));
         let off = CrateMeta::default();
-        assert!(!crate_chip("nalgebra", "https://docs.rs/nalgebra", &off)
-            .contains("crate-chip-playground"));
+        assert!(
+            !crate_chip("nalgebra", "https://docs.rs/nalgebra", &off, &[])
+                .contains("crate-chip-playground")
+        );
     }
 
     /// Every crate the root manifest lists for the Playground has a starter next to the others.
@@ -554,6 +668,60 @@ mod tests {
         assert!(
             missing.is_empty(),
             "no starter in {STARTER_DIR} for {missing:?}"
+        );
+    }
+
+    fn tokio_meta() -> Meta {
+        let tokio = CrateMeta {
+            snippet: Some("tokio = \"1\"".to_string()),
+            dep: Some("tokio".to_string()),
+            req: Some("1".to_string()),
+            ..CrateMeta::default()
+        };
+        Meta(HashMap::from([("tokio".to_string(), tokio)]))
+    }
+
+    const LINKS: &str = "\n[tokio-badge]: https://img.shields.io/crates/v/tokio.svg\n[tokio]: https://docs.rs/tokio\n";
+
+    fn copied(html: &str) -> Vec<&str> {
+        html.split("data-copy=\"")
+            .skip(1)
+            .filter_map(|part| part.split('"').next())
+            .collect()
+    }
+
+    #[test]
+    fn copy_line_has_the_features_of_the_recipes_banner() {
+        let page = format!(
+            "## One\n[![tokio-badge]][tokio]\n\n> This recipe requires the [`macros`] and [`time`] feature flags of `tokio` to be enabled in `Cargo.toml`.\n\n## Two\n[![tokio-badge]][tokio]\n{LINKS}"
+        );
+        assert_eq!(
+            copied(&render_chapter(&page, &tokio_meta())),
+            [
+                "tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;time&quot;] }",
+                // The banner belongs to the recipe above, not to the next one.
+                "tokio = &quot;1&quot;",
+            ]
+        );
+    }
+
+    #[test]
+    fn a_banner_at_the_top_of_a_page_covers_the_recipes_in_it() {
+        let page = format!(
+            "# Page\n\n> This recipe requires the [`full`] feature flag of `tokio` to be enabled in `Cargo.toml`.\n\n## One\n[![tokio-badge]][tokio]\n{LINKS}"
+        );
+        assert_eq!(
+            copied(&render_chapter(&page, &tokio_meta())),
+            ["tokio = { version = &quot;1&quot;, features = [&quot;full&quot;] }"]
+        );
+    }
+
+    #[test]
+    fn a_table_chip_copies_the_plain_line() {
+        let page = format!("| Recipe | Crates |\n| [A][a] | [![tokio-badge]][tokio] |\n{LINKS}");
+        assert_eq!(
+            copied(&render_chapter(&page, &tokio_meta())),
+            ["tokio = &quot;1&quot;"]
         );
     }
 }

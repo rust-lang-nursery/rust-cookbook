@@ -2,6 +2,7 @@
 //! of the sidebar and of the recipe pages. They read `src/` the way mdBook does (expanding
 //! `{{#include}}`, numbering headings the same way), so they need no build.
 
+use crate::chips::{banner_features, render_chapter, Meta};
 use crate::project_root;
 use crate::search_index::{badges, parse_link, parse_link_definition};
 use pulldown_cmark::{Event, HeadingLevel, Options, Parser, Tag, TagEnd};
@@ -430,34 +431,6 @@ fn needs_no_features(markdown: &str) -> HashSet<String> {
         .collect()
 }
 
-/// The features a recipe's banner names, by crate. A banner reads
-/// "> This recipe requires the [`macros`] and [`time`] feature flags of `tokio` to be enabled in
-/// `Cargo.toml`." and may name a second crate ("... and the [`full`] feature flag of `tokio`").
-fn banner_features(markdown: &str) -> HashMap<String, BTreeSet<String>> {
-    let mut out: HashMap<String, BTreeSet<String>> = HashMap::new();
-    for line in markdown
-        .lines()
-        .filter(|l| l.starts_with("> This recipe requires the "))
-    {
-        let mut rest = line;
-        while let Some(at) = rest.find(" feature flag") {
-            let (before, after) = rest.split_at(at);
-            let Some(of) = after.find(" of `") else { break };
-            let tail = &after[of + " of `".len()..];
-            let Some(end) = tail.find('`') else { break };
-            let features = before
-                .split("[`")
-                .skip(1)
-                .filter_map(|part| part.split_once("`]").map(|(name, _)| name.to_string()));
-            out.entry(tail[..end].to_string())
-                .or_default()
-                .extend(features);
-            rest = &tail[end + 1..];
-        }
-    }
-    out
-}
-
 /// Whether `text` uses `ident` as a name of its own (`serde::` yes, `serde_json::` no).
 fn mentions(text: &str, ident: &str) -> bool {
     let word = |c: char| c.is_alphanumeric() || c == '_';
@@ -582,7 +555,7 @@ fn recipes_needing_cargo_features_have_a_banner() {
         let name = page.strip_prefix(&src).unwrap().display().to_string();
         // A banner on a page that includes this one (such as the shared banner at the top of the
         // SQLx page) counts for every recipe it includes.
-        let mut banners: HashMap<String, BTreeSet<String>> = HashMap::new();
+        let mut banners: HashMap<String, Vec<String>> = HashMap::new();
         let mut pending = vec![page.canonicalize().unwrap()];
         let mut seen = HashSet::new();
         while let Some(file) = pending.pop() {
@@ -616,7 +589,7 @@ fn recipes_needing_cargo_features_have_a_banner() {
                 };
                 // `full` turns on every tokio feature, so a banner may name any of them.
                 if !enabled.contains("full") {
-                    for feature in named.difference(&enabled) {
+                    for feature in named.iter().filter(|f| !enabled.contains(*f)) {
                         problems.push(format!(
                             "{name}: the banner names `{feature}` of `{dep}`, which the crate does not enable"
                         ));
@@ -632,5 +605,45 @@ fn recipes_needing_cargo_features_have_a_banner() {
     }
     problems.sort();
     problems.dedup();
+    assert!(problems.is_empty(), "\n{}\n", problems.join("\n"));
+}
+
+/// The chips of a recipe copy the features its banner names, not just the crate. This renders every
+/// page of the sidebar and checks that, which catches a banner placed in a different section than
+/// the chips it belongs to.
+#[test]
+fn chips_copy_the_features_of_their_banner() {
+    let book = Book::load();
+    let mut problems = Vec::new();
+    for entry in &book.sidebar {
+        let page = expand(&project_root().join("src").join(&entry.path));
+        let banners = banner_features(&page);
+        if banners.is_empty() {
+            continue;
+        }
+        let meta = Meta::for_crates(banners.keys().map(String::as_str));
+        let html = render_chapter(&page, &meta);
+        let copied: Vec<String> = html
+            .split("data-copy=\"")
+            .skip(1)
+            .filter_map(|part| part.split('"').next())
+            .map(|line| line.replace("&quot;", "\""))
+            .collect();
+        for (krate, features) in &banners {
+            let lines: Vec<&String> = copied
+                .iter()
+                .filter(|line| line.starts_with(&format!("{krate} = ")))
+                .collect();
+            let has_all =
+                |line: &&String| features.iter().all(|f| line.contains(&format!("\"{f}\"")));
+            if !lines.is_empty() && !lines.iter().any(has_all) {
+                problems.push(format!(
+                    "{}: no chip for `{krate}` copies its features ({}); the banner and the chips must be in the same section, or the banner above them",
+                    entry.path,
+                    features.join(", ")
+                ));
+            }
+        }
+    }
     assert!(problems.is_empty(), "\n{}\n", problems.join("\n"));
 }

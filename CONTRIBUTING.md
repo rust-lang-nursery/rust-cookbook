@@ -280,6 +280,13 @@ description, or in a `toml` block after the code. A banner on a page that
 includes the recipe, such as the shared one at the top of the SQLx page,
 counts for the recipe.
 
+The banner also sets what the copy button on the recipe's crate chips copies: the
+`Cargo.toml` line with those features, such as
+`tokio = { version = "1", features = ["macros", "time"] }`. The chips belong to
+the banner when they are in the same section of the page, or when the banner is
+above them (the shared one at the top of the SQLx page). The chips in the
+section tables and the crate index copy the line without features.
+
 `cargo test -p mdbook-chips` checks this (see [Book checks](#book-checks)).
 
 #### Code
@@ -342,7 +349,7 @@ fix. They check that:
 - a recipe that includes code from a crate under `crates/` has a banner for each
   dependency of that crate that enables features and that the code uses (see
   [Cargo features](#cargo-features)), and the banner only names features the
-  crate enables.
+  crate enables, and the chips of that recipe copy the line with those features.
 
 Two cases are marked in the markdown, not in a list in the tests:
 

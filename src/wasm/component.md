@@ -18,6 +18,8 @@ cargo install cargo-component
 rustup target add wasm32-wasip2
 ```
 
+> This recipe requires the [`component-model`] feature flag of `wasmtime` to be enabled in `Cargo.toml`.
+
 ## Define the interface in WIT
 
 A WIT *world* declares what a component exports and imports. This one exports a
@@ -60,8 +62,6 @@ up WASI Preview 2 (required even for guests that don't use WASI directly), and
 [`Config`]: https://docs.rs/wasmtime/*/wasmtime/struct.Config.html
 [`wasmtime_wasi::p2::add_to_linker_sync`]: https://docs.rs/wasmtime-wasi/*/wasmtime_wasi/p2/fn.add_to_linker_sync.html
 [`Greeter::instantiate`]: https://docs.rs/wasmtime/*/wasmtime/component/struct.Instance.html
-
-> This recipe requires the [`component-model`] feature flag of `wasmtime` to be enabled in `Cargo.toml`.
 
 ```rust,ignore
 {{#include ../../crates/wasm_component_host/src/main.rs}}
