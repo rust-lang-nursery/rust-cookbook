@@ -1,6 +1,6 @@
 # Timeouts
 
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 Sometimes a task takes too long and you don't want to wait forever. A [`timeout`] puts a time limit
 on a task. If it finishes in time you get the result, if it doesn't, it is cancelled and you get

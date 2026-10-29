@@ -1,4 +1,5 @@
 # Clap Derive Parser Macro
+[![clap-badge]][clap] [![cat-command-line-badge]][cat-command-line]
 
 Clap's [`Parser`] derive macro is the most common way to define a command line interface in Rust.
 Instead of manually parsing `std::env::args()`, you describe the shape of your arguments as a
@@ -58,3 +59,5 @@ fn main() {
 [`Parser`]: https://docs.rs/clap/*/clap/trait.Parser.html
 [`ValueEnum`]: https://docs.rs/clap/*/clap/trait.ValueEnum.html
 [`derive`]: https://docs.rs/clap/*/clap/_features/index.html
+
+{{#include ../links.md}}

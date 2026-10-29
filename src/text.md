@@ -14,7 +14,7 @@
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Collect Unicode Graphemes][ex-unicode-graphemes] | [![unicode-segmentation-badge]][unicode-segmentation] | [![cat-encoding-badge]][cat-text-processing] |
+| [Collect Unicode Graphemes][ex-unicode-graphemes] | [![unicode-segmentation-badge]][unicode-segmentation] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Implement the `FromStr` trait for a custom `struct`][string_parsing-from_str] | [![std-badge]][std] | [![cat-text-processing-badge]][cat-text-processing] |
 | [Implement Debug, Display, and Hash for a custom type][string_parsing-fmt_traits] | [![std-badge]][std] | [![cat-text-processing-badge]][cat-text-processing] |
 

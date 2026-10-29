@@ -1,4 +1,5 @@
 # Clap Argument Validation
+[![clap-badge]][clap] [![cat-command-line-badge]][cat-command-line]
 
 Not every argument can be trusted simply because it parses into the right type. A string might
 convert fine into a [`PathBuf`] or a number, while still being meaningless in context, such as a
@@ -69,3 +70,5 @@ fn main() {
 [`derive`]: https://docs.rs/clap/*/clap/_features/index.html
 [`recipe`]: https://rust-lang-nursery.github.io/rust-cookbook/text/regex.html#verify-and-extract-login-from-an-email-address
 [`value_parser`]: https://docs.rs/clap/*/clap/macro.value_parser.html
+
+{{#include ../links.md}}

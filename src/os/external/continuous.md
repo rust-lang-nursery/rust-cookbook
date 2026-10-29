@@ -1,6 +1,6 @@
 ## Continuously process child process' outputs
 
-[![std-badge]][std] [![cat-os-badge]][cat-os]
+[![std-badge]][std] [![cat-os-badge]][cat-os][![cat-text-processing-badge]][cat-text-processing]
 
 In [Run an external command and process stdout](#run-an-external-command-and-process-stdout),
 processing doesn't start until external [`Command`] is finished.

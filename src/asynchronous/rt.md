@@ -1,4 +1,5 @@
 # Async Runtime
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 When your program asks for something that takes time, e.g reading a file, fetching data from a
 server, waiting for a timer, it has two choices: sit and wait doing nothing, or go do something

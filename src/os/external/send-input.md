@@ -1,6 +1,6 @@
 ## Run an external command passing it stdin and check for an error code
 
-[![std-badge]][std] [![cat-os-badge]][cat-os]
+[![std-badge]][std] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
 
 Opens the `python` interpreter using an external [`Command`] and passes it a
 python statement for execution. [`Output`] of statement is then parsed.

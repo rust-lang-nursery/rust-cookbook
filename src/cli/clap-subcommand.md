@@ -1,4 +1,5 @@
 # Clap Subcommands
+[![clap-badge]][clap] [![cat-command-line-badge]][cat-command-line]
 
 Many command line tools split their functionality into subcommands. Familiar tool commands include
 `git commit` and `cargo build`, where the first word selects a specific action with its own set of
@@ -101,3 +102,5 @@ fn main() {
 
 [`derive`]: https://docs.rs/clap/*/clap/_features/index.html
 [`Subcommand`]: https://docs.rs/clap/*/clap/trait.Subcommand.html
+
+{{#include ../links.md}}

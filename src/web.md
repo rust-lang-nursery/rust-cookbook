@@ -31,7 +31,7 @@
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Make a HTTP GET request][ex-url-basic] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
-| [Set custom headers and URL parameters for a REST request][ex-url-header] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] |
+| [Set custom headers and URL parameters for a REST request][ex-url-header] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![url-badge]][url] | [![cat-net-badge]][cat-net] |
 | [Query the GitHub API][ex-rest-get] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |
 | [Check if an API resource exists][ex-rest-head] | [![reqwest-badge]][reqwest] | [![cat-net-badge]][cat-net] |
 | [Create and delete Gist with GitHub API][ex-rest-post] | [![reqwest-badge]][reqwest] [![serde-badge]][serde] [![serde-json-badge]][serde-json] | [![cat-net-badge]][cat-net] [![cat-encoding-badge]][cat-encoding] |

@@ -1,4 +1,5 @@
 ## Basic Argument Parsing
+[![std-badge]][std] [![cat-command-line-badge]][cat-command-line]
 This section covers a basic implementation of commandline argument parsing.
 Use [`args`] to get the arguments this process was started with:
 
@@ -26,6 +27,7 @@ fn main() {
 ```
 
 ## Calculate File Stats
+[![std-badge]][std] [![cat-command-line-badge]][cat-command-line]
 In this section we parse CLI args and compute per-file stats (line/word counts). A mini [`wc`]-like
 utility
 

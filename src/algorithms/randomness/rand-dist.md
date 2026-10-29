@@ -1,6 +1,6 @@
 ## Generate random numbers with given distribution
 
-[![rand_distr-badge]][rand_distr] [![cat-science-badge]][cat-science]
+[![rand-badge]][rand] [![rand_distr-badge]][rand_distr] [![cat-science-badge]][cat-science]
 
 By default, random numbers in the `rand` crate have [uniform distribution]. The [`rand_distr`] crate
 provides other kinds of distributions. To use them, you instantiate a distribution, then sample from

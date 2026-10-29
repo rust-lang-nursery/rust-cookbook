@@ -1,6 +1,6 @@
 ## Read files
 
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 Reading a file from disk takes time. Tokio provides non-blocking versions of file reads so your
 program can keep doing other work while waiting for the data to come back.
