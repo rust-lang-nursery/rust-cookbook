@@ -1,5 +1,7 @@
 # Algorithms
 
+**Generate Random Values**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Generate random numbers][ex-rand] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
@@ -8,6 +10,11 @@
 | [Generate random values of a custom type][ex-rand-custom] | [![rand-badge]][rand] | [![cat-science-badge]][cat-science] |
 | [Create random passwords from a set of alphanumeric characters][ex-rand-passwd] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
 | [Create random passwords from a set of user-defined characters][ex-rand-choose] | [![rand-badge]][rand] | [![cat-os-badge]][cat-os] |
+
+**Sort a Vector**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Sort a Vector of Integers][ex-sort-integers] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Sort a Vector of Floats][ex-sort-floats] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |
 | [Sort a Vector of Structs][ex-sort-structs] | [![std-badge]][std] | [![cat-science-badge]][cat-science] |

@@ -1,11 +1,18 @@
 # Memory Management
 
+**Global Static**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Declare lazily evaluated constant][ex-lazy-constant] | [![std-badge]][std] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Std::cell][ex-std-oncecell] | [![std-badge]][std] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [`std::cell:LazyCell`][ex-std-lazycell] | [![std-badge]][std] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [`std::sync::LazyLock`][ex-std-lazylock] | [![std-badge]][std] | [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns] |
+
+**Smart Pointers**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Store different types in one vector with `Box<dyn Trait>`][ex-std-box] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Share mutable structure between owners with `Rc<RefCell<T>>`][ex-std-rc-refcell] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Return borrowed or owned text with `Cow<str>`][ex-std-cow] | [![std-badge]][std] | [![cat-rust-patterns-badge]][cat-rust-patterns] |

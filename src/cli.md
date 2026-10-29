@@ -1,5 +1,7 @@
 # Command Line
 
+**Arguments**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Parse command line arguments][ex-argument-basic] | [![std-badge]][std] | [![cat-command-line-badge]][cat-command-line] |
@@ -7,6 +9,11 @@
 | [Clap Derive][ex-argument-clap-derive] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 | [Clap Subcommands][ex-clap-subcommands] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
 | [Clap Arguments Validation][ex-clap-validation] | [![clap-badge]][clap] | [![cat-command-line-badge]][cat-command-line] |
+
+**Terminal and Environment**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [ANSI Terminal][ex-ansi-term-basic] | [![nu-ansi-term-badge]][nu-ansi-term]| [![cat-command-line-badge]][cat-command-line] |
 | [Environment Variables][ex-env] | [![std-badge]][std]| [![cat-command-line-badge]][cat-command-line] |
 | [Load Config][ex-load-config] | [![std-badge]][std]| [![cat-command-line-badge]][cat-command-line] |
