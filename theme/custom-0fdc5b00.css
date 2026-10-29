@@ -12,6 +12,10 @@ table:has(.crate-chip) thead {
   display: none;
 }
 
+table:has(.crate-chip) tbody {
+  padding-top: 10px;
+}
+
 table:has(.crate-chip) tr,
 table:has(.crate-chip) tr:nth-child(2n) {
   position: relative;
@@ -19,7 +23,7 @@ table:has(.crate-chip) tr:nth-child(2n) {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px 0;
-  margin: 0 0 12px;
+  margin: 0 0 24px; /* the extra space under each card leaves room for the next card's tab */
   padding: 12px 14px;
   border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
   border-radius: 10px;
@@ -384,7 +388,7 @@ a.cat-chip:hover {
 .section-grid ul {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: 10px;
+  gap: 22px 10px; /* the extra row gap leaves room for the tabs */
   margin: 0;
   padding: 0;
   list-style: none;
@@ -395,6 +399,7 @@ a.cat-chip:hover {
 }
 
 .section-grid a {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -412,6 +417,35 @@ a.cat-chip:hover {
   border-color: var(--links);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   text-decoration: none;
+}
+
+/* Topic cards and recipe cards are index cards with a tab sticking out of their top edge. The tab
+   slides along the edge with the card's place in the list (--tab-progress, 0 to 1, set by
+   card-tabs.js). The tab's last pixel covers the card's top border so the two join. */
+.section-grid a::before,
+table:has(.crate-chip) tr::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  width: 38px;
+  height: 11px;
+  box-sizing: border-box;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-bottom: 0;
+  border-radius: 7px 7px 0 0;
+  background: var(--bg);
+  transition: border-color 0.15s;
+}
+
+.section-grid a::before,
+table:has(.crate-chip) tr::before {
+  left: calc(16px + var(--tab-progress, 0) * (100% - 70px));
+}
+
+.section-grid a:hover::before,
+table:has(.crate-chip) tr:hover::before {
+  border-color: var(--links);
 }
 
 .sg-count {
