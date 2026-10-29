@@ -1,13 +1,16 @@
-# Weekly update PRs for the crates the recipes use.
+# Weekly update PRs for the crates the recipes use, including the root Cargo.toml (the dependencies
+# the skeptic-tested snippets compile against, which also feed the Rust playground).
 #
-# The root Cargo.toml is deliberately not listed: its versions feed the Rust playground and the
-# skeptic-tested snippets, so they only change when a recipe is migrated to its own crate (see
-# CLAUDE.md). Every other manifest is listed explicitly; when a new crate is added under crates/ or
-# packages/, add its directory here too.
+# Minor and patch updates are grouped into one pull request per directory. Major updates get their
+# own pull request, because they are the ones that can break a recipe and need its code migrated.
+#
+# Every manifest is listed explicitly; when a new crate is added under crates/ or packages/, add its
+# directory here too.
 version: 2
 updates:
   - package-ecosystem: cargo
     directories:
+      - "/"
       - "/crates/algorithms/randomness"
       - "/crates/cli/ansi_terminal"
       - "/crates/compression/bzip2"
@@ -58,11 +61,11 @@ updates:
       - "/xtask"
     schedule:
       interval: weekly
-    # One pull request per directory instead of one per crate.
     groups:
-      dependencies:
-        patterns:
-          - "*"
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
     open-pull-requests-limit: 10
     commit-message:
       prefix: "deps"
