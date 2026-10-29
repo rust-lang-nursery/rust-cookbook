@@ -9,24 +9,9 @@ use std::collections::{BTreeSet, HashMap, HashSet};
 use std::fs;
 use std::path::Path;
 
-/// Sections of a recipe page that are explanations or variants of a recipe, not recipes of their
-/// own. Each is `(page, heading)`; keep this list short and say why.
-const NOT_RECIPES: &[(&str, &str)] = &[
-    // Comparison guides that sit on the page of the first library they discuss.
-    (
-        "cryptography/hashing.md",
-        "Choosing between ring and RustCrypto",
-    ),
-    (
-        "datetime/duration.md",
-        "Choosing between chrono, time and jiff",
-    ),
-    // Language headings that group the C and C++ recipes below them.
-    ("development_tools/build_tools.md", "C"),
-    ("development_tools/build_tools.md", "C++"),
-    // The same recipe written with the tokio executor.
-    ("web/clients/requests.md", "Async"),
-];
+/// Put this on the line below a heading that is a guide or an explanation rather than a recipe, so
+/// the recipe tests skip it.
+const NOT_A_RECIPE: &str = "<!-- not-a-recipe -->";
 
 struct Entry {
     depth: usize,
@@ -215,6 +200,14 @@ fn level_number(level: HeadingLevel) -> usize {
     level as usize
 }
 
+/// Whether the line below `heading` is the `NOT_A_RECIPE` marker.
+fn is_marked_not_a_recipe(markdown: &str, heading: &Heading) -> bool {
+    markdown[heading.end..]
+        .lines()
+        .find(|l| !l.trim().is_empty())
+        .is_some_and(|l| l.trim() == NOT_A_RECIPE)
+}
+
 fn page_headings(page: &str) -> Vec<Heading> {
     headings(&expand(&project_root().join("src").join(page)))
 }
@@ -285,15 +278,27 @@ fn every_recipe_is_listed_in_its_sections_table() {
             }
             // A heading counts as listed when it, or a heading above it (such as the page title of
             // a single-recipe page), has a row.
+            // A heading that only groups recipes (`## C` over the `### ...` recipes below it) needs
+            // no row of its own, and neither does one marked as not a recipe.
             let mut above: Vec<(usize, bool)> = Vec::new();
-            for h in page_headings(page) {
+            let markdown = expand(&project_root().join("src").join(page));
+            let all = headings(&markdown);
+            for (n, h) in all.iter().enumerate() {
                 above.retain(|(level, _)| *level < h.level);
                 let own = listed.contains(&(page, h.id.as_str()));
                 let covered = own || above.iter().any(|(_, listed)| *listed);
                 above.push((h.level, own));
-                if h.level >= 2 && !covered && !NOT_RECIPES.contains(&(page, h.text.as_str())) {
+                let groups_recipes = all[n + 1..]
+                    .iter()
+                    .take_while(|next| next.level > h.level)
+                    .any(|next| listed.contains(&(page, next.id.as_str())));
+                if h.level >= 2
+                    && !covered
+                    && !groups_recipes
+                    && !is_marked_not_a_recipe(&markdown, h)
+                {
                     problems.push(format!(
-                        "{section}: no row for \"{}\" (#{}) on {page}",
+                        "{section}: no row for \"{}\" (#{}) on {page}; add one, or put {NOT_A_RECIPE} under the heading if it is not a recipe",
                         h.text, h.id
                     ));
                 }
@@ -411,44 +416,19 @@ fn every_recipe_shows_the_same_chips_as_its_table_row() {
     assert!(problems.is_empty(), "\n{}\n", problems.join("\n"));
 }
 
-/// Recipes that use a dependency whose features their crate enables, but that need none of them: the
-/// crate enables the features for its other recipes. Each is `(page, dependency)`.
-const NEEDS_NO_FEATURES: &[(&str, &str)] = &[
-    // `ndarray`'s `approx` feature compares whole arrays; these recipes work on one array.
-    (
-        "science/mathematics/linear_algebra/add-matrices.md",
-        "ndarray",
-    ),
-    (
-        "science/mathematics/linear_algebra/multiply-matrices.md",
-        "ndarray",
-    ),
-    (
-        "science/mathematics/linear_algebra/multiply-scalar-vector-matrix.md",
-        "ndarray",
-    ),
-    (
-        "science/mathematics/linear_algebra/vector-comparison.md",
-        "ndarray",
-    ),
-    (
-        "science/mathematics/linear_algebra/vector-norm.md",
-        "ndarray",
-    ),
-    // `nalgebra`'s `serde-serialize` is only for the (de)serialize recipe.
-    (
-        "science/mathematics/linear_algebra/invert-matrix.md",
-        "nalgebra",
-    ),
-    // `getrandom` is a dependency of the other hashing recipes, not this one.
-    ("cryptography/hashing/rustcrypto-hmac.md", "getrandom"),
-    // `time` without any feature gives `OffsetDateTime::now_utc`.
-    ("datetime/time/now.md", "time"),
-    // The `web` crate enables `reqwest`'s `blocking`, `json` and `stream` for its blocking recipes;
-    // these use the async client or only read the page.
-    ("web/mime/request.md", "reqwest"),
-    ("web/scraping/unique.md", "reqwest"),
-];
+/// The dependencies a recipe uses without needing the features its crate enables for other recipes,
+/// from a line such as `<!-- needs-no-features: ndarray, nalgebra -->` anywhere in its markdown.
+fn needs_no_features(markdown: &str) -> HashSet<String> {
+    markdown
+        .lines()
+        .filter_map(|line| {
+            line.trim()
+                .strip_prefix("<!-- needs-no-features:")?
+                .strip_suffix("-->")
+        })
+        .flat_map(|names| names.split(',').map(|n| n.trim().to_string()))
+        .collect()
+}
 
 /// The features a recipe's banner names, by crate. A banner reads
 /// "> This recipe requires the [`macros`] and [`time`] feature flags of `tokio` to be enabled in
@@ -614,16 +594,21 @@ fn recipes_needing_cargo_features_have_a_banner() {
             }
             pending.extend(parents.get(&file).cloned().unwrap_or_default());
         }
+        let text = fs::read_to_string(&page).unwrap();
+        let exempt = needs_no_features(&text);
+        let mut used = HashSet::new();
         for (dir, source) in &sources {
             for (dep, enabled) in dependencies_with_features(&dir.join("Cargo.toml")) {
-                if !mentions(source, &dep.replace('-', "_"))
-                    || NEEDS_NO_FEATURES.contains(&(name.as_str(), dep.as_str()))
-                {
+                if !mentions(source, &dep.replace('-', "_")) {
+                    continue;
+                }
+                used.insert(dep.clone());
+                if exempt.contains(&dep) {
                     continue;
                 }
                 let Some(named) = banners.get(&dep) else {
                     problems.push(format!(
-                        "{name}: needs a banner for the {} feature(s) of `{dep}` that {} enables",
+                        "{name}: needs a banner for the {} feature(s) of `{dep}` that {} enables, or `<!-- needs-no-features: {dep} -->` if it needs none",
                         enabled.iter().cloned().collect::<Vec<_>>().join(", "),
                         dir.file_name().unwrap().to_string_lossy()
                     ));
@@ -638,6 +623,11 @@ fn recipes_needing_cargo_features_have_a_banner() {
                     }
                 }
             }
+        }
+        for dep in exempt.difference(&used) {
+            problems.push(format!(
+                "{name}: `needs-no-features: {dep}` is not needed, the recipe does not use features of `{dep}`"
+            ));
         }
     }
     problems.sort();

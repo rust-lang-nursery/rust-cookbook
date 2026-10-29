@@ -15,3 +15,4 @@ changing one word. [`Mac::finalize`] computes the tag and
 [`Hmac`]: https://docs.rs/hmac/*/hmac/struct.Hmac.html
 [`Mac::finalize`]: https://docs.rs/digest/*/digest/trait.Mac.html#tymethod.finalize
 [`Mac::verify_slice`]: https://docs.rs/digest/*/digest/trait.Mac.html#method.verify_slice
+<!-- needs-no-features: getrandom -->

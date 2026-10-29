@@ -28,3 +28,4 @@ Note that the [`reqwest::header`] module is exported from the [`http`] crate.
 [`mime`]: https://docs.rs/mime/*/mime/
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
 [`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread
+<!-- needs-no-features: reqwest -->

@@ -280,25 +280,7 @@ description, or in a `toml` block after the code. A banner on a page that
 includes the recipe, such as the shared one at the top of the SQLx page,
 counts for the recipe.
 
-`cargo test -p mdbook-chips` checks this: a recipe that includes code from a
-crate under `crates/` must have a banner for every dependency of that crate
-that enables features and that the code uses, and the banner may only name
-features the crate enables. If a recipe uses such a dependency but needs none
-of the enabled features, list it in `NEEDS_NO_FEATURES` in
-`packages/mdbook-chips/src/book_check.rs` with the reason.
-
-> By default, random numbers are generated with [uniform distribution].
-> To generate numbers with other distributions you instantiate a
-> distribution, then sample from that distribution using
-> [`Distribution::sample`] with help of a random-number
-> generator [`rand::Rng`].
->
-> The [distributions available are documented here][rand-distributions].
-
-[uniform distribution]: https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)
-[`Distribution::sample`]: https://docs.rs/rand/0.9/rand/distr/trait.Distribution.html#tymethod.sample
-[`rand::Rng`]: https://docs.rs/rand/0.9/rand/trait.Rng.html
-[rand-distributions]: https://docs.rs/rand/0.9/rand/distr/index.html
+`cargo test -p mdbook-chips` checks this (see [Book checks](#book-checks)).
 
 #### Code
 
@@ -346,3 +328,29 @@ of crates that work well together. We are on the lookout for examples
 that feature multiple crates sensibly.
 
 [errors]: https://rust-lang-nursery.github.io/rust-cookbook/about.html#a-note-about-error-handling
+
+## Book checks
+
+`cargo test -p mdbook-chips` checks the book's structure from the markdown in
+`src/`, without building it. The tests are in
+`packages/mdbook-chips/src/book_check.rs`; a failure names the page and what to
+fix. They check that:
+
+- every recipe is listed in its section's table, in the order of the sidebar and
+  of the recipe page, and every row links to a page and heading that exist;
+- the chips under a recipe's heading are the crates and categories of its row;
+- a recipe that includes code from a crate under `crates/` has a banner for each
+  dependency of that crate that enables features and that the code uses (see
+  [Cargo features](#cargo-features)), and the banner only names features the
+  crate enables.
+
+Two cases are marked in the markdown, not in a list in the tests:
+
+- A heading that is a guide or an explanation, not a recipe, has
+  `<!-- not-a-recipe -->` on the line below it. A heading that only groups
+  recipes (`## C` above the `### ...` recipes) needs nothing: it needs no row of
+  its own when a recipe below it has one.
+- A recipe that uses a dependency but needs none of the features its crate
+  enables for other recipes has `<!-- needs-no-features: name -->` anywhere in
+  its markdown (several names are separated by commas). The test fails if the
+  recipe does not use that dependency, so the marker cannot go stale.

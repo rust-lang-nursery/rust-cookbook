@@ -14,3 +14,4 @@ never applied. If you need either, use `jiff` or `chrono` with `chrono-tz`.
 
 [`OffsetDateTime`]: https://docs.rs/time/*/time/struct.OffsetDateTime.html
 [`OffsetDateTime::to_offset`]: https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.to_offset
+<!-- needs-no-features: time -->

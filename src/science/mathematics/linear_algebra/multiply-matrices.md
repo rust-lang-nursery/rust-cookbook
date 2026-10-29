@@ -9,3 +9,4 @@ Creates two matrices with [`ndarray::arr2`] and performs matrix multiplication o
 
 [`ndarray::arr2`]: https://docs.rs/ndarray/*/ndarray/fn.arr2.html
 [`ndarray::ArrayBase::dot`]: https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#method.dot-1
+<!-- needs-no-features: ndarray -->

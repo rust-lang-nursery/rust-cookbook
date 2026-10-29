@@ -27,3 +27,4 @@ their modification later. See [Binary Operators With Two Arrays] for additional 
 [Binary Operators With Two Arrays]: https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#binary-operators-with-two-arrays
 [ndarray]: https://docs.rs/crate/ndarray/*
 [`ndarray::Array`]: https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html
+<!-- needs-no-features: ndarray -->

@@ -5,7 +5,7 @@ Conventionally, build-time code lives in a **build.rs** file and is commonly ref
 Common use cases include rust code generation and compilation of bundled C/C++/asm code.
 See crates.io's [documentation on the matter][build-script-docs] for more information.
 
-### C
+## C
 
 {{#include build_tools/cc-bundled-static.md}}
 
@@ -13,7 +13,7 @@ See crates.io's [documentation on the matter][build-script-docs] for more inform
 
 {{#include build_tools/cc-external-static.md}}
 
-### C++
+## C++
 
 {{#include build_tools/cc-bundled-cpp.md}}
 

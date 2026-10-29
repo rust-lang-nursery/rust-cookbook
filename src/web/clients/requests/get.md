@@ -14,7 +14,7 @@ using [`read_to_string`].
 {{#include ../../../../crates/web/src/bin/get.rs }}
 ```
 
-## Async
+### Async
 
 A similar approach can be used by including the [`tokio`] executor
 to make the main function asynchronous, retrieving the same information.

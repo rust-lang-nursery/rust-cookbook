@@ -10,3 +10,4 @@ Note the sum is computed as `let sum = &a + &b`. The `&` operator is used to avo
 ```
 
 [`ndarray::arr2`]: https://docs.rs/ndarray/*/ndarray/fn.arr2.html
+<!-- needs-no-features: ndarray -->

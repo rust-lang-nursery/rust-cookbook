@@ -1,4 +1,4 @@
-## Compile a C library while setting custom defines
+### Compile a C library while setting custom defines
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 

@@ -1,4 +1,4 @@
-## Compile and link statically to a bundled C library
+### Compile and link statically to a bundled C library
 
 [![cc-badge]][cc] [![cat-development-tools-badge]][cat-development-tools]
 

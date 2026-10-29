@@ -1,4 +1,5 @@
 ## Choosing between chrono, time and jiff
+<!-- not-a-recipe -->
 
 - [`chrono`] and [`time`] are both very widely used, and both are supported by
   crates such as `serde`, `diesel` and `sqlx`. `chrono` has a larger API, but

@@ -22,3 +22,4 @@ vector.
 [`ndarray::arr1`]: https://docs.rs/ndarray/*/ndarray/fn.arr1.html
 [`ndarray::arr2`]: https://docs.rs/ndarray/*/ndarray/fn.arr2.html
 [`ndarray::Array2::dot`]: https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#method.dot-1
+<!-- needs-no-features: ndarray -->

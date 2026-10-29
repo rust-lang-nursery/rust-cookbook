@@ -30,3 +30,4 @@ Wikipedia rejects requests without one.
 [MediaWiki link syntax]: https://www.mediawiki.org/wiki/Help:Links
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros
 [`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread
+<!-- needs-no-features: reqwest -->

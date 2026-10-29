@@ -36,3 +36,4 @@ may be preferable.
 [`fold`]: https://docs.rs/ndarray/*/ndarray/struct.ArrayBase.html#method.fold
 [l1]: http://mathworld.wolfram.com/L1-Norm.html
 [l2]: http://mathworld.wolfram.com/L2-Norm.html
+<!-- needs-no-features: ndarray -->

@@ -1,4 +1,5 @@
 ## Choosing between ring and RustCrypto
+<!-- not-a-recipe -->
 
 - [`ring`] is a single crate with a fixed set of algorithms, built on C and
   assembly code from BoringSSL. Choose it when SHA-2, HMAC and PBKDF2 are all
