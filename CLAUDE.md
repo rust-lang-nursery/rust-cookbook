@@ -52,9 +52,9 @@ Required tools: `cargo install mdbook@$(cat .mdbook-version) lychee@0.17.0` (the
 
 ### Two example patterns
 
-This project has two ways examples are tested. **Do not change dependency versions in root `Cargo.toml`** — if a dependency needs upgrading, migrate the affected examples to a standalone crate instead.
+This project has two ways examples are tested. **Write new recipes as standalone crates (pattern 2).** Dependabot opens update PRs for every manifest, including the root `Cargo.toml`: when a root bump builds and passes, just merge it; when it breaks a skeptic example, migrate the affected examples to a standalone crate (see below) instead of holding the bump back.
 
-#### Pattern 1: Skeptic-tested inline code (legacy)
+#### Pattern 1: Skeptic-tested inline code (legacy, do not add new ones)
 
 Code blocks live directly in markdown files under `src/`. The `build.rs` walks `src/` for `.md` files and `skeptic::generate_doc_tests()` compiles each code block as a test. All dependencies come from the root `Cargo.toml` `[dependencies]`.
 
@@ -92,7 +92,7 @@ Line-range includes are also supported (e.g., `{{#include .../passwd.rs::15 }}` 
 
 ### Migrating a skeptic example to a standalone crate
 
-When a dependency version needs to change, migrate the affected examples rather than bumping the version in root `Cargo.toml`. Steps:
+When a bump of a root dependency (usually a Dependabot PR) fails to build or breaks a skeptic example, migrate the affected examples to standalone crates so the bump can land for everything else; if nothing breaks, just bump the version in the root `Cargo.toml`. In the new crate either keep the previous version of the dependency or update the code to the new API. Steps:
 
 1. **Create the crate** at `crates/<category>/<name>/` with its own `Cargo.toml`. Use `workspace = true` for shared deps when possible, or pin versions independently.
 2. **Move code** from the markdown code block into `src/bin/<example>.rs` (one binary per example) or `src/lib.rs` for library-style examples.
@@ -124,7 +124,7 @@ When a dependency version needs to change, migrate the affected examples rather 
 - Avoid glob imports so readers can see which traits are used
 - Mark examples needing external services with `no_run`
 - Hide boilerplate with `# ` prefix (hidden from book, visible to skeptic)
-- Prefer creating standalone crates for new examples over adding dependencies to root `Cargo.toml`
+- Always create new examples as standalone crates; do not add dependencies to root `Cargo.toml` for new recipes
 - When adding a new crate under `crates/` or `packages/`, also add its directory to `.github/dependabot.yml` so it gets automated update PRs
 - When adding a **new top-level section** (`src/<section>.md`), also add a link to it in the topic list in `src/intro.md` (the book's landing page) in the correct alphabetical position
 
