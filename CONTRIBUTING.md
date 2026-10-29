@@ -188,7 +188,7 @@ Adding an example involves:
 
 - Deciding which _section_ of the book it belongs in
 - Deciding which _categories_ apply to it
-- Adding the example to the section index in intro.md
+- Adding the example to the section index at the top of its section page (`src/<section>.md`)
 - Adding the example to the appropriate section markdown file
 - Updating badges and hyperlinks as needed
 - Writing a useful description of the example
