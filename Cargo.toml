@@ -17,6 +17,7 @@ members = [
   "crates/file/*",
   "crates/multimedia/*",
   "crates/parsing/*",
+  "crates/playground",
   "crates/safety_critical/*",
   "crates/science/linear_algebra",
   "crates/wasm",
@@ -78,40 +79,69 @@ tracing-subscriber = "0.3"
 
 # NOTE: These dependencies add dependencies to the rust playground (play.rust-lang.org).
 # Be wary removing or changing these without considering this fact.
+# Entries marked `optional` exist only so the playground offers the crate; recipes that use
+# them live in standalone crates under crates/, and nothing here compiles them by default.
 # See https://github.com/rust-lang/rust-playground/blob/f8d7de52a3c139a0df4fe116bbbff19c30668c99/top-crates/src/lib.rs#L134-L161
 [dependencies]
 anyhow = "1.0"
+approx = { version = "0.5", optional = true }
+argon2 = { version = "0.6", optional = true }
+base64 = { version = "0.23", optional = true }
+bitflags = { version = "2", optional = true }
+bzip2 = { version = "0.6", optional = true }
+cc = { version = "1", optional = true }
 chrono = "0.4"
 clap = { version = "4.5", features = ["derive"] }
+config = { version = "0.15", optional = true }
+confy = { version = "2", optional = true }
 crossbeam = "0.8"
 crossbeam-channel = "0.5"
 csv = "1.0"
 data-encoding = "2.1.0"
 env_logger = "0.11.3"
+figment = { version = "0.10", optional = true }
 flate2 = "1.0"
 glob = "0.3"
+image = { version = "0.25", optional = true }
+kamadak-exif = { version = "0.6", optional = true }
 log = "0.4"
+log4rs = { version = "1.4", optional = true }
+memmap2 = { version = "0.9", optional = true }
 mime = "0.3"
+nalgebra = { version = "0.35", optional = true }
+ndarray = { version = "0.17", optional = true }
+nom = { version = "8", optional = true }
+nu-ansi-term = { version = "0.50", optional = true }
 num = "0.4"
 num_cpus = "1.16"
+pbkdf2 = { version = "0.13", optional = true }
 percent-encoding = "2.3"
+pest = { version = "2.7", optional = true }
+pest_derive = { version = "2.7", optional = true }
 postgres = "0.19.7"
+rand = { version = "0.10", optional = true }
+rand_distr = { version = "0.6", optional = true }
 rayon = "1.10"
 regex = "1.11"
+reqwest = { version = "0.13", optional = true }
 ring = "0.17"
+rusqlite = { version = "0.41", optional = true }
 same-file = "1.0"
 semver = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+syslog = { version = "7.0", optional = true }
 tar = "0.4"
 tempfile = "3.14"
 thiserror = "2"
 tokio = { version = "1", features = ["full"] }
+toml = { version = "1.1", optional = true }
 tracing = "0.1"
 tracing-subscriber = "0.3"
 unicode-segmentation = "1.2.1"
 url = "2.5"
 walkdir = "2.5"
+which = { version = "8", optional = true }
 
 # `no-panic` proves functions are panic-free via a linker trick that only
 # works when the compiler actually optimizes the code away; the default dev

@@ -189,7 +189,13 @@ fn generate(meta: &Meta) -> Result<String, Box<dyn Error>> {
         .map(|n| {
             let m = meta.get(n);
             let field = |v: Option<String>| v.map_or("null".to_string(), |s| json_str(&s));
-            format!("[{}, {}]", field(m.snippet), field(m.repo))
+            let playground = m.playground.then(|| m.playground_href().to_string());
+            format!(
+                "[{}, {}, {}]",
+                field(m.snippet),
+                field(m.repo),
+                field(playground)
+            )
         })
         .collect();
     out.push_str(&format!("  \"meta\": [{}],\n", rows.join(", ")));

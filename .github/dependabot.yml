@@ -48,6 +48,7 @@ updates:
       - "/crates/parsing/nom"
       - "/crates/parsing/pest"
       - "/crates/parsing/winnow"
+      - "/crates/playground"
       - "/crates/safety_critical/heapless_alloc"
       - "/crates/safety_critical/no_panic"
       - "/crates/science/linear_algebra"
