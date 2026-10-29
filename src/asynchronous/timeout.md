@@ -9,6 +9,8 @@ an error back.
 In this recipe, a network request is given 5 milliseconds to complete. If it finishes in time, 
 the result is printed. If it runs over, the program reports a timeout.
 
+> This recipe requires the [`macros`] and [`time`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024
 use std::time::Duration;
 use tokio::time::timeout;
@@ -24,13 +26,6 @@ async fn main() {
         Err(_) => eprintln!("Timed Out!"),
     }
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`time`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "time"] }
 ```
 
 {{#include ../links.md}}

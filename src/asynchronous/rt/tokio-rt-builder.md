@@ -11,6 +11,8 @@ you call [`.build()`] at the end, which is when the runtime is created and ready
 This recipe sets up 4 worker threads, gives them the name "thread-one",
 and sets a stack size of 3MB each.
 
+> This recipe requires the [`rt-multi-thread`] feature flag of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024
 use std::io;
 use tokio::runtime::Builder;
@@ -33,13 +35,6 @@ fn main() -> io::Result<()> {
 
     Ok(())
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`rt-multi-thread`] feature enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["rt-multi-thread"] }
 ```
 
 [`Builder`]: https://docs.rs/tokio/*/tokio/runtime/struct.Builder.html

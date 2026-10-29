@@ -5,6 +5,8 @@
 Writing to disk takes time. [`tokio::fs::write`] is a non-blocking way to write bytes to a file.
 It creates the file if it does not exist, or overwrites it if it does.
 
+> This recipe requires the [`macros`] and [`fs`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024,no_run
 use std::io;
 
@@ -15,13 +17,6 @@ async fn main() -> io::Result<()> {
 
     Ok(())
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`fs`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "fs"] }
 ```
 
 [`fs`]: https://docs.rs/crate/tokio/*/features#fs

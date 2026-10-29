@@ -9,6 +9,8 @@ operations so your program does not have to stop and wait while the work is done
 [`create_dir`] creates a single directory. If it already exists, it fails.
 [`create_dir_all`] creates a directory and any missing parent directories along the path.
 
+> This recipe requires the [`macros`] and [`fs`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024,no_run
 use std::io;
 use tokio::fs::File;
@@ -26,14 +28,6 @@ async fn main() -> io::Result<()> {
 
     Ok(())
 }
-```
-
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`fs`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "fs"] }
 ```
 
 [`File::create`]: https://docs.rs/tokio/*/tokio/fs/struct.File.html#method.create

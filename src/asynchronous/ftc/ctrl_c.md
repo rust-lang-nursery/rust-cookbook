@@ -13,6 +13,8 @@ Both branches start at the same time. Whichever one finishes first wins and the 
 If fetch_data completes first, the result is printed and the loop runs again. 
 If Ctrl-C comes in first, the program exits.
 
+> This recipe requires the [`macros`] and [`signal`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,edition2024,no_run
 use tokio::signal;
 use tokio::time::{Duration, sleep};
@@ -37,13 +39,6 @@ async fn main() {
         }
     }
 }
-```
-
-Add `tokio` to `Cargo.toml` with the [`macros`] and [`signal`] features enabled.
-
-```toml
-[dependencies]
-tokio = { version = "*", features = ["macros", "signal"] }
 ```
 
 [`macros`]: https://docs.rs/crate/tokio/*/features#macros

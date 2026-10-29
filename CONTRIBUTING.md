@@ -253,8 +253,27 @@ on doc.rust-lang.org/std or docs.rs, and style them as `code`.  Use
 wildcard version specifiers for crate links.
 
 Any requirements to execute the code that are not apparent, such as
-passing environment flags, or configuring `Cargo.toml` should be added
-after the code sample.
+passing environment flags, should be added after the code sample.
+
+#### Cargo features
+
+When the code only compiles with a Cargo feature enabled in `Cargo.toml`
+(for example `clap`'s `derive` or `tokio`'s `macros`), say so in a banner: a
+block quote placed after the description and before the code sample. Use this
+sentence, naming every feature the example needs and the crate that owns them,
+and link each feature to its documentation:
+
+```markdown
+> This recipe requires the [`macros`] and [`time`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
+[`macros`]: https://docs.rs/crate/tokio/*/features#macros
+[`time`]: https://docs.rs/crate/tokio/*/features#time
+```
+
+Use "feature flag" for one feature and "feature flags" for several. List only
+the features the example needs, not the ones the standalone crate's
+`Cargo.toml` enables for its other examples (such as `tokio`'s `full`). Do not
+repeat the requirement in the description, or in a `toml` block after the code.
 
 > By default, random numbers are generated with [uniform distribution].
 > To generate numbers with other distributions you instantiate a

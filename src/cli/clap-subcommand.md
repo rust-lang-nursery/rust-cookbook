@@ -17,7 +17,7 @@ with ``#[arg(global = true)]``, which makes it available before or after any sub
 `notes --color new` or `notes new --color`. This is a convenient way to define flags or options that
 should apply across the entire application rather than to one action.
 
-> This recipe requires the [`derive`] feature flag to be enabled in `Cargo.toml`.
+> This recipe requires the [`derive`] feature flag of `clap` to be enabled in `Cargo.toml`.
 
 ```rust,edition2024,no_run
 use clap::{Parser, Subcommand};

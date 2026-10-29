@@ -17,7 +17,7 @@ default the lowercased variant names, so `--log-level warn` selects `LogLevel::W
 value is rejected before the program runs, with an error that lists the valid choices.  Each field's
 `///` doc comment becomes part of the generated `--help` output.
 
-> This recipe requires the [`derive`] feature flag to be enabled in `Cargo.toml`.
+> This recipe requires the [`derive`] feature flag of `clap` to be enabled in `Cargo.toml`.
 
 ```rust,edition2024,no_run
 use clap::{Parser, ValueEnum};
