@@ -17,7 +17,7 @@ after = ["links"]
 mathjax-support = false
 # theme = "theme"
 additional-css = ["theme/custom.css"]
-additional-js = ["theme/crate-chips.js", "theme/command-k.js", "theme/quick-search.js", "theme/nav-labels.js"]
+additional-js = ["theme/crate-chips.js", "theme/command-k.js", "theme/quick-search.js", "theme/crate-index.js", "theme/nav-labels.js"]
 git-repository-url = "https://github.com/rust-lang-nursery/rust-cookbook"
 edit-url-template = "https://github.com/rust-lang-nursery/rust-cookbook/edit/master/{path}"
 
