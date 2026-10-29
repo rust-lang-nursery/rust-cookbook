@@ -1,9 +1,4 @@
-#[cfg(test)]
-mod book_check;
-mod chips;
-mod search_index;
-
-use std::path::{Path, PathBuf};
+use mdbook_chips::chips;
 
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -11,12 +6,4 @@ fn main() {
         eprintln!("mdbook-chips: {e}");
         std::process::exit(1);
     }
-}
-
-fn project_root() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR"))
-        .ancestors()
-        .nth(2)
-        .unwrap()
-        .to_path_buf()
 }

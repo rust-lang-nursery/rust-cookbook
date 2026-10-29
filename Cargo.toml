@@ -23,6 +23,7 @@ members = [
   "crates/wasm",
   "crates/web",
   "crates/web_scraping",
+  "packages/book-check",
   "packages/mdbook-chips",
   "xtask",
 ]

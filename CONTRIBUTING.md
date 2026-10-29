@@ -287,7 +287,7 @@ the banner when they are in the same section of the page, or when the banner is
 above them (the shared one at the top of the SQLx page). The chips in the
 section tables and the crate index copy the line without features.
 
-`cargo test -p mdbook-chips` checks this (see [Book checks](#book-checks)).
+`cargo test -p book-check` checks this (see [Book checks](#book-checks)).
 
 #### Code
 
@@ -338,9 +338,9 @@ that feature multiple crates sensibly.
 
 ## Book checks
 
-`cargo test -p mdbook-chips` checks the book's structure from the markdown in
+`cargo test -p book-check` checks the book's structure from the markdown in
 `src/`, without building it. The tests are in
-`packages/mdbook-chips/src/book_check.rs`; a failure names the page and what to
+`packages/book-check/tests/`; a failure names the page and what to
 fix. They check that:
 
 - every recipe is listed in its section's table, in the order of the sidebar and
