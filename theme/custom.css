@@ -12,6 +12,10 @@ table:has(.crate-chip) thead {
   display: none;
 }
 
+table:has(.crate-chip) tbody {
+  padding-top: 10px;
+}
+
 table:has(.crate-chip) tr,
 table:has(.crate-chip) tr:nth-child(2n) {
   position: relative;
@@ -19,7 +23,7 @@ table:has(.crate-chip) tr:nth-child(2n) {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px 0;
-  margin: 0 0 12px;
+  margin: 0 0 24px; /* the extra space under each card leaves room for the next card's tab */
   padding: 12px 14px;
   border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
   border-radius: 10px;
@@ -415,9 +419,10 @@ a.cat-chip:hover {
   text-decoration: none;
 }
 
-/* Each topic card is an index card with a tab sticking out of its top edge; the tabs step across
-   the row like divider tabs. The tab's last pixel covers the card's top border so the two join. */
-.section-grid a::before {
+/* Topic cards and recipe cards are index cards with a tab sticking out of their top edge; the tabs
+   step across like divider tabs. The tab's last pixel covers the card's top border so the two join. */
+.section-grid a::before,
+table:has(.crate-chip) tr::before {
   content: "";
   position: absolute;
   top: -10px;
@@ -432,16 +437,19 @@ a.cat-chip:hover {
   transition: border-color 0.15s;
 }
 
-.section-grid li:nth-child(3n + 2) a::before {
+.section-grid li:nth-child(3n + 2) a::before,
+table:has(.crate-chip) tr:nth-child(3n + 2)::before {
   left: calc(50% - 19px);
 }
 
-.section-grid li:nth-child(3n) a::before {
+.section-grid li:nth-child(3n) a::before,
+table:has(.crate-chip) tr:nth-child(3n)::before {
   left: auto;
   right: 16px;
 }
 
-.section-grid a:hover::before {
+.section-grid a:hover::before,
+table:has(.crate-chip) tr:hover::before {
   border-color: var(--links);
 }
 
