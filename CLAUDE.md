@@ -125,6 +125,7 @@ When a dependency version needs to change, migrate the affected examples rather 
 - Mark examples needing external services with `no_run`
 - Hide boilerplate with `# ` prefix (hidden from book, visible to skeptic)
 - Prefer creating standalone crates for new examples over adding dependencies to root `Cargo.toml`
+- When adding a new crate under `crates/` or `packages/`, also add its directory to `.github/dependabot.yml` so it gets automated update PRs
 - When adding a **new top-level section** (`src/<section>.md`), also add a link to it in the topic list in `src/intro.md` (the book's landing page) in the correct alphabetical position
 
 ## Pull Request Checklist
