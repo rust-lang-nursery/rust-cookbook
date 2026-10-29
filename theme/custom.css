@@ -384,7 +384,7 @@ a.cat-chip:hover {
 .section-grid ul {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: 10px;
+  gap: 22px 10px; /* the extra row gap leaves room for the tabs */
   margin: 0;
   padding: 0;
   list-style: none;
@@ -395,6 +395,7 @@ a.cat-chip:hover {
 }
 
 .section-grid a {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -412,6 +413,36 @@ a.cat-chip:hover {
   border-color: var(--links);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   text-decoration: none;
+}
+
+/* Each topic card is an index card with a tab sticking out of its top edge; the tabs step across
+   the row like divider tabs. The tab's last pixel covers the card's top border so the two join. */
+.section-grid a::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  width: 38px;
+  height: 11px;
+  box-sizing: border-box;
+  border: 1px solid var(--table-border-color, var(--quote-border, #ccc));
+  border-bottom: 0;
+  border-radius: 7px 7px 0 0;
+  background: var(--bg);
+  transition: border-color 0.15s;
+}
+
+.section-grid li:nth-child(3n + 2) a::before {
+  left: calc(50% - 19px);
+}
+
+.section-grid li:nth-child(3n) a::before {
+  left: auto;
+  right: 16px;
+}
+
+.section-grid a:hover::before {
+  border-color: var(--links);
 }
 
 .sg-count {
