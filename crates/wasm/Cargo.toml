@@ -8,4 +8,4 @@ publish.workspace = true
 
 [dependencies]
 anyhow = "1.0"
-wasmtime = "45"
+wasmtime = "50"
