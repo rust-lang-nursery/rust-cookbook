@@ -3,9 +3,9 @@
 //! `{{#include}}`, numbering headings the same way), so they need no build.
 
 use crate::project_root;
-use crate::search_index::{parse_link, parse_link_definition};
+use crate::search_index::{badges, parse_link, parse_link_definition};
 use pulldown_cmark::{Event, HeadingLevel, Options, Parser, Tag, TagEnd};
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeSet, HashMap, HashSet};
 use std::fs;
 use std::path::Path;
 
@@ -37,12 +37,16 @@ struct Heading {
     level: usize,
     text: String,
     id: String,
+    /// Byte offset in the markdown just after the heading.
+    end: usize,
 }
 
 struct Row {
     title: String,
     page: String,
     fragment: Option<String>,
+    /// The badge labels (`clap`, `cat-command-line`) in the row's Crates and Categories cells.
+    badges: BTreeSet<String>,
 }
 
 struct Book {
@@ -110,7 +114,8 @@ impl Book {
         let text = fs::read_to_string(project_root().join("src").join(section)).unwrap();
         let mut rows = Vec::new();
         for line in text.lines().filter(|l| l.starts_with("| [")) {
-            let first = line.trim_matches('|').split('|').next().unwrap_or("");
+            let mut cells = line.trim_matches('|').split('|');
+            let first = cells.next().unwrap_or("");
             let Some((title, label)) = parse_link(first.trim()) else {
                 continue;
             };
@@ -125,6 +130,7 @@ impl Book {
                 title,
                 page: page.replace(".html", ".md"),
                 fragment,
+                badges: cells.flat_map(badges).collect(),
             });
         }
         rows
@@ -164,7 +170,7 @@ fn headings(markdown: &str) -> Vec<Heading> {
     let mut out: Vec<Heading> = Vec::new();
     let mut counts: HashMap<String, usize> = HashMap::new();
     let mut open: Option<(usize, String)> = None;
-    for event in Parser::new_ext(markdown, options) {
+    for (event, range) in Parser::new_ext(markdown, options).into_offset_iter() {
         match event {
             Event::Start(Tag::Heading { level, .. }) => {
                 open = Some((level_number(level), String::new()))
@@ -191,7 +197,12 @@ fn headings(markdown: &str) -> Vec<Heading> {
                     let n = counts.entry(base.clone()).or_insert(0);
                     let id = if *n == 0 { base } else { format!("{base}-{n}") };
                     *n += 1;
-                    out.push(Heading { level, text, id });
+                    out.push(Heading {
+                        level,
+                        text,
+                        id,
+                        end: range.end,
+                    });
                 }
             }
             _ => {}
@@ -344,4 +355,58 @@ fn topics_are_in_the_same_order_in_the_sidebar_and_on_the_landing_page() {
         topics, grid,
         "src/intro.md lists the topics in a different order than src/SUMMARY.md"
     );
+}
+
+/// The badge labels on the line under a heading (`[![clap-badge]][clap] [![cat-...]]`), or none if
+/// the first thing under it is not a line of badges.
+fn badges_under(markdown: &str, heading: &Heading) -> BTreeSet<String> {
+    markdown[heading.end..]
+        .lines()
+        .find(|l| !l.trim().is_empty())
+        .map(|l| badges(l).into_iter().collect())
+        .unwrap_or_default()
+}
+
+#[test]
+fn every_recipe_shows_the_same_chips_as_its_table_row() {
+    let book = Book::load();
+    let mut problems = Vec::new();
+    for (_, section) in recipe_sections(&book) {
+        for row in book.rows(&section) {
+            if book.position(&row.page).is_none() {
+                continue;
+            }
+            let markdown = expand(&project_root().join("src").join(&row.page));
+            let all = headings(&markdown);
+            let heading = match &row.fragment {
+                Some(fragment) => all.iter().find(|h| &h.id == fragment),
+                None => all.first(),
+            };
+            let Some(heading) = heading else { continue };
+            let shown = badges_under(&markdown, heading);
+            if shown == row.badges {
+                continue;
+            }
+            let list = |set: &BTreeSet<String>| set.iter().cloned().collect::<Vec<_>>().join(", ");
+            let missing: BTreeSet<String> = row.badges.difference(&shown).cloned().collect();
+            let extra: BTreeSet<String> = shown.difference(&row.badges).cloned().collect();
+            let mut why = Vec::new();
+            if !missing.is_empty() {
+                why.push(format!("missing {}", list(&missing)));
+            }
+            if !extra.is_empty() {
+                why.push(format!("not in the table: {}", list(&extra)));
+            }
+            problems.push(format!(
+                "{section}: `{}` ({}{}) {}",
+                row.title,
+                row.page,
+                row.fragment
+                    .as_ref()
+                    .map_or(String::new(), |f| format!("#{f}")),
+                why.join("; ")
+            ));
+        }
+    }
+    assert!(problems.is_empty(), "\n{}\n", problems.join("\n"));
 }

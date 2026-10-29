@@ -1,6 +1,6 @@
 ## Run an external command and process stdout
 
-[![std-badge]][std] [![cat-os-badge]][cat-os]
+[![std-badge]][std] [![cat-os-badge]][cat-os] [![cat-text-processing-badge]][cat-text-processing]
 
 Runs `git log --oneline` using an external [`Command`] and inspects the [`Output`]
 status to determine if the command was successful. The command output is captured

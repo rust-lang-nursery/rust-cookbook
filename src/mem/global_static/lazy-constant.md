@@ -35,6 +35,7 @@ fn main() {
 [`LazyLock`]: https://doc.rust-lang.org/std/sync/struct.LazyLock.html
 
 ## Std:cell
+[![std-badge]][std] [![cat-caching-badge]][cat-caching] [![cat-rust-patterns-badge]][cat-rust-patterns]
 
 [`OnceCell`] is included in the standard library as an alternative.
 

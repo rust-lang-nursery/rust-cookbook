@@ -1,6 +1,6 @@
 ## File names that have been modified in the last 24 hours
 
-[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem]
+[![walkdir-badge]][walkdir] [![cat-filesystem-badge]][cat-filesystem] [![cat-os-badge]][cat-os]
 
 Gets the current working directory and returns file names modified within the last 24 hours.
 [`env::current_dir`] gets the current working directory, [`WalkDir::new`] creates a new [`WalkDir`] for the current directory.

@@ -1,5 +1,5 @@
 ## Vector norm
-[![ndarray-badge]][ndarray]
+[![ndarray-badge]][ndarray] [![cat-science-badge]][cat-science]
 
 This recipe demonstrates use of the [`Array1`] type, [`ArrayView1`] type,
 [`fold`] method, and [`dot`] method in computing the [l1] and [l2] norms of a

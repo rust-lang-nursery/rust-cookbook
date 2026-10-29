@@ -1,6 +1,6 @@
 ## Create Files and Directories
 
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 Creating files and directories on disk takes time. Tokio provides non-blocking versions of these 
 operations so your program does not have to stop and wait while the work is done.

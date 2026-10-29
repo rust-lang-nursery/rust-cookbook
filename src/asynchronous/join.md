@@ -5,7 +5,7 @@ This section shows how to do that.
 
 ## Join Sets
 
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 A [`JoinSet`] is a container that holds a group of non-blocking tasks running at the same time.
 You add tasks to it, and then you can wait for them to finish one by one. When a task finishes,

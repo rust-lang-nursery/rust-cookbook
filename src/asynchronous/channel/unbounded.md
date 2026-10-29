@@ -1,6 +1,6 @@
 ## Unbounded Channels
 
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 An [`unbounded channel`] has no limit on how many messages it can hold. The sender never has to wait,
 it can always drop a message in, no matter how many are already sitting there.

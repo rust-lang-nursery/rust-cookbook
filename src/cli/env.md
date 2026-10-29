@@ -1,4 +1,5 @@
 # Environment Variables
+[![std-badge]][std] [![cat-command-line-badge]][cat-command-line]
 The [`env`] module lets you inspect and manipulate the process environment, including env vars, CLI
 args, and working directories.
 
@@ -47,6 +48,7 @@ fn main() {
 ```
 
 ## Loading Config from the Environment
+[![std-badge]][std] [![cat-command-line-badge]][cat-command-line]
 
 A common pattern is loading config at startup from env vars, falling back to sensible defaults when
 vars are missing or invalid. This approach keeps the program runnable without requiring every var to
@@ -143,3 +145,5 @@ fn main() {
 [`set_var`]: https://doc.rust-lang.org/std/env/fn.set_var.html
 [`unwrap_or_else`]: https://doc.rust-lang.org/std/result/enum.Result.html#method.unwrap_or_else
 [`var`]: https://doc.rust-lang.org/std/env/fn.var.html
+
+{{#include ../links.md}}

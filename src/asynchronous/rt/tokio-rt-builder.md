@@ -1,5 +1,5 @@
 ## Builder Approach
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 [`tokio::main`] works well for most programs, but it makes all the decisions for you.
 If you need control over how the runtime is set up, use the [`Builder`] instead.

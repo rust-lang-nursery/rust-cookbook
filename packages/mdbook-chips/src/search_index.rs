@@ -276,7 +276,7 @@ fn crate_name(links: &HashMap<String, String>, label: &str) -> String {
 }
 
 /// Names `x` from every `[![x-badge]]` in a table cell.
-fn badges(cell: &str) -> Vec<String> {
+pub fn badges(cell: &str) -> Vec<String> {
     cell.split("[![")
         .skip(1)
         .filter_map(|part| part.split_once("-badge]").map(|(name, _)| name.to_string()))

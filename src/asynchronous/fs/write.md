@@ -1,6 +1,6 @@
 ## Write Files
 
-[![tokio-badge]][tokio]
+[![tokio-badge]][tokio] [![cat-asynchronous-badge]][cat-asynchronous]
 
 Writing to disk takes time. [`tokio::fs::write`] is a non-blocking way to write bytes to a file.
 It creates the file if it does not exist, or overwrites it if it does.

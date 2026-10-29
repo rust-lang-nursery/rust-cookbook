@@ -1,6 +1,6 @@
 ## Distance between two points on the Earth
 
-[![std-badge]][std]
+[![std-badge]][std] [![cat-science-badge]][cat-science]
 
 By default, Rust provides mathematical [float methods] such as
 trigonometric functions, square root, conversion functions between
