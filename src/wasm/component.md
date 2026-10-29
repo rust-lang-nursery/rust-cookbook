@@ -61,6 +61,8 @@ up WASI Preview 2 (required even for guests that don't use WASI directly), and
 [`wasmtime_wasi::p2::add_to_linker_sync`]: https://docs.rs/wasmtime-wasi/*/wasmtime_wasi/p2/fn.add_to_linker_sync.html
 [`Greeter::instantiate`]: https://docs.rs/wasmtime/*/wasmtime/component/struct.Instance.html
 
+> This recipe requires the [`component-model`] feature flag of `wasmtime` to be enabled in `Cargo.toml`.
+
 ```rust,ignore
 {{#include ../../crates/wasm_component_host/src/main.rs}}
 ```
@@ -73,3 +75,4 @@ cargo run --manifest-path crates/wasm_component_host/Cargo.toml
 ```
 
 {{#include ../links.md}}
+[`component-model`]: https://docs.rs/crate/wasmtime/*/features#component-model

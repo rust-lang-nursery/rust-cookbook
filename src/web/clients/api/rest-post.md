@@ -11,6 +11,8 @@ provides arbitrary JSON body. Call to [`RequestBuilder::json`] sets the request
 body. [`RequestBuilder::basic_auth`] handles authentication. The call to
 [`RequestBuilder::send`] synchronously executes the requests.
 
+> This recipe requires the [`blocking`] and [`json`] feature flags of `reqwest` and the [`derive`] feature flag of `serde` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/rest_post.rs }}
 ```
@@ -31,3 +33,6 @@ flows.
 [HTTP Basic Auth]: https://tools.ietf.org/html/rfc2617
 [OAuth]: https://oauth.net/getting-started/
 [gists-api]: https://docs.github.com/en/rest/gists/gists
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking
+[`json`]: https://docs.rs/crate/reqwest/*/features#json
+[`derive`]: https://docs.rs/crate/serde/*/features#derive

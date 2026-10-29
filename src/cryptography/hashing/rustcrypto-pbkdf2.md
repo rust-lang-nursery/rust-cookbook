@@ -10,9 +10,12 @@ count, salt and hash together. [`Pbkdf2::verify_password`] reads those
 parameters back out of the string, so the iteration count can be raised later
 without breaking old hashes.
 
+> This recipe requires the [`phc`] feature flag of `pbkdf2` to be enabled in `Cargo.toml`.
+
 ```rust
 {{#include ../../../crates/cryptography/rustcrypto/src/bin/pbkdf2.rs::28 }}
 ```
 
 [`Pbkdf2::hash_password`]: https://docs.rs/pbkdf2/*/pbkdf2/struct.Pbkdf2.html
 [`Pbkdf2::verify_password`]: https://docs.rs/pbkdf2/*/pbkdf2/struct.Pbkdf2.html
+[`phc`]: https://docs.rs/crate/pbkdf2/*/features#phc

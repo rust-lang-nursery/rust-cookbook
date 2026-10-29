@@ -13,6 +13,8 @@ with [`RequestBuilder::send`].
 The request target <http://httpbin.org/headers> responds with
 a JSON dict containing all request headers for easy verification.
 
+> This recipe requires the [`blocking`] and [`json`] feature flags of `reqwest` and the [`derive`] feature flag of `serde` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/header.rs }}
 ```
@@ -22,5 +24,6 @@ a JSON dict containing all request headers for easy verification.
 [`RequestBuilder::header`]: https://docs.rs/reqwest/latest/reqwest/blocking/struct.RequestBuilder.html#method.header
 [`RequestBuilder::send`]: https://docs.rs/reqwest/latest/reqwest/blocking/struct.RequestBuilder.html#method.send
 [`Url::parse_with_params`]: https://docs.rs/url/latest/url/struct.Url.html#method.parse_with_params
-
-
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking
+[`json`]: https://docs.rs/crate/reqwest/*/features#json
+[`derive`]: https://docs.rs/crate/serde/*/features#derive

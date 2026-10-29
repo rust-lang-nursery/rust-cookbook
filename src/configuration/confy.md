@@ -14,6 +14,8 @@ returns that location without writing anything. To keep the recipe from touching
 your real config directory, it round-trips through an explicit path with
 [`load_path`] and [`store_path`] instead.
 
+> This recipe requires the [`derive`] feature flag of `serde` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../crates/configuration/confy/src/bin/per_user.rs::33}}
 ```
@@ -24,3 +26,4 @@ your real config directory, it round-trips through an explicit path with
 [`store_path`]: https://docs.rs/confy/*/confy/fn.store_path.html
 
 {{#include ../links.md}}
+[`derive`]: https://docs.rs/crate/serde/*/features#derive

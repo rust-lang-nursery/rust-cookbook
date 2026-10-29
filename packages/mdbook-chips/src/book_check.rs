@@ -410,3 +410,237 @@ fn every_recipe_shows_the_same_chips_as_its_table_row() {
     }
     assert!(problems.is_empty(), "\n{}\n", problems.join("\n"));
 }
+
+/// Recipes that use a dependency whose features their crate enables, but that need none of them: the
+/// crate enables the features for its other recipes. Each is `(page, dependency)`.
+const NEEDS_NO_FEATURES: &[(&str, &str)] = &[
+    // `ndarray`'s `approx` feature compares whole arrays; these recipes work on one array.
+    (
+        "science/mathematics/linear_algebra/add-matrices.md",
+        "ndarray",
+    ),
+    (
+        "science/mathematics/linear_algebra/multiply-matrices.md",
+        "ndarray",
+    ),
+    (
+        "science/mathematics/linear_algebra/multiply-scalar-vector-matrix.md",
+        "ndarray",
+    ),
+    (
+        "science/mathematics/linear_algebra/vector-comparison.md",
+        "ndarray",
+    ),
+    (
+        "science/mathematics/linear_algebra/vector-norm.md",
+        "ndarray",
+    ),
+    // `nalgebra`'s `serde-serialize` is only for the (de)serialize recipe.
+    (
+        "science/mathematics/linear_algebra/invert-matrix.md",
+        "nalgebra",
+    ),
+    // `getrandom` is a dependency of the other hashing recipes, not this one.
+    ("cryptography/hashing/rustcrypto-hmac.md", "getrandom"),
+    // `time` without any feature gives `OffsetDateTime::now_utc`.
+    ("datetime/time/now.md", "time"),
+    // The `web` crate enables `reqwest`'s `blocking`, `json` and `stream` for its blocking recipes;
+    // these use the async client or only read the page.
+    ("web/mime/request.md", "reqwest"),
+    ("web/scraping/unique.md", "reqwest"),
+];
+
+/// The features a recipe's banner names, by crate. A banner reads
+/// "> This recipe requires the [`macros`] and [`time`] feature flags of `tokio` to be enabled in
+/// `Cargo.toml`." and may name a second crate ("... and the [`full`] feature flag of `tokio`").
+fn banner_features(markdown: &str) -> HashMap<String, BTreeSet<String>> {
+    let mut out: HashMap<String, BTreeSet<String>> = HashMap::new();
+    for line in markdown
+        .lines()
+        .filter(|l| l.starts_with("> This recipe requires the "))
+    {
+        let mut rest = line;
+        while let Some(at) = rest.find(" feature flag") {
+            let (before, after) = rest.split_at(at);
+            let Some(of) = after.find(" of `") else { break };
+            let tail = &after[of + " of `".len()..];
+            let Some(end) = tail.find('`') else { break };
+            let features = before
+                .split("[`")
+                .skip(1)
+                .filter_map(|part| part.split_once("`]").map(|(name, _)| name.to_string()));
+            out.entry(tail[..end].to_string())
+                .or_default()
+                .extend(features);
+            rest = &tail[end + 1..];
+        }
+    }
+    out
+}
+
+/// Whether `text` uses `ident` as a name of its own (`serde::` yes, `serde_json::` no).
+fn mentions(text: &str, ident: &str) -> bool {
+    let word = |c: char| c.is_alphanumeric() || c == '_';
+    text.match_indices(ident).any(|(at, _)| {
+        !text[..at].chars().next_back().is_some_and(word)
+            && !text[at + ident.len()..].chars().next().is_some_and(word)
+    })
+}
+
+/// The dependencies of a standalone crate that enable features, as `name -> features`.
+fn dependencies_with_features(manifest: &Path) -> HashMap<String, BTreeSet<String>> {
+    let text = fs::read_to_string(manifest).unwrap();
+    let table: toml::Table = text
+        .parse()
+        .unwrap_or_else(|e| panic!("{}: {e}", manifest.display()));
+    let mut tables = Vec::new();
+    if let Some(t) = table.get("dependencies").and_then(|t| t.as_table()) {
+        tables.push(t);
+    }
+    for target in table
+        .get("target")
+        .and_then(|t| t.as_table())
+        .into_iter()
+        .flatten()
+    {
+        if let Some(t) = target.1.get("dependencies").and_then(|t| t.as_table()) {
+            tables.push(t);
+        }
+    }
+    let mut out = HashMap::new();
+    for (name, dep) in tables.into_iter().flatten() {
+        let features: BTreeSet<String> = dep
+            .get("features")
+            .and_then(|f| f.as_array())
+            .into_iter()
+            .flatten()
+            .filter_map(|f| f.as_str().map(str::to_string))
+            .collect();
+        if !features.is_empty() {
+            out.insert(name.clone(), features);
+        }
+    }
+    out
+}
+
+/// The `{{#include}}`d source files of a markdown file that live in a crate under `crates/`, as
+/// `(crate directory, source text)`. Line ranges (`file.rs::71`) are ignored.
+fn included_crate_sources(page: &Path) -> Vec<(std::path::PathBuf, String)> {
+    let text = fs::read_to_string(page).unwrap();
+    let mut out = Vec::new();
+    for line in text.lines() {
+        let Some(file) = line
+            .trim()
+            .strip_prefix("{{#include ")
+            .and_then(|l| l.strip_suffix("}}"))
+        else {
+            continue;
+        };
+        let file = file.trim().split(':').next().unwrap_or("");
+        if file.ends_with(".md") || !file.contains("crates/") {
+            continue;
+        }
+        let path = page.parent().unwrap().join(file);
+        let Ok(source) = fs::read_to_string(&path) else {
+            continue;
+        };
+        let mut dir = path.parent();
+        while let Some(d) = dir {
+            if d.join("Cargo.toml").exists() {
+                out.push((d.to_path_buf(), source));
+                break;
+            }
+            dir = d.parent();
+        }
+    }
+    out
+}
+
+fn markdown_files(dir: &Path, out: &mut Vec<std::path::PathBuf>) {
+    for entry in fs::read_dir(dir).unwrap().flatten() {
+        let path = entry.path();
+        if path.is_dir() {
+            markdown_files(&path, out);
+        } else if path.extension().is_some_and(|e| e == "md") {
+            out.push(path);
+        }
+    }
+}
+
+/// A recipe whose code needs a Cargo feature says so in a banner (see CONTRIBUTING.md): when the
+/// crate it includes enables features of a dependency the code uses, the recipe's file must have a
+/// banner for that dependency, and the banner may only name features the crate really enables.
+#[test]
+fn recipes_needing_cargo_features_have_a_banner() {
+    let src = project_root().join("src");
+    let mut files = Vec::new();
+    markdown_files(&src, &mut files);
+    files.sort();
+    let mut parents: HashMap<std::path::PathBuf, Vec<std::path::PathBuf>> = HashMap::new();
+    for page in &files {
+        for line in fs::read_to_string(page).unwrap().lines() {
+            let included = line
+                .trim()
+                .strip_prefix("{{#include ")
+                .and_then(|l| l.strip_suffix("}}"))
+                .map(str::trim)
+                .filter(|f| f.ends_with(".md"));
+            if let Some(file) = included {
+                let path = page.parent().unwrap().join(file);
+                if let Ok(path) = path.canonicalize() {
+                    parents.entry(path).or_default().push(page.clone());
+                }
+            }
+        }
+    }
+    let mut problems = Vec::new();
+    for page in files {
+        let sources = included_crate_sources(&page);
+        if sources.is_empty() {
+            continue;
+        }
+        let name = page.strip_prefix(&src).unwrap().display().to_string();
+        // A banner on a page that includes this one (such as the shared banner at the top of the
+        // SQLx page) counts for every recipe it includes.
+        let mut banners: HashMap<String, BTreeSet<String>> = HashMap::new();
+        let mut pending = vec![page.canonicalize().unwrap()];
+        let mut seen = HashSet::new();
+        while let Some(file) = pending.pop() {
+            if !seen.insert(file.clone()) {
+                continue;
+            }
+            for (krate, features) in banner_features(&fs::read_to_string(&file).unwrap()) {
+                banners.entry(krate).or_default().extend(features);
+            }
+            pending.extend(parents.get(&file).cloned().unwrap_or_default());
+        }
+        for (dir, source) in &sources {
+            for (dep, enabled) in dependencies_with_features(&dir.join("Cargo.toml")) {
+                if !mentions(source, &dep.replace('-', "_"))
+                    || NEEDS_NO_FEATURES.contains(&(name.as_str(), dep.as_str()))
+                {
+                    continue;
+                }
+                let Some(named) = banners.get(&dep) else {
+                    problems.push(format!(
+                        "{name}: needs a banner for the {} feature(s) of `{dep}` that {} enables",
+                        enabled.iter().cloned().collect::<Vec<_>>().join(", "),
+                        dir.file_name().unwrap().to_string_lossy()
+                    ));
+                    continue;
+                };
+                // `full` turns on every tokio feature, so a banner may name any of them.
+                if !enabled.contains("full") {
+                    for feature in named.difference(&enabled) {
+                        problems.push(format!(
+                            "{name}: the banner names `{feature}` of `{dep}`, which the crate does not enable"
+                        ));
+                    }
+                }
+            }
+        }
+    }
+    problems.sort();
+    problems.dedup();
+    assert!(problems.is_empty(), "\n{}\n", problems.join("\n"));
+}

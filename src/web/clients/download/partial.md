@@ -12,6 +12,8 @@ downloads.
 
 The Range header is defined in [RFC7233][HTTP Range RFC7233].
 
+> This recipe requires the [`blocking`] feature flag of `reqwest` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/download_partial.rs }}
 ```
@@ -22,3 +24,4 @@ The Range header is defined in [RFC7233][HTTP Range RFC7233].
 [Range]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range
 
 [HTTP Range RFC7233]: https://tools.ietf.org/html/rfc7233#section-3.1
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking

@@ -13,6 +13,8 @@ missing file falls back to the defaults), and [`Environment`] reads `APP_`-prefi
 variables. `APP_PORT=9090` sets the `port` key. [`build`] merges them and
 [`try_deserialize`] produces the typed `Settings`.
 
+> This recipe requires the [`derive`] feature flag of `serde` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../crates/configuration/config/src/bin/layered.rs::30}}
 ```
@@ -32,3 +34,4 @@ The bundled `config.toml` supplies the file layer:
 [`try_deserialize`]: https://docs.rs/config/*/config/struct.Config.html#method.try_deserialize
 
 {{#include ../links.md}}
+[`derive`]: https://docs.rs/crate/serde/*/features#derive

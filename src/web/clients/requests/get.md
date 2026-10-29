@@ -8,6 +8,8 @@ status and headers. Reads HTTP response body into an allocated [`String`]
 using [`read_to_string`].
 
 
+> This recipe requires the [`blocking`] feature flag of `reqwest` and the [`macros`] and [`rt-multi-thread`] feature flags of `tokio` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../../crates/web/src/bin/get.rs }}
 ```
@@ -35,3 +37,6 @@ Uses the asynchronous versions of [reqwest], both [`reqwest::get`] and
 [`String`]: https://doc.rust-lang.org/std/string/struct.String.html
 [`tokio`]: https://docs.rs/tokio/latest/tokio/
 [`tokio::main`]: https://docs.rs/tokio/latest/tokio/attr.main.html
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking
+[`macros`]: https://docs.rs/crate/tokio/*/features#macros
+[`rt-multi-thread`]: https://docs.rs/crate/tokio/*/features#rt-multi-thread

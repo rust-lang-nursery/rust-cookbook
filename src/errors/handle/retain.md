@@ -12,6 +12,8 @@ the string response into an integer. The Rust standard library,
 use [`foreign_links`]. An additional [`ErrorKind`] variant for the web service
 error uses `errors` block of the `thiserror` derive macro.
 
+> This recipe requires the [`blocking`] feature flag of `reqwest` to be enabled in `Cargo.toml`.
+
 ```rust,no_run
 {{#include ../../../crates/web/src/bin/retain.rs }}
 ```
@@ -20,3 +22,4 @@ error uses `errors` block of the `thiserror` derive macro.
 [`foreign_links`]: https://docs.rs/thiserror/*/thiserror/#foreign-links
 [blocking]: https://docs.rs/reqwest/*/reqwest/blocking/index.html
 [Matching]:https://docs.rs/thiserror/*/thiserror/#matching-errors
+[`blocking`]: https://docs.rs/crate/reqwest/*/features#blocking

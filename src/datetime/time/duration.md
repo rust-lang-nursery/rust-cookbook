@@ -9,9 +9,12 @@ hours and daylight saving time is not applied: this is the opposite of the
 `jiff` `Span` recipe, where adding a day can be 23 or 25 hours. Subtracting two
 datetimes gives the [`Duration`] between them.
 
+> This recipe requires the [`macros`] feature flag of `time` to be enabled in `Cargo.toml`.
+
 ```rust
 {{#include ../../../crates/datetime/time/src/bin/duration.rs::28 }}
 ```
 
 [`Duration`]: https://docs.rs/time/*/time/struct.SignedDuration.html
 [`OffsetDateTime::checked_add`]: https://docs.rs/time/*/time/struct.OffsetDateTime.html#method.checked_add
+[`macros`]: https://docs.rs/crate/time/*/features#macros

@@ -270,10 +270,22 @@ and link each feature to its documentation:
 [`time`]: https://docs.rs/crate/tokio/*/features#time
 ```
 
-Use "feature flag" for one feature and "feature flags" for several. List only
-the features the example needs, not the ones the standalone crate's
-`Cargo.toml` enables for its other examples (such as `tokio`'s `full`). Do not
-repeat the requirement in the description, or in a `toml` block after the code.
+Use "feature flag" for one feature and "feature flags" for several. When an
+example needs features of more than one crate, name each crate in the same
+sentence ("... of `sqlx` and the [`full`] feature flag of `tokio` ..."). List
+only the features the example needs, not the ones the standalone crate's
+`Cargo.toml` enables for its other examples (prefer `macros` and
+`rt-multi-thread` to `tokio`'s `full`). Do not repeat the requirement in the
+description, or in a `toml` block after the code. A banner on a page that
+includes the recipe, such as the shared one at the top of the SQLx page,
+counts for the recipe.
+
+`cargo test -p mdbook-chips` checks this: a recipe that includes code from a
+crate under `crates/` must have a banner for every dependency of that crate
+that enables features and that the code uses, and the banner may only name
+features the crate enables. If a recipe uses such a dependency but needs none
+of the enabled features, list it in `NEEDS_NO_FEATURES` in
+`packages/mdbook-chips/src/book_check.rs` with the reason.
 
 > By default, random numbers are generated with [uniform distribution].
 > To generate numbers with other distributions you instantiate a
