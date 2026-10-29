@@ -1,0 +1,11 @@
+[package]
+name = "book-check"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Tests on the book's own structure: recipe tables, chips and feature banners"
+
+[dependencies]
+mdbook-chips = { path = "../mdbook-chips" }
+pulldown-cmark = { version = "0.13", default-features = false }
+toml = "1"

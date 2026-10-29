@@ -59,7 +59,6 @@ impl CrateMeta {
 
 pub struct Meta(HashMap<String, CrateMeta>);
 
-#[cfg(test)]
 impl Meta {
     /// A `Meta` that knows these crates at version 1, so a test can render pages without running
     /// `cargo metadata`.

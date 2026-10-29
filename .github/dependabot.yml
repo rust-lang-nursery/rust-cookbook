@@ -59,6 +59,7 @@ updates:
       - "/crates/web_leptos"
       - "/crates/web_leptos_hydrate"
       - "/crates/web_scraping"
+      - "/packages/book-check"
       - "/packages/mdbook-chips"
       - "/xtask"
     schedule:

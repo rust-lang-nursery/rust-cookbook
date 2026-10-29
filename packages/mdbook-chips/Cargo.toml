@@ -7,7 +7,3 @@ description = "mdBook preprocessor: renders the crate pills and the search index
 
 [dependencies]
 serde_json = "1"
-
-[dev-dependencies]
-pulldown-cmark = { version = "0.13", default-features = false }
-toml = "1"
