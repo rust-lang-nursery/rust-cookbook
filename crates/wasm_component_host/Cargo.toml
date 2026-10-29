@@ -6,5 +6,5 @@ publish = false
 
 [dependencies]
 anyhow = "1.0"
-wasmtime = { version = "45", features = ["component-model"] }
+wasmtime = { version = "50", features = ["component-model"] }
 wasmtime-wasi = "50"
