@@ -11,7 +11,7 @@
   if (!chips) return;
 
   var root = typeof path_to_root === "string" ? path_to_root : "";
-  var LIMITS = { c: 4, s: 3, r: 6 };
+  var LIMITS = { c: 4, s: 3, g: 3, r: 6 };
   var RECIPES_SHOWN = 3;
 
   var panel = document.createElement("div");
@@ -111,8 +111,18 @@
   }
 
   // entries: ["c12", "s3", "r45", ...] in rank order
+  // A group of recipes under a bold label on a section page, e.g. "File System > Directory Traversal".
+  function groupEntry(i) {
+    var g = index.groups[i];
+    var section = index.sections[g[0]];
+    var div = el("div", "qs-topic");
+    div.appendChild(chips.category(g[1], root + section[1] + "#" + g[2]));
+    div.appendChild(el("span", "qs-muted", section[0] + " \u00b7 " + plural(g[3])));
+    return div;
+  }
+
   function render(entries) {
-    var crates = [], topics = [], recipes = [];
+    var crates = [], topics = [], recipes = [], sectionTopics = 0, groupTopics = 0;
     // Recipes already listed under a matching crate are not repeated below.
     var covered = {};
     entries.forEach(function (e) {
@@ -123,8 +133,13 @@
     });
     entries.forEach(function (e) {
       var id = +e.slice(1);
-      if (e[0] === "s" && topics.length < LIMITS.s) topics.push(topicEntry(id));
-      else if (e[0] === "r" && recipes.length < LIMITS.r && !covered[id]) {
+      if (e[0] === "s" && sectionTopics < LIMITS.s) {
+        sectionTopics++;
+        topics.push(topicEntry(id));
+      } else if (e[0] === "g" && groupTopics < LIMITS.g) {
+        groupTopics++;
+        topics.push(groupEntry(id));
+      } else if (e[0] === "r" && recipes.length < LIMITS.r && !covered[id]) {
         var ul = el("ul");
         ul.appendChild(recipeItem(id));
         recipes.push(ul);
@@ -180,8 +195,13 @@
       var s = Math.max.apply(null, [m.score(section[0])].concat(section[2].map(m.score)));
       if (s) hits.push([1, -s, i, "s" + i]);
     });
+    (index.groups || []).forEach(function (g, i) {
+      var s = m.score(g[1]);
+      if (s) hits.push([1, -s, 1000 + i, "g" + i]);
+    });
     index.recipes.forEach(function (r, i) {
-      var hay = (r[0] + " " + r[3].map(function (c) { return index.crates[c]; }).join(" ")).toLowerCase();
+      var label = r[4] >= 0 ? index.groups[r[4]][1] : "";
+      var hay = (r[0] + " " + label + " " + r[3].map(function (c) { return index.crates[c]; }).join(" ")).toLowerCase();
       var ok = tokenMatchers.every(function (t) { return t.contains(hay); });
       if (ok) hits.push([2, -m.score(r[0]), i, "r" + i]);
     });
