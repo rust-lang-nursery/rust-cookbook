@@ -6,6 +6,9 @@
 // that new problems fail the run. It also fails when a listed issue stops
 // reproducing, so a fix upstream breaks this script and the entry gets removed.
 //
+// axe cannot see keyboard and focus behaviour, so the search dialog is also driven by
+// keystrokes (see keyboardChecks): open, announce, Tab trap, and closing returns focus.
+//
 //   make a11y                    (builds the book first)
 //   node run.js                  (uses the existing book/)
 //   CHROME_PATH=/path/to/chrome node run.js
@@ -84,6 +87,84 @@ function serve() {
   return new Promise((resolve) => server.listen(0, "127.0.0.1", () => resolve(server)));
 }
 
+// Keyboard and focus behaviour of the Cmd/Ctrl+K search dialog, one run per theme.
+async function keyboardChecks(browser, base, theme, failures) {
+  const fail = (target, why) =>
+    failures.push({ theme, name: "search dialog", rule: "keyboard", target, why });
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1200, height: 900 });
+  await page.evaluateOnNewDocument((t) => localStorage.setItem("mdbook-theme", t), theme);
+  await page.goto(base + "/algorithms.html", { waitUntil: "networkidle2", timeout: 30000 });
+  await wait(800);
+
+  const active = () =>
+    page.evaluate(() => {
+      const a = document.activeElement;
+      return a ? a.id || a.tagName.toLowerCase() : null;
+    });
+  const isOpen = () =>
+    page.evaluate(() => !document.getElementById("mdbook-search-wrapper").classList.contains("hidden"));
+  const inside = () =>
+    page.evaluate(() => document.getElementById("mdbook-search-wrapper").contains(document.activeElement));
+  const open = async () => {
+    await page.keyboard.down("Control");
+    await page.keyboard.press("k");
+    await page.keyboard.up("Control");
+    await wait(300);
+  };
+
+  // Ctrl+K opens the dialog and puts the cursor in the search box.
+  await page.focus("#mdbook-search-toggle");
+  await open();
+  if (!(await isOpen())) fail("Ctrl+K", "the dialog did not open");
+  else if ((await active()) !== "mdbook-searchbar") {
+    fail("Ctrl+K", `focus is on ${await active()}, expected the search box`);
+  }
+
+  // Typing announces the matches in a status region.
+  await page.keyboard.type("rand", { delay: 20 });
+  await wait(900);
+  const status = await page.evaluate(() => {
+    const el = document.querySelector("#mdbook-search-wrapper [role=status]");
+    return el ? el.textContent.trim() : null;
+  });
+  if (!status || !/crate|topic|recipe/.test(status)) {
+    fail("[role=status]", `no match count announced after typing (got ${JSON.stringify(status)})`);
+  }
+
+  // Tab and Shift+Tab never leave the dialog.
+  for (const shift of [false, true]) {
+    if (shift) await page.keyboard.down("Shift");
+    for (let i = 0; i < 25; i++) {
+      await page.keyboard.press("Tab");
+      if (!(await inside())) {
+        fail(shift ? "Shift+Tab" : "Tab", `focus left the dialog on press ${i + 1} (now on ${await active()})`);
+        break;
+      }
+    }
+    if (shift) await page.keyboard.up("Shift");
+  }
+
+  // Esc closes it and focus goes back to where it came from.
+  await page.keyboard.press("Escape");
+  await wait(300);
+  if (await isOpen()) fail("Esc", "the dialog stayed open");
+  else if ((await active()) !== "mdbook-search-toggle") {
+    fail("Esc", `focus is on ${await active()}, expected the search button`);
+  }
+
+  // So does a click on the backdrop.
+  await open();
+  await page.mouse.click(4, 450);
+  await wait(300);
+  if (await isOpen()) fail("backdrop click", "the dialog stayed open");
+  else if ((await active()) !== "mdbook-search-toggle") {
+    fail("backdrop click", `focus is on ${await active()}, expected the search button`);
+  }
+  await page.close();
+}
+
 (async () => {
   if (!fs.existsSync(path.join(BOOK, "index.html"))) {
     console.error("book/ is missing; run `make build` first");
@@ -96,6 +177,7 @@ function serve() {
   const failures = [];
   let checked = 0;
   for (const theme of THEMES) {
+    await keyboardChecks(browser, base, theme, failures);
     for (const [name, url] of PAGES) {
       const page = await browser.newPage();
       await page.setViewport({ width: 1200, height: 900 });
