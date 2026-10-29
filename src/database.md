@@ -1,13 +1,25 @@
 # Database
 
+**SQLite**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Create a SQLite database][ex-sqlite-initialization] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
 | [Insert and Query data][ex-sqlite-insert-select] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
 | [Using transactions][ex-using-transactions] | [![rusqlite-badge]][rusqlite] | [![cat-database-badge]][cat-database] |
+
+**Postgres**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Create tables in a Postgres database][ex-postgres-create-tables] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
 | [Insert and Query data][ex-postgres-insert-query-data] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
 | [Aggregate data][ex-postgres-aggregate-data] | [![postgres-badge]][postgres] | [![cat-database-badge]][cat-database] |
+
+**SQLx and SeaORM**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Connect to SQLite pool and simple query][ex-sqlx-sqlite-pool] | [![sqlx-badge]][sqlx] [![tokio-badge]][tokio] | [![cat-database-badge]][cat-database] |
 | [Connect to Pg Pool and query typed rows][ex-sqlx-postgres-pool-typed-rows] | [![sqlx-badge]][sqlx] [![tokio-badge]][tokio] | [![cat-database-badge]][cat-database] |
 | [Compile-time checked queries][ex-sqlx-checked-queries] | [![sqlx-badge]][sqlx] [![tokio-badge]][tokio] | [![cat-database-badge]][cat-database] |

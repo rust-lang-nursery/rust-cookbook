@@ -1,5 +1,7 @@
 # Concurrency
 
+**Explicit Threads**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Spawn a short-lived thread][ex-crossbeam-spawn] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
@@ -9,18 +11,33 @@
 | [Calculate SHA256 sum of *.iso files concurrently][ex-pool-walk]  | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] [![ring-badge]][ring] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Sum the size of every file in a directory][ex-pool-size] | [![rayon-badge]][rayon] [![walkdir-badge]][walkdir] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
 | [Draw fractal dispatching work to a thread pool][ex-pool-fractal] | [![rayon-badge]][rayon] [![num-badge]][num] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-science-badge]][cat-science][![cat-rendering-badge]][cat-rendering] |
+
+**Synchronization Primitives**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Lock-free counter with `AtomicUsize`][ex-sync-atomic] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Guard compound state with `Arc<Mutex<T>>`][ex-sync-arc-mutex] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Concurrent reads with `Arc<RwLock<T>>`][ex-sync-rwlock] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Communicate between threads with `mpsc` channels][ex-sync-mpsc] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Coordinate thread phases with `Barrier`][ex-sync-barrier] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Signal a waiting thread with `Condvar`][ex-sync-condvar] | [![std-badge]][std] | [![cat-concurrency-badge]][cat-concurrency] |
+
+**Data Parallelism**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Mutate the elements of an array in parallel][ex-rayon-iter-mut] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Test in parallel if any or all elements of a collection match a given predicate][ex-rayon-any-all] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Search items using given predicate in parallel][ex-rayon-parallel-search] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Sort a vector in parallel][ex-rayon-parallel-sort] | [![rayon-badge]][rayon] [![rand-badge]][rand] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Map-reduce in parallel][ex-rayon-map-reduce] | [![rayon-badge]][rayon] | [![cat-concurrency-badge]][cat-concurrency] |
 | [Generate jpg thumbnails in parallel][ex-rayon-thumbnails] | [![rayon-badge]][rayon] [![glob-badge]][glob] [![image-badge]][image] | [![cat-concurrency-badge]][cat-concurrency][![cat-filesystem-badge]][cat-filesystem] |
+
+**Actors and Custom Futures**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Actor Pattern with Tokio][ex-actor-pattern] | [![tokio-badge]][tokio] [![thiserror-badge]][thiserror] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 | [Custom Future (Pin, Waker, Poll)][ex-custom-future] | [![tokio-badge]][tokio] | [![cat-concurrency-badge]][cat-concurrency] [![cat-rust-patterns-badge]][cat-rust-patterns] |
 

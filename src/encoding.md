@@ -1,5 +1,7 @@
 # Encoding
 
+**Character Sets**
+
 | Recipe | Crates | Categories |
 |--------|--------|------------|
 | [Percent-encode a string][ex-percent-encode] | [![percent-encoding-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
@@ -7,6 +9,11 @@
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Generate OTP with a Base32 set][ex-base32] | [![data-encoding-badge]][data-encoding] [![rand-badge]][rand] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
+
+**CSV**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Read CSV records][ex-csv-read] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Read CSV records with different delimiter][ex-csv-delimiter] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Filter CSV records matching a predicate][ex-csv-filter] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
@@ -14,6 +21,11 @@
 | [Serialize records to CSV][ex-serialize-csv] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 | [Serialize records to CSV using Serde][ex-csv-serde] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Transform one column of a CSV file][ex-csv-transform-column] | [![csv-badge]][csv] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
+
+**Structured Data and Zero-Copy**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Serialize and deserialize unstructured JSON][ex-json-value] | [![serde-json-badge]][serde-json] | [![cat-encoding-badge]][cat-encoding] |
 | [Deserialize a TOML configuration file][ex-toml-config] | [![toml-badge]][toml] [![serde-badge]][serde] | [![cat-encoding-badge]][cat-encoding] |
 | [Read and write integers in little-endian byte order][ex-byteorder-le] | [![std-badge]][std] | [![cat-encoding-badge]][cat-encoding] |

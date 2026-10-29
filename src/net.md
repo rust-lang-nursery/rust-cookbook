@@ -1,5 +1,6 @@
 # Networking
 
+**TCP**
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
@@ -11,6 +12,11 @@
 | [Disable Nagle's algorithm][ex-tcp-nodelay] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 | [Half-close a TCP connection][ex-tcp-half-close] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 | [Non-blocking TCP accept][ex-tcp-non-blocking] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
+
+**UDP and Addresses**
+
+| Recipe | Crates | Categories |
+|--------|--------|------------|
 | [Send and receive a UDP datagram][ex-udp-datagram] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 | [Join a UDP multicast group][ex-udp-multicast] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |
 | [Resolve a hostname to socket addresses][ex-addr-hostname] | [![std-badge]][std] | [![cat-net-badge]][cat-net] |

@@ -14,11 +14,43 @@ struct Section {
     aliases: BTreeSet<String>,
 }
 
+/// A bold label above a table (`**Directory Traversal**`) that groups the recipes under it.
+struct Group {
+    section: usize,
+    label: String,
+    anchor: String,
+}
+
 struct Recipe {
     title: String,
     url: String,
     section: usize,
+    group: Option<usize>,
     crates: Vec<usize>,
+}
+
+/// `**Label**` on a line of its own.
+pub fn group_label(line: &str) -> Option<&str> {
+    let label = line.trim().strip_prefix("**")?.strip_suffix("**")?;
+    (!label.is_empty() && !label.contains("**")).then_some(label)
+}
+
+/// The id of a group label on its page, used for links from the search results.
+pub fn group_anchor(label: &str) -> String {
+    let mut slug = String::from("group");
+    let mut dash = true;
+    for c in label.to_lowercase().chars() {
+        if c.is_alphanumeric() {
+            if dash {
+                slug.push('-');
+            }
+            slug.push(c);
+            dash = false;
+        } else {
+            dash = true;
+        }
+    }
+    slug
 }
 
 /// Writes `src/cookbook-index.js` (untracked; mdBook copies it into the book). It is only
@@ -73,6 +105,7 @@ fn generate(meta: &Meta) -> Result<String, Box<dyn Error>> {
     let mut sections = Vec::new();
     let mut crates: BTreeMap<String, usize> = BTreeMap::new();
     let mut recipes = Vec::new();
+    let mut groups: Vec<Group> = Vec::new();
 
     for (stem, text) in &pages {
         let Some(title) = text.lines().next().and_then(|l| l.strip_prefix("# ")) else {
@@ -82,7 +115,24 @@ fn generate(meta: &Meta) -> Result<String, Box<dyn Error>> {
         let mut aliases = BTreeSet::new();
         let first_recipe = recipes.len();
 
-        for line in text.lines().filter(|l| l.starts_with("| [")) {
+        let mut pending: Option<String> = None;
+        let mut group = None;
+        for line in text.lines() {
+            if let Some(label) = group_label(line) {
+                pending = Some(label.to_string());
+            } else if line.starts_with("| Recipe") {
+                group = pending.take().map(|label| {
+                    groups.push(Group {
+                        section,
+                        anchor: group_anchor(&label),
+                        label,
+                    });
+                    groups.len() - 1
+                });
+            }
+            if !line.starts_with("| [") {
+                continue;
+            }
             let cols: Vec<&str> = line.trim_matches('|').split('|').collect();
             let Some((recipe_title, label)) = parse_link(cols[0].trim()) else {
                 continue;
@@ -104,6 +154,7 @@ fn generate(meta: &Meta) -> Result<String, Box<dyn Error>> {
                 title: recipe_title,
                 url: url.clone(),
                 section,
+                group,
                 crates: recipe_crates,
             });
         }
@@ -155,17 +206,34 @@ fn generate(meta: &Meta) -> Result<String, Box<dyn Error>> {
         })
         .collect();
     out.push_str(&rows.join(",\n"));
+    out.push_str("\n  ],\n  \"groups\": [\n");
+    let rows: Vec<String> = groups
+        .iter()
+        .enumerate()
+        .map(|(i, g)| {
+            let count = recipes.iter().filter(|r| r.group == Some(i)).count();
+            format!(
+                "    [{}, {}, {}, {}]",
+                g.section,
+                json_str(&g.label),
+                json_str(&g.anchor),
+                count
+            )
+        })
+        .collect();
+    out.push_str(&rows.join(",\n"));
     out.push_str("\n  ],\n  \"recipes\": [\n");
     let rows: Vec<String> = recipes
         .iter()
         .map(|r| {
             let ids: Vec<String> = r.crates.iter().map(|c| c.to_string()).collect();
             format!(
-                "    [{}, {}, {}, [{}]]",
+                "    [{}, {}, {}, [{}], {}]",
                 json_str(&r.title),
                 json_str(&r.url),
                 r.section,
-                ids.join(",")
+                ids.join(","),
+                r.group.map_or(-1, |g| g as i64)
             )
         })
         .collect();
