@@ -419,8 +419,10 @@ a.cat-chip:hover {
   text-decoration: none;
 }
 
-/* Topic cards and recipe cards are index cards with a tab sticking out of their top edge; the tabs
-   step across like divider tabs. The tab's last pixel covers the card's top border so the two join. */
+/* Topic cards and recipe cards are index cards with a tab sticking out of their top edge. The topic
+   tabs step across the row like divider tabs; the recipe tabs slide along the edge with the card's
+   place in the list (--tab-progress, 0 to 1, set by card-tabs.js). The tab's last pixel covers the
+   card's top border so the two join. */
 .section-grid a::before,
 table:has(.crate-chip) tr::before {
   content: "";
@@ -437,13 +439,15 @@ table:has(.crate-chip) tr::before {
   transition: border-color 0.15s;
 }
 
-.section-grid li:nth-child(3n + 2) a::before,
-table:has(.crate-chip) tr:nth-child(3n + 2)::before {
+table:has(.crate-chip) tr::before {
+  left: calc(16px + var(--tab-progress, 0) * (100% - 70px));
+}
+
+.section-grid li:nth-child(3n + 2) a::before {
   left: calc(50% - 19px);
 }
 
-.section-grid li:nth-child(3n) a::before,
-table:has(.crate-chip) tr:nth-child(3n)::before {
+.section-grid li:nth-child(3n) a::before {
   left: auto;
   right: 16px;
 }
