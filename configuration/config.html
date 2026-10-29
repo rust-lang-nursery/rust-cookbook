@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-629d3919.js";
+            window.path_to_searchindex_js = "../searchindex-18dbcf67.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ebaba02c.js"></script>
@@ -192,6 +192,9 @@ baseline values, <a href="https://docs.rs/config/*/config/struct.File.html"><cod
 missing file falls back to the defaults), and <a href="https://docs.rs/config/*/config/struct.Environment.html"><code>Environment</code></a> reads <code>APP_</code>-prefixed
 variables. <code>APP_PORT=9090</code> sets the <code>port</code> key. <a href="https://docs.rs/config/*/config/builder/struct.ConfigBuilder.html#method.build"><code>build</code></a> merges them and
 <a href="https://docs.rs/config/*/config/struct.Config.html#method.try_deserialize"><code>try_deserialize</code></a> produces the typed <code>Settings</code>.</p>
+<blockquote>
+<p>This recipe requires the <a href="https://docs.rs/crate/serde/*/features#derive"><code>derive</code></a> feature flag of <code>serde</code> to be enabled in <code>Cargo.toml</code>.</p>
+</blockquote>
 <pre class="playground"><code class="language-rust no_run edition2018">use std::path::Path;
 
 use config::{Config, Environment, File};

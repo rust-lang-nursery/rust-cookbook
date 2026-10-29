@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-629d3919.js";
+            window.path_to_searchindex_js = "../searchindex-18dbcf67.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ebaba02c.js"></script>
@@ -192,6 +192,9 @@ save into a single notification, so the config is reloaded once per change rathe
 than several times. Each notification triggers a fresh <code>load</code>; a parse error is
 logged and the previous settings are kept, so a malformed edit never takes down
 the running program.</p>
+<blockquote>
+<p>This recipe requires the <a href="https://docs.rs/crate/serde/*/features#derive"><code>derive</code></a> feature flag of <code>serde</code> to be enabled in <code>Cargo.toml</code>.</p>
+</blockquote>
 <pre class="playground"><code class="language-rust no_run edition2018">use std::path::{Path, PathBuf};
 use std::sync::mpsc;
 use std::time::Duration;

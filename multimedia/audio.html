@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-629d3919.js";
+            window.path_to_searchindex_js = "../searchindex-18dbcf67.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ebaba02c.js"></script>
@@ -189,8 +189,11 @@ packets into audio buffers. <a href="https://docs.rs/symphonia/*/symphonia/defau
 <a href="https://docs.rs/symphonia-core/*/symphonia_core/formats/probe/struct.Hint.html"><code>Hint</code></a> and a <a href="https://docs.rs/symphonia-core/*/symphonia_core/io/struct.MediaSourceStream.html"><code>MediaSourceStream</code></a>, returning a <a href="https://docs.rs/symphonia-core/*/symphonia_core/formats/trait.FormatReader.html"><code>FormatReader</code></a>.
 <a href="https://docs.rs/symphonia-core/*/symphonia_core/formats/trait.FormatReader.html#method.default_track"><code>default_track</code></a> picks the audio track and <a href="https://docs.rs/symphonia/*/symphonia/default/fn.get_codecs.html"><code>get_codecs</code></a> builds a decoder for
 its <a href="https://docs.rs/symphonia-core/*/symphonia_core/codecs/enum.CodecParameters.html"><code>CodecParameters</code></a>. Each packet from <a href="https://docs.rs/symphonia-core/*/symphonia_core/formats/trait.FormatReader.html#tymethod.next_packet"><code>next_packet</code></a> goes to <a href="https://docs.rs/symphonia-core/*/symphonia_core/codecs/audio/trait.AudioDecoder.html#method.decode"><code>Decoder::decode</code></a>,
-whose buffer reports its frame count. The <code>wav</code> feature compiles in only the WAV
-reader; enable the features matching the formats you need.</p>
+whose buffer reports its frame count. Each format sits behind its own feature, so
+enable the ones matching the formats you need.</p>
+<blockquote>
+<p>This recipe requires the <a href="https://docs.rs/crate/symphonia/*/features#wav"><code>wav</code></a> feature flag of <code>symphonia</code> to be enabled in <code>Cargo.toml</code>.</p>
+</blockquote>
 <pre class="playground"><code class="language-rust no_run edition2018">use std::fs::File;
 use std::path::Path;
 

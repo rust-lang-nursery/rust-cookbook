@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-629d3919.js";
+            window.path_to_searchindex_js = "../searchindex-18dbcf67.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ebaba02c.js"></script>
@@ -193,6 +193,9 @@ on Linux (and the platform equivalent elsewhere); <a href="https://docs.rs/confy
 returns that location without writing anything. To keep the recipe from touching
 your real config directory, it round-trips through an explicit path with
 <a href="https://docs.rs/confy/*/confy/fn.load_path.html"><code>load_path</code></a> and <a href="https://docs.rs/confy/*/confy/fn.store_path.html"><code>store_path</code></a> instead.</p>
+<blockquote>
+<p>This recipe requires the <a href="https://docs.rs/crate/serde/*/features#derive"><code>derive</code></a> feature flag of <code>serde</code> to be enabled in <code>Cargo.toml</code>.</p>
+</blockquote>
 <pre class="playground"><code class="language-rust no_run edition2018">use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
