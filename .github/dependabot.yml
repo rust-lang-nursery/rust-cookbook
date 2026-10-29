@@ -1,0 +1,73 @@
+# Weekly update PRs for the crates the recipes use, including the root Cargo.toml (the dependencies
+# the skeptic-tested snippets compile against, which also feed the Rust playground).
+#
+# Minor and patch updates are grouped into one pull request per directory. Major updates get their
+# own pull request, because they are the ones that can break a recipe and need its code migrated.
+#
+# Every manifest is listed explicitly; when a new crate is added under crates/ or packages/, add its
+# directory here too.
+version: 2
+updates:
+  - package-ecosystem: cargo
+    directories:
+      - "/"
+      - "/crates/algorithms/randomness"
+      - "/crates/cli/ansi_terminal"
+      - "/crates/compression/bzip2"
+      - "/crates/concurrency/actor"
+      - "/crates/concurrency/custom_future"
+      - "/crates/concurrency/parallel"
+      - "/crates/configuration/config"
+      - "/crates/configuration/confy"
+      - "/crates/configuration/figment"
+      - "/crates/data_structures/bitfield"
+      - "/crates/database/rusqlite"
+      - "/crates/database/sea_orm"
+      - "/crates/database/sqlx"
+      - "/crates/datetime/jiff"
+      - "/crates/datetime/time"
+      - "/crates/development_tools/build_tools/cc_bundled_cpp"
+      - "/crates/development_tools/build_tools/cc_bundled_static"
+      - "/crates/development_tools/build_tools/cc_defines"
+      - "/crates/development_tools/build_tools/cc_external_static"
+      - "/crates/development_tools/build_tools/cc_shared_library"
+      - "/crates/development_tools/debugging/log4rs"
+      - "/crates/development_tools/debugging/syslog"
+      - "/crates/development_tools/debugging/tracing"
+      - "/crates/encoding/base32"
+      - "/crates/encoding/base64"
+      - "/crates/encoding/rkyv"
+      - "/crates/encoding/toml"
+      - "/crates/file/memmap"
+      - "/crates/file/notify"
+      - "/crates/file/which"
+      - "/crates/multimedia/audio"
+      - "/crates/multimedia/image"
+      - "/crates/multimedia/playback"
+      - "/crates/parsing/nom"
+      - "/crates/parsing/pest"
+      - "/crates/parsing/winnow"
+      - "/crates/safety_critical/heapless_alloc"
+      - "/crates/safety_critical/no_panic"
+      - "/crates/science/linear_algebra"
+      - "/crates/wasm"
+      - "/crates/wasm_component_guest"
+      - "/crates/wasm_component_host"
+      - "/crates/web"
+      - "/crates/web_leptos"
+      - "/crates/web_leptos_hydrate"
+      - "/crates/web_scraping"
+      - "/packages/mdbook-chips"
+      - "/xtask"
+    schedule:
+      interval: weekly
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "deps"
+    labels:
+      - modernization
