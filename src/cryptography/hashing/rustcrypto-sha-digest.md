@@ -15,5 +15,5 @@ result is returned by [`Digest::finalize`].
 [`Digest`]: https://docs.rs/digest/*/digest/trait.Digest.html
 [`Digest::finalize`]: https://docs.rs/digest/*/digest/trait.Digest.html#tymethod.finalize
 [`Digest::update`]: https://docs.rs/digest/*/digest/trait.Digest.html#tymethod.update
-[`Sha256`]: https://docs.rs/sha2/*/sha2/type.Sha256.html
-[`Sha512`]: https://docs.rs/sha2/*/sha2/type.Sha512.html
+[`Sha256`]: https://docs.rs/sha2/*/sha2/struct.Sha256.html
+[`Sha512`]: https://docs.rs/sha2/*/sha2/struct.Sha512.html

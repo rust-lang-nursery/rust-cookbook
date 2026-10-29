@@ -323,6 +323,8 @@ rodio
 rusqlite
 rustaceans
 rustc
+RustCrypto
+rustcrypto
 rustup
 RwLock
 rwlock

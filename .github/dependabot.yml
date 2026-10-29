@@ -20,6 +20,7 @@ updates:
       - "/crates/configuration/config"
       - "/crates/configuration/confy"
       - "/crates/configuration/figment"
+      - "/crates/cryptography/rustcrypto"
       - "/crates/data_structures/bitfield"
       - "/crates/database/rusqlite"
       - "/crates/database/sea_orm"
