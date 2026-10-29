@@ -158,12 +158,16 @@ a.cat-chip {
 }
 
 .content .crate-chip a.crate-chip-repo:link,
-.content .crate-chip a.crate-chip-repo:visited {
+.content .crate-chip a.crate-chip-playground:link,
+.content .crate-chip a.crate-chip-repo:visited,
+.content .crate-chip a.crate-chip-playground:visited {
   color: var(--icons, #747474);
 }
 
 .content .crate-chip a.crate-chip-repo:link:hover,
-.content .crate-chip a.crate-chip-repo:visited:hover {
+.content .crate-chip a.crate-chip-playground:link:hover,
+.content .crate-chip a.crate-chip-repo:visited:hover,
+.content .crate-chip a.crate-chip-playground:visited:hover {
   color: var(--icons-hover, #000);
 }
 
@@ -172,6 +176,7 @@ a.cat-chip:hover {
 }
 
 .crate-chip-copy,
+.crate-chip .crate-chip-playground,
 .crate-chip .crate-chip-repo {
   display: inline-flex;
   align-items: center;
@@ -187,6 +192,7 @@ a.cat-chip:hover {
 
 .crate-chip-copy:hover,
 .crate-chip-copy:focus-visible,
+.crate-chip .crate-chip-playground:hover,
 .crate-chip .crate-chip-repo:hover {
   color: var(--icons-hover, #000);
   background: var(--theme-hover, rgba(128, 128, 128, 0.15));
