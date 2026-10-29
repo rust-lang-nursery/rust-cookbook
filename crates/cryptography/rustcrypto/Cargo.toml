@@ -10,7 +10,7 @@ publish.workspace = true
 anyhow = "1.0"
 argon2 = "0.6"
 data-encoding = "2.1.0"
-getrandom = { version = "0.3", features = ["std"] }
+getrandom = { version = "0.4", features = ["std"] }
 hmac = "0.13"
 pbkdf2 = { version = "0.13", features = ["getrandom", "phc"] }
 sha2 = "0.11"
