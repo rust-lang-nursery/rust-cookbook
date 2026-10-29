@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-8ccd22f7.js";
+            window.path_to_searchindex_js = "../searchindex-b470ee1e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8fc2ecc7.js"></script>
+        <script src="../toc-3b891b9e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -182,6 +182,19 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="hashing"><a class="header" href="#hashing">Hashing</a></h1>
+<h2 id="choosing-between-ring-and-rustcrypto"><a class="header" href="#choosing-between-ring-and-rustcrypto">Choosing between ring and RustCrypto</a></h2>
+<ul>
+<li><a href="https://docs.rs/ring/"><code>ring</code></a> is a single crate with a fixed set of algorithms, built on C and
+assembly code from BoringSSL. Choose it when SHA-2, HMAC and PBKDF2 are all
+you need and you want one dependency with one API.</li>
+<li><a href="https://github.com/RustCrypto">RustCrypto</a> is a family of separate crates (<a href="https://docs.rs/sha2/"><code>sha2</code></a>, <a href="https://docs.rs/hmac/"><code>hmac</code></a>, <a href="https://docs.rs/pbkdf2/"><code>pbkdf2</code></a>,
+<a href="https://docs.rs/argon2/"><code>argon2</code></a>) written in Rust that share the traits of the <a href="https://docs.rs/digest/"><code>digest</code></a> crate, so
+the hash function is a type parameter. Choose it when you want generic code,
+algorithms <code>ring</code> lacks such as Argon2, or a build without C.</li>
+<li>Both are pre-1.0, so their APIs may still change.</li>
+</ul>
+<p>The RustCrypto versions of the recipes follow the <code>ring</code> ones. For patterns that
+use the shared traits, see <a href="extensible.html">Extensible RustCrypto</a>.</p>
 <h2 id="calculate-the-sha-256-digest-of-a-file"><a class="header" href="#calculate-the-sha-256-digest-of-a-file">Calculate the SHA-256 digest of a file</a></h2>
 <p><span class="crate-chip"><a class="crate-chip-name" href="https://briansmith.org/rustdoc/ring/" title="Open ring on docs.rs">ring</a><button type="button" class="crate-chip-copy" data-copy="ring = &quot;0.17&quot;" title="Copy ring = &quot;0.17&quot;" aria-label="Copy ring = &quot;0.17&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/briansmith/ring" title="Open ring source repository" aria-label="ring source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/data-encoding/" title="Open data-encoding on docs.rs">data-encoding</a><button type="button" class="crate-chip-copy" data-copy="data-encoding = &quot;2.1.0&quot;" title="Copy data-encoding = &quot;2.1.0&quot;" aria-label="Copy data-encoding = &quot;2.1.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/ia0/data-encoding" title="Open data-encoding source repository" aria-label="data-encoding source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/cryptography">Cryptography</a></p>
 <p>Writes some data to a file, then calculates the SHA-256 <a href="https://briansmith.org/rustdoc/ring/digest/struct.Digest.html"><code>digest::Digest</code></a> of
@@ -297,6 +310,158 @@ fn main() -&gt; Result&lt;(), Unspecified&gt; {
 
     Ok(())
 }</code></pre>
+<h2 id="calculate-the-sha-256-digest-of-a-file-with-sha2"><a class="header" href="#calculate-the-sha-256-digest-of-a-file-with-sha2">Calculate the SHA-256 digest of a file with sha2</a></h2>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/sha2/" title="Open sha2 on docs.rs">sha2</a><button type="button" class="crate-chip-copy" data-copy="sha2 = &quot;0.11&quot;" title="Copy sha2 = &quot;0.11&quot;" aria-label="Copy sha2 = &quot;0.11&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/RustCrypto/hashes" title="Open sha2 source repository" aria-label="sha2 source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/data-encoding/" title="Open data-encoding on docs.rs">data-encoding</a><button type="button" class="crate-chip-copy" data-copy="data-encoding = &quot;2.1.0&quot;" title="Copy data-encoding = &quot;2.1.0&quot;" aria-label="Copy data-encoding = &quot;2.1.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/ia0/data-encoding" title="Open data-encoding source repository" aria-label="data-encoding source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/cryptography">Cryptography</a></p>
+<p>Use <code>sha2</code> when you want the hash function to be a type parameter; see
+<a href="#choosing-between-ring-and-rustcrypto">Choosing between ring and RustCrypto</a>. <code>digest_reader</code> works with any hash that
+implements <a href="https://docs.rs/digest/"><code>Digest</code></a>, so moving from <a href="https://docs.rs/sha2/*/sha2/struct.Sha256.html"><code>Sha256</code></a> to <a href="https://docs.rs/sha2/*/sha2/struct.Sha512.html"><code>Sha512</code></a> only changes
+the type argument. Data is fed to the hasher with <a href="https://docs.rs/digest/*/digest/trait.Digest.html#tymethod.update"><code>Digest::update</code></a> and the
+result is returned by <a href="https://docs.rs/digest/*/digest/trait.Digest.html#tymethod.finalize"><code>Digest::finalize</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+use data_encoding::HEXLOWER;
+use sha2::{Digest, Sha256, Sha512};
+use std::fs::File;
+use std::io::{BufReader, Read, Write};
+
+/// Hashes everything `reader` yields with any hash that implements [`Digest`].
+fn digest_reader&lt;D: Digest, R: Read&gt;(mut reader: R) -&gt; Result&lt;Vec&lt;u8&gt;&gt; {
+    let mut hasher = D::new();
+    let mut buffer = [0; 1024];
+
+    loop {
+        let count = reader.read(&amp;mut buffer)?;
+        if count == 0 {
+            break;
+        }
+        hasher.update(&amp;buffer[..count]);
+    }
+
+    Ok(hasher.finalize().to_vec())
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let dir = tempfile::tempdir()?;
+    let path = dir.path().join("file.txt");
+
+    let mut output = File::create(&amp;path)?;
+    write!(output, "We will generate a digest of this text")?;
+
+    let sha256 = digest_reader::&lt;Sha256, _&gt;(BufReader::new(File::open(&amp;path)?))?;
+    println!("SHA-256 digest is {}", HEXLOWER.encode(&amp;sha256));
+
+    // Switching algorithms only changes the type parameter.
+    let sha512 = digest_reader::&lt;Sha512, _&gt;(BufReader::new(File::open(&amp;path)?))?;
+    println!("SHA-512 digest is {}", HEXLOWER.encode(&amp;sha512));
+
+    Ok(())
+}</code></pre>
+<h2 id="sign-and-verify-a-message-with-hmac-using-hmac-and-sha2"><a class="header" href="#sign-and-verify-a-message-with-hmac-using-hmac-and-sha2">Sign and verify a message with HMAC using hmac and sha2</a></h2>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/hmac/" title="Open hmac on docs.rs">hmac</a><button type="button" class="crate-chip-copy" data-copy="hmac = &quot;0.13&quot;" title="Copy hmac = &quot;0.13&quot;" aria-label="Copy hmac = &quot;0.13&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/RustCrypto/MACs" title="Open hmac source repository" aria-label="hmac source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/sha2/" title="Open sha2 on docs.rs">sha2</a><button type="button" class="crate-chip-copy" data-copy="sha2 = &quot;0.11&quot;" title="Copy sha2 = &quot;0.11&quot;" aria-label="Copy sha2 = &quot;0.11&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/RustCrypto/hashes" title="Open sha2 source repository" aria-label="sha2 source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/cryptography">Cryptography</a></p>
+<p>Use <code>hmac</code> when the hash function should be chosen with a type alias; see
+<a href="#choosing-between-ring-and-rustcrypto">Choosing between ring and RustCrypto</a>. <a href="https://docs.rs/hmac/"><code>Hmac</code></a> wraps any hash from the
+RustCrypto family, so <code>type HmacSha256 = Hmac&lt;Sha256&gt;</code> becomes SHA-512 by
+changing one word. <a href="https://docs.rs/digest/*/digest/trait.Mac.html#tymethod.finalize"><code>Mac::finalize</code></a> computes the tag and
+<a href="https://docs.rs/digest/*/digest/trait.Mac.html#method.verify_slice"><code>Mac::verify_slice</code></a> compares a tag in constant time.</p>
+<pre class="playground"><code class="language-rust edition2018">use anyhow::Result;
+use hmac::{Hmac, KeyInit, Mac};
+use sha2::Sha256;
+
+// Changing the hash function is a one-line change, for example to `Sha512`.
+type HmacSha256 = Hmac&lt;Sha256&gt;;
+
+fn main() -&gt; Result&lt;()&gt; {
+    let mut key_value = [0u8; 48];
+    getrandom::fill(&amp;mut key_value)?;
+
+    let message = "Legitimate and important message.";
+    let mut signer = HmacSha256::new_from_slice(&amp;key_value)?;
+    signer.update(message.as_bytes());
+    let tag = signer.finalize().into_bytes();
+
+    // `verify_slice` compares the tags in constant time.
+    let mut verifier = HmacSha256::new_from_slice(&amp;key_value)?;
+    verifier.update(message.as_bytes());
+    verifier.verify_slice(&amp;tag)?;
+
+    let mut tampered = HmacSha256::new_from_slice(&amp;key_value)?;
+    tampered.update(b"Tampered message.");
+    assert!(tampered.verify_slice(&amp;tag).is_err());
+
+    Ok(())
+}</code></pre>
+<h2 id="salt-and-hash-a-password-with-pbkdf2-using-pbkdf2"><a class="header" href="#salt-and-hash-a-password-with-pbkdf2-using-pbkdf2">Salt and hash a password with PBKDF2 using pbkdf2</a></h2>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/pbkdf2/" title="Open pbkdf2 on docs.rs">pbkdf2</a><button type="button" class="crate-chip-copy" data-copy="pbkdf2 = { version = &quot;0.13&quot;, features = [&quot;getrandom&quot;, &quot;phc&quot;] }" title="Copy pbkdf2 = { version = &quot;0.13&quot;, features = [&quot;getrandom&quot;, &quot;phc&quot;] }" aria-label="Copy pbkdf2 = { version = &quot;0.13&quot;, features = [&quot;getrandom&quot;, &quot;phc&quot;] }"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/RustCrypto/password-hashes" title="Open pbkdf2 source repository" aria-label="pbkdf2 source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/cryptography">Cryptography</a></p>
+<p>Use this form when you want to store a single string per user; see
+<a href="#choosing-between-ring-and-rustcrypto">Choosing between ring and RustCrypto</a>. <a href="https://docs.rs/pbkdf2/*/pbkdf2/struct.Pbkdf2.html"><code>Pbkdf2::hash_password</code></a> generates a
+random salt and returns a PHC string such as
+<code>$pbkdf2-sha256$i=600000,l=32$salt$hash</code>, which holds the algorithm, iteration
+count, salt and hash together. <a href="https://docs.rs/pbkdf2/*/pbkdf2/struct.Pbkdf2.html"><code>Pbkdf2::verify_password</code></a> reads those
+parameters back out of the string, so the iteration count can be raised later
+without breaking old hashes.</p>
+<pre class="playground"><code class="language-rust edition2018">use pbkdf2::Pbkdf2;
+use pbkdf2::password_hash::{PasswordHasher, PasswordVerifier};
+use pbkdf2::phc::PasswordHash;
+
+fn main() -&gt; Result&lt;(), pbkdf2::password_hash::Error&gt; {
+    let password = "Guess Me If You Can!";
+
+    // A random salt is generated and stored in the PHC string along with the
+    // algorithm and its parameters.
+    let hash = Pbkdf2::default()
+        .hash_password(password.as_bytes())?
+        .to_string();
+    println!("PBKDF2 hash: {hash}");
+
+    let parsed = PasswordHash::new(&amp;hash)?;
+    assert!(
+        Pbkdf2::default()
+            .verify_password(password.as_bytes(), &amp;parsed)
+            .is_ok()
+    );
+    assert!(
+        Pbkdf2::default()
+            .verify_password(b"Definitely not the correct password", &amp;parsed)
+            .is_err()
+    );
+
+    Ok(())
+}</code></pre>
+<h2 id="salt-and-hash-a-password-with-argon2"><a class="header" href="#salt-and-hash-a-password-with-argon2">Salt and hash a password with Argon2</a></h2>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/argon2/" title="Open argon2 on docs.rs">argon2</a><button type="button" class="crate-chip-copy" data-copy="argon2 = &quot;0.6&quot;" title="Copy argon2 = &quot;0.6&quot;" aria-label="Copy argon2 = &quot;0.6&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/RustCrypto/password-hashes" title="Open argon2 source repository" aria-label="argon2 source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/cryptography">Cryptography</a></p>
+<p>Use Argon2 for new password storage unless you need a FIPS-approved algorithm;
+see <a href="#choosing-between-ring-and-rustcrypto">Choosing between ring and RustCrypto</a>. <code>ring</code> has no Argon2.
+<a href="https://docs.rs/argon2/*/argon2/struct.Argon2.html"><code>Argon2::default</code></a> selects Argon2id with the crate’s default memory and time
+cost. <a href="https://docs.rs/argon2/*/argon2/struct.Argon2.html"><code>Argon2::hash_password</code></a> generates a random salt and returns a PHC string
+that includes those parameters, and <a href="https://docs.rs/argon2/*/argon2/struct.Argon2.html"><code>Argon2::verify_password</code></a> checks a
+password against it.</p>
+<pre class="playground"><code class="language-rust edition2018">use argon2::Argon2;
+use argon2::password_hash::phc::PasswordHash;
+use argon2::password_hash::{PasswordHasher, PasswordVerifier};
+
+fn main() -&gt; Result&lt;(), argon2::password_hash::Error&gt; {
+    let password = "Guess Me If You Can!";
+
+    // Argon2id with the default parameters and a random salt. The result is a
+    // PHC string such as `$argon2id$v=19$m=...,t=...,p=...$salt$hash`.
+    let hash = Argon2::default()
+        .hash_password(password.as_bytes())?
+        .to_string();
+    println!("Argon2 hash: {hash}");
+
+    let parsed = PasswordHash::new(&amp;hash)?;
+    assert!(
+        Argon2::default()
+            .verify_password(password.as_bytes(), &amp;parsed)
+            .is_ok()
+    );
+    assert!(
+        Argon2::default()
+            .verify_password(b"Definitely not the correct password", &amp;parsed)
+            .is_err()
+    );
+
+    Ok(())
+}</code></pre>
 <!--
 Links, in a few categories. Follow the existing structure.
 Keep lines sorted.
@@ -312,7 +477,7 @@ Keep lines sorted.
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../data_structures.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../cryptography/extensible.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -326,7 +491,7 @@ Keep lines sorted.
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../data_structures.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../cryptography/extensible.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
