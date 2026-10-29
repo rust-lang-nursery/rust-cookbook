@@ -11,4 +11,4 @@ package = "example:greeter"
 crate-type = ["cdylib"]
 
 [dependencies]
-wit-bindgen = "0.43"
+wit-bindgen = "0.63"
