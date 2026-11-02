@@ -12,7 +12,7 @@ window.COOKBOOK_INDEX = {
     ["Cryptography", "cryptography.html", ["cryptography"]],
     ["Data Structures", "data_structures.html", ["data structures", "no std"]],
     ["Database", "database.html", ["database"]],
-    ["Date and Time", "datetime.html", ["date and time", "time"]],
+    ["Date and Time", "datetime.html", ["date and time"]],
     ["Development Tools", "development_tools.html", ["config", "debugging", "development tools", "os", "text processing"]],
     ["Encoding", "encoding.html", ["encoding"]],
     ["Error Handling", "errors.html", ["rust patterns"]],
