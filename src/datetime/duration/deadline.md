@@ -1,6 +1,6 @@
 ## Deadline arithmetic with `Instant`
 
-[![std-badge]][std] [![cat-time-badge]][cat-time]
+[![std-badge]][std] [![cat-date-and-time-badge]][cat-date-and-time]
 
 Calculates a one second [`Duration`]. Computes `deadline` one second from [`Instant::now`].
 Sleeps for one second and compares `deadline` with [`Instant::now`] to check if the deadline has passed.

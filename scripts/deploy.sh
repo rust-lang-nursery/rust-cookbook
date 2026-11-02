@@ -49,6 +49,16 @@ else
     echo "Skipping tests (--skip-tests flag provided)"
 fi
 
+# The link checker skips crates.io, so the category links are checked once here,
+# against the crates.io API (see ci/lychee-categories.toml).
+if command -v lychee &> /dev/null; then
+    echo "Checking crates.io category links..."
+    lychee --config ./ci/lychee-categories.toml - < src/links.md
+else
+    echo "Warning: lychee is not installed, skipping the crates.io category link check."
+    echo "Install it with: cargo install lychee@0.17.0"
+fi
+
 # Check if we're on master branch
 if [[ $(git branch --show-current) != "master" ]]; then
     echo "Warning: You're not on the master branch. Current branch: $(git branch --show-current)"
