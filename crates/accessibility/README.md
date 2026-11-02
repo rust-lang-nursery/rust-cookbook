@@ -1,19 +1,20 @@
 # Accessibility
 
-Recipes for accessibility on Linux using the AT-SPI (Assistive Technology Service Provider Interface) protocol.
+Recipes for the Linux accessibility bus (AT-SPI), the interface screen readers
+such as Orca use to read and follow what is on screen. They are included in
+the book at `src/accessibility/linux-at-spi.md`.
 
-## Crates
+| Binary | What it does |
+|--------|--------------|
+| `list_applications` | Lists the applications on the accessibility bus by name |
+| `dump_tree <app>` | Prints an application's accessibility tree: roles, names and states |
+| `audit_labels <app>` | Reports controls with no accessible name; exits with an error if it finds any |
+| `track_focus` | Announces each control that receives keyboard focus, like a screen reader |
 
-- `atspi` - Main crate for accessing AT-SPI functionality
+These need a Linux desktop session with accessibility enabled, for example:
 
-## Examples
-
-- `find_accessible_objects` - Connect to the AT-SPI bus and get the root accessible object
-
-## Platform Support
-
-- Linux (with AT-SPI bus running)
-
-## Usage
-
-This crate provides standalone examples for the [Rust Cookbook](https://github.com/rust-lang-nursery/rust-cookbook).
+```sh
+gsettings set org.gnome.desktop.interface toolkit-accessibility true
+cargo run --bin list_applications
+cargo run --bin audit_labels gedit
+```

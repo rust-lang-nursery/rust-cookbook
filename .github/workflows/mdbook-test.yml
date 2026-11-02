@@ -64,10 +64,18 @@ jobs:
             echo "❌ Workspace check failed. Check the logs above for details."
             exit 1
           fi
+      # The accessibility recipes are tested against a real GTK dialog on a virtual display
+      # (crates/accessibility/tests/live.rs).
+      - name: Install the accessibility test tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb dbus at-spi2-core zenity xdotool
       - name: cargo test workspace crates
         id: cargo_test_workspace
         # rust-cookbook is excluded: its tests are the skeptic-generated doc tests
         # already covered by the `test` job above.
+        env:
+          ACCESSIBILITY_LIVE_TESTS: required
         run: cargo test --workspace --exclude rust-cookbook
       - name: Workspace Test Results
         if: always()

@@ -8,8 +8,8 @@ New here? See [how to use the recipes](about.md#how-to-use-the-recipes).
 
 <div class="section-grid">
 
-- [Algorithms](algorithms.md)
 - [Accessibility](accessibility.md)
+- [Algorithms](algorithms.md)
 - [Asynchronous](asynchronous.md)
 - [Command Line](cli.md)
 - [Compression](compression.md)
@@ -20,7 +20,6 @@ New here? See [how to use the recipes](about.md#how-to-use-the-recipes).
 - [Database](database.md)
 - [Date and Time](datetime.md)
 - [Development Tools](development_tools.md)
-
 - [Encoding](encoding.md)
 - [Error Handling](errors.md)
 - [File System](file.md)

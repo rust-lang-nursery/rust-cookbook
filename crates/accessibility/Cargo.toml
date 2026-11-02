@@ -3,11 +3,8 @@ name = "accessibility"
 version = "0.1.0"
 edition = "2024"
 
-[[bin]]
-name = "find_accessible_objects"
-path = "src/bin/find_accessible_objects.rs"
-
 [dependencies]
-atspi = { version = "0.30.0", features = ["connection"] }
 anyhow = "1.0.94"
-tokio = { version = "1", features = ["full"] }
+atspi = "0.30.0"
+futures-util = "0.3"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
