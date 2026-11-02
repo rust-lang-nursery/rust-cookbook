@@ -507,7 +507,17 @@ kbd {
   gap: 0.5em;
 }
 
+.ci-shield {
+  display: inline-flex;
+}
+
+.ci-shield img {
+  height: 20px;
+  width: auto;
+}
+
 .ci-head .qs-muted {
+  flex-basis: 100%;
   font-size: 0.85em;
   color: var(--ck-muted);
 }
@@ -812,8 +822,8 @@ h2.ri-letter {
 }
 
 /* A small 📦 after every link that goes to crates.io (category pills and links in the text). */
-.content a[href^="https://crates.io"]::after,
-.content a[href^="http://crates.io"]::after {
+.content a[href^="https://crates.io"]:not(.ci-shield)::after,
+.content a[href^="http://crates.io"]:not(.ci-shield)::after {
   content: "📦";
   content: "📦" / "";
   margin-left: calc(0.3em + 6px);
