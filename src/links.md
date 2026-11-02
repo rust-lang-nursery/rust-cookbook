@@ -53,8 +53,6 @@ Keep lines sorted.
 [cat-science]: https://crates.io/categories/science
 [cat-text-processing-badge]: https://img.shields.io/badge/text_processing--x.svg?style=social
 [cat-text-processing]: https://crates.io/categories/text-processing
-[cat-time-badge]: https://img.shields.io/badge/time--x.svg?style=social
-[cat-time]: https://crates.io/categories/date-and-time
 [cat-wasm-badge]: https://img.shields.io/badge/wasm--x.svg?style=social
 [cat-wasm]: https://crates.io/categories/wasm
 

@@ -1,6 +1,6 @@
 ## Benchmark a closure with `Instant`
 
-[![std-badge]][std] [![cat-time-badge]][cat-time]
+[![std-badge]][std] [![cat-date-and-time-badge]][cat-date-and-time]
 
 Initializes a `weights` vector, calculates half of its total sum into `half_load`,
 and uses `benchmark` to measure the performance of `subset_sum` which takes a slice of weights and a target value and finds a subset whose weights sum to the target.

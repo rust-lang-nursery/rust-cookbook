@@ -1,0 +1,33 @@
+# Checks the crates.io category links in src/links.md. The main config
+# (lychee.toml) skips crates.io entirely, so these links get their own run in
+# scripts/deploy.sh, once per deploy.
+# The file is passed as plain text on stdin because
+# lychee's Markdown parser drops reference definitions that the file itself
+# never uses, which is every definition in src/links.md:
+#
+#     lychee --config ./ci/lychee-categories.toml - < src/links.md
+#
+# crates.io category pages are rendered client side and return 200 for any
+# slug, so each link is remapped to the crates.io API, which returns 404 for a
+# category that does not exist.
+
+no_progress = true
+
+# crates.io asks automated clients to identify themselves:
+# https://crates.io/data-access
+user_agent = "RustCookbookDeployment"
+
+# Stay well within the crates.io crawler policy of one request per second.
+max_concurrency = 1
+max_retries = 2
+retry_wait_time = 5
+
+accept = ["200"]
+
+remap = [
+    "^https://crates\\.io/categories/(.+)$ https://crates.io/api/v1/categories/$1",
+]
+
+# Only category links are checked: `include` takes precedence over `exclude`.
+exclude = [".*"]
+include = ["^https://crates\\.io/(api/v1/)?categories/"]

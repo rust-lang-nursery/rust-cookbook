@@ -1,6 +1,6 @@
 ## Convert `SystemTime` to Unix timestamp
 
-[![std-badge]][std] [![cat-time-badge]][cat-time]
+[![std-badge]][std] [![cat-date-and-time-badge]][cat-date-and-time]
 
 Converts the current [`SystemTime`] to seconds since the Unix epoch, then computes the original time
 by adding the unix timestamp to [`SystemTime::UNIX_EPOCH`] constant.

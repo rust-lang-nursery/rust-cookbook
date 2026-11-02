@@ -1,6 +1,6 @@
 ## Measure the elapsed time between two code sections
 
-[![std-badge]][std] [![cat-time-badge]][cat-time]
+[![std-badge]][std] [![cat-date-and-time-badge]][cat-date-and-time]
 
 Measures [`time::Instant::elapsed`] since [`time::Instant::now`].
 

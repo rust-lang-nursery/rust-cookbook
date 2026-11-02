@@ -6,10 +6,10 @@ Not sure which crate to use? See [Choosing between chrono, time and jiff][ex-cho
 
 | Recipe | Crates | Categories |
 |--------|--------|------------|
-| [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
-| [Deadline arithmetic with Duration][ex-deadline-arithmetic-std] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
-| [Convert SystemTime to UNIX timestamp][ex-convert-to-unix-timestamp-std] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
-| [Benchmark a closure with Instant][ex-benchmark-closure] | [![std-badge]][std] | [![cat-time-badge]][cat-time] |
+| [Measure elapsed time][ex-measure-elapsed-time] | [![std-badge]][std] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Deadline arithmetic with Duration][ex-deadline-arithmetic-std] | [![std-badge]][std] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Convert SystemTime to UNIX timestamp][ex-convert-to-unix-timestamp-std] | [![std-badge]][std] | [![cat-date-and-time-badge]][cat-date-and-time] |
+| [Benchmark a closure with Instant][ex-benchmark-closure] | [![std-badge]][std] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Perform checked date and time calculations][ex-datetime-arithmetic] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 | [Convert a local time to another timezone][ex-convert-datetime-timezone] | [![chrono-badge]][chrono] | [![cat-date-and-time-badge]][cat-date-and-time] |
 
