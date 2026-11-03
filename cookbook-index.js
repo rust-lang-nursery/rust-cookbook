@@ -24,7 +24,7 @@ window.COOKBOOK_INDEX = {
     ["Operating System", "os.html", ["os", "text processing"]],
     ["Parsing", "parsing.html", ["parser implementations"]],
     ["Safety-Critical Rust", "safety_critical.html", ["data structures", "no std", "rust patterns"]],
-    ["Science", "science.html", ["science"]],
+    ["Science", "science.html", ["mathematics", "science"]],
     ["Text Processing", "text.html", ["text processing"]],
     ["Web Programming", "web.html", ["encoding", "filesystem", "net"]],
     ["WebAssembly", "wasm.html", ["wasm"]]
