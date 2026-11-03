@@ -35,6 +35,8 @@ Keep lines sorted.
 [cat-filesystem]: https://crates.io/categories/filesystem
 [cat-hardware-support-badge]: https://img.shields.io/badge/hardware_support--x.svg?style=social
 [cat-hardware-support]: https://crates.io/categories/hardware-support
+[cat-mathematics-badge]: https://img.shields.io/badge/mathematics--x.svg?style=social
+[cat-mathematics]: https://crates.io/categories/mathematics
 [cat-multimedia-badge]: https://img.shields.io/badge/multimedia--x.svg?style=social
 [cat-multimedia]: https://crates.io/categories/multimedia
 [cat-net-badge]: https://img.shields.io/badge/net--x.svg?style=social

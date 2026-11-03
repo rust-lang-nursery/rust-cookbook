@@ -1,5 +1,5 @@
 ## Invert matrix
-[![nalgebra-badge]][nalgebra] [![cat-science-badge]][cat-science]
+[![nalgebra-badge]][nalgebra] [![cat-science-badge]][cat-science] [![cat-mathematics-badge]][cat-mathematics]
 
 Creates a 3x3 matrix with [`nalgebra::Matrix3`] and inverts it, if possible.
 
