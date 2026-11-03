@@ -10,7 +10,7 @@
 | [Multiply a scalar with a vector with a matrix][multiply-scalar-vector-matrix] | [![ndarray-badge]][ndarray]   | [![cat-science-badge]][cat-science] |
 | [Vector comparison][ex-vector-comparison] | [![ndarray-badge]][ndarray] | [![cat-science-badge]][cat-science] |
 | [Vector Norm][vector-norm]                                                     | [![ndarray-badge]][ndarray]   | [![cat-science-badge]][cat-science] |
-| [Invert matrix][invert-matrix]                                                 | [![nalgebra-badge]][nalgebra] | [![cat-science-badge]][cat-science] |
+| [Invert matrix][invert-matrix]                                                 | [![nalgebra-badge]][nalgebra] | [![cat-science-badge]][cat-science] [![cat-mathematics-badge]][cat-mathematics] |
 | [(De)-Serialize a Matrix][ex-de-serialize-a-matrix] | [![nalgebra-badge]][nalgebra] [![serde-json-badge]][serde-json] | [![cat-science-badge]][cat-science] |
 
 **Trigonometry**
