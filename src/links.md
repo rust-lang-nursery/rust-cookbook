@@ -5,6 +5,8 @@ Keep lines sorted.
 
 <!-- Categories -->
 
+[cat-accessibility-badge]: https://img.shields.io/badge/accessibility--x.svg?style=social
+[cat-accessibility]: https://crates.io/categories/accessibility
 [cat-asynchronous-badge]: https://img.shields.io/badge/asynchronous--x.svg?style=social
 [cat-asynchronous]: https://crates.io/categories/asynchronous
 [cat-caching-badge]: https://img.shields.io/badge/caching--x.svg?style=social
@@ -35,6 +37,7 @@ Keep lines sorted.
 [cat-filesystem]: https://crates.io/categories/filesystem
 [cat-hardware-support-badge]: https://img.shields.io/badge/hardware_support--x.svg?style=social
 [cat-hardware-support]: https://crates.io/categories/hardware-support
+
 [cat-multimedia-badge]: https://img.shields.io/badge/multimedia--x.svg?style=social
 [cat-multimedia]: https://crates.io/categories/multimedia
 [cat-net-badge]: https://img.shields.io/badge/net--x.svg?style=social

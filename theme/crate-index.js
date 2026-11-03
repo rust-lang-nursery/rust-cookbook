@@ -17,6 +17,19 @@
     return n + (n === 1 ? " recipe" : " recipes");
   }
 
+  // The crate's latest version on crates.io, as a shields.io badge linking to its crates.io page.
+  function shield(name) {
+    var link = el("a", "ci-shield");
+    link.href = "https://crates.io/crates/" + encodeURIComponent(name);
+    var img = el("img");
+    img.src = "https://img.shields.io/crates/v/" + encodeURIComponent(name) + ".svg";
+    img.alt = name + " on crates.io";
+    img.loading = "lazy";
+    img.height = 20;
+    link.appendChild(img);
+    return link;
+  }
+
   function crateIndex(host) {
     var chips = window.CookbookChips;
     var byCrate = index.crates.map(function () { return []; });
@@ -42,6 +55,7 @@
         var card = el("section", "ci-card");
         var head = el("div", "ci-head");
         head.appendChild(chips ? chips.crate(crate.name) : el("span", null, crate.name));
+        if (crate.name !== "std") head.appendChild(shield(crate.name));
         head.appendChild(el("span", "qs-muted", plural(byCrate[crate.c].length)));
         card.appendChild(head);
         var recipes = byCrate[crate.c];
