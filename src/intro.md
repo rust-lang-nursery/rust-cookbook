@@ -8,6 +8,7 @@ New here? See [how to use the recipes](about.md#how-to-use-the-recipes).
 
 <div class="section-grid">
 
+- [Accessibility](accessibility.md)
 - [Algorithms](algorithms.md)
 - [Asynchronous](asynchronous.md)
 - [Command Line](cli.md)
