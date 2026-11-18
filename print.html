@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-882b953b.js";
+            window.path_to_searchindex_js = "searchindex-70658e1b.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-ebaba02c.js"></script>
+        <script src="toc-99bd5099.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -186,6 +186,7 @@ New here? See <a href="#how-to-use-the-recipes">how to use the recipes</a>.</p>
 <h2 id="browse-by-topic"><a class="header" href="#browse-by-topic">Browse by topic</a></h2>
 <div class="section-grid">
 <ul>
+<li><a href="#accessibility">Accessibility</a></li>
 <li><a href="#algorithms">Algorithms</a></li>
 <li><a href="#asynchronous">Asynchronous</a></li>
 <li><a href="#command-line">Command Line</a></li>
@@ -346,6 +347,354 @@ Keep lines sorted.
 
 <p><noscript>The crate index needs JavaScript. Without it, browse the recipes by
 <a href="#cookin-with-rust">topic</a>.</noscript></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="accessibility"><a class="header" href="#accessibility">Accessibility</a></h1>
+<p id="group-linux-at-spi"><strong>Linux (AT-SPI)</strong></p>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Recipe</th><th>Crates</th><th>Categories</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#list-the-applications-on-the-accessibility-bus">List the applications on the accessibility bus</a></td><td><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/atspi/*/atspi/" title="Open atspi on docs.rs">atspi</a><button type="button" class="crate-chip-copy" data-copy="atspi = &quot;0.30.0&quot;" title="Copy atspi = &quot;0.30.0&quot;" aria-label="Copy atspi = &quot;0.30.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/odilia-app/atspi" title="Open atspi source repository" aria-label="atspi source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/tokio/" title="Open tokio on docs.rs">tokio</a><button type="button" class="crate-chip-copy" data-copy="tokio = &quot;1&quot;" title="Copy tokio = &quot;1&quot;" aria-label="Copy tokio = &quot;1&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-playground" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2024&amp;code=use%20std%3A%3Atime%3A%3ADuration%3B%0A%0A%23%5Btokio%3A%3Amain%5D%0Aasync%20fn%20main%28%29%20%7B%0A%20%20%20%20let%20slow%20%3D%20tokio%3A%3Aspawn%28async%20%7B%0A%20%20%20%20%20%20%20%20tokio%3A%3Atime%3A%3Asleep%28Duration%3A%3Afrom_millis%2850%29%29.await%3B%0A%20%20%20%20%20%20%20%20%22slow%20task%20done%22%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20let%20fast%20%3D%20tokio%3A%3Aspawn%28async%20%7B%20%22fast%20task%20done%22%20%7D%29%3B%0A%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20fast.await.unwrap_or%28%22fast%20task%20failed%22%29%29%3B%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20slow.await.unwrap_or%28%22slow%20task%20failed%22%29%29%3B%0A%7D%0A" title="Try tokio in the Rust Playground" aria-label="Try tokio in the Rust Playground"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z" /></svg></a><a class="crate-chip-repo" href="https://github.com/tokio-rs/tokio" title="Open tokio source repository" aria-label="tokio source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span></td><td><a class="crate-chip cat-chip" href="https://crates.io/categories/accessibility">Accessibility</a></td></tr>
+<tr><td><a href="#print-the-accessibility-tree-of-an-application">Print the accessibility tree of an application</a></td><td><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/atspi/*/atspi/" title="Open atspi on docs.rs">atspi</a><button type="button" class="crate-chip-copy" data-copy="atspi = &quot;0.30.0&quot;" title="Copy atspi = &quot;0.30.0&quot;" aria-label="Copy atspi = &quot;0.30.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/odilia-app/atspi" title="Open atspi source repository" aria-label="atspi source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/tokio/" title="Open tokio on docs.rs">tokio</a><button type="button" class="crate-chip-copy" data-copy="tokio = &quot;1&quot;" title="Copy tokio = &quot;1&quot;" aria-label="Copy tokio = &quot;1&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-playground" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2024&amp;code=use%20std%3A%3Atime%3A%3ADuration%3B%0A%0A%23%5Btokio%3A%3Amain%5D%0Aasync%20fn%20main%28%29%20%7B%0A%20%20%20%20let%20slow%20%3D%20tokio%3A%3Aspawn%28async%20%7B%0A%20%20%20%20%20%20%20%20tokio%3A%3Atime%3A%3Asleep%28Duration%3A%3Afrom_millis%2850%29%29.await%3B%0A%20%20%20%20%20%20%20%20%22slow%20task%20done%22%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20let%20fast%20%3D%20tokio%3A%3Aspawn%28async%20%7B%20%22fast%20task%20done%22%20%7D%29%3B%0A%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20fast.await.unwrap_or%28%22fast%20task%20failed%22%29%29%3B%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20slow.await.unwrap_or%28%22slow%20task%20failed%22%29%29%3B%0A%7D%0A" title="Try tokio in the Rust Playground" aria-label="Try tokio in the Rust Playground"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z" /></svg></a><a class="crate-chip-repo" href="https://github.com/tokio-rs/tokio" title="Open tokio source repository" aria-label="tokio source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span></td><td><a class="crate-chip cat-chip" href="https://crates.io/categories/accessibility">Accessibility</a></td></tr>
+<tr><td><a href="#find-controls-a-screen-reader-cannot-name">Find controls a screen reader cannot name</a></td><td><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/atspi/*/atspi/" title="Open atspi on docs.rs">atspi</a><button type="button" class="crate-chip-copy" data-copy="atspi = &quot;0.30.0&quot;" title="Copy atspi = &quot;0.30.0&quot;" aria-label="Copy atspi = &quot;0.30.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/odilia-app/atspi" title="Open atspi source repository" aria-label="atspi source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/tokio/" title="Open tokio on docs.rs">tokio</a><button type="button" class="crate-chip-copy" data-copy="tokio = &quot;1&quot;" title="Copy tokio = &quot;1&quot;" aria-label="Copy tokio = &quot;1&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-playground" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2024&amp;code=use%20std%3A%3Atime%3A%3ADuration%3B%0A%0A%23%5Btokio%3A%3Amain%5D%0Aasync%20fn%20main%28%29%20%7B%0A%20%20%20%20let%20slow%20%3D%20tokio%3A%3Aspawn%28async%20%7B%0A%20%20%20%20%20%20%20%20tokio%3A%3Atime%3A%3Asleep%28Duration%3A%3Afrom_millis%2850%29%29.await%3B%0A%20%20%20%20%20%20%20%20%22slow%20task%20done%22%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20let%20fast%20%3D%20tokio%3A%3Aspawn%28async%20%7B%20%22fast%20task%20done%22%20%7D%29%3B%0A%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20fast.await.unwrap_or%28%22fast%20task%20failed%22%29%29%3B%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20slow.await.unwrap_or%28%22slow%20task%20failed%22%29%29%3B%0A%7D%0A" title="Try tokio in the Rust Playground" aria-label="Try tokio in the Rust Playground"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z" /></svg></a><a class="crate-chip-repo" href="https://github.com/tokio-rs/tokio" title="Open tokio source repository" aria-label="tokio source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span></td><td><a class="crate-chip cat-chip" href="https://crates.io/categories/accessibility">Accessibility</a></td></tr>
+<tr><td><a href="#announce-the-focused-control-like-a-screen-reader">Announce the focused control like a screen reader</a></td><td><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/atspi/*/atspi/" title="Open atspi on docs.rs">atspi</a><button type="button" class="crate-chip-copy" data-copy="atspi = &quot;0.30.0&quot;" title="Copy atspi = &quot;0.30.0&quot;" aria-label="Copy atspi = &quot;0.30.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/odilia-app/atspi" title="Open atspi source repository" aria-label="atspi source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/tokio/" title="Open tokio on docs.rs">tokio</a><button type="button" class="crate-chip-copy" data-copy="tokio = &quot;1&quot;" title="Copy tokio = &quot;1&quot;" aria-label="Copy tokio = &quot;1&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-playground" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2024&amp;code=use%20std%3A%3Atime%3A%3ADuration%3B%0A%0A%23%5Btokio%3A%3Amain%5D%0Aasync%20fn%20main%28%29%20%7B%0A%20%20%20%20let%20slow%20%3D%20tokio%3A%3Aspawn%28async%20%7B%0A%20%20%20%20%20%20%20%20tokio%3A%3Atime%3A%3Asleep%28Duration%3A%3Afrom_millis%2850%29%29.await%3B%0A%20%20%20%20%20%20%20%20%22slow%20task%20done%22%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20let%20fast%20%3D%20tokio%3A%3Aspawn%28async%20%7B%20%22fast%20task%20done%22%20%7D%29%3B%0A%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20fast.await.unwrap_or%28%22fast%20task%20failed%22%29%29%3B%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20slow.await.unwrap_or%28%22slow%20task%20failed%22%29%29%3B%0A%7D%0A" title="Try tokio in the Rust Playground" aria-label="Try tokio in the Rust Playground"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z" /></svg></a><a class="crate-chip-repo" href="https://github.com/tokio-rs/tokio" title="Open tokio source repository" aria-label="tokio source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span></td><td><a class="crate-chip cat-chip" href="https://crates.io/categories/accessibility">Accessibility</a></td></tr>
+</tbody>
+</table>
+</div>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="linux-accessibility-at-spi"><a class="header" href="#linux-accessibility-at-spi">Linux Accessibility (AT-SPI)</a></h1>
+<p>Screen readers such as Orca, magnifiers and switch-access tools on Linux learn
+what is on screen through AT-SPI, a D-Bus service that applications publish
+their user interface to. Every application is a tree of accessible objects,
+each with a <a href="https://docs.rs/atspi-common/*/atspi_common/role/enum.Role.html"><code>Role</code></a> (button, text field, menu item), a name a screen reader
+reads aloud, and a set of <a href="https://docs.rs/atspi-common/*/atspi_common/state/enum.State.html"><code>State</code></a>s (focused, checked, disabled). The
+<a href="https://docs.rs/atspi/*/atspi/"><code>atspi</code></a> crate connects to that bus with <a href="https://docs.rs/atspi-connection/*/atspi_connection/struct.AccessibilityConnection.html"><code>AccessibilityConnection</code></a> and talks
+to each object through an <a href="https://docs.rs/atspi-proxies/*/atspi_proxies/accessible/struct.AccessibleProxy.html"><code>AccessibleProxy</code></a>.</p>
+<p>These recipes run on a Linux desktop with accessibility enabled (GNOME and KDE
+turn it on when an assistive technology runs; <code>gsettings set org.gnome.desktop.interface toolkit-accessibility true</code> turns it on for GTK
+applications).</p>
+<blockquote>
+<p>This recipe requires the <a href="https://docs.rs/crate/tokio/*/features#macros"><code>macros</code></a> and <a href="https://docs.rs/crate/tokio/*/features#rt-multi-thread"><code>rt-multi-thread</code></a> feature flags of <code>tokio</code> to be enabled in <code>Cargo.toml</code>.</p>
+</blockquote>
+<h2 id="list-the-applications-on-the-accessibility-bus"><a class="header" href="#list-the-applications-on-the-accessibility-bus">List the applications on the accessibility bus</a></h2>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/atspi/*/atspi/" title="Open atspi on docs.rs">atspi</a><button type="button" class="crate-chip-copy" data-copy="atspi = &quot;0.30.0&quot;" title="Copy atspi = &quot;0.30.0&quot;" aria-label="Copy atspi = &quot;0.30.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/odilia-app/atspi" title="Open atspi source repository" aria-label="atspi source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/tokio/" title="Open tokio on docs.rs">tokio</a><button type="button" class="crate-chip-copy" data-copy="tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }" title="Copy tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }" aria-label="Copy tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-playground" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2024&amp;code=use%20std%3A%3Atime%3A%3ADuration%3B%0A%0A%23%5Btokio%3A%3Amain%5D%0Aasync%20fn%20main%28%29%20%7B%0A%20%20%20%20let%20slow%20%3D%20tokio%3A%3Aspawn%28async%20%7B%0A%20%20%20%20%20%20%20%20tokio%3A%3Atime%3A%3Asleep%28Duration%3A%3Afrom_millis%2850%29%29.await%3B%0A%20%20%20%20%20%20%20%20%22slow%20task%20done%22%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20let%20fast%20%3D%20tokio%3A%3Aspawn%28async%20%7B%20%22fast%20task%20done%22%20%7D%29%3B%0A%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20fast.await.unwrap_or%28%22fast%20task%20failed%22%29%29%3B%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20slow.await.unwrap_or%28%22slow%20task%20failed%22%29%29%3B%0A%7D%0A" title="Try tokio in the Rust Playground" aria-label="Try tokio in the Rust Playground"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z" /></svg></a><a class="crate-chip-repo" href="https://github.com/tokio-rs/tokio" title="Open tokio source repository" aria-label="tokio source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/accessibility">Accessibility</a></p>
+<p>The registry’s root object has one child per application that publishes its
+user interface. <a href="https://docs.rs/atspi-proxies/*/atspi_proxies/accessible/trait.ObjectRefExt.html#tymethod.as_accessible_proxy"><code>ObjectRefExt::as_accessible_proxy</code></a> turns each child
+reference into a proxy, which reads the application’s name and how many
+windows it has.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
+use atspi::AccessibilityConnection;
+use atspi::proxy::accessible::ObjectRefExt;
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;()&gt; {
+    let a11y = AccessibilityConnection::new().await?;
+
+    // Every application that supports accessibility is a child of the registry's root.
+    let root = a11y.root_accessible_on_registry().await?;
+    for app in root.get_children().await? {
+        let app = app.as_accessible_proxy(a11y.connection()).await?;
+        let name = app.name().await?;
+        let windows = app.child_count().await?;
+        if name.is_empty() {
+            println!("(unnamed), {windows} window(s)");
+        } else {
+            println!("{name}, {windows} window(s)");
+        }
+    }
+    Ok(())
+}</code></pre>
+<h2 id="print-the-accessibility-tree-of-an-application"><a class="header" href="#print-the-accessibility-tree-of-an-application">Print the accessibility tree of an application</a></h2>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/atspi/*/atspi/" title="Open atspi on docs.rs">atspi</a><button type="button" class="crate-chip-copy" data-copy="atspi = &quot;0.30.0&quot;" title="Copy atspi = &quot;0.30.0&quot;" aria-label="Copy atspi = &quot;0.30.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/odilia-app/atspi" title="Open atspi source repository" aria-label="atspi source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/tokio/" title="Open tokio on docs.rs">tokio</a><button type="button" class="crate-chip-copy" data-copy="tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }" title="Copy tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }" aria-label="Copy tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-playground" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2024&amp;code=use%20std%3A%3Atime%3A%3ADuration%3B%0A%0A%23%5Btokio%3A%3Amain%5D%0Aasync%20fn%20main%28%29%20%7B%0A%20%20%20%20let%20slow%20%3D%20tokio%3A%3Aspawn%28async%20%7B%0A%20%20%20%20%20%20%20%20tokio%3A%3Atime%3A%3Asleep%28Duration%3A%3Afrom_millis%2850%29%29.await%3B%0A%20%20%20%20%20%20%20%20%22slow%20task%20done%22%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20let%20fast%20%3D%20tokio%3A%3Aspawn%28async%20%7B%20%22fast%20task%20done%22%20%7D%29%3B%0A%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20fast.await.unwrap_or%28%22fast%20task%20failed%22%29%29%3B%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20slow.await.unwrap_or%28%22slow%20task%20failed%22%29%29%3B%0A%7D%0A" title="Try tokio in the Rust Playground" aria-label="Try tokio in the Rust Playground"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z" /></svg></a><a class="crate-chip-repo" href="https://github.com/tokio-rs/tokio" title="Open tokio source repository" aria-label="tokio source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/accessibility">Accessibility</a></p>
+<p>This is what a screen reader knows about an application: each object’s role,
+name and the states a user cares about. The walk skips objects without the
+<code>Showing</code> state, such as closed menus, just as a screen reader does. Run it
+with the application’s name from the previous recipe, such as
+<code>cargo run --bin dump_tree gedit</code>.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::{Context, Result, bail};
+use atspi::proxy::accessible::ObjectRefExt;
+use atspi::{AccessibilityConnection, ObjectRefOwned, State, StateSet};
+use std::env;
+
+/// Stop after this many objects, in case an application exposes a very large tree.
+const MAX_OBJECTS: usize = 2000;
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;()&gt; {
+    let wanted = env::args()
+        .nth(1)
+        .context("usage: dump_tree &lt;application name&gt;")?;
+    let a11y = AccessibilityConnection::new().await?;
+    let conn = a11y.connection();
+    let app = find_application(&amp;a11y, &amp;wanted).await?;
+
+    // Depth-first, so each object is printed under its parent.
+    let mut stack = vec![(app, 0)];
+    let mut visited = 0;
+    while let Some((object, depth)) = stack.pop() {
+        visited += 1;
+        if visited &gt; MAX_OBJECTS {
+            println!("... stopped after {MAX_OBJECTS} objects");
+            break;
+        }
+        let node = object.as_accessible_proxy(conn).await?;
+        let states = node.get_state().await?;
+        // Skip what is not on screen, such as closed menus: a screen reader skips it too.
+        if depth &gt; 0 &amp;&amp; !states.contains(State::Showing) {
+            continue;
+        }
+        let role = node.get_role().await?;
+        let name = node.name().await?;
+        // The application object itself has no meaningful states (it is never "sensitive").
+        let states = if depth == 0 {
+            String::new()
+        } else {
+            notable_states(states)
+        };
+        println!("{:indent$}{role} {name:?}{states}", "", indent = depth * 2);
+        let children = node.get_children().await?;
+        stack.extend(children.into_iter().rev().map(|child| (child, depth + 1)));
+    }
+    Ok(())
+}
+
+/// Finds a running application by its accessible name, ignoring case.
+async fn find_application(a11y: &amp;AccessibilityConnection, wanted: &amp;str) -&gt; Result&lt;ObjectRefOwned&gt; {
+    let root = a11y.root_accessible_on_registry().await?;
+    for app in root.get_children().await? {
+        let name = app
+            .as_accessible_proxy(a11y.connection())
+            .await?
+            .name()
+            .await?;
+        if name.eq_ignore_ascii_case(wanted) {
+            return Ok(app);
+        }
+    }
+    bail!("no application named {wanted:?} on the accessibility bus")
+}
+
+/// The states a user cares about, such as ` [focusable, checked]`, or nothing.
+fn notable_states(states: StateSet) -&gt; String {
+    let mut shown: Vec&lt;String&gt; = [
+        State::Focusable,
+        State::Focused,
+        State::Checked,
+        State::Editable,
+    ]
+    .into_iter()
+    .filter(|state| states.contains(*state))
+    .map(|state| state.to_string())
+    .collect();
+    if !states.contains(State::Sensitive) {
+        shown.push("disabled".into());
+    }
+    if shown.is_empty() {
+        String::new()
+    } else {
+        format!(" [{}]", shown.join(", "))
+    }
+}</code></pre>
+<h2 id="find-controls-a-screen-reader-cannot-name"><a class="header" href="#find-controls-a-screen-reader-cannot-name">Find controls a screen reader cannot name</a></h2>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/atspi/*/atspi/" title="Open atspi on docs.rs">atspi</a><button type="button" class="crate-chip-copy" data-copy="atspi = &quot;0.30.0&quot;" title="Copy atspi = &quot;0.30.0&quot;" aria-label="Copy atspi = &quot;0.30.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/odilia-app/atspi" title="Open atspi source repository" aria-label="atspi source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/tokio/" title="Open tokio on docs.rs">tokio</a><button type="button" class="crate-chip-copy" data-copy="tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }" title="Copy tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }" aria-label="Copy tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-playground" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2024&amp;code=use%20std%3A%3Atime%3A%3ADuration%3B%0A%0A%23%5Btokio%3A%3Amain%5D%0Aasync%20fn%20main%28%29%20%7B%0A%20%20%20%20let%20slow%20%3D%20tokio%3A%3Aspawn%28async%20%7B%0A%20%20%20%20%20%20%20%20tokio%3A%3Atime%3A%3Asleep%28Duration%3A%3Afrom_millis%2850%29%29.await%3B%0A%20%20%20%20%20%20%20%20%22slow%20task%20done%22%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20let%20fast%20%3D%20tokio%3A%3Aspawn%28async%20%7B%20%22fast%20task%20done%22%20%7D%29%3B%0A%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20fast.await.unwrap_or%28%22fast%20task%20failed%22%29%29%3B%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20slow.await.unwrap_or%28%22slow%20task%20failed%22%29%29%3B%0A%7D%0A" title="Try tokio in the Rust Playground" aria-label="Try tokio in the Rust Playground"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z" /></svg></a><a class="crate-chip-repo" href="https://github.com/tokio-rs/tokio" title="Open tokio source repository" aria-label="tokio source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/accessibility">Accessibility</a></p>
+<p>An icon button without an accessible name is announced as just “button”, so a
+screen reader user cannot tell what it does. This audit walks the controls on
+screen and reports every button, field, tab or link that has neither a name
+nor a label pointing at it through a <a href="https://docs.rs/atspi-common/*/atspi_common/relation_type/enum.RelationType.html#variant.LabelledBy"><code>RelationType::LabelledBy</code></a> relation. It
+exits with an error when it finds any, so it can run as a check in CI, such as
+<code>cargo run --bin audit_labels gedit</code>.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::{Context, Result, bail};
+use atspi::proxy::accessible::{AccessibleProxy, ObjectRefExt};
+use atspi::{AccessibilityConnection, ObjectRefOwned, RelationType, Role, State, StateSet};
+use std::env;
+
+/// Stop after this many objects, in case an application exposes a very large tree.
+const MAX_OBJECTS: usize = 5000;
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;()&gt; {
+    let wanted = env::args()
+        .nth(1)
+        .context("usage: audit_labels &lt;application name&gt;")?;
+    let a11y = AccessibilityConnection::new().await?;
+    let conn = a11y.connection();
+    let app = find_application(&amp;a11y, &amp;wanted).await?;
+
+    let mut problems = 0;
+    let mut stack = vec![(app, String::new())];
+    let mut visited = 0;
+    while let Some((object, path)) = stack.pop() {
+        visited += 1;
+        if visited &gt; MAX_OBJECTS {
+            println!("... stopped after {MAX_OBJECTS} objects");
+            break;
+        }
+        let node = object.as_accessible_proxy(conn).await?;
+        let states = node.get_state().await?;
+        if !path.is_empty() &amp;&amp; !states.contains(State::Showing) {
+            continue;
+        }
+        let role = node.get_role().await?;
+        let name = node.name().await?;
+        let path = if path.is_empty() {
+            describe(role, &amp;name)
+        } else {
+            format!("{path} &gt; {}", describe(role, &amp;name))
+        };
+
+        // A screen reader can only say "button" for a control with no name and no label.
+        if is_interactive(role, states)
+            &amp;&amp; name.trim().is_empty()
+            &amp;&amp; !has_label(&amp;a11y, &amp;node).await?
+        {
+            problems += 1;
+            println!("unlabeled {role}: {path}");
+        }
+
+        let children = node.get_children().await?;
+        stack.extend(
+            children
+                .into_iter()
+                .rev()
+                .map(|child| (child, path.clone())),
+        );
+    }
+
+    if problems &gt; 0 {
+        bail!("{problems} control(s) have no accessible name");
+    }
+    println!("Every control on screen has an accessible name.");
+    Ok(())
+}
+
+/// Controls a user operates, which a screen reader has to announce by name.
+fn is_interactive(role: Role, states: StateSet) -&gt; bool {
+    // GTK 4 reports text fields as editable `text` rather than `entry`.
+    (role == Role::Text &amp;&amp; states.contains(State::Editable))
+        || matches!(
+            role,
+            Role::Button
+                | Role::ToggleButton
+                | Role::CheckBox
+                | Role::RadioButton
+                | Role::ComboBox
+                | Role::Entry
+                | Role::PasswordText
+                | Role::SpinButton
+                | Role::Slider
+                | Role::Link
+                | Role::MenuItem
+                | Role::PageTab
+        )
+}
+
+/// Whether another object with text, such as a label next to an entry, labels this one.
+/// A label with no text does not count: the screen reader still has nothing to say.
+async fn has_label(a11y: &amp;AccessibilityConnection, node: &amp;AccessibleProxy&lt;'_&gt;) -&gt; Result&lt;bool&gt; {
+    for (relation, targets) in node.get_relation_set().await? {
+        if relation != RelationType::LabelledBy {
+            continue;
+        }
+        for label in targets {
+            let text = label
+                .as_accessible_proxy(a11y.connection())
+                .await?
+                .name()
+                .await?;
+            if !text.trim().is_empty() {
+                return Ok(true);
+            }
+        }
+    }
+    Ok(false)
+}
+
+fn describe(role: Role, name: &amp;str) -&gt; String {
+    if name.is_empty() {
+        role.to_string()
+    } else {
+        format!("{role} {name:?}")
+    }
+}
+
+/// Finds a running application by its accessible name, ignoring case.
+async fn find_application(a11y: &amp;AccessibilityConnection, wanted: &amp;str) -&gt; Result&lt;ObjectRefOwned&gt; {
+    let root = a11y.root_accessible_on_registry().await?;
+    for app in root.get_children().await? {
+        let name = app
+            .as_accessible_proxy(a11y.connection())
+            .await?
+            .name()
+            .await?;
+        if name.eq_ignore_ascii_case(wanted) {
+            return Ok(app);
+        }
+    }
+    bail!("no application named {wanted:?} on the accessibility bus")
+}</code></pre>
+<h2 id="announce-the-focused-control-like-a-screen-reader"><a class="header" href="#announce-the-focused-control-like-a-screen-reader">Announce the focused control like a screen reader</a></h2>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/atspi/*/atspi/" title="Open atspi on docs.rs">atspi</a><button type="button" class="crate-chip-copy" data-copy="atspi = &quot;0.30.0&quot;" title="Copy atspi = &quot;0.30.0&quot;" aria-label="Copy atspi = &quot;0.30.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/odilia-app/atspi" title="Open atspi source repository" aria-label="atspi source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/tokio/" title="Open tokio on docs.rs">tokio</a><button type="button" class="crate-chip-copy" data-copy="tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }" title="Copy tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }" aria-label="Copy tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-playground" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2024&amp;code=use%20std%3A%3Atime%3A%3ADuration%3B%0A%0A%23%5Btokio%3A%3Amain%5D%0Aasync%20fn%20main%28%29%20%7B%0A%20%20%20%20let%20slow%20%3D%20tokio%3A%3Aspawn%28async%20%7B%0A%20%20%20%20%20%20%20%20tokio%3A%3Atime%3A%3Asleep%28Duration%3A%3Afrom_millis%2850%29%29.await%3B%0A%20%20%20%20%20%20%20%20%22slow%20task%20done%22%0A%20%20%20%20%7D%29%3B%0A%20%20%20%20let%20fast%20%3D%20tokio%3A%3Aspawn%28async%20%7B%20%22fast%20task%20done%22%20%7D%29%3B%0A%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20fast.await.unwrap_or%28%22fast%20task%20failed%22%29%29%3B%0A%20%20%20%20println%21%28%22%7B%7D%22%2C%20slow.await.unwrap_or%28%22slow%20task%20failed%22%29%29%3B%0A%7D%0A" title="Try tokio in the Rust Playground" aria-label="Try tokio in the Rust Playground"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2.2v11.6a.6.6 0 0 0 .92.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8A.6.6 0 0 0 4 2.2z" /></svg></a><a class="crate-chip-repo" href="https://github.com/tokio-rs/tokio" title="Open tokio source repository" aria-label="tokio source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/accessibility">Accessibility</a></p>
+<p>A screen reader speaks whatever receives keyboard focus. Registering for
+<a href="https://docs.rs/atspi-common/*/atspi_common/events/object/struct.StateChangedEvent.html"><code>StateChangedEvent</code></a> asks applications to report state changes, and the event
+stream from <a href="https://docs.rs/atspi-connection/*/atspi_connection/struct.AccessibilityConnection.html#method.event_stream"><code>AccessibilityConnection::event_stream</code></a> delivers them; read with
+<a href="https://docs.rs/futures-util/*/futures_util/stream/trait.StreamExt.html#method.next"><code>StreamExt::next</code></a>, each one that turns <code>Focused</code> on is announced with the
+object’s name and role. Press <kbd>Tab</kbd> in any application to hear it.</p>
+<pre class="playground"><code class="language-rust no_run edition2018">use anyhow::Result;
+use atspi::events::object::StateChangedEvent;
+use atspi::proxy::accessible::ObjectRefExt;
+use atspi::{AccessibilityConnection, Event, ObjectEvents, Role, State};
+use futures_util::StreamExt;
+use std::pin::pin;
+
+#[tokio::main]
+async fn main() -&gt; Result&lt;()&gt; {
+    let a11y = AccessibilityConnection::new().await?;
+    // Ask applications to send state changes; focus is one of them.
+    a11y.register_event::&lt;StateChangedEvent&gt;().await?;
+    let mut events = pin!(a11y.event_stream());
+
+    println!("Move the keyboard focus in any application. Press Ctrl+C to stop.");
+    while let Some(event) = events.next().await {
+        let Ok(Event::Object(ObjectEvents::StateChanged(change))) = event else {
+            continue;
+        };
+        if change.state != State::Focused || !change.enabled {
+            continue;
+        }
+        // The object can be gone by the time we ask about it, such as a closed menu.
+        let Ok(object) = change.item.as_accessible_proxy(a11y.connection()).await else {
+            continue;
+        };
+        if let (Ok(role), Ok(name)) = (object.get_role().await, object.name().await) {
+            println!("{}", announcement(role, &amp;name));
+        }
+    }
+    Ok(())
+}
+
+/// What a screen reader says when focus lands on an object, such as `Save, button`.
+fn announcement(role: Role, name: &amp;str) -&gt; String {
+    if name.trim().is_empty() {
+        format!("unlabeled {role}")
+    } else {
+        format!("{name}, {role}")
+    }
+}</code></pre>
+<!--
+Links, in a few categories. Follow the existing structure.
+Keep lines sorted.
+-->
+<!-- Categories -->
+<!-- Crates -->
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="algorithms"><a class="header" href="#algorithms">Algorithms</a></h1>
 <p id="group-generate-random-values"><strong>Generate Random Values</strong></p>
