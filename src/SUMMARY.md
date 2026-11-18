@@ -4,6 +4,8 @@
 [About](about.md)
 [Crates](crates.md)
 
+- [Accessibility](accessibility.md)
+  - [Linux (AT-SPI)](accessibility/linux-at-spi.md)
 - [Algorithms](algorithms.md)
   - [Generate Random Values](algorithms/randomness.md)
   - [Sort a Vector](algorithms/sorting.md)
