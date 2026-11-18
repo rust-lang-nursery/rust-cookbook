@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-70658e1b.js";
+            window.path_to_searchindex_js = "../searchindex-dea0cec9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-99bd5099.js"></script>
@@ -187,16 +187,16 @@ rather than an add-on, and <a href="https://docs.rs/jiff/*/jiff/struct.Span.html
 recipes show what <code>jiff</code> does differently from <code>chrono</code> and <code>time</code>; see
 <a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a> for how the crates compare.</p>
 <h2 id="examine-the-current-time-with-a-time-zone"><a class="header" href="#examine-the-current-time-with-a-time-zone">Examine the current time with a time zone</a></h2>
-<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/jiff/" title="Open jiff on docs.rs">jiff</a><button type="button" class="crate-chip-copy" data-copy="jiff = &quot;0.2&quot;" title="Copy jiff = &quot;0.2&quot;" aria-label="Copy jiff = &quot;0.2&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/BurntSushi/jiff" title="Open jiff source repository" aria-label="jiff source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/jiff/" title="Open jiff on docs.rs">jiff</a><button type="button" class="crate-chip-copy" data-copy="jiff = &quot;1.0&quot;" title="Copy jiff = &quot;1.0&quot;" aria-label="Copy jiff = &quot;1.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/BurntSushi/jiff" title="Open jiff source repository" aria-label="jiff source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
 <p>Use <code>jiff</code> when you need named IANA time zones without an extra crate; see
-<a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a>. Gets the current <a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html"><code>Zoned</code></a> datetime in the system time zone, converts it
-to another zone such as <code>Asia/Tokyo</code> with <a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html#method.in_tz"><code>Zoned::in_tz</code></a>, and reads its
-parts. A <a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html"><code>Zoned</code></a> carries its time zone, so the UTC offset is always correct
+<a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a>. Gets the current <a href="https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html"><code>ZonedDateTime</code></a> datetime in the system time zone, converts it
+to another zone such as <code>Asia/Tokyo</code> with <a href="https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html#method.in_tz"><code>ZonedDateTime::in_tz</code></a>, and reads its
+parts. A <a href="https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html"><code>ZonedDateTime</code></a> carries its time zone, so the UTC offset is always correct
 for that instant. <code>time</code> only has fixed offsets, so it cannot do this lookup.</p>
-<pre class="playground"><code class="language-rust edition2018">use jiff::{Timestamp, Zoned};
+<pre class="playground"><code class="language-rust edition2018">use jiff::{Timestamp, ZonedDateTime};
 
 fn main() -&gt; Result&lt;(), jiff::Error&gt; {
-    let now = Zoned::now();
+    let now = ZonedDateTime::now();
     println!("Local time: {now}");
 
     let tokyo = now.in_tz("Asia/Tokyo")?;
@@ -222,20 +222,20 @@ fn main() -&gt; Result&lt;(), jiff::Error&gt; {
     Ok(())
 }</code></pre>
 <h2 id="parse-and-format-a-datetime-with-a-time-zone"><a class="header" href="#parse-and-format-a-datetime-with-a-time-zone">Parse and format a datetime with a time zone</a></h2>
-<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/jiff/" title="Open jiff on docs.rs">jiff</a><button type="button" class="crate-chip-copy" data-copy="jiff = &quot;0.2&quot;" title="Copy jiff = &quot;0.2&quot;" aria-label="Copy jiff = &quot;0.2&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/BurntSushi/jiff" title="Open jiff source repository" aria-label="jiff source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/jiff/" title="Open jiff on docs.rs">jiff</a><button type="button" class="crate-chip-copy" data-copy="jiff = &quot;1.0&quot;" title="Copy jiff = &quot;1.0&quot;" aria-label="Copy jiff = &quot;1.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/BurntSushi/jiff" title="Open jiff source repository" aria-label="jiff source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
 <p>Use <code>jiff</code> when the time zone name must survive a round trip through text;
 see <a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a>. Parses an RFC 9557 string, which includes an IANA time zone name
-(<code>[America/New_York]</code>) as well as the offset, into a <a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html"><code>Zoned</code></a> using
-<a href="https://doc.rust-lang.org/std/str/trait.FromStr.html"><code>FromStr</code></a>. Output is formatted with <a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html#method.strftime"><code>Zoned::strftime</code></a>, which can print the
+(<code>[America/New_York]</code>) as well as the offset, into a <a href="https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html"><code>ZonedDateTime</code></a> using
+<a href="https://doc.rust-lang.org/std/str/trait.FromStr.html"><code>FromStr</code></a>. Output is formatted with <a href="https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html#method.strftime"><code>ZonedDateTime::strftime</code></a>, which can print the
 zone abbreviation (<code>EDT</code>), and <a href="https://docs.rs/jiff/*/jiff/fmt/strtime/fn.parse.html"><code>strtime::parse</code></a> handles custom patterns.
 Invalid input returns an <code>Err</code>.</p>
-<pre class="playground"><code class="language-rust edition2018">use jiff::Zoned;
+<pre class="playground"><code class="language-rust edition2018">use jiff::ZonedDateTime;
 use jiff::civil::Date;
 use jiff::fmt::strtime;
 
 fn main() -&gt; Result&lt;(), jiff::Error&gt; {
     // RFC 9557 strings carry an IANA time zone name alongside the offset.
-    let zoned: Zoned = "2024-07-11T01:14:00-04:00[America/New_York]".parse()?;
+    let zoned: ZonedDateTime = "2024-07-11T01:14:00-04:00[America/New_York]".parse()?;
     println!("Parsed:    {zoned}");
     println!(
         "Formatted: {}",
@@ -247,21 +247,21 @@ fn main() -&gt; Result&lt;(), jiff::Error&gt; {
     println!("Custom:    {date}");
 
     // Invalid input is an `Err`, not a panic.
-    let bad = "not a date".parse::&lt;Zoned&gt;();
+    let bad = "not a date".parse::&lt;ZonedDateTime&gt;();
     println!("Invalid:   {}", bad.is_err());
     Ok(())
 }</code></pre>
 <h2 id="perform-calendar-arithmetic-with-span"><a class="header" href="#perform-calendar-arithmetic-with-span">Perform calendar arithmetic with Span</a></h2>
-<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/jiff/" title="Open jiff on docs.rs">jiff</a><button type="button" class="crate-chip-copy" data-copy="jiff = &quot;0.2&quot;" title="Copy jiff = &quot;0.2&quot;" aria-label="Copy jiff = &quot;0.2&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/BurntSushi/jiff" title="Open jiff source repository" aria-label="jiff source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
+<p><span class="crate-chip"><a class="crate-chip-name" href="https://docs.rs/jiff/" title="Open jiff on docs.rs">jiff</a><button type="button" class="crate-chip-copy" data-copy="jiff = &quot;1.0&quot;" title="Copy jiff = &quot;1.0&quot;" aria-label="Copy jiff = &quot;1.0&quot;"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H6zM2 5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1H8.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7A.5.5 0 0 1 2 6.5h1V5H2z" /></svg></button><a class="crate-chip-repo" href="https://github.com/BurntSushi/jiff" title="Open jiff source repository" aria-label="jiff source repository"><svg viewbox="0 0 16 16" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg></a></span> <a class="crate-chip cat-chip" href="https://crates.io/categories/date-and-time">Date and time</a></p>
 <p>Use <code>jiff</code> when calendar arithmetic has to follow daylight saving time; see
 <a href="duration.html#choosing-between-chrono-time-and-jiff">Choosing between chrono, time and jiff</a>. A <a href="https://docs.rs/jiff/*/jiff/struct.Span.html"><code>Span</code></a> is a duration made of calendar units such as days and weeks as
-well as clock units. <a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html#method.checked_add"><code>Zoned::checked_add</code></a> applies it with the time zone taken
+well as clock units. <a href="https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html#method.checked_add"><code>ZonedDateTime::checked_add</code></a> applies it with the time zone taken
 into account, so adding one day to 12:00 before a spring-forward change gives
 12:00 the next day, while adding 24 hours gives 13:00. A fixed-offset type such
 as <code>time</code>’s <code>OffsetDateTime</code> cannot tell these apart. <code>checked_add</code> returns an
-<code>Err</code> rather than panicking on overflow, and <a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html#method.until"><code>Zoned::until</code></a> computes the
+<code>Err</code> rather than panicking on overflow, and <a href="https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html#method.until"><code>ZonedDateTime::until</code></a> computes the
 difference between two datetimes.</p>
-<pre class="playground"><code class="language-rust edition2018">use jiff::{Span, SpanRound, Unit, Zoned, civil};
+<pre class="playground"><code class="language-rust edition2018">use jiff::{Span, SpanRound, Unit, ZonedDateTime, civil};
 
 fn main() -&gt; Result&lt;(), jiff::Error&gt; {
     let start = civil::date(2024, 3, 9)
@@ -285,7 +285,7 @@ fn main() -&gt; Result&lt;(), jiff::Error&gt; {
     println!("Overflow is an error: {}", overflow.is_err());
 
     // The difference between two datetimes, balanced up to hours.
-    let end: Zoned = "2024-03-12T09:30:00-04:00[America/New_York]".parse()?;
+    let end: ZonedDateTime = "2024-03-12T09:30:00-04:00[America/New_York]".parse()?;
     let diff = start.until((Unit::Hour, &amp;end))?;
     println!("Until {end}: {diff:#}");
 

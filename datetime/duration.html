@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-70658e1b.js";
+            window.path_to_searchindex_js = "../searchindex-dea0cec9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-99bd5099.js"></script>
@@ -291,9 +291,10 @@ needs the separate <a href="https://docs.rs/chrono-tz/"><code>chrono-tz</code></
 and only knows fixed UTC offsets, with no time zone database.</li>
 <li><a href="https://docs.rs/jiff/"><code>jiff</code></a> has IANA time zone support built in, using the system’s time zone
 database, or a bundled copy on platforms without one. Its <a href="https://docs.rs/jiff/*/jiff/struct.Span.html"><code>Span</code></a> and
-<a href="https://docs.rs/jiff/*/jiff/struct.Zoned.html"><code>Zoned</code></a> types make DST-aware arithmetic the default. It has fewer
+<a href="https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html"><code>ZonedDateTime</code></a> types make DST-aware arithmetic the default. It has fewer
 third-party integrations so far.</li>
-<li>All three are pre-1.0, so their APIs may still change.</li>
+<li><code>jiff</code> has reached 1.0, so its API is stable. <code>chrono</code> and <code>time</code> are still
+pre-1.0, so their APIs may still change.</li>
 </ul>
 <p>If your code works with time zones and has no existing <code>chrono</code> or <code>time</code>
 dependency, <code>jiff</code> is worth considering. Otherwise stay with whatever your
