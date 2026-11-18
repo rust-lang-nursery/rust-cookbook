@@ -1,7 +1,7 @@
-use jiff::{Timestamp, Zoned};
+use jiff::{Timestamp, ZonedDateTime};
 
 fn main() -> Result<(), jiff::Error> {
-    let now = Zoned::now();
+    let now = ZonedDateTime::now();
     println!("Local time: {now}");
 
     let tokyo = now.in_tz("Asia/Tokyo")?;
@@ -33,7 +33,7 @@ mod tests {
 
     #[test]
     fn converts_zone_without_changing_the_instant() -> Result<(), jiff::Error> {
-        let now = Zoned::now();
+        let now = ZonedDateTime::now();
         let tokyo = now.in_tz("Asia/Tokyo")?;
         assert_eq!(tokyo.timestamp(), now.timestamp());
         assert_eq!(tokyo.offset().seconds(), 9 * 3600);

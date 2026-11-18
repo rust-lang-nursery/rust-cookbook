@@ -1,4 +1,4 @@
-use jiff::{Span, SpanRound, Unit, Zoned, civil};
+use jiff::{Span, SpanRound, Unit, ZonedDateTime, civil};
 
 fn main() -> Result<(), jiff::Error> {
     let start = civil::date(2024, 3, 9)
@@ -22,7 +22,7 @@ fn main() -> Result<(), jiff::Error> {
     println!("Overflow is an error: {}", overflow.is_err());
 
     // The difference between two datetimes, balanced up to hours.
-    let end: Zoned = "2024-03-12T09:30:00-04:00[America/New_York]".parse()?;
+    let end: ZonedDateTime = "2024-03-12T09:30:00-04:00[America/New_York]".parse()?;
     let diff = start.until((Unit::Hour, &end))?;
     println!("Until {end}: {diff:#}");
 
@@ -51,7 +51,7 @@ mod tests {
         assert_eq!(in_24_hours.hour(), 13);
         assert!(start.checked_add(Span::new().years(10_000)).is_err());
 
-        let end: Zoned = "2024-03-12T09:30:00-04:00[America/New_York]".parse()?;
+        let end: ZonedDateTime = "2024-03-12T09:30:00-04:00[America/New_York]".parse()?;
         let diff = start.until((Unit::Hour, &end))?;
         assert_eq!((diff.get_hours(), diff.get_minutes()), (68, 30));
         Ok(())
