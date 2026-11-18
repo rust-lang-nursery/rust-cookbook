@@ -440,6 +440,7 @@ XRateLimitRemaining
 XRateLimitReset
 YAML
 YYYY
+ZonedDateTime
 zurich
 mdBook
 mdbook

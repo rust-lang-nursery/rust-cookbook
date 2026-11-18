@@ -4,8 +4,8 @@
 
 Use `jiff` when the time zone name must survive a round trip through text;
 see [Choosing between chrono, time and jiff]. Parses an RFC 9557 string, which includes an IANA time zone name
-(`[America/New_York]`) as well as the offset, into a [`Zoned`] using
-[`FromStr`]. Output is formatted with [`Zoned::strftime`], which can print the
+(`[America/New_York]`) as well as the offset, into a [`ZonedDateTime`] using
+[`FromStr`]. Output is formatted with [`ZonedDateTime::strftime`], which can print the
 zone abbreviation (`EDT`), and [`strtime::parse`] handles custom patterns.
 Invalid input returns an `Err`.
 
@@ -15,5 +15,5 @@ Invalid input returns an `Err`.
 
 [`FromStr`]: https://doc.rust-lang.org/std/str/trait.FromStr.html
 [`strtime::parse`]: https://docs.rs/jiff/*/jiff/fmt/strtime/fn.parse.html
-[`Zoned`]: https://docs.rs/jiff/*/jiff/struct.Zoned.html
-[`Zoned::strftime`]: https://docs.rs/jiff/*/jiff/struct.Zoned.html#method.strftime
+[`ZonedDateTime`]: https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html
+[`ZonedDateTime::strftime`]: https://docs.rs/jiff/*/jiff/struct.ZonedDateTime.html#method.strftime
