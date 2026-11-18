@@ -52,7 +52,7 @@ rayon = "1.10"
 regex = "1.11"
 reqwest = "0.13"
 ring = "0.17"
-rusqlite = { version = "0.41", features = ["bundled"] }
+rusqlite = { version = "0.43", features = ["bundled"] }
 same-file = "1.0"
 semver = "1.0"
 serde = { version = "1.0", features = ["derive"] }

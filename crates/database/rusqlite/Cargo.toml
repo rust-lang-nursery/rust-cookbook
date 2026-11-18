@@ -7,4 +7,4 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
-rusqlite = { version = "0.41", features = ["bundled"] }
+rusqlite = { version = "0.43", features = ["bundled"] }
