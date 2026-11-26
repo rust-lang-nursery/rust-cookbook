@@ -7,7 +7,7 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
-notify = "8"
+notify = "9"
 notify-debouncer-full = "0.7"
 
 [dev-dependencies]
