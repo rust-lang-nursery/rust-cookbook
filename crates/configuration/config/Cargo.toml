@@ -10,7 +10,7 @@ publish.workspace = true
 anyhow = "1.0"
 config = "0.15"
 notify = "8"
-notify-debouncer-full = "0.7"
+notify-debouncer-full = "0.8"
 serde = { version = "1.0", features = ["derive"] }
 
 [dev-dependencies]
